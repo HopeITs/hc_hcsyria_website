@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <script src="/js/jquery.js"></script>
+
+    <?php $page = 'children' ?>
+    @include('new.admin.navbar')
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="author" content="mai youssef">
+    <title>Admin | Children</title>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    {{--<link href="/css/dataTables.bootstrap.min.css" rel="stylesheet">--}}
+    <link href="/css/backend.css" rel="stylesheet">
+    <link href="/css/dashboard_new.css" rel="stylesheet">
+    {{--<link href="{{asset('css/main-new.css')}}" rel="stylesheet">--}}
+    <link href="/css/tabs.css" rel="stylesheet">
+    <link href="/css/dashboard_navbar.css" rel="stylesheet">
+    <link href="/css/backend.css" rel="stylesheet">
+    {{--@stack('navbar_styles')--}}
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/js/html5shiv.js"></script>
+    <script type="text/javascript" src="/js/respond.min.js"></script> <![endif]-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+    <link href="/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="shortcut icon" href="/images/ico/favicon.ico">
+    <script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+    <link href="/css/jquery.fancybox.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/fancybox.config.js"></script>
+    <script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="/js/responsive.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="/js/buttons.bootstrap5.min.js"></script>
+    <link rel="stylesheet" href="/css/buttons.bootstrap5.min.css">
+    <script type="text/javascript" src="/js/jszip.min.js"></script>
+    <script type="text/javascript" src="/js/pdfmake.min.js"></script>
+    <script type="text/javascript" src="/js/vfs_fonts.js"></script>
+    <script type="text/javascript" src="/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="/js/buttons.print.min.js"></script>
+    <script type="text/javascript" src="/js/buttons.colVis.min.js"></script>
+</head><!--/head-->
+<body>
+
+@stack('navbar_body')
+
+<div id="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                @include('new.admin.messages')
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col">
+                @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
+                    <a class="btn btn-success" href="{{route('children_create')}}"><i
+                                class="fa fa-plus-square"></i>&nbsp; Create new initiative</a>
+                @endif
+            </div>
+        </div>
+        <div>
+            <ul class="nav nav-tabs d-lg-flex d-md-flex d-sm-flex d-block position-relative mt-5" id="tabList"
+                role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button id="initiativeTab" class="initiativeTab nav-link active" data-bs-toggle="tab"
+                            data-bs-target="#initiative"
+                            role="tab" aria-controls="initiative" aria-selected="true">Initiatives
+                        <small>({{ $iniChildren->count() }})</small>
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button id="pendingTab" class="pendingTab nav-link" data-bs-toggle="tab" data-bs-target="#pending"
+                            role="tab" aria-controls="pending" aria-selected="false">Pending
+                        <small>({{ $iniPending->count() }})</small>
+                    </button>
+                </li>
+            </ul>
+            <div class="tab-content mt-5">
+                <div class="tab-pane show active fade" id="initiative" role="tabpanel" aria-labelledby="initiativeTab"
+                     tabindex="0">
+                    <table class="table table-striped table-bordered table-hover" id="tableInitiative"
+                           style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="text-center">ID</th>
+                            <th scope="col" class="text-center">Title</th>
+                            <th scope="col" class="text-center">Place</th>
+                            <th scope="col" class="text-center">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($iniChildren as $initiative)
+                            <tr>
+                                <td class="text-center">{{$initiative['id']}}</td>
+                                <td class="text-center">{{$initiative['english']['title']}}</td>
+                                <td class="text-center">{{$initiative['place']['name']}}</td>
+                                <td class="text-end">
+                                    @if(count($initiative->images) != 0)
+                                        <i class="fa fa-picture-o"
+                                           style="padding: 0.3vw 0.6vw;"></i>
+                                    @endif
+                                    <a href="{{route('admin_children', $initiative['id'])}}"
+                                       class="btn mb-2 btn-primary edit-btn"><span
+                                                class="fa fa-eye"></span>&nbsp;View</a>
+                                    @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
+                                        <a href="{{route('edit.children', $initiative['id'])}}"
+                                           class="btn mb-2 btn-primary edit-btn"><span
+                                                    class="fa fa-edit"></span>&nbsp;Edit</a>
+                                    @endif
+                                    @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Photos Editor'))
+                                        <a href="{{route('children.add.image', $initiative['id'])}}"
+                                           class="btn mb-2 btn-primary edit-btn">
+                                            <i class='fa-solid fa-plus-minus'></i> Image</a>
+                                    @endif
+                                    @if($user->roles->contains('name', 'Admin'))
+                                        <form action="{{ route('delete.children', $initiative['id']) }}" method="POST"
+                                              style="float: right; padding-left: 10px "
+                                              enctype="multipart/form-data">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button class="btn mb-2 btn-danger icon-btn show_confirm" type="submit"
+                                                    data-id="{{$initiative['id']}}">
+                                                <i class="fa fa-trash-o"></i></button>
+                                        </form>
+                                        {!! Form::open(['route' => 'unpublish.children' , 'method' => 'POST', 'style' => 'float:right;padding-left: 10px;', 'enctype' => 'multipart/form-data']) !!}
+                                        {{Form::hidden('id', $initiative['id'])}}
+                                        {{Form::button('<i class="fa fa-power-off"></i>', ['type' => 'submit', 'class' => 'btn mb-2 btn-danger icon-btn'])}}
+                                        {!! Form::close() !!}
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="pending" role="tabpanel" aria-labelledby="pendingTab" tabindex="0">
+                    <table class="table table-striped table-bordered table-hover" id="tablePending"
+                           style="width: 100%">
+                        @if($iniPending)
+                            <thead>
+                            <tr>
+                                <th scope="col" class="text-center">ID</th>
+                                <th scope="col" class="text-center">Title</th>
+                                <th scope="col" class="text-center">Place</th>
+                                <th scope="col" class="text-center">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($iniPending as $initiative)
+                                <tr>
+                                    <td class="text-center">{{$initiative['id']}}</td>
+                                    <td class="text-center">{{$initiative['english']['title']}}</td>
+                                    <td class="text-center">{{$initiative['place']['name']}}</td>
+                                    <td class="text-end">
+                                        @if(count($initiative->images) != 0)
+                                            <i class="fa fa-picture-o"
+                                               style="padding: 0.3vw 0.6vw;"></i>
+                                        @endif
+                                        <a href="{{route('admin_children', $initiative['id'])}}"
+                                           class="btn mb-2 btn-primary edit-btn"><span
+                                                    class="fa fa-eye"></span>&nbsp;View</a>
+                                        @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
+                                            <a href="{{route('edit.children', $initiative['id'])}}"
+                                               class="btn mb-2 btn-primary edit-btn"><span
+                                                        class="fa fa-edit"></span>&nbsp;Edit</a>
+                                        @endif
+                                        @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Photos Editor'))
+                                            <a href="{{route('children.add.image', $initiative['id'])}}"
+                                               class="btn mb-2 btn-primary edit-btn">
+                                                <i class='fa-solid fa-plus-minus'></i> Image</a>
+                                        @endif
+                                        @if($user->roles->contains('name', 'Admin'))
+                                            <form action="{{ route('delete.children', $initiative['id']) }}"
+                                                  method="POST"
+                                                  style="float: right; padding-left: 10px "
+                                                  enctype="multipart/form-data">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button class="btn mb-2 btn-danger icon-btn show_confirm" type="submit"
+                                                        data-id="{{$initiative['id']}}">
+                                                    <i class="fa fa-trash-o"></i></button>
+                                            </form>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        @endif
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@stack('navbar_scripts')
+<script>
+    $(document).ready(function () {
+        let url1 = window.location.href;
+        let url2 = new URL(url1);
+        let tab = url2.searchParams.get("tab") + "Tab";
+        let t = document.getElementById(tab);
+        let tt = new bootstrap.Tab(t);
+        tt.show();
+    });
+</script>
+<script>
+    $(function () {
+        let url1 = window.location.href;
+        let newurl = '';
+        $('#initiativeTab').on('click', function () {
+            // e.preventDefault();
+            // let aleppo = document.getElementById('aleppoTab');
+            if (url1.includes('tab')) {
+                if (history.pushState) {
+                    if (url1.includes('initiative'))
+                        newurl = url1.replace("initiative", "initiative");
+                    else if (url1.includes('pending'))
+                        newurl = url1.replace("pending", "initiative");
+                }
+            }
+            else {
+                newurl = url1 + '?tab=initiative';
+                window.history.pushState({path: newurl}, '', newurl)
+            }
+            window.history.pushState({path: newurl}, '', newurl);
+        });
+        $('#pendingTab').on('click', function () {
+            if (url1.includes('tab')) {
+                if (history.pushState) {
+                    if (url1.includes('pending'))
+                        newurl = url1.replace("pending", "pending");
+                    else if (url1.includes('initiative'))
+                        newurl = url1.replace("initiative", "pending");
+                }
+            }
+            else {
+                newurl = url1 + '?tab=pending';
+            }
+            window.history.pushState({path: newurl}, '', newurl);
+
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        tableInitiative = new DataTable('#tableInitiative', {
+            // responsive: true,
+            "scrollX": true,
+            buttons: ['excel', 'pdf', 'colvis'],
+            lengthMenu: [
+                [10, 25, 50, -1],
+                [10, 25, 50, 'All']
+            ]
+        });
+        tablePending = new DataTable('#tablePending', {
+            // responsive: true,
+            "scrollX": true,
+            buttons: ['excel', 'pdf', 'colvis'],
+            lengthMenu: [
+                [10, 25, 50, -1],
+                [10, 25, 50, 'All']
+            ]
+        });
+        tableInitiative.buttons().container().appendTo('#tableInitiative_wrapper .col-md-6:eq(0)');
+        tablePending.buttons().container().appendTo('#tablePending_wrapper .col-md-6:eq(0)');
+    });
+</script>
+<script>
+    $('.show_confirm').click(function (event) {
+        var form = $(this).closest("form");
+        // var id = event.target.attributes['id'].nodeValue;
+        var id = $(this).data("id");
+        event.preventDefault();
+
+        swal({
+            title: `Are you sure you want to delete ` + id + `?`,
+            // icon: "warning",
+            // buttons: true,
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            // dangerMode: true,
+        }).then((result) => {
+            if (result) {
+                form.submit();
+                swal(
+                    'Terhapus!',
+                    'Data berhasil terhapus.',
+                    'success',
+                    window.location.href = getLink
+                )
+            }
+        }, function (dismiss) {
+            // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
+            if (dismiss === 'cancel') {
+                swal(
+                    'Cancelled',
+                )
+            }
+        });
+    });
+</script>
+</body>
+</html>

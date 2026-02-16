@@ -1,0 +1,328 @@
+#cover_en{
+    background: url("../images/initiatives/DISC/cover_en.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh;
+}
+#cover_fr{
+    background: url("../images/initiatives/DISC/cover_fr.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 105vh;
+}
+
+#disc-courses .card{
+    background: antiquewhite;
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    height: 250px;
+    color: white;
+    font-size: 9pt;
+}
+#disc-courses > div{
+    margin: 0 5% 0 5%;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.video iframe{
+    border-radius: 2rem;
+}
+.ytp-large-play-button-red-bg .ytp-large-play-button-bg {
+    fill: #ff9900 !important;
+}
+.donor-logos{
+    width: 150px;
+    height: 100px;
+}
+.donor-logos img{
+    width: 100%;
+    height: 100%;
+}
+#DISC {
+     padding-top: 100px;
+     padding-bottom: 50px;
+     margin: 0 5% 0 5%;
+ }
+#DISC .disc-logo {
+    width: 160px;
+    padding: 3px;
+}
+#DISC #loeuvre-logo {
+    width: 100px;
+}
+#DISC #manos-logo{
+    width: 150px;
+}
+#DISC .first-part p {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0px 10px 0px 10px;
+    font-size: 10pt;
+    color: #003366;
+    font-family: Lato;
+    text-align: left;
+}
+.vertical-separator {
+    border: 3px solid #003366b3 !important;
+    border-top: 0 !important;
+    border-bottom: 0 !important;
+    border-left: 0 !important;
+    border-image: unset !important;
+    border-image-slice: unset !important;
+}
+#DISC .second-part {
+    margin-top: 70px;
+    padding-left: 50px;
+}
+.round_logo{
+    -webkit-transition: -webkit-transform .8s ease-in-out;
+    transition:         transform .8s ease-in-out;
+    background-color: whitesmoke;
+    opacity: 0.8;
+    padding: 20px;
+    margin:10px auto;
+    width: 45%;
+}
+.round_logo:hover {
+    transform: scale(1.05);
+    opacity: 0.8;
+    background-color: seashell;
+}
+#programs {
+    background-image: url("../images/initiatives/DISC/B1.jpg");
+}
+.paraxify {
+    background-attachment: fixed;
+    background-position: center 60.56px;
+    background-size: cover;
+    height: 500px;
+}
+#testimonies-carousel .item {
+    background: rgba(5, 59, 83, 0.8);
+    color: lightgrey;
+}
+#testimonies-carousel .item small{
+
+    color: rgba(240,240,240,0.4);
+}
+#testimonies-carousel .carousel-indicators li{
+    background: #1b4b72;
+}
+#testimonies-carousel .carousel-indicators .active {
+    background-color: orange !important;
+}
+
+@media screen and (min-width: 1367px){
+    .round_logo {
+        width: 300px;
+    }
+    #DISC .first-part p {
+        font-size: 15pt;
+    }
+    /*#DISC .disc-logo {*/
+        /*width: 160px;*/
+    /*}*/
+    /*#DISC #loeuvre-logo {*/
+        /*width: 100px;*/
+    /*}*/
+    /*#DISC #manos-logo{*/
+        /*width: 200px;*/
+    /*}*/
+    #testimonies-carousel .carousel-inner {
+        width: 80%!important;
+    }
+    #information{
+        margin-top: 50px;
+    }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1366px){
+    .round_logo {
+        width: 300px;
+    }
+    #information{
+        margin-top: 50px;
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+    #DISC .disc-logo {
+        width: 120px;
+    }
+    #DISC #loeuvre-logo {
+        width: 90px;
+    }
+    #DISC #manos-logo{
+        width: 150px;
+    }
+
+    #DISC .first-part p {
+        font-size: 11px;
+    }
+    #DISC .second-part {
+        margin-top: 35px;
+    }
+
+    .round_logo {
+        width: 220px;
+    }
+    .paraxify{
+        height: 360px;
+        background-position: center 20px;
+    }
+
+    #information{
+        margin-top: 50px;
+    }
+}
+
+@media screen and (min-width: 420px) and (max-width: 991px) {
+    #DISC #loeuvre-logo {
+        width: 100px;
+    }
+
+    #DISC #manos-logo {
+        width: 70%;
+    }
+
+    .round_logo {
+        max-width: 130px;
+    }
+
+    .paraxify {
+        height: 200px;
+        background-position: center 20px;
+    }
+
+    #DISC .second-part {
+        margin-left: 0px;
+    }
+
+    .testimonies-wrapper .carousel-inner blockquote p {
+        font-size: 13px;
+    }
+
+    #information{
+        margin-top: 20px;
+    }
+}
+
+@media screen and (min-width: 420px) and (max-width: 669px) {
+    #testimonies-carousel .carousel-inner {
+        width: 60% !important;
+    }
+}
+
+@media screen and (max-width: 420px){
+    #DISC #loeuvre-logo {
+        width: 60px;
+    }
+
+    #DISC #manos-logo {
+        width: 100%;
+    }
+    #DISC .second-part {
+        margin-top: 30px;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    #DISC .first-part p {
+        font-size: 13px;
+        padding: 3px;
+    }
+    #DISC {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+}
+
+@media(min-width:1600px){
+    #cover_en,#cover_fr {
+        height: 100vh;
+    }
+}
+@media(min-width: 992px) and (max-width: 1023px){
+    #cover_en,#cover_fr {
+        height: 100vh;
+    }
+}
+@media(min-width: 1023px){
+    #cover_en,#cover_fr {
+        height: 90vh;
+    }
+}
+@media(min-width: 1065px)and (max-width: 1200px){
+    #cover_en,#cover_fr {
+        height: 110vh;
+    }
+}
+@media(min-width: 1200px) and (max-width: 1280px){
+    #cover_en,#cover_fr {
+        /*height: 75vh;*/
+        height: 110vh;
+    }
+}
+@media(min-width: 1280px){
+    #cover_en,#cover_fr {
+        height: 100vh;
+    }
+}
+@media(max-width:991px){
+    #cover_en,#cover_fr {
+        height: 85vh;
+    }
+}
+@media(max-width:800px){
+    #cover_en,#cover_fr {
+        height: 80vh;
+    }
+}
+@media(max-width:768px){
+    #cover_en,#cover_fr {
+        height: 70vh;
+    }
+}
+@media(max-width:712px){
+    #cover_en,#cover_fr {
+        height: 70vh;
+    }
+}
+@media(max-width:650px){
+    #cover_en,#cover_fr {
+        height: 57vh;
+    }
+}
+@media (max-width:600px){
+    #cover_en{
+        background-image: url("../images/initiatives/DISC/cover_mob_en.jpg");
+    }
+    #cover_fr{
+        background-image: url("../images/initiatives/DISC/cover_mob_fr.jpg");
+    }
+    #cover_en,#cover_fr {
+        height: 195vh;
+    }
+}
+@media(max-width:512px){
+    #cover_en,#cover_fr {
+        height: 165vh;
+    }
+}
+@media(max-width:414px){
+    #cover_en,#cover_fr {
+        height: 135vh;
+    }
+}
+@media(max-width:360px){
+    #cover_en,#cover_fr {
+        height: 120vh;
+    }
+}
+@media(max-width:280px){
+    #cover_en,#cover_fr {
+        height: 90vh;
+    }
+}

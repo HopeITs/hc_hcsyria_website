@@ -1,0 +1,388 @@
+#StudyZone {
+    padding-top: 100px;
+    padding-bottom: 30px;
+    margin: 20px 7% 0 7%;
+}
+#StudyZone .study-logo {
+    width: 130px;
+    margin-bottom: 10px;
+}
+#StudyZone .first-part p {
+    margin-top:  20px;
+    margin-bottom:  20px;
+    font-size: 18px;
+}
+#StudyZone #loeuvre-logo {
+    width: 150px;
+}
+#StudyZone .carousel-control {
+    z-index: 3;
+    background: none;
+}
+#StudyZone .carousel-control .glyphicon {
+    top: 45%;
+}
+
+.blue{
+    color: #285e8e;
+}
+.red{
+    color: #f20017;
+}
+.yellow{
+    color: #ffd200;
+}
+.orange{
+    /*color: #ec971f;*/
+    color: #d58512;
+}
+.grey{
+    color: #7d7d7e;
+}
+
+#information{
+    background-color: #F6F6F6;
+}
+
+#information ul{
+    margin-left: -30px;
+    list-style-type:none;
+}
+
+#information li{
+    height: 33px;
+    font-size: 14px;
+}
+
+#information i {
+    background-color: #fff;
+    border-radius: 50%;
+    color: #285e8e;
+    display: inline-block;
+    font-size:16px;
+    height: 27px;
+    width: 27px;
+    line-height:28px;
+    margin-right: 5px;
+    text-align: center;
+
+    border-width:1px;
+    border-color: #285e8e;
+    border-style: solid;
+    opacity:1;
+    -webkit-transition: all 0.7s ease-in-out;
+    -moz-transition: all 0.7s ease-in-out;
+    -o-transition: all 0.7s ease-in-out;
+    transition: all 0.7s ease-in-out;
+}
+
+#information a i:hover {
+    opacity:0.8;
+    background-color: #285e8e;
+    color: #fff;
+}
+
+#StudyZone a img {
+    width: 100%;
+    height: 100%;
+}
+
+#study-gif{
+    width: 100%;
+}
+
+#StudyZone .main-text
+{
+    position: absolute;
+    top: 3px;
+    width: 100%;
+    color: #FFF;
+    background-color: rgba(0,0,0,0.3);
+}
+
+#StudyZone .circle-img {
+    width: 50%;
+    cursor: pointer;
+}
+
+#StudyZone .nav-tabs li {
+    text-align: center;
+    width: 33%;
+}
+
+.study_categories{
+    position: absolute;
+    top: 66%;
+    left: 5%;
+    right: 5%;
+}
+
+/* Make the container relative */
+.swap-on-hover {
+    position: relative;
+    margin:  0 auto;
+    max-width: 400px;
+}
+/* Select the image and make it absolute to the container */
+.swap-on-hover img {
+    position: absolute;
+    top:0;
+    left:0;
+    overflow: hidden;
+    /* Sets the width and height for the images*/
+    width: 400px;
+    height: 400px;
+}
+/* We set z-index to be higher than the back image, so it's alwyas on the front.
+We give it an opacity leaner to .25s, that way when we hover we will get a nice fading effect. */
+.swap-on-hover .swap-on-hover__front-image {
+    z-index: 9999;
+    transition: opacity .5s linear;
+    cursor: pointer;
+}
+/* When we hover the figure element, the block with .swap-on-hover, we want to use > so the front-image is going to have opacity of 0, which means it will be hidden, to the back image will show */
+.swap-on-hover:hover > .swap-on-hover__front-image{
+    opacity: 0;
+}
+
+#testimonies-carousel .item {
+    background: rgba(5, 59, 83, 0.9);
+    color: lightgrey;
+}
+
+#testimonies-carousel .item small{
+    color: rgba(240,240,240,0.4);
+}
+
+#testimonies-carousel .carousel-indicators li{
+    background: #1b4b72;
+}
+#testimonies-carousel .carousel-indicators .active {
+    background-color: orange !important;
+}
+
+@media screen and (max-device-width: 420px)
+{
+    #information li{
+        height: 44px;
+        margin-left: -16px;
+        font-size: 10px;
+    }
+    #information i {
+        font-size:10px;
+        height: 22px;
+        width: 22px;
+        line-height:22px;
+        margin-right: 1px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .swap-on-hover img {
+        width: 130px;
+        height: 130px;
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+    #StudyZone #loeuvre-logo {
+        width: 130px;
+    }
+    .swap-on-hover img {
+        width: 280px;
+        height: 280px;
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+    #StudyZone .first-part p:lang(fr) {
+        margin: 10px 0;
+        font-size: 13px;
+    }
+}
+
+@media screen and (min-width: 678px) {
+    .margin-big {
+        margin-top: 50px;
+    }
+
+}
+
+.spread-background {
+    background: #cccccc;
+    border-radius: 3rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+
+
+}
+
+.spread-background .text-left {
+    color: #003366;
+    font-size: 3rem;
+    letter-spacing: 5px;
+}
+ul {
+    list-style-type: none;
+}
+
+.centers li {
+    color: #333333;
+}
+
+.contacts {
+    font-size: 10pt;
+}
+
+.center_name {
+    font-size:13.5pt;
+}
+
+.centers li:hover,
+.selectedCenter {
+    color: #333333 !important;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.study_map {
+    overflow: hidden;
+    height: 400px;
+    margin-top: 2rem;
+}
+.contactus {
+    border-left: 2px solid #33333382;
+    height: 38rem;
+    margin-top: 2.5rem;
+    text-align: center;
+    color: #333333;
+}
+
+i {
+    border-radius: 50%;
+    color: var(--gray-lighter);
+    display: inline-block;
+    font-size: 16px;
+    height: 27px;
+    width: 27px;
+    line-height: 28px;
+    text-align: center;
+    border-width: 1px;
+    opacity: 1;
+    -webkit-transition: all 0.7s ease-in-out;
+    -moz-transition: all 0.7s ease-in-out;
+    -o-transition: all 0.7s ease-in-out;
+    transition: all 0.7s ease-in-out;
+}
+
+#map {
+    position: relative;
+    border: 1px solid black;
+    border-radius: 8px;
+    height: 100%;
+    width: 100%;
+    font-size: 10px !important;
+}
+
+.contacts a{
+    color: #333 !important;
+}
+
+.contacts a:hover{
+    color: #285e8e !important;
+}
+.work_hours,
+.telephone {
+    font-size: 13.5pt;
+}
+.selectedCenter{
+    color: #333!important;
+    cursor: pointer;
+    font-weight: 600;
+}
+.address,
+.email,
+.facebook {
+    font-size: 12pt;
+}
+
+.centers{
+    margin-top: 2rem;
+}
+
+#center_link{
+    height: 40px;
+    width: 250px;
+    position: absolute;
+    z-index: 1000;
+}
+.contactus .row{
+    margin-bottom: 7rem;
+}
+@media (max-width: 280px) {
+    li h5 {
+        font-size: 9px !important;
+    }
+    .centers {
+        margin-left: -1.7rem !important;
+    }
+    .contactus h6 {
+        font-size: 9px !important;
+    }
+    .center_name {
+        font-size: 8pt !important;
+        margin-left: 5px;
+    }
+    .address, .email, .facebook {
+        font-size: 7pt !important;
+    }
+    .work_hours, .telephone {
+        font-size: 9pt !important;
+    }
+    .center_name{
+        margin-left: 1rem;
+    }
+}
+
+@media(max-width:600px) {
+    .contacts {
+        width: fit-content !important;
+    }
+    .contactus .row {
+        margin-bottom: .5rem !important;
+    }
+    .work_hours, .telephone{
+        font-size: 11pt;
+    }
+    .address, .email, .facebook{
+        font-size: 9pt;
+    }
+    .spread-background .text-left {
+        font-size: 1.5rem;
+    }
+    .center_name {
+        font-size: 8pt !important;
+        margin-bottom: 0.5rem !important;
+    }
+    .centers {
+        margin-top: 2rem !important;
+        padding: 0;
+    }
+}
+@media(max-width:414px) {
+    .address, .email, .facebook{
+        font-size: 8pt;
+    }
+    .work_hours, .telephone {
+        font-size: 10pt;
+    }
+}
+@media only screen and (min-width: 250px) and (max-width: 700px) {
+    .contactus .row {
+        padding-left: 1px !important;
+        /*margin-left: -1.1rem !important;*/
+    }
+    .contactus{
+        text-align: left;
+    }
+}

@@ -1,0 +1,232 @@
+#initiative .main_title {
+    font-size: 1.5vw;
+}
+
+.studyzone .partner-title, .disc .partner-title , .children .partner-title{
+    color: #064b68;
+}
+
+.studyzone .item:hover, .disc .item:hover,.children .item:hover{
+    background: #064b68 !important;
+}
+
+.disc.main_subtitle{
+    font-size: 2vw;
+    line-height: 2vw;
+}
+
+
+
+.study.project-logo {
+    width: 5vw;
+}
+
+.disc.project-logo {
+    width: 8vw;
+}
+
+#ini-section .padding-screen {
+    margin-top: unset !important;
+}
+
+#initiative .project-title-section.funded {
+    margin-bottom: 4vw;
+}
+
+.ini-logo {
+    width: 4.5vw;
+    height: 5.5vw;
+    object-fit: contain;
+}
+
+.ini-content {
+    color: #616262;
+    font-size: 1.1vw;
+    line-height: 1.6vw;
+    padding-bottom: 2vw;
+    margin-top: 2vw;
+    column-count: 3;
+}
+
+.organization{
+    color: #616262;
+    font-size: 1.2vw;
+}
+
+.card-title-section{
+
+}
+
+#initiative .padding-screen {
+    padding: 1.5vw 2.7vw 3.5vw 4.7vw;
+}
+
+#ini-section .carousel {
+     /*margin-left: 3vw;*/
+     margin-bottom: 3vw;
+    margin-top: 1vw;
+ }
+
+#ini-section.small .carousel {
+    margin-left: 0vw;
+}
+
+.ini-funded {
+    background: #f4f4f4;
+    height: fit-content;
+    padding: 0.5vw 0.5vw 0vw 0.5vw;
+    line-height: 1vw;
+    color: #58595B;
+    font-size: 1.1vw;
+    display: flex;
+    align-items: center;
+}
+
+.ini-funded img {
+    /*height: 4.5vw;*/
+    /*padding-left: 1vw;*/
+    height: 3.5vw;
+    padding-left: 1vw;
+    width: 5.5vw;
+}
+
+#initiative .related-posts {
+    margin-top: 4vw;
+    /*background: url("/images/initiatives/initiative-cover.jpg");*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100% 100%;*/
+    /*background-size: cover;*/
+    /*height: 35vw;*/
+}
+
+#initiative .related-posts .title, #rehabilitation-section .title {
+    color: #575756;
+    text-align: left;
+    font-size: 2vw;
+    font-weight: 900;
+    padding-bottom: 1vw;
+}
+
+#initiative .item {
+    padding: 1.1vw;
+    background: white;
+    margin-bottom: 6vw;
+    height: 16vw;
+    width: 14.5vw;
+    filter: drop-shadow(0px 2px 2px #bebebe);
+    /* margin-right: 0.5vw; */
+    margin-left: 0.5vw;
+}
+
+#initiative .item:hover{
+    background: #BC1818;
+}
+
+
+.related-ini-txt {
+    color: #616261;
+    padding-top: 1vw;
+    font-size: .9vw;
+    text-align: center;
+}
+
+#initiative .item:hover .related-ini-txt{
+    color: #fff;
+}
+
+.animated-title, .partner-title {
+    font-size: 1.5vw !important;
+}
+
+#iniCarousel_big .carousel-inner,#iniCarousel .carousel-inner{
+    margin-left: -.2vw;
+    /*height: 28vw;*/
+    height: 24vw;
+}
+#iniCarousel_big .carousel-inner .carousel-item{
+    height: 100%;
+}
+
+#iniCarousel_big .carousel-indicators{
+    bottom: -2vw;
+}
+/*#iniCarousel_big .image-mask{*/
+    /*bottom: 2.9vw;*/
+/*}*/
+
+.square-project-logo{
+    width: 5vw;
+}
+
+#ini-section {
+    display: block;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    /*padding-bottom: 1vw;*/
+    background:  #f4f4f4;
+    /*padding: 4vw;*/
+}
+
+#rehabilitation-section{
+    margin-top: 3vw;
+}
+
+.ini-height{
+    height: 28vw;
+}
+
+@media (max-width: 575px) {
+    .related-posts{
+        margin-bottom: 2vw;
+    }
+
+    .ini-height{
+        height: 40vw;
+    }
+    #iniCarousel .carousel-indicators {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    #initiative .related-posts .title,#rehabilitation-section .title  {
+        font-size: 3vw;
+        /*padding: 3vw !important;*/
+    }
+
+    /*#ini-section.big {*/
+        /*display: none;*/
+    /*}*/
+
+    /*#ini-section.small {*/
+        /*display: block;*/
+    /*}*/
+
+    .ini-funded img {
+        height: 7.5vw !important;
+        width: 12.5vw !important;
+    }
+
+    .ini-funded {
+        font-size: 2.1vw !important;
+    }
+
+    .card-content, .ini-content, .organization {
+        font-size: 2.7vw !important;
+    }
+
+    .ini-content {
+        line-height: 3.3vw !important;
+        column-count: 1;
+    }
+    /*#initiative .horizontal-line.last {*/
+        /*height: 8vw !important;*/
+        /*margin-top: 3vw !important;*/
+    /*}*/
+    #initiative .item {
+        height: 25vw !important;
+        margin-bottom: 1vw !important;
+        width: 21vw;
+    }
+    #ini-section .carousel{
+        margin-bottom: 6vw;
+    }
+}

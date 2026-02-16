@@ -1,0 +1,179 @@
+#Children .project-logo {
+    width: 4.5vw;
+}
+
+#Children .project-brief, #Children .section-title, #Children .card-title{
+    color: #063c54;
+}
+
+#Children .readmore-btn:hover {
+    background: #063c54;
+    border: 2px solid #063c54!important;
+}
+
+#Children .readmore-btn:focus {
+    background: #063c54;
+    border: 2px solid #063c54 !important;
+}
+
+
+#Children .page-item.active .page-link{
+    color: #063c54 !important;
+}
+
+#Children + #footer .section-title{
+    color: #063c54 !important;
+}
+
+#search-input{
+    color: #B2B2B2;
+    background-color: #FBFBFD !important;
+    border: none;
+    padding: 1vw;
+    font-size: 1vw;
+    font-weight: 100;
+    width: 25vw;
+}
+
+#search-input::placeholder{
+    color: #B2B2B2;
+}
+
+#search-input:focus-visible , .tt-hint:focus-visible{
+    outline: none;
+}
+
+.search-icons{
+    width: 1.5vw;
+    height: 1.5vw;
+}
+
+.search-container{
+    position: relative;
+    z-index: 999;
+    /*margin-bottom: 5rem;*/
+}
+
+.se button {
+    margin-right: 0.5vw;
+    padding: 0.95vw;
+    display: flex;
+}
+
+.search-container button, .search-container .switch {
+    border: none;
+    color: #063c54;
+    background-color: #FBFBFD;
+}
+
+.tt-dataset h5 {
+    margin: 0 20px 5px 20px;
+    padding: 5px 0 2px 0;
+    border-bottom: 1px solid #063c54;
+    color: #063c54;
+    cursor: default;
+    font-size: 1vw;
+}
+
+span.twitter-typeahead .tt-suggestion {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: #616262;
+    white-space: nowrap;
+    font-size: .85vw;
+}
+
+span.twitter-typeahead .tt-menu{
+    width: 100% !important;
+}
+
+.tt-hint{
+    /*top: 5px !important;*/
+    /*left: 12px !important;*/
+    /*z-index: 1000 !important;*/
+    background: transparent !important;
+    color: #B2B2B2 !important;
+    font-size: 1.4vw !important;
+    border: none !important;
+    padding: 1vw !important;
+    font-weight: 100;
+}
+
+#Children .before-page.horizontal-line{
+    z-index: 1 !important;
+}
+
+
+@media (max-width: 575px) {
+    #Children .project-logo {
+        width: 5vw;
+    }
+}
+
+/*@keyframes swipe {*/
+    /*100% { transform: rotate(-5deg); }*/
+/*}*/
+/*@keyframes swipefloating {*/
+    /*0% {*/
+        /*transform: translateX(20px) rotate(0deg);*/
+    /*}*/
+    /*50% {*/
+        /*transform: translateX(-20px) rotate(-40deg);*/
+    /*}*/
+    /*100% {*/
+        /*transform: translateX(20px) rotate(0deg);*/
+    /*}*/
+/*}*/
+
+/*@keyframes pulse {*/
+    /*0% {*/
+        /*opacity: 0.2;*/
+        /*height: 1em;*/
+        /*width: 1em;*/
+        /*margin-top: -0.5em;*/
+        /*margin-left: -0.5em;*/
+    /*}*/
+    /*50% {*/
+        /*opacity: 0.9;*/
+        /*height: 3em;*/
+        /*width: 3em;*/
+        /*margin-top: -1.5em;*/
+        /*margin-left: -1.5em;*/
+    /*}*/
+    /*100% {*/
+        /*opacity: 0.2;*/
+        /*height: 1em;*/
+        /*width: 1em;*/
+        /*margin-top: -0.5em;*/
+        /*margin-left: -0.5em;*/
+    /*}*/
+/*}*/
+
+/*#animate1{*/
+     /*!*transform: rotate(5deg);*!*/
+     /*animation: swipe .8s linear infinite alternate;*/
+ /*}*/
+/*#animate2{*/
+    /*!*transform: rotate(5deg);*!*/
+    /*animation: swipe .6s linear infinite alternate;*/
+/*}*/
+/*#animate3{*/
+    /*!*transform: rotate(5deg);*!*/
+    /*animation: swipe .5s linear infinite alternate;*/
+/*}*/
+/*#animate4{*/
+    /*!*transform: rotate(5deg);*!*/
+    /*animation: swipe .4s linear infinite alternate;*/
+/*}*/
+/*#animate:hover{*/
+    /*animation: keyName 1s ease-out forwards;*/
+/*}*/
+
+/*@keyframes keyName{*/
+    /*100% {*/
+        /*transform: scale(1.4);*/
+    /*}*/
+/*}*/

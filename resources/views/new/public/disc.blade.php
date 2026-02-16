@@ -1,0 +1,2479 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@php
+    if (session('locale') == 'fr') {
+        $language = 'french';
+    } else {
+        $language = 'english';
+    }
+@endphp
+<head>
+    <script src="/js/jquery.js"></script>
+{{--<link href="{{asset('css/font-lato.css')}}" rel='stylesheet' type='text/css'>--}}
+    @include('new.public.components.analytics-head')
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#f6f6f6">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#f6f6f6">
+    <meta name="description" content="@lang('disc.description')">
+    <meta name="keywords" content="aleppo syria, hope, center, micro project, projects, caritas poland"/>
+    <title>DISC</title>
+    <link href="{{asset('css/main-new.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/navbar.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/disc_new.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/tabs.css')}}" rel="stylesheet">
+
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/images/ico/favicon.ico">
+    {{--<link rel="shortcut icon" href="/public/fonts/Avenir%20LT%20Std%2045%20Book.otf">--}}
+    <link rel='stylesheet' href='https://unpkg.com/leaflet@1.8.0/dist/leaflet.css' crossorigin=''/>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/typeahead.css" rel="stylesheet">
+    <link href="/css/jquery.fancybox.min.css" rel="stylesheet">
+    <link rel="alternate" hreflang="x-default" href="https://www.hcsyria.org"/>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Martel' rel='stylesheet'>
+
+    <script src="/js/html5shiv.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src='https://unpkg.com/leaflet@1.8.0/dist/leaflet.js' crossorigin=''></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.prettyPhoto.js"></script>
+    <script type="text/javascript" src="/js/jquery.balloon.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+    <script type="text/javascript" src="/js/typeahead.bundle.min.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" src="/js/wow.min.js"></script>
+    <script type="text/javascript" src="/js/swipe.index.js"></script>
+    {{--<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>--}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {{--<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes@0.4.0/dist/chartjs-plugin-colorschemes.js"></script>--}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+          integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    {{--<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>--}}
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    {{--<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>--}}
+    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>--}}
+    {{--<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>--}}
+    {{--<script src="https://unpkg.com/chart.js-plugin-labels-dv/dist/chartjs-plugin-labels.min.js"></script>--}}
+    <script src="/js/amcharts/index.js"></script>
+    <script src="/js/amcharts/xy.js"></script>
+    <script src="/js/amcharts/radar.js"></script>
+    <script src="/js/amcharts/Animated.js"></script>
+    <script src="/js/amcharts/Responsive.js"></script>
+
+</head>
+<body>
+@include('new.public.components.analytics-body')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Observer.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/EaselPlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/PixiPlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+<div class="preloader">
+    <div class="preloader-gif"></div>
+</div>
+@include('new.public.navbar')
+<div id="DISC" class="page_start">
+    <div class="page-margin">
+        <div class="container-fluid">
+            <div class="row d-flex ">
+                <div class="col d-flex justify-content-end flex-column pe-0">
+                    <div class="first-column">
+                    </div>
+                    <div class="content">
+                        <div class="main_subtitle" data-aos="fade-up"
+                             data-aos-duration="1000">@lang('what_we_do.disc')</div>
+                    </div>
+                </div>
+                <div class="col d-flex justify-content-end align-items-end ps-0">
+                    <img src="/images/logos/disc.svg" class="d-block project-logo" data-aos="fade-up"
+                         data-aos-duration="1000">
+                </div>
+            </div>
+        </div>
+    </div>
+    @include('new.public.partials.cover-carousel', ['carouselImages' => $carouselImages])
+    <div class="small horizontal-line d-lg-none d-md-none d-sm-none d-block" style="margin-top: 6vw" data-aos="fade-up"
+         data-aos-duration="800"></div>
+    @include('new.public.components.project-brief-section', ['project' => $brief])
+    <div id="hide-scroll" class=" horizontal-line d-lg-none d-md-none d-sm-none d-block" style="margin-top: 1vw"
+         data-aos="fade-up"
+         data-aos-duration="800"></div>
+
+    <div class="small horizontal-line" data-aos="fade-up" data-aos-duration="800"></div>
+    <div id="categories-section" class="section-space" data-aos="fade-up" data-aos-duration="800">
+        {{--<div class="image_wrapper">--}}
+        <img class="categories-img" src="/images/home/disc-categories.jpg">
+        <img src="/images/home/image-mask.png" class="image-mask"/>
+        <div id="socialOverlay" class="overlay">
+            <div class="categories-content-title text-uppercase">Essential Programs</div>
+            <div id="category-description" class="d-lg-block d-md-block d-sm-block d-none">
+                <div class="container-fluid">
+                    <div class="row" data-aos="fade-up" data-aos-duration="600">
+                        <div class="col-12 d-flex justify-content-center flex-column align-items-start">
+                            <div class="section-title category-title pb-0 pt-2">English Skills</div>
+                            <div class="section-title-desc category-desc">
+                                <div data-aos="fade-up" data-aos-duration="600">Fluency in English is essential to
+                                    access more opportunities and have a successful career.
+                                </div>
+                                <div data-aos="fade-up" data-aos-duration="900">Our goal is to create a
+                                    positive and exciting learning environment where
+                                    students can improve their language skills and achieve their language learning
+                                    goals.
+                                </div>
+                                <div data-aos="fade-up" data-aos-duration="1100">Through the innovative
+                                    Wide-Angle e-book from Oxford students have fully automated learning experience
+                                    with
+                                    access to extracurricular
+                                    activities to support their language learning journey
+                                </div>
+                                {{--<div data-aos="fade-up" data-aos-duration="300">Designated for small group--}}
+                                {{--study and--}}
+                                {{--permits study and project-related discussions without causing--}}
+                                {{--disturbance to others. Cellphones must--}}
+                                {{--be set--}}
+                                {{--to--}}
+                                {{--silent or vibrate mode, and the administration selects the music.--}}
+                                {{--to others. Cellphones must--}}
+                                {{--be set--}}
+                                {{--to--}}
+                                {{--silent or vibrate mode, and the administration selects the music.--}}
+                                {{--</div>--}}
+                                {{--<div data-aos="fade-up" data-aos-duration="500">--}}
+                                {{--</div>--}}
+                                {{--<div data-aos="fade-up" data-aos-duration="600">--}}
+                                {{--</div>--}}
+                            </div>
+
+                            {{--<div class="row d-flex justify-content-center text-center w-100">--}}
+                            {{--<div class="col">--}}
+                            {{----}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="category-description" class="d-lg-none d-md-none d-sm-none d-block">
+                <div class="container-fluid">
+                    <div class="row" data-aos="fade-up" data-aos-duration="600">
+                        <div class="col-12 d-flex justify-content-center flex-column align-items-center">
+                            <div class="section-title sm category-title pb-0 pt-2">Social Zone</div>
+                            <div class="section-title-desc sm">
+                                <div data-aos="fade-up" data-aos-duration="300">Designated for small group
+                                    study and
+                                    permits study and project-related discussions
+                                </div>
+                                <div data-aos="fade-up" data-aos-duration="500"> without causing
+                                    disturbance to
+                                    others.
+                                    Cellphones must be set to silent or vibrate mode,
+                                </div>
+                                <div data-aos="fade-up" data-aos-duration="700"> and the administration
+                                    selects
+                                    the
+                                    music.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{--</div>--}}
+        {{--<img class="categories-img" src="/images/home/zone-categories.jpg">--}}
+        {{--<div class="overlay">--}}
+        {{--<h3>Text Title</h3>--}}
+        {{--</div>--}}
+        <div class="categories-content">
+            <ul>
+                <li class="category" id="English">
+                    <div class="inner-circle">English<br> Skills</div>
+
+                </li>
+                <li class="category" id="Computer">
+                    <div class="inner-circle">Computer<br> Skills</div>
+                </li>
+                <li class="category" id="Accompaniment">
+                    <div class="inner-circle">Accompaniment</div>
+                </li>
+                <li class="category" id="Skills">
+                    <div class="inner-circle">Employability<br>Skills</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {{--<div id="categories-section" class="position-relative" data-aos="fade-up" data-aos-duration="800">--}}
+    {{--<div class="image_wrapper">--}}
+    {{--<img src="/images/home/disc-categories.jpg"/>--}}
+    {{--<div class="overlay img-overlay">--}}
+    {{--<div id="category-description" class="d-lg-block d-md-block d-sm-block d-none">--}}
+    {{--<div class="container-fluid">--}}
+    {{--<div class="row w-100" data-aos="fade-up" data-aos-duration="600">--}}
+    {{--<div class="col-lg-5 col-md-9 col-sm-9 col-10">--}}
+    {{--<div class="category-title pb-0 pt-2">English Skills</div>--}}
+    {{--<div class="section-title-desc category-desc">--}}
+    {{--<div data-aos="fade-up" data-aos-duration="600">Fluency in English is essential to--}}
+    {{--access more opportunities and have a successful career.--}}
+    {{--</div>--}}
+    {{--<div data-aos="fade-up" data-aos-duration="900">Our goal is to create a--}}
+    {{--positive and exciting learning environment where--}}
+    {{--students can improve their language skills and achieve their language learning--}}
+    {{--goals.--}}
+    {{--</div>--}}
+    {{--<div data-aos="fade-up" data-aos-duration="1100">Through the innovative--}}
+    {{--Wide-Angle e-book from Oxford students have fully automated learning experience--}}
+    {{--with--}}
+    {{--access to extracurricular--}}
+    {{--activities to support their language learning journey--}}
+    {{--</div>--}}
+    {{--<div data-aos="fade-up" data-aos-duration="1300">--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--<div id="category-description" class="d-lg-none d-md-none d-sm-none d-block">--}}
+    {{--<div class="container-fluid">--}}
+    {{--<div class="row" data-aos="fade-up" data-aos-duration="600">--}}
+    {{--<div class="col-12 d-flex justify-content-center flex-column align-items-center">--}}
+    {{--<div class="section-title sm category-title pb-0 pt-2">English Skills</div>--}}
+    {{--<div class="row d-flex justify-content-center text-center w-100">--}}
+    {{--<div class="col-lg-8 col-md-8 col-sm-8 col-11">--}}
+    {{--<div class="section-title-desc sm">--}}
+    {{--<div data-aos="fade-up" data-aos-duration="300">Fluency in English is--}}
+    {{--essential to--}}
+    {{--access more opportunities and have a successful career.Our goal is to--}}
+    {{--create a--}}
+    {{--positive--}}
+    {{--and exciting learning environment where students can improve their--}}
+    {{--language--}}
+    {{--skills--}}
+    {{--and achieve their language learning--}}
+    {{--goals. Through the innovative Wide-Angle e-book from Oxford students--}}
+    {{--have fully--}}
+    {{--automated learning experience--}}
+    {{--with access to extracurricular activities to support their language--}}
+    {{--learning--}}
+    {{--journey--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--<img class="categories-img" src="/images/initiatives/DISC/courses/english.jpg">--}}
+    {{--<div class="categories-content-title">--}}
+    {{--<div class="row" data-aos="fade-up" data-aos-duration="600">--}}
+    {{--<div class="col-12 d-flex justify-content-center flex-column align-items-center">--}}
+    {{--<div class="section-title programs">Essential Programs</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--<div class="categories-content">--}}
+    {{--<button class="category" id="English">--}}
+    {{--<div class="inner-circle">English<br> Skills</div>--}}
+    {{--</button>--}}
+    {{--<button class="category" id="Computer">--}}
+    {{--<div class="inner-circle">Computer<br> Skills</div>--}}
+    {{--</button>--}}
+    {{--<button class="category" id="Accompaniment">--}}
+    {{--<div class="inner-circle">Accompaniment</div>--}}
+    {{--</button>--}}
+    {{--<button class="category" id="Skills">--}}
+    {{--<div class="inner-circle">Employability<br>Skills</div>--}}
+    {{--</button>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--<div id="test-section">--}}
+    {{--<section>--}}
+    {{--<div class="bg"></div>--}}
+    {{--<h1>Simple parallax sections</h1>--}}
+    {{--</section>--}}
+    {{--<section>--}}
+    {{--<div class="bg"></div>--}}
+    {{--<h1>Hey look, a title</h1>--}}
+    {{--</section>--}}
+    {{--<section>--}}
+    {{--<div class="bg"></div>--}}
+    {{--<h1>They just keep coming</h1>--}}
+    {{--</section>--}}
+    {{--<section>--}}
+    {{--<div class="bg"></div>--}}
+    {{--<h1>So smooth though</h1>--}}
+    {{--</section>--}}
+    {{--<section>--}}
+    {{--<div class="bg"></div>--}}
+    {{--<h1>Nice, right?</h1>--}}
+    {{--</section>--}}
+    {{--</div>--}}
+    <div class="horizontal-line" data-aos="fade-up" data-aos-duration="800"></div>
+    <div id="testimonies-section" class="section-space" data-aos="fade-up"
+         data-aos-duration="600">
+        <div class="col-12 d-flex justify-content-center flex-column align-items-center">
+            <div class="section-title">Testemonies</div>
+        </div>
+    </div>
+    <div class="small horizontal-line" data-aos="fade-up" data-aos-duration="800"></div>
+    <div class="page-margin">
+        <div id="testimonies-body" data-aos="fade-up" data-aos-duration="800" class="container-fluid">
+            {{--<div class="page-margin" data-aos="fade-up" data-aos-duration="1000">--}}
+            <div class="row d-flex justify-content-center">
+                <div class="col">
+                    <div id="carouselTestemonies"
+                         class="carousel slide w-100"
+                         data-bs-ride="carousel" data-bs-pause="hover"
+                         data-interval="1000">
+                        <div class="carousel-indicators">
+                            <?php $k = 0 ?>
+                            @foreach($testemonies as $testemony)
+                                <button type="button" data-bs-target="#carouselTestemonies" data-bs-slide-to="{{$k}}"
+                                        class="@if($k++ == 0) active @endif"
+                                        aria-current="true"
+                                        aria-label="Slide {{$k}}"></button>
+                            @endforeach
+                        </div>
+                        <div class="carousel-inner">
+                            <?php $k = 0 ?>
+                            @foreach($testemonies as $testemony)
+                                <div class="carousel-item @if($k++ == 0) active @endif">
+                                    <div class=" position-relative text-center">
+                                        <div class="profile position-relative">
+                                            <img src="{{$testemony->image_path}}">
+                                        </div>
+                                        <div class="d-flex justify-content-center position-absolute top-50">
+                                            <div class="card-height">
+                                                <img class="quotation" src="/images/home/quotation.svg">
+                                                <div class="name animated fadeInUp" style="animation-delay: .1s">
+                                                    {{$testemony->$language->title}}
+                                                </div>
+                                                {{--<div class="position">Medical Officer at SSCC</div>--}}
+                                                <div class="content animated fadeInUp" style="animation-delay: .8s">
+                                                    {!! $testemony->$language->text !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                            {{--<div class="carousel-item active">--}}
+                            {{--<img class="w-100"--}}
+                            {{--src="{{$initiative->ImagesRandom[0]['path']}}">--}}
+                            {{--</div>--}}
+                            {{--<div class="carousel-item">--}}
+                            {{--<img class="w-100"--}}
+                            {{--src="{{$initiative->ImagesRandom[1]['path']}}">--}}
+                            {{--</div>--}}
+                            {{--@if(count($initiative->ImagesRandom) > 2)--}}
+                            {{--<div class="carousel-item">--}}
+                            {{--<img class="w-100"--}}
+                            {{--src="{{$initiative->ImagesRandom[2]['path']}}">--}}
+                            {{--</div>--}}
+                            {{--@endif--}}
+                        </div>
+                        {{--<button class="carousel-control-prev"--}}
+                        {{--data-bs-target="#carouselTestemonies"--}}
+                        {{--data-bs-slide="prev">--}}
+                        {{--<span class="carousel-control-prev-icon"--}}
+                        {{--aria-hidden="true"></span>--}}
+                        {{--<span class="visually-hidden">Previous</span>--}}
+                        {{--</button>--}}
+                        {{--<button class="carousel-control-next"--}}
+                        {{--data-bs-target="#carouselTestemonies"--}}
+                        {{--data-bs-slide="next">--}}
+                        {{--<span class="carousel-control-next-icon"--}}
+                        {{--aria-hidden="true"></span>--}}
+                        {{--<span class="visually-hidden">Next</span>--}}
+                        {{--</button>--}}
+                    </div>
+                </div>
+            </div>
+            {{--</div>--}}
+        </div>
+    </div>
+    <div data-aos="fade-up" data-aos-duration="800">
+        <div class="horizontal-line" data-aos="fade-up" data-aos-duration="800"></div>
+    </div>
+    <div id="statistics-section" class="section-space" data-aos="fade-up" data-aos-duration="800">
+        <div class="container-fluid">
+            <div class="row" data-aos="fade-up" data-aos-duration="600">
+                <div class="col-12 d-flex justify-content-center flex-column align-items-center">
+                    <div class="section-title mt-3 pb-0">Statistics</div>
+                </div>
+            </div>
+        </div>
+        <div id="card-height" class="card-height position-relative">
+            {{--<div class="page-margin">--}}
+            {{--<img class="cat-img " src="/images/mapbck.jpg">--}}
+            <div class="page-margin">
+                <div class="container-fluid">
+                    <div class="row d-flex justify-content-center align-items-center" data-aos="fade-up"
+                         data-aos-duration="600">
+                        <div class="col-lg-7 col-md-6 col-sm-4 col-12 d-flex justify-content-center align-items-center position-relative">
+                            <div id="citiesMap">
+                                <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg"
+                                     viewBox="0 0 680.69 590.49">
+                                    <defs>
+                                        <style>
+                                            .cls-1 {
+                                                fill: #ccc;
+                                                stroke: #fff;
+                                                stroke-width: .5px;
+                                            }
+                                        </style>
+                                    </defs>
+                                    <g id="Layer_1-2" data-name="Layer 1">
+                                        <g>
+                                            <path class="cls-1"
+                                                  d="M21.92,162.97s9-5.19,1.63-17.33c-7.37-12.14-14.04-24.42-16.9-26.22s7.59-6.5,7.59-6.5l2.07-3.55,2.05-1.22s1.45-4.06,3.07-5.15,5.82-2,5.82-2l4.77-6.72s5.88-2.1,6.62-2.75,5.3-3.13,7.2-3.9,3.27-2.61,2.96-4.7,.57-4.75,.57-4.75c0,0-.33-4.38-.71-6.17s-1.2-5.65,2.3-7.92,12.07-3.21,21.8,.5c0,0,18-8.01,24.86-6.9l3.08-.64,10.79,25.35s14.19,21.15,15.26,27.61c1.06,6.46,4.26,34.84,4.26,34.84l-24.48,36.9s-36.19,17.03-39.03,17.39-37.77-7.45-37.77-7.45c0,0-2.68-8.52-3.74-12.06s-4.04-16.66-4.04-16.66Z"/>
+                                            <g>
+                                                <path id="SY-HA" class="cls-1 land"
+                                                      d="M628.38,84.75l-1.72,.55-3.77,3.08-12.38,3.03-28.9,4.97-.94,.51-1.01,.96-11.44,18.81-.48,11.18-2.9,20.66-.99,4.51,12.01,26.44,.9,24.57-6.39,9.41h0l-12.91-1.76-13.87-.03-10.64-1.17-8.21-2.48-5.82-1.2-6.93-3.84-1.83-2.55-2.73-1.81-78.85-76.71-3.89-4.93-2.14-4.34-3.84-6.04-1.49-3.93h0l-.23-2.06-.8-1.38-2.8-2.4-1.92-1.09-7.76-2.82-4.64-2.18-5.67,1.2-2.19-.35-1.84-1.12-5.8-7.51-.79-3.34-1.76-3.59-.34-1.68h0l1.38-.53,1.47,.24,8.01-1.15,5.19-1.39,6.93-.71,5.92-2.14,8.59-.63,3.52-.69,4.98-2.61,7.44-2.54,5.39-3.07,3.7-1.44,3.61-2.96,4.66-1.32,4.91-.81,2.76-1.08,3.12-1.86,2.26-2.02,1.86-.74,4.88-3.11,6.15-2.72,3.42-2.97,1.95-1.15,11.02-2.11,3.7-1.74,2.03-1.56,7.42-2.92,3.39-2.32,4.56-.98,2.99-1.76,4.13,.13,1.15,1.27,1.66,.35,3.64-2.13,3.58-.32,2.92,.35,5.1,1.55,11.54,2.15,5.6,.39,3.49,1.6,.73,1.51,.65,.42,1.87-.15,3.51-1.73,23.32,.12,5.83-.65,10.12-3.25,7.22-.08,3.07-.46,22.07-4.98,4.22-2.16,4.19-1.37,5-2.89,1.7-2.74,1.74-1.71,5.63-3.96,2.36-4.02,.87-.48,.73,.22,.06,1.19-1.49,2.89,.19,.79,2.7-.34,2.85,1.15,1.98-1.18,1.21,2.41,1.39,.56,.62,1.43,2.24,1.07,.76,1.09-.26,2.07-1.56,1.34-.52,1.69,.16,1.33,2.49,5.88-.12,3.89,.37,.72,1.52,.88,.34,1.81-13.99,13.24-7.48,8.13-4.35,3.96-20.34,22.61-3.56,2.9-2.31,2.74Z"/>
+                                                <path id="SY-DY" class="cls-1 land"
+                                                      d="M558.09,272.84l.44,13.6-.17,9.21,.66,8.91-10.23,14.23-11.26,24.96-1.63,1.47-.54,2.32-41.86,21.27-42.28,22.45h0l-18.9-27.9-56.12-79.71,1.24-9.45-8.14-17.14-6.67-5.67-5.15-3.39h0l45.24-61.78-1.74-.39-2.78-1.91-1.32-.15,20.33-81.13h0l1.49,3.93,3.84,6.04,2.14,4.34,3.89,4.93,78.85,76.71,2.73,1.81,1.83,2.55,6.93,3.84,5.82,1.2,8.21,2.48,10.64,1.17,13.87,.03,12.91,1.76h0l-5.26,7.75-1,12.08-3.51,11.83-1.91,9.67-.89,8.57,.31,9.5Z"/>
+                                                <path id="SY-ID" class="cls-1 land"
+                                                      d="M152.57,210.53l-2.24,1-.89,2.81-2.01,3.94-1.07,1.26-1.33,.88-3.32,.94-.81,.9-1.08,3.18-1.68,2.4-.07,1.96,1.06,.7,1.44-.09,2.28-2.93,1.24,.28,.66,1.92-.04,5.33-.2,.27-1.77-.68-.77,.29-1.2,1.05-1.13,1.85-1.17,.46-5.84,.19-1.62-.77-.63-5.3,1.23-2.39,.22-1.52-.28-1.75-1.12-1.57-.48,.04-1.57,2.5-2.4,2.14-1.3,2.87-.74,.36-2.52-.02-1.16,.49-.85-1.33-1.78-1.1-.84-1.83-3.81-3.02-8.83,1.7-2.59,1.24-4.34,.27-3.23-.32-6.68-1.87-4.03-.06-.97-.74-1.15-2.56-3.07-1.55-2.76,1.67-2.66,.48-1.11-1.11-1.03-4.11-1.66-3.14,1.1-1.68-.56-3.39,.23-2.03-.73-1.9v-1.43s2.52-11.66,2.52-11.66l-.05-3.29-.81-.38-5.14-.1-.75-.44-1.06-3.11-1.49-.34-2.19,1.11-1.91,.06-1.93-1.01-.67-1.21h0l3.01-1.8,.54-1.77-.24-.8-1.71-.58-3.95,.17-6.88,1.09-1.11-.64-.29-.77,.48-1.71-.52-2.6h0l.66,1.63,1.43,.57,1.46-2.4,.72-5.85-.79-2.08,.73-2.01,2.61-3.94,1.64-1.06,1.6-.37,1.93,.23,1.56,.85,2.4-.3,.37-.39-1.12-2.35,.35-1.38,1.99-1.47,2.71,1.42,2.46-.27,1.05-.74,.39-1.06-.11-1.95,1.49-2.39-.6-2.68,.96-1.86-1.17-1.89-.45-2.34,1.15-2.86-1.49-3.24,1.28-2.3,1.2-.35,.27-.98-.51-2.85,.6-.37,3.2,1.83,2.24,.37,1.36,.8,1.09-.44,1.45-3.48,1.42,.55,1.36-.97h2.01s1.48,1.23,1.48,1.23l2.7-.47,2.54,1.77,.92,.13,.92-.13,1.37-1.38h3.47s2.65-1.78,2.65-1.78l.57-1.3-1.31-2,.82-2.48-.56-.57-2.39-.68-.19-1.43h0l2.96-.54,2.84,.48,1.08-.6,1.33-1.56,1.38-.13,1.02,1.18,.49,3.09,2.7,1.96,2.16,3.33,1.26,1.05,.39,1.69-.82,1.57-6.66,6.52-4,2.75-.85,1.5,.46,1.14,1.8,1.59,.14,1.87,.54,.57,2.81,1.86,6.17,2.32,3.28,1.99,.71,1.92,.25,6.15,5.77,8.34,.34,1.7,1.66,1.71,.4,2.61,1.61,1.28,1.64,2.71,3.96,.99,1.93,2.49,2.74,1.38,1.05,1.2,.2,1.3-.68,1.73-4.15,3.13,1.6,5.54,1.68,2.17,.08,3.33,1.52,.35,.86,.84,1.17,2.53,2.54,1.05,1.88,2.07,4.63,1.9Z"/>
+                                                <path id="SY-RD" class="cls-1 damasmap land colored"
+                                                      onclick="selectDataset(1);"
+                                                      d="M255.11,493.57l-9.04-6.49-7.11-5.92-7.54-5.29-9.51-8.89-10.47-7.1-8.81-2.55-3.79-2.27-7.06-5.4-1.88-2.01-.02-.04-4.22-5.96-2.04-5.82-.02-.03-.06-.14-1.66-3.41-4.96-4.93-7.52-5.57-6.77-7.2-3.46-2.3-2.85-4.42-3.45-6.99-.86-.79-4.34,.27-1.96-.54-13.44-7.88-2.86-3.67-.02-.03h0s-.57-1-.57-1l-4.85-8.37-9.68-11.75-2.51,.5-6,2.83-5.55-.21-4.28-2.09-3.5,.1-1.82,1.01,.49,.53-1.02,1.42-2.67,1.39-.63,1.79-1.33,1.16-.73,2.65-2.05,.7-1.21,.88-2.59,3.23-.42,3.27-1.53,1.39-2.27,1.24-3.66-1.17-3.08,1.34-.29,1.48-3.55,2.87-.34,1.39-1.89,.71-2.03,2.08-3.43,4.84-.76,1.68,.14,1.13,3.05,2.59,4.03,1.35,2.2,1.85,.7,1.53-1.38,2.06-.69,.43-1.59-.07-4.41-1.74-2.11-.07-1.11-1.05-2.87-.7-2,2.16-3.15,.26-2.17-.58-1.12-1.98-.96,.14-4.13,2.71-4.54,1.13-3.54,5.29-1.99,.23-.55,.44-.39,1.37-1.91,3.1-2,2.33-.21,3.4-3.25,2.98-.22,.77,.46,1.12,3.86,.57,7.2,4.16,.58,.74,.19,2.42-1.21,1.6-3.13,1.69-5.79,1.16-1.64,.87,1.1,3.09-.28,1.42-1.33,1.88-4.27,3.69,.52,.38,.13,.85-.38,1.48-3.15,3.89-.9,2.16-.36,2.11,.28,3.23h0s2.23,1.28,2.23,1.28h0s0,0,0,0l.14,.39-1.09,1.6,3.39,3.35,4.16,.52h.03l.38,.93-.34,4.54,2.58,.99,1,1.95,2.7,.3,1.69-.46,2.81-2.15h0s1.76-.71,1.76-.71l5.6,.49,3.59-1.55h.02s3.11-.47,3.11-.47l.59-.47h.02s1.47-3.17,1.47-3.17l-.52-2.65,.18-1.11v-.02l1.32-.84,1.86,2.44,1.99,1.31,.6,2.3,3.15,.73,.99,1.69,2.02,1.76,3.62,.83,1.05-.61,.7-2.6,2-1.83,6.3-3.84,1.87-1.96,1.56-.63,.86,.75,1.27,3.23,3.46,3.87,.57,3.94,.3,.4,.96-.41,15.97-1.7,6.48-1.76,1.89,.2,3.27,2.99,3.21,1.7,1.25,1.38,.02,.02,.78,2.87v.04s4.14,4.25,4.14,4.25h0s.58,3.31,.58,3.31v.06s1.39,1.59,1.39,1.59l1.68,.78,6.08,.63,3.13,1.28,2.66,1.94h.02s.12,2.41,.12,2.41v.04l2.42,3.21,.46,1.39,2.71,1.12,2.32,1.52,1.48,.24,2.63-1.72,2.51,1.05,2.09,2.75,.67,6.7,.95,1.71,8.76,8.41,2.89,2.27,2.34,3.01,3.62,2.11,3.52,4.16,.02,.03,84.17-49.97-4.42-4.18Zm-189.67-42.6v.02l-7.15,.15-1.44-.74-.96-2.3-1.68-1.77v-4.26s1.36-.82,1.36-.82l10.13,.38-.26,9.36Z"/>
+                                                <path id="SY-HL" class="cls-1 aleppomap land colored"
+                                                      onclick="selectDataset(2);"
+                                                      d="M152.57,210.53l-4.63-1.9-1.88-2.07-2.54-1.05-1.17-2.53-.86-.84-1.52-.35-.08-3.33-1.68-2.17-1.6-5.54,4.15-3.13,.68-1.73-.2-1.3-1.05-1.2-2.74-1.38-1.93-2.49-3.96-.99-1.64-2.71-1.61-1.28-.4-2.61-1.66-1.71-.34-1.7-5.77-8.34-.25-6.15-.71-1.92-3.28-1.99-6.17-2.32-2.81-1.86-.54-.57-.14-1.87-1.8-1.59-.46-1.14,.85-1.5,4-2.75,6.66-6.52,.82-1.57-.39-1.69-1.26-1.05-2.16-3.33-2.7-1.96-.49-3.09-1.02-1.18-1.38,.13-1.33,1.56-1.08,.6-2.84-.48-2.96,.54h0l.05-1.44-.98-.96-2.02-.21-1.83,.82-1.39-.15,.46-1.3,1.62-1.61-.72-2.51,.27-1.97-2.36-.16-1.02-.67-1.18-3.27-.1-1.66-.71-.79-.02-2.74-1.27-2.2,.23-.73-.41-.63,.02-.49,2.09-1.32,1.88-3.07,1.4-5.02-.31-2.61-1.22-3.65,.44-2.36,4.69-6.65-.13-2.78-1.08-2.32,.94-2.32,3.88-4.05,.83-1.37-.04-1.23-.9-1.83,.75-1.13,.96,1.32,5.43,1.32,6.55,3.16,9.95,2.6,4.23-.41,4.47,2.37,3.1,3.06,3.64,1.58,.04,1.4-2.45,4.14-.57,2.16,2.06,.92,4.25,3.61,1.28-.4,1.93-3.92,2.33-.45,4.06,1.2,4.14-1.16,4.15-.16,6.92,1.24,3.84,.21,10.1,1.96,3.03-1.34,3.34-3.26,12.37-6.59,4.01-.8,3.3-1.26,6.54,.08,2.38-1.27,9.56-3.15,7.03-3.9,6.55-1.22,3.08-3.62,5.72-2.7,4.74-1.61,2.21-1.49,3.67,.15,2.29-.9,9.07,1.65,5.68,.44,5.13,1.91,4.39,2.36,7.09,2.95,6.72,6.95h0l.13,3.83,1.57,7.16-.46,1.96-1,.7-6.05,.77-.7,.98,.72,3.88,1.35,1.4,1.8-.32,4.6-3.34,1.27,.48,.45,1.11-.38,9.96-1.67,8.29-1.88,5.64-2.46,3.48-3.8,4.2-6.39,4.32-9.83,5.1-9.79,1.8-10.35,.43-3.13,.57-1,1.04-4.35,1.98-1.75,1.6-2.08,3.13-1.22,2.94-2.89,4.09-.44,3.65,.6,4.49,1.51,2.22,4.32,4.38,1.5,2.61,4.39,3.5,.09,1.21-2.45,5.68-2.61,2.52-4.28,5.64-2.62,4.49-2.88,8.11-1.77,7.54-.44,5.59,7.58,9.55,13.6,13.53h0l-6.88-.07-11.94,.78-7.57-.68-15.59-.08-11.47-1.54-5.01-2.15-9.03-6.14-3.15-.15-13.93,1.69-5.27-.23-5.79-3.59-7.47-2.37Z"/>
+                                                <path id="SY-RA" class="cls-1 land"
+                                                      d="M262.34,231.49l-1.61-2.56-5.06-3.87h0l-13.6-13.53-7.58-9.55,.44-5.59,1.77-7.54,2.88-8.11,2.62-4.49,4.28-5.64,2.61-2.52,2.45-5.68-.09-1.21-4.39-3.5-1.5-2.61-4.32-4.38-1.51-2.22-.6-4.49,.44-3.65,2.89-4.09,1.22-2.94,2.08-3.13,1.75-1.6,4.35-1.98,1-1.04,3.13-.57,10.35-.43,9.79-1.8,9.83-5.1,6.39-4.32,3.8-4.2,2.46-3.48,1.88-5.64,1.67-8.29,.38-9.96-.45-1.11-1.27-.48-4.6,3.34-1.8,.32-1.35-1.4-.72-3.88,.7-.98,6.05-.77,1-.7,.46-1.96-1.57-7.16-.13-3.83h0l9.26,8.76,5.43,1.39,14.29,.31,10.36-.63,6.61,.8,14.33,4,11.98-2.9,9.58-.63h0l.34,1.68,1.76,3.59,.79,3.34,5.8,7.51,1.84,1.12,2.19,.35,5.67-1.2,4.64,2.18,7.76,2.82,1.92,1.09,2.8,2.4,.8,1.38,.23,2.06h0l-20.33,81.13,1.32,.15,2.78,1.91,1.74,.39-45.24,61.78h0l-11.79-4.57-10.68-1.96-12.3-4.19-21.71-4.39-16.21-1.94-6.82-.37h-8.59s-7.05,.92-7.05,.92Z"/>
+                                                <path id="SY-LA" class="cls-1 land"
+                                                      d="M17.15,221.57l-7.25-5.92-2.59-.78-.78,1.29-.83-.98-.79-.23-.33-.44,.36-1.09,.11,.1-.27,1.06,.63-.76,.28-1.26-.4-.27,.67-1.02-.95-.36-.13-.77-.51,.26-.03-.92-.32,.19-1.42-.87v-.47s-.58,0-.58,0l1.32-1.49-.34-1.03-.67-.24-1.51,.62-.41-.79,1.21,.04,1.34-.92,.14,.4,.7,.11,.24-.6,.65,.07,.63-2.02,.57-.23,.1,.54,.44-.07-.29-1.1,.51-.06,.79-1.86-.44-.44-.23-1.7-.98-.63,.09-1.73,1.32-1.29,1.75-.38,.16-.8,.68-.46-.12-.57,1.02-.5,.3-.83,1.25-.43,.44-2.72,1.11-.6-.56-5-.88-1.13,.02-1.31-.91-.9-.03-1.9-1.34-.88,.57-1.56-1.15-.37,.04-.41,.79,.14,.56-.46,.39,.6,.73-.16,.36,.54,1.75-.09,1.96-1.85,.84-.03,.72-.93,.82-3.53,.49-.3,.25-1.1,.52-.73,1.86-.89,.09-.43,1.73,1.66,6.72-2.63,.7,.07,1.44,1.91-.89,4.15,.36,1.06,3.17,.26,6.72,1.68,1.77,1.24,1.37,2.6h0l.52,2.6-.48,1.71,.29,.77,1.11,.64,6.88-1.09,3.95-.17,1.71,.58,.24,.8-.54,1.77-3.01,1.8h0l-1.2,.47-.76,.95,.05,3.3-.42,1.4-.84,.88-2.21,.52-.73,1.63,1.99,3.37,.69,5.4-.52,8.2-2.29,12.96,1.07,4.61,1.23,2.49,.03,2.89,2.31,8.99,.21,5.55h0l-4.46-2.36-4.57,1.97-10.01,.22-3.49,.82-.89-.2-4.82-3.77-1.57-.77-2.58-.19h0l-.3-.62-.59,.04-.34-1.72,.29-2.06-.3-.96,.35-.69-.42-.27,.38-2.28-.31-.16-.12-5.63,.4-.36-.94-3.72,.42-.6-1.12-1.93-1.96-2.14Z"/>
+                                                <path id="SY-HM" class="cls-1 land"
+                                                      d="M55.45,185.35l.67,1.21,1.93,1.01,1.91-.06,2.19-1.11,1.49,.34,1.06,3.11,.75,.44,5.14,.1,.81,.38,.05,3.29-2.53,11.66v1.43s.73,1.9,.73,1.9l-.23,2.03,.56,3.39-1.1,1.68,1.66,3.14,1.03,4.11,1.11,1.11,2.66-.48,2.76-1.67,3.07,1.55,1.15,2.56,.97,.74,4.03,.06,6.68,1.87,3.23,.32,4.34-.27,2.59-1.24,8.83-1.7,3.81,3.02,.84,1.83,1.78,1.1,.85,1.33,1.16-.49,2.52,.02,.74-.36,1.3-2.87,2.4-2.14,1.57-2.5,.48-.04,1.12,1.57,.28,1.75-.22,1.52-1.23,2.39,.63,5.3,1.62,.77,5.84-.19,1.17-.46,1.13-1.85,1.2-1.05,.77-.29,1.77,.68,.2-.27,.04-5.33-.66-1.92-1.24-.28-2.28,2.93-1.44,.09-1.06-.7,.07-1.96,1.68-2.4,1.08-3.18,.81-.9,3.32-.94,1.33-.88,1.07-1.26,2.01-3.94,.89-2.81,2.24-1h0l7.47,2.37,5.79,3.59,5.27,.23,13.93-1.69,3.15,.15,9.03,6.14,5.01,2.15,11.47,1.54,15.59,.08,7.57,.68,11.94-.78,6.88,.07h0l5.06,3.87,1.61,2.56h0l.09,8.28-.62,7.61-1.74,4.28-3.36,4.81-.91,2.08-.51,3.04,.48,4.92-7.1,2.52-8.21,3.64-1.65,1.11-2.5,2.53-.26,1.71-2.12,3.55-.1,2.5-.94,2.14-2.01,2.16-1.14,.52-.98-.43-5.01-6.73-7.86-6.53-1.06-5.62-2.25-3.45-3.96-.68-2.56-2.43-1.4-.57-3.31,.47-10.35,3.07-3.11,.19-6.38,3.97-1.33,2.04-.27,5.21,.58,2.35-1.07,1.21-1.37-.18-1.65-2.45-.72-.4h-5.47s-1.77,1.3-1.77,1.3l-1.07,.29-3.36-1.44-.92,.76-.23,1.84-1.88-.57-2.01,.21-.72,2.07-1.24,1.28-.66,2.13-1.69,1.37-2.8-1.04-1.92-2.98-2.08-.34-2.84,1.07-.98,2.66-2.98-1.73h-1.44s-1.82,2.13-1.82,2.13l-3.36,.43-7.09,5.16-1.29-.24-.38-2.28-1.63-1.95-.53-1.88-1.98-2.69-1.18-3.4-1.86-1.2-1.5-.31-1.38,.02-2.37,1.51-2.65,.15-2.09,1.76-3.77-.22-1.37,.62-1.12-.47-1.86,1.5-1.98,.22-2.56,1-2.26,1.53-3.13,.37-2.12-.91-.74,.09-2.85,1.6-1.02,.12-1.34-.31-.56-2.11-1.88-.54,.88-1.87-.12-.89-1.26-.7-.99,.06-1.23,.74-1.23,2.37-2.28,1.6-.44,1.25,.13,1.67-1.09,.88-.1,2.01-1.13,.78-.24,.89-.64,.49-1.81-1.2h-1.35s-.94-1.53-.94-1.53l-.69-.4-1.14,.49-1.76,2.13-.87,.06-.55-2.51-2.35-.71,1.52-1.53-.78-1.39h0l-.87-1.3-3-2.12-1.75-4.97-5.94,.72-4.76-.75-.97-.71-.54-1.55,.14-1.45,.6-.55,2.87,.28,1.68-1.04,1.86-.28,.5-.59,1.99-.1,2.7-2.31,.15-1.85,1.03-2.5-.8-5.73-.36-11.44h0l-.21-5.55-2.31-8.99-.03-2.89-1.23-2.49-1.07-4.61,2.29-12.96,.52-8.2-.69-5.4-1.99-3.37,.73-1.63,2.21-.52,.84-.88,.42-1.4-.05-3.3,.76-.95,1.2-.47Z"/>
+                                                <path id="SY-HI" class="cls-1 homsmap land colored active"
+                                                      onclick="selectDataset(0);"
+                                                      d="M429.13,403.11l-51.62,27.85-68.48,37.84-49.51,28.92h0l-4.42-4.19-9.05-6.5-7.11-5.93-7.54-5.29-9.51-8.9-10.47-7.09-8.8-2.56-3.8-2.26-7.06-5.4-1.89-2.01-4.23-6-2.04-5.82-1.73-3.59-4.96-4.93-7.51-5.59-6.78-7.19-3.46-2.3-2.85-4.41-3.45-6.99-.86-.79-4.35,.26-1.96-.53-13.45-7.88-2.86-3.67-5.44-9.4-9.67-11.77-2.52,.51-6,2.84-5.55-.21-4.28-2.09-3.5,.1-1.82,1.02h0l-2.66-1.26-.75-1.34-.81-4.1,.49-1.13,1.5-1.58-.18-1.78-3.53-1.23-2.91-6.74,.2-1.19,2.43-2.99-.61-1.36-3.63-1.47-.84-1.79-3.82-1.92-1.62-2.88-.3-1.77-3.22,.17-1.2,.83-2.89-1.05-1.51,.98-1.96-.85-.82-1.31,.51-1.46,4.89-2.06,1.43-1.02,.38-.9-.52-2.1,1.45-3.8,.79,.08,1.52,1.82,1.72-.15,.85-4.28-1.08-.22-2.22,1.14-1.89-.31-3.72-2.35-1.97-1.89,.08-1.03-1.82-2.42-1.44-.27-1,1.1-.59,3.51-2.29,1.99-1.8,.21-2.67-.55-1.82,.74-2.53-1.47-3.02,.77-4.15-1.14-2.45,.52h0l.37-2.51,3.16-5.46,3.18-4.32,.84-2.46,1.37-.88,1.23-2.36,2.19-.91,.96-1.8,3.53-2.91-.08-3.62,.71-1.78,3.48-1.62h0l.78,1.39-1.52,1.53,2.35,.71,.55,2.51,.87-.06,1.76-2.13,1.14-.49,.69,.4,.94,1.52h1.35s1.81,1.21,1.81,1.21l.64-.49,.24-.89,1.13-.78,.1-2.01,1.09-.88-.13-1.67,.44-1.25,2.28-1.6,1.23-2.37,1.23-.74,.99-.06,1.26,.7,.12,.89-.88,1.87,1.88,.54,.56,2.11,1.34,.31,1.02-.12,2.85-1.6,.74-.09,2.12,.91,3.13-.37,2.26-1.53,2.56-1,1.98-.22,1.86-1.5,1.12,.47,1.37-.62,3.77,.22,2.09-1.76,2.65-.15,2.37-1.51,1.38-.02,1.5,.31,1.86,1.2,1.18,3.4,1.98,2.69,.53,1.88,1.63,1.95,.38,2.28,1.29,.24,7.09-5.16,3.36-.43,1.82-2.14h1.44s2.98,1.74,2.98,1.74l.98-2.66,2.84-1.07,2.08,.34,1.92,2.98,2.8,1.04,1.69-1.37,.66-2.13,1.24-1.28,.72-2.07,2.01-.21,1.88,.57,.23-1.84,.92-.76,3.36,1.44,1.07-.29,1.77-1.3h5.47s.72,.41,.72,.41l1.65,2.45,1.37,.18,1.07-1.21-.58-2.35,.27-5.21,1.33-2.04,6.38-3.97,3.11-.19,10.35-3.07,3.31-.47,1.4,.57,2.56,2.43,3.96,.68,2.25,3.45,1.06,5.62,7.86,6.53,5.01,6.73,.98,.43,1.14-.52,2.01-2.16,.94-2.14,.1-2.5,2.12-3.55,.26-1.71,2.5-2.53,1.65-1.11,8.21-3.64,7.1-2.52-.48-4.92,.51-3.04,.91-2.08,3.36-4.81,1.74-4.28,.62-7.61-.09-8.28h0l7.05-.91h8.59s6.82,.36,6.82,.36l16.21,1.94,21.71,4.39,12.3,4.19,10.68,1.96,11.79,4.57h0l5.15,3.39,6.67,5.67,8.14,17.14-1.24,9.45,56.12,79.71,18.9,27.9h0l-22.1,11.83Z"/>
+                                                <path id="SY-TA" class="cls-1 land"
+                                                      d="M20.54,306.74l-.51-5.86-4.11-9.77-1.05-3.6-1.51-.41-.4-1.16,.52,1.06,1.18,.21-.39-.26-.29-.1,.32-.39-.48-.1,.46-.25-.45-.21,1.74-1.18-.07-3.98-.7-1.72,.45,.33,.28-2.8,1.6-1.21,.52-.99-.49-3.93-.7-1.42,.03-1.46,.71-1.77-.42-3.21,.55-.26,.33-1.16,.99-.15,1.16-3.44,.65-.12,.5-.72-.33-1.98,.81-.92,1.96-.98,.26-.59-.43-3.97-1.49-3.56h0l2.58,.19,1.57,.77,4.82,3.77,.89,.2,3.49-.81,10.01-.22,4.57-1.98,4.46,2.37h0l.37,11.44,.8,5.72-1.03,2.5-.15,1.85-2.7,2.31-1.99,.1-.5,.59-1.86,.28-1.68,1.05-2.87-.29-.61,.56-.14,1.45,.54,1.56,.97,.7,4.76,.76,5.94-.72,1.76,4.97,3,2.12,.87,1.31h0l-3.48,1.62-.71,1.78,.08,3.62-3.52,2.91-.97,1.8-2.19,.92-1.23,2.36-1.36,.87-.84,2.47-3.18,4.32-3.16,5.47-.37,2.5h0l-2.84,.74-1.98-.32-2.89,.24-1.66-1.5-2.27-.21-.51-.59-1.27,1.2-.11-.39-.89,.47-3.68-10.79Z"/>
+                                                <path id="SY-DI" class="cls-1 damasmap land colored"
+                                                      onclick="selectDataset(1);"
+                                                      d="M56.85,450.39l-.96-2.3-1.68-1.77v-4.27s1.36-.83,1.36-.83l10.13,.39-.26,9.36-7.15,.16-1.44-.73Z"/>
+                                                <path id="SY-QU" class="cls-1 land"
+                                                      d="M11.34,473.59l2.24,1.28,.13,.39-1.1,1.62,3.38,3.35,4.18,.51,.38,.94-.34,4.55h0l-1.11,5.25,.19,.59,2.38,1.7,.35,1.22-2.98,5.46-.81,6.29,2.26,4.39,1.57,1.91,.32,2.29-.55,.74-1.57-1.88-3.39,.33-.19,.87,.9,1.75,.06,2.93-3,2.69h0l.89-2.52-2.05-3.18-.73-7.73-.49-1.66,.36-3.65-.48-2.04,.69-.94,2.02,.54,1.69-.43,.03-.78-1.34-1.9,1.85-1.86,.29-3.04-2.08-2.99-2.99-.8-.18-1.26,1.26-1.56,.62-1.87-.74-3.74-3.18-3.57,1.21-1.91,.04-2.29Z"/>
+                                                <path id="SY-DR" class="cls-1 land"
+                                                      d="M60.94,579l-4.28-4.32-13.11-9.97-2.79,1.14-4.51-.67-2.36,.08-2.03,.58-.58-3.61-1.36-3.09-3.54-3.64,.52-4.08-.27-1.37-1.66-.89-2.65,.04-2.04-1.13,.99-1.25v-1s-.81-.73-.81-.73l-1.2-.03-1.12-.74-.63-1.66-.83-.75-1.67,.23-1.94-.33-2.3-1.27h-1.68s-2.74,.74-2.74,.74l-1.49-.66-.32-.57-.96,.12-.31-.5,.44-1.21,3.24-3.52,2.57-4.28,1.68-1.69,3.44-6.22h0l3-2.69-.06-2.93-.9-1.75,.19-.87,3.39-.33,1.57,1.88,.55-.74-.32-2.29-1.57-1.91-2.26-4.39,.81-6.29,2.98-5.46-.35-1.22-2.38-1.7-.19-.59,1.11-5.25h0l2.58,.99,1,1.94,2.7,.32,1.7-.47,2.8-2.15,1.76-.7,5.6,.49,3.61-1.56,3.11-.46,.59-.48,1.47-3.16-.52-2.65,.2-1.13,1.31-.83,1.88,2.43,1.97,1.31,.61,2.3,3.14,.73,.99,1.68,2.03,1.76,3.61,.84,1.06-.61,.7-2.61,2.01-1.83,6.3-3.84,1.87-1.96,1.56-.63,.86,.75,1.27,3.24,3.46,3.87,.58,3.94h0l-1.35,1.12-.93,.18-3.92-.6-2.89,2.08-1.22,2.35,.45,1.68-.36,2.1,1.35,3.69,.22,3.16,.94,.65,2.1-.63,1.3,.27,.36,3.55,1.1,2.62-1.33,.31-6.22-.46-3.33,.2-2.43,.85-4.24,3.39-3.11,1.81-.36,1.22,.58,1.78-1.18,2.88,.86,4.38,1.83,3.49-1.17,2.38,.43,4.24,1.1,3.41-.19,.64-.99,.38-.26,.58,.14,3.27,.83,.78,3.4,.95,3.99,.45,1.19,1.51-.46,2.21-2.63,2-2.38,.91-.12,.64,1,1.9-.92,2.81,1.06,.55,1.81,.17,3.44-.26,1.56,1.43,1.95-.21,1.09,.81,.27,.77-.05,.93-1.27,1.47-.3,1.05,3.01,3.61,.34,.96-1.21,5.82,.46,3.97-.92,4.75h0l-1.02-.28-2.31-1.66-7.14-1.07-3.01-2.7Z"/>
+                                                <path id="SY-SU" class="cls-1 land"
+                                                      d="M82.02,487.76l.27,.32,.97-.41,15.95-1.7,6.49-1.77,1.89,.21,3.28,2.99,3.21,1.7,1.27,1.39,.8,2.92,4.15,4.26,.59,3.35,1.38,1.59,1.68,.78,6.07,.63,3.13,1.28,2.68,1.95,.12,2.46,2.43,3.2,.45,1.39,2.71,1.12,2.32,1.52,1.49,.24,2.63-1.71,2.51,1.05,2.1,2.75,.67,6.7,.96,1.72,8.75,8.41,2.9,2.27,2.34,3.01,3.62,2.11,3.54,4.19h0l-55.92,33.43-6.87,4.86-4.49,4.08-2.08,.19-8.77-2.56-2.57,.8-2.12-1.62-2.19-.38-15.9-1.76h0l.92-4.75-.46-3.97,1.21-5.82-.34-.96-3.01-3.61,.3-1.05,1.27-1.47,.05-.93-.27-.77-1.09-.81-1.95,.21-1.56-1.43-3.44,.26-1.81-.17-1.06-.55,.92-2.81-1-1.9,.12-.64,2.38-.91,2.63-2,.46-2.21-1.19-1.51-3.99-.45-3.4-.95-.83-.78-.14-3.27,.26-.58,.99-.38,.19-.64-1.1-3.41-.43-4.24,1.17-2.38-1.83-3.49-.86-4.38,1.18-2.88-.58-1.78,.36-1.22,3.11-1.81,4.24-3.39,2.43-.85,3.33-.2,6.22,.46,1.33-.31-1.1-2.62-.36-3.55-1.3-.27-2.1,.63-.94-.65-.22-3.16-1.35-3.69,.36-2.1-.45-1.68,1.22-2.35,2.89-2.08,3.92,.6,.93-.18,1.35-1.12Z"/>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                            {{--<div id="homsstart" class="date position-absolute">20<br>1<span class="anim">8</span></div>--}}
+                            {{--<div id="damasstart" class="date position-absolute">20<br>1<span class="anim">9</span></div>--}}
+                            {{--<div id="aleppostart" class="date position-absolute">20<br><span class="anim">22</span></div>--}}
+
+                        </div>
+                        <div class="col-lg-5 col-md-6 col-sm-4 col-12 position-relative">
+                            @if($statistics[0]->adisc_applied_students != null || $statistics[0]->adisc_completed_students != null || $statistics[0]->adisc_employed_students
+                            || $statistics[0]->hdisc_applied_students != null || $statistics[0]->hdisc_completed_students != null || $statistics[0]->hdisc_employed_students
+                            || $statistics[0]->ddisc_applied_students != null || $statistics[0]->ddisc_completed_students != null || $statistics[0]->ddisc_employed_students
+                            )
+                                <div class="row">
+                                    <div class="sub-statistics-title homscity">Number of DISC students in HOMS</div>
+                                    <div class="sub-statistics-title damascity">Number of DISC students in DAMASCUS
+                                    </div>
+                                    <div class="sub-statistics-title aleppocity">Number of DISC students in ALEPPO</div>
+                                </div>
+                                <div id="chartDisc"></div>
+                            {{--@else--}}
+                                {{--<div class="row">--}}
+                                    {{--<div class="sub-statistics-title homscity">No data available</div>--}}
+                                    {{--<div class="sub-statistics-title damascity">No data available</div>--}}
+                                    {{--<div class="sub-statistics-title aleppocity">No data available</div>--}}
+                                {{--</div>--}}
+                            @endif
+                            {{--<div class="grid">--}}
+                            {{--</div>--}}
+                        </div>
+                    </div>
+                    {{--<div class="row d-flex justify-content-center align-items-center">--}}
+                    {{--<div class="col-lg-3 col-md-3 col-sm-3 col-12">--}}
+                    <div id="homsstart" class="date position-relative">
+                        <div class="row">
+                            <div class="col text-end">
+                                <div class="start-date">
+                                    Start Date
+                                </div>
+                                201<span class="anim">8</span>
+                            </div>
+                            <div class="col d-flex">
+                                <img class="statis-logo" src="/images/logos/HDISC1.svg">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="damasstart" class="date position-relative">
+                        <div class="row">
+                            <div class="col text-end">
+                                <div class="start-date">
+                                    Start Date
+                                </div>
+                                201<span class="anim">9</span>
+                            </div>
+                            <div class="col d-flex">
+                                <img class="statis-logo" src="/images/logos/DDISC1.svg">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="aleppostart" class="date position-relative">
+                        <div class="row">
+                            <div class="col text-end">
+                                <div class="start-date">
+                                    Start Date
+                                </div>
+                                20<span class="anim">22</span>
+                            </div>
+                            <div class="col d-flex">
+                                <img class="statis-logo" src="/images/logos/ADISC1.svg">
+                            </div>
+                        </div>
+                    </div>
+                    {{--</div>--}}
+                    {{--</div>--}}
+                </div>
+            </div>
+
+            {{--</div>--}}
+        </div>
+    </div>
+    <div class="horizontal-line mt-3" data-aos="fade-up" data-aos-duration="800"></div>
+    <div id="initiative-section" class="section-space">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center flex-column align-items-center mb-2" data-aos="fade-up"
+                     data-aos-duration="600">
+                    <div class="section-title mt-3">@lang('studyzone.activities')</div>
+                    {{--<div class="search-container d-flex justify-content-center align-items-center">--}}
+                    {{--<div class="se d-flex align-items-center">--}}
+                    {{--<button id="switch-search" onclick="searchFilter()">--}}
+                    {{--<img id="search-icon" class="search-icons" src="/images/ico/search-blue-icon.png">--}}
+                    {{--</button>--}}
+                    {{--<input id="search-input" type="text" placeholder="Search Activities"--}}
+                    {{--name="search">--}}
+                    {{--</div>--}}
+                    {{--</div>--}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="small horizontal-line" data-aos="fade-up" data-aos-duration="800" style="z-index: -1;"></div>
+    <div data-aos="fade-up" data-aos-duration="800">
+        <ul class="nav nav-tabs d-lg-flex d-md-flex d-sm-flex d-block position-relative" id="tabList"
+            role="tablist">
+            <li class="nav-item" role="presentation">
+                <button id="aleppoTab" class="aleppoTab active nav-link" data-bs-toggle="tab"
+                        data-bs-target="#aleppo"
+                        role="tab" aria-controls="aleppo" aria-selected="false">@lang('projects.aleppo')
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button id="homsTab" class="homsTab  nav-link" data-bs-toggle="tab" data-bs-target="#homs"
+                        role="tab" aria-controls="homs" aria-selected="true">@lang('projects.homs')
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button id="damasTab" class="damasTab nav-link" data-bs-toggle="tab" data-bs-target="#damas"
+                        role="tab" aria-controls="damas" aria-selected="false">@lang('projects.damascus')
+                </button>
+            </li>
+        </ul>
+        <div style="height: 3vw; background: white; position: relative"></div>
+        @if($agent->isPhone())
+            <div class="tab-content position-relative" id="myTabContent">
+                <div class="tab-pane fade show active" id="aleppo" role="tabpanel" aria-labelledby="aleppoTab"
+                     tabindex="1">
+                    @if(count($ini_A)==0)
+                        <div class="card-height">
+                            <div class="single-card">
+                                <div class="row">
+                                    <div class="col-12 d-flex justify-content-end flex-column pe-1 sorry-message">
+                                        <div class="text-center">
+                                            No Activities Yet
+                                        </div>
+                                        {{--                                        <div>@lang('projects.sorryMessage2')</div>--}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    @foreach($ini_A as $i=>$initiative)
+                        <div class="card-height">
+                            <div class="single-card">
+                                <div class="row">
+                                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 d-flex justify-content-end pe-lg-0 pd-md-0 pe-sm-0">
+                                        <div id="carousel-ini{{$initiative->id}}"
+                                             class="carousel slide w-100 project-carousel"
+                                             data-bs-ride="carousel"
+                                             data-interval="1000">
+                                            <div class="carousel-inner project-carousel">
+                                                <?php $k = 0 ?>
+                                                @foreach($initiative->ImagesRandom as $image)
+                                                    <div class="carousel-item @if($k++ == 0) active @endif">
+                                                        <a href="{{substr($image->path, 0, -4).'b.jpg'}}"
+                                                           data-fancybox="gallery-Cu-{{$initiative->id}}"
+                                                           data-caption="{{ ucfirst($initiative->$language->title) }}">
+                                                            <img class="w-100 h-100 d-block" src="{{$image->path}}"
+                                                                 style="object-fit: cover"/></a>
+                                                    </div>
+                                                @endforeach
+                                                {{--<div class="carousel-item active">--}}
+                                                {{--<img class="w-100"--}}
+                                                {{--src="{{$initiative->ImagesRandom[0]['path']}}">--}}
+                                                {{--</div>--}}
+                                                {{--<div class="carousel-item">--}}
+                                                {{--<img class="w-100"--}}
+                                                {{--src="{{$initiative->ImagesRandom[1]['path']}}">--}}
+                                                {{--</div>--}}
+                                                {{--@if(count($initiative->ImagesRandom) > 2)--}}
+                                                {{--<div class="carousel-item">--}}
+                                                {{--<img class="w-100"--}}
+                                                {{--src="{{$initiative->ImagesRandom[2]['path']}}">--}}
+                                                {{--</div>--}}
+                                                {{--@endif--}}
+                                            </div>
+                                            <button class="carousel-control-prev"
+                                                    data-bs-target="#carousel-ini{{$initiative->id}}"
+                                                    data-bs-slide="prev">
+                                                        <span class="carousel-control-prev-icon"
+                                                              aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next"
+                                                    data-bs-target="#carousel-ini{{$initiative->id}}"
+                                                    data-bs-slide="next">
+                                                        <span class="carousel-control-next-icon"
+                                                              aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 position-relative">
+                                        <div class="row d-flex align-items-center" style="margin-top: 1vw">
+                                            <div class="col-10">
+                                                <div class="card-title">{{$initiative->$language->title}}</div>
+                                            </div>
+                                            <div class="col-2 text-end">
+                                                @if($initiative->video !== '0')
+                                                    {{--<a href="#" class="launch-modal"--}}
+                                                    {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
+                                                    {{----}}
+                                                    {{--</a>--}}
+                                                    <a href="{{$initiative->video}}" class="launch-modal"
+                                                       id="iniVideo-{{$initiative->id}}"
+                                                       data-fancybox="iniVideo-{{$initiative->id}}">
+                                                        <img class="video-icon"
+                                                             src="/images/ico/video-ini-icon.svg">
+                                                    </a>
+                                                @endif
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="card-title-section"></div>
+                                            </div>
+                                        </div>
+                                        <div class="card-content">
+                                            @if($initiative->$language->date_string !== '0')
+                                                <div>
+                                                    <strong>Date: </strong>{{$initiative->$language->date_string}}
+                                                </div>
+                                            @endif
+                                            {{--@if($initiative->donors[0]['name'] !== '')--}}
+                                            {{--<div><strong>Funded By: </strong>{{$initiative->donors[0]['name']}}--}}
+                                            {{--</div>--}}
+                                            {{--@endif--}}
+                                            @if($initiative->$language->organization !== '0')
+                                                <strong> @lang('initiatives.by') {{$initiative->$language->organization}}</strong>
+                                            @endif
+                                            @if($initiative->$language->date_string !== '0' || $initiative->$language->organization !== '0')
+                                                <div><br></div>
+                                            @endif
+                                            @if(strlen($initiative->$language->content)>30)
+                                                <div>{!!implode(' ', array_slice(explode(' ', strip_tags($initiative->$language->content)), 0, 30)).'...'!!}</div>
+                                            @endif
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col d-flex justify-content-end">
+                                                @if(isset($subWhatCategory))
+                                                    <a href="{{ route($route, [
+                                                str_slug(strtolower($subWhatCategory->name)),
+                                                $initiative->id,
+                                                str_slug(strtolower($initiative->english->title))
+                                        ]) }}"
+                                                       class="readmore-btn">@lang('main.readMore')
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('new.public.initiative',
+                                [str_slug(strtolower($whatCategory->name)),
+                                $initiative->id,
+                                str_slug(strtolower($initiative->english->title))]   ) }}"
+                                                       class="readmore-btn">@lang('main.readMore')</a>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    @if(strlen($ini_A)>5)
+                        <div class="small horizontal-line" data-aos="fade-up" data-aos-duration="300"></div>
+                        <div class="text-center" data-aos="fade-up" data-aos-duration="300">
+                            {{$ini_A->withQueryString(['ini_A' => $ini_A->currentPage()])->links()}}
+                        </div>
+                    @endif
+
+                    {{--<div class="small horizontal-line"></div>--}}
+                </div>
+                <div class="tab-pane fade show " id="homs" role="tabpanel" aria-labelledby="homsTab" tabindex="0">
+                    @if(count($ini_H)==0)
+                        <div class="card-height">
+                            <div class="single-card">
+                                <div class="row">
+                                    <div class="col-12 d-flex justify-content-end flex-column pe-1 sorry-message">
+                                        <div class="text-center">
+                                            Sorry, we couldn't find any results
+                                        </div>
+                                        <div>@lang('projects.sorryMessage2')</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    @foreach($ini_H as $i=>$initiative)
+                        <div class="card-height">
+                            <div class="single-card">
+                                <div class="row">
+                                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 d-flex justify-content-end pe-lg-0 pd-md-0 pe-sm-0">
+                                        <div id="carousel-ini{{$initiative->id}}"
+                                             class="carousel slide w-100 project-carousel"
+                                             data-bs-ride="carousel"
+                                             data-interval="1000">
+                                            <div class="carousel-inner project-carousel">
+                                                <?php $k = 0 ?>
+                                                @foreach($initiative->ImagesRandom as $image)
+                                                    <div class="carousel-item @if($k++ == 0) active @endif">
+                                                        <a href="{{substr($image->path, 0, -4).'b.jpg'}}"
+                                                           data-fancybox="gallery-Cu-{{$initiative->id}}"
+                                                           data-caption="{{ ucfirst($initiative->$language->title) }}">
+                                                            <img class="w-100 h-100 d-block"
+                                                                 src="{{$image->path}}"
+                                                                 style="object-fit: cover"/></a>
+                                                    </div>
+                                                @endforeach
+                                                {{--<div class="carousel-item active">--}}
+                                                {{--<img class="w-100"--}}
+                                                {{--src="{{$initiative->ImagesRandom[0]['path']}}">--}}
+                                                {{--</div>--}}
+                                                {{--<div class="carousel-item">--}}
+                                                {{--<img class="w-100"--}}
+                                                {{--src="{{$initiative->ImagesRandom[1]['path']}}">--}}
+                                                {{--</div>--}}
+                                                {{--@if(count($initiative->ImagesRandom) > 2)--}}
+                                                {{--<div class="carousel-item">--}}
+                                                {{--<img class="w-100"--}}
+                                                {{--src="{{$initiative->ImagesRandom[2]['path']}}">--}}
+                                                {{--</div>--}}
+                                                {{--@endif--}}
+                                            </div>
+                                            <button class="carousel-control-prev"
+                                                    data-bs-target="#carousel-ini{{$initiative->id}}"
+                                                    data-bs-slide="prev">
+                                                        <span class="carousel-control-prev-icon"
+                                                              aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next"
+                                                    data-bs-target="#carousel-ini{{$initiative->id}}"
+                                                    data-bs-slide="next">
+                                                        <span class="carousel-control-next-icon"
+                                                              aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 position-relative">
+                                        <div class="row d-flex align-items-center" style="margin-top: 1vw">
+                                            <div class="col-10">
+                                                <div class="card-title">{{$initiative->$language->title}}</div>
+                                            </div>
+                                            <div class="col-2 text-end">
+                                                @if($initiative->video !== '0')
+                                                    {{--<a href="#" class="launch-modal"--}}
+                                                    {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
+                                                    {{----}}
+                                                    {{--</a>--}}
+                                                    <a href="{{$initiative->video}}" class="launch-modal"
+                                                       id="iniVideo-{{$initiative->id}}"
+                                                       data-fancybox="iniVideo-{{$initiative->id}}">
+                                                        <img class="video-icon"
+                                                             src="/images/ico/video-ini-icon.svg">
+                                                    </a>
+                                                @endif
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="card-title-section"></div>
+                                            </div>
+                                        </div>
+                                        <div class="card-content">
+                                            @if($initiative->$language->date_string !== '0')
+                                                <div>
+                                                    <strong>Date: </strong>{{$initiative->$language->date_string}}
+                                                </div>
+                                            @endif
+                                            {{--@if($initiative->donors[0]['name'] !== '')--}}
+                                            {{--<div><strong>Funded By: </strong>{{$initiative->donors[0]['name']}}--}}
+                                            {{--</div>--}}
+                                            {{--@endif--}}
+                                            @if($initiative->$language->organization !== '0')
+                                                <strong> @lang('initiatives.by') {{$initiative->$language->organization}}</strong>
+                                            @endif
+                                            @if($initiative->$language->date_string !== '0' || $initiative->$language->organization !== '0')
+                                                <div><br></div>
+                                            @endif
+                                            @if(strlen($initiative->$language->content)>30)
+                                                <div>{!!implode(' ', array_slice(explode(' ', strip_tags($initiative->$language->content)), 0, 30)).'...'!!}</div>
+                                            @endif
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col d-flex justify-content-end">
+                                                @if(isset($subWhatCategory))
+                                                    <a href="{{ route($route, [
+                                                str_slug(strtolower($subWhatCategory->name)),
+                                                $initiative->id,
+                                                str_slug(strtolower($initiative->english->title))
+                                        ]) }}"
+                                                       class="readmore-btn">@lang('main.readMore')
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('new.public.initiative',
+                                [str_slug(strtolower($whatCategory->name)),
+                                $initiative->id,
+                                str_slug(strtolower($initiative->english->title))]   ) }}"
+                                                       class="readmore-btn">@lang('main.readMore')</a>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    @if(strlen($ini_H)>5)
+                        <div class="small horizontal-line" data-aos="fade-up" data-aos-duration="600"></div>
+                        <div class="text-center" data-aos="fade-up" data-aos-duration="800">
+                            {{$ini_H->withQueryString(['ini_H' => $ini_H->currentPage()])->links()}}
+                        </div>
+                    @endif
+                </div>
+                <div class="tab-pane fade show" id="damas" role="tabpanel" aria-labelledby="damasTab" tabindex="1">
+                    @if(count($ini_D)==0)
+                        <div class="card-height">
+                            <div class="single-card">
+                                <div class="row">
+                                    <div class="col-12 d-flex justify-content-end flex-column pe-1 sorry-message">
+                                        <div class="text-center">
+                                            Sorry, we couldn't find any results
+                                        </div>
+                                        <div>@lang('projects.sorryMessage2')</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    @foreach($ini_D as $i=>$initiative)
+                        <div class="card-height">
+                            <div class="single-card">
+                                <div class="row">
+                                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 d-flex justify-content-end pe-lg-0 pd-md-0 pe-sm-0">
+                                        <div id="carousel-ini{{$initiative->id}}"
+                                             class="carousel slide w-100 project-carousel"
+                                             data-bs-ride="carousel"
+                                             data-interval="1000">
+                                            <div class="carousel-inner project-carousel">
+                                                <?php $k = 0 ?>
+                                                @foreach($initiative->ImagesRandom as $image)
+                                                    <div class="carousel-item @if($k++ == 0) active @endif">
+                                                        <a href="{{substr($image->path, 0, -4).'b.jpg'}}"
+                                                           data-fancybox="gallery-Cu-{{$initiative->id}}"
+                                                           data-caption="{{ ucfirst($initiative->$language->title) }}">
+                                                            <img class="w-100 h-100 d-block"
+                                                                 src="{{$image->path}}"
+                                                                 style="object-fit: cover"/></a>
+                                                    </div>
+                                                @endforeach
+                                                {{--<div class="carousel-item active">--}}
+                                                {{--<img class="w-100"--}}
+                                                {{--src="{{$initiative->ImagesRandom[0]['path']}}">--}}
+                                                {{--</div>--}}
+                                                {{--<div class="carousel-item">--}}
+                                                {{--<img class="w-100"--}}
+                                                {{--src="{{$initiative->ImagesRandom[1]['path']}}">--}}
+                                                {{--</div>--}}
+                                                {{--@if(count($initiative->ImagesRandom) > 2)--}}
+                                                {{--<div class="carousel-item">--}}
+                                                {{--<img class="w-100"--}}
+                                                {{--src="{{$initiative->ImagesRandom[2]['path']}}">--}}
+                                                {{--</div>--}}
+                                                {{--@endif--}}
+                                            </div>
+                                            <button class="carousel-control-prev"
+                                                    data-bs-target="#carousel-ini{{$initiative->id}}"
+                                                    data-bs-slide="prev">
+                                                        <span class="carousel-control-prev-icon"
+                                                              aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next"
+                                                    data-bs-target="#carousel-ini{{$initiative->id}}"
+                                                    data-bs-slide="next">
+                                                        <span class="carousel-control-next-icon"
+                                                              aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 position-relative">
+                                        <div class="row d-flex align-items-center" style="margin-top: 1vw">
+                                            <div class="col-10">
+                                                <div class="card-title">{{$initiative->$language->title}}</div>
+                                            </div>
+                                            <div class="col-2 text-end">
+                                                @if($initiative->video !== '0')
+                                                    {{--<a href="#" class="launch-modal"--}}
+                                                    {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
+                                                    {{----}}
+                                                    {{--</a>--}}
+                                                    <a href="{{$initiative->video}}" class="launch-modal"
+                                                       id="iniVideo-{{$initiative->id}}"
+                                                       data-fancybox="iniVideo-{{$initiative->id}}">
+                                                        <img class="video-icon"
+                                                             src="/images/ico/video-ini-icon.svg">
+                                                    </a>
+                                                @endif
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="card-title-section"></div>
+                                            </div>
+                                        </div>
+                                        <div class="card-content">
+                                            @if($initiative->$language->date_string !== '0')
+                                                <div>
+                                                    <strong>Date: </strong>{{$initiative->$language->date_string}}
+                                                </div>
+                                            @endif
+                                            {{--@if($initiative->donors[0]['name'] !== '')--}}
+                                            {{--<div><strong>Funded By: </strong>{{$initiative->donors[0]['name']}}--}}
+                                            {{--</div>--}}
+                                            {{--@endif--}}
+                                            @if($initiative->$language->organization !== '0')
+                                                <strong> @lang('initiatives.by') {{$initiative->$language->organization}}</strong>
+                                            @endif
+                                            @if($initiative->$language->date_string !== '0' || $initiative->$language->organization !== '0')
+                                                <div><br></div>
+                                            @endif
+                                            @if(strlen($initiative->$language->content)>30)
+                                                <div>{!!implode(' ', array_slice(explode(' ', strip_tags($initiative->$language->content)), 0, 30)).'...'!!}</div>
+                                            @endif
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col d-flex justify-content-end">
+                                                @if(isset($subWhatCategory))
+                                                    <a href="{{ route($route, [
+                                                str_slug(strtolower($subWhatCategory->name)),
+                                                $initiative->id,
+                                                str_slug(strtolower($initiative->english->title))
+                                        ]) }}"
+                                                       class="readmore-btn">@lang('main.readMore')
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('new.public.initiative',
+                                [str_slug(strtolower($whatCategory->name)),
+                                $initiative->id,
+                                str_slug(strtolower($initiative->english->title))]   ) }}"
+                                                       class="readmore-btn">@lang('main.readMore')</a>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    @if(strlen($ini_D)>5)
+                        <div class="small horizontal-line" data-aos="fade-up" data-aos-duration="600"></div>
+                        <div class="text-center" data-aos="fade-up" data-aos-duration="800">
+                            {{$ini_D->withQueryString(['ini_D' => $ini_D->currentPage()])->links()}}
+                        </div>
+                    @endif
+                    {{--<div class="small horizontal-line" data-aos="fade-up" data-aos-duration="800"></div>--}}
+                </div>
+
+            </div>
+        @else
+            @php
+                $num = 0;
+            @endphp
+            <div class="tab-content position-relative" id="myTabContent">
+                <div class="tab-pane fade show active" id="aleppo" role="tabpanel" aria-labelledby="aleppoTab"
+                     tabindex="1">
+                    @if(count($ini_A)==0)
+                        <div class="card-height">
+                            <div class="single-card">
+                                <div class="row">
+                                    <div class="col-12 d-flex justify-content-end flex-column pe-1 sorry-message">
+                                        <div class="text-center">
+                                            No Activities Yet
+                                        </div>
+                                        {{--<div>@lang('projects.sorryMessage2')</div>--}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    @foreach($ini_A as $i=>$initiative)
+                        <div class="card-height">
+                            <div class="single-card">
+                                <div class="row">
+                                    @if($num %2 ==0)
+                                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 d-flex justify-content-end pe-lg-0 pd-md-0 pe-sm-0">
+                                            <div id="carousel-ini{{$initiative->id}}"
+                                                 class="carousel slide w-100 project-carousel"
+                                                 data-bs-ride="carousel"
+                                                 data-interval="1000">
+                                                <div class="carousel-inner project-carousel">
+                                                    <?php $k = 0 ?>
+                                                    @foreach($initiative->ImagesRandom as $image)
+                                                        <div class="carousel-item @if($k++ == 0) active @endif">
+                                                            <a href="{{substr($image->path, 0, -4).'b.jpg'}}"
+                                                               data-fancybox="gallery-Cu-{{$initiative->id}}"
+                                                               data-caption="{{ ucfirst($initiative->$language->title) }}">
+                                                                <img class="w-100 h-100 d-block"
+                                                                     src="{{$image->path}}"
+                                                                     style="object-fit: cover"/></a>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                                <button class="carousel-control-prev"
+                                                        data-bs-target="#carousel-ini{{$initiative->id}}"
+                                                        data-bs-slide="prev">
+                                                        <span class="carousel-control-prev-icon"
+                                                              aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Previous</span>
+                                                </button>
+                                                <button class="carousel-control-next"
+                                                        data-bs-target="#carousel-ini{{$initiative->id}}"
+                                                        data-bs-slide="next">
+                                                        <span class="carousel-control-next-icon"
+                                                              aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Next</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 position-relative">
+                                            <div style="padding-left: .6vw">
+                                                <div class="row d-flex align-items-center" style="margin-top: 1vw">
+                                                    <div class="col-10">
+                                                        <div class="card-title">{{$initiative->$language->title}}</div>
+                                                    </div>
+                                                    <div class="col-2 text-end">
+                                                        @if($initiative->video !== '0')
+                                                            <a href="{{$initiative->video}}" class="launch-modal"
+                                                               id="iniVideo-{{$initiative->id}}"
+                                                               data-fancybox="iniVideo-{{$initiative->id}}">
+                                                                <img class="video-icon"
+                                                                     src="/images/ico/video-ini-icon.svg">
+                                                            </a>
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="card-title-section"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-content">
+                                                    @if($initiative->$language->date_string !== '0')
+                                                        <div>
+                                                            <strong>Date: </strong>{{$initiative->$language->date_string}}
+                                                        </div>
+                                                    @endif
+                                                    {{--@if($initiative->donors[0]['name'] !== '')--}}
+                                                    {{--<div><strong>Funded By: </strong>{{$initiative->donors[0]['name']}}--}}
+                                                    {{--</div>--}}
+                                                    {{--@endif--}}
+                                                    @if($initiative->$language->organization !== '0')
+                                                        <strong> @lang('initiatives.by') {{$initiative->$language->organization}}</strong>
+                                                    @endif
+                                                    @if($initiative->$language->date_string !== '0' || $initiative->$language->organization !== '0')
+                                                        <div><br></div>
+                                                    @endif
+                                                    @if(strlen($initiative->$language->content)>30)
+                                                        <div>{!!implode(' ', array_slice(explode(' ', strip_tags($initiative->$language->content)), 0, 30)).'...'!!}</div>
+                                                    @endif
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col d-flex justify-content-end">
+                                                        @if(isset($subWhatCategory))
+                                                            <a href="{{ route($route, [
+                                                str_slug(strtolower($subWhatCategory->name)),
+                                                $initiative->id,
+                                                str_slug(strtolower($initiative->english->title))
+                                        ]) }}"
+                                                               class="readmore-btn">@lang('main.readMore')
+                                                            </a>
+                                                        @else
+                                                            <a href="{{ route('new.public.initiative',
+                                [str_slug(strtolower($whatCategory->name)),
+                                $initiative->id,
+                                str_slug(strtolower($initiative->english->title))]   ) }}"
+                                                               class="readmore-btn">@lang('main.readMore')</a>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 position-relative">
+                                            <div style="padding-right: .6vw">
+                                                <div class="row d-flex align-items-center" style="margin-top: 1vw">
+                                                    <div class="col-10">
+                                                        <div class="card-title">{{$initiative->$language->title}}</div>
+                                                    </div>
+                                                    <div class="col-2 text-end">
+                                                        @if($initiative->video !== '0')
+                                                            {{--<a href="#" class="launch-modal"--}}
+                                                            {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
+                                                            {{----}}
+                                                            {{--</a>--}}
+                                                            <a href="{{$initiative->video}}" class="launch-modal"
+                                                               id="iniVideo-{{$initiative->id}}"
+                                                               data-fancybox="iniVideo-{{$initiative->id}}">
+                                                                <img class="video-icon"
+                                                                     src="/images/ico/video-ini-icon.svg">
+                                                            </a>
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="card-title-section"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-content">
+                                                    @if($initiative->$language->date_string !== '0')
+                                                        <div>
+                                                            <strong>Date: </strong>{{$initiative->$language->date_string}}
+                                                        </div>
+                                                    @endif
+                                                    {{--@if($initiative->donors[0]['name'] !== '')--}}
+                                                    {{--<div><strong>Funded By: </strong>{{$initiative->donors[0]['name']}}</div>--}}
+                                                    {{--@endif--}}
+                                                    @if($initiative->$language->organization !== '0')
+                                                        <strong> @lang('initiatives.by') {{$initiative->$language->organization}}</strong>
+                                                    @endif
+                                                    @if($initiative->$language->date_string !== '0' || $initiative->$language->organization !== '0')
+                                                        <div><br></div>
+                                                    @endif
+                                                    @if(strlen($initiative->$language->content)>30)
+                                                        <div>{!!implode(' ', array_slice(explode(' ', strip_tags($initiative->$language->content)), 0, 30)).'...'!!}</div>
+                                                    @endif
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col d-flex justify-content-end">
+                                                        @if(isset($subWhatCategory))
+                                                            <a href="{{ route($route, [
+                                                str_slug(strtolower($subWhatCategory->name)),
+                                                $initiative->id,
+                                                str_slug(strtolower($initiative->english->title))
+                                        ]) }}"
+                                                               class="readmore-btn">@lang('main.readMore')
+                                                            </a>
+                                                        @else
+                                                            <a href="{{ route('new.public.initiative',
+                                [str_slug(strtolower($whatCategory->name)),
+                                $initiative->id,
+                                str_slug(strtolower($initiative->english->title))]   ) }}"
+                                                               class="readmore-btn">@lang('main.readMore')</a>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 d-flex justify-content-end ps-lg-0 ps-md-0 ps-sm-0">
+                                            <div id="carousel-ini{{$initiative->id}}"
+                                                 class="carousel slide w-100 project-carousel"
+                                                 data-bs-ride="carousel"
+                                                 data-interval="1000">
+                                                <div class="carousel-inner project-carousel">
+                                                    <?php $k = 0 ?>
+                                                    @foreach($initiative->ImagesRandom as $image)
+                                                        <div class="carousel-item @if($k++ == 0) active @endif">
+                                                            <a href="{{substr($image->path, 0, -4).'b.jpg'}}"
+                                                               data-fancybox="gallery-Cu-{{$initiative->id}}"
+                                                               data-caption="{{ ucfirst($initiative->$language->title) }}">
+                                                                <img class="w-100 h-100 d-block"
+                                                                     src="{{$image->path}}"
+                                                                     style="object-fit: cover"/></a>
+                                                        </div>
+                                                    @endforeach
+                                                    {{--<div class="carousel-item active">--}}
+                                                    {{--<img class="w-100"--}}
+                                                    {{--src="{{$initiative->ImagesRandom[0]['path']}}">--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="carousel-item">--}}
+                                                    {{--<img class="w-100"--}}
+                                                    {{--src="{{$initiative->ImagesRandom[1]['path']}}">--}}
+                                                    {{--</div>--}}
+                                                    {{--@if(count($initiative->ImagesRandom) > 2)--}}
+                                                    {{--<div class="carousel-item">--}}
+                                                    {{--<img class="w-100"--}}
+                                                    {{--src="{{$initiative->ImagesRandom[2]['path']}}">--}}
+                                                    {{--</div>--}}
+                                                    {{--@endif--}}
+                                                </div>
+                                                <button class="carousel-control-prev"
+                                                        data-bs-target="#carousel-ini{{$initiative->id}}"
+                                                        data-bs-slide="prev">
+                                                        <span class="carousel-control-prev-icon"
+                                                              aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Previous</span>
+                                                </button>
+                                                <button class="carousel-control-next"
+                                                        data-bs-target="#carousel-ini{{$initiative->id}}"
+                                                        data-bs-slide="next">
+                                                        <span class="carousel-control-next-icon"
+                                                              aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Next</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        @php $num++ ;@endphp
+                    @endforeach
+                    @if(strlen($ini_A)>5)
+                        <div class="small horizontal-line" data-aos="fade-up" data-aos-duration="600"></div>
+                        <div class="text-center" data-aos="fade-up" data-aos-duration="300">
+                            {{$ini_A->withQueryString(['ini_A' => $ini_A->currentPage()])->links()}}
+                            {{--                        {{$ini_A->appends(['ini_A' => $ini_A->links()}}--}}
+                            {{--{{$ini_A->appends(['ini_A' => $ini_A])->links()}}--}}
+                            {{--{{ $ini_A->appends($_GET)->links() }}--}}
+                        </div>
+                    @endif
+
+                    {{--<div class="small horizontal-line" data-aos="fade-up" data-aos-duration="800"></div>--}}
+                </div>
+                <div class="tab-pane fade show " id="homs" role="tabpanel" aria-labelledby="homsTab" tabindex="0">
+                    @if(count($ini_H)==0)
+                        <div class="card-height">
+                            <div class="single-card">
+                                <div class="row">
+                                    <div class="col-12 d-flex justify-content-end flex-column pe-1 sorry-message">
+                                        <div class="text-center">
+                                            Sorry, we couldn't find any results
+                                        </div>
+                                        <div>@lang('projects.sorryMessage2')</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    @foreach($ini_H as $i=>$initiative)
+                        <div class="card-height">
+                            <div class="single-card">
+                                <div class="row">
+                                    @if($num %2 ==0)
+                                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 d-flex justify-content-end pe-lg-0 pe-md-0 pe-sm-0">
+                                            <div id="carousel-ini{{$initiative->id}}"
+                                                 class="carousel slide w-100 project-carousel"
+                                                 data-bs-ride="carousel"
+                                                 data-interval="1000">
+                                                <div class="carousel-inner project-carousel">
+                                                    <?php $k = 0 ?>
+                                                    @foreach($initiative->ImagesRandom as $image)
+                                                        <div class="carousel-item @if($k++ == 0) active @endif">
+                                                            <a href="{{substr($image->path, 0, -4).'b.jpg'}}"
+                                                               data-fancybox="gallery-Cu-{{$initiative->id}}"
+                                                               data-caption="{{ ucfirst($initiative->$language->title) }}">
+                                                                <img class="w-100 h-100 d-block"
+                                                                     src="{{$image->path}}"
+                                                                     style="object-fit: cover"></a>
+                                                        </div>
+                                                    @endforeach
+                                                    {{--<div class="carousel-item active">--}}
+                                                    {{--<img class="w-100"--}}
+                                                    {{--src="{{$initiative->ImagesRandom[0]['path']}}">--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="carousel-item">--}}
+                                                    {{--<img class="w-100"--}}
+                                                    {{--src="{{$initiative->ImagesRandom[1]['path']}}">--}}
+                                                    {{--</div>--}}
+                                                    {{--@if(count($initiative->ImagesRandom) > 2)--}}
+                                                    {{--<div class="carousel-item">--}}
+                                                    {{--<img class="w-100"--}}
+                                                    {{--src="{{$initiative->ImagesRandom[2]['path']}}">--}}
+                                                    {{--</div>--}}
+                                                    {{--@endif--}}
+                                                </div>
+                                                <button class="carousel-control-prev"
+                                                        data-bs-target="#carousel-ini{{$initiative->id}}"
+                                                        data-bs-slide="prev">
+                                                        <span class="carousel-control-prev-icon"
+                                                              aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Previous</span>
+                                                </button>
+                                                <button class="carousel-control-next"
+                                                        data-bs-target="#carousel-ini{{$initiative->id}}"
+                                                        data-bs-slide="next">
+                                                        <span class="carousel-control-next-icon"
+                                                              aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Next</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 position-relative">
+                                            <div style="padding-left: .6vw">
+                                                <div class="row d-flex align-items-center" style="margin-top: 1vw">
+                                                    <div class="col-10">
+                                                        <div class="card-title">{{$initiative->$language->title}}</div>
+                                                    </div>
+                                                    <div class="col-2 text-end">
+                                                        @if($initiative->video !== '0')
+                                                            {{--<a href="#" class="launch-modal"--}}
+                                                            {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
+                                                            {{----}}
+                                                            {{--</a>--}}
+                                                            <a href="{{$initiative->video}}" class="launch-modal"
+                                                               id="iniVideo-{{$initiative->id}}"
+                                                               data-fancybox="iniVideo-{{$initiative->id}}">
+                                                                <img class="video-icon"
+                                                                     src="/images/ico/video-ini-icon.svg">
+                                                            </a>
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="card-title-section"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-content">
+                                                    @if($initiative->$language->date_string !== '0')
+                                                        <div>
+                                                            <strong>Date: </strong>{{$initiative->$language->date_string}}
+                                                        </div>
+                                                    @endif
+                                                    {{--@if($initiative->donors[0]['name'] !== '')--}}
+                                                    {{--<div><strong>Funded By: </strong>{{$initiative->donors[0]['name']}}--}}
+                                                    {{--</div>--}}
+                                                    {{--@endif--}}
+                                                    @if($initiative->$language->organization !== '0')
+                                                        <strong> @lang('initiatives.by') {{$initiative->$language->organization}}</strong>
+                                                    @endif
+                                                    @if($initiative->$language->date_string !== '0' || $initiative->$language->organization !== '0')
+                                                        <div><br></div>
+                                                    @endif
+                                                    @if(strlen($initiative->$language->content)>30)
+                                                        <div>{!!implode(' ', array_slice(explode(' ', strip_tags($initiative->$language->content)), 0, 30)).'...'!!}</div>
+                                                    @endif
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col d-flex justify-content-end">
+                                                        @if(isset($subWhatCategory))
+                                                            <a href="{{ route($route, [
+                                                str_slug(strtolower($subWhatCategory->name)),
+                                                $initiative->id,
+                                                str_slug(strtolower($initiative->english->title))
+                                        ]) }}"
+                                                               class="readmore-btn">@lang('main.readMore')
+                                                            </a>
+                                                        @else
+                                                            <a href="{{ route('new.public.initiative',
+                                [str_slug(strtolower($whatCategory->name)),
+                                $initiative->id,
+                                str_slug(strtolower($initiative->english->title))]   ) }}"
+                                                               class="readmore-btn">@lang('main.readMore')</a>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 position-relative">
+                                            <div style="padding-right: .6vw">
+                                                <div class="row d-flex align-items-center" style="margin-top: 1vw">
+                                                    <div class="col-10">
+                                                        <div class="card-title">{{$initiative->$language->title}}</div>
+                                                    </div>
+                                                    <div class="col-2 text-end">
+                                                        @if($initiative->video !== '0')
+                                                            {{--<a href="#" class="launch-modal"--}}
+                                                            {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
+                                                            {{----}}
+                                                            {{--</a>--}}
+                                                            <a href="{{$initiative->video}}" class="launch-modal"
+                                                               id="iniVideo-{{$initiative->id}}"
+                                                               data-fancybox="iniVideo-{{$initiative->id}}">
+                                                                <img class="video-icon"
+                                                                     src="/images/ico/video-ini-icon.svg">
+                                                            </a>
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="card-title-section"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-content">
+                                                    @if($initiative->$language->date_string !== '0')
+                                                        <div>
+                                                            <strong>Date: </strong>{{$initiative->$language->date_string}}
+                                                        </div>
+                                                    @endif
+                                                    {{--@if($initiative->donors[0]['name'] !== '')--}}
+                                                    {{--<div><strong>Funded By: </strong>{{$initiative->donors[0]['name']}}--}}
+                                                    {{--</div>--}}
+                                                    {{--@endif--}}
+                                                    @if($initiative->$language->organization !== '0')
+                                                        <strong> @lang('initiatives.by') {{$initiative->$language->organization}}</strong>
+                                                    @endif
+                                                    @if($initiative->$language->date_string !== '0' || $initiative->$language->organization !== '0')
+                                                        <div><br></div>
+                                                    @endif
+                                                    @if(strlen($initiative->$language->content)>30)
+                                                        <div>{!!implode(' ', array_slice(explode(' ', strip_tags($initiative->$language->content)), 0, 30)).'...'!!}</div>
+                                                    @endif
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col d-flex justify-content-end">
+                                                        @if(isset($subWhatCategory))
+                                                            <a href="{{ route($route, [
+                                                str_slug(strtolower($subWhatCategory->name)),
+                                                $initiative->id,
+                                                str_slug(strtolower($initiative->english->title))
+                                        ]) }}"
+                                                               class="readmore-btn">@lang('main.readMore')
+                                                            </a>
+                                                        @else
+                                                            <a href="{{ route('new.public.initiative',
+                                [str_slug(strtolower($whatCategory->name)),
+                                $initiative->id,
+                                str_slug(strtolower($initiative->english->title))]   ) }}"
+                                                               class="readmore-btn">@lang('main.readMore')</a>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 d-flex justify-content-end ps-lg-0 ps-md-0 ps-sm-0">
+                                            <div id="carousel-ini{{$initiative->id}}"
+                                                 class="carousel slide w-100 project-carousel"
+                                                 data-bs-ride="carousel"
+                                                 data-interval="1000">
+                                                <div class="carousel-inner project-carousel">
+                                                    <?php $k = 0 ?>
+                                                    @foreach($initiative->ImagesRandom as $image)
+                                                        <div class="carousel-item @if($k++ == 0) active @endif">
+                                                            <a href="{{substr($image->path, 0, -4).'b.jpg'}}"
+                                                               data-fancybox="gallery-Cu-{{$initiative->id}}"
+                                                               data-caption="{{ ucfirst($initiative->$language->title) }}">
+                                                                <img class="w-100 h-100 d-block"
+                                                                     src="{{$image->path}}"
+                                                                     style="object-fit: cover"></a>
+                                                        </div>
+                                                    @endforeach
+                                                    {{--<div class="carousel-item active">--}}
+                                                    {{--<img class="w-100"--}}
+                                                    {{--src="{{$initiative->ImagesRandom[0]['path']}}">--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="carousel-item">--}}
+                                                    {{--<img class="w-100"--}}
+                                                    {{--src="{{$initiative->ImagesRandom[1]['path']}}">--}}
+                                                    {{--</div>--}}
+                                                    {{--@if(count($initiative->ImagesRandom) > 2)--}}
+                                                    {{--<div class="carousel-item">--}}
+                                                    {{--<img class="w-100"--}}
+                                                    {{--src="{{$initiative->ImagesRandom[2]['path']}}">--}}
+                                                    {{--</div>--}}
+                                                    {{--@endif--}}
+                                                </div>
+                                                <button class="carousel-control-prev"
+                                                        data-bs-target="#carousel-ini{{$initiative->id}}"
+                                                        data-bs-slide="prev">
+                                                        <span class="carousel-control-prev-icon"
+                                                              aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Previous</span>
+                                                </button>
+                                                <button class="carousel-control-next"
+                                                        data-bs-target="#carousel-ini{{$initiative->id}}"
+                                                        data-bs-slide="next">
+                                                        <span class="carousel-control-next-icon"
+                                                              aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Next</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        @php $num++ ;@endphp
+                    @endforeach
+                    @if(strlen($ini_H)>5)
+                        <div class="small horizontal-line" data-aos="fade-up" data-aos-duration="300"></div>
+                        <div class="text-center" data-aos="fade-up" data-aos-duration="300">
+                            {{$ini_H->withQueryString(['ini_H' => $ini_H->currentPage()])->links()}}
+                        </div>
+                    @endif
+                </div>
+                <div class="tab-pane fade show " id="damas" role="tabpanel" aria-labelledby="damasTab"
+                     tabindex="1">
+                    @if(count($ini_D)==0)
+                        <div class="card-height">
+                            <div class="single-card">
+                                <div class="row">
+                                    <div class="col-12 d-flex justify-content-end flex-column pe-1 sorry-message">
+                                        <div class="text-center">
+                                            Sorry, we couldn't find any results
+                                        </div>
+                                        <div>@lang('projects.sorryMessage2')</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    @foreach($ini_D as $i=>$initiative)
+                        <div class="card-height">
+                            <div class="single-card">
+                                <div class="row">
+                                    @if($num %2 ==0)
+                                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 d-flex justify-content-end pe-lg-0 pd-md-0 pe-sm-0">
+                                            <div id="carousel-ini{{$initiative->id}}"
+                                                 class="carousel slide w-100 project-carousel"
+                                                 data-bs-ride="carousel"
+                                                 data-interval="1000">
+                                                <div class="carousel-inner project-carousel">
+                                                    <?php $k = 0 ?>
+                                                    @foreach($initiative->ImagesRandom as $image)
+                                                        <div class="carousel-item @if($k++ == 0) active @endif">
+                                                            <a href="{{substr($image->path, 0, -4).'b.jpg'}}"
+                                                               data-fancybox="gallery-Cu-{{$initiative->id}}"
+                                                               data-caption="{{ ucfirst($initiative->$language->title) }}">
+                                                                <img class="w-100 h-100 d-block"
+                                                                     src="{{$image->path}}"
+                                                                     style="object-fit: cover"/></a>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                                <button class="carousel-control-prev"
+                                                        data-bs-target="#carousel-ini{{$initiative->id}}"
+                                                        data-bs-slide="prev">
+                                                        <span class="carousel-control-prev-icon"
+                                                              aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Previous</span>
+                                                </button>
+                                                <button class="carousel-control-next"
+                                                        data-bs-target="#carousel-ini{{$initiative->id}}"
+                                                        data-bs-slide="next">
+                                                        <span class="carousel-control-next-icon"
+                                                              aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Next</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 position-relative">
+                                            <div style="padding-left: .6vw">
+                                                <div class="row d-flex align-items-center" style="margin-top: 1vw">
+                                                    <div class="col-10">
+                                                        <div class="card-title">{{$initiative->$language->title}}</div>
+                                                    </div>
+                                                    <div class="col-2 text-end">
+                                                        @if($initiative->video !== '0')
+                                                            <a href="{{$initiative->video}}" class="launch-modal"
+                                                               id="iniVideo-{{$initiative->id}}"
+                                                               data-fancybox="iniVideo-{{$initiative->id}}">
+                                                                <img class="video-icon"
+                                                                     src="/images/ico/video-ini-icon.svg">
+                                                            </a>
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="card-title-section"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-content">
+                                                    @if($initiative->$language->date_string !== '0')
+                                                        <div>
+                                                            <strong>Date: </strong>{{$initiative->$language->date_string}}
+                                                        </div>
+                                                    @endif
+                                                    {{--@if($initiative->donors[0]['name'] !== '')--}}
+                                                    {{--<div><strong>Funded By: </strong>{{$initiative->donors[0]['name']}}--}}
+                                                    {{--</div>--}}
+                                                    {{--@endif--}}
+                                                    @if($initiative->$language->organization !== '0')
+                                                        <strong> @lang('initiatives.by') {{$initiative->$language->organization}}</strong>
+                                                    @endif
+                                                    @if($initiative->$language->date_string !== '0' || $initiative->$language->organization !== '0')
+                                                        <div><br></div>
+                                                    @endif
+                                                    @if(strlen($initiative->$language->content)>30)
+                                                        <div>{!!implode(' ', array_slice(explode(' ', strip_tags($initiative->$language->content)), 0, 30)).'...'!!}</div>
+                                                    @endif
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col d-flex justify-content-end">
+                                                        @if(isset($subWhatCategory))
+                                                            <a href="{{ route($route, [
+                                                str_slug(strtolower($subWhatCategory->name)),
+                                                $initiative->id,
+                                                str_slug(strtolower($initiative->english->title))
+                                        ]) }}"
+                                                               class="readmore-btn">@lang('main.readMore')
+                                                            </a>
+                                                        @else
+                                                            <a href="{{ route('new.public.initiative',
+                                [str_slug(strtolower($whatCategory->name)),
+                                $initiative->id,
+                                str_slug(strtolower($initiative->english->title))]   ) }}"
+                                                               class="readmore-btn">@lang('main.readMore')</a>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 position-relative">
+                                            <div style="padding-right: .6vw">
+                                                <div class="row d-flex align-items-center" style="margin-top: 1vw">
+                                                    <div class="col-10">
+                                                        <div class="card-title">{{$initiative->$language->title}}</div>
+                                                    </div>
+                                                    <div class="col-2 text-end">
+                                                        @if($initiative->video !== '0')
+                                                            {{--<a href="#" class="launch-modal"--}}
+                                                            {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
+                                                            {{----}}
+                                                            {{--</a>--}}
+                                                            <a href="{{$initiative->video}}" class="launch-modal"
+                                                               id="iniVideo-{{$initiative->id}}"
+                                                               data-fancybox="iniVideo-{{$initiative->id}}">
+                                                                <img class="video-icon"
+                                                                     src="/images/ico/video-ini-icon.svg">
+                                                            </a>
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="card-title-section"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-content">
+                                                    @if($initiative->$language->date_string !== '0')
+                                                        <div>
+                                                            <strong>Date: </strong>{{$initiative->$language->date_string}}
+                                                        </div>
+                                                    @endif
+                                                    {{--@if($initiative->donors[0]['name'] !== '')--}}
+                                                    {{--<div><strong>Funded By: </strong>{{$initiative->donors[0]['name']}}</div>--}}
+                                                    {{--@endif--}}
+                                                    @if($initiative->$language->organization !== '0')
+                                                        <strong> @lang('initiatives.by') {{$initiative->$language->organization}}</strong>
+                                                    @endif
+                                                    @if($initiative->$language->date_string !== '0' || $initiative->$language->organization !== '0')
+                                                        <div><br></div>
+                                                    @endif
+                                                    @if(strlen($initiative->$language->content)>30)
+                                                        <div>{!!implode(' ', array_slice(explode(' ', strip_tags($initiative->$language->content)), 0, 30)).'...'!!}</div>
+                                                    @endif
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col d-flex justify-content-end">
+                                                        @if(isset($subWhatCategory))
+                                                            <a href="{{ route($route, [
+                                                str_slug(strtolower($subWhatCategory->name)),
+                                                $initiative->id,
+                                                str_slug(strtolower($initiative->english->title))
+                                        ]) }}"
+                                                               class="readmore-btn">@lang('main.readMore')
+                                                            </a>
+                                                        @else
+                                                            <a href="{{ route('new.public.initiative',
+                                [str_slug(strtolower($whatCategory->name)),
+                                $initiative->id,
+                                str_slug(strtolower($initiative->english->title))]   ) }}"
+                                                               class="readmore-btn">@lang('main.readMore')</a>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 d-flex justify-content-end ps-lg-0 ps-md-0 ps-sm-0">
+                                            <div id="carousel-ini{{$initiative->id}}"
+                                                 class="carousel slide w-100 project-carousel"
+                                                 data-bs-ride="carousel"
+                                                 data-interval="1000">
+                                                <div class="carousel-inner project-carousel">
+                                                    <?php $k = 0 ?>
+                                                    @foreach($initiative->ImagesRandom as $image)
+                                                        <div class="carousel-item @if($k++ == 0) active @endif">
+                                                            <a href="{{substr($image->path, 0, -4).'b.jpg'}}"
+                                                               data-fancybox="gallery-Cu-{{$initiative->id}}"
+                                                               data-caption="{{ ucfirst($initiative->$language->title) }}">
+                                                                <img class="w-100 h-100 d-block"
+                                                                     src="{{$image->path}}"
+                                                                     style="object-fit: cover"/></a>
+                                                        </div>
+                                                    @endforeach
+                                                    {{--<div class="carousel-item active">--}}
+                                                    {{--<img class="w-100"--}}
+                                                    {{--src="{{$initiative->ImagesRandom[0]['path']}}">--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="carousel-item">--}}
+                                                    {{--<img class="w-100"--}}
+                                                    {{--src="{{$initiative->ImagesRandom[1]['path']}}">--}}
+                                                    {{--</div>--}}
+                                                    {{--@if(count($initiative->ImagesRandom) > 2)--}}
+                                                    {{--<div class="carousel-item">--}}
+                                                    {{--<img class="w-100"--}}
+                                                    {{--src="{{$initiative->ImagesRandom[2]['path']}}">--}}
+                                                    {{--</div>--}}
+                                                    {{--@endif--}}
+                                                </div>
+                                                <button class="carousel-control-prev"
+                                                        data-bs-target="#carousel-ini{{$initiative->id}}"
+                                                        data-bs-slide="prev">
+                                                        <span class="carousel-control-prev-icon"
+                                                              aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Previous</span>
+                                                </button>
+                                                <button class="carousel-control-next"
+                                                        data-bs-target="#carousel-ini{{$initiative->id}}"
+                                                        data-bs-slide="next">
+                                                        <span class="carousel-control-next-icon"
+                                                              aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Next</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        @php $num++ ;@endphp
+                    @endforeach
+                    @if(strlen($ini_D)>5)
+                        <div class="small horizontal-line" data-aos="fade-up" data-aos-duration="600"></div>
+                        <div class="text-center" data-aos="fade-up" data-aos-duration="300">
+                            {{$ini_D->withQueryString(['ini_D' => $ini_D->currentPage()])->links()}}
+                            {{--                        {{$ini_A->appends(['ini_A' => $ini_A->links()}}--}}
+                            {{--{{$ini_A->appends(['ini_A' => $ini_A])->links()}}--}}
+                            {{--{{ $ini_A->appends($_GET)->links() }}--}}
+                        </div>
+                    @endif
+
+                    {{--<div class="small horizontal-line" data-aos="fade-up" data-aos-duration="800"></div>--}}
+                </div>
+
+            </div>
+        @endif
+    </div>
+    <div class="horizontal-line" data-aos="fade-up" data-aos-duration="800"></div>
+    @include('new.public.components.project-partners-section', ['donors_ongoing' => $partners_ongoing,'donors_previous' => $partners_previous])
+    <div class="horizontal-line last"></div>
+</div>
+@include('new.public.footer-disc')
+@stack('fancyVideo')
+@stack('navbar-contactUs')
+@stack('navbar-whatwedo')
+@stack('preloader')
+<script>
+    // document.querySelector('.img-overlay').style.bottom = "100%";
+    // document.querySelector('.img-overlay').style.height = "0";
+    setTimeout(() => {
+        // document.querySelector('.img-overlay').style.bottom = "0";
+        // document.querySelector('.img-overlay').style.height = "35vw";
+        document.querySelector('.categories-img').style.bottom = "0";
+        document.querySelector('.categories-img').style.height = "35vw";
+    }, 2000);
+    $('#English').addClass("selectedCategory");
+    document.querySelector('.categories-img').src = "/images/initiatives/DISC/courses/english.jpg";
+    document.getElementById("English").addEventListener("click", function () {
+        // document.querySelector('.img-overlay').style.bottom = "100%";
+        // document.querySelector('.img-overlay').style.height = "0";
+        document.querySelector('.categories-img').src = "/images/initiatives/DISC/courses/english.jpg";
+        // setTimeout(() => {
+        //     document.querySelector('.img-overlay').style.bottom = "0";
+        //     document.querySelector('.img-overlay').style.height = "35vw";
+        // }, 2000);
+        $('#English').addClass("selectedCategory");
+        $('#Computer').removeClass("selectedCategory");
+        $('#Skills').removeClass("selectedCategory");
+        $('#Accompaniment').removeClass("selectedCategory");
+        document.querySelector('.category-title').innerHTML = 'English Skills';
+        document.querySelector('.category-title.sm').innerHTML = 'English Skills';
+
+        document.querySelector('.section-title-desc').innerHTML =
+            '<div data-aos="fade-up" data-aos-duration="300">Fluency in English is essential to access more opportunities and have a successful career. </div>' +
+            '<div data-aos="fade-up" data-aos-duration="600">Our goal is to create a positive and exciting learning environment where students </div><div data-aos="fade-up" data-aos-duration="900">can improve their language skills and achieve their language learning goals. </div>' +
+            '<div data-aos="fade-up" data-aos-duration="1000">Through the innovative Wide-Angle e-book from Oxford students have fully </div><div data-aos="fade-up" data-aos-duration="1100">automated learning experience with access to extracurricular activities</div><div data-aos="fade-up" data-aos-duration="1200"> to support their language learning journey </div>';
+        document.querySelector('.section-title-desc.sm').innerHTML =
+            '<div data-aos="fade-up" data-aos-duration="300">Fluency in English is essential to access more opportunities and have a successful career. </div>' +
+            '<div data-aos="fade-up" data-aos-duration="600">Our goal is to create a positive and exciting learning environment where students </div><div data-aos="fade-up" data-aos-duration="900">can improve their language skills and achieve their language learning goals. </div>' +
+            '<div data-aos="fade-up" data-aos-duration="1000">Through the innovative Wide-Angle e-book from Oxford students have fully </div><div data-aos="fade-up" data-aos-duration="1100">automated learning experience with access to extracurricular activities</div><div data-aos="fade-up" data-aos-duration="1200"> to support their language learning journey </div>';
+    });
+    document.getElementById("English").addEventListener("mouseenter", function () {
+        // document.querySelector('.img-overlay').style.bottom = "100%";
+        // document.querySelector('.img-overlay').style.height = "0";
+        document.querySelector('.categories-img').src = "/images/initiatives/DISC/courses/english.jpg";
+        // setTimeout(() => {
+        //     document.querySelector('.img-overlay').style.bottom = "0";
+        //     document.querySelector('.img-overlay').style.height = "35vw";
+        // }, 2000);
+        $('#English').addClass("selectedCategory");
+        $('#Computer').removeClass("selectedCategory");
+        $('#Skills').removeClass("selectedCategory");
+        $('#Accompaniment').removeClass("selectedCategory");
+        document.querySelector('.category-title').innerHTML = 'English Skills';
+        document.querySelector('.category-title.sm').innerHTML = 'English Skills';
+
+        document.querySelector('.section-title-desc').innerHTML =
+            '<div data-aos="fade-up" data-aos-duration="300">Fluency in English is essential to access more opportunities and have a successful career. </div>' +
+            '<div data-aos="fade-up" data-aos-duration="600">Our goal is to create a positive and exciting learning environment where students </div><div data-aos="fade-up" data-aos-duration="900">can improve their language skills and achieve their language learning goals. </div>' +
+            '<div data-aos="fade-up" data-aos-duration="1000">Through the innovative Wide-Angle e-book from Oxford students have fully </div><div data-aos="fade-up" data-aos-duration="1100">automated learning experience with access to extracurricular activities</div><div data-aos="fade-up" data-aos-duration="1200"> to support their language learning journey </div>';
+        document.querySelector('.section-title-desc.sm').innerHTML =
+            '<div data-aos="fade-up" data-aos-duration="300">Fluency in English is essential to access more opportunities and have a successful career. </div>' +
+            '<div data-aos="fade-up" data-aos-duration="600">Our goal is to create a positive and exciting learning environment where students </div><div data-aos="fade-up" data-aos-duration="900">can improve their language skills and achieve their language learning goals. </div>' +
+            '<div data-aos="fade-up" data-aos-duration="1000">Through the innovative Wide-Angle e-book from Oxford students have fully </div><div data-aos="fade-up" data-aos-duration="1100">automated learning experience with access to extracurricular activities</div><div data-aos="fade-up" data-aos-duration="1200"> to support their language learning journey </div>';
+    });
+    document.getElementById("Computer").addEventListener("click", function () {
+        // document.querySelector('.img-overlay').style.bottom = "100%";
+        // document.querySelector('.img-overlay').style.height = "0";
+        document.querySelector('.categories-img').src = "/images/initiatives/DISC/courses/computer.jpg";
+        // setTimeout(() => {
+        //     document.querySelector('.img-overlay').style.bottom = "0";
+        //     document.querySelector('.img-overlay').style.height = "35vw";
+        // }, 2000);
+
+        $('#Computer').addClass("selectedCategory");
+        $('#English').removeClass("selectedCategory");
+        $('#Skills').removeClass("selectedCategory");
+        $('#Accompaniment').removeClass("selectedCategory");
+        document.querySelector('.category-title').innerHTML = 'Computer Skills';
+        document.querySelector('.category-title.sm').innerHTML = 'Computer Skills';
+
+        document.querySelector('.section-title-desc').innerHTML = '<div data-aos="fade-up" data-aos-duration="600">These sessions aid in the development of digital skills, fostering confidence,</div><div data-aos="fade-up" data-aos-duration="800"> and keeping participants up-to-date with the latest software.</div><div data-aos="fade-up" data-aos-duration="900">The program encompasses the International Computer Driving License (ICDL)</div><div data-aos="fade-up" data-aos-duration="1000"> and an advanced course aimed at individuals seeking to further enhance their skills.</div>';
+        document.querySelector('.section-title-desc.sm').innerHTML = '<div data-aos="fade-up" data-aos-duration="600">These sessions aid in the development of digital skills, fostering confidence,</div><div data-aos="fade-up" data-aos-duration="800"> and keeping participants up-to-date with the latest software.</div><div data-aos="fade-up" data-aos-duration="900">The program encompasses the International Computer Driving License (ICDL)</div><div data-aos="fade-up" data-aos-duration="1000"> and an advanced course aimed at individuals seeking to further enhance their skills.</div>';
+
+
+    });
+    document.getElementById("Computer").addEventListener("mouseenter", function () {
+
+        // document.querySelector('.img-overlay').style.bottom = "100%";
+        // document.querySelector('.img-overlay').style.height = "0";
+        document.querySelector('.categories-img').src = "/images/initiatives/DISC/courses/computer.jpg";
+        // setTimeout(() => {
+        //     document.querySelector('.img-overlay').style.bottom = "0";
+        //     document.querySelector('.img-overlay').style.height = "35vw";
+        // }, 2000);
+        $('#Computer').addClass("selectedCategory");
+        $('#English').removeClass("selectedCategory");
+        $('#Skills').removeClass("selectedCategory");
+        $('#Accompaniment').removeClass("selectedCategory");
+        document.querySelector('.category-title').innerHTML = 'Computer Skills';
+        document.querySelector('.category-title.sm').innerHTML = 'Computer Skills';
+        document.querySelector('.section-title-desc').innerHTML = '<div data-aos="fade-up" data-aos-duration="600">These sessions aid in the development of digital skills, fostering confidence,</div><div data-aos="fade-up" data-aos-duration="800"> and keeping participants up-to-date with the latest software.</div><div data-aos="fade-up" data-aos-duration="900">The program encompasses the International Computer Driving License (ICDL)</div><div data-aos="fade-up" data-aos-duration="1000"> and an advanced course aimed at individuals seeking to further enhance their skills.</div>';
+        document.querySelector('.section-title-desc.sm').innerHTML = '<div data-aos="fade-up" data-aos-duration="600">These sessions aid in the development of digital skills, fostering confidence,</div><div data-aos="fade-up" data-aos-duration="800"> and keeping participants up-to-date with the latest software.</div><div data-aos="fade-up" data-aos-duration="900">The program encompasses the International Computer Driving License (ICDL)</div><div data-aos="fade-up" data-aos-duration="1000"> and an advanced course aimed at individuals seeking to further enhance their skills.</div>';
+    });
+    document.getElementById("Accompaniment").addEventListener("click", function () {
+        // document.querySelector('.img-overlay').style.bottom = "100%";
+        // document.querySelector('.img-overlay').style.height = "0";
+        document.querySelector('.categories-img').src = "/images/initiatives/DISC/courses/compan.jpg";
+        // setTimeout(() => {
+        //     document.querySelector('.img-overlay').style.bottom = "0";
+        //     document.querySelector('.img-overlay').style.height = "35vw";
+        // }, 2000);
+
+        $('#Computer').removeClass("selectedCategory");
+        $('#English').removeClass("selectedCategory");
+        $('#Skills').removeClass("selectedCategory");
+        $('#Accompaniment').addClass("selectedCategory");
+        document.querySelector('.category-title.sm').innerHTML = 'Accompaniment';
+        document.querySelector('.category-title').innerHTML = 'Accompaniment';
+        document.querySelector('.section-title-desc').innerHTML = '<div data-aos="fade-up" data-aos-duration="600">The program aims to foster individuals in personal growth </div><div data-aos="fade-up" data-aos-duration="800">the youth by promoting self-awareness and development.</div>\n' +
+            '        <div data-aos="fade-up" data-aos-duration="900">It helps them express emotions, organize thoughts, and explore  </div><div data-aos="fade-up" data-aos-duration="1000">career and life aspirations in a healthy and secure environment.</div>\n' +
+            '        <div data-aos="fade-up" data-aos-duration="1100">The adopted program\n' +
+            '        is The Positive Psychology Toolkit, </div><div data-aos="fade-up" data-aos-duration="1200">which encompasses a wide range of over 500 exercises covering topics</div>\n' +
+            '        <div data-aos="fade-up" data-aos-duration="1300"> such as life balance, resilience building, goal achievement, and more.</div>';
+        document.querySelector('.section-title-desc.sm').innerHTML = '<div data-aos="fade-up" data-aos-duration="600">The program aims to foster individuals in personal growth </div><div data-aos="fade-up" data-aos-duration="800">the youth by promoting self-awareness and development.</div>\n' +
+            '        <div data-aos="fade-up" data-aos-duration="900">It helps them express emotions, organize thoughts, and explore  </div><div data-aos="fade-up" data-aos-duration="1000">career and life aspirations in a healthy and secure environment.</div>\n' +
+            '        <div data-aos="fade-up" data-aos-duration="1100">The adopted program\n' +
+            '        is The Positive Psychology Toolkit, </div><div data-aos="fade-up" data-aos-duration="1200">which encompasses a wide range of over 500 exercises covering topics</div>\n' +
+            '        <div data-aos="fade-up" data-aos-duration="1300"> such as life balance, resilience building, goal achievement, and more.</div>';
+    });
+    document.getElementById("Accompaniment").addEventListener("mouseenter", function () {
+        // document.querySelector('.img-overlay').style.bottom = "100%";
+        // document.querySelector('.img-overlay').style.height = "0";
+        document.querySelector('.categories-img').src = "/images/initiatives/DISC/courses/compan.jpg";
+        // setTimeout(() => {
+        //     document.querySelector('.img-overlay').style.bottom = "0";
+        //     document.querySelector('.img-overlay').style.height = "35vw";
+        // }, 2000);
+        $('#Computer').removeClass("selectedCategory");
+        $('#English').removeClass("selectedCategory");
+        $('#Skills').removeClass("selectedCategory");
+        $('#Accompaniment').addClass("selectedCategory");
+        document.querySelector('.category-title.sm').innerHTML = 'Accompaniment';
+        document.querySelector('.category-title').innerHTML = 'Accompaniment';
+        document.querySelector('.section-title-desc').innerHTML = '<div data-aos="fade-up" data-aos-duration="600">The program aims to foster individuals in personal growth </div><div data-aos="fade-up" data-aos-duration="800">the youth by promoting self-awareness and development.</div>\n' +
+            '        <div data-aos="fade-up" data-aos-duration="900">It helps them express emotions, organize thoughts, and explore  </div><div data-aos="fade-up" data-aos-duration="1000">career and life aspirations in a healthy and secure environment.</div>\n' +
+            '        <div data-aos="fade-up" data-aos-duration="1100">The adopted program\n' +
+            '        is The Positive Psychology Toolkit, </div><div data-aos="fade-up" data-aos-duration="1200">which encompasses a wide range of over 500 exercises covering topics</div>\n' +
+            '        <div data-aos="fade-up" data-aos-duration="1300"> such as life balance, resilience building, goal achievement, and more.</div>';
+        document.querySelector('.section-title-desc.sm').innerHTML = '<div data-aos="fade-up" data-aos-duration="600">The program aims to foster individuals in personal growth </div><div data-aos="fade-up" data-aos-duration="800">the youth by promoting self-awareness and development.</div>\n' +
+            '        <div data-aos="fade-up" data-aos-duration="900">It helps them express emotions, organize thoughts, and explore  </div><div data-aos="fade-up" data-aos-duration="1000">career and life aspirations in a healthy and secure environment.</div>\n' +
+            '        <div data-aos="fade-up" data-aos-duration="1100">The adopted program\n' +
+            '        is The Positive Psychology Toolkit, </div><div data-aos="fade-up" data-aos-duration="1200">which encompasses a wide range of over 500 exercises covering topics</div>\n' +
+            '        <div data-aos="fade-up" data-aos-duration="1300"> such as life balance, resilience building, goal achievement, and more.</div>';
+    });
+    document.getElementById("Skills").addEventListener("click", function () {
+
+        // document.querySelector('.img-overlay').style.bottom = "100%";
+        // document.querySelector('.img-overlay').style.height = "0";
+
+        // document.querySelector('.img-overlay').style.left = "100%";
+        // document.querySelector('.img-overlay').style.width = "0";
+
+        document.querySelector('.categories-img').src = "/images/initiatives/DISC/courses/skills.jpg";
+        // setTimeout(() => {
+        //     document.querySelector('.img-overlay').style.bottom = "0";
+        //     document.querySelector('.img-overlay').style.height = "35vw";
+        // }, 1000);
+        $('#Computer').removeClass("selectedCategory");
+        $('#English').removeClass("selectedCategory");
+        $('#Skills').addClass("selectedCategory");
+        $('#Accompaniment').removeClass("selectedCategory");
+        document.querySelector('.category-title').innerHTML = 'Employability Skills';
+        document.querySelector('.category-title.sm').innerHTML = 'Employability Skills';
+
+        document.querySelector('.section-title-desc').innerHTML = '<div data-aos="fade-up" data-aos-duration="600">A seriese of training sessions focusing on crucial interpersonal skills</div><div data-aos="fade-up" data-aos-duration="800"> to assist individuals in securing employment and thriving in professional settings.</div><div data-aos="fade-up" data-aos-duration="900">This comprehensive program on employability skills adresses key areas </div><div data-aos="fade-up" data-aos-duration="1100"> such as CV preparation, excelling in job interviews, understanding AI, and more.</div><div data-aos="fade-up" data-aos-duration="1100">Cultivating these non-technical skills broaden career </div><div data-aos="fade-up" data-aos-duration="1100">prospects and equip participants for enhanced job performance through</div><div data-aos="fade-up" data-aos-duration="1200"> practical experience in a simulated work setting.</div><div data-aos="fade-up" data-aos-duration="1300"></div>';
+        document.querySelector('.section-title-desc.sm').innerHTML = '<div data-aos="fade-up" data-aos-duration="600">A seriese of training sessions focusing on crucial interpersonal skills</div><div data-aos="fade-up" data-aos-duration="800"> to assist individuals in securing employment and thriving in professional settings.</div><div data-aos="fade-up" data-aos-duration="900">This comprehensive program on employability skills adresses key areas </div><div data-aos="fade-up" data-aos-duration="1100"> such as CV preparation, excelling in job interviews, understanding AI, and more.</div><div data-aos="fade-up" data-aos-duration="1100">Cultivating these non-technical skills broaden career </div><div data-aos="fade-up" data-aos-duration="1100">prospects and equip participants for enhanced job performance through</div><div data-aos="fade-up" data-aos-duration="1200"> practical experience in a simulated work setting.</div><div data-aos="fade-up" data-aos-duration="1300"></div>';
+
+
+    });
+    document.getElementById("Skills").addEventListener("mouseenter", function () {
+        // document.querySelector('.img-overlay').style.bottom = "100%";
+        // document.querySelector('.img-overlay').style.height = "0";
+
+        document.querySelector('.categories-img').src = "/images/initiatives/DISC/courses/skills.jpg";
+        // setTimeout(() => {
+        //     document.querySelector('.img-overlay').style.bottom = "0";
+        //     document.querySelector('.img-overlay').style.height = "35vw";
+        //
+        // }, 1000);
+        $('#Computer').removeClass("selectedCategory");
+        $('#English').removeClass("selectedCategory");
+        $('#Skills').addClass("selectedCategory");
+        $('#Accompaniment').removeClass("selectedCategory");
+        document.querySelector('.category-title').innerHTML = 'Employability Skills';
+
+        document.querySelector('.section-title-desc').innerHTML = '<div data-aos="fade-up" data-aos-duration="600">A seriese of training sessions focusing on crucial interpersonal skills</div><div data-aos="fade-up" data-aos-duration="800"> to assist individuals in securing employment and thriving in professional settings.</div><div data-aos="fade-up" data-aos-duration="900">This comprehensive program on employability skills adresses key areas </div><div data-aos="fade-up" data-aos-duration="1100"> such as CV preparation, excelling in job interviews, understanding AI, and more.</div><div data-aos="fade-up" data-aos-duration="1100">Cultivating these non-technical skills broaden career </div><div data-aos="fade-up" data-aos-duration="1100">prospects and equip participants for enhanced job performance through</div><div data-aos="fade-up" data-aos-duration="1200"> practical experience in a simulated work setting.</div><div data-aos="fade-up" data-aos-duration="1300"></div>';
+        document.querySelector('.section-title-desc.sm').innerHTML = '<div data-aos="fade-up" data-aos-duration="600">A seriese of training sessions focusing on crucial interpersonal skills</div><div data-aos="fade-up" data-aos-duration="800"> to assist individuals in securing employment and thriving in professional settings.</div><div data-aos="fade-up" data-aos-duration="900">This comprehensive program on employability skills adresses key areas </div><div data-aos="fade-up" data-aos-duration="1100"> such as CV preparation, excelling in job interviews, understanding AI, and more.</div><div data-aos="fade-up" data-aos-duration="1100">Cultivating these non-technical skills broaden career </div><div data-aos="fade-up" data-aos-duration="1100">prospects and equip participants for enhanced job performance through</div><div data-aos="fade-up" data-aos-duration="1200"> practical experience in a simulated work setting.</div><div data-aos="fade-up" data-aos-duration="1300"></div>';
+
+    });
+</script>
+<script>
+    let root;
+    let chart;
+    let cursor;
+    let xRenderer;
+    let yRenderer;
+    let xAxis;
+    let yAxis;
+    let series1;
+    let series2;
+    @if($statistics[0]->adisc_applied_students != null || $statistics[0]->adisc_completed_students != null || $statistics[0]->adisc_employed_students
+                            || $statistics[0]->hdisc_applied_students != null || $statistics[0]->hdisc_completed_students != null || $statistics[0]->hdisc_employed_students
+                            || $statistics[0]->ddisc_applied_students != null || $statistics[0]->ddisc_completed_students != null || $statistics[0]->ddisc_employed_students)
+    am5.ready(function () {
+        root = am5.Root.new("chartDisc");
+        root.setThemes([
+            am5themes_Animated.new(root),
+            am5themes_Responsive.new(root)
+        ]);
+        root._logo.dispose();
+        chart = root.container.children.push(am5radar.RadarChart.new(root, {
+            panX: false,
+            panY: false,
+            // wheelX: "panX",
+            // wheelY: "zoomX",
+            innerRadius: -80,
+            startAngle: -90,
+            endAngle: 180,
+            marginTop: 0,
+            marginLeft: 0,
+            marginRight: 0,
+            marginBottom: 0,
+            paddingTop: 0,
+            paddingBottom: 0,
+            paddingLeft: 0,
+            paddingRight: 0
+        }));
+        // cursor = chart.set("cursor", am5radar.RadarCursor.new(root, {
+        //     behavior: "zoomX"
+        // }));
+        xRenderer = am5radar.AxisRendererCircular.new(root, {
+            //minGridDistance: 50
+        });
+        xAxis = chart.xAxes.push(am5xy.ValueAxis.new(root, {
+            renderer: xRenderer,
+            min: 0,
+            max: 1600,
+            strictMinMax: true,
+            numberFormat: "#",
+            tooltip: am5.Tooltip.new(root, {})
+        }));
+        yRenderer = am5radar.AxisRendererRadial.new(root, {
+            minGridDistance: 20,
+        });
+        yAxis = chart.yAxes.push(am5xy.CategoryAxis.new(root, {
+            categoryField: "category",
+            renderer: yRenderer,
+        }));
+        yRenderer.labels.template.maxWidth = 20;
+        series1 = chart.series.push(am5radar.RadarColumnSeries.new(root, {
+            xAxis: xAxis,
+            yAxis: yAxis,
+            clustered: false,
+            valueXField: "full",
+            categoryYField: "category",
+            fill: root.interfaceColors.get("alternativeBackground")
+        }));
+        series2 = chart.series.push(am5radar.RadarColumnSeries.new(root, {
+            xAxis: xAxis,
+            yAxis: yAxis,
+            clustered: false,
+            valueXField: "value",
+            categoryYField: "category"
+        }));
+    });
+    function getData(index) {
+        let data = [
+            // Data set #1
+            [
+                {
+                    category: "Employed Learners",
+                    value: {{$statistics[0] -> hdisc_employed_students}},
+                    full: 1600,
+                    columnSettings: {
+                        fill: '#979797'
+                    }
+                },
+                {
+                    category: "Completed Learners",
+                    value: {{$statistics[0] -> hdisc_completed_students}},
+                    full: 1600,
+                    columnSettings: {
+                        fill: '#023c54'
+                    }
+                },
+                {
+                    category: "Applied Learners",
+                    value: {{$statistics[0] -> hdisc_applied_students}},
+                    full: 1600,
+                    columnSettings: {
+                        fill: '#F99D1C'
+                    }
+                }
+            ],
+            // Data set #2
+            [
+                {
+                    category: "Employed Learners",
+                    value: {{$statistics[0] -> ddisc_employed_students}},
+                    full: 1600,
+                    columnSettings: {
+                        fill: '#979797'
+                    }
+                }
+                ,
+                {
+                    category: "Completed Learners",
+                    value: {{$statistics[0] -> ddisc_completed_students}},
+                    full: 1600,
+                    columnSettings: {
+                        fill: '#023c54'
+                    }
+                },
+                {
+                    category: "Applied Learners",
+                    value: {{$statistics[0] -> ddisc_applied_students}},
+                    full: 1600,
+                    columnSettings: {
+                        fill: '#F99D1C'
+                    }
+                }
+            ],
+            // Data set #3
+            [
+                {
+                    category: "Employed Learners",
+                    value: {{$statistics[0] -> adisc_employed_students}},
+                    full: 1600,
+                    columnSettings: {
+                        fill: '#979797'
+                    }
+                },
+                {
+                    category: "Completed Learners",
+                    value: {{$statistics[0] -> adisc_completed_students}},
+                    full: 1600,
+                    columnSettings: {
+                        fill: '#023c54'
+                    }
+                },
+                {
+                    category: "Applied Learners",
+                    value: {{$statistics[0] -> adisc_applied_students}},
+                    full: 1600,
+                    columnSettings: {
+                        fill: '#F99D1C'
+                    }
+                },
+            ]
+        ];
+        return data[index];
+    }
+    @endif
+    function selectDataset(d) {
+        if (d === 0) {
+            $('.aleppomap').removeClass("active");
+            $('.damasmap').removeClass("active");
+            $('.homsmap').addClass("active");
+            $('#damasstart').addClass("d-none");
+            $('#aleppostart').addClass("d-none");
+            $('#homsstart').removeClass("d-none");
+            $('.homscity').removeClass("d-none");
+            $('.damascity').addClass("d-none");
+            $('.aleppocity').addClass("d-none");
+        }
+        else if (d === 1) {
+            $('.aleppomap').removeClass("active");
+            $('.homsmap').removeClass("active");
+            $('.damasmap').addClass("active");
+            $('#damasstart').removeClass("d-none");
+            $('#homsstart').addClass("d-none");
+            $('#aleppostart').addClass("d-none");
+            $('.homscity').addClass("d-none");
+            $('.damascity').removeClass("d-none");
+            $('.aleppocity').addClass("d-none");
+        }
+        else {
+            $('.homsmap').removeClass("active");
+            $('.damasmap').removeClass("active");
+            $('.aleppomap').addClass("active");
+            $('#damasstart').addClass("d-none");
+            $('#homsstart').addClass("d-none");
+            $('#aleppostart').removeClass("d-none");
+            $('.homscity').addClass("d-none");
+            $('.damascity').addClass("d-none");
+            $('.aleppocity').removeClass("d-none");
+        }
+        am5.ready(function () {
+            // cursor.lineY.set("visible", false);
+            xRenderer.labels.template.setAll({
+                // radius: 10
+                visible: false,
+            });
+
+            xRenderer.grid.template.setAll({
+                forceHidden: true
+            });
+
+            yRenderer.labels.template.setAll({
+                centerX: am5.p100,
+                fontWeight: "500",
+                // // fontSize: 14,
+                templateField: "columnSettings",
+            });
+
+            yRenderer.grid.template.setAll({
+                forceHidden: true
+            });
+
+            yAxis.data.setAll(getData(d));
+
+            series1.columns.template.setAll({
+                width: am5.p100,
+                fillOpacity: 0.08,
+                strokeOpacity: 0,
+                cornerRadius: 20,
+            });
+
+            series1.data.setAll(getData(d));
+
+            series2.columns.template.setAll({
+                width: am5.p100,
+                strokeOpacity: 0,
+                tooltipText: "{valueX}",
+                cornerRadius: 20,
+                templateField: "columnSettings"
+            });
+
+            series2.data.setAll(getData(d));
+            series1.appear(1000);
+            series2.appear(1000);
+            // chart.appear(1000, 100);
+        });
+    }
+</script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+<script>
+    $(document).ready(function () {
+        selectDataset(0);
+
+        if (window.innerWidth > 1023) {
+            $(".navbar").show(); //hide your div initially
+            let topOfCategories = $(".programs").offset().top - 92;
+            let topOfOActivities = $("#testimonies-section").offset().top - 92;
+            $(window).scroll(function () {
+                if ($(window).scrollTop() >= topOfCategories && $(window).scrollTop() < topOfOActivities) { //scrolled past the other div?
+                    $(".navbar").hide(); //reached the desired point -- show div
+                }
+                else {
+                    $(".navbar").show();//else above the desired point -- hide div
+                }
+            });
+        }
+        $('#homsmap').style.display = "block";
+        $('#damasmap').style.display = "none";
+        $('#aleppoTab').on('click', function () {
+            // e.preventDefault();
+            let aleppo = document.getElementById('aleppoTab');
+            let tab = new bootstrap.Tab(aleppo);
+            tab.show();
+            let url = new URL(window.location.href);
+            url.searchParams.set('tab', 'aleppo');
+            history.pushState({}, '', url.href);
+        });
+        $('#homsTab').on('click', function () {
+            // e.preventDefault();
+            let homs = document.getElementById('homsTab');
+            let tab = new bootstrap.Tab(homs);
+            tab.show();
+            let url = new URL(window.location.href);
+            url.searchParams.set('tab', 'homs');
+            history.pushState({}, '', url.href);
+        });
+        $('#damasTab').on('click', function () {
+            // e.preventDefault();
+            let damas = document.getElementById('damasTab');
+            let tab = new bootstrap.Tab(damas);
+            tab.show();
+            let url = new URL(window.location.href);
+            url.searchParams.set('tab', 'damas');
+            history.pushState({}, '', url.href);
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        let url = new URL(window.location.href);
+        let input = document.getElementById('search-input');
+
+        let searchsearch = document.getElementById('search-icon');
+        let switchsearch = document.getElementById('switch-search');
+        let s = '';
+
+        if (url.searchParams.get('search') === '' || url.searchParams.get('search') == null) {
+            searchsearch.src = "/images/ico/search-blue-icon.png";
+            switchsearch.style.background = '#f7f7f7';
+        }
+        else {
+            $('html, body').animate({
+                scrollTop: $('#initiative-section').offset().top
+            }, 'slow');
+            s = url.searchParams.get("search");
+            input.value = s;
+            searchsearch.src = "/images/ico/reverst-search.svg";
+            switchsearch.style.background = '#063c54';
+        }
+
+        if (url.searchParams.get('tab') === '' || url.searchParams.get('tab') == null) {
+            if (window.location.href.includes('ini_A'))
+                url.searchParams.set('tab', 'aleppo');
+            else if (window.location.href.includes('ini_H'))
+                url.searchParams.set('tab', 'homs');
+            else if (window.location.href.includes('ini_H'))
+                url.searchParams.set('tab', 'damas');
+            else url.searchParams.set('tab', 'aleppo');
+            history.pushState({}, '', url.href);
+        }
+
+        let tab = url.searchParams.get("tab") + "Tab";
+        let t = document.getElementById(tab);
+        let tt = new bootstrap.Tab(t);
+        tt.show();
+
+    });
+</script>
+<script>
+    let substringMatcher = function (strs) {
+        return function findMatches(q, cb) {
+            let matches, substrRegex;
+            matches = [];
+            substrRegex = new RegExp(q, 'i');
+            $.each(strs, function (i, str) {
+                if (substrRegex.test(str)) {
+                    matches.push(str);
+                }
+            });
+            cb(matches);
+        };
+    };
+    let activities = [];
+    @foreach($searchProject as $s)
+    activities.push(('{{ $s->title }}').replace('&#039;', '\''));
+    @endforeach
+    {{--@foreach($searchBeneficiary as $s)--}}
+    {{--beneficiaries.push(('{{ $s->MPE_BeneficiaryName }}').replace('&#039;', '\''));--}}
+    {{--@endforeach--}}
+
+    $('#search-input').typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1
+        },
+        {
+            name: 'activities',
+            source: substringMatcher(activities),
+            templates: {
+                header: '<h5 class="league-name">activities</h5>'
+            }
+        }
+    ).on('typeahead:select', function () {
+        selected_tab = $('tab_input').val();
+        // $('#submit-form').submit();
+        searchFilter();
+    });
+</script>
+<script>
+    const inputEl = document.getElementById("search-input");
+
+    inputEl.addEventListener("keyup", manageEnter);
+
+    function manageEnter(evt) {
+        evt.preventDefault();
+        if (evt.keyCode === 13) {
+            searchFilter();
+        }
+    }
+</script>
+<script>
+    function searchFilter() {
+        let val = document.getElementById("search-input").value
+        let urlsearch = new URL(window.location.href);
+        urlsearch.searchParams.set('search', val);
+        history.pushState({}, '', urlsearch.href);
+        window.location.href = urlsearch.href;
+    }
+</script>
+{{--<script>--}}
+{{--const blurTrigger = {--}}
+{{--name: "blur",--}}
+{{--get(target) {--}}
+{{--return +(getBlurMatch(target)[1]) || 0;--}}
+{{--},--}}
+{{--init(target, endValue) {--}}
+{{--let data = this,--}}
+{{--filter = gsap.getProperty(target, blurProperty),--}}
+{{--endBlur = "blur(" + endValue + "px)",--}}
+{{--match = getBlurMatch(target)[0],--}}
+{{--index;--}}
+{{--if (filter === "none") {--}}
+{{--filter = "";--}}
+{{--}--}}
+{{--if (match) {--}}
+{{--index = filter.indexOf(match);--}}
+{{--endValue = filter.substr(0, index) + endBlur + filter.substr(index + match.length);--}}
+{{--} else {--}}
+{{--endValue = filter + endBlur;--}}
+{{--filter += filter ? " blur(0px)" : "blur(0px)";--}}
+{{--}--}}
+{{--data.target = target;--}}
+{{--data.interp = gsap.utils.interpolate(filter, endValue);--}}
+{{--},--}}
+{{--render(progress, data) {--}}
+{{--data.target.style[blurProperty] = data.interp(progress);--}}
+{{--}--}}
+{{--}--}}
+{{--gsap.registerPlugin(ScrollTrigger,blurTrigger);--}}
+
+{{--let getRatio = el => window.innerHeight / (window.innerHeight + el.offsetHeight);--}}
+
+{{--gsap.utils.toArray("section").forEach((section, i) => {--}}
+{{--section.bg = section.querySelector(".bg");--}}
+
+{{--// Give the backgrounds some random images--}}
+{{--section.bg.style.backgroundImage = `url(https://picsum.photos/1600/800?random=${i})`;--}}
+
+{{--// the first image (i === 0) should be handled differently because it should start at the very top.--}}
+{{--// use function-based values in order to keep things responsive--}}
+{{--gsap.fromTo(section.bg, {--}}
+{{--backgroundPosition: () => i ? `50% ${-window.innerHeight * getRatio(section)}px` : "50% 0px",--}}
+{{--// blur: 30,--}}
+{{--filter: 'blur(0px)',--}}
+{{--// webkitFilter: 'blur(30px)',--}}
+{{--}, {--}}
+{{--backgroundPosition: () => `50% ${window.innerHeight * (1 - getRatio(section))}px`,--}}
+{{--ease: "none",--}}
+{{--filter: 'blur(0px)',--}}
+{{--scrollTrigger: {--}}
+{{--trigger: section,--}}
+{{--start: () => i ? "top bottom" : "top top",--}}
+{{--end: "bottom top",--}}
+{{--scrub: true,--}}
+{{--invalidateOnRefresh: true // to make it responsive--}}
+{{--}--}}
+{{--});--}}
+
+{{--});--}}
+{{--</script>--}}
+{{--<script>--}}
+{{--$('#play-button').on('click', function(ev) {--}}
+{{--$(this).hide();--}}
+{{--$("#iframe")[0].src += "?rel=0&autoplay=1";--}}
+{{--});--}}
+{{--</script>--}}
+
+</body>
+</html>

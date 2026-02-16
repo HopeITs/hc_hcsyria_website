@@ -1,0 +1,224 @@
+/* Navbar */
+.navbar {
+    /*height: 33px !important;*/
+    margin-bottom: 0;
+    border-radius: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.navbar-collapse {
+    background: transparent;
+    flex-grow: unset !important;
+}
+.navbar-collapse.collapse.show .navbar-nav{
+    width: 30%;
+    background: #fff;
+    padding-bottom: 1vw;
+    border: 0.1vw solid #999;
+    border-radius: 0.25rem;
+    position: absolute;
+    right: 12px;
+}
+.navbar-collapse.show .nav-list-links {
+    font-size: 2.5vw;
+}
+.navbar-collapse.show .navbar-nav li {
+    /*padding: 0.7vw;*/
+    padding-left: 1vw;
+    text-align: left;
+    width: 100%;
+}
+
+.navbar-collapse.show li.divider {
+    /*margin: 5px 0;*/
+    /*padding: 0.05vw;*/
+    top: 0;
+    height: 0.1vw;
+}
+
+.navbar-collapse.show .multi-column-dropdown li a{
+    font-size: 2.2vw;
+    padding: 0;
+}
+.navbar-collapse.show .projects-title-separator{
+    font-size: 2.3vw;
+}
+
+
+:root[data-bs-theme=dark] .navbar-light{
+    background-color: #212529 ;
+}
+
+:root[data-bs-theme=dark] .navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); !important;
+}
+
+:root[data-bs-theme=dark] .navbar-light .navbar-nav > li > a, :root[data-bs-theme=dark] #notifications-btn i{
+    color: #ADB5BD
+}
+
+:root[data-bs-theme=dark] .navbar-collapse.collapse.show .navbar-nav{
+    background: #2c3034 !important;
+}
+
+.navbar-nav > li > a, .navbar-brand {
+    /*padding-top:6px !important;*/
+    /*padding-bottom:0 !important;*/
+    /*height: 33px;*/
+}
+
+.navbar-light {
+    background-color: #f7f7f5;
+    border-color: #f7f7f5;
+    z-index: 11111;
+}
+
+.navbar-light .navbar-brand {
+    /*color: #ecf0f1;*/
+    /*cursor: default;*/
+    padding-left: 0.5vw;
+}
+
+.navbar-light .navbar-brand:hover,
+.navbar-light .navbar-brand:focus {
+    color: #ecf0f1;
+}
+
+.navbar-light .navbar-text {
+    color: #ecf0f1;
+}
+
+.navbar-light .navbar-nav > li > a {
+    color: #303030;
+    text-decoration: unset;
+    padding-left: 1.5vw;
+}
+
+.navbar-light .navbar-nav > li > a:hover,
+.navbar-light .navbar-nav > li > a:focus {
+    color: #bdbdbd;
+}
+
+.navbar-light .navbar-nav > .active > a,
+.navbar-light .navbar-nav > .active > a:hover,
+.navbar-light .navbar-nav > .active > a:focus {
+    color: #bdbdbd;
+    border-bottom: solid;
+    background-color: #bdbdbd;
+}
+
+.navbar-light .navbar-nav > .open > a,
+.navbar-light .navbar-nav > .open > a:hover,
+.navbar-light .navbar-nav > .open > a:focus {
+    /*color: #8eccdf;*/
+    background-color: #428bca;
+}
+
+.navbar-light .navbar-toggle {
+    border-color: #3572bd;
+}
+
+.navbar-light .navbar-toggle:hover,
+.navbar-light .navbar-toggle:focus {
+    background-color: #3572bd;
+}
+
+.navbar-light .navbar-toggle .icon-bar {
+    background-color: #ecf0f1;
+}
+
+.navbar-light .navbar-collapse,
+.navbar-light .navbar-form {
+    border-color: #ecf0f1;
+    flex-grow: unset
+}
+
+.navbar-light .navbar-link {
+    color: #ecf0f1;
+}
+
+.navbar-light .navbar-link:hover {
+    color: #8eccdf;
+}
+
+.navbar-toggle {
+    margin-top: 0;
+    margin-bottom: 0;
+    border: none;
+}
+
+.navbar-toggle:hover,
+.navbar-toggle:focus {
+    background-color: #428bca !important;
+}
+
+.dashboard-nav {
+    padding: 0 !important;
+    height: 1vw !important;
+    list-style-type: unset;
+    padding-left: unset !important;
+    margin-bottom: unset !important;
+    line-height: 1.5;
+}
+
+.dashboard-nav li {
+    list-style: none;
+    float: left;
+    padding: 10px;
+}
+
+.dashboard-nav li a {
+    color: #ddd;
+    text-decoration: none;
+}
+
+.dashboard-nav li a.active {
+    color: #bdbdbd;
+}
+
+.dashboard-nav a:hover {
+    color: #bdbdbd;
+}
+
+.navbar-brand img {
+    width: 7vw;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+/* Breadcrumb */
+#breadcrumb {
+    background-color: #303030;
+    margin-top: 3.7vw;
+    position: fixed;
+    top: 0vw;
+    width: 100%;
+    Z-index: 1111;
+}
+
+#breadcrumb .container h1 {
+    background-color: #444;
+    border-radius: 5px;
+    padding: 5px 15px;
+    margin: 0 0 25px;
+    color: #ddd;
+}
+
+@media (max-width: 575px) {
+    .navbar-brand img {
+        width: 15vw;
+    }
+
+    #breadcrumb {
+        margin-top: 11vw;
+    }
+    /*#breadcrumb {*/
+        /*margin-top: 46vw;*/
+    /*}*/
+    .navbar .nav-item{
+        padding: 2vw 0;
+    }
+}

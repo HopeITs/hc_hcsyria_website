@@ -1,0 +1,271 @@
+body {
+    padding-bottom: 75px;
+}
+
+/* Navbar */
+.navbar{
+  min-height: 33px !important;
+  margin-bottom:0;
+  border-radius:0;
+}
+
+.navbar-nav > li > a, .navbar-brand{
+  padding-top:6px !important;
+  padding-bottom:0 !important;
+  height: 33px;
+}
+
+.navbar-default {
+    background-color: #428bca;
+    border-color: #3572bd;
+    z-index: 11111;
+}
+.navbar-default .navbar-brand {
+    color: #ecf0f1;
+    cursor: default;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: #ecf0f1;
+}
+.navbar-default .navbar-text {
+    color: #ecf0f1;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #ecf0f1;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #8eccdf;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #8eccdf;
+    border-bottom: solid;
+    background-color: #428bca;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+    /*color: #8eccdf;*/
+    background-color: #428bca;
+}
+.navbar-default .navbar-toggle {
+    border-color: #3572bd;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: #3572bd;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #ecf0f1;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+    border-color: #ecf0f1;
+}
+.navbar-default .navbar-link {
+    color: #ecf0f1;
+}
+.navbar-default .navbar-link:hover {
+    color: #8eccdf;
+}
+
+.navbar-toggle {
+    margin-top: 0;
+    margin-bottom: 0;
+    border: none;
+}
+
+.navbar-toggle:hover,
+.navbar-toggle:focus {
+    background-color: #428bca !important;
+}
+
+.dashboard-nav{
+    padding: 0;
+    margin-top: -20px;
+}
+
+.dashboard-nav li{
+    list-style: none;
+    float: left;
+    padding: 10px;
+}
+
+.dashboard-nav li a{
+    color: #ddd;
+    text-decoration: none;
+}
+.dashboard-nav li a.active{
+    color: #8eccdf;
+}
+
+.dashboard-nav a:hover{
+    /*font-size: 16px;*/
+    /*font-weight: 600;*/
+    color: #8eccdf;
+}
+
+/* Custom */
+.main-color-bg{
+  background-color: #428bca !important;
+  border-color: #3572bd !important;
+  color:#ffffff !important;
+}
+.main-color-bg-black{
+    background-color: #444 !important;
+    border-color: #3572bd !important;
+    color:#ffffff !important;
+}
+
+/* Header */
+#header{
+  background:#333333;
+  color:#ffffff;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+#header .create{
+  padding-top: 20px;
+}
+
+/* Breadcrumb */
+#breadcrumb {
+    background-color: #444;
+}
+
+#breadcrumb .container h1{
+    background-color: #444;
+    border-radius: 5px;
+    padding: 5px 15px;
+    margin: 0 0 25px;
+    color: #ddd;
+}
+
+.well {
+    text-align: center;
+}
+
+.dash-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+.dash-box h1 {
+    font-size: 100px;
+}
+.panel {
+    margin-top: 40px;
+}
+
+#notifications-btn {
+    background-color: #428bca;
+    border: none;
+    outline: none;
+}
+#notifications-btn i {
+    padding-top: 8px;
+    font-size: 17px;
+    color: white;
+}
+#notifications-btn span {
+    display: none;
+    position:absolute;
+    min-width:16px;
+    padding:1px;
+    font-size:12px;
+    background-color:red;
+    border-radius:7px;
+    top:2px;
+    color: white;
+}
+
+#notifications-body {
+    min-width: 320px;
+    height: auto;
+    max-height: 400px;
+    overflow-x: hidden;
+    background-color: #fff;
+}
+
+.notification-item {
+    padding: 6px;
+    margin: 0;
+}
+
+#notifications-body li {
+    margin-left: 30px;
+    list-style: initial;
+}
+
+.not-seen {
+    background-color: #8eccdf;
+    margin: 5px;
+    border-radius: 5px;
+}
+.seen {
+    background-color: #ddd;
+    margin: 5px;
+    border-radius: 4px;
+}
+
+@media screen and (max-width: 768px) {
+    #notifications-btn {
+        padding-left: 15px;
+    }
+    #notifications-body {
+        background-color: #fff;
+        margin-left: 5px;
+    }
+}
+
+.btn-group label {
+    color: #333;
+    background-color: #fff;
+    border-color: #aaa
+}
+.btn-group .active {
+    background-color: #428bca;
+}
+@media screen and (min-width: 1200px) {
+    .btn-group .btn {
+        width: 188px;
+    }
+}
+
+.donors-list,
+.project-status {
+    width: 100%;
+}
+.donors-list>.btn {
+    width: 25.1%!important;
+}
+.project-status>.btn {
+    width: 30%!important;
+}
+@media screen and (max-width: 768px){
+    .donors-list>.btn,
+    .project-status>.btn {
+        width: 50%!important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .btn-group .btn {
+        width: 130px;
+    }
+    .btn-group>.btn {
+        border-radius: 0;
+    }
+    .btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
+        margin-left: -1px;
+    }
+}
+
+.red-color {
+    color: red;
+}

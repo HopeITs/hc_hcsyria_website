@@ -1,0 +1,147 @@
+#Children {
+    padding-top: 100px;
+    padding-bottom: 25px;
+    margin: 0 5% 0 5%;
+}
+
+#Children h3 {
+    margin-bottom: 0;
+}
+
+#Children .projects-logo-big{
+    width: 170px;
+}
+
+#Children .first-part,
+#Children .second-part{
+    /*margin: 0px;*/
+    margin-top: 70px;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    float: none;
+}
+
+#Children .first-part h3 {
+    font-size: 40px;
+    margin-top: 0;
+}
+
+#Children .first-part p {
+    font-size: 16px;
+}
+
+#Children .tiles:hover {
+    cursor: default;
+}
+
+#Children #caritas-logo {
+    padding-top: 15px;
+    width: 100px;
+}
+
+#Children .first-part p {
+    padding-top: 25px;
+}
+
+#Children .nav-tabs>li a{
+    color: #555!important;
+}
+
+#Children .nav-tabs>li.active>a,
+#Children .nav-tabs>li.active>a:hover,
+#Children .nav-tabs>li.active>a:focus {
+    color: #285e8e!important;
+}
+
+
+.single-project .btn-primary,
+.modal-body .btn-primary {
+    text-transform: uppercase;
+    border: 1px solid #285e8e;
+    border-radius: 0;
+    bottom: 0px;
+}
+
+.single-project:hover.single-project .btn-primary {
+    background-color:#285e8e;
+    color:#fff;
+    border-color:#fff;
+    transition: all 0.7s ease 0s;
+    -moz-transition: all 0.7s ease 0s;
+    -webkit-transition: all 0.7s ease 0s;
+    -o-transition: all 0.7s ease 0s;
+}
+.single-project:hover.single-project .btn-primary:hover,
+.modal-body .btn-primary:hover {
+    background-color:#285e8e;
+    color:#fff;
+}
+.org-post .btn-primary {
+    bottom: 0px!important;
+    margin-right: 2%;
+}
+.single-project p {
+    margin: 0 10px 0 0;
+}
+
+
+#Children .video {
+    width: 100%;
+}
+
+#Children .video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;border: 3px solid #ff9933;
+}
+
+
+@media screen and (min-width: 1367px){
+    #information{
+        margin-top: 50px;
+    }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1366px){
+    #information{
+        margin-top: 50px;
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+    #information{
+        margin-top: 50px;
+    }
+    #Children .first-part p {
+        padding-top: 0;
+        font-size: 14px;
+    }
+    #Children #caritas-logo {
+        width: 80px;
+    }
+}
+
+@media screen and (min-width: 420px) and (max-width: 991px) {
+    #information{
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    #Children .second-part {
+        margin-top: 70px;
+        display: flex;
+        vertical-align: middle;
+        text-align: center;
+    }
+}
+
+@media(max-width: 767px) {
+    #background {
+        margin-top: 50px;
+    }
+}

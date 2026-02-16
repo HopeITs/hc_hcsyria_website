@@ -1,0 +1,82 @@
+.profile-card {
+    margin-bottom: 50px;
+    width: 322px;
+}
+
+th{
+    font-weight: normal;
+}
+
+i {
+    opacity:1;
+    color:#fff;
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    margin: 2px 0;
+    text-align: center;
+    font-size: 1.8em;
+    border-width:1px;
+    border-color:#43484E;
+    border-style: solid;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.profile-card {
+    background-color: #eee;
+    padding:25px;
+    transition: all 1s ease 0s;
+    -moz-transition: all 1s ease 0s;
+    -webkit-transition: all 1s ease 0s;
+    -o-transition: all 1s ease 0s;
+}
+
+.profile-card h2 {
+    color:#43484E;
+    font-size:24px;
+    padding-bottom: 2px;
+    margin-bottom:15px;
+    -webkit-box-shadow: 0 3px 0 -1px #bbb;
+    box-shadow: 0 3px 0 -1px #bbb;
+}
+
+.fa-facebook {
+    background: #3B5997;
+    line-height: 35px !important;
+}
+
+.fa-linkedin {
+    background:#006DC0;
+    line-height: 30px !important;
+}
+
+.fa-google-plus {
+    background:#D13D2F;
+    line-height: 33px !important;
+}
+
+.fa-flickr {
+    background:#7A797B
+}
+
+.fa-envelope {
+    background:#7A797B;
+    line-height: 32px !important;
+}
+
+.fa-phone {
+    background: #00b140;
+    line-height: 35px !important;
+}
+
+tr a,
+tr a:focus,
+tr a:hover {
+    color: #2a6496;
+    text-decoration: underline;
+    font-size: 12px;
+    padding-left: 15px
+}

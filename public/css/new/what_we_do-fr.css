@@ -1,0 +1,53 @@
+
+@media screen and (max-width: 1199px) and (min-width: 992px) {
+    #programs #what_we_do {
+        padding-bottom: 65px;
+    }
+}
+.item-disc a {
+    margin-right: -164px;
+}
+.item-micro a {
+    margin-right: -160px;
+}
+
+.item-school a,
+.item-family a {
+    margin-right: -209px;
+}
+
+.item-study a {
+    margin-right: -145px;
+
+}
+.item-disc .carousel-caption-right,
+.item-micro .carousel-caption-right {
+    right: 4%;
+}
+.item-study .carousel-caption-right {
+    right: 8%;
+}
+
+@media screen and (max-width: 480px){
+    .item-disc .carousel-caption-right,
+    .item-micro .carousel-caption-right {
+        right: 6%;
+    }
+    .item-study .carousel-caption-right {
+        right: 9%;
+    }
+    .bg-family-logo,
+    .bg-school-logo {
+        width: 200px;
+    }
+    .item-disc a {
+        margin-right: -168px;
+    }
+    .item-micro a {
+        margin-right: -158px;
+    }
+    .item-family a,
+    .item-school a {
+        margin-right: -188px;
+    }
+}

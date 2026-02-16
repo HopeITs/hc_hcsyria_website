@@ -1,0 +1,174 @@
+#initiative .main_title {
+    font-size: 1.5vw;
+}
+
+#ini-section .padding-screen {
+    margin-top: unset !important;
+}
+
+#initiative .project-title-section.funded {
+    margin-bottom: 4vw;
+}
+
+.ini-logo {
+    width: 4.5vw;
+    height: 5.5vw;
+    object-fit: contain;
+}
+
+.ini-content {
+    color: #616262;
+    font-size: 1.3vw;
+    line-height: 1.7vw;
+    padding-bottom: 1vw;
+}
+
+#initiative .padding-screen {
+    padding: 1.5vw 2.7vw 3.5vw 4.7vw;
+}
+
+#ini-section.big .carousel {
+     margin-left: 3vw;
+     margin-bottom: 3vw;
+ }
+
+#ini-section.small .carousel {
+    margin-left: 0vw;
+}
+
+.ini-funded {
+    background: #f4f4f4;
+    height: fit-content;
+    padding: 0.5vw 0.5vw 0vw 0.5vw;
+    line-height: 1vw;
+    color: #58595B;
+    font-size: 1.1vw;
+    display: flex;
+    align-items: center;
+}
+
+.ini-funded img {
+    /*height: 4.5vw;*/
+    /*padding-left: 1vw;*/
+    height: 4.5vw;
+    padding-left: 1vw;
+    width: 7.5vw;
+}
+
+#initiative .related-posts {
+    background: url("/images/initiatives/initiative-cover.jpg");
+    background-repeat: no-repeat;
+    /*background-size: 100% 100%;*/
+    background-size: cover;
+    height: 35vw;
+}
+
+#initiative .related-posts .title {
+    color: white;
+    text-align: center;
+    font-size: 2vw;
+    font-weight: 900;
+    padding: 6vw;
+}
+
+#initiative .item {
+    padding: .5vw;
+    background: white;
+    margin-bottom: 8vw;
+    height: 15vw;
+    margin-right: 0.5vw;
+    margin-left: 0.5vw;
+}
+
+#initiative .item:hover{
+    background: #BC1818;
+}
+
+.related-ini-txt {
+    color: #616261;
+    padding-top: 1vw;
+    font-size: .9vw;
+}
+
+#initiative .item:hover .related-ini-txt{
+    color: #fff;
+}
+
+#iniCarousel_big .carousel-inner,#iniCarousel .carousel-inner{
+    margin-left: -.2vw;
+}
+#iniCarousel_big .carousel-inner .carousel-item{
+    height: 100%;
+}
+/*#iniCarousel_big .image-mask{*/
+    /*bottom: 2.9vw;*/
+/*}*/
+
+.square-project-logo{
+    width: 5vw;
+}
+
+#ini-section.big {
+    display: block;
+    padding-bottom: 1vw;
+}
+
+#ini-section.small {
+    display: none;
+    padding-bottom: 1vw;
+}
+
+.ini-height{
+    height: 28vw;
+}
+
+@media (max-width: 575px) {
+    .related-posts{
+        margin-bottom: 2vw;
+    }
+
+    .ini-height{
+        height: 40vw;
+    }
+    #iniCarousel .carousel-indicators {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    #initiative .related-posts .title {
+        font-size: 3vw;
+        padding: 3vw !important;
+    }
+
+    #ini-section.big {
+        display: none;
+    }
+
+    #ini-section.small {
+        display: block;
+    }
+
+    .ini-funded img {
+        height: 7.5vw !important;
+        width: 12.5vw !important;
+    }
+
+    .ini-funded {
+        font-size: 2.1vw !important;
+    }
+
+    .card-content, .ini-content {
+        font-size: 2.7vw !important;
+    }
+
+    .ini-content {
+        line-height: 3vw !important;
+    }
+    /*#initiative .horizontal-line.last {*/
+        /*height: 8vw !important;*/
+        /*margin-top: 3vw !important;*/
+    /*}*/
+    #initiative .item {
+        height: 21vw !important;
+    }
+}

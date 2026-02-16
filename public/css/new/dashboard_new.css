@@ -1,0 +1,1053 @@
+body {
+    padding-bottom: 75px;
+}
+.navbar-collapse {
+    background: transparent;
+    flex-grow: unset !important;
+}
+.navbar-collapse.collapse.show .navbar-nav{
+    width: 30%;
+    background: #212529;
+    padding-bottom: 1vw;
+    border: 0.1vw solid #999;
+    border-radius: 0.25rem;
+    position: absolute;
+    right: 12px;
+}
+.navbar-collapse.show .nav-list-links {
+    font-size: 2.5vw;
+}
+.navbar-collapse.show .navbar-nav li {
+    /*padding: 0.7vw;*/
+    padding-left: 1vw;
+    text-align: left;
+    width: 100%;
+}
+
+.navbar-collapse.show li.divider {
+    /*margin: 5px 0;*/
+    /*padding: 0.05vw;*/
+    top: 0;
+    height: 0.1vw;
+}
+
+.navbar-collapse.show .multi-column-dropdown li a{
+    font-size: 2.2vw;
+    padding: 0;
+}
+.navbar-collapse.show .projects-title-separator{
+    font-size: 2.3vw;
+}
+:root[data-bs-theme=dark] body, :root[data-bs-theme=dark] .tab-pane{
+    background: #212529 !important;
+    color: #ADB5BD !important;
+}
+
+:root[data-bs-theme=dark] .well{
+    background-color: #3b3f43;
+    border: 1px solid #ADB5BD;
+    color: #fff;
+}
+:root[data-bs-theme=dark] .navbar-light{
+    background-color: #212529 ;
+}
+
+:root[data-bs-theme=dark] .form-select:disabled{
+    background-color: #80808066;
+}
+
+:root[data-bs-theme=dark] .navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); !important;
+}
+
+:root[data-bs-theme=dark] #breadcrumb{
+    background-color: #2c3034;
+}
+
+:root[data-bs-theme=dark] #notifications-body {
+    min-width: 265px;
+    background-color: #212529;
+    border: 1px solid #ededed33;
+    margin-left: 10px;
+    color: #ADB5BD;
+}
+
+:root[data-bs-theme=dark] .seen {
+    background-color: #2c3034;
+}
+
+:root[data-bs-theme=dark] .navbar-light .navbar-nav > li > a, :root[data-bs-theme=dark] #notifications-btn i{
+    color: #ADB5BD
+}
+:root[data-bs-theme=dark] .tab-content{
+    background: transparent !important;
+}
+
+
+:root[data-bs-theme=dark] .form-select ,:root[data-bs-theme=dark] .form-control,:root[data-bs-theme=dark] .ck.ck-editor__main>.ck-editor__editable,
+:root[data-bs-theme=dark] .btn-group label,:root[data-bs-theme=dark] .btn-secondary {
+    background: transparent;
+    color: #ADB5BD;
+}
+
+:root[data-bs-theme=dark] .card{
+    background-color: transparent;
+    border: 1px solid #ADB5BD;
+}
+
+:root[data-bs-theme=dark] .nav-tabs{
+    background: transparent;
+}
+
+:root[data-bs-theme=dark] .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
+    color: #bc1818 !important;
+    background-color: #212529 !important;
+    border-color: #BC1818 #dee2e6 #212529 !important;
+}
+
+:root[data-bs-theme=dark] .pagination{
+    background: transparent;
+    color: #ADB5BD !important;
+}
+:root[data-bs-theme=dark] .table-striped>tbody>tr:nth-of-type(odd){
+    color: #ADB5BD;
+}
+
+:root[data-bs-theme=dark] .table-hover>tbody>tr:hover{
+    color: #ADB5BD;
+}
+
+:root[data-bs-theme=dark] .table{
+    color: #ADB5BD;
+}
+:root[data-bs-theme=dark] .nav-tabs .nav-link {
+    color: #ADB5BD;
+    background: #212529;
+}
+
+
+:root[data-bs-theme=dark] #projects select option{
+    background-color: #212529 !important;
+}
+input[type="checkbox"] {
+    display: none;
+}
+
+#switch-mode{
+    float: right;
+    padding-left: 10px;
+}
+
+.switch-btn {
+    width: 24px;
+    height: 24px;
+    /*background-color: #C5CCD3;*/
+    /*border: 1px solid #BEC5CC;*/
+    border-radius: 12px;
+    transition: background-color 500ms ease;
+}
+
+.switch-btn label {
+    width: 25px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border-radius: 30px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transform: translate(-11px, 19px) rotate(120deg);
+    user-select: none;
+}
+
+input[type="checkbox"]:checked ~ .switch-btn {
+    /*border: 4px solid #2e3052;*/
+    background-color: transparent;
+}
+
+/*input[type="checkbox"]:checked ~ .switch-btn label {*/
+/*transform: translateX(calc(74px - 30px));*/
+/*box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.2);*/
+/*}*/
+
+input[type="checkbox"]:checked ~ .switch-btn label .icons {
+    transform: translateX(-20px);
+}
+
+
+.horizontal-line {
+    height: 6vw;
+    text-align: center;
+    border-left: 0.4vw solid #BC1818;
+    width: 50%;
+    position: absolute;
+    left: 49.7%;
+    z-index: 999;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+}
+.main-color-bg {
+    background-color: #be1f24 !important;
+    border-color: #be1f24 !important;
+    color: #ffffff !important;
+}
+
+.main-color-bg-black {
+    background-color: #444 !important;
+    border-color: #be1f24 !important;
+    color: #ffffff !important;
+}
+
+/* Header */
+#header {
+    background: #333333;
+    color: #ffffff;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+#header .create {
+    padding-top: 20px;
+}
+
+.well {
+    text-align: center;
+}
+
+.dash-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.dash-box h1 {
+    font-size: 7vw;
+}
+
+.card {
+    margin-top: 40px;
+}
+
+.card-title {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+#projects .card-title {
+    padding: 0;
+}
+
+.card-title span {
+    background-color: #444;
+    border-radius: 35%;
+    float: right;
+    padding: 2px 5px;
+    margin-right: 2px;
+}
+
+.well {
+    min-height: 20px;
+    padding: 19px;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #616161;
+    border-color: #616161;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #bdbdbd;
+    border-color: #bdbdbd;
+    box-shadow: none !important;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #d32f2f;
+    border-color: #d32f2f;
+}
+
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open .dropdown-toggle.btn-danger {
+    color: #fff;
+    background-color: #d43f3a;
+    border-color: #d43f3a;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: #43a047;
+    border-color: #43a047;
+}
+
+.btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open .dropdown-toggle.btn-info {
+    color: #fff;
+    background-color: #5bc932;
+    border-color: #5bc932;
+    box-shadow: none;
+}
+
+.btn-warning {
+    color: #000;
+    background-color: #f2d232;
+    border-color: #f2d232;
+}
+
+.icon-btn {
+    width: 36px;
+    height: 34px;
+    padding: 0.2vw !important;
+}
+
+.fa-map-marker, .fa-picture-o {
+    color: #616161;
+}
+
+.tab-pane .fa-map-marker {
+    color: #fff;
+}
+
+.page-item.active .page-link {
+    color: #BC1818 !important;
+}
+
+.page-link {
+    border: none !important;
+    background: none !important;
+    color: #616262 !important;
+    font-size: 1vw;
+    padding: 0 0.3vw !important;
+    box-shadow: none !important;
+}
+
+#notifications-btn {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    position: relative;
+}
+
+#notifications-btn i {
+    /*padding-top: 8px;*/
+    font-size: 17px;
+    color: #303030;
+}
+
+#notifications-btn span {
+    display: none;
+    position: absolute;
+    height: 1.1rem;
+    top: -0.3rem;
+    right: 0rem;
+    width: 1.1rem;
+    text-align: center;
+    line-height: 1rem;
+    font-size: .7rem;
+    border-radius: 50%;
+    color: white;
+    background: #bc1818;
+}
+
+#notifications-body {
+    min-width: 320px;
+    height: auto;
+    max-height: 400px;
+    overflow-x: hidden;
+    background-color: #fff;
+}
+
+.notification-item {
+    padding: 6px;
+    margin: 0;
+}
+
+#notifications-body li {
+    margin-left: 30px;
+    list-style: none;
+    cursor: default;
+}
+
+.not-seen {
+    background-color: #be232642;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.seen {
+    background-color: #ddd;
+    margin: 5px;
+    border-radius: 4px;
+}
+
+.project-donor-logo {
+    width: 4vw;
+    /*width: 7.3vw !important;*/
+    /*height: 11vw;*/
+    text-align: end;
+    display: flex;
+}
+
+.missio-donor-logo{
+    width: 9.3vw;
+    display: flex;
+}
+
+.louvre-donor-logo{
+    width: 5.3vw;
+    display: flex;
+}
+
+.kerk-donor-logo{
+    width: 6.3vw;
+    display: flex;
+}
+
+.hungary-donor-logo{
+    width: 5vw;
+    display: flex;
+}
+
+@media screen and (max-width: 768px) {
+    /*#notifications-btn {*/
+    /*padding-left: 15px;*/
+    /*}*/
+    #notifications-body {
+        background-color: #fff;
+        margin-left: 5px;
+    }
+}
+
+.btn-group label {
+    color: #333;
+    background-color: #fff;
+    border-color: #aaa
+}
+
+.btn-group .active {
+    background-color: #be1f24;
+}
+
+.donors-list,
+.project-status {
+    width: 100%;
+}
+
+.donors-list > .btn {
+    /*width: 25.1% !important;*/
+}
+.table-wrapper {
+    max-height: 100px;
+    overflow: auto;
+    display:inline-block;
+}
+.btn-check:active + .btn-outline-primary, .btn-check:checked + .btn-outline-primary, .btn-outline-primary.active, .btn-outline-primary.dropdown-toggle.show, .btn-outline-primary:active {
+    color: #fff !important;
+    background-color: #d32f2f !important;
+    border-color: #d32f2f;
+    box-shadow: none;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #d32f2f;
+    border-color: #d32f2f;
+}
+
+.project-status > .btn {
+    width: 30% !important;
+}
+
+@media screen and (max-width: 768px) {
+    .donors-list > .btn,
+    .project-status > .btn {
+        width: 50% !important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .btn-group .btn {
+        width: 130px;
+    }
+
+    .btn-group > .btn {
+        border-radius: 0;
+    }
+
+    .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+        margin-left: -1px;
+    }
+}
+
+.red-color {
+    color: red;
+}
+
+.title {
+    background-color: #ddd;
+    border-radius: 5px;
+    padding: 5px 15px 6px 15px;
+    margin: 0 0 25px;
+    color: #555;
+}
+
+/*div.dtsp-panesContainer{*/
+/*display: none !important;*/
+/*}*/
+
+th, td {
+    vertical-align: middle !important;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.btn {
+    padding: 0.3vw 0.6vw;
+}
+
+.btn-check:checked {
+    color: #fff;
+    background-color: #d32f2f !important;
+    border-color: #d32f2f !important;
+}
+
+.alert {
+    margin-bottom: 30px;
+}
+
+#footer {
+    background-color: #f6f6f6;
+    padding: 25px 0;
+    color: #43484E;
+    font-size: 16px;
+    position: relative;
+    width: 100%;
+    margin-top: 25px;
+}
+
+#footer p {
+    margin: 0
+}
+
+#main .nav-tabs ,#projects .nav-tabs{
+    padding-left: unset !important;
+}
+
+/*.nav-tabs {*/
+/*position: sticky;*/
+/*top: 60px;*/
+/*background: #FFF;*/
+/*z-index: 10;*/
+/*padding-top: 30px;*/
+/*}*/
+
+/*.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {*/
+/*border-radius: 0;*/
+/*}*/
+
+/*.nav-tabs > li > a {*/
+/*color: #555;*/
+/*}*/
+
+.clickable {
+    cursor: pointer;
+}
+
+.vertical-alignment-helper {
+    display: table;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+}
+
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events: none;
+}
+
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width: inherit;
+    max-width: inherit; /* For Bootstrap 4 - to avoid the modal window stretching full width */
+    height: inherit;
+    /* To center horizontally */
+    margin: 80px auto;
+    pointer-events: all;
+}
+
+.highlight_old {
+    background-color: #ffb4b4
+}
+
+.highlight_new {
+    background-color: #43a047;
+    color: white;
+}
+.modal{
+    z-index: 2000;
+}
+
+.readonly-div {
+    background-color: #eee;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.ck-editor__editable_inline {
+    min-height: 300px;
+}
+
+.nav-tabs .active {
+    margin-bottom: -2px;
+}
+
+.alert {
+    margin-top: 2rem;
+}
+
+th, td {
+    text-align: center;
+}
+
+.edit-btn {
+    margin-left: 6px;
+}
+
+#main {
+    margin-top: 6.5vw;
+}
+
+#projects,#Newsletter {
+    margin-top: 10.5vw;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #43a047;
+    border-color: #43a047;
+}
+
+.btn-success:hover, .btn-success:focus {
+    color: #fff;
+    background-color: #46b14a;
+    border-color: #46b14a;
+}
+
+.form-control:focus {
+    border-color: #d32f2f;
+    outline: 0;
+    box-shadow: 0 0 0 0.15rem rgb(211 47 47 / 25%);
+}
+
+.table {
+    font-size: .9rem;
+}
+
+.form-select:focus {
+    border-color: #d32f2f;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(211 47 47 / 25%);
+}
+
+.table > :not(:last-child) > :last-child > * {
+    border-bottom-color: transparent !important;
+}
+
+.ck-focused {
+    border-color: #d32f2f !important;
+}
+
+.swal2-modal .swal2-title {
+    font-size: 20px !important;
+}
+
+.swal2-modal {
+    width: 300px !important;
+}
+
+.swal2-confirm {
+    background-color: #be1f24 !important;
+    border-left-color: #be1f24 !important;
+    border-right-color: #be1f24 !important;
+}
+
+.btn-close {
+    font-size: .7vw;
+}
+
+.btn-close:focus {
+    box-shadow: none;
+}
+
+/*.toast{*/
+/*position: absolute;*/
+/*bottom: 10px;*/
+/*right: 10px;*/
+/*z-index: 20000;*/
+/*}*/
+/*.toast{*/
+/*background-color: white;*/
+/*!*display: none;*!*/
+/*}*/
+
+/*image gallery*/
+.image-checkbox {
+    cursor: pointer;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: 4px solid transparent;
+    margin-bottom: 0;
+    outline: 0;
+}
+
+.image-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.image-checkbox-checked {
+    border-color: #BC1818;
+    position: relative;
+}
+
+.image-checkbox .fa {
+    position: absolute;
+    color: #BC1818;
+    background-color: #fff;
+    top: 0;
+    right: 0;
+}
+
+.image-checkbox-checked .fa {
+    display: block !important;
+}
+
+.img-responsive {
+    height: 100px;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    color: #212529;
+    text-decoration: none;
+    background-color: #e9ecef;
+}
+
+.btn-secondary {
+    color: #616161;
+    background-color: #f5f5f5;
+    border-color: #616161;
+}
+
+.btn-secondary:hover {
+    color: #fff !important;
+    background-color: #616161 !important;
+    border-color: #616161;
+}
+
+.dt-buttons {
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+}
+
+/*div.dataTables_wrapper div.dataTables_length .form-select option:hover{*/
+/*}*/
+
+.single-card {
+    margin: 3% 17.5%;
+}
+
+.card-height {
+    background: #FBFBFD;
+}
+
+.card-content {
+    font-weight: normal !important;
+    font-size: 1.1vw;
+    color: #616262;
+    line-height: 1.5vw;
+}
+
+.card-subtitle {
+    color: #676463;
+    font-size: 1.1vw;
+    font-weight: 700;
+}
+
+.card-title-section {
+    border-bottom: 1px solid #B2B2B2;
+    height: 0.7vw;
+    margin-bottom: 0.7vw;
+}
+
+.project-carousel {
+    height: 21vw;
+}
+
+.project-carousel .carousel-item , #iniCarousel .carousel-item {
+    height: 100%;
+}
+
+.location-icon, .copy-icon, .video-icon {
+    height: 2vw;
+    cursor: pointer;
+}
+
+.readmore-btn {
+    background: transparent;
+    border: 0.15vw solid #B2B2B2;
+    border-radius: 0;
+    color: #616262;
+    padding: .5% 3%;
+    font-size: 1vw;
+    position: absolute;
+    bottom: 1vw;
+}
+
+.readmore-btn:hover {
+    background: #BC1818;
+    border: 2px solid #BC1818 !important;
+    color: white;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0 !important;
+    margin-bottom: 0 !important;
+    line-height: 1.3vw;
+}
+.carousel .carousel-indicators button{
+    width: 0.6vw !important;
+    height: 0.6vw !important;
+    border: none;
+    border-radius: 100%;
+    background: #EDEDED !important;
+}
+select option:hover{
+    background: #BC1818 !important;
+}
+
+#projects select option:checked , #projects select option:focus {
+    background-color: #BC1818;
+    color: white!important;
+}
+
+.btn {
+    box-shadow: none !important;
+}
+
+.partner-title {
+    color: #BC1818;
+    font-weight: 900;
+    font-size: 1.8vw;
+}
+
+.padding-screen {
+    padding: 0vw 4.7vw 0vw 4.7vw;
+    margin-top: 1vw;
+}
+
+.image-mask {
+    position: absolute;
+    bottom: -0.2vw;
+    left: 0;
+    width: 100%;
+}
+#ini-section.big {
+    display: block;
+}
+#ini-section.small {
+    display: none;
+}
+.carousel-indicators {
+    position: absolute;
+    bottom: -2.5vw;
+}
+
+.fa-solid, .fas {
+    background: #fff;
+    border-radius: 20%;
+    padding: 3px;
+    font-size: 12px;
+    color: #616161;
+    font-weight: bolder;
+}
+
+.section-title {
+    background: white;
+    /* padding: 2rem; */
+    padding: 2.3vw;
+    margin-top: 3vw;
+    color: #BC1818;
+    font-weight: bold;
+    /* font-size: 28px; */
+    font-size: 1.8vw;
+    z-index: 1000;
+}
+
+
+@media screen and (max-width: 1024px) {
+    #main, #projects  {
+        margin-top: 20vw;
+    }
+    .nav-tabs .nav-link{
+        font-size: 1.3vw !important;
+    }
+}
+@media (max-width: 575px) {
+    .project-donor-logo {
+        width: 9vw;
+    }
+    .missio-donor-logo {
+        width: 15vw;
+    }
+    .louvre-donor-logo{
+        width: 10.3vw;
+        height: 8vw;
+    }
+    .kerk-donor-logo {
+        width: 17vw;
+    }
+    .hungary-donor-logo {
+        width: 10vw;
+        display: flex;
+    }
+    #main, #projects ,#Newsletter {
+        margin-top: 65vw;
+    }
+    .dash-box h1 {
+        font-size: 20vw;
+    }
+    .nav-item {
+        width: 100%;
+    }
+
+    #main .nav-tabs , #projects .nav-tabs {
+        padding-left: 10vw !important;
+    }
+
+    .page-link {
+        font-size: 3.5vw !important;
+    }
+
+    .page-link {
+        font-size: 3.5vw !important;
+    }
+
+    .nav-tabs li {
+        width: 75vw !important;
+        text-align: center !important;
+    }
+
+    .nav-tabs .nav-link {
+        font-size: 3.5vw !important;
+        margin-bottom: 10px !important;
+        width: 100% !important;
+        padding-top: 10px;
+    }
+
+    .card-subtitle {
+        font-size: 3.1vw;
+    }
+
+    .card-title {
+        font-size: 3.3vw !important;
+    }
+
+    .card-content {
+        line-height: 4vw;
+        font-size: 2.7vw !important;
+    }
+
+    .project-carousel, #initiatives .project-carousel {
+        height: 40vw;
+    }
+
+    .readmore-btn {
+        font-size: 2.2vw;
+        bottom: -6vw;
+    }
+
+    .project-donor-logo {
+        width: 7.3vw !important;
+        height: 11vw !important;
+    }
+
+    .card-subtitle + span {
+        font-size: 3.1vw !important;
+    }
+
+    .single-card ul {
+        line-height: 3.1vw !important;
+    }
+
+    .location-icon, .copy-icon, .video-icon {
+        height: 4vw;
+    }
+
+    .single-card {
+        margin: 0% 7.5%;
+        padding-bottom: 10vw;
+    }
+    #Newsletter .news_title {
+        font-size: 2.5vw;
+        line-height: 4vw;
+    }
+    #Newsletter .text-column {
+        font-size: 2.2vw !important;
+        column-count: 1 !important;
+    }
+    #ini-section.big {
+        display: none;
+    }
+    #ini-section.small {
+        display: block;
+    }
+    .ini-content {
+        line-height: 3vw !important;
+        font-size: 2.7vw !important;
+    }
+    .partner-title, .ini-title {
+        font-size: 4vw !important;
+    }
+    .partner-logo, .ini-logo {
+        width: 9.5vw !important;
+        height: 9.5vw !important;
+    }
+    #iniCarousel_big .carousel-inner, #iniCarousel .carousel-inner {
+        height: 40vw !important;
+    }
+    .ini-funded {
+        font-size: 2.1vw !important;
+    }
+    .ini-funded img {
+        height: 7.5vw !important;
+        width: 12.5vw !important;
+    }
+    .section-title {
+        font-size: 3.8vw !important;
+    }
+}
+

@@ -1,0 +1,325 @@
+Here is imapsync 2.200 on host s807.sureserver.com, a linux system with 4.9/43.0 free GiB of RAM
+with Perl 5.32.1 and Mail::IMAPClient 3.42
+Transfer started at Wednesday 23 October 2024-10-23 14:39:54 +0300 EEST
+PID is 40874 my PPID is 40869
+Log file is /home/hcsyria/private/imapsync/2024_10_23_14_39_54_635_shoushig.shoushanian@sha8er.com_shoushig.shoushanian@hcsyria.org.txt ( to change it, use --logfile path ; or use --nolog to turn off logging )
+Load is 7.32 7.26 8.01 7/3994 on 36 cores
+Current directory is /tmp
+Real user id is hcsyria (uid 1775)
+Effective user id is hcsyria (euid 1775)
+$RCSfile: imapsync,v $ $Revision: 2.200 $ $Date: 2022/04/04 16:05:55 $ 
+Command line used, run by /usr/bin/perl:
+/usr/local/bin/imapsync --host1 mail.s816.sureserver.com --user1 shoushig.shoushanian@sha8er.com --host2 localhost --user2 shoushig.shoushanian@hcsyria.org --noreleasecheck --syncduplicates --addheader --no-modulesversion --noemailreport1 --noemailreport2 --tmpdir /home/hcsyria/private --logdir /home/hcsyria/private/imapsync
+Temp directory is /home/hcsyria/private ( to change it use --tmpdir dirpath )
+kill -QUIT 40874 # special behavior: call to sub catch_exit
+kill -TERM 40874 # special behavior: call to sub catch_exit
+kill -INT 40874 # special behavior: call to sub catch_reconnect
+kill -HUP 40874 # special behavior: call to sub catch_print
+kill -USR1 40874 # special behavior: call to sub toggle_sleep
+File /home/hcsyria/private/imapsync.pid does not exist
+PID file is /home/hcsyria/private/imapsync.pid ( to change it, use --pidfile filepath ; to avoid it use --pidfile "" )
+Writing my PID 40874 in /home/hcsyria/private/imapsync.pid
+Writing also my logfile name in /home/hcsyria/private/imapsync.pid : /home/hcsyria/private/imapsync/2024_10_23_14_39_54_635_shoushig.shoushanian@sha8er.com_shoushig.shoushanian@hcsyria.org.txt
+Info: will resync flags for already transferred messages. Use --noresyncflags to not resync flags.
+Host1: probing ssl on port 993 ( use --nosslcheck to avoid this ssl probe ) 
+Host1: sslcheck detected open ssl port 993 so turning ssl on (use --nossl1 --notls1 to turn off SSL and TLS wizardry)
+Host2: probing ssl on port 993 ( use --nosslcheck to avoid this ssl probe ) 
+Host2: sslcheck detected open ssl port 993 so turning ssl on (use --nossl2 --notls2 to turn off SSL and TLS wizardry)
+SSL debug mode level is --debugssl 1 (can be set from 0 meaning no debug to 4 meaning max debug)
+Host1: SSL default mode is like --sslargs1 "SSL_verify_mode=0", meaning for host1 SSL_VERIFY_NONE, ie, do not check the server certificate.
+Host1: Use --sslargs1 SSL_verify_mode=1 to have SSL_VERIFY_PEER, ie, check the server certificate. of host1
+Host2: SSL default mode is like --sslargs2 "SSL_verify_mode=0", meaning for host2 SSL_VERIFY_NONE, ie, do not check the server certificate.
+Host2: Use --sslargs2 SSL_verify_mode=1 to have SSL_VERIFY_PEER, ie, check the server certificate. of host2
+Info: turned ON syncinternaldates, will set the internal dates (arrival dates) on host2 same as host1.
+Host1: will try to use LOGIN authentication on host1
+Host2: will try to use LOGIN authentication on host2
+Host1: imap connection timeout is 120 seconds
+Host2: imap connection timeout is 120 seconds
+Host1: imap connection keepalive is on on host1. Use --nokeepalive1 to disable it.
+Host2: imap connection keepalive is on on host2. Use --nokeepalive2 to disable it.
+Host1: IMAP server [mail.s816.sureserver.com] port [993] user [shoushig.shoushanian@sha8er.com]
+Host2: IMAP server [localhost] port [993] user [shoushig.shoushanian@hcsyria.org]
+Host1: connecting and login on host1 [mail.s816.sureserver.com] port [993] with user [shoushig.shoushanian@sha8er.com]
+DEBUG: .../IO/Socket/SSL.pm:1177: global error: Undefined SSL object
+DEBUG: .../IO/Socket/SSL.pm:1177: global error: Undefined SSL object
+Host1 IP address: 195.42.142.43 Local IP address: 195.8.222.25
+Host1 banner: * OK [CAPABILITY IMAP4rev1 LITERAL+ SASL-IR LOGIN-REFERRALS ID ENABLE IDLE AUTH=PLAIN] Dovecot ready.
+Host1 capability before authentication: IMAP4rev1 LITERAL+ SASL-IR LOGIN-REFERRALS ID ENABLE IDLE AUTH=PLAIN AUTH
+Host1: success login on [mail.s816.sureserver.com] with user [shoushig.shoushanian@sha8er.com] auth [LOGIN] or [LOGIN]
+Host2: connecting and login on host2 [localhost] port [993] with user [shoushig.shoushanian@hcsyria.org]
+DEBUG: .../IO/Socket/SSL.pm:1177: global error: Undefined SSL object
+DEBUG: .../IO/Socket/SSL.pm:1177: global error: Undefined SSL object
+Host2 IP address: 127.0.0.1 Local IP address: 127.0.0.1
+Host2 banner: * OK [CAPABILITY IMAP4rev1 LITERAL+ SASL-IR LOGIN-REFERRALS ID ENABLE IDLE AUTH=PLAIN] Dovecot ready.
+Host2 capability before authentication: IMAP4rev1 LITERAL+ SASL-IR LOGIN-REFERRALS ID ENABLE IDLE AUTH=PLAIN AUTH
+Host2: success login on [localhost] with user [shoushig.shoushanian@hcsyria.org] auth [LOGIN] or [LOGIN]
+Host1: state Authenticated
+Host2: state Authenticated
+Host1 capability once authenticated: IMAP4rev1 LITERAL+ SASL-IR LOGIN-REFERRALS ID ENABLE IDLE SORT SORT=DISPLAY THREAD=REFERENCES THREAD=REFS THREAD=ORDEREDSUBJECT MULTIAPPEND URL-PARTIAL CATENATE UNSELECT CHILDREN NAMESPACE UIDPLUS LIST-EXTENDED I18NLEVEL=1 CONDSTORE QRESYNC ESEARCH ESORT SEARCHRES WITHIN CONTEXT=SEARCH LIST-STATUS BINARY MOVE SNIPPET=FUZZY COMPRESS=DEFLATE QUOTA THREAD I18NLEVEL CONTEXT SNIPPET COMPRESS
+Host2 capability once authenticated: IMAP4rev1 LITERAL+ SASL-IR LOGIN-REFERRALS ID ENABLE IDLE SORT SORT=DISPLAY THREAD=REFERENCES THREAD=REFS THREAD=ORDEREDSUBJECT MULTIAPPEND URL-PARTIAL CATENATE UNSELECT CHILDREN NAMESPACE UIDPLUS LIST-EXTENDED I18NLEVEL=1 CONDSTORE QRESYNC ESEARCH ESORT SEARCHRES WITHIN CONTEXT=SEARCH LIST-STATUS BINARY MOVE SNIPPET=FUZZY COMPRESS=DEFLATE QUOTA THREAD I18NLEVEL CONTEXT SNIPPET COMPRESS
+Host1: found ID capability. Sending/receiving ID, presented in raw IMAP for now.
+In order to avoid sending/receiving ID, use option --noid
+Sending: 4 ID ("name" "imapsync" "version" "2.200" "os" "linux" "vendor" "Gilles LAMIRAL" "support-url" "https://imapsync.lamiral.info/" "date" "04-Apr-2022 16:05:55 +0000" "side" "host1")
+Sent 181 bytes
+Read: 	* ID ("name" "Dovecot")
+  	4 OK ID completed (0.001 + 0.000 secs).
+Host2: found ID capability. Sending/receiving ID, presented in raw IMAP for now.
+In order to avoid sending/receiving ID, use option --noid
+Sending: 4 ID ("name" "imapsync" "version" "2.200" "os" "linux" "vendor" "Gilles LAMIRAL" "support-url" "https://imapsync.lamiral.info/" "date" "04-Apr-2022 16:05:55 +0000" "side" "host2")
+Sent 181 bytes
+Read: 	* ID ("name" "Dovecot")
+  	4 OK ID completed (0.001 + 0.000 secs).
+
+Host2: QUOTA capability found, presented in raw IMAP on next lines
+Sending: 5 GETQUOTAROOT INBOX
+Sent 22 bytes
+Read: 	* QUOTAROOT INBOX Default
+  	* QUOTA Default (STORAGE 0 1048576 MESSAGE 0 50000)
+  	5 OK Getquotaroot completed (0.001 + 0.000 secs).
+
+Host2: Quota current storage is 0 bytes. Limit is 0 bytes. So 0 % full
+Host1: Compression is off. Use --compress1 to allow compression on host1
+Host2: Compression is off. Use --compress2 to allow compression on host2
+Host1: found 5 folders.
+Host2: found 5 folders.
+Host1: guessing separator from folder listing: [.]
+Host1: separator given by NAMESPACE: [.]
+Host2: guessing separator from folder listing: [.]
+Host2: separator given by NAMESPACE: [.]
+Host1: guessing prefix from folder listing: [INBOX.]
+Host1: prefix given by NAMESPACE: [INBOX.]
+Host2: guessing prefix from folder listing: [INBOX.]
+Host2: prefix given by NAMESPACE: [INBOX.]
+Host1: separator and prefix: [.][INBOX.]
+Host2: separator and prefix: [.][INBOX.]
+Including all folders found by default. Use --subscribed or --folder or --folderrec or --include to select specific folders. Use --exclude to unselect specific folders.
+Host1: Checking wanted folders exist. Use --nocheckfoldersexist to avoid this check (shared of public namespace targeted).
+Host1: Checking wanted folders are selectable. Use --nocheckselectable to avoid this check.
+Turned off automapping folders ( use --automap to turn on automapping )
+
+++++ Listing folders
+All foldernames are presented between brackets like [X] where X is the foldername.
+When a foldername contains non-ASCII characters it is presented in the form
+[X] = [Y] where
+X is the imap foldername you have to use in command line options and
+Y is the utf8 output just printed for convenience, to recognize it.
+
+Host1: folders list (first the raw imap format then the [X] = [Y]):
+* LIST (\HasChildren) "." INBOX
+* LIST (\HasNoChildren) "." INBOX.Trash
+* LIST (\HasNoChildren) "." INBOX.Sent
+* LIST (\HasNoChildren) "." "INBOX.Junk Mail"
+* LIST (\HasNoChildren) "." INBOX.Drafts
+14 OK List completed (0.001 + 0.000 secs).
+
+[INBOX]
+[INBOX.Drafts]
+[INBOX.Junk Mail]
+[INBOX.Sent]
+[INBOX.Trash]
+
+Host2: folders list (first the raw imap format then the [X] = [Y]):
+* LIST (\HasChildren) "." INBOX
+* LIST (\HasNoChildren) "." INBOX.Drafts
+* LIST (\HasNoChildren) "." INBOX.Sent
+* LIST (\HasNoChildren) "." INBOX.Trash
+* LIST (\HasNoChildren) "." "INBOX.Junk Mail"
+10 OK List completed (0.001 + 0.000 secs).
+
+[INBOX]
+[INBOX.Drafts]
+[INBOX.Junk Mail]
+[INBOX.Sent]
+[INBOX.Trash]
+
+Checking SEARCH ALL works on both accounts. To avoid that check, use --nochecknoabletosearch
+Host1: checking if SEARCH ALL works on INBOX
+Host1: folder [INBOX] has 13 messages mentioned by SELECT
+Host1: folder [INBOX] has 13 messages found by SEARCH ALL
+Host1: folder [INBOX] has the same messages count (13) by SELECT and SEARCH ALL
+Host2: checking if SEARCH ALL works on INBOX
+Host2: folder [INBOX] has 0 messages mentioned by SELECT
+Host2: folder [INBOX] has 0 messages found by SEARCH ALL
+Host2: folder [INBOX] has the same messages count (0) by SELECT and SEARCH ALL
+Good! SEARCH ALL works on both accounts.
+
+Folders sizes before the synchronization. It can take some time. Be patient.
+You can remove foldersizes listings by using "--nofoldersizes" and "--nofoldersizesatend"
+but then you will also lose the ETA (Estimation Time of Arrival) given after each message copy.
+Host1 folder     1/5 [INBOX]                             Size:   1878442 Messages:    13 Biggest:    490097
+Host2 folder     1/5 [INBOX]                             Size:         0 Messages:     0 Biggest:         0
+Host2-Host1                                                     -1878442             -13            -490097
+
+Host1 folder     2/5 [INBOX.Drafts]                      Size:      1128 Messages:     2 Biggest:       591
+Host2 folder     2/5 [INBOX.Drafts]                      Size:         0 Messages:     0 Biggest:         0
+Host2-Host1                                                        -1128              -2               -591
+
+Host1 folder     3/5 [INBOX.Junk Mail]                   Size:         0 Messages:     0 Biggest:         0
+Host2 folder     3/5 [INBOX.Junk Mail]                   Size:         0 Messages:     0 Biggest:         0
+Host2-Host1                                                            0               0                  0
+
+Host1 folder     4/5 [INBOX.Sent]                        Size:   3563152 Messages:     5 Biggest:   2007682
+Host2 folder     4/5 [INBOX.Sent]                        Size:         0 Messages:     0 Biggest:         0
+Host2-Host1                                                     -3563152              -5           -2007682
+
+Host1 folder     5/5 [INBOX.Trash]                       Size:         0 Messages:     0 Biggest:         0
+Host2 folder     5/5 [INBOX.Trash]                       Size:         0 Messages:     0 Biggest:         0
+Host2-Host1                                                            0               0                  0
+
+Host1 Nb folders:                     5 folders
+Host2 Nb folders:                     5 folders
+
+Host1 Nb messages:                   20 messages
+Host2 Nb messages:                    0 messages
+
+Host1 Total size:               5442722 bytes (5.191 MiB)
+Host2 Total size:                     0 bytes (0.000 KiB)
+
+Host1 Biggest message:          2007682 bytes (1.915 MiB)
+Host2 Biggest message:                0 bytes (0.000 KiB)
+
+Time spent on sizing:         0.4 seconds
+++++ Looping on each one of 5 folders to sync
+ETA: Wednesday 23 October 2024-10-23 14:39:55 +0300 EEST  0 s  20/20 msgs left
+Folder     1/5 [INBOX]                             -> [INBOX]                            
+Host1: folder [INBOX] has 13 messages in total (mentioned by SELECT)
+Host2: folder [INBOX] has 0 messages in total (mentioned by SELECT)
+Host2: folder [INBOX] permanentflags: 
+Host1: folder [INBOX] considering 13 messages
+Host2: folder [INBOX] considering 0 messages
+Host1: folder [INBOX] selected 13 messages, duplicates 0
+Host2: folder [INBOX] selected 0 messages, duplicates 0
+msg INBOX/1 {490097}          copied to INBOX/1          10.86 msgs/s  5.077 MiB/s 478.610 KiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  2 s  19/20 msgs left
+msg INBOX/2 {219382}          copied to INBOX/2          13.65 msgs/s  4.619 MiB/s 692.851 KiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  1 s  18/20 msgs left
+msg INBOX/3 {114690}          copied to INBOX/3          13.85 msgs/s  3.628 MiB/s 804.853 KiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  1 s  17/20 msgs left
+msg INBOX/4 {104965}          copied to INBOX/4          14.45 msgs/s  3.202 MiB/s 907.357 KiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  1 s  16/20 msgs left
+msg INBOX/5 {108496}          copied to INBOX/5          14.85 msgs/s  2.939 MiB/s 0.990 MiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  1 s  15/20 msgs left
+msg INBOX/6 {108364}          copied to INBOX/6          15.51 msgs/s  2.826 MiB/s 1.093 MiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  1 s  14/20 msgs left
+msg INBOX/7 {87925}           copied to INBOX/7          17.67 msgs/s  2.970 MiB/s 1.177 MiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  1 s  13/20 msgs left
+msg INBOX/8 {122715}          copied to INBOX/8          17.88 msgs/s  2.892 MiB/s 1.294 MiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  1 s  12/20 msgs left
+msg INBOX/9 {91146}           copied to INBOX/9          17.76 msgs/s  2.725 MiB/s 1.381 MiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  1 s  11/20 msgs left
+msg INBOX/10 {86145}          copied to INBOX/10         17.96 msgs/s  2.627 MiB/s 1.463 MiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  1 s  10/20 msgs left
+msg INBOX/11 {89680}          copied to INBOX/11         18.13 msgs/s  2.552 MiB/s 1.548 MiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  0 s  9/20 msgs left
+msg INBOX/12 {122879}         copied to INBOX/12         18.27 msgs/s  2.536 MiB/s 1.666 MiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  0 s  8/20 msgs left
+msg INBOX/13 {131958}         copied to INBOX/13         18.39 msgs/s  2.534 MiB/s 1.791 MiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  0 s  7/20 msgs left
+ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  0 s  7/20 msgs left
+Folder     2/5 [INBOX.Drafts]                      -> [INBOX.Drafts]                     
+Host1: folder [INBOX.Drafts] has 2 messages in total (mentioned by SELECT)
+Host2: folder [INBOX.Drafts] has 0 messages in total (mentioned by SELECT)
+Host2: folder [INBOX.Drafts] permanentflags: 
+Host2: Subscribing to folder INBOX.Drafts
+Host1: folder [INBOX.Drafts] considering 2 messages
+Host2: folder [INBOX.Drafts] considering 0 messages
+Host1: folder [INBOX.Drafts] selected 2 messages, duplicates 0
+Host2: folder [INBOX.Drafts] selected 0 messages, duplicates 0
+msg INBOX.Drafts/1 {537}             copied to INBOX.Drafts/1          18.75 msgs/s  2.400 MiB/s 1.792 MiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  0 s  6/20 msgs left
+msg INBOX.Drafts/3 {591}             copied to INBOX.Drafts/2          20.00 msgs/s  2.390 MiB/s 1.792 MiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  0 s  5/20 msgs left
+ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  0 s  5/20 msgs left
+Folder     3/5 [INBOX.Junk Mail]                   -> [INBOX.Junk Mail]                  
+Host1: folder [INBOX.Junk Mail] has 0 messages in total (mentioned by SELECT)
+Host2: folder [INBOX.Junk Mail] has 0 messages in total (mentioned by SELECT)
+Host2: folder [INBOX.Junk Mail] permanentflags: 
+Host1: folder [INBOX.Junk Mail] considering 0 messages
+Host2: folder [INBOX.Junk Mail] considering 0 messages
+Host1: folder [INBOX.Junk Mail] selected 0 messages, duplicates 0
+Host2: folder [INBOX.Junk Mail] selected 0 messages, duplicates 0
+ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  0 s  5/20 msgs left
+Folder     4/5 [INBOX.Sent]                        -> [INBOX.Sent]                       
+Host1: folder [INBOX.Sent] has 5 messages in total (mentioned by SELECT)
+Host2: folder [INBOX.Sent] has 0 messages in total (mentioned by SELECT)
+Host2: folder [INBOX.Sent] permanentflags: 
+Host2: Subscribing to folder INBOX.Sent
+Host1: folder [INBOX.Sent] considering 5 messages
+Host2: folder [INBOX.Sent] considering 0 messages
+Host1: folder [INBOX.Sent] selected 5 messages, duplicates 0
+Host2: folder [INBOX.Sent] selected 0 messages, duplicates 0
+msg INBOX.Sent/1 {2007682}         copied to INBOX.Sent/1          17.78 msgs/s  4.119 MiB/s 3.707 MiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  0 s  4/20 msgs left
+msg INBOX.Sent/2 {97686}           copied to INBOX.Sent/2          17.77 msgs/s  3.973 MiB/s 3.800 MiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  0 s  3/20 msgs left
+msg INBOX.Sent/3 {685416}          copied to INBOX.Sent/3          18.37 msgs/s  4.545 MiB/s 4.454 MiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  0 s  2/20 msgs left
+msg INBOX.Sent/4 {103437}          copied to INBOX.Sent/4          18.51 msgs/s  4.435 MiB/s 4.553 MiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  0 s  1/20 msgs left
+msg INBOX.Sent/5 {668931}          copied to INBOX.Sent/5          19.10 msgs/s  4.956 MiB/s 5.191 MiB copied ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  0 s  0/20 msgs left
+ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  0 s  0/20 msgs left
+Folder     5/5 [INBOX.Trash]                       -> [INBOX.Trash]                      
+Host1: folder [INBOX.Trash] has 0 messages in total (mentioned by SELECT)
+Host2: folder [INBOX.Trash] has 0 messages in total (mentioned by SELECT)
+Host2: folder [INBOX.Trash] permanentflags: 
+Host1: folder [INBOX.Trash] considering 0 messages
+Host2: folder [INBOX.Trash] considering 0 messages
+Host1: folder [INBOX.Trash] selected 0 messages, duplicates 0
+Host2: folder [INBOX.Trash] selected 0 messages, duplicates 0
+ETA: Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST  0 s  0/20 msgs left
+++++ End looping on each folder
+
+Folders sizes after the synchronization.
+You can remove this foldersizes listing by using  "--nofoldersizesatend"
+Host1 folder     1/5 [INBOX]                             Size:   1878442 Messages:    13 Biggest:    490097
+Host2 folder     1/5 [INBOX]                             Size:   1878442 Messages:    13 Biggest:    490097
+Host2-Host1                                                            0               0                  0
+
+Host1 folder     2/5 [INBOX.Drafts]                      Size:      1128 Messages:     2 Biggest:       591
+Host2 folder     2/5 [INBOX.Drafts]                      Size:      1128 Messages:     2 Biggest:       591
+Host2-Host1                                                            0               0                  0
+
+Host1 folder     3/5 [INBOX.Junk Mail]                   Size:         0 Messages:     0 Biggest:         0
+Host2 folder     3/5 [INBOX.Junk Mail]                   Size:         0 Messages:     0 Biggest:         0
+Host2-Host1                                                            0               0                  0
+
+Host1 folder     4/5 [INBOX.Sent]                        Size:   3563152 Messages:     5 Biggest:   2007682
+Host2 folder     4/5 [INBOX.Sent]                        Size:   3563152 Messages:     5 Biggest:   2007682
+Host2-Host1                                                            0               0                  0
+
+Host1 folder     5/5 [INBOX.Trash]                       Size:         0 Messages:     0 Biggest:         0
+Host2 folder     5/5 [INBOX.Trash]                       Size:         0 Messages:     0 Biggest:         0
+Host2-Host1                                                            0               0                  0
+
+Host1 Nb folders:                     5 folders
+Host2 Nb folders:                     5 folders
+
+Host1 Nb messages:                   20 messages
+Host2 Nb messages:                   20 messages
+
+Host1 Total size:               5442722 bytes (5.191 MiB)
+Host2 Total size:               5442722 bytes (5.191 MiB)
+
+Host1 Biggest message:          2007682 bytes (1.915 MiB)
+Host2 Biggest message:          2007682 bytes (1.915 MiB)
+
+Time spent on sizing:         0.0 seconds
+++++ Statistics
+Transfer started on                     : Wednesday 23 October 2024-10-23 14:39:54 +0300 EEST
+Transfer ended on                       : Wednesday 23 October 2024-10-23 14:39:56 +0300 EEST
+Transfer time                           : 1.5 sec
+Folders synced                          : 5/5 synced
+Messages transferred                    : 20 
+Messages skipped                        : 0
+Messages found duplicate on host1       : 0
+Messages found duplicate on host2       : 0
+Messages found crossduplicate on host2  : 0
+Messages void (noheader) on host1       : 0  
+Messages void (noheader) on host2       : 0
+Messages found in host1 not in host2    : 0 messages
+Messages found in host2 not in host1    : 0 messages
+Messages deleted on host1               : 0
+Messages deleted on host2               : 0
+Total bytes transferred                 : 5442722 (5.191 MiB)
+Total bytes skipped                     : 0 (0.000 KiB)
+Message rate                            : 13.7 messages/s
+Average bandwidth rate                  : 3630.1 KiB/s
+Reconnections to host1                  : 0
+Reconnections to host2                  : 0
+Memory consumption at the end           : 172.1 MiB (started with 163.9 MiB)
+Load end is                             : 7.32 7.26 8.01 4/3991 on 36 cores
+CPU time and %cpu                       : 0.74 sec 50.5 %cpu 1.4 %allcpus
+Biggest message transferred             : 2007682 bytes (1.915 MiB)
+Memory/biggest message ratio            : 89.9
+Start difference host2 - host1          : -20 messages, -5442722 bytes (-5.191 MiB)
+Final difference host2 - host1          : 0 messages, 0 bytes (0.000 KiB)
+The sync looks good, all 20 identified messages in host1 are on host2.
+There is no unidentified message on host1.
+The sync is strict, all 20 identified messages in host2 are on host1.
+Detected 0 errors
+Check if a new imapsync release is available by adding --releasecheck
+Homepage: https://imapsync.lamiral.info/
+Exiting with return value 0 (EX_OK: successful termination) 0/50 nb_errors/max_errors PID 40874
+Removing pidfile /home/hcsyria/private/imapsync.pid
+Log file is /home/hcsyria/private/imapsync/2024_10_23_14_39_54_635_shoushig.shoushanian@sha8er.com_shoushig.shoushanian@hcsyria.org.txt ( to change it, use --logfile filepath ; or use --nolog to turn off logging )

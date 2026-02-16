@@ -1,0 +1,547 @@
+.jobs-cover,.companies-cover {
+    background: #023C54;
+    padding-bottom: 7vw;
+}
+
+.jobs_title, .companies_title {
+    color: #FFF;
+    font-family: Almarai;
+    /*font-size: 40px;*/
+    font-size: 2.6vw;
+    font-style: normal;
+    font-weight: 700;
+    /*padding-left: 3vw;*/
+    padding-top: 3vw;
+    line-height: 4.3vw;
+}
+
+.jobs_subtitle,.companies_subtitle {
+    color: #919191;
+    font-family: Almarai;
+    /*font-size: 22px;*/
+    font-size: 1.5vw;
+    font-style: normal;
+    font-weight: 400;
+    padding: 3vw 0 4vw 0vw;
+}
+
+.image-frame{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.page-margin {
+    margin: 0 6%;
+}
+
+.cover-img{
+    height: 25.5vw;
+    width: 25vw;
+    margin-top: 4vw;
+    /*padding: 0.3vw 0.6vw 0 0;*/
+    border-radius: 2px;
+    position: relative;
+    /*background: linear-gradient(90deg, #F99D1C 0%, rgba(249, 157, 28, 0.00) 50%), linear-gradient(90deg, #F99D1C 70.72%, rgba(249, 157, 28, 0.00) 106.22%);*/
+}
+
+.cover-img img{
+    object-fit: cover;
+    padding: 4.9vw 5.3vw 0.3vw 0vw;
+}
+
+.title-line{
+    position: absolute;
+}
+
+ #AllJobs .jobs-cover .title-line {
+    left: 1vw;
+    top: 6vw;
+    width: 12vw;
+}
+
+#AllCompanies .companies-cover .title-line{
+    left: 1vw;
+    top: 6vw;
+    width: 19vw;
+}
+
+.all-companies .title-line{
+    width: 21vw;
+}
+
+.find-job input{
+    border: none;
+    width: 100%;
+    outline: 0;
+    background: transparent;
+    font-size: 1.3vw;
+    color: #6E6E6E;
+}
+
+.find-job{
+    border-radius: 5px;
+    /*background: var(--dark-indigo, #022E40);*/
+    background: #022E40;
+}
+
+.find-jobs-btn{
+    border-radius: 0px 5px 5px 0px;
+    /*background: var(--orange, #F99D1C);*/
+    background: #F99D1C;
+    /*color: var(--white, #FFF);*/
+    color: white;
+    font-family: Almarai;
+    font-size: 1.4vw;
+    font-style: normal;
+    font-weight: 700;
+    width: 100%;
+    padding: 1.1vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.find-jobs-btn:hover, .apply-jobs-btn:hover, .show-all-btn:hover, .reset-filter:hover{
+    color: #fff;
+}
+
+.find-job img{
+    /*width: 1.7vw;*/
+    height: 1.7vw;
+}
+
+.page-title{
+    /*color: var(--indigo, var(--indigo, #023C54));*/
+    color: #023C54;
+    font-family: Almarai;
+    font-size: 2.7vw;
+    font-weight: 700;
+}
+
+.all-jobs .page-margin, .all-companies .page-margin{
+    margin: 6% 6%;
+}
+
+.title-line{
+    left: 1vw;
+    top: 3vw;
+    width: 15vw;
+}
+
+.jobs-container{
+    margin-top: 4.5vw;
+    margin-bottom: 4.5vw;
+}
+
+.main-card {
+    border-radius: 10px;
+    /*background: var(--light-grey, #F2F2F2);*/
+    background: #F2F2F2;
+    filter: drop-shadow(4px 4px 6px #bdbdbd);
+    padding: 2vw;
+}
+
+.main-card-img{
+    width: 5.5vw;
+    height: 5.5vw;
+    margin-top: 5px;
+}
+
+.main-card-img img{
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.main-card-shadow{
+    top: 0;
+    height: 100%;
+    left: 0;
+}
+
+.main-card-title{
+    color: #1C2B41;
+    font-family: Almarai;
+    font-size: 1.3vw;
+    font-weight: 400;
+}
+
+.job-details{
+    color: rgba(44, 59, 84, 0.82);
+    font-family: Almarai;
+    font-size: .9vw;
+}
+
+.job-details img{
+    width: 17px;
+    height: 17px;
+    margin-right: 0.5vw;
+}
+.job-type{
+    border-radius: 5px;
+    background: rgba(249, 157, 28, 0.34);
+    color: #8C651D;
+    font-family: Almarai;
+    font-size: .7vw;
+    padding: 2px 10px;
+}
+
+.job-company{
+    color: rgba(28, 43, 65, 0.47);
+    font-family: Almarai;
+    font-size: 1vw;
+}
+
+.apply-jobs-btn{
+    /*color: var(--white, #FFF);*/
+    color: #fff;
+    font-family: Almarai;
+    font-size: 1vw;
+    padding: 0.2vw 2vw 0.2vw 2vw;
+    border-radius: 5px;
+    /*background: var(--orange, #F99D1C);*/
+    background: #F99D1C;
+    margin-top: .8vw;
+}
+
+.apply-jobs-btn.applied {
+    background: #7F7F7F;
+}
+
+.apply-jobs-btn.see-profile{
+  background: #023C54;
+}
+.apply-jobs-btn.follow{
+    padding: 0.2vw 1vw 0.2vw 1vw;
+}
+.show-all-btn{
+    /*color: var(--white, #FFF);*/
+    color: #fff;
+    font-family: Almarai;
+    font-size: 1.2vw;
+    padding: 0.5vw 3vw 0.5vw 3vw;
+    border-radius: 5px;
+    /* background: var(--orange, #F99D1C); */
+    background: #023C54;
+    font-weight: 700;
+    margin-top: -2vw;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #F99D1C;
+}
+.nav-tabs .nav-link {
+    color: #6E6E6E;
+    font-family: Poppins;
+    font-size: 1.5vw;
+    padding: 1vw 3vw 1vw 0vw;
+    margin-right: 0.8vw;
+    border: none;
+}
+
+.nav-tabs .nav-link .title-line{
+    display: none;
+}
+
+.nav-tabs {
+    border:none;
+}
+
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus-visible{
+    border: none;
+    outline: none;
+}
+
+.nav-item:focus-visible{
+    outline: none;
+}
+
+#allTab .title-line{
+    top: 2.8vw;
+    width: 3vw;
+    left: 0;
+}
+
+#appliedTab .title-line{
+    top: 2.6vw;
+    width: 6vw;
+    left: 0;
+}
+
+#followedTab .title-line{
+    top: 2.5vw;
+    width: 8vw;
+    left: 0;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active .title-line{
+    display: block;
+}
+
+.page-item.active .page-link {
+    color: #fff;
+    background: #F99D1C;
+}
+
+.page-item .page-link {
+    color: rgba(2, 60, 84, 0.45);
+    background: #EDEDEE;
+    border-radius: 50%;
+    border: none;
+    font-size: 1.5vw;
+    width: 3vw;
+    height: 3vw;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 1vw;
+    padding: 0.5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-job-section{
+    border-radius: 5px;
+    /*background: var(--light-grey, #EDEDEE);*/
+    background: #EDEDEE;
+    height: 4vw;
+}
+
+
+.filter-job-section .form-control{
+    color: rgba(28, 43, 65, 0.54);
+    font-family: Almarai;
+    font-size: 1.1vw;
+    background: transparent;
+    border: none;
+    padding-left: 3.2vw;
+}
+
+.filter-job-section .form-select, .filter-job-section input{
+    color: #1C2B41;
+    font-family: Almarai;
+    font-size: 1.1vw;
+    background-color: transparent;
+    border: none;
+    text-align: center;
+    border-right: 1px solid rgba(0, 77, 109, 0.20);
+    border-radius: 0;
+    cursor: pointer;
+}
+
+.filter-job-section input::placeholder{
+    color: #1C2B41;
+}
+
+.filter-job-section .form-select:focus,.filter-job-section .form-select:focus-visible, input:focus-visible{
+    box-shadow: none;
+    outline: 0;
+}
+.filter-job-section .form-control:focus,.filter-job-section .form-control:focus-visible{
+    box-shadow: none;
+}
+
+.filter-job-section .search-icon{
+    position: absolute;
+    left: 5%;
+}
+
+.search-icon{
+    height: 1.2vw;
+    width: 1.2vw;
+}
+
+.search-icon img{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+
+
+#category-icon,#search-icon{
+    left: 15%;
+}
+/*#company-icon {*/
+    /*left: 50.5vw;*/
+/*}*/
+/*#time-icon {*/
+    /*left: 36vw;*/
+/*}*/
+/*#search-icon {*/
+    /*left: 80.5vw;*/
+/*}*/
+
+/*#city-icon{*/
+    /*left: 23vw;*/
+/*}*/
+/*#colored-icon{*/
+    /*left: 65vw;*/
+/*}*/
+.reset-filter{
+    border-radius: 0px 5px 5px 0px;
+    /*background: var(--orange, #F99D1C);*/
+    background: #F99D1C;
+    color: #FFF;
+    font-size: 1.3vw;
+    font-weight: 500;
+    width: 100%;
+    height: 4vw;
+}
+
+@media (max-width: 575px){
+    .jobs-cover,.companies-cover{
+        padding-bottom: 30vw;
+    }
+    .jobs_title , .companies_title{
+        font-size: 5.6vw;
+        line-height: 10vw;
+        padding-top: 8vw;
+    }
+
+    #AllJobs .jobs-cover .title-line{
+        top: 16vw;
+        width: 27vw;
+        left: 2vw;
+    }
+
+    .jobs_subtitle,.companies_subtitle {
+        font-size: 4.5vw;
+        padding: 3vw 0 12vw 0vw;
+    }
+    .find-job img{
+        height: 4vw;
+    }
+    .find-job input{
+        font-size: 12px;
+    }
+    .find-jobs-btn{
+        padding: 2vw;
+    }
+
+    .find-jobs-btn span{
+        display: none;
+    }
+    .cover-img {
+        height: 45.5vw;
+        width: 45vw;
+        right: 20%;
+        margin-top: 8vw;
+    }
+    .cover-img img {
+        padding: 8vw 9.5vw 0.3vw 0vw;
+    }
+    .page-title{
+        font-size: 36px;
+    }
+    .title-line {
+        left: 2vw;
+        top: 11vw;
+        width: 49vw;
+    }
+    .main-card-title {
+        font-size: 18px;
+        margin-bottom: 3vw;
+    }
+    .job-company{
+        font-size: 14px;
+        margin-bottom: 3vw;
+    }
+    .job-type{
+        font-size: 12px;
+        margin-bottom: 3vw;
+    }
+    .job-details{
+        font-size: 13px;
+        margin-bottom: 3vw;
+    }
+    .apply-jobs-btn{
+        font-size: 13px;
+        padding: 0 16.5vw 0 16.5vw;
+    }
+    .apply-jobs-btn.see-profile{
+        padding: 0 8.5vw 0 8.5vw;
+    }
+    .main-card-img {
+        width: 10.5vw;
+        height: 10.5vw;
+    }
+    .all-jobs-btn{
+        font-size: 20px;
+        width: 100%;
+    }
+    .nav-tabs .nav-link {
+        font-size: 4.5vw;
+    }
+    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+        font-size: 4.5vw;
+    }
+    #appliedTab .title-line {
+        top: 6.2vw;
+        width: 20vw;
+        left: 0vw;
+    }
+
+    #allTab .title-line {
+        top: 7vw;
+        width: 10vw;
+        left: 0;
+    }
+    #followedTab .title-line {
+        top: 6.5vw;
+        width: 21vw;
+        left: 0;
+    }
+    .page-item .page-link{
+        font-size: 2.5vw;
+        width: 5vw;
+        height: 5vw;
+    }
+    .filter-job-section{
+        height: 100%;
+    }
+    .filter-job-section .form-select, .filter-job-section input {
+        font-size: 3vw;
+        border-right: none;
+        width: 100%;
+    }
+    .reset-filter {
+        font-size: 3.3vw;
+        height: 100%;
+        border-radius: 0px 0px 5px 5px;
+    }
+    .search-icon {
+        height: 3.5vw;
+        width: 3vw;
+    }
+    .filter-job-section .search-icon {
+        left: 30%;
+    }
+    /*#city-icon {*/
+        /*left: 35.5vw;*/
+    /*}*/
+    /*#company-icon {*/
+        /*left: 35.5vw;*/
+    /*}*/
+    #category-icon,#search-icon {
+        left: 30%;
+    }
+    /*#colored-icon {*/
+        /*left: 36vw;*/
+    /*}*/
+    .filter-job-section .form-control {
+        font-size: 3.1vw;
+        padding-left: 0vw;
+    }
+
+    #AllCompanies .companies-cover .title-line {
+        left: 3vw;
+        top: 14.5vw;
+        width: 42vw;
+    }
+    .show-all-btn{
+        font-size: 3.2vw;
+    }
+}

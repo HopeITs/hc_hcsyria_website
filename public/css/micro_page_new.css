@@ -1,0 +1,372 @@
+#Micro .main_title {
+    font-size: 1.08vw;
+}
+
+#Micro .project-logo{
+    width: 12vw;
+}
+
+.card-content{
+    margin-top: 1vw !important;
+}
+
+.card-subtitle + span {
+    font-weight: normal;
+    font-size: 1.1vw;
+    color: #616262;
+}
+#citiesMap {
+    width: 30vw;
+    filter: drop-shadow(2px 4px 6px gray);
+    /*animation: slide 1s forwards;*/
+    /*transition: 1s;*/
+    left: 15vw;
+    position: relative;
+    /*padding-bottom: 2vw;*/
+    /*width: 400px;*/
+}
+/*#citiesMap.slide{*/
+    /*left: 20vw;*/
+/*}*/
+
+.dottted-line{
+    width: 0;
+    height: 2vw;
+    position: absolute;
+    top: 5vw;
+    /*display: none;*/
+    /*left: 12.5vw;*/
+    /*right: 10vw;*/
+}
+
+.dottted-line.active{
+    width: auto;
+}
+
+.total .statistics-num-edited{
+    line-height: 5vw;
+    font-size: 5vw;
+}
+
+.statistics-num-edited{
+    color: #BC1818;
+    font-weight: 900;
+    line-height: 3.5vw;
+    font-size: 3.5vw;
+    /*position: absolute;*/
+    /*left: 12.5vw;*/
+    /*top: 3.3vw;*/
+}
+
+.total .statistics-num-edited + div{
+    font-size: 1.3vw;
+    line-height: unset;
+}
+
+.statistics-num-edited + div{
+    line-height: 1vw;
+    font-size: 1vw;
+    color: #616262;
+}
+
+/*@-webkit-keyframes #citiesMap.slide {*/
+    /*100% { left: 20vw; }*/
+/*}*/
+
+/*@keyframes slide {*/
+    /*100% { left: 20vw; }*/
+/*}*/
+.land.colored.active {
+    fill: #B2B2B2;
+    transition: ease all .5s;
+}
+.close {
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    float: right;
+    color: #B2B2B2;
+    background: none;
+}
+
+.close:hover {
+    color: #616262;
+}
+
+.fb_iframe_widget_fluid_desktop iframe {
+    min-width: 100% !important;
+}
+
+.swipe-arrows {
+    display: none;
+}
+#search-input{
+    color: #B2B2B2;
+    background-color: #f7f7f7 !important;
+    border: none;
+    padding: 1vw;
+    font-size: 1vw;
+    font-weight: 100;
+    width: 15vw;
+    vertical-align: unset !important;
+}
+
+#search-input::placeholder{
+    color: #B2B2B2;
+}
+
+#search-input:focus-visible , .tt-hint:focus-visible{
+    outline: none;
+}
+.se{
+    display: flex;
+    align-items: end;
+    justify-content: center;
+}
+.search-container button ,.search-container .switch{
+    border: none;
+    color: #BC1818;
+    background-color: #f7f7f7;
+}
+
+.se button{
+    margin-right: 0.5vw;
+    padding: .95vw;
+    display: flex;
+}
+
+.search-container .switch{
+    margin-left: 0.5vw;
+    padding: 0.95vw;
+    display: flex;
+}
+
+.switch input{
+    position: absolute;
+    padding: 1vw;
+    width: 1.5vw;
+    height: 1.5vw;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.search-icons{
+    width: 1.5vw;
+    height: 1.5vw;
+}
+
+.search-container{
+    position: relative;
+    z-index: 999;
+    /*margin-bottom: 5rem;*/
+}
+
+.right-search-dash{
+    position: relative;
+    top: -0.5vw;
+    padding-right: 0;
+    color: #bebebe;
+}
+.left-search-dash{
+    position: relative;
+    color: #bebebe;
+    top: -0.5vw;
+}
+.tt-dataset h5 {
+    margin: 0 20px 5px 20px;
+    padding: 5px 0 2px 0;
+    border-bottom: 1px solid #BC1818;
+    color: #BC1818;
+    cursor: default;
+    font-size: 1vw;
+}
+
+span.twitter-typeahead .tt-suggestion {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: #616262;
+    white-space: nowrap;
+    font-size: .85vw;
+    text-wrap: wrap;
+}
+
+span.twitter-typeahead .tt-menu{
+    width: 100% !important;
+}
+
+.tt-hint{
+    /*top: 5px !important;*/
+    /*left: 12px !important;*/
+    /*z-index: 1000 !important;*/
+    background: transparent !important;
+    color: #B2B2B2 !important;
+    font-size: 1.4vw !important;
+    border: none !important;
+    padding: 1vw !important;
+    font-weight: 100;
+}
+
+#projects-section .dropdown button{
+    background-color: #f7f7f7;
+    padding: 1vw;
+    color: #B2B2B2 !important;
+    font-size: 1vw;
+    border: none !important;
+    padding: 1vw !important;
+    font-weight: 100;
+    box-shadow: unset !important;
+    width: 15vw;
+}
+
+.dropdown-menu li a{
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: #616262 !important;
+    white-space: nowrap;
+    font-size: .85vw;
+}
+
+#Micro #statistic-section .section-title{
+    background: unset;
+}
+
+#Micro #statistic-section .horizontal-line {
+    height: 27vw;
+}
+
+#projects-section .dropdown-menu li a:hover{
+    color: #ffffff !important;
+    text-decoration: none;
+    outline: 0;
+    cursor: pointer;
+    background-color: #BC1818;
+}
+
+.statistics-container{
+    background: #f4f4f4;
+}
+
+.overlay{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    /* left: 0; */
+    height: 100%;
+    width: 45%;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.70) 0%, /* 95% opacity at 0% (left) */ rgba(65, 64, 66, 0.80) 50%, /* 80% opacity at 50% (middle) */ rgba(65, 64, 66, 0) 100% /* 40% opacity at 100% (right) */);
+    overflow: hidden;
+    transition: .5s;
+    color: white;
+    font-size: 1.2vw;
+    font-weight: 700;
+    padding-top: 1vw;
+    text-align: end;
+    padding-right: 1vw;
+}
+
+.overlay .number{
+    font-size: 4vw;
+    font-weight: 900;
+    line-height: 3vw;
+}
+
+.overlay div:last-child{
+    margin-top: 3.8vw;
+}
+.chartContainer{
+    /*margin: 50px;*/
+    /*height: 250px;*/
+    /*width: 400px;*/
+    /*padding: 30px;*/
+    position: relative;
+    /*height: 13vw;*/
+    /*width: 28vw;*/
+    height: 8vw;
+    width: 20vw;
+    margin-left: 2vw;
+}
+
+.category-title{
+    font-size: 1vw;
+    font-weight: 700;
+    color: #616262;
+    padding-bottom: 1vw;
+    margin-top: -1.5vw;
+}
+
+#barChart,#barageChart, #barChartsm, #barageChartsm{
+    width: 100%;
+    height: 100%;
+    /*padding: 1vw*/
+}
+
+@media (max-width: 575px) {
+    #Micro .main_title {
+        font-size: 1.2vw !important;
+    }
+    #Micro .main_subtitle{
+        font-size: 2.65vw !important;
+    }
+    #Micro .first-column + .content {
+        line-height: 2.1vw;
+    }
+    #Micro .project-logo{
+        width: 14vw;
+    }
+    #Micro .dropdown.other .dropdown-menu li {
+        padding-bottom: unset;
+    }
+    #Micro #statistic-section .horizontal-line {
+        height: 43.5vw !important;
+    }
+    #Micro .video .image-mask {
+        bottom: -0.3vw;
+    }
+    #about-section .video{
+        margin-bottom: 2vw;
+    }
+    .overlay .number {
+        font-size: 4vw;
+        line-height: 3vw;
+    }
+    .overlay{
+        font-size: 2vw;
+    }
+    .overlay div:last-child {
+        margin-top: 10vw;
+        font-size: 2vw;
+    }
+    .statistics-num-edited {
+        line-height: 8vw;
+        font-size: 8vw;
+    }
+    .statistics-num-edited + div {
+        line-height: 2vw;
+        font-size: 2vw;
+    }
+    .chartContainer {
+        height: 13vw;
+        width: -webkit-fill-available;
+        /*margin-left: 4vw;*/
+    }
+    .category-title{
+        font-size: 2vw;
+        /*margin-top: 1vw;*/
+    }
+    .total .statistics-num-edited{
+        line-height: 8vw;
+        font-size: 8vw;
+        padding-top: 1vw;
+    }
+    .total .statistics-num-edited + div {
+        font-size: 2.3vw;
+        line-height: unset;
+        padding-bottom: 4vw;
+    }
+}
