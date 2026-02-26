@@ -45,7 +45,11 @@ Route::get('/christianyouth/{id}', 'PublicController@christian_youth_member')->n
 ///
 ///
 Route::get('login', ['as' => 'login','uses' => 'Auth\LoginController@showLoginForm']);
-Route::post('login', ['as' => '','uses' => 'Auth\LoginController@login']);
+//Route::post('login', ['as' => '','uses' => 'Auth\LoginController@login']);
+Route::post('login', [
+    'uses' => 'Auth\LoginController@login',
+    'middleware' => 'throttle:3,1'
+]);
 Route::post('logout', ['as' => 'logout','uses' => 'Auth\LoginController@logout']);
 Route::get('/admin/unauthorized', function () {return 'Unauthorized';});
 
