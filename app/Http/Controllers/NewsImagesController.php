@@ -34,7 +34,7 @@ class NewsImagesController extends Controller
             'what_category_id' => 'required',
         ]);
         $validator = Validator::make($request->all(), [
-            'small_image' => 'max:' . count($request->file('big_image')),
+            'small_image' => 'image|mimes:jpeg|max:' . count($request->file('big_image')),
         ]);
         if ($validator->fails()) {
             return redirect('/admin/news/images/create/' . $request->input('news_id'))
@@ -43,12 +43,12 @@ class NewsImagesController extends Controller
         }
         foreach (range(0, count($request->file('small_image')) - 1) as $i) {
             $request->validate([
-                'small_image.' . $i => 'mimes:jpeg|max:500'
+                'small_image.' . $i => 'image|mimes:jpeg|max:500'
             ]);
         }
         foreach (range(0, count($request->file('big_image')) - 1) as $i) {
             $request->validate([
-                'big_image.' . $i => 'mimes:jpeg|max:600'
+                'big_image.' . $i => 'image|mimes:jpeg|max:600'
             ]);
         }
         $categoryName = WhatCategory::find($request->input('what_category_id'))->name;
