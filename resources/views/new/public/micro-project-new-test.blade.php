@@ -76,9 +76,9 @@
     $active = 'micro';
 @endphp
 <div id="Micro" class="page_start">
-    <div class="preloader">
-        <div class="preloader-gif"></div>
-    </div>
+{{--    <div class="preloader">--}}
+{{--        <div class="preloader-gif"></div>--}}
+{{--    </div>--}}
     @include('new.public.navbar')
     <div class="page-margin">
         <div class="container-fluid">
@@ -108,98 +108,55 @@
     @include('new.public.components.project-brief-section', ['project' => $brief])
     <div class="horizontal-line small d-lg-none d-md-none d-sm-none d-block mt-3" data-aos="fade-up"
          data-aos-duration="800"></div>
-    <div id="statistic-section" class="d-lg-block d-md-block d-sm-block d-none small-margin section-space mb-2"
+
+    <div id="statistic-section" class="d-lg-block  d-md-block d-sm-block d-none small-margin section-space mb-2"
          data-aos="fade-up"
          data-aos-duration="800">
-        <div class="container-fluid">
-            <div class="row" data-aos="fade-up" data-aos-duration="600">
+        <div class="micro-statistics-container ">
+            <div class="row " data-aos="fade-up" data-aos-duration="600">
                 <div class="col-12 d-flex justify-content-center">
-                    <div class="section-title pb-0">Statistics</div>
+                    <div class="micro-statistics-title pb-0">Statistics</div>
                 </div>
             </div>
-            <div class="card-height">
-                <div class="single-card">
-                    <div class="row d-flex justify-content-center statistics-container">
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 p-0 position-relative">
-                            <img class="w-100 h-100" src="/images/home/Micro/s1.jpg">
-                            <div class="overlay">
-                                <div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$aleppoCount}}</div>
-                                <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
-                                <div class="text-uppercase">aleppo</div>
-                            </div>
-                            {{--<div class="statis-city text-uppercase">aleppo</div>--}}
-                        </div>
-                        <div
-                            class="col-lg-4 col-md-4 col-sm-4 col-12 d-flex justify-content-center align-items-center flex-column">
-                            <div class="w-100 text-center total">
-                                <div class="statistics-num-edited">{{ number_format($allCount, 0) }}</div>
-                                <div>Total Projects in <b>Syria</b>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 p-0 position-relative">
-                            <img class="w-100 h-100" src="/images/home/Micro/s2.jpg">
-                            <div class="overlay">
-                                <div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$homsCount}}</div>
-                                <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
-                                <div class="text-uppercase">homs</div>
-                            </div>
-                            {{--<div class="statis-city text-uppercase">homs</div>--}}
-                        </div>
+
+            <div class="micro-page-margin">
+                <div class="d-grid gap-4 parent" style="grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); min-height: 1000px;">
+
+                    <div class="bg-primary p text-white d-flex align-items-center justify-content-center "
+                         style="grid-area: 1 / 1 / 3 / 3;">
+                        Carousel
                     </div>
-                    <div class="row d-flex justify-content-center statistics-container">
-                        <div
-                            class="col-lg-4 col-md-4 col-sm-4 col-12 p-0 d-flex justify-content-center align-items-center text-center">
-                            <div class="chartContainer">
-                                <div class="category-title" style="text-align: left">Top 5 Project Categories</div>
-                                <canvas id="barChart"></canvas>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 p-0 position-relative">
-                            <img class="w-100 h-100" src="/images/home/Micro/s3.jpg">
-                            <div class="overlay">
-                                <div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$damascusCount}}</div>
-                                <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
-                                <div class="text-uppercase">damascus</div>
-                            </div>
-                            {{--<div class="statis-city text-uppercase">damascus</div>--}}
-                        </div>
-                        <div
-                            class="col-lg-4 col-md-4 col-sm-4 col-12 p-0 d-flex justify-content-center align-items-center text-center">
-                            <div class="chartContainer">
-                                <div class="category-title" style="text-align: left">Beneficiaries' Age Classification
-                                </div>
-                                <canvas id="barageChart"></canvas>
-                            </div>
-                        </div>
+
+                    <div class="bg-secondary text-white d-flex align-items-center justify-content-center "
+                         style="grid-area: 1 / 3 / 2 / 4;">
+                        total projects in syria
                     </div>
-                    <div class="row d-flex justify-content-center statistics-container">
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 p-0 position-relative">
-                            <img class="w-100 h-100" src="/images/home/Micro/s4.jpg">
-                            <div class="overlay">
-                                <div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$wadiCount}}</div>
-                                <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
-                                <div class="text-uppercase">Al Wadi</div>
-                            </div>
-                            {{--<div class="statis-city text-uppercase">aleppo</div>--}}
-                        </div>
-                        <div
-                            class="col-lg-4 col-md-4 col-sm-4 col-12 d-flex justify-content-center align-items-center flex-column">
-                            <div class="w-75 text-center">
-                                <div class="statistics-num-edited">{{$sustainableRate[0]->number}}%</div>
-                                <div>Sustainable Projects Rate</div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 p-0 position-relative">
-                            <img class="w-100 h-100" src="/images/home/Micro/s5.jpg">
-                            <div class="overlay">
-                                <div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$latakiaCount}}</div>
-                                <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
-                                <div class="text-uppercase">latakia</div>
-                            </div>
-                            {{--<div class="statis-city text-uppercase">homs</div>--}}
-                        </div>
+
+                    <div class="bg-success text-white d-flex align-items-center justify-content-center "
+                         style="grid-area: 1 / 4 / 2 / 5;">
+                        Project continuity rate
                     </div>
+
+                    <div class="bg-danger text-white d-flex align-items-center justify-content-center "
+                         style="grid-area: 2 / 3 / 3 / 5;">
+                        Beneficiaries' Age Classification
+                    </div>
+
+                    <div class="bg-warning text-dark d-flex align-items-center justify-content-center "
+                         style="grid-area: 3 / 1 / 4 / 4;">
+                        ALEPPO + HOMS + DAMASCUS
+                    </div>
+
+                    <div class="bg-info text-dark d-flex align-items-center justify-content-center "
+                         style="grid-area: 3 / 4 / 4 / 5;">
+                        Top 5 Project Categories
+                    </div>
+
+                    <div class="bg-dark text-white d-flex align-items-center justify-content-center "
+                         style="grid-area: 4 / 1 / 5 / 5;">
+                        LATAKIA + AL WADI + IDLEB + TARTUS
+                    </div>
+
                 </div>
             </div>
         </div>

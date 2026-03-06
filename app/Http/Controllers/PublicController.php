@@ -363,6 +363,8 @@ from projects LIMIT 1;');
             ->first();
         // Done =    funded + Canceled
         // Publish = online + Hidden
+
+        //statistics start
         $counts = Project::select('MPE_City', DB::raw('COUNT(*) as total'))
             ->whereIn('MPE_City', [1, 2, 3, 4, 7])
             ->whereIn('MPE_Done', [1, 2])
