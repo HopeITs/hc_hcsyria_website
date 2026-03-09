@@ -76,9 +76,9 @@
     $active = 'micro';
 @endphp
 <div id="Micro" class="page_start">
-{{--    <div class="preloader">--}}
-{{--        <div class="preloader-gif"></div>--}}
-{{--    </div>--}}
+    {{--    <div class="preloader">--}}
+    {{--        <div class="preloader-gif"></div>--}}
+    {{--    </div>--}}
     @include('new.public.navbar')
     <div class="page-margin">
         <div class="container-fluid">
@@ -120,41 +120,119 @@
             </div>
 
             <div class="micro-page-margin">
-                <div class="d-grid gap-4 parent" style="grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); min-height: 1000px;">
+                <div class="d-grid gap-4 parent"
+                     style="grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); min-height: 1000px;">
 
-                    <div class="bg-primary p text-white d-flex align-items-center justify-content-center "
-                         style="grid-area: 1 / 1 / 3 / 3;">
-                        Carousel
+                    {{--Carousel--}}
+                    <div style="grid-area: 1 / 1 / 3 / 3; overflow: hidden;">
+                        <img src="/images/home/Micro/s2.jpg"
+                             style="width: 100%; height: 100%; object-fit: cover; object-position: 0% center; display: block;">
                     </div>
 
-                    <div class="bg-secondary text-white d-flex align-items-center justify-content-center "
-                         style="grid-area: 1 / 3 / 2 / 4;">
-                        total projects in syria
+                    {{--Total Projects in Syria--}}
+                    <div class="d-flex flex-column align-items-center justify-content-center text-center text-white"
+                         style="grid-area: 1 / 3 / 2 / 4; background-color: #C11C1C; padding: 40px; min-height: 250px;">
+
+                        <div style="font-size: 5rem; font-weight: 800; line-height: 1;">
+                            {{ number_format($allCount, 0) }}
+                        </div>
+
+                        <div style="font-size: 1.2rem; font-weight: 400; margin-top: 10px;">
+                            Total Projects in <strong style="font-weight: 700;">Syria</strong>
+                        </div>
+
                     </div>
 
-                    <div class="bg-success text-white d-flex align-items-center justify-content-center "
-                         style="grid-area: 1 / 4 / 2 / 5;">
-                        Project continuity rate
+                    {{--Project continuity rate--}}
+                    <div class="d-flex flex-column align-items-center justify-content-center text-center p-4"
+                         style="grid-area: 1 / 4 / 2 / 5; background-color: #f2f2f2; min-height: 200px;">
+
+                        <h1 style="color: #b31d1d; font-size: 5rem; font-weight: 800; margin: 0; line-height: 1;">
+                            {{$sustainableRate[0]->number}}%
+                        </h1>
+
+                        <p style="color: #6c757d; font-size: 1.2rem; font-weight: 600; margin-top: 10px;">
+                            Project continuity rate
+                        </p>
+
                     </div>
 
-                    <div class="bg-danger text-white d-flex align-items-center justify-content-center "
-                         style="grid-area: 2 / 3 / 3 / 5;">
+
+                    <div class="d-flex align-items-center justify-content-center "
+                         style="grid-area: 2 / 3 / 3 / 5; background-color: #f2f2f2; color: #6c757d; font-size: 1.7rem">
                         Beneficiaries' Age Classification
                     </div>
 
-                    <div class="bg-warning text-dark d-flex align-items-center justify-content-center "
-                         style="grid-area: 3 / 1 / 4 / 4;">
-                        ALEPPO + HOMS + DAMASCUS
+                    <div class="d-flex align-items-center justify-content-around text-center"
+                         style="grid-area: 3 / 1 / 4 / 4; background-color: #f3f3f3; padding: 40px 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+
+                        <div class="flex-grow-1">
+                            <div style="color: #6a6a6a; font-weight: 700; font-size: 1.4rem;  text-transform: uppercase; margin-bottom: 2px;">Aleppo</div>
+                            <div style="width: 28px; height: 4px; background-color: #d12e2e; margin: 0 auto 15px;"></div>
+                            <div style="color: #6a6a6a; font-size: 5.3rem; font-weight: 700; line-height: 1; margin-bottom: 1px;">{{$aleppoCount}}</div>
+                            <div style="color: #7a7e83; font-weight: 700; font-size: 1.4rem;">Projects</div>
+                        </div>
+
+                        <div style="width: 1.5px; height: 100px; background-color: #e0e0e0;"></div>
+
+                        <div class="flex-grow-1">
+                            <div style="color: #6a6a6a; font-weight: 700; font-size: 1.4rem;  text-transform: uppercase; margin-bottom: 2px;">Homs</div>
+                            <div style="width: 28px; height: 4px; background-color: #d12e2e; margin: 0 auto 15px;"></div>
+                            <div style="color: #6a6a6a; font-size: 5.3rem; font-weight: 700; line-height: 1; margin-bottom: 1px;">{{$homsCount}}</div>
+                            <div style="color: #7a7e83; font-weight: 700; font-size: 1.4rem;">Projects</div>
+                        </div>
+
+                        <div style="width: 1.5px; height: 100px; background-color: #e0e0e0;"></div>
+
+                        <div class="flex-grow-1">
+                            <div style="color: #6a6a6a; font-weight: 700; font-size: 1.4rem;  text-transform: uppercase; margin-bottom: 2px;">Damascus</div>
+                            <div style="width: 28px; height: 4px; background-color: #d12e2e; margin: 0 auto 15px;"></div>
+                            <div style="color: #6a6a6a; font-size: 5.3rem; font-weight: 700; line-height: 1; margin-bottom: 1px;">{{$damascusCount}}</div>
+                            <div style="color: #7a7e83; font-weight: 700; font-size: 1.4rem;">Projects</div>
+                        </div>
                     </div>
 
-                    <div class="bg-info text-dark d-flex align-items-center justify-content-center "
-                         style="grid-area: 3 / 4 / 4 / 5;">
+                    <div class=" d-flex align-items-center justify-content-center "
+                         style="grid-area: 3 / 4 / 4 / 5; background-color: #f2f2f2; color: #6c757d;">
                         Top 5 Project Categories
                     </div>
 
-                    <div class="bg-dark text-white d-flex align-items-center justify-content-center "
-                         style="grid-area: 4 / 1 / 5 / 5;">
-                        LATAKIA + AL WADI + IDLEB + TARTUS
+                    <div class="d-flex align-items-center justify-content-around text-center"
+                         style="grid-area: 4 / 1 / 5 / 5; background-color: #f3f3f3; padding: 40px 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+
+                        <div class="flex-grow-1">
+                            <div style="color: #6a6a6a; font-weight: 700; font-size: 1.4rem;  text-transform: uppercase; margin-bottom: 2px;">latakia</div>
+                            <div style="width: 28px; height: 4px; background-color: #d12e2e; margin: 0 auto 15px;"></div>
+                            <div style="color: #6a6a6a; font-size: 5.3rem; font-weight: 700; line-height: 1; margin-bottom: 1px;">{{$latakiaCount}}</div>
+                            <div style="color: #7a7e83; font-weight: 700; font-size: 1.4rem;">Projects</div>
+                        </div>
+
+                        <div style="width: 1.5px; height: 100px; background-color: #e0e0e0;"></div>
+
+                        <div class="flex-grow-1">
+                            <div style="color: #6a6a6a; font-weight: 700; font-size: 1.4rem;  text-transform: uppercase; margin-bottom: 2px;">Al wadi</div>
+                            <div style="width: 28px; height: 4px; background-color: #d12e2e; margin: 0 auto 15px;"></div>
+                            <div style="color: #6a6a6a; font-size: 5.3rem; font-weight: 700; line-height: 1; margin-bottom: 1px;">{{$wadiCount}}</div>
+                            <div style="color: #7a7e83; font-weight: 700; font-size: 1.4rem;">Projects</div>
+                        </div>
+
+                        <div style="width: 1.5px; height: 100px; background-color: #e0e0e0;"></div>
+
+                        <div class="flex-grow-1">
+                            <div style="color: #6a6a6a; font-weight: 700; font-size: 1.4rem;  text-transform: uppercase; margin-bottom: 2px;">Idleb</div>
+                            <div style="width: 28px; height: 4px; background-color: #d12e2e; margin: 0 auto 15px;"></div>
+                            <div style="color: #6a6a6a; font-size: 5.3rem; font-weight: 700; line-height: 1; margin-bottom: 1px;">5</div>
+                            <div style="color: #7a7e83; font-weight: 700; font-size: 1.4rem;">Projects</div>
+                        </div>
+
+                        <div style="width: 1.5px; height: 100px; background-color: #e0e0e0;"></div>
+
+                        <div class="flex-grow-1">
+                            <div style="color: #6a6a6a; font-weight: 700; font-size: 1.4rem;  text-transform: uppercase; margin-bottom: 2px;">Tartus</div>
+                            <div style="width: 28px; height: 4px; background-color: #d12e2e; margin: 0 auto 15px;"></div>
+                            <div style="color: #6a6a6a; font-size: 5.3rem; font-weight: 700; line-height: 1; margin-bottom: 1px;">14</div>
+                            <div style="color: #7a7e83; font-weight: 700; font-size: 1.4rem;">Projects</div>
+                        </div>
                     </div>
 
                 </div>
@@ -324,10 +402,10 @@
             {{--<div class="statis-city text-uppercase">homs</div>--}}
             {{--</div>--}}
             {{--<div class="col-6 p-0 d-flex justify-content-center align-items-center text-center">--}}
-            {{--<div class="chartContainer">--}}
-            {{--<div class="category-title" style="text-align: left">Beneficiaries' Age Classification</div>--}}
-            {{--<canvas id="barageChartsm"></canvas>--}}
-            {{--</div>--}}
+{{--            <div class="chartContainer">--}}
+{{--            <div class="category-title" style="text-align: left">Beneficiaries' Age Classification</div>--}}
+{{--            <canvas id="barageChartsm"></canvas>--}}
+{{--            </div>--}}
             {{--</div>--}}
             {{--</div>--}}
             {{--<div class="row d-flex justify-content-center statistics-container">--}}
@@ -609,7 +687,7 @@
 
                 L.tileLayer(
                     'https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png?api_key=7f38c51a-41e4-4cf8-b943-4b9cf994ab08',
-                    { attribution: '' }
+                    {attribution: ''}
                 ).addTo(syriaMap);
 
                 L.Util.requestAnimFrame(syriaMap.invalidateSize, syriaMap, !1, syriaMap._container);
@@ -624,7 +702,7 @@
                 if (!newMarkers || !Array.isArray(newMarkers)) return;
                 newMarkers.forEach(p => {
                     if (!p.lat || !p.lng) return;
-                    const marker = L.marker([p.lat, p.lng], { icon: iconDefault })
+                    const marker = L.marker([p.lat, p.lng], {icon: iconDefault})
                         .bindPopup(
                             `<b>Project:</b> ${p.name ?? ''}<br><b>Beneficiary:</b> ${p.beneficiary ?? ''}`
                         )
@@ -636,7 +714,7 @@
                 if (markers.length > 0) {
                     setTimeout(() => {
                         const group = new L.featureGroup(markers);
-                        syriaMap.fitBounds(group.getBounds(), { padding: [40, 40] });
+                        syriaMap.fitBounds(group.getBounds(), {padding: [40, 40]});
                     }, 300);
                 }
             }
