@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    @include('admin.navbar')
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="jean khechfe">
+    <title>Admin | Edit French Project</title>
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/backend.css" rel="stylesheet">
+    @stack('navbar_styles')
+    <link rel="shortcut icon" href="/images/ico/favicon.ico">
+    <style>
+        .btn-group label {
+            color: #333;background-color: #fff;border-color: #aaa
+        }
+        .btn-group .active {
+            background-color: #428bca;
+        }
+        .btn-group .btn {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+
+@stack('navbar_body')
+
+<section style="padding-top: 30px;">
+    <div class="container">
+        @include('admin.messages')
+    </div>
+    <div class="container">
+        <h3 class="title">Edit Project Translation</h3>
+        {!! Form::open(['route' => 'update.french.project', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+        {{Form::hidden('project_id', $project->id)}}
+        <div class="row">
+            <div class="col-md-4 col-md-offset-2" style="margin-bottom: 10px;">
+                {{Form::label('MicroProject_ID', 'Project Number')}}
+                {{Form::number('MicroProject_ID', $project->MicroProject_ID, ['class' => 'form-control', 'placeholder' => 'Project Number', 'required', 'readonly'])}}
+            </div>
+            <div class="form-group col-md-4">
+                {{Form::label('beneficiary', 'Beneficiary Name')}}
+                {{Form::text('beneficiary', $project->MPE_BeneficiaryName, ['class' => 'form-control', 'placeholder' => 'Project Manager', 'readonly'])}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-8 col-md-offset-2">
+                {{Form::label('name', 'Project Name')}}
+                {{Form::text('', $project->english->MPE_Name, ['class' => ' form-control', 'placeholder' => 'Project Name', 'readonly'])}}
+                <br>
+                {{Form::text('name', $project->french->MPE_Name, ['class' => 'form-control', 'placeholder' => 'Project Name'])}}
+            </div>
+
+
+            <div class="form-group col-md-8 col-md-offset-2">
+                {{Form::label('expSkill', 'Skills and Experiences')}}
+                <div class="readonly-div">{!!$project->english->MPE_ExpSkill!!}</div>
+                <br>
+                {{Form::textarea('expSkill', $project->french->MPE_ExpSkill, ['class' => 'form-control', 'id' => 'editor2', 'placeholder' => 'Skills and Experiences'])}}
+            </div>
+
+
+            <div class="form-group col-md-8 col-md-offset-2">
+                {{Form::label('suffering', 'Suffering and Need')}}
+                <div class="readonly-div">{!!$project->english->MPE_Suffering!!}</div>
+                <br>
+                {{Form::textarea('suffering', $project->french->MPE_Suffering, ['class' => 'hidden', 'id' => 'editor', 'placeholder' => 'Suffering and Need'])}}
+            </div>
+
+        </div>
+        <button class="btn btn-default" onclick="event.preventDefault();window.history.back();" style="margin-top: 15px"><i class="fa fa-arrow-left"></i> back</button>
+        {{Form::button('<i class="fa fa-refresh"></i> Update', ['type' => 'submit', 'class' => 'btn btn-primary', 'style' => 'margin-top: 15px;'])}}
+        {!! Form::close() !!}
+    </div>
+</section>
+
+@stack('navbar_scripts')
+<script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
+<script type="text/javascript" src="/js/ckeditor-initialize.js"></script>
