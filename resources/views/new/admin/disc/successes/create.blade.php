@@ -62,38 +62,27 @@
                                     </div>
                                 </div>
                             </div>
-                            {{--<div class="row mb-3">--}}
-                                {{--<div class="form-group col-lg-8 col-md-8 col-12">--}}
-                                    {{--<label>Center <span class="red-color">*</span></label><br>--}}
-                                    {{--<div class="btn-group w-100 flex-wrap" role="group">--}}
-                                        {{--@foreach($centers as $center)--}}
-                                            {{--<input type="radio" name="center" class="btn-check"--}}
-                                                   {{--id="center_{{$center->id}}" value="{{$center->id}}">--}}
-                                            {{--<label for="center_{{$center->id}}"--}}
-                                                   {{--class="btn btn-outline-primary">{{$center->name}}--}}
-                                            {{--</label>--}}
-                                        {{--@endforeach--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('title', 'Title')}} <span class="red-color">*</span>
-                                    {{Form::text('title','', ['class' => 'form-control', 'placeholder' => 'Success Title', 'required'])}}
+                                    <label for="title">Title</label> <span class="red-color">*</span>
+                                    <input type="text" id="title" name="title" class="form-control"
+                                           placeholder="Success Title" required>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('text', 'Text')}} <span class="red-color">*</span>
-                                    {{Form::textarea('text', '', ['class' => 'form-control', 'placeholder' => 'Text', 'rows' => '4'])}}
+                                    <label for="text">Text</label> <span class="red-color">*</span>
+                                    <textarea id="text" name="text" class="form-control" placeholder="Text" rows="4" required></textarea>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-lg-8 col-md-8 col-12">
-                                    {{Form::label('image_path', 'Image')}} <span class="red-color">*</span>
+                                    <label for="image_path">Image</label> <span class="red-color">*</span>
                                     <br>
                                     <i style="color: #777;">(Choosing an image will erase the current one)</i>
-                                    <input class="form-control" type="file" accept="image/jpeg" name="image_path" id="file">
+                                    <input type="file" id="image_path" name="image_path" class="form-control" accept="image/jpeg" required>
                                 </div>
                             </div>
                             <div class="row mb-3">

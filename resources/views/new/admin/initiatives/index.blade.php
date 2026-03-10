@@ -159,10 +159,13 @@
                                                         data-id="{{$initiative['id']}}">
                                                     <i class="fa fa-trash-o"></i></button>
                                             </form>
-                                            {!! Form::open(['route' => 'initiatives.offline' , 'method' => 'POST', 'style' => 'float:right;padding-left: 10px;', 'enctype' => 'multipart/form-data']) !!}
-                                            {{Form::hidden('id', $initiative['id'])}}
-                                            {{Form::button('<i class="fa fa-power-off"></i>', ['type' => 'submit', 'class' => 'btn mb-2 btn-danger icon-btn'])}}
-                                            {!! Form::close() !!}
+                                                <form action="{{ route('initiatives.offline') }}" method="POST" style="float:right;padding-left: 10px;" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $initiative['id'] }}">
+                                                    <button type="submit" class="btn mb-2 btn-danger icon-btn">
+                                                        <i class="fa fa-power-off"></i>
+                                                    </button>
+                                                </form>
                                         @endif
                                     </td>
                                 </tr>
@@ -220,10 +223,13 @@
                                                         data-id="{{$initiative['id']}}">
                                                     <i class="fa fa-trash-o"></i></button>
                                             </form>
-                                            {!! Form::open(['route' => 'initiatives.offline' , 'method' => 'POST', 'style' => 'float:right;padding-left: 10px;', 'enctype' => 'multipart/form-data']) !!}
-                                            {{Form::hidden('id', $initiative['id'])}}
-                                            {{Form::button('<i class="fa fa-power-off"></i>', ['type' => 'submit', 'class' => 'btn mb-2 btn-danger icon-btn'])}}
-                                            {!! Form::close() !!}
+                                                <form action="{{ route('initiatives.offline') }}" method="POST" style="float:right;padding-left: 10px;" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $initiative['id'] }}">
+                                                    <button type="submit" class="btn mb-2 btn-danger icon-btn">
+                                                        <i class="fa fa-power-off"></i>
+                                                    </button>
+                                                </form>
                                         @endif
                                     </td>
                                 </tr>
@@ -278,10 +284,13 @@
                                                         data-id="{{$initiative['id']}}">
                                                     <i class="fa fa-trash-o"></i></button>
                                             </form>
-                                            {!! Form::open(['route' => 'initiatives.offline' , 'method' => 'POST', 'style' => 'float:right;padding-left: 10px;', 'enctype' => 'multipart/form-data']) !!}
-                                            {{Form::hidden('id', $initiative['id'])}}
-                                            {{Form::button('<i class="fa fa-power-off"></i>', ['type' => 'submit', 'class' => 'btn mb-2 btn-danger icon-btn'])}}
-                                            {!! Form::close() !!}
+                                                <form action="{{ route('initiatives.offline') }}" method="POST" style="float:right;padding-left: 10px;" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $initiative['id'] }}">
+                                                    <button type="submit" class="btn mb-2 btn-danger icon-btn">
+                                                        <i class="fa fa-power-off"></i>
+                                                    </button>
+                                                </form>
                                         @endif
                                     </td>
                                 </tr>
@@ -336,10 +345,13 @@
                                                         data-id="{{$initiative['id']}}">
                                                     <i class="fa fa-trash-o"></i></button>
                                             </form>
-                                            {!! Form::open(['route' => 'initiatives.offline' , 'method' => 'POST', 'style' => 'float:right;padding-left: 10px;', 'enctype' => 'multipart/form-data']) !!}
-                                            {{Form::hidden('id', $initiative['id'])}}
-                                            {{Form::button('<i class="fa fa-power-off"></i>', ['type' => 'submit', 'class' => 'btn mb-2 btn-danger icon-btn'])}}
-                                            {!! Form::close() !!}
+                                                <form action="{{ route('initiatives.offline') }}" method="POST" style="float:right;padding-left: 10px;" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $initiative['id'] }}">
+                                                    <button type="submit" class="btn mb-2 btn-danger icon-btn">
+                                                        <i class="fa fa-power-off"></i>
+                                                    </button>
+                                                </form>
                                         @endif
                                     </td>
                                 </tr>
@@ -393,10 +405,13 @@
                                                         data-id="{{$initiative['id']}}">
                                                     <i class="fa fa-trash-o"></i></button>
                                             </form>
-                                            {!! Form::open(['route' => 'initiatives.offline' , 'method' => 'POST', 'style' => 'float:right;padding-left: 10px;', 'enctype' => 'multipart/form-data']) !!}
-                                            {{Form::hidden('id', $initiative['id'])}}
-                                            {{Form::button('<i class="fa fa-power-off"></i>', ['type' => 'submit', 'class' => 'btn mb-2 btn-danger icon-btn'])}}
-                                            {!! Form::close() !!}
+                                                <form action="{{ route('initiatives.offline') }}" method="POST" style="float:right;padding-left: 10px;" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $initiative['id'] }}">
+                                                    <button type="submit" class="btn mb-2 btn-danger icon-btn">
+                                                        <i class="fa fa-power-off"></i>
+                                                    </button>
+                                                </form>
                                         @endif
                                     </td>
                                 </tr>

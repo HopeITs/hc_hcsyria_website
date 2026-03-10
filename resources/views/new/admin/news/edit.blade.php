@@ -162,32 +162,55 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('title', 'Title')}} <span class="red-color">*</span>
-                                    {{Form::text('title', $newsData->english->title, ['class' => 'form-control', 'placeholder' => 'Title', 'required'])}}
+                                    <label for="title">Title</label> <span class="red-color">*</span>
+                                    <input type="text"
+                                           name="title"
+                                           id="title"
+                                           class="form-control"
+                                           placeholder="Title"
+                                           value="{{ $newsData->english->title }}"
+                                           required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="form-group col-12">
+                                    <label for="description">Description</label>
+                                    <span>
+            <small>(maximum:900 characters with spaces OR leave the box empty to let it automatically!)</small>
+        </span>
+                                    <textarea name="description"
+                                              id="description"
+                                              class="form-control"
+                                              placeholder="Description">{{ $newsData->english->description }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="form-group col-12">
+                                    <label for="content">Content</label> <span class="red-color">*</span>
+                                    <textarea name="content"
+                                              id="editor"
+                                              class="form-control"
+                                              placeholder="Content"
+                                              required>{{ $newsData->english->content }}</textarea>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('description', 'Description')}} <span><small> (maximum:900 characters with spaces OR leave the box empty to let it automatically!)</small></span>
-                                    {{Form::textarea('description', $newsData->english->description, ['class' => 'form-control', 'placeholder' => 'Description'])}}
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="form-group col-12">
-                                    {{Form::label('content', 'Content')}} <span class="red-color">*</span>
-                                    {{Form::textarea('content', $newsData->english->content, ['class' => 'form-control', 'id' => 'editor', 'placeholder' => 'Content'])}}
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="form-group col-12">
-                                    {{Form::label('video', 'Video Link')}}
-                                    {{Form::text('video', $newsData->video == '0' ? '' : $newsData->video, ['class' => 'form-control', 'placeholder' => 'Video Link'])}}
+                                    <label for="video">Video Link</label>
+                                    <input type="text"
+                                           name="video"
+                                           id="video"
+                                           class="form-control"
+                                           placeholder="Video Link"
+                                           value="{{ $newsData->video == '0' ? '' : $newsData->video }}">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-8">
-                                    {{Form::label('file', 'File Link')}}
-                                    {{Form::label('file', $newsData->file == '0' ? '' : $newsData->file)}}
+                                    <label for="file">File Link</label>
+                                    <p id="file">{{ $newsData->file == '0' ? '' : $newsData->file }}</p>
                                 </div>
                                 <div class="col-4 text-end">
                                 @if($newsData->file != '0')

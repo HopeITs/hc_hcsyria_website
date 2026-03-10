@@ -109,10 +109,20 @@
                                 <a href="{{route('edit.user', $activeUser['id'])}}"
                                    class="btn mb-2 btn-primary edit-btn"><span
                                             class="fa fa-edit"></span>&nbsp;Edit</a>
-                                {!! Form::open(['action' => 'UserController@deactivate', 'method' => 'POST', 'style' => 'float:right;', 'enctype' => 'multipart/form-data']) !!}
-                                {{Form::text('id', $activeUser['id'], ['class' => 'd-none'])}}
-                                {{Form::button('<i class="fa fa-ban"></i> deactivate', ['type' => 'submit', 'class' => 'btn mb-2 btn-danger edit-btn'])}}
-                                {!! Form::close() !!}
+                                <form action="{{ action('App\Http\Controllers\UserController@deactivate') }}"
+                                      method="POST"
+                                      style="float:right;"
+                                      enctype="multipart/form-data">
+
+                                    @csrf
+
+                                    <input type="hidden" name="id" value="{{ $activeUser['id'] }}">
+
+                                    <button type="submit" class="btn mb-2 btn-danger edit-btn">
+                                        <i class="fa fa-ban"></i> deactivate
+                                    </button>
+
+                                </form>
                             </td>
                         </tr>
                     @endforeach
@@ -140,18 +150,20 @@
                             <td class="text-center">{{$inactiveUser['email']}}</td>
 
                             <td class="text-end">
-                                {{--{!!Form::open(['action'=>['UserController@delete', $inactiveUser['id']], 'method'=>'POST', 'style' => 'float:right;padding-left:10px;'])!!}--}}
-                                {{--{{Form::d-none('_method','DELETE')}}--}}
-                                {{--{{Form::button('<i class="fa fa-trash-o"></i>', ['type' => 'submit', 'class' => 'btn btn-danger', 'onclick' => 'return ConfirmDelete(\''.$inactiveUser['id'].'\')'])}}--}}
-                                {{--{!! Form::close() !!}--}}
-                                {{--<button class="btn btn-primary edit-btn" data-toggle="modal"--}}
-                                {{--data-content="{{$inactiveUser['id']}}">--}}
-                                {{--<i class="fa fa-edit"></i>&nbsp; Edit--}}
-                                {{--</button>--}}
-                                {!! Form::open(['action' => 'UserController@activate', 'method' => 'POST', 'style' => 'float:right;padding-right:10px;', 'enctype' => 'multipart/form-data']) !!}
-                                {{Form::text('id', $inactiveUser['id'], ['class' => 'd-none'])}}
-                                {{Form::button('<i class="fa fa-check"></i> activate', ['type' => 'submit', 'class' => 'btn btn-success'])}}
-                                {!! Form::close() !!}
+                                <form action="{{ action('App\Http\Controllers\UserController@activate') }}"
+                                      method="POST"
+                                      style="float:right;padding-right:10px;"
+                                      enctype="multipart/form-data">
+
+                                    @csrf
+
+                                    <input type="hidden" name="id" value="{{ $inactiveUser['id'] }}">
+
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fa fa-check"></i> activate
+                                    </button>
+
+                                </form>
                             </td>
                         </tr>
                     @endforeach

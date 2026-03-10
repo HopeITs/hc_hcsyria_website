@@ -22,61 +22,104 @@
     </div>
     <div class="container">
         <h3 class="title">Create Testimony</h3>
-        {!! Form::open(['route' => 'initiatives.testimonies.store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-        {{ Form::hidden('initiative_id', $initiative->id) }}
-        {{Form::hidden('what_category_id', $initiative->whatCategory->id)}}
-        <div class="row">
-            <div class="form-group col-md-8 col-md-offset-2">
-                {{Form::label('image_path', 'Image')}}
-                {{Form::file('image_path', ['accept' => 'image/jpeg', 'required'])}}
+        <form action="{{ route('initiatives.testimonies.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" name="initiative_id" value="{{ $initiative->id }}">
+            <input type="hidden" name="what_category_id" value="{{ $initiative->whatCategory->id }}">
+
+            <div class="row">
+                <div class="form-group col-md-8 offset-md-2">
+                    <label for="image_path">Image</label>
+                    <input type="file" name="image_path" accept="image/jpeg" class="form-control" required>
+                </div>
+                <div class="form-group col-md-8 offset-md-2">
+                    <label for="name">Testimoniar Name</label>
+                    <input type="text" name="name" class="form-control clear_values" placeholder="Testimoniar Name" required>
+                </div>
+                <div class="form-group col-md-8 offset-md-2">
+                    <label for="text">Content</label>
+                    <textarea name="text" class="form-control clear_values" placeholder="Content" required></textarea>
+                </div>
             </div>
-            <div class="form-group col-md-8 col-md-offset-2">
-                {{Form::label('name', 'Testimoniar Name')}}
-                {{Form::text('name', '', ['class' => 'form-control clear_values', 'placeholder' => 'Testimoniar Name', 'required'])}}
-            </div>
-            <div class="form-group col-md-8 col-md-offset-2">
-                {{Form::label('text', 'Content')}}
-                {{Form::textarea('text', '', ['class' => 'form-control clear_values', 'placeholder' => 'Content', 'required'])}}
-            </div>
-        </div>
-        <button class="btn btn-default" onclick="event.preventDefault();window.history.back();" style="margin-top: 15px"><i class="fa fa-arrow-left"></i> back</button>
-        {{Form::button('<i class="fa fa-external-link"></i> Add', ['type' => 'submit', 'class' => 'btn btn-primary', 'style' => 'margin-top: 15px;'])}}
-        {!! Form::close() !!}
+
+            <button class="btn btn-default" onclick="event.preventDefault();window.history.back();" style="margin-top: 15px">
+                <i class="fa fa-arrow-left"></i> Back
+            </button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 15px;">
+                <i class="fa fa-external-link"></i> Add
+            </button>
+        </form>
     </div>
     @if(!$testimonies->isEmpty())
         <div class="container" style="padding-top: 30px;">
             <h3 class="title">Initiative Testimonies</h3>
             @foreach($testimonies as $testimony)
-                {!! Form::open(['route' => ['initiatives.testimonies.update', $testimony->id], 'method' => 'PUT', 'enctype' => 'multipart/form-data']) !!}
-                {{ Form::hidden('initiative_id', $initiative->id) }}
-                {{Form::hidden('what_category_id', $initiative->whatCategory->id)}}
-                <div class="row">
-                    <div class="form-group col-md-8 col-md-offset-2">
-                        {{Form::label('image_path', 'Image')}}
-                        {{Form::file('image_path', ['accept' => 'image/jpeg', 'class' => 'hidden testimony1'.$testimony->id])}}
-                        @if($testimony->image_path)
-                            <i class="hidden testimony1{{$testimony->id}}" style="color: #777;">(Choosing an image will erase the current one)</i>
-                            <br>
-                            <img src="{{$testimony->image_path}}" style="height: 50px;">
-                            <br>
-                        @endif
+                <form action="{{ route('initiatives.testimonies.update', $testimony->id) }}"
+                      method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+
+                    <input type="hidden" name="initiative_id" value="{{ $initiative->id }}">
+                    <input type="hidden" name="what_category_id" value="{{ $initiative->whatCategory->id }}">
+
+                    <div class="row">
+                        <div class="form-group col-md-8 offset-md-2">
+                            <label for="image_path">Image</label>
+                            <input type="file" name="image_path" accept="image/jpeg"
+                                   class="hidden testimony1{{ $testimony->id }}">
+
+                            @if($testimony->image_path)
+                                <i class="hidden testimony1{{ $testimony->id }}" style="color: #777;">
+                                    (Choosing an image will erase the current one)
+                                </i>
+                                <br>
+                                <img src="{{ $testimony->image_path }}" style="height: 50px;">
+                                <br>
+                            @endif
+                        </div>
+
+                        <div class="form-group col-md-8 offset-md-2">
+                            <label for="name">Testimoniar Name</label>
+                            <input type="text" name="name" value="{{ $testimony->english['name'] }}"
+                                   class="form-control testimonyReadonly{{ $testimony->id }}"
+                                   placeholder="Testimoniar Name" readonly required>
+                        </div>
+
+                        <div class="form-group col-md-8 offset-md-2">
+                            <label for="text">Content</label>
+                            <textarea name="text" class="form-control testimonyReadonly{{ $testimony->id }}"
+                                      placeholder="Content" readonly required>{{ $testimony->english['text'] }}</textarea>
+                        </div>
                     </div>
-                    <div class="form-group col-md-8 col-md-offset-2">
-                        {{Form::label('name', 'Testimoniar Name')}}
-                        {{Form::text('name', $testimony->english['name'], ['class' => 'form-control testimonyReadonly'.$testimony->id, 'placeholder' => 'Testimoniar Name', 'readonly', 'required'])}}
-                    </div>
-                    <div class="form-group col-md-8 col-md-offset-2">
-                        {{Form::label('text', 'Content')}}
-                        {{Form::textarea('text', $testimony->english['text'], ['class' => 'form-control testimonyReadonly'.$testimony->id, 'placeholder' => 'Content', 'readonly', 'required'])}}
-                    </div>
-                </div>
-                <button class="btn btn-default hidden testimony1{{$testimony->id}}" onclick="event.preventDefault();cancel_edit({{$testimony->id}});" style="margin-top: 15px"><i class="fa fa-times"></i> Cancel</button>
-                {{Form::button('<i class="fa fa-refresh"></i> Update', ['type' => 'submit', 'class' => 'btn btn-primary hidden testimony1'.$testimony->id, 'style' => 'margin-top: 15px;'])}}
-                {!! Form::close() !!}
-                {!! Form::open(['route' => ['initiatives.testimonies.destroy', $testimony->id], 'method' => 'DELETE', 'enctype' => 'multipart/form-data']) !!}
-                <button class="btn btn-default testimony2{{$testimony->id}}" onclick="event.preventDefault();edit({{$testimony->id}});"><i class="fa fa-arrow-lef"></i><i class="fa fa-external-link"></i> Edit</button>
-                {{Form::button('<i class="fa fa-trash-o"></i> Delete', ['type' => 'submit', 'class' => 'btn btn-danger testimony2'.$testimony->id, 'onclick' => 'return ConfirmDelete('.$testimony->id.')'])}}
-                {!! Form::close() !!}
+
+                    <button class="btn btn-default hidden testimony1{{ $testimony->id }}"
+                            onclick="event.preventDefault(); cancel_edit({{ $testimony->id }});"
+                            style="margin-top: 15px;">
+                        <i class="fa fa-times"></i> Cancel
+                    </button>
+
+                    <button type="submit" class="btn btn-primary hidden testimony1{{ $testimony->id }}"
+                            style="margin-top: 15px;">
+                        <i class="fa fa-refresh"></i> Update
+                    </button>
+                </form>
+                <form action="{{ route('initiatives.testimonies.destroy', $testimony->id) }}"
+                      method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('DELETE')
+
+                    <!-- Edit Button (JS Trigger) -->
+                    <button type="button" class="btn btn-default testimony2{{ $testimony->id }}"
+                            onclick="edit({{ $testimony->id }});">
+                        <i class="fa fa-arrow-left"></i><i class="fa fa-external-link"></i> Edit
+                    </button>
+
+                    <!-- Delete Button -->
+                    <button type="submit" class="btn btn-danger testimony2{{ $testimony->id }}"
+                            onclick="return ConfirmDelete({{ $testimony->id }});">
+                        <i class="fa fa-trash-o"></i> Delete
+                    </button>
+                </form>
                 <hr style="border-color: #999">
             @endforeach
         </div>

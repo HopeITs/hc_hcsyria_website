@@ -48,18 +48,21 @@
                         <h2 class="title">Add Image</h2>
                         <form action="{{ route('success.store.image',[$successData->id])}}" method="POST"
                               enctype="multipart/form-data">
-                            {{Form::hidden('success_id', $successData->id)}}
-                            {{Form::hidden('who_category_id', $successData->whoCategory->id)}}
+                            <input type="hidden" name="success_id" value="{{ $successData->id }}">
+                            <input type="hidden" name="who_category_id" value="{{ $successData->whoCategory->id }}">
                             @csrf
                             <div class="row mb-3">
                                 <div class="col">
-                                    {{Form::label('title', 'Name')}}
-                                    {{Form::text('title', $successData->english->title, ['class' => 'form-control', 'required', 'readonly','style' =>'cursor: not-allowed;'])}}
+                                    <label for="title">Name</label>
+                                    <input type="text" id="title" name="title"
+                                           value="{{ $successData->english->title }}"
+                                           class="form-control" required readonly
+                                           style="cursor: not-allowed;">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('image_path', 'Image')}} <span class="red-color">*</span>
+                                    <label for="image_path">Image</label> <span class="red-color">*</span>
                                     <br>
                                     <i style="color: #777;">(Choosing an image will erase the current one)</i>
                                     <input class="form-control" type="file" accept="image/jpeg" name="image_path"
@@ -83,11 +86,6 @@
 
                 </div>
             </div>
-            {{--@if($successData->image_path !=0 && $successData->image_path != null)--}}
-            {{--<div class="form-group col-lg-4 col-md-4 col-12 text-start">--}}
-            {{--<img src="{{$successData->image_path}}" style="height: 85px;">--}}
-            {{--</div>--}}
-            {{--@endif--}}
             @if($successData->image_path !=0 && $successData->image_path != null)
                 <div class="row mt-5">
                     <div class="col">
@@ -117,10 +115,10 @@
     let image_group = '<div class="image-group form-control">' +
         '<div class="row">' +
         '<div class="form-group col-lg-6 col-md-6 col-12">' +
-        '<label for="small_image">Small Image</label>' +
+        '<label for="small_image">Small Image&nbsp;</label>' +
         '<input accept="image/jpeg" required="" name="small_image[]" type="file" style="padding-left: 0.3vw;">' +
         '</div><div class="form-group col-lg-6 col-md-6 col-12">' +
-        '<label for="big_image">Big Image</label>' +
+        '<label for="big_image">Big Image&nbsp;</label>' +
         '<input accept="image/jpeg" required="" name="big_image[]" type="file" style="padding-left: 0.3vw;">' +
         '</div></div>' +
         '</div>';

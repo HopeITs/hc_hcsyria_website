@@ -51,31 +51,35 @@
                             @csrf
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('title', 'Title')}} <span class="red-color">*</span>
-                                    {{Form::text('title', '', ['class' => 'form-control', 'placeholder' => 'Title', 'required'])}}
+                                    <label for="title">Title</label> <span class="red-color">*</span>
+                                    <input type="text" name="title" id="title" class="form-control"
+                                           placeholder="Title" required>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-lg-8 col-md-8 col-12">
-                                    {{Form::label('image_file', 'Image')}} <span class="red-color">*</span>
+                                    <label for="image_file">Image</label> <span class="red-color">*</span>
                                     <br>
                                     <i style="color: #777;">(Choosing an image will erase the current one)</i>
-                                    <input class="form-control" type="file" accept="image/jpeg" name="image_file" id="image_file" >
+                                    <input type="file" name="image_file" id="image_file" class="form-control" accept="image/jpeg">
                                 </div>
                                 <div class="form-group col-lg-4 col-md-4 col-12 text-start">
                                     <img src="" style="height: 85px;">
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    <label for="file">Upload File</label><span class="red-color">*</span>
-                                    <input class="form-control" type="file" name="file" id="file">
+                                    <label for="file">Upload File</label> <span class="red-color">*</span>
+                                    <input type="file" name="file" id="file" class="form-control">
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('url', 'URL')}}<span class="red-color">*</span>
-                                    {{Form::text('url', '', ['class' => 'form-control', 'placeholder' => 'URL'])}}
+                                    <label for="url">URL</label> <span class="red-color">*</span>
+                                    <input type="text" name="url" id="url" class="form-control" placeholder="URL" required>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end" style="margin-top: 5vw;">

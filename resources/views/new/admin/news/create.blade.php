@@ -140,26 +140,48 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('title', 'Title')}} <span class="red-color">*</span>
-                                    {{Form::text('title', '', ['class' => 'form-control', 'placeholder' => 'Title', 'required'])}}
+                                    <label for="title">Title</label> <span class="red-color">*</span>
+                                    <input type="text"
+                                           name="title"
+                                           id="title"
+                                           class="form-control"
+                                           placeholder="Title"
+                                           required>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('description', 'Description')}} <span><small> (maximum:900 characters with spaces OR leave the box empty to let it automatically!)</small></span>
-                                    {{Form::textarea('description', '', ['class' => 'form-control', 'placeholder' => 'Description'])}}
+                                    <label for="description">Description</label>
+                                    <span>
+            <small>(maximum:900 characters with spaces OR leave the box empty to let it automatically!)</small>
+        </span>
+                                    <textarea name="description"
+                                              id="description"
+                                              class="form-control"
+                                              placeholder="Description"></textarea>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('content', 'Content')}} <span class="red-color">*</span>
-                                    {{Form::textarea('content', '', ['class' => 'form-control', 'id' => 'editor', 'placeholder' => 'Content'])}}
+                                    <label for="content">Content</label> <span class="red-color">*</span>
+                                    <textarea name="content"
+                                              id="editor"
+                                              class="form-control"
+                                              placeholder="Content"
+                                              required></textarea>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('video', 'Video Link')}}
-                                    {{Form::text('video', '', ['class' => 'form-control', 'placeholder' => 'Video Link'])}}
+                                    <label for="video">Video Link</label>
+                                    <input type="text"
+                                           name="video"
+                                           id="video"
+                                           class="form-control"
+                                           placeholder="Video Link">
                                 </div>
                             </div>
                             <div class="row mb-3">

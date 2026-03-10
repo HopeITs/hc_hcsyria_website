@@ -97,111 +97,124 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-lg-4 col-md-4 col-12">
-                                    {{Form::label('MicroProject_ID', 'Project Number')}} <span
-                                            class="red-color">*</span>
-                                    {{Form::number('MicroProject_ID', $project->MicroProject_ID, ['class' => 'form-control', 'placeholder' => 'Project Number', 'required', 'readonly'])}}
+                                    <label for="MicroProject_ID">Project Number <span class="red-color">*</span></label>
+                                    <input type="number" name="MicroProject_ID" id="MicroProject_ID"
+                                           value="{{ $project->MicroProject_ID }}"
+                                           class="form-control" placeholder="Project Number"
+                                           required readonly>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('name', 'Project Name')}} <span class="red-color">*</span>
-                                    {{Form::text('name', $project->english->MPE_Name, ['class' => 'form-control', 'placeholder' => 'Project Name', 'required'])}}
+                                    <label for="name">Project Name <span class="red-color">*</span></label>
+                                    <input type="text" name="name" id="name"
+                                           value="{{ $project->english->MPE_Name }}"
+                                           class="form-control" placeholder="Project Name"
+                                           required>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('beneficiary', 'Beneficiary Name')}} <span class="red-color">*</span>
-                                    {{Form::text('beneficiary', $project->MPE_BeneficiaryName, ['class' => 'form-control', 'placeholder' => 'Beneficiary Name', 'required'])}}
+                                    <label for="beneficiary">Beneficiary Name <span class="red-color">*</span></label>
+                                    <input type="text" name="beneficiary" id="beneficiary"
+                                           value="{{ $project->MPE_BeneficiaryName }}"
+                                           class="form-control" placeholder="Beneficiary Name"
+                                           required>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-lg-4 col-md-4 col-12">
-                                    {{Form::label('DOB', 'Year of Birth')}} <span class="red-color">*</span>
-                                    {{Form::number('DOB',  $project->DOB, ['class' => 'form-control', 'placeholder' => 'Year of Birth','min="1920"','max="2020"', 'required'])}}
+                                    <label for="DOB">Year of Birth <span class="red-color">*</span></label>
+                                    <input type="number" name="DOB" id="DOB"
+                                           value="{{ $project->DOB }}"
+                                           class="form-control" placeholder="Year of Birth"
+                                           min="1920" max="2020" required>
                                 </div>
                                 <div class="form-group col-lg-4 col-md-4 col-12">
-                                    {{Form::label('FamilyMembers', 'Family Members')}} <span class="red-color">*</span>
-                                    {{Form::number('FamilyMembers', $project->FamilyMembers, ['class' => 'form-control', 'placeholder' => 'Family Members','min="0"', 'required'])}}
+                                    <label for="FamilyMembers">Family Members <span class="red-color">*</span></label>
+                                    <input type="number" name="FamilyMembers" id="FamilyMembers"
+                                           value="{{ $project->FamilyMembers }}"
+                                           class="form-control" placeholder="Family Members"
+                                           min="0" required>
+                                </div>
+                            </div>
 
+                            <div class="row mb-3">
+                                <div class="form-group col-12">
+                                    <label for="mobile">Mobile</label>
+                                    <input type="text" name="mobile" id="mobile"
+                                           value="{{ $project->Mobile == '0' ? '' : $project->Mobile }}"
+                                           class="form-control" placeholder="09########">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('mobile', 'Mobile')}}
-                                    {{Form::text('mobile', $project->Mobile == '0' ? '' : $project->Mobile, ['class' => 'form-control', 'placeholder' => '09########'])}}
+                                    <label for="expSkill">Skills and Experiences</label>
+                                    <textarea name="expSkill" id="expSkill" class="form-control" placeholder="Skills and Experiences" rows="2">{{ $project->english->MPE_ExpSkill }}</textarea>
                                 </div>
                             </div>
-                            {{--<div class="row mb-3">--}}
-                                {{--<div class="form-group col-lg-8 col-md-8 col-12">--}}
-                                    {{--<label>Has the beneficiary lost his work during war? <span--}}
-                                                {{--class="red-color">*</span></label><br>--}}
 
-                                    {{--<div class="btn-group w-100" role="group">--}}
-                                        {{--<input type="radio" class="btn-check" value="1" name="WorkLoss" id="btnradio1"--}}
-                                               {{--autocomplete="off"--}}
-                                               {{--@if($project->WorkLoss=='1') checked @endif>--}}
-                                        {{--<label class="btn btn-outline-primary" for="btnradio1">Yes</label>--}}
+                            <div class="row mb-3">
+                                <div class="form-group col-12">
+                                    <label for="partner">Partner Name</label>
+                                    <input type="text" name="partner" id="partner" class="form-control"
+                                           value="{{ $project->MPE_PartnerName == '0' ? '' : $project->MPE_PartnerName }}"
+                                           placeholder="Partner Name">
+                                </div>
+                            </div>
 
-                                        {{--<input type="radio" class="btn-check" value="0" name="WorkLoss" id="btnradio2"--}}
-                                               {{--autocomplete="off"--}}
-                                               {{--@if($project->WorkLoss=='0') checked @endif>--}}
-                                        {{--<label class="btn btn-outline-primary" for="btnradio2">No</label>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('expSkill', 'Skills and Experiences')}}
-                                    {{Form::textarea('expSkill', $project->english->MPE_ExpSkill, ['class' => 'form-control', 'placeholder' => 'Skills and Experiences','rows' => '2'])}}
+                                    <label for="partner2">Second Partner Name</label>
+                                    <input type="text" name="partner2" id="partner2" class="form-control"
+                                           value="{{ $project->MPE_PartnerName2 == '0' ? '' : $project->MPE_PartnerName2 }}"
+                                           placeholder="Second Partner Name">
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('partner', 'Partner Name')}}
-                                    {{Form::text('partner', $project->MPE_PartnerName == '0' ? '' : $project->MPE_PartnerName, ['class' => 'form-control', 'placeholder' => 'Partner Name'])}}
+                                    <label for="suffering">Suffering and Need <span class="red-color">*</span></label>
+                                    <textarea name="suffering" id="editor" class="form-control" placeholder="Suffering and Need">{{ $project->english->MPE_Suffering }}</textarea>
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="form-group col-12">
-                                    {{Form::label('partner2', 'Second Partner Name')}}
-                                    {{Form::text('partner2', $project->MPE_PartnerName2 == '0' ? '' : $project->MPE_PartnerName2, ['class' => 'form-control', 'placeholder' => 'Second Partner Name'])}}
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="form-group col-12">
-                                    {{Form::label('suffering', 'Suffering and Need')}} <span class="red-color">*</span>
-                                    {!!Form::textarea('suffering', $project->english->MPE_Suffering, ['class' => 'form-control', 'id' => 'editor' ,'placeholder' => 'Suffering and Need'])!!}
-                                </div>
-                            </div>
-                            {{--<div class="row mb-3">--}}
-                                {{--<div class="form-group col-12">--}}
-                                    {{--{{Form::label('location', 'Project Location')}}--}}
-                                    {{--{{Form::text('location', $project->MPE_Location == '0' ? '' : $project->MPE_Location, ['class' => 'form-control', 'id' => 'location', 'placeholder' => 'Project Location'])}}--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
                             <div class="row mb-3">
                                 <div class="form-group col-3">
-                                    {{Form::label('location', 'Location Latitude (x)')}}
-                                    {{Form::text('latitude', $project->latitude == '0' ? '' : $project->latitude, ['class' => 'form-control', 'id' => 'latitude', 'placeholder' => 'Location Latitude'])}}
+                                    <label for="latitude">Location Latitude (x)</label>
+                                    <input type="text" name="latitude" id="latitude" class="form-control"
+                                           value="{{ $project->latitude == '0' ? '' : $project->latitude }}"
+                                           placeholder="Location Latitude">
                                 </div>
                                 <div class="form-group col-3">
-                                    {{Form::label('location', 'Location Longtitude (y)')}}
-                                    {{Form::text('longtitude', $project->longtitude == '0' ? '' : $project->longtitude, ['class' => 'form-control', 'id' => 'longtitude', 'placeholder' => 'Location Longtitude'])}}
+                                    <label for="longtitude">Location Longitude (y)</label>
+                                    <input type="text" name="longtitude" id="longtitude" class="form-control"
+                                           value="{{ $project->longtitude == '0' ? '' : $project->longtitude }}"
+                                           placeholder="Location Longitude">
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('video', 'Video Link')}}
-                                    {{Form::text('video', $project->MPE_Video == '0' ? '' : $project->MPE_Video, ['class' => 'form-control', 'placeholder' => 'Video Link'])}}
+                                    <label for="video">Video Link</label>
+                                    <input type="text" name="video" id="video" class="form-control"
+                                           value="{{ $project->MPE_Video == '0' ? '' : $project->MPE_Video }}"
+                                           placeholder="Video Link">
                                 </div>
                             </div>
+
                             <div class="row mb-3">
-                                <div class="form-group col-lg-3 col-md-3 col-12 ">
-                                    {{Form::label('fundDate', 'Date of Fund')}}
+                                <div class="form-group col-lg-3 col-md-3 col-12">
+                                    <label for="fundDate">Date of Fund</label>
                                     @if($project->MPE_FundedDate == NULL)
-                                        {{Form::date('fundDate', '' ,['class' => 'form-control', 'min="2018-01-01"', 'max='.\Carbon\Carbon::now()])}}
+                                        <input type="date" name="fundDate" id="fundDate" class="form-control"
+                                               min="2018-01-01" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                     @else
-                                        {{Form::date('fundDate', $project->MPE_FundedDate ,['class' => 'form-control', 'min="2018-01-01"', 'max='.\Carbon\Carbon::now()])}}
+                                        <input type="date" name="fundDate" id="fundDate" class="form-control"
+                                               value="{{ $project->MPE_FundedDate }}"
+                                               min="2018-01-01" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                     @endif
                                 </div>
                             </div>
@@ -245,9 +258,6 @@
                                 <button type="submit" class="btn btn-info" style="margin-left: 15px;"><i
                                             class="fa fa-refresh"></i> Update
                                 </button>
-
-                                {{--{{Form::button('<i class="fa fa-refresh"></i> Update', ['type' => 'submit', 'class' => 'btn btn-danger', 'style' => 'margin-left: 15px;'])}}--}}
-                                {{--{!! Form::close() !!}--}}
                             </div>
                         </form>
                     </div>

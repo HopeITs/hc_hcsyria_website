@@ -45,7 +45,8 @@
     </div>
     <div class="container">
         <h2 class="title">Create Success</h2>
-        {!! Form::open(['route' => 'successes.store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+        <form action="{{ route('successes.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
         <div class="row">
             <div class="form-group col-md-8 col-md-offset-2">
                 <label>Who-category <span class="red-color">*</span></label><br>
@@ -124,28 +125,34 @@
                 </select>
             </div>
             <div class="form-group col-md-8 col-md-offset-2">
-                {{Form::label('image_path', 'Image')}} <span class="red-color">*</span> <span><small>  (must be 300x300 and maximum: 50KB-100KB)</small></span>
-                {{Form::file('image_path', ['accept' => 'image/jpeg', 'required'])}}
+                <label for="image_path">Image</label> <span class="red-color">*</span>
+                <span><small>(must be 300x300 and maximum: 50KB-100KB)</small></span>
+                <input type="file" name="image_path" id="image_path" accept="image/jpeg" required class="form-control">
             </div>
 
             <div class="form-group col-md-8 col-md-offset-2">
-                {{Form::label('title', 'Title')}} <span class="red-color">*</span>
-                {{Form::text('title', '', ['class' => 'form-control', 'placeholder' => 'Title', 'required'])}}
+                <label for="title">Title</label> <span class="red-color">*</span>
+                <input type="text" name="title" id="title" class="form-control" placeholder="Title" required>
             </div>
+
             <div class="form-group col-md-8 col-md-offset-2">
-                {{Form::label('text', 'Text')}} <span class="red-color">*</span> <span><small>  (maximum:500 characters with spaces)</small></span>
-                {{Form::textarea('text', '', ['class' => 'form-control', 'placeholder' => 'Text'])}}
+                <label for="text">Text</label> <span class="red-color">*</span>
+                <span><small>(maximum: 500 characters with spaces)</small></span>
+                <textarea name="text" id="text" class="form-control" placeholder="Text"></textarea>
             </div>
+
             <div class="form-group col-md-8 col-md-offset-2">
-                {{Form::label('video', 'Video Link')}}
-                {{Form::text('video', '', ['class' => 'form-control', 'placeholder' => 'Video Link'])}}
+                <label for="video">Video Link</label>
+                <input type="text" name="video" id="video" class="form-control" placeholder="Video Link">
             </div>
         </div>
         <button class="btn btn-default" onclick="event.preventDefault();window.history.back();"
                 style="margin-top: 15px"><i class="fa fa-arrow-left"></i> back
         </button>
-        {{Form::button('<i class="fa fa-external-link"></i> Create', ['type' => 'submit', 'class' => 'btn btn-primary', 'style' => 'margin-top: 15px;'])}}
-        {!! Form::close() !!}
+        <button type="submit" class="btn btn-primary" style="margin-top: 15px;">
+            <i class="fa fa-external-link"></i> Create
+        </button>
+        </form>
     </div>
 </section>
 

@@ -3,38 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Input;
-use Illuminate\View\View;
-use function Laravel\Prompts\select;
 use Session;
-use Carbon\Carbon;
 use Jenssegers\Agent\Agent;
-use Illuminate\Support\Arr;
-use App\Donor;
-use App\YouthProfile;
-use App\InitiativeImage;
-use App\InitiativeImageRehabilitation;
-use App\NewsImage;
-use App\Place;
-use App\StudyzoneCenter;
-use App\SubWhatCategory;
-use App\Success;
-use App\Testimony;
 use App\WhatCategory;
-use App\News;
-use App\Edition;
-use App\Models\Subscribers;
 use Illuminate\Http\Request;
-use App\Project;
-use App\Initiative;
-use Illuminate\Support\Facades\DB;
-use App\WhoCategory;
-use Illuminate\Support\Facades\Route;
 use function Monolog\toArray;
-use App\Mail\UserSubscribedEmail;
-use Illuminate\Support\Facades\Mail;
-use Stevebauman\Location\Facades\Location;
 use PDF;
-use File;
+use Illuminate\Support\Facades\File;
 use App\Models\Cover;
 
 class CoverController extends Controller
@@ -82,11 +57,6 @@ class CoverController extends Controller
 
     public function store(Request $request)
     {
-//        foreach (range(0, count($request->file('image')) - 1) as $i) {
-//            $request->validate([
-//                'image.' . $i => 'mimes:jpeg|max:200'
-//            ]);
-//        }
         if ($request->input('id') != 0) {
             $categoryName = WhatCategory::find($request->input('id'))->name;
         } else {
@@ -141,35 +111,39 @@ class CoverController extends Controller
             return redirect()->route('covers', ['tab' => $categoryName])
                 ->with('success', count($request->file('small_image')) . ' Images stored');
         }
-
-
     }
 
     public function destroy(Request $request, $id)
     {
         $images = Cover::where('what_category_id', $id)->get();
         $deletedImagesCount = 0;
+
+        $selectedImages = $request->input('selected_images', []); // array of selected image IDs
+
         foreach ($images as $img) {
-            if ($request->input($img->id) == '1') {
+            if (isset($selectedImages[$img->id]) && $selectedImages[$img->id] == '1') {
                 $deletedImagesCount++;
+                // Delete file from disk
+                File::delete(public_path($img->MPI_Path));
+                // Delete from database
                 $img->delete();
-                File::delete(public_path($img->image_path));
             }
         }
 
-            if($id == 0) {
-                $categoryName = "Home";
-            }else if($id == 20){
-                $categoryName = 'Who-We-Are';
-            }
-            else{
-                $categoryName = WhatCategory::find($id)->name;
-            }
-
+        // Determine category name
+        if ($id == 0) {
+            $categoryName = "Home";
+        } elseif ($id == 20) {
+            $categoryName = 'Who-We-Are';
+        } else {
+            $category = WhatCategory::find($id);
+            $categoryName = $category ? $category->name : 'Unknown';
+        }
 
         $this->saveToLog(self::COVER, $id, $deletedImagesCount . ' Images deleted');
-        return redirect()->route('covers', ['tab' => $categoryName])->
-           with('success', $deletedImagesCount . ' Images deleted');
+
+        return redirect()->route('covers', ['tab' => $categoryName])
+            ->with('success', $deletedImagesCount . ' Images deleted');
     }
 
     public function order(Request $request)

@@ -76,46 +76,52 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('title', 'Title')}} <span class="red-color">*</span>
-                                    {{Form::text('title', '', ['class' => 'form-control', 'placeholder' => 'Initiative Title', 'required'])}}
+                                    <label for="title">Title <span class="red-color">*</span></label>
+                                    <input type="text" name="title" id="title" class="form-control" placeholder="Initiative Title" required>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('organization', 'Organization')}}
-                                    {{Form::text('organization', '', ['class' => 'form-control', 'placeholder' => 'Project Manager'])}}
+                                    <label for="organization">Organization</label>
+                                    <input type="text" name="organization" id="organization" class="form-control" placeholder="Project Manager">
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('date_string', 'Date')}}
-                                    {{Form::text('date_string', '', ['class' => 'form-control', 'placeholder' => 'Date'])}}
+                                    <label for="date_string">Date</label>
+                                    <input type="text" name="date_string" id="date_string" class="form-control" placeholder="Date">
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('description', 'Description')}} <span class="red-color">*</span>
-                                    {{Form::textarea('description', '', ['class' => 'form-control', 'placeholder' => 'Description', 'rows' => '2'])}}
+                                    <label for="description">Description <span class="red-color">*</span></label>
+                                    <textarea name="description" id="description" class="form-control" rows="2" placeholder="Description" required></textarea>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-lg-8 col-md-8 col-12">
-                                    {{Form::label('logo', 'Logo')}}
+                                    <label for="logo">Logo</label>
                                     <br>
                                     <i style="color: #777;">(Choosing an image will erase the current one)</i>
-                                    <input class="form-control" type="file" accept="image/jpeg" name="logo" id="file">
+                                    <input type="file" name="logo" id="logo" class="form-control" accept="image/jpeg">
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('content', 'Content')}} <span class="red-color">*</span>
-                                    {{Form::textarea('content', '', ['class' => 'hidden', 'id' => 'editor', 'placeholder' => 'Content'])}}
+                                    <label for="content">Content <span class="red-color">*</span></label>
+                                    <textarea name="content" id="editor" class="hidden" placeholder="Content"></textarea>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('video', 'Video Link')}}
-                                    {{Form::text('video', '', ['class' => 'form-control', 'placeholder' => 'Video Link'])}}
+                                    <label for="video">Video Link</label>
+                                    <input type="text" name="video" id="video" class="form-control" placeholder="Video Link">
                                 </div>
                             </div>
                             <div class="row mb-3">

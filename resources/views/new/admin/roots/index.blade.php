@@ -130,10 +130,13 @@
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
                                             </form>
-                                            {!! Form::open(['route' => 'roots.offline' , 'method' => 'POST', 'style' => 'float:right;padding-left: 10px;', 'enctype' => 'multipart/form-data']) !!}
-                                            {{Form::hidden('id', $root['id'])}}
-                                            {{Form::button('<i class="fa fa-power-off"></i>', ['type' => 'submit', 'class' => 'btn mb-2 icon-btn btn-danger'])}}
-                                            {!! Form::close() !!}
+                                                <form action="{{ route('roots.offline') }}" method="POST" style="float:right;padding-left: 10px;" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $root['id'] }}">
+                                                    <button type="submit" class="btn mb-2 icon-btn btn-danger">
+                                                        <i class="fa fa-power-off"></i>
+                                                    </button>
+                                                </form>
                                         @endif
                                     </td>
                                 </tr>
@@ -189,10 +192,13 @@
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
                                             </form>
-                                            {!! Form::open(['route' => 'roots.online' , 'method' => 'POST', 'style' => 'float:right;padding-left: 10px;', 'enctype' => 'multipart/form-data']) !!}
-                                            {{Form::hidden('id', $root['id'])}}
-                                            {{Form::button('<i class="fa fa-power-off"></i>', ['type' => 'submit', 'class' => 'btn mb-2 icon-btn btn-danger'])}}
-                                            {!! Form::close() !!}
+                                                <form action="{{ route('roots.online') }}" method="POST" style="float:right;padding-left: 10px;" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $root['id'] }}">
+                                                    <button type="submit" class="btn mb-2 icon-btn btn-danger">
+                                                        <i class="fa fa-power-off"></i>
+                                                    </button>
+                                                </form>
                                         @endif
                                     </td>
                                 </tr>

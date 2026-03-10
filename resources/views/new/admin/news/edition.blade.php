@@ -63,16 +63,10 @@
                             @method('POST')
                             <div class="row mb-3">
                                 <div class="form-group col-lg-6 col-md-6 col-12">
-                                    {{Form::label('name', 'Name')}} <span class="red-color">*</span>
-                                    {{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Name', 'required'])}}
+                                    <label for="name">Name <span class="red-color">*</span></label>
+                                    <input type="text" name="name" id="name" class="form-control" placeholder="Name" required>
                                 </div>
                             </div>
-                            {{--<div class="row mb-3">--}}
-                            {{--<div class="form-group col-lg-6 col-md-6 col-12">--}}
-                            {{--{{Form::label('name_french', 'Name in French')}} <span class="red-color">*</span>--}}
-                            {{--{{Form::text('name_french', '', ['class' => 'form-control', 'placeholder' => 'Name in French', 'required'])}}--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
                             <div class="d-flex justify-content-end" style="margin-bottom: 5vw;">
                                 <button class="btn btn-primary" onclick="event.preventDefault();window.history.back();">
                                     <i
@@ -120,17 +114,19 @@
                                                 </form>
                                             @endif
                                             @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
-                                                @if($edition['online'] == '0')
-                                                    {!! Form::open(['route' => 'news.edition.online' , 'method' => 'POST', 'style' => 'float:right;padding-left:10px;', 'enctype' => 'multipart/form-data']) !!}
-                                                    {{Form::text('ID', $edition['id'], ['class' => 'd-none'])}}
-                                                    {{Form::button('<i class="fa fa-power-off"></i>', ['type' => 'submit', 'class' => 'btn btn-info'])}}
-                                                    {!! Form::close() !!}
-                                                @else
-                                                    {!! Form::open(['route' => 'news.edition.offline' , 'method' => 'POST', 'style' => 'float:right;padding-left:10px;', 'enctype' => 'multipart/form-data']) !!}
-                                                    {{Form::text('ID', $edition['id'], ['class' => 'd-none'])}}
-                                                    {{Form::button('<i class="fa fa-power-off"></i>', ['type' => 'submit', 'class' => 'btn btn-danger icon-btn'])}}
-                                                    {!! Form::close() !!}
-                                                @endif
+                                                    @if($edition['online'] == '0')
+                                                        <form action="{{ route('news.edition.online') }}" method="POST" style="float:right;padding-left:10px;" enctype="multipart/form-data">
+                                                            @csrf
+                                                            <input type="hidden" name="ID" value="{{ $edition['id'] }}">
+                                                            <button type="submit" class="btn btn-info"><i class="fa fa-power-off"></i></button>
+                                                        </form>
+                                                    @else
+                                                        <form action="{{ route('news.edition.offline') }}" method="POST" style="float:right;padding-left:10px;" enctype="multipart/form-data">
+                                                            @csrf
+                                                            <input type="hidden" name="ID" value="{{ $edition['id'] }}">
+                                                            <button type="submit" class="btn btn-danger icon-btn"><i class="fa fa-power-off"></i></button>
+                                                        </form>
+                                                    @endif
                                             @endif
                                         </td>
                                     </tr>

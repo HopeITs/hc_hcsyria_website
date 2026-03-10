@@ -53,10 +53,13 @@
                         @if(($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher'))
                             && $success->online == '0'
                             && $success->english_check == '1' )
-                        {!! Form::open(['route' => 'successes.online', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'style' => 'float:right;margin-left:5px;']) !!}
-                        {{Form::hidden('id', $success->id)}}
-                        {{Form::button('<i class="fa fa-upload"></i> Publish', ['type' => 'submit', 'class' => 'btn btn-success'])}}
-                        {!! Form::close() !!}
+                        <form action="{{ route('successes.online') }}" method="POST" enctype="multipart/form-data" style="float:right;margin-left:5px;">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $success->id }}">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-upload"></i> Publish
+                            </button>
+                        </form>
                     @endif
                 </div>
                 <div class="initiative-testimonies">

@@ -78,22 +78,24 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('title', 'Title')}} <span class="red-color">*</span>
-                                    {{Form::text('title','', ['class' => 'form-control', 'placeholder' => 'Success Title', 'required'])}}
+                                    <label for="title">Title <span class="red-color">*</span></label>
+                                    <input type="text" name="title" id="title" class="form-control" placeholder="Success Title" required>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('text', 'Text')}} <span class="red-color">*</span>
-                                    {{Form::textarea('text', '', ['class' => 'form-control', 'placeholder' => 'Text', 'rows' => '4'])}}
+                                    <label for="text">Text <span class="red-color">*</span></label>
+                                    <textarea name="text" id="text" class="form-control" placeholder="Text" rows="4" required></textarea>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-lg-8 col-md-8 col-12">
-                                    {{Form::label('image_path', 'Image')}} <span class="red-color">*</span>
+                                    <label for="image_path">Image <span class="red-color">*</span></label>
                                     <br>
                                     <i style="color: #777;">(Choosing an image will erase the current one)</i>
-                                    <input class="form-control" type="file" accept="image/jpeg" name="image_path" id="file">
+                                    <input type="file" name="image_path" id="image_path" class="form-control" accept="image/jpeg" required>
                                 </div>
                             </div>
                             <div class="row mb-3">

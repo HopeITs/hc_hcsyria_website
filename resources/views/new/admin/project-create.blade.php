@@ -94,107 +94,107 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-lg-4 col-md-4 col-12">
-                                    {{Form::label('MicroProject_ID', 'Project Number')}} <span
-                                            class="red-color">*</span>
-                                    {{Form::number('MicroProject_ID', '', ['class' => 'form-control', 'placeholder' => 'Project Number', 'required'])}}
+                                    <label for="MicroProject_ID">Project Number <span class="red-color">*</span></label>
+                                    <input type="number" name="MicroProject_ID" id="MicroProject_ID" class="form-control"
+                                           placeholder="Project Number" required>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('name', 'Project Name')}} <span class="red-color">*</span>
-                                    {{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Project Name', 'required'])}}
+                                    <label for="name">Project Name <span class="red-color">*</span></label>
+                                    <input type="text" name="name" id="name" class="form-control"
+                                           placeholder="Project Name" required>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('beneficiary', 'Beneficiary Name')}} <span class="red-color">*</span>
-                                    {{Form::text('beneficiary', '', ['class' => 'form-control', 'placeholder' => 'Beneficiary Name', 'required'])}}
+                                    <label for="beneficiary">Beneficiary Name <span class="red-color">*</span></label>
+                                    <input type="text" name="beneficiary" id="beneficiary" class="form-control"
+                                           placeholder="Beneficiary Name" required>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-lg-4 col-md-4 col-12">
-                                    {{Form::label('DOB', 'Year of Birth')}} <span class="red-color">*</span>
-                                    {{Form::number('DOB',  '', ['class' => 'form-control', 'placeholder' => 'Year of Birth','min="1920"','max="2020"', 'required'])}}
+                                    <label for="DOB">Year of Birth <span class="red-color">*</span></label>
+                                    <input type="number" name="DOB" id="DOB" class="form-control"
+                                           placeholder="Year of Birth" min="1920" max="2020" required>
                                 </div>
                                 <div class="form-group col-lg-4 col-md-4 col-12">
-                                    {{Form::label('FamilyMembers', 'Family Members')}} <span class="red-color">*</span>
-                                    {{Form::number('FamilyMembers', '', ['class' => 'form-control', 'placeholder' => 'Family Members','min="0"', 'required'])}}
+                                    <label for="FamilyMembers">Family Members <span class="red-color">*</span></label>
+                                    <input type="number" name="FamilyMembers" id="FamilyMembers" class="form-control"
+                                           placeholder="Family Members" min="0" required>
+                                </div>
+                            </div>
 
-                                </div>
-                            </div>
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('mobile', 'Mobile')}}
-                                    {{Form::text('mobile', '', ['class' => 'form-control', 'placeholder' => '09########'])}}
+                                    <label for="mobile">Mobile</label>
+                                    <input type="text" name="mobile" id="mobile" class="form-control"
+                                           placeholder="09########">
                                 </div>
                             </div>
-                            {{--<div class="row mb-3">--}}
-                            {{--<div class="form-group col-lg-8 col-md-8 col-12">--}}
-                            {{--<label>Has the beneficiary lost his work during war? <span--}}
-                            {{--class="red-color">*</span></label><br>--}}
 
-                            {{--<div class="btn-group w-100" role="group">--}}
-                            {{--<input type="radio" class="btn-check" value="1" name="WorkLoss" id="btnradio1"--}}
-                            {{--autocomplete="off">--}}
-                            {{--<label class="btn btn-outline-primary" for="btnradio1">Yes</label>--}}
+                            <div class="row mb-3">
+                                <div class="form-group col-12">
+                                    <label for="expSkill">Skills and Experiences</label>
+                                    <textarea name="expSkill" id="expSkill" class="form-control" rows="2"
+                                              placeholder="Skills and Experiences"></textarea>
+                                </div>
+                            </div>
 
-                            {{--<input type="radio" class="btn-check" value="0" name="WorkLoss" id="btnradio2"--}}
-                            {{--autocomplete="off">--}}
-                            {{--<label class="btn btn-outline-primary" for="btnradio2">No</label>--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('expSkill', 'Skills and Experiences')}}
-                                    {{Form::textarea('expSkill', '', ['class' => 'form-control', 'placeholder' => 'Skills and Experiences','rows' => '2'])}}
+                                    <label for="partner">Partner Name</label>
+                                    <input type="text" name="partner" id="partner" class="form-control"
+                                           placeholder="Partner Name">
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('partner', 'Partner Name')}}
-                                    {{Form::text('partner', '', ['class' => 'form-control', 'placeholder' => 'Partner Name'])}}
+                                    <label for="partner2">Second Partner Name</label>
+                                    <input type="text" name="partner2" id="partner2" class="form-control"
+                                           placeholder="Second Partner Name">
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('partner2', 'Second Partner Name')}}
-                                    {{Form::text('partner2', '', ['class' => 'form-control', 'placeholder' => 'Second Partner Name'])}}
+                                    <label for="suffering">Suffering and Need <span class="red-color">*</span></label>
+                                    <textarea name="suffering" id="editor" class="form-control"
+                                              placeholder="Suffering and Need"></textarea>
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="form-group col-12">
-                                    {{Form::label('suffering', 'Suffering and Need')}} <span class="red-color">*</span>
-                                    {!!Form::textarea('suffering', '', ['class' => 'form-control', 'id' => 'editor' ,'placeholder' => 'Suffering and Need'])!!}
-                                </div>
-                            </div>
-                            {{--<div class="row mb-3">--}}
-                                {{--<div class="form-group col-12">--}}
-                                    {{--{{Form::label('location', 'Project Location')}}--}}
-                                    {{--{{Form::text('location', '', ['class' => 'form-control', 'id' => 'location', 'placeholder' => 'Project Location'])}}--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
+
                             <div class="row mb-3">
                                 <div class="form-group col-3">
-                                    {{Form::label('location', 'Location Latitude (x)')}}
-                                    {{Form::text('latitude', '', ['class' => 'form-control', 'id' => 'latitude', 'placeholder' => 'Location Latitude'])}}
+                                    <label for="latitude">Location Latitude (x)</label>
+                                    <input type="text" name="latitude" id="latitude" class="form-control"
+                                           placeholder="Location Latitude">
                                 </div>
                                 <div class="form-group col-3">
-                                    {{Form::label('location', 'Location Longtitude (y)')}}
-                                    {{Form::text('longtitude', '', ['class' => 'form-control', 'id' => 'longtitude', 'placeholder' => 'Location longtitude'])}}
+                                    <label for="longtitude">Location Longitude (y)</label>
+                                    <input type="text" name="longtitude" id="longtitude" class="form-control"
+                                           placeholder="Location Longitude">
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('video', 'Video Link')}}
-                                    {{Form::text('video', '', ['class' => 'form-control', 'placeholder' => 'Video Link'])}}
+                                    <label for="video">Video Link</label>
+                                    <input type="text" name="video" id="video" class="form-control"
+                                           placeholder="Video Link">
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="form-group col-lg-3 col-md-3 col-12 ">
-                                    {{Form::label('fundDate', 'Date of Fund')}}
-                                    {{Form::date('fundDate', '' ,['class' => 'form-control', 'min="2018-01-01"', 'max='.\Carbon\Carbon::now()])}}
 
+                            <div class="row mb-3">
+                                <div class="form-group col-lg-3 col-md-3 col-12">
+                                    <label for="fundDate">Date of Fund</label>
+                                    <input type="date" name="fundDate" id="fundDate" class="form-control"
+                                           min="2018-01-01" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -236,9 +236,6 @@
                                 <button type="submit" class="btn btn-info" style="margin-left: 15px;"><i
                                             class="fa fa-external-link"></i> Create
                                 </button>
-
-                                {{--{{Form::button('<i class="fa fa-refresh"></i> Update', ['type' => 'submit', 'class' => 'btn btn-danger', 'style' => 'margin-left: 15px;'])}}--}}
-                                {{--{!! Form::close() !!}--}}
                             </div>
                         </form>
                     </div>

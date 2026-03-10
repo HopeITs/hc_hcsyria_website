@@ -154,10 +154,15 @@
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
                                             </form>
-                                            {!! Form::open(['route' => 'news.offline' , 'method' => 'POST', 'style' => 'float:right;padding-left: 10px;', 'enctype' => 'multipart/form-data']) !!}
-                                            {{Form::hidden('id', $news['id'])}}
-                                            {{Form::button('<i class="fa fa-power-off"></i>', ['type' => 'submit', 'class' => 'btn mb-2 icon-btn btn-danger'])}}
-                                            {!! Form::close() !!}
+                                                <form action="{{ route('news.offline') }}"
+                                                      method="POST"
+                                                      style="float:right; padding-left:10px;">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{ $news['id'] }}">
+                                                    <button type="submit" class="btn mb-2 icon-btn btn-danger">
+                                                        <i class="fa fa-power-off"></i>
+                                                    </button>
+                                                </form>
                                         @endif
                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Photos Editor'))
                                             <a href="{{route('news.images.create', $news['id'])}}"
@@ -214,10 +219,13 @@
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
                                             </form>
-                                            {!! Form::open(['route' => 'news.offline' , 'method' => 'POST', 'style' => 'float:right;padding-left: 10px;', 'enctype' => 'multipart/form-data']) !!}
-                                            {{Form::hidden('id', $news['id'])}}
-                                            {{Form::button('<i class="fa fa-power-off"></i>', ['type' => 'submit', 'class' => 'btn mb-2 icon-btn btn-danger'])}}
-                                            {!! Form::close() !!}
+                                            <form action="{{ route('news.offline') }}" method="POST" style="float:right; padding-left:10px;">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $news['id'] }}">
+                                                <button type="submit" class="btn mb-2 icon-btn btn-danger">
+                                                    <i class="fa fa-power-off"></i>
+                                                </button>
+                                            </form>
                                         @endif
                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Photos Editor'))
                                             <a href="{{route('news.images.create', $news['id'])}}"
@@ -278,10 +286,6 @@
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
                                             </form>
-                                            {{--{!! Form::open(['route' => 'news.offline' , 'method' => 'POST', 'style' => 'float:right;padding-left: 10px;', 'enctype' => 'multipart/form-data']) !!}--}}
-                                            {{--{{Form::hidden('id', $news['id'])}}--}}
-                                            {{--{{Form::button('<i class="fa fa-power-off"></i>', ['type' => 'submit', 'class' => 'btn mb-2 btn-danger'])}}--}}
-                                            {{--{!! Form::close() !!}--}}
                                         @endif
                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Photos Editor'))
                                             <a href="{{route('news.images.create', $news['id'])}}"

@@ -86,11 +86,12 @@
                             </div>
 
                             {{-- Image Upload Section --}}
-                            <div id="image-count-container" class="row mb-3" style="display: {{ $what->media->isNotEmpty() && $what->media[0]->mediaType==='image' ? 'block' : 'none' }};">
+                            <div id="image-count-container" class="row mb-3"
+                                 style="display: {{ $what->media->isNotEmpty() && $what->media[0]->mediaType==='image' ? 'block' : 'none' }};">
                                 <div class="form-group col-lg-3 col-md-3 col-12">
-                                    {{Form::label('image-count', 'Images Count')}}
-                                    <input id="images-count" type="number" class="form-control" step="1" value="3"
-                                           min="1" onchange="addImageGroup()">
+                                    <label for="images-count">Images Count</label>
+                                    <input id="images-count" type="number" class="form-control" step="1" value="3" min="1"
+                                           onchange="addImageGroup()">
                                 </div>
                             </div>
                             <div id="image-section" style="display: {{ $what->media->isNotEmpty() && $what->media[0]->mediaType==='image' ? 'block' : 'none' }};">
@@ -98,24 +99,24 @@
                                     <div class="image-group form-control">
                                         <div class="row">
                                             <div class="form-group col-lg-6 col-md-6 col-12">
-                                                {{Form::label('image', 'Image')}}
-                                                {{Form::file('image[]', ['accept' => 'image/jpeg', 'required'])}}
+                                                <label for="image1">Image</label>
+                                                <input type="file" name="image[]" id="image1" accept="image/jpeg" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="image-group form-control">
                                         <div class="row">
                                             <div class="form-group col-lg-6 col-md-6 col-12 small-image">
-                                                {{Form::label('image', 'Image')}}
-                                                {{Form::file('image[]', ['accept' => 'image/jpeg', 'required'])}}
+                                                <label for="image2">Image</label>
+                                                <input type="file" name="image[]" id="image2" accept="image/jpeg" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="image-group form-control">
                                         <div class="row">
                                             <div class="form-group col-lg-6 col-md-6 col-12 small-image">
-                                                {{Form::label('image', 'Image')}}
-                                                {{Form::file('image[]', ['accept' => 'image/jpeg', 'required'])}}
+                                                <label for="image3">Image</label>
+                                                <input type="file" name="image[]" id="image3" accept="image/jpeg" required>
                                             </div>
                                         </div>
                                     </div>
@@ -162,7 +163,6 @@
                                     <div class="form-group col">
                                         <ul id="image-list">
                                             @foreach($what->media as $img)
-                                                {{--{{Form::text('project_id', $project->id, ['class' => 'd-none'])}}--}}
                                                 <li class="image-checkbox" id="image_{{$img['id']}}">
                                                     <img class="img-responsive" src="{{$img['mediaURL']}}"/>
                                                     <input type="checkbox" name="{{$img['id']}}" value="1"/>

@@ -69,11 +69,14 @@
                 @if(($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher'))
                                             && $microProject[0]['MPE_Published'] == '0'
                                             && $microProject[0]['english_check'] == '1' )
-                    {!! Form::open(['route' => 'publish.project', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-                    {{Form::text('MicroProject_ID', $microProject[0]['MicroProject_ID'], ['class' => 'd-none'])}}
-                    {{Form::text('id', $microProject[0]['id'], ['class' => 'd-none'])}}
-                    {{Form::button('<i class="fa fa-upload"></i> Publish', ['type' => 'submit', 'class' => 'col-auto btn btn-success'])}}
-                    {!! Form::close() !!}
+                    <form action="{{ route('publish.project') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="MicroProject_ID" value="{{ $microProject[0]['MicroProject_ID'] }}">
+                        <input type="hidden" name="id" value="{{ $microProject[0]['id'] }}">
+                        <button type="submit" class="col-auto btn btn-success">
+                            <i class="fa fa-upload"></i> Publish
+                        </button>
+                    </form>
                 @endif
             </div>
         </div>
