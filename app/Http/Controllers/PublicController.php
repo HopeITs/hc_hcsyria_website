@@ -366,7 +366,7 @@ from projects LIMIT 1;');
 
         //statistics start
         $counts = Project::select('MPE_City', DB::raw('COUNT(*) as total'))
-            ->whereIn('MPE_City', [1, 2, 3, 4, 7])
+            ->whereIn('MPE_City', [1, 2, 3, 4,6, 7,8])
             ->whereIn('MPE_Done', [1, 2])
             ->whereIn('MPE_Published', [1, 2])
             ->groupBy('MPE_City')
@@ -377,6 +377,8 @@ from projects LIMIT 1;');
         $damascusCount = $counts[2] ?? 0;
         $latakiaCount  = $counts[4] ?? 0;
         $wadiCount     = $counts[7] ?? 0;
+        $idlebCount = $counts[8] ?? 'SOON';
+        $tartusCount = $counts[6] ?? 0;
 
         $allCount = $counts->sum();
         $familyMembersCount = Project::whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2])->sum('FamilyMembers');
@@ -473,7 +475,7 @@ from projects LIMIT 1;');
 
             'sustainableRate' => $sustainableRate, 'categories' => $categories, 'wadiCount' => $wadiCount,
 
-            'allCount' => $allCount, 'aleppoCount' => $aleppoCount, 'homsCount' => $homsCount, 'latakiaCount' => $latakiaCount, 'damascusCount' => $damascusCount,
+            'allCount' => $allCount, 'aleppoCount' => $aleppoCount, 'homsCount' => $homsCount, 'latakiaCount' => $latakiaCount, 'damascusCount' => $damascusCount, 'idlebCount' => $idlebCount , 'tartusCount'=>$tartusCount ,
 //            'aleppoMap' => $aleppoMap, 'homsMap' => $homsMap, 'damasMap' => $damasMap,
             'agent' => $agent]);
     }

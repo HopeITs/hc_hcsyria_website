@@ -109,10 +109,10 @@
     <div class="horizontal-line small d-lg-none d-md-none d-sm-none d-block mt-3" data-aos="fade-up"
          data-aos-duration="800"></div>
 
-    <div id="statistic-section" class="d-lg-block  d-md-block d-sm-block d-none small-margin section-space mb-2"
+    <div id="statistic-section" class="d-lg-block d-md-block d-sm-block d-none small-margin section-space mb-2"
          data-aos="fade-up"
          data-aos-duration="800">
-        <div class="micro-statistics-container ">
+        <div class="micro-statistics-container">
             <div class="row " data-aos="fade-up" data-aos-duration="600">
                 <div class="col-12 d-flex justify-content-center">
                     <div class="micro-statistics-title pb-0">Statistics</div>
@@ -120,121 +120,98 @@
             </div>
 
             <div class="micro-page-margin">
-                <div class="d-grid gap-4 parent"
-                     style="grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); min-height: 1000px;">
+                <div style="max-width: 72.3vw; margin: 0 auto;">
 
-                    {{--Carousel--}}
-                    <div style="grid-area: 1 / 1 / 3 / 3; overflow: hidden;">
-                        <img src="/images/home/Micro/s2.jpg"
-                             style="width: 100%; height: 100%; object-fit: cover; object-position: 0% center; display: block;">
-                    </div>
+                    <div class="d-grid gap-4 parent"
+                         style="grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); min-height: 550px;">
 
-                    {{--Total Projects in Syria--}}
-                    <div class="d-flex flex-column align-items-center justify-content-center text-center text-white"
-                         style="grid-area: 1 / 3 / 2 / 4; background-color: #C11C1C; padding: 40px; min-height: 250px;">
+                        {{--Carousel--}}
+                        <div style="grid-area: 1 / 1 / 3 / 3; overflow: hidden;">
+                            <div id="MicroCarousel" class="carousel slide h-100 w-100"
+                                 data-bs-ride="carousel"
+                                 data-bs-interval="5500"
+                                 data-bs-pause="hover">
 
-                        <div style="font-size: 5rem; font-weight: 800; line-height: 1;">
-                            {{ number_format($allCount, 0) }}
+                                <div class="carousel-inner h-100">
+                                    @for ($i = 1; $i <= 8; $i++)
+                                        <div class="carousel-item {{ $i == 1 ? 'active' : '' }} h-100">
+                                            <img src="/images/home/Micro/new-s{{$i}}.jpg"
+                                                 oncontextmenu="return false;"
+                                                 class="carousel-custom-img"
+                                                 style="width: 100%; height: 100%; object-fit: cover; object-position: 0% center; display: block;"
+                                                 alt="Slide {{$i}}"
+                                            >
+                                        </div>
+                                    @endfor
+                                </div>
+                            </div>
                         </div>
 
-                        <div style="font-size: 1.2rem; font-weight: 400; margin-top: 10px;">
-                            Total Projects in <strong style="font-weight: 700;">Syria</strong>
+                        {{--Total Projects in Syria--}}
+                        <div class="d-flex flex-column align-items-center justify-content-center text-center text-white"
+                             style="grid-area: 1 / 3 / 2 / 4; background-color: #bc1818; padding: 15px;">
+                            <div style="font-size: 4.3rem; font-weight: 800; margin:0; line-height: 1;">
+                                {{ number_format($allCount, 0) }}
+                            </div>
+                            <div style="font-size: 1rem; font-weight: 400;">
+                                Total Projects in <strong style="font-weight: 700;">Syria</strong>
+                            </div>
                         </div>
 
-                    </div>
-
-                    {{--Project continuity rate--}}
-                    <div class="d-flex flex-column align-items-center justify-content-center text-center p-4"
-                         style="grid-area: 1 / 4 / 2 / 5; background-color: #f2f2f2; min-height: 200px;">
-
-                        <h1 style="color: #b31d1d; font-size: 5rem; font-weight: 800; margin: 0; line-height: 1;">
-                            {{$sustainableRate[0]->number}}%
-                        </h1>
-
-                        <p style="color: #6c757d; font-size: 1.2rem; font-weight: 600; margin-top: 10px;">
-                            Project continuity rate
-                        </p>
-
-                    </div>
-
-
-                    <div class="d-flex align-items-center justify-content-center "
-                         style="grid-area: 2 / 3 / 3 / 5; background-color: #f2f2f2; color: #6c757d; font-size: 1.7rem">
-                        Beneficiaries' Age Classification
-                    </div>
-
-                    <div class="d-flex align-items-center justify-content-around text-center"
-                         style="grid-area: 3 / 1 / 4 / 4; background-color: #f3f3f3; padding: 40px 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-
-                        <div class="flex-grow-1">
-                            <div style="color: #6a6a6a; font-weight: 700; font-size: 1.4rem;  text-transform: uppercase; margin-bottom: 2px;">Aleppo</div>
-                            <div style="width: 28px; height: 4px; background-color: #d12e2e; margin: 0 auto 15px;"></div>
-                            <div style="color: #6a6a6a; font-size: 5.3rem; font-weight: 700; line-height: 1; margin-bottom: 1px;">{{$aleppoCount}}</div>
-                            <div style="color: #7a7e83; font-weight: 700; font-size: 1.4rem;">Projects</div>
+                        {{--Project continuity rate--}}
+                        <div class="d-flex flex-column align-items-center justify-content-center text-center p-2"
+                             style="grid-area: 1 / 4 / 2 / 5; background-color: #F1F1F1;">
+                            <h1 style="color: #bc1818; font-size: 4.3rem; font-weight: 800; margin: 0; line-height: 1;">
+                                {{$sustainableRate[0]->number}}%
+                            </h1>
+                            <p style="color: #808285; font-size: 1rem; font-weight: 600;  margin: 0; line-height: 1;">
+                                Project Sustainability rate
+                            </p>
                         </div>
 
-                        <div style="width: 1.5px; height: 100px; background-color: #e0e0e0;"></div>
-
-                        <div class="flex-grow-1">
-                            <div style="color: #6a6a6a; font-weight: 700; font-size: 1.4rem;  text-transform: uppercase; margin-bottom: 2px;">Homs</div>
-                            <div style="width: 28px; height: 4px; background-color: #d12e2e; margin: 0 auto 15px;"></div>
-                            <div style="color: #6a6a6a; font-size: 5.3rem; font-weight: 700; line-height: 1; margin-bottom: 1px;">{{$homsCount}}</div>
-                            <div style="color: #7a7e83; font-weight: 700; font-size: 1.4rem;">Projects</div>
+                        <div class="d-flex align-items-center justify-content-center"
+                             style="grid-area: 2 / 3 / 3 / 5; background-color: #F1F1F1; color: #808285; font-size: 1.2rem">
+                            Beneficiaries' Age Classification
                         </div>
 
-                        <div style="width: 1.5px; height: 100px; background-color: #e0e0e0;"></div>
-
-                        <div class="flex-grow-1">
-                            <div style="color: #6a6a6a; font-weight: 700; font-size: 1.4rem;  text-transform: uppercase; margin-bottom: 2px;">Damascus</div>
-                            <div style="width: 28px; height: 4px; background-color: #d12e2e; margin: 0 auto 15px;"></div>
-                            <div style="color: #6a6a6a; font-size: 5.3rem; font-weight: 700; line-height: 1; margin-bottom: 1px;">{{$damascusCount}}</div>
-                            <div style="color: #7a7e83; font-weight: 700; font-size: 1.4rem;">Projects</div>
-                        </div>
-                    </div>
-
-                    <div class=" d-flex align-items-center justify-content-center "
-                         style="grid-area: 3 / 4 / 4 / 5; background-color: #f2f2f2; color: #6c757d;">
-                        Top 5 Project Categories
-                    </div>
-
-                    <div class="d-flex align-items-center justify-content-around text-center"
-                         style="grid-area: 4 / 1 / 5 / 5; background-color: #f3f3f3; padding: 40px 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-
-                        <div class="flex-grow-1">
-                            <div style="color: #6a6a6a; font-weight: 700; font-size: 1.4rem;  text-transform: uppercase; margin-bottom: 2px;">latakia</div>
-                            <div style="width: 28px; height: 4px; background-color: #d12e2e; margin: 0 auto 15px;"></div>
-                            <div style="color: #6a6a6a; font-size: 5.3rem; font-weight: 700; line-height: 1; margin-bottom: 1px;">{{$latakiaCount}}</div>
-                            <div style="color: #7a7e83; font-weight: 700; font-size: 1.4rem;">Projects</div>
+                        <div class="d-flex align-items-center justify-content-around text-center"
+                             style="grid-area: 3 / 1 / 4 / 4; background-color: #F1F1F1; padding: 15px 0; ">
+                            @foreach(['Aleppo' => $aleppoCount, 'Homs' => $homsCount, 'Damascus' => $damascusCount] as $city => $count)
+                                <div class="flex-grow-1">
+                                    <div style="color: #808285; font-weight: 750; font-size: 1.1rem; text-transform: uppercase;">{{$city}}</div>
+                                    <div style="width: 24px; height: 4.5px; background-color: #bc1818; margin: 5px auto;"></div>
+                                    <div style="color: #808285; font-size: 4rem; font-weight: 800; line-height: 1;">{{ number_format((int)$count, 0) }}</div>
+                                    <div style="color: #808285; font-weight: 700; font-size: 1rem;">Projects</div>
+                                </div>
+                                @if(!$loop->last) <div style="width: 1px; height: 60px; background-color: #D8D8D8;"></div> @endif
+                            @endforeach
                         </div>
 
-                        <div style="width: 1.5px; height: 100px; background-color: #e0e0e0;"></div>
+                        <div class="d-flex align-items-center justify-content-center p-4"
+                             style="grid-area: 3 / 4 / 4 / 5; background-color: #F1F1F1; color: #666666; font-size: 0.9rem; flex-direction: column;">
 
-                        <div class="flex-grow-1">
-                            <div style="color: #6a6a6a; font-weight: 700; font-size: 1.4rem;  text-transform: uppercase; margin-bottom: 2px;">Al wadi</div>
-                            <div style="width: 28px; height: 4px; background-color: #d12e2e; margin: 0 auto 15px;"></div>
-                            <div style="color: #6a6a6a; font-size: 5.3rem; font-weight: 700; line-height: 1; margin-bottom: 1px;">{{$wadiCount}}</div>
-                            <div style="color: #7a7e83; font-weight: 700; font-size: 1.4rem;">Projects</div>
+                            <strong class="mb-2">Top 5 Project Categories</strong>
+
+                            <ol class=" m-0" style="list-style-position: inside; font-weight: 800; width: 100%;" style="padding-left:12px;  padding-right:12px;">
+                                @foreach($categories as $category)
+                                    <li class="mb-1">{{ $category->Name }}</li>
+                                @endforeach
+                            </ol>
                         </div>
 
-                        <div style="width: 1.5px; height: 100px; background-color: #e0e0e0;"></div>
-
-                        <div class="flex-grow-1">
-                            <div style="color: #6a6a6a; font-weight: 700; font-size: 1.4rem;  text-transform: uppercase; margin-bottom: 2px;">Idleb</div>
-                            <div style="width: 28px; height: 4px; background-color: #d12e2e; margin: 0 auto 15px;"></div>
-                            <div style="color: #6a6a6a; font-size: 5.3rem; font-weight: 700; line-height: 1; margin-bottom: 1px;">5</div>
-                            <div style="color: #7a7e83; font-weight: 700; font-size: 1.4rem;">Projects</div>
-                        </div>
-
-                        <div style="width: 1.5px; height: 100px; background-color: #e0e0e0;"></div>
-
-                        <div class="flex-grow-1">
-                            <div style="color: #6a6a6a; font-weight: 700; font-size: 1.4rem;  text-transform: uppercase; margin-bottom: 2px;">Tartus</div>
-                            <div style="width: 28px; height: 4px; background-color: #d12e2e; margin: 0 auto 15px;"></div>
-                            <div style="color: #6a6a6a; font-size: 5.3rem; font-weight: 700; line-height: 1; margin-bottom: 1px;">14</div>
-                            <div style="color: #7a7e83; font-weight: 700; font-size: 1.4rem;">Projects</div>
+                        <div class="d-flex align-items-center justify-content-around text-center"
+                             style="grid-area: 4 / 1 / 5 / 5; background-color: #F1F1F1; padding: 15px 0; ">
+                            @foreach(['latakia' => $latakiaCount, 'Al wadi' => $wadiCount, 'Idleb' => $idlebCount, 'Tartus' => $tartusCount] as $city => $count)
+                                <div class="flex-grow-1">
+                                    <div style="color: #808285; font-weight: 750; font-size: 1.1rem; text-transform: uppercase;">{{$city}}</div>
+                                    <div style="width: 24px; height: 4.5px; background-color: #bc1818; margin: 5px auto;"></div>
+                                    <div style="color: #808285; font-size: 4rem; font-weight: 800; line-height: 1;">{{ number_format((int)$count, 0) }}</div>
+                                    <div style="color: #808285; font-weight: 700; font-size: 1rem;">Projects</div>
+                                </div>
+                                @if(!$loop->last) <div style="width: 1px; height: 60px; background-color: #D8D8D8;"></div> @endif
+                            @endforeach
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

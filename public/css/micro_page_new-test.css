@@ -442,16 +442,27 @@ img.copy-icon:hover, img.location-icon:hover {
         margin: 3% 4.7%;
 }
 .micro-statistics-container{
-    padding:0 20px 0 10px;
+    padding:0 10px;
 }
+
 
 .micro-statistics-title{
         background: white;
         padding: 2.1vw;
-        color: #575756;
+        color: #414042;
         font-weight: 900;
         font-size: 2.8vw;
         z-index: 1000;
+}
+
+.carousel-custom-img {
+    filter: grayscale(100%);
+    transition: filter 0.5s ease-in-out;
+}
+
+
+#MicroCarousel:hover .carousel-custom-img {
+    filter: grayscale(0%);
 }
 
 /* 🔹 General placeholder container */
