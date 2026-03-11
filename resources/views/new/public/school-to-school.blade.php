@@ -13,6 +13,14 @@
     @include('new.public.components.analytics-head')
 
     <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy"
+content="
+default-src 'self';
+script-src 'self' https://cdn.jsdelivr.net https://unpkg.com 'unsafe-inline';
+style-src 'self' https://fonts.googleapis.com https://unpkg.com 'unsafe-inline';
+font-src 'self' https://fonts.gstatic.com data:;
+img-src 'self' data: https:;
+">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#f6f6f6">
     <meta name="apple-mobile-web-app-status-bar-style" content="#f6f6f6">
