@@ -293,7 +293,7 @@
                     @for($i = 0; $i<2; $i++)
                     <div class="other-initiative-wrapper col-xs-12">
                         <a href="{{ route('public.studyzone.project', [ 'activities', $activities[$i]->id,
-                         str_slug(strtolower($activities[$i]->english->title))]) }}">
+                         Str::slug(strtolower($activities[$i]->english->title))]) }}">
                             <div class="row other-initiatives-inner">
                                 <div class="col-sm-12 col-xs-5 related-ini-img">
                                     <img src="{{$activities[$i]->firstImage['path']}}" width="100%">

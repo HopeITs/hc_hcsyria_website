@@ -311,7 +311,7 @@
                     <div class="item">
                         <div class="other-initiative-wrapper">
                             <a href="{{ route('public.initiative', [ 'family-to-family', $partner->id,
-                                str_slug(strtolower($partner->english->title))]) }}">
+                                Str::slug(strtolower($partner->english->title))]) }}">
                                 <div class="row other-initiatives-inner">
                                     <div class="col-sm-12 related-ini-img">
                                         <img src="{{$partner->firstImage['path']}}" width="100%">

@@ -142,9 +142,9 @@ s
                                     {{ $SingleNews->$language->description }}...
                                 </p>
                                 <a href="{{ route('public.article',
-                                    [str_slug(strtolower($selectedEdition->name)),
+                                    [Str::slug(strtolower($selectedEdition->name)),
                                     $SingleNews->id,
-                                    str_slug(strtolower($SingleNews->english->title))]   ) }}"
+                                    Str::slug(strtolower($SingleNews->english->title))]   ) }}"
                                    class="btn btn-primary readMore ">@lang('main.readMore')
                                 </a>
                             </div>
@@ -165,9 +165,9 @@ s
                                     {{ $SingleNews->$language->description }}..
                                 </p>
                                 <a href="{{ route('public.article',
-                                [str_slug(strtolower($selectedEdition->name)),
+                                [Str::slug(strtolower($selectedEdition->name)),
                                 $SingleNews->id,
-                                str_slug(strtolower($SingleNews->english->title))]) }}"
+                                Str::slug(strtolower($SingleNews->english->title))]) }}"
                                    class="btn btn-primary readMore ">@lang('main.readMore')
                                 </a>
                             </div>

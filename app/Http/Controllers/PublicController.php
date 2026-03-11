@@ -727,10 +727,10 @@ from projects LIMIT 1;');
 //        if (!isset($mainInitiative)) {
 //            return view('new.errors.404');
 //        }
-//        if (($type != str_slug(strtolower($mainInitiative->whatCategory->name))) || ($slug != str_slug(strtolower($mainInitiative->english->title)))) {
+//        if (($type != Str::slug(strtolower($mainInitiative->whatCategory->name))) || ($slug != Str::slug(strtolower($mainInitiative->english->title)))) {
 //            return view('new.errors.404');
 //        }
-//        $initiativePath = $type . '/' . $id . '-' . str_slug(strtolower($mainInitiative->english->title));
+//        $initiativePath = $type . '/' . $id . '-' . Str::slug(strtolower($mainInitiative->english->title));
 //        $images = InitiativeImage::where('initiative_id', $id)->get();
 //        $imagesRehabilitation = InitiativeImageRehabilitation::where('initiative_id', $id)->get();
 //        if (!count($images))
@@ -802,10 +802,10 @@ from projects LIMIT 1;');
         if (!isset($mainInitiative)) {
             return view('new.errors.404', ['edition' => $edition]);
         }
-        if (($type != str_slug(strtolower($mainInitiative->whatCategory->name))) || ($slug != str_slug(strtolower($mainInitiative->english->title)))) {
+        if (($type != Str::slug(strtolower($mainInitiative->whatCategory->name))) || ($slug != Str::slug(strtolower($mainInitiative->english->title)))) {
             return view('new.errors.404', ['edition' => $edition]);
         }
-        $initiativePath = $type . '/' . $id . '-' . str_slug(strtolower($mainInitiative->english->title));
+        $initiativePath = $type . '/' . $id . '-' . Str::slug(strtolower($mainInitiative->english->title));
         $images = InitiativeImage::where('initiative_id', $id)->orderby('image_order')->get();
         $imagesRehabilitation = InitiativeImageRehabilitation::where('initiative_id', $id)->get();
         if (!count($images)) $images = [['path' => $imagesRehabilitation[0]->path_1]];
@@ -909,11 +909,11 @@ from projects LIMIT 1;');
         if (is_null($mainInitiative) || is_null($subWhatCategory)) {
             return view('new.errors.404');
         }
-        if (($slug != str_slug(strtolower($mainInitiative->english->title))) || ($type != str_slug(strtolower($subWhatCategory->name)))) {
+        if (($slug != Str::slug(strtolower($mainInitiative->english->title))) || ($type != Str::slug(strtolower($subWhatCategory->name)))) {
             return view('new.errors.404');
         }
         if ($mainInitiative->what_category_id != $subWhatCategory->what_category_id) return view('new.errors.404', ['edition' => $edition]);
-        $initiativePath = str_slug(strtolower($mainInitiative->whatCategory->name)) . '/' . str_slug(strtolower($mainInitiative->subWhatCategory->name)) . '/' . $id . '-' . str_slug(strtolower($mainInitiative->english->title));
+        $initiativePath = Str::slug(strtolower($mainInitiative->whatCategory->name)) . '/' . Str::slug(strtolower($mainInitiative->subWhatCategory->name)) . '/' . $id . '-' . Str::slug(strtolower($mainInitiative->english->title));
         $images = InitiativeImage::where('initiative_id', $id)->orderby('image_order')->get();
         $initiativesSameType = Initiative::with('english', 'french', 'firstImage')->where('id', '!=', $mainInitiative->id)->where('what_category_id', $mainInitiative->what_category_id)->where('who_category_id', $mainInitiative->who_category_id)->where('online', '1')->inRandomOrder()->limit(3)->get();
         $removeIDs = $initiativesSameType->pluck('id');
@@ -1671,7 +1671,7 @@ ORDER BY `student_count` DESC');
             return view('new.errors.404', ['edition' => $edition]);
         }
 
-        $articlePath = $ed . '/' . $id . '-' . str_slug(strtolower($article->english->title));
+        $articlePath = $ed . '/' . $id . '-' . Str::slug(strtolower($article->english->title));
         $images = NewsImage::where('news_id', $id)->get();
 
 //        $initiativesSameType = Initiative::with('english', 'french', 'firstImage')

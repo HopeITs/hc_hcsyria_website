@@ -418,11 +418,11 @@
                 @foreach($initiativesSameType as $initiative)
                     @php
                         $route = 'new.public.initiative';
-                        $category = str_slug(strtolower($initiative->whatCategory->name));
+                        $category = Str::slug(strtolower($initiative->whatCategory->name));
                     @endphp
                     <div class="item">
                         <a href="{{ route($route, [ $category, $initiative->id,
-                         str_slug(strtolower($initiative->english->title))]) }}">
+                         Str::slug(strtolower($initiative->english->title))]) }}">
                             <div class="row other-initiatives-inner">
                                 <div class="col-12 related-ini-img">
                                     <img src="{{$initiative->firstImage['path']}}" width="100%">

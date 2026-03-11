@@ -206,9 +206,9 @@
                                             </a>
                                         @endif
                                         <a href="{{ route('new.public.article',
-                                    [str_slug(strtolower($selectedEdition->name)),
+                                    [Str::slug(strtolower($selectedEdition->name)),
                                     $SingleNews->id,
-                                    str_slug(strtolower($SingleNews->english->title))]   ) }}"
+                                    Str::slug(strtolower($SingleNews->english->title))]   ) }}"
                                            class="readmore-btn left">@lang('main.readMore')
                                         </a>
                                     </div>
@@ -249,9 +249,9 @@
                                                 {!!implode(' ', array_slice(explode(' ', strip_tags($SingleNews->$language->description)), 0, 55)).'...'!!}
 
                                                 <a href="{{ route('new.public.article',
-                                    [str_slug(strtolower($selectedEdition->name)),
+                                    [Str::slug(strtolower($selectedEdition->name)),
                                     $SingleNews->id,
-                                    str_slug(strtolower($SingleNews->english->title))]   ) }}"
+                                    Str::slug(strtolower($SingleNews->english->title))]   ) }}"
                                                    class="readmore-btn left">@lang('main.readMore')
                                                 </a>
                                             </div>
@@ -309,9 +309,9 @@
                                                 @endif
                                                 {!!implode(' ', array_slice(explode(' ', strip_tags($SingleNews->$language->description)), 0, 55)).'...'!!}
                                                 <a href="{{ route('new.public.article',
-                                [str_slug(strtolower($selectedEdition->name)),
+                                [Str::slug(strtolower($selectedEdition->name)),
                                 $SingleNews->id,
-                                str_slug(strtolower($SingleNews->english->title))]) }}"
+                                Str::slug(strtolower($SingleNews->english->title))]) }}"
                                                    class="readmore-btn ">@lang('main.readMore')
                                                 </a>
                                             </div>

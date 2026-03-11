@@ -61149,9 +61149,9 @@ AAAAAECUx+PxC9wQabBd9Z7zAAAAAElFTkSuQmCC" transform="matrix(0.24 0 0 0.24 -44.12
                                         <div class="row">
                                             <div class="col d-flex justify-content-end">
                                                 <a href="{{ route('new.public.initiative',
-                                [str_slug(strtolower('school-to-school')),
+                                [Str::slug(strtolower('school-to-school')),
                                 $initiative->id,
-                                str_slug(strtolower($initiative->english->title))]   ) }}"
+                                Str::slug(strtolower($initiative->english->title))]   ) }}"
                                                    class="readmore-btn">@lang('main.readMore')</a>
                                             </div>
                                         </div>
@@ -61250,9 +61250,9 @@ AAAAAECUx+PxC9wQabBd9Z7zAAAAAElFTkSuQmCC" transform="matrix(0.24 0 0 0.24 -44.12
                                                 <div class="row">
                                                     <div class="col d-flex justify-content-end">
                                                         <a href="{{ route('new.public.initiative',
-                                [str_slug(strtolower('school-to-school')),
+                                [Str::slug(strtolower('school-to-school')),
                                 $initiative->id,
-                                str_slug(strtolower($initiative->english->title))]   ) }}"
+                                Str::slug(strtolower($initiative->english->title))]   ) }}"
                                                            class="readmore-btn">@lang('main.readMore')</a>
                                                     </div>
                                                 </div>
@@ -61304,9 +61304,9 @@ AAAAAECUx+PxC9wQabBd9Z7zAAAAAElFTkSuQmCC" transform="matrix(0.24 0 0 0.24 -44.12
                                                 <div class="row">
                                                     <div class="col d-flex justify-content-end">
                                                         <a href="{{ route('new.public.initiative',
-                                [str_slug(strtolower('school-to-school')),
+                                [Str::slug(strtolower('school-to-school')),
                                 $initiative->id,
-                                str_slug(strtolower($initiative->english->title))]   ) }}"
+                                Str::slug(strtolower($initiative->english->title))]   ) }}"
                                                            class="readmore-btn">@lang('main.readMore')</a>
                                                     </div>
                                                 </div>

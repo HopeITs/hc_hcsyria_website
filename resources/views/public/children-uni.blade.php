@@ -199,9 +199,9 @@
                                                 </h6>
                                                 <p>{{$initiative->$language->description}}</p>
                                                     <a href="{{ route('public.initiative',
-                                                        [str_slug(strtolower($whatCategory->name)),
+                                                        [Str::slug(strtolower($whatCategory->name)),
                                                         $initiative->id,
-                                                        str_slug(strtolower($initiative->english->title))]   ) }}"
+                                                        Str::slug(strtolower($initiative->english->title))]   ) }}"
                                                         class="btn btn-primary btn-org">@lang('main.readMore')
                                                     </a>
 
@@ -246,17 +246,17 @@
                                                 <p>{{$initiative->$language->description}}</p>
                                                 {{--@if(isset($subWhatCategory))--}}
                                                 {{--<a href="{{ route($route, [--}}
-                                                {{--str_slug(strtolower($subWhatCategory->name)),--}}
+                                                {{--Str::slug(strtolower($subWhatCategory->name)),--}}
                                                 {{--$initiative->id,--}}
-                                                {{--str_slug(strtolower($initiative->english->title))--}}
+                                                {{--Str::slug(strtolower($initiative->english->title))--}}
                                                 {{--]) }}"--}}
                                                 {{--class="btn btn-primary btn-org">@lang('main.readMore')--}}
                                                 {{--</a>--}}
                                                 {{--@else--}}
                                                 <a href="{{ route('public.initiative',
-                                [str_slug(strtolower($whatCategory->name)),
+                                [Str::slug(strtolower($whatCategory->name)),
                                 $initiative->id,
-                                str_slug(strtolower($initiative->english->title))]   ) }}"
+                                Str::slug(strtolower($initiative->english->title))]   ) }}"
                                                    class="btn btn-primary btn-org">@lang('main.readMore')</a>
                                                 {{--@endif--}}
                                         </div>

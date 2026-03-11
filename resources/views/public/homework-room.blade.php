@@ -155,8 +155,8 @@
                                         <p>{{$initiatives[$i]->$language->description.'...'}}</p>
                                     @endif
                                     <a href="{{ route('public.initiative'
-                                    ,[str_slug(strtolower($whatCategory->name)),$initiatives[$i]->id
-                                    ,str_slug(strtolower($initiatives[$i]->english->title))]   ) }}"
+                                    ,[Str::slug(strtolower($whatCategory->name)),$initiatives[$i]->id
+                                    ,Str::slug(strtolower($initiatives[$i]->english->title))]   ) }}"
                                     class="home_readMore orange">@lang('main.readMore')</a>
                                 </div>
                             </div>

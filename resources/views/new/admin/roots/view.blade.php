@@ -85,9 +85,9 @@
 
                         </div>
                         <a href="{{ route('new.public.article',
-                                    [str_slug(strtolower($selectedEdition->name)),
+                                    [Str::slug(strtolower($selectedEdition->name)),
                                     $news->id,
-                                    str_slug(strtolower($news->english->title))]   ) }}"
+                                    Str::slug(strtolower($news->english->title))]   ) }}"
                            class="readmore-btn left" style="text-decoration: none">@lang('main.readMore')
                         </a>
                     </div>

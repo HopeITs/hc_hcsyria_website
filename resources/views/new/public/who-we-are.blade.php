@@ -906,7 +906,7 @@
 {{--<a class="readmore-btn animated fadeInUp"--}}
 {{--style="animation-delay: 1.2s"--}}
 {{--href="{{ route('new.public.initiative', [ 'family-to-family', $partner->id,--}}
-{{--str_slug(strtolower($partner->english->title))]) }}">@lang('main.readMore')</a>--}}
+{{--Str::slug(strtolower($partner->english->title))]) }}">@lang('main.readMore')</a>--}}
 {{--</div>--}}
 {{--@endif--}}
 {{--</div>--}}
