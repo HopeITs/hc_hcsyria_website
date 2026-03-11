@@ -9,6 +9,7 @@
 @endphp
 <head>
     <script src="/js/jquery.js"></script>
+    <link href="{{asset('css/font-lato.css')}}" rel='stylesheet' type='text/css'>
     @include('new.public.components.analytics-head')
 
     <meta charset="utf-8">
@@ -25,14 +26,12 @@
 
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
-    <link rel="shortcut icon" href="/public/fonts/Avenir%20LT%20Std%2045%20Book.otf">
     <link rel='stylesheet' href='https://unpkg.com/leaflet@1.8.0/dist/leaflet.css' crossorigin=''/>
-    <link href="/css/lato.css" rel='stylesheet' type='text/css'>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/typeahead.css" rel="stylesheet">
     <link href="/css/jquery.fancybox.min.css" rel="stylesheet">
     <link rel="alternate" hreflang="x-default" href="https://www.hcsyria.org"/>
-    <link rel="stylesheet" href="/css/aos.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
     <link href='https://fonts.googleapis.com/css?family=Martel' rel='stylesheet'>
 
     <script src="/js/html5shiv.js"></script>
