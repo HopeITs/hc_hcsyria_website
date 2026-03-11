@@ -109,7 +109,7 @@
                                 <a href="{{route('edit.user', $activeUser['id'])}}"
                                    class="btn mb-2 btn-primary edit-btn"><span
                                             class="fa fa-edit"></span>&nbsp;Edit</a>
-                                <form action="{{ action('App\Http\Controllers\UserController@deactivate') }}"
+                                <form action="{{ route('deactivate.user') }}"
                                       method="POST"
                                       style="float:right;"
                                       enctype="multipart/form-data">
@@ -150,7 +150,7 @@
                             <td class="text-center">{{$inactiveUser['email']}}</td>
 
                             <td class="text-end">
-                                <form action="{{ action('App\Http\Controllers\UserController@activate') }}"
+                                <form action="{{ route('activate.user') }}"
                                       method="POST"
                                       style="float:right;padding-right:10px;"
                                       enctype="multipart/form-data">
