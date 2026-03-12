@@ -461,8 +461,22 @@ img.copy-icon:hover, img.location-icon:hover {
 }
 
 
-#MicroCarousel:hover .carousel-custom-img {
-    filter: grayscale(0%);
+#MicroCarousel:hover .carousel-custom-img,
+#MicroCarouselMobile:hover .carousel-custom-img,
+#MicroCarouselMobile:active .carousel-custom-img {
+    filter: grayscale(0%) !important;
+    -webkit-filter: grayscale(0%) !important;
+}
+
+.micro-page-margin-container{
+    max-width: 72.3vw;
+    margin: 0 auto;
+}
+
+.grid-parent{
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    min-height: 550px;
 }
 
 /* 🔹 General placeholder container */
@@ -689,7 +703,6 @@ img.copy-icon:hover, img.location-icon:hover {
     .modal .card-subtitle + span {
         font-size: 3.1vw !important;
     }
-
 }
 /*New Style*/
 .select-style{
