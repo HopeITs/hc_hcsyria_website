@@ -63,7 +63,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
     <script src="https://pandameister.github.io/chartjs-chart-radial-gauge/docs/js/Chart.RadialGauge.umd.js"></script>
 </head>
-<body>
+<body style="overflow-x: hidden;">
 @include('new.public.components.analytics-body')
 <div id="fb-root"></div>
 <script>(function (d, s, id) {
@@ -78,9 +78,9 @@
     $active = 'micro';
 @endphp
 <div id="Micro" class="page_start">
-    {{--    <div class="preloader">--}}
-    {{--        <div class="preloader-gif"></div>--}}
-    {{--    </div>--}}
+        <div class="preloader">
+            <div class="preloader-gif"></div>
+        </div>
     @include('new.public.navbar')
     <div class="page-margin">
         <div class="container-fluid">
@@ -111,7 +111,7 @@
     <div class="horizontal-line small d-lg-none d-md-none d-sm-none d-block mt-3" data-aos="fade-up"
          data-aos-duration="800"></div>
 
-    <div id="statistic-section" class="d-lg-block d-md-block d-sm-block d-none small-margin section-space mb-2"
+    <div id="statistic-section" class="d-lg-block d-md-block d-sm-block d-none small-margin section-space mb-2 "
          data-aos="fade-up"
          data-aos-duration="800">
         <div class="micro-statistics-container">
@@ -168,31 +168,30 @@
                                 Project Sustainability rate
                             </p>
                         </div>
-                        {{--Beneficiaries--}}
-                        <div class="p-4"
-                             style="grid-area: 2 / 3 / 3 / 5; background-color: #F1F1F1;">
 
-                            <div class="fw-bold mb-3 ps-2" style="color: #666666; font-size: 1.1rem;">
+                        {{--Beneficiaries--}}
+                        <div class="d-flex flex-column align-items-center justify-content-center mh-170px overflow-hidden"
+                             style="grid-area: 2 / 3 / 3 / 5; background-color: #F1F1F1; padding: 20px 20px 23px 20px;">
+
+                            <div class="fw-bold text-left pl-5px w-100 text" style="color: #666666; font-size: 1rem; margin-bottom: 10px;">
                                 Beneficiaries' Age Classification
                             </div>
 
-                            <div class="d-flex justify-content-between align-items-end w-100">
+                            <div class="d-flex justify-content-around w-100 mt-1">
                                 @foreach($agerange as $index => $range)
                                     @php
                                         $percentage = ($allCount > 0) ? ($range->project_count / $allCount) * 100 : 0;
                                     @endphp
-                                    <div class="d-flex flex-column align-items-center flex-fill">
-
-                                        <div class="position-relative" style="height: 80px; width: 80px;">
+                                    <div class="text-center d-flex flex-column align-items-center" style="flex: 1;">
+                                        <div class="position-relative" style="height: 75px; width: 75px;">
                                             <canvas id="age-chart-{{ $index }}"></canvas>
-
-                                            <div class="position-absolute w-100 text-center"
-                                                 style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                                                <span class="fw-bolder p-0" style="font-size: 1.2rem; color: #BC1818;">{{ round($percentage) }}</span><span class="fw-bold p-0" style="font-size: 0.75rem; color: #BC1818;">%</span>
+                                            <div class="position-absolute d-flex align-items-baseline justify-content-center"
+                                                 style="top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%;">
+                                                <span style="font-size: 1.15rem; color: #BC1818; font-weight: 700; padding:0">{{ round($percentage) }}</span>
+                                                <span style="font-size: 0.7rem; color: #bc1818; font-weight: 700; margin-left: 1px; padding:0">%</span>
                                             </div>
                                         </div>
-
-                                        <div class="mt-2 text-nowrap fw-bold" style="color: #58595B; font-size: 0.85rem;">
+                                        <div style="margin-top: 3px; letter-spacing:0.1px; font-weight: 700; color: #58595B; font-size: 0.85rem;">
                                             {{ $range->Name }}
                                         </div>
                                     </div>
@@ -201,73 +200,63 @@
                         </div>
 
                         {{--aleppo + homs + damascus--}}
-                        <div class="d-flex align-items-center justify-content-around text-center py-3"
-                             style="grid-area: 3 / 1 / 4 / 4; background-color: #F1F1F1;">
+                        <div style="grid-column: 1 / 4; display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; background-color: #F1F1F1; padding: 15px 0; text-align: center;">
+                            <div style="position: relative;">
+                                <div style="color: #808285; font-weight: 750; font-size: 1.1rem; text-transform: uppercase;">Aleppo</div>
+                                <div style="width: 24px; height: 4.5px; background-color: #bc1818; margin: 5px auto;"></div>
+                                <div style="color: #808285; font-size: 4rem; font-weight: 800; line-height: 1;">{{ number_format((int)$aleppoCount, 0) }}</div>
+                                <div style="color: #808285; font-weight: 700; font-size: 1rem;">Projects</div>
+                                <div style="position: absolute; right: -2%; top: 50%; transform: translateY(-50%); width: 1.5px; height: 65px; background-color: #D8D8D8;"></div>
+                            </div>
 
-                            @foreach(['Aleppo' => $aleppoCount, 'Homs' => $homsCount, 'Damascus' => $damascusCount] as $city => $count)
-                                <div class="flex-grow-1">
-                                    <div class="text-uppercase fw-bolder" style="color: #808285; font-size: 1.1rem;">
-                                        {{$city}}
-                                    </div>
+                            <div style="position: relative;">
+                                <div style="color: #808285; font-weight: 750; font-size: 1.1rem; text-transform: uppercase;">Homs</div>
+                                <div style="width: 24px; height: 4.5px; background-color: #bc1818; margin: 5px auto;"></div>
+                                <div style="color: #808285; font-size: 4rem; font-weight: 800; line-height: 1;">{{ number_format((int)$homsCount, 0) }}</div>
+                                <div style="color: #808285; font-weight: 700; font-size: 1rem;">Projects</div>
+                                <div style="position: absolute; right: -2.5%; top: 50%; transform: translateY(-50%); width: 1.5px; height: 65px; background-color: #D8D8D8; "></div>
+                            </div>
 
-                                    <div class="my-2 mx-auto" style="width: 24px; height: 4.5px; background-color: #bc1818;"></div>
-
-                                    <div class="lh-1 fw-bolder" style="color: #808285; font-size: 4rem;">
-                                        {{ number_format((int)$count, 0) }}
-                                    </div>
-
-                                    <div class="fw-bold" style="color: #808285; font-size: 1rem;">
-                                        Projects
-                                    </div>
-                                </div>
-
-                                @if(!$loop->last)
-                                    <div style="width: 1px; height: 60px; background-color: #D8D8D8;"></div>
-                                @endif
-                            @endforeach
+                            <div>
+                                <div style="color: #808285; font-weight: 750; font-size: 1.1rem; text-transform: uppercase;">Damascus</div>
+                                <div style="width: 24px; height: 4.5px; background-color: #bc1818; margin: 5px auto;"></div>
+                                <div style="color: #808285; font-size: 4rem; font-weight: 800; line-height: 1;">{{ number_format((int)$damascusCount, 0) }}</div>
+                                <div style="color: #808285; font-weight: 700; font-size: 1rem;">Projects</div>
+                            </div>
                         </div>
 
                         {{--top 5 categories--}}
-                        <div class="d-flex flex-column align-items-center justify-content-center p-3"
-                             style="grid-area: 3 / 4 / 4 / 5; background-color: #F1F1F1; color: #666666;">
-                            <strong style="font-size: 14px; font-weight: 700; margin-bottom: 3px;">
-                                Top 5 Project Categories
-                            </strong>
-                            <ol class="m-0"
-                                style="list-style-position: inside; font-weight: 800; width: 100%; font-size: 14px; padding-left: 3vw;">
+                        <div style="grid-column: 4 / 5; background-color: #F1F1F1; color: #666666; padding: 10px 10px 10px 40px; display: flex; flex-direction: column; justify-content: center;">
+                            <strong style="font-size: 14px; font-weight: 700; margin-bottom: 5px;">Top 5 Project Categories</strong>
+                            <ol style="list-style-position: inside; font-weight: 800; font-size: 14px; padding: 0; margin: 0;">
                                 @foreach($categories as $category)
                                     <li>{{ $category->Name }}</li>
                                 @endforeach
                             </ol>
                         </div>
 
+                        {{--latakia  + al wadi  + idleb + tartus--}}
+                        <div style="grid-column: 1 / 5; display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; background-color: #F1F1F1; padding: 15px 0; text-align: center;">
+                            @php
+                                $row2Cities = [
+                                    'Latakia' => $latakiaCount,
+                                    'Al Wadi' => $wadiCount,
+                                    'Idleb' => $idlebCount,
+                                    'Tartus' => $tartusCount
+                                ];
+                            @endphp
 
-                        {{--latakia + alwadi  + idleb + tartus--}}
-                        <div class="d-flex align-items-center justify-content-around text-center py-3"
-                             style="grid-area: 4 / 1 / 5 / 5; background-color: #F1F1F1;">
-
-                            @foreach(['latakia' => $latakiaCount, 'Al wadi' => $wadiCount, 'Idleb' => $idlebCount, 'Tartus' => $tartusCount] as $city => $count)
-
-                                <div class="flex-fill">
-                                    <div class="text-uppercase" style="color: #808285; font-weight: 750; font-size: 1.1rem;">
-                                        {{ $city }}
-                                    </div>
-
+                            @foreach($row2Cities as $city => $count)
+                                <div style="position: relative;">
+                                    <div style="color: #808285; font-weight: 750; font-size: 1.1rem; text-transform: uppercase;">{{$city}}</div>
                                     <div style="width: 24px; height: 4.5px; background-color: #bc1818; margin: 5px auto;"></div>
+                                    <div style="color: #808285; font-size: 4rem; font-weight: 800; line-height: 1;">{{ number_format((int)$count, 0) }}</div>
+                                    <div style="color: #808285; font-weight: 700; font-size: 1rem;">Projects</div>
 
-                                    <div class="lh-1" style="color: #808285; font-size: 4rem; font-weight: 800;">
-                                        {{ number_format((int)$count, 0) }}
-                                    </div>
-
-                                    <div style="color: #808285; font-weight: 700; font-size: 1rem;">
-                                        Projects
-                                    </div>
+                                    @if(!$loop->last)
+                                        <div style="position: absolute; right: -2%; top: 50%; transform: translateY(-50%); width: 1.5px; height: 65px; background-color: #D8D8D8;"></div>
+                                    @endif
                                 </div>
-
-                                @if(!$loop->last)
-                                    <div style="width: 1px; height: 60px; background-color: #D8D8D8; opacity: 0.6;"></div>
-                                @endif
-
                             @endforeach
                         </div>
                     </div>
@@ -276,7 +265,7 @@
         </div>
     </div>
 
-    <div id="statistic-section" class="d-block d-sm-none section-space px-2" data-aos="fade-up">
+    <div id="statistic-section" class="d-block d-sm-none section-space px-2 mb-4" data-aos="fade-up">
         <div class="row">
             <div class="col-12 d-flex justify-content-center">
                 <div class="micro-statistics-title pb-0" style="font-size: 24px; padding: 20px 0;">Statistics</div>
@@ -285,14 +274,16 @@
 
         <div class="d-grid" style="grid-template-columns: 1fr 1fr; gap: 10px; background-color: #fff;">
 
-            <div style="grid-column: span 2; grid-row: span 2; height: 180px; overflow: hidden; display: flex;">
+            <div style="grid-column: span 2; grid-row: span 2; width: 100%; height: 180px; overflow: hidden; display: block; line-height: 0; font-size: 0; margin: 0; padding: 0; position: relative;">
                 <div id="MicroCarouselMobile" class="carousel slide w-100 h-100" data-bs-ride="carousel" data-bs-touch="true">
                     <div class="carousel-inner h-100">
                         @for ($i = 1; $i <= 8; $i++)
-                            <div class="carousel-item {{ $i == 1 ? 'active' : '' }} h-100">
+                            <div class="carousel-item {{ $i == 1 ? 'active' : '' }} h-100" style="position: relative;">
+                                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 2; pointer-events: none;"></div>
                                 <img src="/images/home/Micro/new-s{{$i}}.jpg"
-                                     class="w-100 h-100 carousel-custom-img"
-                                     style="object-fit: cover; display: block; vertical-align: bottom;">
+                                     oncontextmenu="return false;"
+                                     class="carousel-custom-img w-100 h-100 d-block"
+                                     style="object-fit: cover; margin: 0; padding: 0; border: none; vertical-align: bottom; z-index: 1;">
                             </div>
                         @endfor
                     </div>
@@ -301,20 +292,20 @@
 
             <div class="d-flex flex-column align-items-center justify-content-center p-2 text-white" style="background-color: #bc1818; min-height: 115px;">
                 <div style="font-size: 2.2rem; font-weight: 800; line-height: 1;">{{ number_format($allCount, 0) }}</div>
-                <div style="font-size: 0.8rem; font-weight: 600; line-height: 1.1; margin-top: 5px; text-align: center;">Total Projects in <br><strong>Syria</strong></div>
+                <div style="font-size: 0.8rem; font-weight: 600; line-height: 1.1; margin-top: 5px; text-align: center;">Total Projects in <strong>Syria</strong></div>
             </div>
 
             <div class="d-flex flex-column align-items-center justify-content-center p-2" style="background-color: #F1F1F1; min-height: 115px;">
                 <div style="color: #bc1818; font-size: 2.2rem; font-weight: 800; line-height: 1;">{{$sustainableRate[0]->number}}%</div>
-                <div style="color: #808285; font-size: 0.8rem; font-weight: 600; line-height: 1.1; margin-top: 5px; text-align: center;">Project <br>Sustainability rate</div>
+                <div style="color: #808285; font-size: 0.8rem; font-weight: 600; line-height: 1.1; margin-top: 5px; text-align: center;">Project Sustainability rate</div>
             </div>
 
             <div class="p-3" style="grid-column: span 2; background-color: #F1F1F1;">
-                <div style="color: #666666; font-size: 0.95rem; font-weight: bold; margin-bottom: 12px;">Beneficiaries' Age Classification</div>
+                <div class="fw-bold" style="color: #666666; font-size: 0.95rem;  margin-bottom: 12px;">Beneficiaries' Age Classification</div>
                 <div class="d-flex justify-content-around">
                     @foreach($agerange as $index => $range)
                         <div class="text-center">
-                            <div style="position: relative; height: 55px; width: 55px; margin: 0 auto;">
+                            <div class="position-relative" style=" height: 55px; width: 55px; margin: 0 auto;">
                                 <canvas id="age-chart-mobile-{{ $index }}"></canvas>
                                 <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #bc1818; font-weight: 800; font-size: 0.75rem;">
                                     {{ round(($allCount > 0) ? ($range->project_count / $allCount) * 100 : 0) }}%
@@ -333,8 +324,8 @@
                 <div style="color: #808285; font-weight: 700; font-size: 0.7rem;">Projects</div>
             </div>
 
-            <div class="p-2 d-flex flex-column justify-content-center" style="background-color: #F1F1F1;">
-                <strong style="font-size: 0.75rem; font-weight: 700; color: #666666; margin-bottom: 3px;">Top 5 Categories</strong>
+            <div class=" d-flex flex-column justify-content-center" style="background-color: #F1F1F1; padding: 10px 10px 10px 40px">
+                <strong style="font-size: 0.62rem; font-weight: 700; color: #666666; margin-bottom: 3px;">Top 5 Categories</strong>
                 <ol style="font-weight: 800; font-size: 0.6rem; color: #666666; padding-left: 12px; margin: 0;">
                     @foreach(array_slice((array)$categories, 0, 5) as $category)
                         <li>{{ is_array($category) ? $category['Name'] : $category->Name }}</li>
@@ -364,7 +355,7 @@
             <div class="text-center p-3" style="background-color: #F1F1F1;">
                 <div style="color: #808285; font-weight: 750; font-size: 0.85rem; text-transform: uppercase;">Idleb</div>
                 <div style="width: 18px; height: 3px; background-color: #bc1818; margin: 4px auto;"></div>
-                <div style="color: #808285; font-size: 2rem; font-weight: 800; line-height: 1;">0</div>
+                <div style="color: #808285; font-size: 2rem; font-weight: 800; line-height: 1;">{{$idlebCount}}</div>
                 <div style="color: #808285; font-weight: 700; font-size: 0.7rem;">Projects</div>
             </div>
 
@@ -377,7 +368,7 @@
             <div class="text-center p-3" style="background-color: #F1F1F1;">
                 <div style="color: #808285; font-weight: 750; font-size: 0.85rem; text-transform: uppercase;">Tartus</div>
                 <div style="width: 18px; height: 3px; background-color: #bc1818; margin: 4px auto;"></div>
-                <div style="color: #808285; font-size: 2rem; font-weight: 800; line-height: 1;">0</div>
+                <div style="color: #808285; font-size: 2rem; font-weight: 800; line-height: 1;">{{$tartusCount}}</div>
                 <div style="color: #808285; font-weight: 700; font-size: 0.7rem;">Projects</div>
             </div>
 

@@ -448,7 +448,7 @@ img.copy-icon:hover, img.location-icon:hover {
 
 .micro-statistics-title{
         background: white;
-        padding: 2.1vw;
+        padding: 0.5vw 2.1vw 0 2.1vw ;
         color: #414042;
         font-weight: 900;
         font-size: 2.8vw;
