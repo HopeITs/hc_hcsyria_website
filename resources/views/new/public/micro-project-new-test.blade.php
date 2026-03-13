@@ -274,16 +274,17 @@
 
         <div class="d-grid" style="grid-template-columns: 1fr 1fr; gap: 10px; background-color: #fff;">
 
-            <div style="grid-column: span 2; grid-row: span 2; width: 100%; height: 180px; overflow: hidden; display: block; line-height: 0; font-size: 0; margin: 0; padding: 0; position: relative;">
-                <div id="MicroCarouselMobile" class="carousel slide w-100 h-100" data-bs-ride="carousel" data-bs-touch="true">
-                    <div class="carousel-inner h-100">
+            <div style="grid-column: span 2; width: 100%; height: 220px !important; min-height: 220px !important; overflow: hidden; display: block; margin: 0; padding: 0; position: relative;">
+                <div id="MicroCarouselMobile" class="carousel slide w-100 h-100" data-bs-ride="carousel" data-bs-touch="true" style="height: 100% !important;">
+                    <div class="carousel-inner h-100" style="height: 100% !important;">
                         @for ($i = 1; $i <= 8; $i++)
-                            <div class="carousel-item {{ $i == 1 ? 'active' : '' }} h-100" style="position: relative;">
-                                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 2; pointer-events: none;"></div>
+                            <div class="carousel-item {{ $i == 1 ? 'active' : '' }} h-100" style="position: relative; height: 220px !important;">
+
                                 <img src="/images/home/Micro/new-s{{$i}}.jpg"
                                      oncontextmenu="return false;"
-                                     class="carousel-custom-img w-100 h-100 d-block"
-                                     style="object-fit: cover; margin: 0; padding: 0; border: none; vertical-align: bottom; z-index: 1;">
+                                     class="carousel-custom-img d-block w-100"
+                                     style="height: 220px !important; min-height: 220px !important; object-fit: cover; object-position: center; border: none;"
+                                     alt="Slide {{$i}}">
                             </div>
                         @endfor
                     </div>
