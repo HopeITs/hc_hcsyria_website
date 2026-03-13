@@ -78,22 +78,22 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('title', 'Title')}} <span class="red-color">*</span>
-                                    {{Form::text('title', $successData->english->title, ['class' => 'form-control', 'placeholder' => 'Success Title', 'required'])}}
+                                    <label for="title">Title <span class="red-color">*</span></label>
+                                    <input type="text" name="title" id="title" class="form-control"
+                                           placeholder="Success Title"
+                                           value="{{ $successData->english->title }}"
+                                           required>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('text', 'Text')}} <span class="red-color">*</span>
-                                    {{Form::textarea('text', $successData->english->text == '0' ? '' : $successData->english->text, ['class' => 'form-control', 'placeholder' => 'Text', 'rows' => '4'])}}
+                                    <label for="text">Text <span class="red-color">*</span></label>
+                                    <textarea name="text" id="text" class="form-control"
+                                              placeholder="Text"
+                                              rows="4">{{ $successData->english->text == '0' ? '' : $successData->english->text }}</textarea>
                                 </div>
                             </div>
-                            {{--<div class="row mb-3">--}}
-                                {{--<div class="form-group col-12">--}}
-                                    {{--{{Form::label('video', 'Video Link')}}--}}
-                                    {{--{{Form::text('video', $successData->video == '0' ? '' : $successData->video, ['class' => 'form-control', 'placeholder' => 'Video Link'])}}--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
                             <div class="row mb-3">
                                 <div class="form-group col-12">
                                     <label>Serve Category <span class="red-color">*</span></label><br>

@@ -14,7 +14,6 @@ class logController extends Controller
     }
 
     public function index() {
-        $logAll = Log::all();
         $projectsLog = Log::with('user','place')->where('category', 0)->whereYear('created_at', '>', date('2021'))->orderBy('created_at', 'desc')->get();
         $initiativesLog = Log::with('user')->where('category', 1)->whereYear('created_at', '>', date('2021'))->orderBy('created_at', 'desc')->get();
         $successesLog = Log::with('user')->where('category', 2)->whereYear('created_at', '>', date('2021'))->orderBy('created_at', 'desc')->get();
@@ -23,7 +22,6 @@ class logController extends Controller
         $teamLog = Log::with('user')->where('category', 5)->whereYear('created_at', '>', date('2021'))->orderBy('created_at', 'desc')->get();
         $studentLog = Log::with('user')->where('category', 7)->whereYear('created_at', '>', date('2021'))->orderBy('created_at', 'desc')->get();
         return view('new.admin.log', [
-            'logAll' => $logAll,
             'projectsLog' => $projectsLog,
             'initiativesLog' => $initiativesLog,
             'successesLog' => $successesLog,

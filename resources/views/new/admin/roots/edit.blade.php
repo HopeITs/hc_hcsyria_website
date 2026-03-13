@@ -49,19 +49,21 @@
                             @method('PUT')
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('title', 'Title')}} <span class="red-color">*</span>
-                                    {{Form::text('title', $roots->title, ['class' => 'form-control', 'placeholder' => 'Title', 'required'])}}
+                                    <label for="title">Title</label> <span class="red-color">*</span>
+                                    <input type="text" name="title" id="title" class="form-control"
+                                           value="{{ $roots->title }}" placeholder="Title" required>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-lg-8 col-md-8 col-12">
-                                    {{Form::label('image_file', 'Image')}} <span class="red-color">*</span>
+                                    <label for="image_file">Image</label> <span class="red-color">*</span>
                                     <br>
                                     <i style="color: #777;">(Choosing an image will erase the current one)</i>
-                                    <input class="form-control" type="file" accept="image/jpeg" name="image_file" id="image_file" >
+                                    <input type="file" name="image_file" id="image_file" class="form-control" accept="image/jpeg">
                                 </div>
                                 <div class="form-group col-lg-4 col-md-4 col-12 text-start">
-                                    <img src="{{$roots->image_path}}" style="height: 85px;">
+                                    <img src="{{ $roots->image_path }}" style="height: 85px;">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -81,8 +83,9 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('url', 'URL')}}<span class="red-color">*</span>
-                                    {{Form::text('url', $roots->url, ['class' => 'form-control', 'placeholder' => 'URL'])}}
+                                    <label for="url">URL</label> <span class="red-color">*</span>
+                                    <input type="text" name="url" id="url" class="form-control"
+                                           value="{{ $roots->url }}" placeholder="URL" required>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end" style="margin-top: 5vw;">
@@ -103,20 +106,6 @@
 
 @stack('navbar_scripts')
 
-{{--<script>--}}
-    {{--$(document).ready(function () {--}}
-        {{--$('#link-microproject').selectize();--}}
-    {{--});--}}
-    {{--$("input[name='what_category_id']").change(function () {--}}
-        {{--if ($("input[value='13']").is(':checked')) {     //products--}}
-            {{--$('#micro_projects_group').show();--}}
-            {{--$('#link-microproject').attr('required', true);--}}
-        {{--} else {--}}
-            {{--$('#micro_projects_group').hide();--}}
-            {{--$('#link-microproject').attr('required', false);--}}
-        {{--}--}}
-    {{--});--}}
-{{--</script>--}}
 <script>
     $('.show_confirm').click(function (event) {
         var form = $(this).closest("form");
@@ -145,19 +134,7 @@
             }
         });
     });
-    // if (e) {
-    //     alert('yes');
-    //     return true;
-    // }
-    // if (confirm("Do you really want to: \nDelete " + e + " ?"))
-    //     return true;
-    // else
-    //     return false;
-    // }
 
-    // ).catch(swal.noop);
-    // }
-    // ;
 </script>
 <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
 <script type="text/javascript" src="/js/ckeditor-initialize.js"></script>

@@ -161,9 +161,9 @@
                 {{--@if($mainInitiative->whatCategory->name === 'Family to Family')--}}
                     {{--<li><a href="{{route('public.initiatives.type', 'relief')}}">@lang('what_we_do.relief')</a></li>--}}
                 {{--@endif--}}
-                {{--<li><a href="/projects/{{strtolower(str_slug($mainInitiative->whatCategory->name))}}">{{$mainInitiative->whatCategory->$whatCatName}}</a></li>--}}
+                {{--<li><a href="/projects/{{strtolower(Str::slug($mainInitiative->whatCategory->name))}}">{{$mainInitiative->whatCategory->$whatCatName}}</a></li>--}}
                 {{--@if($mainInitiative->whatCategory->name === 'DISC')--}}
-                    {{--<li><a href="{{route('public.disc.type', strtolower(str_slug($subWhatCategory->name)))}}">{{$subWhatCategory->name}}</a></li>--}}
+                    {{--<li><a href="{{route('public.disc.type', strtolower(Str::slug($subWhatCategory->name)))}}">{{$subWhatCategory->name}}</a></li>--}}
                 {{--@endif--}}
                 {{--<li class="active">{{ $mainInitiative->$language->title }}</li>--}}
             {{--</ol>--}}
@@ -427,8 +427,8 @@
                     <div class="col-sm-12 right-list-wrapper">
                         @php
                             if($mainInitiative->sub_what_category_id != '0') {
-                                $category = str_slug(strtolower($mainInitiative->subWhatCategory->name));
-                                $allCategory = str_slug(strtolower($mainInitiative->subWhatCategory->name));
+                                $category = Str::slug(strtolower($mainInitiative->subWhatCategory->name));
+                                $allCategory = Str::slug(strtolower($mainInitiative->subWhatCategory->name));
                             }
 
                             if(strpos($mainInitiative->whatCategory->name, 'School to School') !== false)
@@ -452,15 +452,15 @@
                             else
                             {
                                 $route = 'public.initiative';
-                                $category = str_slug(strtolower($mainInitiative->whatCategory->name));
+                                $category = Str::slug(strtolower($mainInitiative->whatCategory->name));
                                 $allRoute = 'public.initiatives.type';
-                                $allCategory = str_slug(strtolower($mainInitiative->whatCategory->name));
+                                $allCategory = Str::slug(strtolower($mainInitiative->whatCategory->name));
                             }
                         @endphp
                         @foreach($initiativesSameType as $initiative)
                             <div class="other-initiative-wrapper col-sm-4 col-md-12">
                                 <a href="{{ route($route, [ $category, $initiative->id,
-                                 str_slug(strtolower($initiative->english->title))]) }}">
+                                 Str::slug(strtolower($initiative->english->title))]) }}">
                                     <div class="row other-initiatives-inner">
                                         <div class="col-md-6 col-sm-12 col-xs-5 other-ini-img">
                                             <img src="{{$initiative->firstImage['path']}}" width="100%">
@@ -477,7 +477,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <a href="{{route('public.initiatives.type', str_slug(strtolower($mainInitiative->whatCategory->name)))}}"
+                        <a href="{{route('public.initiatives.type', Str::slug(strtolower($mainInitiative->whatCategory->name)))}}"
                            class="btn btn-primary btn-see-all"
                            data-toggle="modal">
 
@@ -523,12 +523,12 @@
                         else
                         {
                             $route = 'public.initiative';
-                            $category = str_slug(strtolower($initiative->whatCategory->name));
+                            $category = Str::slug(strtolower($initiative->whatCategory->name));
                         }
                     @endphp
                     <div class="other-initiative-wrapper col-sm-3 col-xs-12">
                         <a href="{{ route($route, [ $category, $initiative->id,
-                         str_slug(strtolower($initiative->english->title))]) }}">
+                         Str::slug(strtolower($initiative->english->title))]) }}">
                             <div class="row other-initiatives-inner">
                                 <div class="col-sm-12 col-xs-5 related-ini-img">
                                     <img src="{{$initiative->firstImage['path']}}" width="100%">

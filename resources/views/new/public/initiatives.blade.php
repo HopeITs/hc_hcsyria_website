@@ -456,17 +456,17 @@
                                             <div class="col d-flex justify-content-end">
                                                 @if(isset($subWhatCategory))
                                                     <a href="{{ route($route, [
-                                                str_slug(strtolower($subWhatCategory->name)),
+                                                Str::slug(strtolower($subWhatCategory->name)),
                                                 $initiative->id,
-                                                str_slug(strtolower($initiative->english->title))
+                                                Str::slug(strtolower($initiative->english->title))
                                         ]) }}"
                                                        class="readmore-btn">@lang('main.readMore')
                                                     </a>
                                                 @else
                                                     <a href="{{ route('new.public.initiative',
-                                [str_slug(strtolower($whatCategory->name)),
+                                [Str::slug(strtolower($whatCategory->name)),
                                 $initiative->id,
-                                str_slug(strtolower($initiative->english->title))]   ) }}"
+                                Str::slug(strtolower($initiative->english->title))]   ) }}"
                                                        class="readmore-btn">@lang('main.readMore')</a>
                                                 @endif
                                             </div>
@@ -559,17 +559,17 @@
                                             <div class="col d-flex justify-content-end">
                                                 @if(isset($subWhatCategory))
                                                     <a href="{{ route($route, [
-                                                str_slug(strtolower($subWhatCategory->name)),
+                                                Str::slug(strtolower($subWhatCategory->name)),
                                                 $initiative->id,
-                                                str_slug(strtolower($initiative->english->title))
+                                                Str::slug(strtolower($initiative->english->title))
                                         ]) }}"
                                                        class="readmore-btn">@lang('main.readMore')
                                                     </a>
                                                 @else
                                                     <a href="{{ route('new.public.initiative',
-                                [str_slug(strtolower($whatCategory->name)),
+                                [Str::slug(strtolower($whatCategory->name)),
                                 $initiative->id,
-                                str_slug(strtolower($initiative->english->title))]   ) }}"
+                                Str::slug(strtolower($initiative->english->title))]   ) }}"
                                                        class="readmore-btn">@lang('main.readMore')</a>
                                                 @endif
                                             </div>
@@ -676,17 +676,17 @@
                                                 <div class="col d-flex justify-content-end">
                                                     @if(isset($subWhatCategory))
                                                         <a href="{{ route($route, [
-                                                str_slug(strtolower($subWhatCategory->name)),
+                                                Str::slug(strtolower($subWhatCategory->name)),
                                                 $initiative->id,
-                                                str_slug(strtolower($initiative->english->title))
+                                                Str::slug(strtolower($initiative->english->title))
                                         ]) }}"
                                                            class="readmore-btn">@lang('main.readMore')
                                                         </a>
                                                     @else
                                                         <a href="{{ route('new.public.initiative',
-                                [str_slug(strtolower($whatCategory->name)),
+                                [Str::slug(strtolower($whatCategory->name)),
                                 $initiative->id,
-                                str_slug(strtolower($initiative->english->title))]   ) }}"
+                                Str::slug(strtolower($initiative->english->title))]   ) }}"
                                                            class="readmore-btn">@lang('main.readMore')</a>
                                                     @endif
                                                 </div>
@@ -743,17 +743,17 @@
                                                 <div class="col d-flex justify-content-end">
                                                     @if(isset($subWhatCategory))
                                                         <a href="{{ route($route, [
-                                                str_slug(strtolower($subWhatCategory->name)),
+                                                Str::slug(strtolower($subWhatCategory->name)),
                                                 $initiative->id,
-                                                str_slug(strtolower($initiative->english->title))
+                                                Str::slug(strtolower($initiative->english->title))
                                         ]) }}"
                                                            class="readmore-btn">@lang('main.readMore')
                                                         </a>
                                                     @else
                                                         <a href="{{ route('new.public.initiative',
-                                [str_slug(strtolower($whatCategory->name)),
+                                [Str::slug(strtolower($whatCategory->name)),
                                 $initiative->id,
-                                str_slug(strtolower($initiative->english->title))]   ) }}"
+                                Str::slug(strtolower($initiative->english->title))]   ) }}"
                                                            class="readmore-btn">@lang('main.readMore')</a>
                                                     @endif
                                                 </div>
@@ -862,17 +862,17 @@
                                                 <div class="col d-flex justify-content-end">
                                                     @if(isset($subWhatCategory))
                                                         <a href="{{ route($route, [
-                                                str_slug(strtolower($subWhatCategory->name)),
+                                                Str::slug(strtolower($subWhatCategory->name)),
                                                 $initiative->id,
-                                                str_slug(strtolower($initiative->english->title))
+                                                Str::slug(strtolower($initiative->english->title))
                                         ]) }}"
                                                            class="readmore-btn">@lang('main.readMore')
                                                         </a>
                                                     @else
                                                         <a href="{{ route('new.public.initiative',
-                                [str_slug(strtolower($whatCategory->name)),
+                                [Str::slug(strtolower($whatCategory->name)),
                                 $initiative->id,
-                                str_slug(strtolower($initiative->english->title))]   ) }}"
+                                Str::slug(strtolower($initiative->english->title))]   ) }}"
                                                            class="readmore-btn">@lang('main.readMore')</a>
                                                     @endif
                                                 </div>
@@ -1002,17 +1002,17 @@
                                                 <div class="col d-flex justify-content-end">
                                                     @if(isset($subWhatCategory))
                                                         <a href="{{ route($route, [
-                                                str_slug(strtolower($subWhatCategory->name)),
+                                                Str::slug(strtolower($subWhatCategory->name)),
                                                 $initiative->id,
-                                                str_slug(strtolower($initiative->english->title))
+                                                Str::slug(strtolower($initiative->english->title))
                                         ]) }}"
                                                            class="readmore-btn">@lang('main.readMore')
                                                         </a>
                                                     @else
                                                         <a href="{{ route('new.public.initiative',
-                                [str_slug(strtolower($whatCategory->name)),
+                                [Str::slug(strtolower($whatCategory->name)),
                                 $initiative->id,
-                                str_slug(strtolower($initiative->english->title))]   ) }}"
+                                Str::slug(strtolower($initiative->english->title))]   ) }}"
                                                            class="readmore-btn">@lang('main.readMore')</a>
                                                     @endif
                                                 </div>

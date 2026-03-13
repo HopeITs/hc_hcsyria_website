@@ -57,26 +57,28 @@
                 <div class="row">
                     <div class="col">
                         <h3 class="title">Add Image</h3>
-                        {{--{!! Form::open(['route' => ['update.project', $project->id], 'method' => 'put', 'enctype' => 'multipart/form-data']) !!}--}}
                         <form action="{{ route('news.images.store',[$news->id])}}" method="POST"
                               enctype="multipart/form-data">
-                            {{Form::hidden('news_id', $news->id)}}
-                            {{Form::hidden('what_category_id', $news->whatCategory->id)}}
+                            <input type="hidden" name="news_id" value="{{ $news->id }}">
+                            <input type="hidden" name="what_category_id" value="{{ $news->whatCategory->id }}">
                             @csrf
                             {{--@method('PUT')--}}
                             <div class="row mb-3">
                                 <div class="form-group col-lg-6 col-md-6 col-12">
-                                    {{Form::label('title', 'Title')}}
-                                    {{Form::text('title', $news->english->title, ['class' => 'form-control', 'required', 'readonly','style' =>'cursor: not-allowed;'])}}
+                                    <label for="title">Title</label>
+                                    <input type="text" id="title" name="title" value="{{ $news->english->title }}"
+                                           class="form-control" required readonly style="cursor: not-allowed;">
                                 </div>
+
                                 <div class="form-group col-lg-6 col-md-6 col-12">
-                                    {{Form::label('category_name', 'Category')}}
-                                    {{Form::text('category_name', $news->whatCategory->name, ['class' => 'form-control', 'readonly','style' =>'cursor: not-allowed;'])}}
+                                    <label for="category_name">Category</label>
+                                    <input type="text" id="category_name" name="category_name" value="{{ $news->whatCategory->name }}"
+                                           class="form-control" readonly style="cursor: not-allowed;">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-lg-3 col-md-3 col-12">
-                                    {{Form::label('image-count', 'Images Count')}}
+                                    <label for="image-count">Images Count</label>
                                     <input id="images-count" type="number" class="form-control" step="1" value="3"
                                            min="1" onchange="addImageGroup()">
                                 </div>
@@ -85,36 +87,57 @@
                                 <div class="image-group form-control">
                                     <div class="row">
                                         <div class="form-group col-lg-6 col-md-6 col-12">
-                                            {{Form::label('small_image', 'Small Image')}}
-                                            {{Form::file('small_image[]', ['accept' => 'image/jpeg', 'required'])}}
+                                            <label for="small_image">Small Image</label>
+                                            <input type="file"
+                                                   name="small_image[]"
+                                                   accept="image/jpeg"
+                                                   required>
                                         </div>
+
                                         <div class="form-group col-lg-6 col-md-6 col-12">
-                                            {{Form::label('big_image', 'Large Image')}}
-                                            {{Form::file('big_image[]', ['accept' => 'image/jpeg', 'required'])}}
+                                            <label for="big_image">Large Image</label>
+                                            <input type="file"
+                                                   name="big_image[]"
+                                                   accept="image/jpeg"
+                                                   required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="image-group form-control">
                                     <div class="row">
-                                        <div class="form-group col-lg-6 col-md-6 col-12 small-image">
-                                            {{Form::label('small_image', 'Small Image')}}
-                                            {{Form::file('small_image[]', ['accept' => 'image/jpeg', 'required'])}}
-                                        </div>
                                         <div class="form-group col-lg-6 col-md-6 col-12">
-                                            {{Form::label('big_image', 'Large Image')}}
-                                            {{Form::file('big_image[]', ['accept' => 'image/jpeg', 'required'])}}
+                                            <label for="small_image">Small Image</label>
+                                            <input type="file"
+                                                   name="small_image[]"
+                                                   accept="image/jpeg"
+                                                   required>
+                                        </div>
+
+                                        <div class="form-group col-lg-6 col-md-6 col-12">
+                                            <label for="big_image">Large Image</label>
+                                            <input type="file"
+                                                   name="big_image[]"
+                                                   accept="image/jpeg"
+                                                   required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="image-group form-control">
                                     <div class="row">
-                                        <div class="form-group col-lg-6 col-md-6 col-12 small-image">
-                                            {{Form::label('small_image', 'Small Image')}}
-                                            {{Form::file('small_image[]', ['accept' => 'image/jpeg', 'required'])}}
-                                        </div>
                                         <div class="form-group col-lg-6 col-md-6 col-12">
-                                            {{Form::label('big_image', 'Large Image')}}
-                                            {{Form::file('big_image[]', ['accept' => 'image/jpeg', 'required'])}}
+                                            <label for="small_image">Small Image</label>
+                                            <input type="file"
+                                                   name="small_image[]"
+                                                   accept="image/jpeg"
+                                                   required>
+                                        </div>
+
+                                        <div class="form-group col-lg-6 col-md-6 col-12">
+                                            <label for="big_image">Large Image</label>
+                                            <input type="file"
+                                                   name="big_image[]"
+                                                   accept="image/jpeg"
+                                                   required>
                                         </div>
                                     </div>
                                 </div>
@@ -147,7 +170,6 @@
                                         <div class="form-group col">
                                             <ul id="image-list">
                                                 @foreach($images as $img)
-                                                    {{--{{Form::text('project_id', $project->id, ['class' => 'd-none'])}}--}}
                                                     <li class="image-checkbox" id="image_{{$img['id']}}">
                                                         <img class="img-responsive" src="{{$img['path']}}"/>
                                                         <input type="checkbox" name="{{$img['id']}}" value="1"/>
@@ -199,10 +221,10 @@
     let image_group = '<div class="image-group form-control">' +
         '<div class="row">' +
         '<div class="form-group col-lg-6 col-md-6 col-12">' +
-        '<label for="small_image">Small Image</label>' +
+        '<label for="small_image">Small Image&nbsp;</label>' +
         '<input accept="image/jpeg" required="" name="small_image[]" type="file" style="padding-left: 3px;">' +
         '</div><div class="form-group col-lg-6 col-md-6 col-12">' +
-        '<label for="big_image">Large Image</label>' +
+        '<label for="big_image">Large Image&nbsp;</label>' +
         '<input accept="image/jpeg" required="" name="big_image[]" type="file" style="padding-left: 3px;">' +
         '</div></div>' +
         '</div>';

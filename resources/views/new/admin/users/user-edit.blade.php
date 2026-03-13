@@ -50,24 +50,32 @@
                             @method('PUT')
                             @csrf
                             <div class="row mb-3">
-                                {{Form::text('id', '', ['class' => 'd-none', 'id' => 'user-id'])}}
+                                <input type="hidden" name="id" id="user-id" value="">
+
                                 <div class="form-group col-lg-6 col-md-6 col-12">
-                                    {{Form::label('name', 'Name')}}
-                                    {{Form::text('name', $userEdited->name, ['class' => 'form-control', 'id' => 'name-input','placeholder' => 'Name', 'required'])}}
+                                    <label for="name-input">Name</label>
+                                    <input type="text" name="name" id="name-input" class="form-control"
+                                           placeholder="Name" value="{{ $userEdited->name }}" required>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-lg-6 col-md-6 col-12">
-                                    {{Form::label('email', 'Email')}}
-                                    {{Form::email('email', $userEdited->email, ['class' => 'form-control', 'id' => 'email-input', 'placeholder' => 'Email', 'required'])}}
+                                    <label for="email-input">Email</label>
+                                    <input type="email" name="email" id="email-input" class="form-control"
+                                           placeholder="Email" value="{{ $userEdited->email }}" required>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('password', 'Password')}}
-                                    <span> <i class="fa fa-eye-slash" id="password-toggle"
-                                              onclick="togglePasswordVisibility()" style="float:right;"></i></span>
-                                    {{Form::password('password', ['class' => 'form-control','placeholder' => 'Leaving this empty wont change the password', 'id' => 'password-input'])}}
+                                    <label for="password-input">Password</label>
+                                    <span>
+            <i class="fa fa-eye-slash" id="password-toggle"
+               onclick="togglePasswordVisibility()" style="float:right;"></i>
+        </span>
+                                    <input type="password" name="password" id="password-input" class="form-control"
+                                           placeholder="Leaving this empty won't change the password">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -144,12 +152,6 @@
                         </form>
                     </div>
                 </div>
-                {{--<p id="date-funded-alert" style="padding-top:10px;color: #f0ad4e;display: none;">--}}
-                {{--<i class="fa fa-exclamation-triangle"></i> Date of fund is empty</p>--}}
-                {{--<p id="location-funded-alert" style="padding-top:10px;color: #f0ad4e;display: none;">--}}
-                {{--<i class="fa fa-exclamation-triangle"></i> Project location is empty</p>--}}
-                {{--<p id="donor-funded-alert" style="padding-top:10px;color: red;display: none;">--}}
-                {{--<i class="fa fa-exclamation-triangle"></i> Project status is funded without a Donor</p>--}}
             </div>
         </div>
     </div>

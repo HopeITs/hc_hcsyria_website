@@ -659,17 +659,17 @@
                                             <div class="col d-flex justify-content-end">
                                                 {{--@if(isset($initiative->subWhatCategory))--}}
                                                 {{--<a href="{{ route('new.public.initiative', [--}}
-                                                {{--str_slug(strtolower($initiative->subWhatCategory->name)),--}}
+                                                {{--Str::slug(strtolower($initiative->subWhatCategory->name)),--}}
                                                 {{--$initiative->id,--}}
-                                                {{--str_slug(strtolower(str_replace(['<span class="highlight">','span'], '', $initiative->english->title)))--}}
+                                                {{--Str::slug(strtolower(str_replace(['<span class="highlight">','span'], '', $initiative->english->title)))--}}
                                                 {{--]) }}"--}}
                                                 {{--class="readmore-btn">@lang('main.readMore')--}}
                                                 {{--</a>--}}
                                                 {{--@else--}}
                                                 <a href="{{ route('new.public.initiative',
-                                [str_slug(strtolower($initiative->whatCategory->name)),
+                                [Str::slug(strtolower($initiative->whatCategory->name)),
                                 $initiative->id,
-                                str_slug(strtolower(str_replace(['<span class="highlight">','span'],'', $initiative->english->title)))]   ) }}"
+                                Str::slug(strtolower(str_replace(['<span class="highlight">','span'],'', $initiative->english->title)))]   ) }}"
                                                    class="readmore-btn">@lang('main.readMore')</a>
                                                 {{--@endif--}}
                                             </div>
@@ -752,9 +752,9 @@
                                                 </a>
                                             @endif
                                             <a href="{{ route('new.public.article',
-                                                [str_slug(strtolower($SingleNews->edition->name)),
+                                                [Str::slug(strtolower($SingleNews->edition->name)),
                                                 $SingleNews->id,
-                                                str_slug(strtolower(str_replace(['<span class="highlight">','span'],'', $SingleNews->edition->name)))]   ) }}"
+                                                Str::slug(strtolower(str_replace(['<span class="highlight">','span'],'', $SingleNews->edition->name)))]   ) }}"
                                                class="readmore-btn left">@lang('main.readMore')
                                             </a>
                                         </div>

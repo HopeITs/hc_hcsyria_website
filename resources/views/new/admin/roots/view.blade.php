@@ -48,10 +48,13 @@
                 <span class="fa fa-edit"></span>&nbsp;Edit</a>
             @if(($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher'))
                && $news->online == '0' && $news->english_check == '1' )
-                {!! Form::open(['route' => 'news.online', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-                {{Form::hidden('id', $news->id)}}
-                {{Form::button('<i class="fa fa-upload"></i> Publish', ['type' => 'submit', 'class' => 'btn btn-success'])}}
-                {!! Form::close() !!}
+                <form action="{{ route('news.online') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $news->id }}">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-upload"></i> Publish
+                    </button>
+                </form>
             @endif
             @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Photos Editor'))
                 <a href="{{route('news.images.create', $news['id'])}}"
@@ -82,9 +85,9 @@
 
                         </div>
                         <a href="{{ route('new.public.article',
-                                    [str_slug(strtolower($selectedEdition->name)),
+                                    [Str::slug(strtolower($selectedEdition->name)),
                                     $news->id,
-                                    str_slug(strtolower($news->english->title))]   ) }}"
+                                    Str::slug(strtolower($news->english->title))]   ) }}"
                            class="readmore-btn left" style="text-decoration: none">@lang('main.readMore')
                         </a>
                     </div>

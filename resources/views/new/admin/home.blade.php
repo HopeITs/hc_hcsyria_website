@@ -222,11 +222,8 @@
                                                         @endif
                                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
                                                                 <form action="/admin/project/delete/" method="POST" style="float: right; padding-left: 10px " enctype="multipart/form-data"> @method('DELETE') @csrf <button data-id={{$project['id']}} type="submit" class="btn btn-danger" onclick="ConfirmDelete({{$project['id']}})"><i class="fa fa-trash-o"></i> </button> </form>
-                                                            {{--{!! Form::open(['route' => ['delete.project', $project['id']] , 'method' => 'DELETE', 'style' => 'float:right;padding-left:10px;', 'enctype' => 'multipart/form-data']) !!}--}}
-                                                            {{--{{Form::button('<i class="fa fa-trash-o"></i>', ['type' => 'submit', 'class' => 'btn btn-danger ', 'onclick' => 'return ConfirmDelete(\''.$project['MicroProject_ID'].'\')'])}}--}}
-                                                            {{--{!! Form::close() !!}--}}
-                                                        @endif
 
+                                                            @endif
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -810,16 +807,7 @@
                                                                     <i class="fa fa-trash-o"></i>
                                                                 </button>
                                                             </form>
-                                                            {{--{!! Form::open(['route' => ['news.destroy', $news['id']]--}}
-                                                            {{--, 'method' => 'DELETE'--}}
-                                                            {{--, 'style' => 'float:right;padding-left:10px;'--}}
-                                                            {{--, 'enctype' => 'multipart/form-data']) !!}--}}
 
-                                                            {{--{{Form::button('<i class="fa fa-trash-o"></i> Delete'--}}
-                                                            {{--, ['type' => 'submit'--}}
-                                                            {{--, 'class' => 'btn btn-danger'--}}
-                                                            {{--, 'onclick' => 'return ConfirmDelete(\''.$news['id'].'\')'])}}--}}
-                                                            {{--{!! Form::close() !!}--}}
                                                         @endif
 
                                                     </td>
@@ -942,12 +930,21 @@
                                                             {{--</form>--}}
                                                         @endif
                                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Checker'))
-                                                            {!! Form::open(['route' => 'project.Englishchecked'
-                                                            , 'method' => 'POST', 'enctype' => 'multipart/form-data','style'=>'float:right;']) !!}
-                                                            {{Form::text('id', $project['id'], ['class' => 'd-none'])}}
-                                                            {{Form::text('MicroProject_ID', $project['MicroProject_ID'], ['class' => 'd-none'])}}
-                                                            {{Form::button('<i class="fa fa-check"></i>', ['type' => 'submit', 'class' => 'btn btn-success icon-btn edit-btn '])}}
-                                                            {!! Form::close() !!}
+                                                                <form action="{{ route('project.Englishchecked') }}"
+                                                                      method="POST"
+                                                                      enctype="multipart/form-data"
+                                                                      style="float:right;">
+
+                                                                    @csrf
+
+                                                                    <input type="hidden" name="id" value="{{ $project['id'] }}">
+                                                                    <input type="hidden" name="MicroProject_ID" value="{{ $project['MicroProject_ID'] }}">
+
+                                                                    <button type="submit" class="btn btn-success icon-btn edit-btn">
+                                                                        <i class="fa fa-check"></i>
+                                                                    </button>
+
+                                                                </form>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -1156,18 +1153,23 @@
                                                                     <i class="fa fa-trash-o"></i>
                                                                 </button>
                                                             </form>
-                                                            {{--{!! Form::open(['route' => ['initiatives.destroy', $initiative['id']]--}}
-                                                            {{--, 'method' => 'DELETE', 'style' => 'float:right;padding-left:10px;', 'enctype' => 'multipart/form-data']) !!}--}}
-                                                            {{--{{Form::button('<i class="fa fa-trash-o"></i>'--}}
-                                                            {{--, ['type' => 'submit', 'class' => 'btn btn-danger', 'onclick' => 'return ConfirmDelete(\''.$initiative['id'].'\')'])}}--}}
-                                                            {{--{!! Form::close() !!}--}}
+
                                                         @endif
                                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Checker'))
-                                                            {!! Form::open(['route' => 'initiatives.Englishchecked'
-                                                            , 'method' => 'POST', 'enctype' => 'multipart/form-data','style'=>'float:right;']) !!}
-                                                            {{Form::text('id', $initiative['id'], ['class' => 'd-none'])}}
-                                                            {{Form::button('<i class="fa fa-check"></i>', ['type' => 'submit', 'class' => 'btn btn-success icon-btn edit-btn '])}}
-                                                            {!! Form::close() !!}
+                                                                <form action="{{ route('initiatives.Englishchecked') }}"
+                                                                      method="POST"
+                                                                      enctype="multipart/form-data"
+                                                                      style="float:right;">
+
+                                                                    @csrf
+
+                                                                    <input type="hidden" name="id" value="{{ $initiative['id'] }}">
+
+                                                                    <button type="submit" class="btn btn-success icon-btn edit-btn">
+                                                                        <i class="fa fa-check"></i>
+                                                                    </button>
+
+                                                                </form>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -1238,18 +1240,23 @@
                                                                     <i class="fa fa-trash-o"></i>
                                                                 </button>
                                                             </form>
-                                                            {{--{!! Form::open(['route' => ['initiatives.destroy', $initiative['id']]--}}
-                                                            {{--, 'method' => 'DELETE', 'style' => 'float:right;padding-left:10px;', 'enctype' => 'multipart/form-data']) !!}--}}
-                                                            {{--{{Form::button('<i class="fa fa-trash-o"></i>'--}}
-                                                            {{--, ['type' => 'submit', 'class' => 'btn btn-danger', 'onclick' => 'return ConfirmDelete(\''.$initiative['id'].'\')'])}}--}}
-                                                            {{--{!! Form::close() !!}--}}
+
                                                         @endif
                                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Checker'))
-                                                            {!! Form::open(['route' => 'initiatives.Englishchecked'
-                                                            , 'method' => 'POST', 'enctype' => 'multipart/form-data','style'=>'float:right;']) !!}
-                                                            {{Form::text('id', $initiative['id'], ['class' => 'd-none'])}}
-                                                            {{Form::button('<i class="fa fa-check"></i>', ['type' => 'submit', 'class' => 'btn btn-success icon-btn edit-btn '])}}
-                                                            {!! Form::close() !!}
+                                                                <form action="{{ route('initiatives.Englishchecked') }}"
+                                                                      method="POST"
+                                                                      enctype="multipart/form-data"
+                                                                      style="float:right;">
+
+                                                                    @csrf
+
+                                                                    <input type="hidden" name="id" value="{{ $initiative['id'] }}">
+
+                                                                    <button type="submit" class="btn btn-success icon-btn edit-btn">
+                                                                        <i class="fa fa-check"></i>
+                                                                    </button>
+
+                                                                </form>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -1320,18 +1327,23 @@
                                                                     <i class="fa fa-trash-o"></i>
                                                                 </button>
                                                             </form>
-                                                            {{--{!! Form::open(['route' => ['initiatives.destroy', $initiative['id']]--}}
-                                                            {{--, 'method' => 'DELETE', 'style' => 'float:right;padding-left:10px;', 'enctype' => 'multipart/form-data']) !!}--}}
-                                                            {{--{{Form::button('<i class="fa fa-trash-o"></i>'--}}
-                                                            {{--, ['type' => 'submit', 'class' => 'btn btn-danger', 'onclick' => 'return ConfirmDelete(\''.$initiative['id'].'\')'])}}--}}
-                                                            {{--{!! Form::close() !!}--}}
+
                                                         @endif
                                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Checker'))
-                                                            {!! Form::open(['route' => 'initiatives.Englishchecked'
-                                                            , 'method' => 'POST', 'enctype' => 'multipart/form-data','style'=>'float:right;']) !!}
-                                                            {{Form::text('id', $initiative['id'], ['class' => 'd-none'])}}
-                                                            {{Form::button('<i class="fa fa-check"></i>', ['type' => 'submit', 'class' => 'btn btn-success icon-btn edit-btn '])}}
-                                                            {!! Form::close() !!}
+                                                                <form action="{{ route('initiatives.Englishchecked') }}"
+                                                                      method="POST"
+                                                                      enctype="multipart/form-data"
+                                                                      style="float:right;">
+
+                                                                    @csrf
+
+                                                                    <input type="hidden" name="id" value="{{ $initiative['id'] }}">
+
+                                                                    <button type="submit" class="btn btn-success icon-btn edit-btn">
+                                                                        <i class="fa fa-check"></i>
+                                                                    </button>
+
+                                                                </form>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -1400,18 +1412,23 @@
                                                                     <i class="fa fa-trash-o"></i>
                                                                 </button>
                                                             </form>
-                                                            {{--{!! Form::open(['route' => ['initiatives.destroy', $initiative['id']]--}}
-                                                            {{--, 'method' => 'DELETE', 'style' => 'float:right;padding-left:10px;', 'enctype' => 'multipart/form-data']) !!}--}}
-                                                            {{--{{Form::button('<i class="fa fa-trash-o"></i>'--}}
-                                                            {{--, ['type' => 'submit', 'class' => 'btn btn-danger', 'onclick' => 'return ConfirmDelete(\''.$initiative['id'].'\')'])}}--}}
-                                                            {{--{!! Form::close() !!}--}}
+
                                                         @endif
                                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Checker'))
-                                                            {!! Form::open(['route' => 'initiatives.Englishchecked'
-                                                            , 'method' => 'POST', 'enctype' => 'multipart/form-data','style'=>'float:right;']) !!}
-                                                            {{Form::text('id', $initiative['id'], ['class' => 'd-none'])}}
-                                                            {{Form::button('<i class="fa fa-check"></i>', ['type' => 'submit', 'class' => 'btn btn-success icon-btn edit-btn '])}}
-                                                            {!! Form::close() !!}
+                                                                <form action="{{ route('initiatives.Englishchecked') }}"
+                                                                      method="POST"
+                                                                      enctype="multipart/form-data"
+                                                                      style="float:right;">
+
+                                                                    @csrf
+
+                                                                    <input type="hidden" name="id" value="{{ $initiative['id'] }}">
+
+                                                                    <button type="submit" class="btn btn-success icon-btn edit-btn">
+                                                                        <i class="fa fa-check"></i>
+                                                                    </button>
+
+                                                                </form>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -1482,18 +1499,23 @@
                                                                         <i class="fa fa-trash-o"></i>
                                                                     </button>
                                                                 </form>
-                                                                {{--{!! Form::open(['route' => ['initiatives.destroy', $initiative['id']]--}}
-                                                                {{--, 'method' => 'DELETE', 'style' => 'float:right;padding-left:10px;', 'enctype' => 'multipart/form-data']) !!}--}}
-                                                                {{--{{Form::button('<i class="fa fa-trash-o"></i>'--}}
-                                                                {{--, ['type' => 'submit', 'class' => 'btn btn-danger', 'onclick' => 'return ConfirmDelete(\''.$initiative['id'].'\')'])}}--}}
-                                                                {{--{!! Form::close() !!}--}}
+
                                                             @endif
                                                             @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Checker'))
-                                                                {!! Form::open(['route' => 'initiatives.Englishchecked'
-                                                                , 'method' => 'POST', 'enctype' => 'multipart/form-data','style'=>'float:right;']) !!}
-                                                                {{Form::text('id', $initiative['id'], ['class' => 'd-none'])}}
-                                                                {{Form::button('<i class="fa fa-check"></i>', ['type' => 'submit', 'class' => 'btn btn-success icon-btn edit-btn '])}}
-                                                                {!! Form::close() !!}
+                                                                    <form action="{{ route('initiatives.Englishchecked') }}"
+                                                                          method="POST"
+                                                                          enctype="multipart/form-data"
+                                                                          style="float:right;">
+
+                                                                        @csrf
+
+                                                                        <input type="hidden" name="id" value="{{ $initiative['id'] }}">
+
+                                                                        <button type="submit" class="btn btn-success icon-btn edit-btn">
+                                                                            <i class="fa fa-check"></i>
+                                                                        </button>
+
+                                                                    </form>
                                                             @endif
                                                         </td>
                                                     </tr>
@@ -1564,18 +1586,23 @@
                                                                     <i class="fa fa-trash-o"></i>
                                                                 </button>
                                                             </form>
-                                                            {{--{!! Form::open(['route' => ['initiatives.destroy', $initiative['id']]--}}
-                                                            {{--, 'method' => 'DELETE', 'style' => 'float:right;padding-left:10px;', 'enctype' => 'multipart/form-data']) !!}--}}
-                                                            {{--{{Form::button('<i class="fa fa-trash-o"></i>'--}}
-                                                            {{--, ['type' => 'submit', 'class' => 'btn btn-danger', 'onclick' => 'return ConfirmDelete(\''.$initiative['id'].'\')'])}}--}}
-                                                            {{--{!! Form::close() !!}--}}
+
                                                         @endif
                                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Checker'))
-                                                            {!! Form::open(['route' => 'initiatives.Englishchecked'
-                                                            , 'method' => 'POST', 'enctype' => 'multipart/form-data','style'=>'float:right;']) !!}
-                                                            {{Form::text('id', $initiative['id'], ['class' => 'd-none'])}}
-                                                            {{Form::button('<i class="fa fa-check"></i>', ['type' => 'submit', 'class' => 'btn btn-success icon-btn edit-btn '])}}
-                                                            {!! Form::close() !!}
+                                                                <form action="{{ route('initiatives.Englishchecked') }}"
+                                                                      method="POST"
+                                                                      enctype="multipart/form-data"
+                                                                      style="float:right;">
+
+                                                                    @csrf
+
+                                                                    <input type="hidden" name="id" value="{{ $initiative['id'] }}">
+
+                                                                    <button type="submit" class="btn btn-success icon-btn edit-btn">
+                                                                        <i class="fa fa-check"></i>
+                                                                    </button>
+
+                                                                </form>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -1646,11 +1673,20 @@
                                                                 </form>
                                                             @endif
                                                             @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Checker'))
-                                                                {!! Form::open(['route' => 'successes.Englishchecked'
-                                                                , 'method' => 'POST', 'enctype' => 'multipart/form-data','style'=>'float:right;']) !!}
-                                                                {{Form::text('id', $success['id'], ['class' => 'd-none'])}}
-                                                                {{Form::button('<i class="fa fa-check"></i>', ['type' => 'submit', 'class' => 'btn btn-success icon-btn edit-btn '])}}
-                                                                {!! Form::close() !!}
+                                                                    <form action="{{ route('successes.Englishchecked') }}"
+                                                                          method="POST"
+                                                                          enctype="multipart/form-data"
+                                                                          style="float:right;">
+
+                                                                        @csrf
+
+                                                                        <input type="hidden" name="id" value="{{ $success['id'] }}">
+
+                                                                        <button type="submit" class="btn btn-success icon-btn edit-btn">
+                                                                            <i class="fa fa-check"></i>
+                                                                        </button>
+
+                                                                    </form>
                                                             @endif
                                                         </td>
                                                     </tr>
@@ -1721,18 +1757,23 @@
                                                                     <i class="fa fa-trash-o"></i>
                                                                 </button>
                                                             </form>
-                                                            {{--{!! Form::open(['route' => ['initiatives.destroy', $initiative['id']]--}}
-                                                            {{--, 'method' => 'DELETE', 'style' => 'float:right;padding-left:10px;', 'enctype' => 'multipart/form-data']) !!}--}}
-                                                            {{--{{Form::button('<i class="fa fa-trash-o"></i>'--}}
-                                                            {{--, ['type' => 'submit', 'class' => 'btn btn-danger', 'onclick' => 'return ConfirmDelete(\''.$initiative['id'].'\')'])}}--}}
-                                                            {{--{!! Form::close() !!}--}}
+
                                                         @endif
                                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Checker'))
-                                                            {!! Form::open(['route' => 'initiatives.Englishchecked'
-                                                            , 'method' => 'POST', 'enctype' => 'multipart/form-data','style'=>'float:right;']) !!}
-                                                            {{Form::text('id', $initiative['id'], ['class' => 'd-none'])}}
-                                                            {{Form::button('<i class="fa fa-check"></i>', ['type' => 'submit', 'class' => 'btn btn-success icon-btn edit-btn '])}}
-                                                            {!! Form::close() !!}
+                                                                <form action="{{ route('initiatives.Englishchecked') }}"
+                                                                      method="POST"
+                                                                      enctype="multipart/form-data"
+                                                                      style="float:right;">
+
+                                                                    @csrf
+
+                                                                    <input type="hidden" name="id" value="{{ $initiative['id'] }}">
+
+                                                                    <button type="submit" class="btn btn-success icon-btn edit-btn">
+                                                                        <i class="fa fa-check"></i>
+                                                                    </button>
+
+                                                                </form>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -1799,10 +1840,20 @@
                                                                 Image</a>
                                                         @endif
                                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Checker'))
-                                                            {!! Form::open(['route' => 'news.Englishchecked' , 'method' => 'POST', 'enctype' => 'multipart/form-data','style'=>'float:right;']) !!}
-                                                            {{Form::text('id', $news['id'], ['class' => 'd-none'])}}
-                                                            {{Form::button('<i class="fa fa-check"></i>', ['type' => 'submit', 'class' => 'btn btn-success icon-btn edit-btn '])}}
-                                                            {!! Form::close() !!}
+                                                                <form action="{{ route('news.Englishchecked') }}"
+                                                                      method="POST"
+                                                                      enctype="multipart/form-data"
+                                                                      style="float:right;">
+
+                                                                    @csrf
+
+                                                                    <input type="hidden" name="id" value="{{ $news['id'] }}">
+
+                                                                    <button type="submit" class="btn btn-success icon-btn edit-btn">
+                                                                        <i class="fa fa-check"></i>
+                                                                    </button>
+
+                                                                </form>
                                                         @endif
                                                         @if($user->roles->contains('name', 'Admin')
                                                         || $user->roles->contains('name', 'English Editor')
@@ -1817,17 +1868,7 @@
                                                                     <i class="fa fa-trash-o"></i>
                                                                 </button>
                                                             </form>
-                                                            {{--{!! Form::open(['route' => ['news.destroy', $news['id']]--}}
-                                                            {{--, 'method' => 'DELETE'--}}
-                                                            {{--, 'style' => 'float:right;padding-left:10px;'--}}
-                                                            {{--, 'enctype' => 'multipart/form-data']) !!}--}}
 
-                                                            {{--{{Form::button('<i class="fa fa-trash-o"></i> Delete'--}}
-                                                            {{--, ['type' => 'submit'--}}
-                                                            {{--, 'class' => 'btn btn-danger'--}}
-
-                                                            {{--, 'onclick' => 'return ConfirmDelete(\''.$news['id'].'\')'])}}--}}
-                                                            {{--{!! Form::close() !!}--}}
                                                         @endif
 
                                                     </td>

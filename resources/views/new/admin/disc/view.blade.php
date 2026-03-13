@@ -61,10 +61,13 @@
                 @if(($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher'))
                             && $initiative->online == '0'
                             && $initiative->english_check == '1' )
-                    {!! Form::open(['route' => 'publish.disc', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-                    {{Form::hidden('id', $initiative->id)}}
-                    {{Form::button('<i class="fa fa-upload"></i> Publish', ['type' => 'submit', 'class' => 'btn btn-success'])}}
-                    {!! Form::close() !!}
+                    <form action="{{ route('publish.disc') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $initiative->id }}">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-upload"></i> Publish
+                        </button>
+                    </form>
                 @endif
                 @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Photos Editor'))
                     <a href="{{route('disc.add.image', $initiative['id'])}}"

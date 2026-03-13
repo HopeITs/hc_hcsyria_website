@@ -84,12 +84,23 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-lg-4 col-md-4 col-12">
-                                    {{Form::label('first_name', 'First Name')}} <span class="red-color">*</span>
-                                    {{Form::text('first_name', '', ['class' => 'form-control', 'placeholder' => 'First Name', 'required'])}}
+                                    <label for="first_name">First Name</label> <span class="red-color">*</span>
+                                    <input type="text"
+                                           name="first_name"
+                                           id="first_name"
+                                           class="form-control"
+                                           placeholder="First Name"
+                                           required>
                                 </div>
+
                                 <div class="form-group col-lg-4 col-md-4 col-12">
-                                    {{Form::label('last_name', 'Last Name')}} <span class="red-color">*</span>
-                                    {{Form::text('last_name', '', ['class' => 'form-control', 'placeholder' => 'Last Name', 'required'])}}
+                                    <label for="last_name">Last Name</label> <span class="red-color">*</span>
+                                    <input type="text"
+                                           name="last_name"
+                                           id="last_name"
+                                           class="form-control"
+                                           placeholder="Last Name"
+                                           required>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -97,52 +108,97 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-lg-8 col-md-8 col-12">
-                                    {{Form::label('image_path', 'Image')}} <span class="red-color">*</span> <span><small> (must be 300x300 and maximum: 50KB-100KB)</small></span>
+                                    <label for="image_path">Image</label>
+                                    <span class="red-color">*</span>
+                                    <span><small>(must be 300x300 and maximum: 50KB-100KB)</small></span>
                                     <br>
                                     <i style="color: #777;">(Choosing an image will erase the current one)</i>
-                                    <input class="form-control" type="file" accept="image/jpeg" name="image_path" id="file" >
+
+                                    <input class="form-control"
+                                           type="file"
+                                           accept="image/jpeg"
+                                           name="image_path"
+                                           id="image_path">
                                 </div>
+
                                 <div class="form-group col-lg-4 col-md-4 col-12 text-start">
                                     <img src="" style="height: 85px;">
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="form-group col-12">
-                                    {{Form::label('position', 'Position')}} <span class="red-color">*</span>
-                                    {!!Form::textarea('position', '', ['class' => 'form-control', 'rows' => '2', 'placeholder' => 'Position'])!!}
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="form-group col-12">
-                                    {{Form::label('email', 'Email')}}<span class="red-color"> *</span></label><br>
-                                    {{Form::text('email','', ['class' => 'form-control', 'placeholder' => 'Email'])}}
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="form-group col-lg-6 col-md-6 col-12">
-                                    {{Form::label('facebook_link', 'Facebook Link')}}
-                                    {{Form::text('facebook_link', '', ['class' => 'form-control', 'placeholder' => 'facebook link Link'])}}
-                                </div>
-                                <div class="form-group col-lg-6 col-md-6 col-12">
-                                    {{Form::label('linkedin_link', 'Linkedin Link')}}
-                                    {{Form::text('linkedin_link', '', ['class' => 'form-control', 'placeholder' => 'linkedin link'])}}
 
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="form-group col-lg-6 col-md-6 col-12">
-                                    {{Form::label('phone', 'Phone')}}<span class="red-color"> *</span></label><br>
-                                    {{Form::text('phone', '', ['class' => 'form-control', 'placeholder' => '+963 ### ### ###'])}}
-                                </div>
-                                <div class="form-group col-lg-6 col-md-6 col-12">
-                                    {{Form::label('rank', 'Rank')}} <span class="red-color">*</span>
-                                    {{Form::number('rank', '', ['class' => 'form-control', 'placeholder' => 'rank','min="1"','max="100"', 'required'])}}
-                                </div>
-                            </div>
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    {{Form::label('inactive', 'Date of resignation')}}
-                                    {{Form::text('inactive', '', ['class' => 'form-control', 'placeholder' => '00/00/0000'])}}
+                                    <label for="position">Position</label> <span class="red-color">*</span>
+                                    <textarea name="position"
+                                              id="position"
+                                              class="form-control"
+                                              rows="2"
+                                              placeholder="Position"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="form-group col-12">
+                                    <label for="email">Email</label> <span class="red-color">*</span>
+                                    <input type="text"
+                                           name="email"
+                                           id="email"
+                                           class="form-control"
+                                           placeholder="Email">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="form-group col-lg-6 col-md-6 col-12">
+                                    <label for="facebook_link">Facebook Link</label>
+                                    <input type="text"
+                                           name="facebook_link"
+                                           id="facebook_link"
+                                           class="form-control"
+                                           placeholder="facebook link">
+                                </div>
+
+                                <div class="form-group col-lg-6 col-md-6 col-12">
+                                    <label for="linkedin_link">Linkedin Link</label>
+                                    <input type="text"
+                                           name="linkedin_link"
+                                           id="linkedin_link"
+                                           class="form-control"
+                                           placeholder="linkedin link">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="form-group col-lg-6 col-md-6 col-12">
+                                    <label for="phone">Phone</label> <span class="red-color">*</span>
+                                    <input type="text"
+                                           name="phone"
+                                           id="phone"
+                                           class="form-control"
+                                           placeholder="+963 ### ### ###">
+                                </div>
+
+                                <div class="form-group col-lg-6 col-md-6 col-12">
+                                    <label for="rank">Rank</label> <span class="red-color">*</span>
+                                    <input type="number"
+                                           name="rank"
+                                           id="rank"
+                                           class="form-control"
+                                           placeholder="rank"
+                                           min="1"
+                                           max="100"
+                                           required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="form-group col-12">
+                                    <label for="inactive">Date of resignation</label>
+                                    <input type="text"
+                                           name="inactive"
+                                           id="inactive"
+                                           class="form-control"
+                                           placeholder="00/00/0000">
                                 </div>
                             </div>
 

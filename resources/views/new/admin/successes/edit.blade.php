@@ -42,7 +42,9 @@
     </div>
     <div class="container">
         <h2 class="title">Edit Success</h2>
-        {!! Form::open(['route' => ['successes.update', $successData->id], 'method' => 'PUT', 'enctype' => 'multipart/form-data']) !!}
+        <form action="{{ route('successes.update', $successData->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
         <div class="row">
             <div class="form-group col-md-8 col-md-offset-2">
                 <label>Who-category <span class="red-color">*</span></label><br>
@@ -126,31 +128,37 @@
                 </select>
             </div>
             <div class="form-group col-md-8 col-md-offset-2">
-                {{Form::label('image_path', 'Image')}}
-                {{Form::file('image_path', ['accept' => 'image/jpeg'])}}
+                <label for="image_path">Image</label>
+                <input type="file" name="image_path" id="image_path" accept="image/jpeg">
                 <i style="color: #777;">(Choosing an image will erase the current one)</i>
                 <br>
                 <img src="{{$successData->image_path}}" style="height: 100px;">
                 <br>
             </div>
             <div class="form-group col-md-8 col-md-offset-2">
-                {{Form::label('title', 'Title')}} <span class="red-color">*</span>
-                {{Form::text('title', $successData->english->title, ['class' => 'form-control', 'placeholder' => 'Title', 'required'])}}
+                <label for="title">Title</label> <span class="red-color">*</span>
+                <input type="text" name="title" id="title" class="form-control"
+                       placeholder="Title" value="{{ $successData->english->title }}" required>
             </div>
+
             <div class="form-group col-md-8 col-md-offset-2">
-                {{Form::label('text', 'Text')}} <span class="red-color">*</span>
-                {{Form::textarea('text', $successData->english->text, ['class' => 'form-control', 'placeholder' => 'Text'])}}
+                <label for="text">Text</label> <span class="red-color">*</span>
+                <textarea name="text" id="text" class="form-control" placeholder="Text">{{ $successData->english->text }}</textarea>
             </div>
+
             <div class="form-group col-md-8 col-md-offset-2">
-                {{Form::label('video', 'Video Link')}}
-                {{Form::text('video', $successData->video == '0' ? '' : $successData->video, ['class' => 'form-control', 'placeholder' => 'Video Link'])}}
+                <label for="video">Video Link</label>
+                <input type="text" name="video" id="video" class="form-control"
+                       placeholder="Video Link" value="{{ $successData->video == '0' ? '' : $successData->video }}">
             </div>
         </div>
         <button class="btn btn-default" onclick="event.preventDefault();window.history.back();"
                 style="margin-top: 15px"><i class="fa fa-arrow-left"></i> back
         </button>
-        {{Form::button('<i class="fa fa-refresh"></i> Update', ['type' => 'submit', 'class' => 'btn btn-primary', 'style' => 'margin-top: 15px;'])}}
-        {!! Form::close() !!}
+        <button type="submit" class="btn btn-primary" style="margin-top: 15px;">
+            <i class="fa fa-refresh"></i> Update
+        </button>
+        </form>
     </div>
 </section>
 

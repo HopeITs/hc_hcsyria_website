@@ -126,10 +126,13 @@
                 @if(($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher'))
                             &&  $success->online == '0'
                             && $success->english_check == '1' )
-                    {!! Form::open(['route' => 'successes.online', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-                    {{Form::text('id',  $success->id, ['class' => 'd-none'])}}
-                    {{Form::button('<i class="fa fa-upload"></i> Publish', ['type' => 'submit', 'class' => 'btn btn-success'])}}
-                    {!! Form::close() !!}
+                    <form action="{{ route('successes.online') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $success->id }}">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-upload"></i> Publish
+                        </button>
+                    </form>
                 @endif
                 @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Photos Editor'))
                     <a href="{{route('success.add.image', $success['id'])}}"
