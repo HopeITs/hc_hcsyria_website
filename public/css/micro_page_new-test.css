@@ -438,46 +438,172 @@ img.copy-icon:hover, img.location-icon:hover {
     margin: 3% 1.5% 1% 0% !important;
 }
 
-.micro-page-margin{
-        margin: 3% 4.7%;
-}
-.micro-statistics-container{
-    padding:0 10px;
-}
-
-
+/*micro new statistics*/
 .micro-statistics-title{
-        background: white;
-        padding: 0.5vw 2.1vw 0 2.1vw ;
-        color: #414042;
-        font-weight: 900;
-        font-size: 2.8vw;
-        z-index: 1000;
+    padding: 2vw ;
+    color: #414042;
+    font-weight: 900;
+    font-size: 2.8vw;
 }
 
-.carousel-custom-img {
+.micro-page-margin{
+        max-width: 72.3vw;
+        margin: 0 auto;
+}
+.object-center-fit{
+    object-position: 0 center;
+    object-fit: cover;
+}
+.carousel-img {
     filter: grayscale(100%);
     transition: filter 0.5s ease-in-out;
 }
 
-
-#MicroCarousel:hover .carousel-custom-img,
-#MicroCarouselMobile:hover .carousel-custom-img,
-#MicroCarouselMobile:active .carousel-custom-img {
+#MicroCarousel:hover .carousel-img,
+#MicroCarouselMobile:hover .carousel-img,
+#MicroCarouselMobile:active .carousel-img {
     filter: grayscale(0%) !important;
     -webkit-filter: grayscale(0%) !important;
 }
 
-.micro-page-margin-container{
-    max-width: 72.3vw;
-    margin: 0 auto;
+.bg-primary-red{
+    background-color: #bc1818;
+}
+.text-primary-red{
+    color:#bc1818;
+}
+.bg-secondary-gray-light{
+    background-color:#F1F1F1;
+}
+.text-secondary-gray-medium{
+    color: #BABABA;
+}
+.text-secondary-gray-dark{
+    color:#666666;
+}
+.text-secondary-gray-darker{
+    color:#808285;
 }
 
-.grid-parent{
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    min-height: 550px;
+.beneficiaries-chart-percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    font-weight: bold;
+
 }
+.micro-radial-number{
+    font-size: 1.13vw;
+    color: #BC1818;
+    padding:0;
+}
+.micro-radial-percentage{
+    font-size: 0.7vw;
+    color: #BC1818;
+    padding:0;
+}
+
+.micro-radial-range{
+    margin-top:0.2vw;
+    letter-spacing: -0.05vw;
+    font-weight: bold;
+    color:#666666;
+    font-size: 0.85vw;
+}
+
+.statistics-number{
+    color: #808285;
+    font-size: 4vw;
+    font-weight: 800;
+    line-height: 1;
+}
+.statistics-city{
+    color: #808285;
+    font-weight: 750;
+    font-size: 1.1vw;
+    text-transform: uppercase;
+}
+.statistics-underline{
+    width: 1.5vw;
+    height: 0.2vw;
+    background-color: #bc1818;
+    margin: 0.35vw auto;
+}
+.statistics-projects{
+    color: #808285;
+    font-weight: 700;
+    font-size: 1vw;
+}
+.statistics-seperator{
+    position: absolute;
+    right:-2%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0.2vw;
+    height: 4.2vw;
+    background-color: #D8D8D8;
+}
+.cities-small-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    padding: 1vw 0;
+    text-align: center;
+}
+.cities-big-container{
+    grid-column: 1 / 5;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    text-align: center;
+}
+.chart-sizing{
+    width: 5vw;
+    height: 5vw;
+}
+.padding-3vw{
+    padding:3vw;
+}
+.single-statistics-card-container{
+    grid-column: 4 / 5;
+    color: #666666;
+    padding: 1.8vw 0.6vw 1.8vw 2.5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.categories-title{
+    font-size: 0.8vw;
+    font-weight: 700;
+    margin-bottom: 0.2vw;
+}
+.categories-list{
+    list-style-position: inside;
+    font-weight: 800;
+    font-size: 0.8vw;
+    padding: 0;
+    margin: 0;
+}
+
+.single-card-number{
+    font-size: 4.3vw;
+    font-weight: 700;
+    position:relative;
+    margin: 0;
+    line-height: 1;
+}
+.single-card-label {
+    font-size: 1vw;
+    font-weight: 500;
+    line-height: 1;
+    margin-top:1vw;
+}
+/*micro statistics end*/
 
 /* 🔹 General placeholder container */
 .project-placeholder {
