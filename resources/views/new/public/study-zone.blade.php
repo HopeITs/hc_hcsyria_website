@@ -3429,28 +3429,20 @@
         @foreach($studyzone_centers as $center)
             center_id = {{$center->id}};
         if (center_id === id) {
-            if (id === 1 || id === 5) {
-                $('#work_hours').html('Working Hours: <br><strong> Monday to Saturday </strong> <br> from 9:30 Am to 9:30 Pm');
-                $('#work_hours_fr').html('Les horaires du travail:<br><strong> Lundi à Samedi,</strong><br>de 9 h 30 à 21 h 30');
+            if (id === 17) {
+                $('#work_hours').html('Working Hours: <br><strong> Saturday to Thursday </strong> <br> from 9:30 Am to 9:00 Pm');
             }
-            else if(id === 7){
-                $('#work_hours').html('Working Hours: <br><strong> Monday to Saturday </strong> <br> from 12:30 Pm to 9:30 Pm');
+            if (id === 14 || id === 19) {
+                $('#work_hours').html('Working Hours: <br><strong> Monday to Saturday </strong> <br> from 9:30 Am to 9:00 Pm');
             }
-            else if (id === 17) {
-                $('#work_hours').html('Working Hours: <br><strong> Saturday to Thursday </strong> <br> from 9:00 Am to 9:00 Pm');
-                $('#work_hours_fr').html('Les horaires du travail:<br><strong> Samedi à Jeudi,</strong><br>de 9 h 00 à 9 h 00');
-            }
-            else if (id === 11 || id === 3 || id === 15 || id === 16) {
-                $('#work_hours').html('Working Hours: <br><strong>Saturday to Thursday</strong> <br>from 9:30 Am to 9:30 Pm');
-                $('#work_hours_fr').html('Les horaires du travail: <br><strong> Samedi à Jeudi,</strong><br> de 9 h 30 à 21 h 30');
+            else if ( id === 3 || id === 15 ) {
+                $('#work_hours').html('Working Hours: <br><strong>Saturday to Thursday</strong> <br>from 9:30 Am to 9:00 Pm');
             }
             else if (id === 6) {
-                $('#work_hours').html('Working Hours: <br><strong>Sunday to Friday</strong><br> from 9:30 Am to 9:30 Pm');
-                $('#work_hours_fr').html('Les horaires du travail:<br><strong> Dimanche à Vendredi,</strong><br> de 9 h 30 à 21 h 30');
+                $('#work_hours').html('Working Hours: <br><strong>Sunday to Friday</strong><br> from 9:30 Am to 9:00 Pm');
             }
-            else if (id === 4 || id === 8 || id === 12 || id === 13) {
+            else if (id === 4 || id === 8 || id === 12) {
                 $('#work_hours').html('Working Hours: <br><strong>Saturday to Thursday</strong> <br>from 9:00 Am to 9:00 Pm');
-                $('#work_hours_fr').html('Les horaires du travail: <br><strong> Samedi à Jeudi,</strong><br> de 9 h 30 à 21 h 30');
             }
             $('#telephone').html('<span>Tel: </span><a href="tel:{{$center->telephone}}">{{$center->telephone}}</a>');
             $('#mail').html('<span>Email: </span><a href="mailto:{{$center->email}}">{{$center->email}}</a>');
