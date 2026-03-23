@@ -22,3 +22,5 @@ yarn-error.log
 /public/images/
 /node_modules/
 /storage/
+.idea
+.ai
