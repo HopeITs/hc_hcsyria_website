@@ -42,7 +42,7 @@ use Illuminate\Support\Facades\Mail;
 use Stevebauman\Location\Facades\Location;
 use PDF;
 use App\HopeProjects;
-
+use Illuminate\Support\Str;
 class publicController extends Controller
 {
     public function set_locale($locale)
