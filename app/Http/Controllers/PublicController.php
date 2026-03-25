@@ -377,7 +377,7 @@ from projects LIMIT 1;');
         $damascusCount = $counts[2] ?? 0;
         $latakiaCount  = $counts[4] ?? 0;
         $wadiCount     = $counts[7] ?? 0;
-        $idlebCount = $counts[8] ?? 'SOON';
+        $idlebCount = $counts[8] ?? 0;
         $tartusCount = $counts[6] ?? 0;
 
         $allCount = $counts->sum();

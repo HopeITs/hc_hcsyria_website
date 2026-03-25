@@ -469,6 +469,35 @@ img.copy-icon:hover, img.location-icon:hover {
 .bg-primary-red{
     background-color: #bc1818;
 }
+.carousel-mobile-container{
+    height: 220px !important;
+    min-height: 220px !important;
+}
+.fs-0{
+    font-size:9vw;
+}
+.fs-7{
+    font-size: 3.4vw;
+}
+.fs-8{
+    font-size:2.8vw;
+}
+
+.gauge-circle{
+    position: relative;
+    height :15vw;
+    width:15vw;
+    margin: 0 auto;
+}
+.gauge-circle-number{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #bc1818;
+    font-weight: 800;
+    font-size: 0.75rem;
+}
 .text-primary-red{
     color:#bc1818;
 }
@@ -522,10 +551,22 @@ img.copy-icon:hover, img.location-icon:hover {
     font-weight: 800;
     line-height: 1;
 }
+.mobile-statistics-number{
+    color: #808285;
+    font-size: 8.5vw;
+    font-weight: 800;
+    line-height: 1;
+}
 .statistics-city{
     color: #808285;
     font-weight: 750;
     font-size: 1.1vw;
+    text-transform: uppercase;
+}
+.mobile-statistics-city{
+    color: #808285;
+    font-weight: 750;
+    font-size: 4.4vw;
     text-transform: uppercase;
 }
 .statistics-underline{
@@ -534,10 +575,21 @@ img.copy-icon:hover, img.location-icon:hover {
     background-color: #bc1818;
     margin: 0.35vw auto;
 }
+.mobile-statistics-underline{
+    width: 5.2vw;
+    height: 0.85vw;
+    background-color: #bc1818;
+    margin: 0.8vw 1.2vw 1.8vw 1.2vw;
+}
 .statistics-projects{
     color: #808285;
     font-weight: 700;
     font-size: 1vw;
+}
+.mobile-statistics-projects{
+    color: #808285;
+    font-weight: 700;
+    font-size: 3vw;
 }
 .statistics-seperator{
     position: absolute;
@@ -572,7 +624,7 @@ img.copy-icon:hover, img.location-icon:hover {
 .single-statistics-card-container{
     grid-column: 4 / 5;
     color: #666666;
-    padding: 1.8vw 0.6vw 1.8vw 2.5vw;
+    padding: 1.9vw 0.6vw 1.9vw 2.2vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -602,6 +654,47 @@ img.copy-icon:hover, img.location-icon:hover {
     font-weight: 500;
     line-height: 1;
     margin-top:1vw;
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+    .single-card-number{
+        font-size: 7vw;
+        font-weight: 700;
+        position:relative;
+        margin: 0;
+        line-height: 1;
+    }
+    .single-card-label {
+        font-size: 1.7vw;
+        font-weight: 500;
+        line-height: 1;
+        margin-top:1vw;
+    }
+    .micro-statistics-title{
+        padding: 2vw ;
+        color: #414042;
+        font-weight: 900;
+        font-size: 4vw;
+    }
+    .categories-title {
+        font-size: 1vw;
+        font-weight: 700;
+        margin-bottom: 0.2vw;
+    }
+    .categories-list {
+        list-style-position: inside;
+        font-weight: 800;
+        font-size: 0.9vw;
+        padding: 0;
+        margin: 0;
+    }
+        .single-statistics-card-container {
+            grid-column: 4 / 5;
+            color: #666666;
+            padding: 2.7vw 0.5vw 2.7vw 1.8vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 }
 /*micro statistics end*/
 
