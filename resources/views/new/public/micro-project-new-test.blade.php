@@ -111,7 +111,7 @@
     <div class="horizontal-line small d-lg-none d-md-none d-sm-none d-block mt-3" data-aos="fade-up"
          data-aos-duration="800"></div>
 
-    <div id="statistic-section" class="d-lg-block d-md-block d-sm-block d-none small-margin section-space mb-2 "
+    <div id="statistic-section" class="d-lg-block d-md-block d-sm-block d-none small-margin section-space mb-3 "
          data-aos="fade-up"
          data-aos-duration="800">
         <div class="container-fluid">
@@ -123,15 +123,15 @@
             <div class="micro-page-margin">
 
                 {{--row 1 --}}
-                    <div class="row w-100 g-1 ">
+                    <div class="row">
                     {{--carousel (column 1)--}}
-                    <div class="col-xl-6 col-lg-12 col-md-12  col-12 pe-lg-2">
+                    <div class="col-xl-6 col-lg-12 col-md-12 mb-md-4 mb-xl-0  col-12">
                         <div id="MicroCarousel" class="carousel slide h-100 w-100"
                              data-bs-ride="carousel"
                              data-bs-interval="5500"
                              data-bs-pause="hover">
 
-                            <div class="carousel-inner h-100">
+                            <div class="carousel-inner">
                                 @for ($i = 1; $i <= 8; $i++)
                                     <div class="carousel-item {{ $i == 1 ? 'active' : '' }} h-100">
                                         <img src="/images/home/Micro/new-s{{$i}}.jpg"
@@ -144,11 +144,11 @@
                         </div>
                     </div>
                     {{--total projects + sustain rate + benefeciaries (column 2)--}}
-                    <div class="col-xl-6 col-lg-12 col-md-12 w-50 d-flex flex-column justify-content-end align-items-end gap-3 gap-md-4 gap-lg-4 gap-xl-4">
+                    <div class="col-xl-6 col-lg-12 col-md-12 gap-3 gap-md-4  d-flex flex-column justify-content-end align-items-center ">
                         {{--total projects + sustain rate (row 1)--}}
-                        <div class="row grid-parent gap-3 gap-md-4 gap-lg-4 gap-xl-4 w-100 pe-md-2">
+                        <div class="row grid-parent gap-3 gap-md-4 w-100">
                             {{--total projects in syria--}}
-                            <div class="col bg-primary-red d-flex  flex-column align-items-center justify-content-center text-center py-md-5 padding-3vw text-white">
+                            <div class="col bg-primary-red d-flex  flex-column align-items-center justify-content-center text-center py-md-4 py-xl-5 text-white">
 
                                         <div class="single-card-number">
                                             {{ number_format($allCount, 0) }}
@@ -158,7 +158,7 @@
                                         </div>
                             </div>
                             {{--Project Sustainability rate--}}
-                            <div class="col bg-secondary-gray-light d-flex flex-column align-items-center  justify-content-center text-center padding-3vw">
+                            <div class="col bg-secondary-gray-light d-flex flex-column align-items-center  justify-content-center text-center ">
                                     <div class="single-card-number text-primary-red">
                                         {{$sustainableRate[0]->number}}%
                                     </div>
@@ -168,10 +168,10 @@
                             </div>
                         </div>
                         {{--Beneficiaries (row 2) --}}
-                        <div class="row w-100 pe-md-2">
+                        <div class="row w-100">
                             <div class="col bg-secondary-gray-light d-flex  flex-column align-items-center justify-content-center p-3">
 
-                                    <div class="fw-bold text-left mb-lg-2 w-100 text-secondary-gray-dark" style="font-size: 1rem;">
+                                    <div class="fw-bold benefeciaries-text text-left mb-xl-2 mb-md-3 w-100 text-secondary-gray-dark">
                                         Beneficiaries' Age Classification
                                     </div>
                                     <div class="d-flex justify-content-around w-100 mt-1">
@@ -214,7 +214,7 @@
                                 @endphp
 
                                 @foreach($row2Cities as $city => $count)
-                                    <div class="p-4 bg-secondary-gray-light position-relative">
+                                    <div class=" custom-padding bg-secondary-gray-light position-relative">
                                         <div class="statistics-city">{{$city}}</div>
                                         <div class="statistics-underline"></div>
                                         <div class="statistics-number">{{ number_format((int)$count, 0) }}</div>
@@ -254,14 +254,14 @@
                           @endphp
 
                           @foreach($row2Cities as $city => $count)
-                              <div class="p-4 bg-secondary-gray-light position-relative">
+                              <div class=" custom-padding   bg-secondary-gray-light position-relative">
                                   <div class="statistics-city">{{$city}}</div>
                                   <div class="statistics-underline"></div>
                                   <div class="statistics-number">{{ number_format((int)$count, 0) }}</div>
                                   <div class="statistics-projects">Projects</div>
 
                                   @if(!$loop->last)
-                                      <div class="statistics-seperator" style="z-index: 1000;"></div>
+                                      <div class="big-statistics-seperator z-3"></div>
                                   @endif
                               </div>
                           @endforeach
