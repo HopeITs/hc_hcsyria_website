@@ -148,7 +148,7 @@
                         {{--total projects + sustain rate (row 1)--}}
                         <div class="row grid-parent gap-3 gap-md-4 w-100">
                             {{--total projects in syria--}}
-                            <div class="col bg-primary-red d-flex  flex-column align-items-center justify-content-center text-center py-md-4 py-xl-5 text-white">
+                            <div class="col bg-primary-red d-flex  flex-column align-items-center justify-content-center text-center  py-6 text-white">
 
                                         <div class="single-card-number">
                                             {{ number_format($allCount, 0) }}
