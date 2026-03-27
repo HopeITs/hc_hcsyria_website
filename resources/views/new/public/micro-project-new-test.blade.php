@@ -63,7 +63,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
     <script src="https://pandameister.github.io/chartjs-chart-radial-gauge/docs/js/Chart.RadialGauge.umd.js"></script>
 </head>
-<body style="overflow-x: hidden;">
+<body class="overflow-x-hidden">
 @include('new.public.components.analytics-body')
 <div id="fb-root"></div>
 <script>(function (d, s, id) {
@@ -78,9 +78,9 @@
     $active = 'micro';
 @endphp
 <div id="Micro" class="page_start">
-{{--        <div class="preloader">--}}
-{{--            <div class="preloader-gif"></div>--}}
-{{--        </div>--}}
+        <div class="preloader">
+            <div class="preloader-gif"></div>
+        </div>
     @include('new.public.navbar')
     <div class="page-margin">
         <div class="container-fluid">
@@ -221,7 +221,7 @@
                                         <div class="statistics-projects">Projects</div>
 
                                         @if(!$loop->last)
-                                            <div class="statistics-seperator" style="z-index: 1000;"></div>
+                                            <div class="statistics-seperator"></div>
                                         @endif
                                     </div>
                                 @endforeach
@@ -257,11 +257,11 @@
                               <div class=" custom-padding   bg-secondary-gray-light position-relative">
                                   <div class="statistics-city">{{$city}}</div>
                                   <div class="statistics-underline"></div>
-                                  <div class="statistics-number">{{ number_format((int)$count, 0) }}</div>
+                                  <div class="statistics-number">{{ is_numeric($count) ? number_format((int)$count, 0) : $count }}</div>
                                   <div class="statistics-projects">Projects</div>
 
                                   @if(!$loop->last)
-                                      <div class="big-statistics-seperator z-3"></div>
+                                      <div class="big-statistics-seperator"></div>
                                   @endif
                               </div>
                           @endforeach
@@ -309,8 +309,7 @@
                 </div>
 
                 <div class="col-6 p-0 ps-1">
-                    <div class="d-flex bg-secondary-gray-light flex-column align-items-center justify-content-center p-2 h-100"
-                         style="min-height: 115px;">
+                    <div class="d-flex bg-secondary-gray-light mobile-fixed-height flex-column align-items-center justify-content-center p-2 h-100">
                         <div class="fs-0 fw-bolder lh-1 text-primary-red">
                             {{ $sustainableRate[0]->number }}%
                         </div>
@@ -354,7 +353,7 @@
                 </div>
 
                 <div class="col-6 p-0 ps-1">
-                    <div class="bg-secondary-gray-light h-100 d-flex flex-column justify-content-center" style="padding: 15px 10px 15px 30px;">
+                    <div class="bg-secondary-gray-light mobile-categories-padding h-100 d-flex flex-column justify-content-center">
                         <div class="fs-8 fw-bold text-secondary-gray-dark mb-2">Top 5 Categories</div>
 
                         <ol class="fw-bolder fs-8 text-secondary-gray-dark lh-sm m-0 ps-3">
@@ -393,7 +392,7 @@
                             <div class="mobile-statistics-underline"></div>
 
                             <div class="mobile-statistics-number">
-                                {{ number_format((int)($city['count'] ?? 0), 0) }}
+                                {{ is_numeric($city['count']) ? number_format((int)$city['count'], 0) : ($city['count'] ?? 'Soon') }}
                             </div>
 
                             <div class="mobile-statistics-projects">
