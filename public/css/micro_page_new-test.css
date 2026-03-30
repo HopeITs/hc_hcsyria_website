@@ -845,6 +845,11 @@ img.copy-icon:hover, img.location-icon:hover {
     }
 
 }
+@media (min-width: 3500px){
+    #MicroCarousel .carousel-inner{
+        height: 21.5vw !important;
+    }
+}
 @media (min-width: 3000px){
     #MicroCarousel .carousel-inner{
         height: 21.8vw !important;
@@ -857,7 +862,7 @@ img.copy-icon:hover, img.location-icon:hover {
 }
 @media (min-width: 2500px) and (max-width: 2749px){
     #MicroCarousel .carousel-inner{
-        height: 22.5vw !important;
+        height: 22.45vw !important;
     }
 }
 @media (min-width: 2250px) and (max-width: 2499px){
