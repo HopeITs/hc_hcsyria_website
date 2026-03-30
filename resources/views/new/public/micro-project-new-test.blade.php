@@ -60,8 +60,10 @@
     <script type="text/javascript" src="/js/swipe.index.js"></script>
     <script type="text/javascript" src="/js/swipe.js"></script>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+    <script src="https://pandameister.github.io/chartjs-chart-radial-gauge/docs/js/Chart.RadialGauge.umd.js"></script>
 </head>
-<body>
+<body class="overflow-x-hidden">
 @include('new.public.components.analytics-body')
 <div id="fb-root"></div>
 <script>(function (d, s, id) {
@@ -76,9 +78,9 @@
     $active = 'micro';
 @endphp
 <div id="Micro" class="page_start">
-    <div class="preloader">
-        <div class="preloader-gif"></div>
-    </div>
+        <div class="preloader">
+            <div class="preloader-gif"></div>
+        </div>
     @include('new.public.navbar')
     <div class="page-margin">
         <div class="container-fluid">
@@ -108,515 +110,304 @@
     @include('new.public.components.project-brief-section', ['project' => $brief])
     <div class="horizontal-line small d-lg-none d-md-none d-sm-none d-block mt-3" data-aos="fade-up"
          data-aos-duration="800"></div>
-    <div id="statistic-section" class="d-lg-block d-md-block d-sm-block d-none small-margin section-space mb-2"
+
+    <div id="statistic-section" class="d-lg-block d-md-block d-sm-block d-none small-margin section-space mb-3 "
          data-aos="fade-up"
          data-aos-duration="800">
         <div class="container-fluid">
-            <div class="row" data-aos="fade-up" data-aos-duration="600">
+            <div class="row " data-aos="fade-up" data-aos-duration="600">
                 <div class="col-12 d-flex justify-content-center">
-                    <div class="section-title pb-0">Statistics</div>
+                    <div class="micro-statistics-title">Statistics</div>
                 </div>
             </div>
-            <div class="card-height">
-                <div class="single-card">
-                    <div class="row d-flex justify-content-center statistics-container">
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 p-0 position-relative">
-                            <img class="w-100 h-100" src="/images/home/Micro/s1.jpg">
-                            <div class="overlay">
-                                <div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$aleppoCount}}</div>
-                                <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
-                                <div class="text-uppercase">aleppo</div>
+            <div class="micro-page-margin">
+
+                {{--row 1 --}}
+                    <div class="row">
+                    {{--carousel (column 1)--}}
+                    <div class="col-xl-6 col-lg-12 col-md-12 mb-md-4 mb-xl-0  col-12">
+                        <div id="MicroCarousel" class="carousel slide h-100 w-100"
+                             data-bs-ride="carousel"
+                             data-bs-interval="5500"
+                             data-bs-pause="hover">
+
+                            <div class="carousel-inner">
+                                @for ($i = 1; $i <= 8; $i++)
+                                    <div class="carousel-item {{ $i == 1 ? 'active' : '' }} h-100">
+                                        <img src="/images/home/Micro/new-s{{$i}}.jpg"
+                                             oncontextmenu="return false;"
+                                             class="carousel-img w-100 h-100 object-center-fit object-fit-cover d-block"
+                                             alt="Slide {{$i}}">
+                                    </div>
+                                @endfor
                             </div>
-                            {{--<div class="statis-city text-uppercase">aleppo</div>--}}
                         </div>
-                        <div
-                            class="col-lg-4 col-md-4 col-sm-4 col-12 d-flex justify-content-center align-items-center flex-column">
-                            <div class="w-100 text-center total">
-                                <div class="statistics-num-edited">{{ number_format($allCount, 0) }}</div>
-                                <div>Total Projects in <b>Syria</b>
+                    </div>
+                    {{--total projects + sustain rate + benefeciaries (column 2)--}}
+                    <div class="col-xl-6 col-lg-12 col-md-12 gap-3 gap-md-4  d-flex flex-column justify-content-end align-items-center ">
+                        {{--total projects + sustain rate (row 1)--}}
+                        <div class="row grid-parent gap-3 gap-md-4 w-100">
+                            {{--total projects in syria--}}
+                            <div class="col bg-primary-red d-flex  flex-column align-items-center justify-content-center text-center  py-6 text-white">
+
+                                        <div class="single-card-number">
+                                            {{ number_format($allCount, 0) }}
+                                        </div>
+                                        <div class="single-card-label">
+                                            Total Projects in <strong>Syria</strong>
+                                        </div>
+                            </div>
+                            {{--Project Sustainability rate--}}
+                            <div class="col bg-secondary-gray-light d-flex flex-column align-items-center  justify-content-center text-center ">
+                                    <div class="single-card-number text-primary-red">
+                                        {{$sustainableRate[0]->number}}%
+                                    </div>
+                                    <div class="single-card-label text-secondary-gray-darker">
+                                        Project Sustainability rate
+                                    </div>
+                            </div>
+                        </div>
+                        {{--Beneficiaries (row 2) --}}
+                        <div class="row w-100">
+                            <div class="col bg-secondary-gray-light d-flex  flex-column align-items-center justify-content-center p-3">
+
+                                    <div class="fw-bold benefeciaries-text text-left mb-xl-2 mb-md-3 w-100 text-secondary-gray-dark">
+                                        Beneficiaries' Age Classification
+                                    </div>
+                                    <div class="d-flex justify-content-around w-100 mt-1">
+                                        @foreach($agerange as $index => $range)
+                                            @php
+                                                $percentage = ($allCount > 0) ? ($range->project_count / $allCount) * 100 : 0;
+                                            @endphp
+                                            <div class="text-center d-flex flex-grow-1 flex-column align-items-center">
+                                                <div class="position-relative chart-sizing ">
+                                                    <canvas id="age-chart-{{ $index }}"></canvas>
+                                                    <div class="beneficiaries-chart-percentage">
+                                                        <div class="micro-radial-number">{{ round($percentage) }}</div>
+                                                        <div class="micro-radial-percentage">%</div>
+                                                    </div>
+                                                </div>
+                                                <div class="micro-radial-range">
+                                                    {{ $range->Name }}
+                                                </div>
+                                            </div>
+                                        @endforeach
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 p-0 position-relative">
-                            <img class="w-100 h-100" src="/images/home/Micro/s2.jpg">
-                            <div class="overlay">
-                                <div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$homsCount}}</div>
-                                <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
-                                <div class="text-uppercase">homs</div>
-                            </div>
-                            {{--<div class="statis-city text-uppercase">homs</div>--}}
-                        </div>
-                    </div>
-                    <div class="row d-flex justify-content-center statistics-container">
-                        <div
-                            class="col-lg-4 col-md-4 col-sm-4 col-12 p-0 d-flex justify-content-center align-items-center text-center">
-                            <div class="chartContainer">
-                                <div class="category-title" style="text-align: left">Top 5 Project Categories</div>
-                                <canvas id="barChart"></canvas>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 p-0 position-relative">
-                            <img class="w-100 h-100" src="/images/home/Micro/s3.jpg">
-                            <div class="overlay">
-                                <div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$damascusCount}}</div>
-                                <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
-                                <div class="text-uppercase">damascus</div>
-                            </div>
-                            {{--<div class="statis-city text-uppercase">damascus</div>--}}
-                        </div>
-                        <div
-                            class="col-lg-4 col-md-4 col-sm-4 col-12 p-0 d-flex justify-content-center align-items-center text-center">
-                            <div class="chartContainer">
-                                <div class="category-title" style="text-align: left">Beneficiaries' Age Classification
-                                </div>
-                                <canvas id="barageChart"></canvas>
+
                             </div>
                         </div>
                     </div>
-                    <div class="row d-flex justify-content-center statistics-container">
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 p-0 position-relative">
-                            <img class="w-100 h-100" src="/images/home/Micro/s4.jpg">
-                            <div class="overlay">
-                                <div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$wadiCount}}</div>
-                                <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
-                                <div class="text-uppercase">Al Wadi</div>
+                </div>
+                {{--row 2 --}}
+                <div class="row d-flex justify-content-center mt-md-4 align-items-center">
+                    {{--aleppo + homs + damascus column--}}
+                    <div class="col-xl-9 col-lg-9 col-md-9">
+                        <div class="row">
+                            <div class="col py-0 cities-small-container">
+                                @php
+                                    $row2Cities = [
+                                        'Aleppo' => $aleppoCount,
+                                        'Homs' => $homsCount,
+                                        'Damascus' => $damascusCount,
+
+                                    ];
+                                @endphp
+
+                                @foreach($row2Cities as $city => $count)
+                                    <div class=" custom-padding bg-secondary-gray-light position-relative">
+                                        <div class="statistics-city">{{$city}}</div>
+                                        <div class="statistics-underline"></div>
+                                        <div class="statistics-number">{{ number_format((int)$count, 0) }}</div>
+                                        <div class="statistics-projects">Projects</div>
+
+                                        @if(!$loop->last)
+                                            <div class="statistics-seperator"></div>
+                                        @endif
+                                    </div>
+                                @endforeach
                             </div>
-                            {{--<div class="statis-city text-uppercase">aleppo</div>--}}
-                        </div>
-                        <div
-                            class="col-lg-4 col-md-4 col-sm-4 col-12 d-flex justify-content-center align-items-center flex-column">
-                            <div class="w-75 text-center">
-                                <div class="statistics-num-edited">{{$sustainableRate[0]->number}}%</div>
-                                <div>Sustainable Projects Rate</div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-12 p-0 position-relative">
-                            <img class="w-100 h-100" src="/images/home/Micro/s5.jpg">
-                            <div class="overlay">
-                                <div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$latakiaCount}}</div>
-                                <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
-                                <div class="text-uppercase">latakia</div>
-                            </div>
-                            {{--<div class="statis-city text-uppercase">homs</div>--}}
                         </div>
                     </div>
+                    {{--top 5 categories column--}}
+                    <div class="col-3  ">
+                            <div class=" single-statistics-card-container bg-secondary-gray-light">
+                                <div class="categories-title" >Top 5 Project Categories</div>
+                                <ol class="categories-list" >
+                                    @foreach($categories as $category)
+                                        <li>{{ $category->Name }}</li>
+                                    @endforeach
+                                </ol>
+                            </div>
+
+                    </div>
+                </div>
+                {{--row 3 --}}
+                <div class="row mt-md-4">
+                      <div class="col  cities-big-container">
+                          @php
+                              $row2Cities = [
+                                  'Latakia' => $latakiaCount,
+                                  'Al Wadi' => $wadiCount,
+                                  'Idleb' => $idlebCount,
+                                  'Tartus' => $tartusCount
+                              ];
+                          @endphp
+
+                          @foreach($row2Cities as $city => $count)
+                              <div class=" custom-padding   bg-secondary-gray-light position-relative">
+                                  <div class="statistics-city">{{$city}}</div>
+                                  <div class="statistics-underline"></div>
+                                  <div class="statistics-number">{{ is_numeric($count) ? number_format((int)$count, 0) : $count }}</div>
+                                  <div class="statistics-projects">Projects</div>
+
+                                  @if(!$loop->last)
+                                      <div class="big-statistics-seperator"></div>
+                                  @endif
+                              </div>
+                          @endforeach
+                      </div>
                 </div>
             </div>
         </div>
-
-        {{--<div class="row">--}}
-        {{--<div class="col-6 d-flex justify-content-start"></div>--}}
-        {{--<div class="col-6 d-flex justify-content-start flex-column lh-sm"--}}
-        {{--style="padding-left: 3vw;">--}}
-        {{--<div class="statistics-num count_int" data-aos="fade-up"--}}
-        {{--data-aos-duration="600">{{$aleppoCount}}</div>--}}
-        {{--<div class="statistics-title text-capitalize" data-aos="fade-up"--}}
-        {{--data-aos-duration="800">@lang('projects.aleppo')</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
-        {{--<div class="col-6 d-flex justify-content-end text-end flex-column lh-sm"--}}
-        {{--style="padding-right: 3vw;">--}}
-        {{--<div class="row">--}}
-        {{--<div class="statistics-num count_int" data-aos="fade-up"--}}
-        {{--data-aos-duration="600">{{$homsCount}}</div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
-        {{--<div class="statistics-title text-capitalize" data-aos="fade-up"--}}
-        {{--data-aos-duration="800">@lang('projects.homs')</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="col-6 d-flex justify-content-start"></div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
-        {{--<div class="col-6 d-flex justify-content-start"></div>--}}
-        {{--<div class="col-6 d-flex justify-content-start flex-column lh-sm"--}}
-        {{--style="padding-left: 3vw;">--}}
-        {{--<div class="row">--}}
-        {{--<div class="statistics-num count_int" data-aos="fade-up"--}}
-        {{--data-aos-duration="600">{{$damascusCount}}</div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
-        {{--<div class="statistics-title text-capitalize" data-aos="fade-up"--}}
-        {{--data-aos-duration="800">@lang('projects.damascus')</div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
-        {{--<div class="statistics-subtitle" data-aos="fade-up" data-aos-duration="1000">dummy text do not--}}
-        {{--read--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
     </div>
-    <div id="statistic-section" class="d-lg-none d-md-none d-sm-none d-block section-space" data-aos="fade-up"
-         data-aos-duration="800">
-        <div class="container-fluid">
-            <div class="row" data-aos="fade-up" data-aos-duration="600">
-                <div class="col-12 d-flex justify-content-center">
-                    <div class="section-title pb-0">Statistics</div>
+
+    <div id="statistic-section" class="d-block d-sm-none section-space px-3" data-aos="fade-up">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <div class="micro-statistics-title pt-4 fs-3 ">Statistics</div>
+            </div>
+        </div>
+
+        <div class="row row-cols-2 g-2 mb-3 bg-white mx-0">
+
+            <div class="col-12 w-100  overflow-hidden d-block position-relative p-0 m-0">
+                <div id="MicroCarouselMobile" class="carousel slide w-100 h-100" data-bs-ride="carousel" data-bs-touch="true">
+                    <div class="carousel-inner carousel-mobile-container">
+                        @for ($i = 1; $i <= 8; $i++)
+                            <div class="carousel-item {{ $i == 1 ? 'active' : '' }} h-100">
+
+                                <img src="/images/home/Micro/new-s{{$i}}.jpg"
+                                     oncontextmenu="return false;"
+                                     class="carousel-img d-block w-100"
+                                     alt="Slide {{$i}}">
+                            </div>
+                        @endfor
+                    </div>
                 </div>
             </div>
-            {{--<div class="row d-flex justify-content-center statistics-container" data-aos="fade-up"--}}
-            {{--data-aos-duration="600">--}}
-            {{--<div class="col-6 p-0 position-relative">--}}
-            {{--<img class="w-100 h-100" src="/images/home/Micro/s1.jpg">--}}
-            {{--<div class="overlay">--}}
-            {{--<div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$aleppoCount}}</div>--}}
-            {{--<div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>--}}
-            {{--<div class="text-uppercase">aleppo</div>--}}
-            {{--</div>--}}
-            {{--<div class="statis-city text-uppercase">aleppo</div>--}}
-            {{--</div>--}}
-            {{--<div class="col-6 d-flex justify-content-center align-items-center flex-column">--}}
-            {{--<div class="category-title" style="text-align: left">Top 5 Project Categories</div>--}}
-            {{--<div class="chartContainer">--}}
-            {{--<canvas id="barChartsm"></canvas>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="row d-flex justify-content-center statistics-container" data-aos="fade-up"--}}
-            {{--data-aos-duration="800">--}}
-            {{--<div class="col-6 p-0 d-flex justify-content-center align-items-center text-center">--}}
-            {{--<div class="w-50">--}}
-            {{--<div class="statistics-num-edited">{{$sustainableRate[0]->number}}%</div>--}}
-            {{--<div>Sustainable Projects Rate</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="col-6 p-0 position-relative">--}}
-            {{--<img class="w-100 h-100" src="/images/home/Micro/s2.jpg">--}}
-            {{--<div class="overlay">--}}
-            {{--<div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$homsCount}}</div>--}}
-            {{--<div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>--}}
-            {{--<div class="text-uppercase">homs</div>--}}
-            {{--</div>--}}
-            {{--<div class="statis-city text-uppercase">homs</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="row d-flex justify-content-center statistics-container" data-aos="fade-up"--}}
-            {{--data-aos-duration="1000">--}}
-            {{--<div class="col-6 p-0 position-relative">--}}
-            {{--<img class="w-100 h-100" src="/images/home/Micro/s3.jpg">--}}
-            {{--<div class="overlay">--}}
-            {{--<div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$damascusCount}}</div>--}}
-            {{--<div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>--}}
-            {{--<div class="text-uppercase">damascus</div>--}}
-            {{--</div>--}}
-            {{--<div class="statis-city text-uppercase">damascus</div>--}}
-            {{--</div>--}}
-            {{--<div class="col-6 p-0 d-flex justify-content-center align-items-center text-center">--}}
-            {{--<div class="w-50">--}}
-            {{--<div class="statistics-num-edited">{{$familyMembersCount}}+</div>--}}
-            {{--<div>Total number of indirect Beneficiaries--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
 
-
-            {{--<div class="row d-flex justify-content-center statistics-container">--}}
-            {{--<div class="col-6 d-flex justify-content-center align-items-center flex-column">--}}
-            {{--<div class="w-100 text-center total">--}}
-            {{--<div class="statistics-num-edited">{{ number_format($allCount, 0) }}</div>--}}
-            {{--<div>Total Projects in <b>Syria</b>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="row d-flex justify-content-center statistics-container">--}}
-            {{--<div class="col-6 p-0 position-relative">--}}
-            {{--<img class="w-100 h-100" src="/images/home/Micro/s1.jpg">--}}
-            {{--<div class="overlay">--}}
-            {{--<div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$aleppoCount}}</div>--}}
-            {{--<div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>--}}
-            {{--<div class="text-uppercase">aleppo</div>--}}
-            {{--</div>--}}
-            {{--<div class="statis-city text-uppercase">aleppo</div>--}}
-            {{--</div>--}}
-            {{--<div class="col-6 p-0 d-flex justify-content-center align-items-center text-center">--}}
-            {{--<div class="chartContainer">--}}
-            {{--<div class="category-title" style="text-align: left">Top 5 Project Categories</div>--}}
-            {{--<canvas id="barChartsm"></canvas>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="row d-flex justify-content-center statistics-container">--}}
-            {{--<div class="col-6 d-flex justify-content-center align-items-center flex-column">--}}
-            {{--<div class="w-75 text-center">--}}
-            {{--<div class="statistics-num-edited">{{$sustainableRate[0]->number}}%</div>--}}
-            {{--<div>Sustainable Projects Rate</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="col-6 p-0 position-relative">--}}
-            {{--<img class="w-100 h-100" src="/images/home/Micro/s3.jpg">--}}
-            {{--<div class="overlay">--}}
-            {{--<div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$damascusCount}}</div>--}}
-            {{--<div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>--}}
-            {{--<div class="text-uppercase">damascus</div>--}}
-            {{--</div>--}}
-            {{--<div class="statis-city text-uppercase">damascus</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="row d-flex justify-content-center statistics-container">--}}
-            {{--<div class="col-6 p-0 position-relative">--}}
-            {{--<img class="w-100 h-100" src="/images/home/Micro/s5.jpg">--}}
-            {{--<div class="overlay">--}}
-            {{--<div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$latakiaCount}}</div>--}}
-            {{--<div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>--}}
-            {{--<div class="text-uppercase">latakia</div>--}}
-            {{--</div>--}}
-            {{--<div class="statis-city text-uppercase">homs</div>--}}
-            {{--</div>--}}
-            {{--<div class="col-6 p-0 d-flex justify-content-center align-items-center text-center">--}}
-            {{--<div class="chartContainer">--}}
-            {{--<div class="category-title" style="text-align: left">Beneficiaries' Age Classification</div>--}}
-            {{--<canvas id="barageChartsm"></canvas>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="row d-flex justify-content-center statistics-container">--}}
-            {{--<div class="col-6 p-0 position-relative">--}}
-            {{--<img class="w-100 h-100" src="/images/home/Micro/s4.jpg">--}}
-            {{--<div class="overlay">--}}
-            {{--<div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$wadiCount}}</div>--}}
-            {{--<div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>--}}
-            {{--<div class="text-uppercase">Al Wadi</div>--}}
-            {{--</div>--}}
-            {{--<div class="statis-city text-uppercase">aleppo</div>--}}
-            {{--</div>--}}
-            {{--<div class="col-6 p-0 position-relative">--}}
-            {{--<img class="w-100 h-100" src="/images/home/Micro/s2.jpg">--}}
-            {{--<div class="overlay">--}}
-            {{--<div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$homsCount}}</div>--}}
-            {{--<div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>--}}
-            {{--<div class="text-uppercase">homs</div>--}}
-            {{--</div>--}}
-            {{--<div class="statis-city text-uppercase">homs</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-
-            <div class="row d-flex justify-content-center statistics-container">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-4 p-0 position-relative">
-                    <img class="w-100 h-100" src="/images/home/Micro/s1.jpg">
-                    <div class="overlay">
-                        <div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$aleppoCount}}</div>
-                        <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
-                        <div class="text-uppercase">aleppo</div>
-                    </div>
-                    {{--<div class="statis-city text-uppercase">aleppo</div>--}}
-                </div>
-                <div
-                    class="col-lg-4 col-md-4 col-sm-4 col-4 d-flex justify-content-center align-items-center flex-column">
-                    <div class="w-100 text-center total">
-                        <div class="statistics-num-edited">{{ number_format($allCount, 0) }}</div>
-                        <div>Total Projects in <b>Syria</b>
+            <div class="row g-2 pb-2 w-100 m-0">
+                <div class="col-6 p-0 pe-1">
+                    <div class="d-flex flex-column bg-primary-red align-items-center justify-content-center p-2 text-white h-100">
+                        <div class="fs-0 fw-bolder lh-1">
+                            {{ number_format((int)$allCount, 0) }}
+                        </div>
+                        <div class="fs-7 fw-medium lh-1 mt-2 text-center">
+                            Total Projects in <strong>Syria</strong>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-4 p-0 position-relative">
-                    <img class="w-100 h-100" src="/images/home/Micro/s2.jpg">
-                    <div class="overlay">
-                        <div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$homsCount}}</div>
-                        <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
-                        <div class="text-uppercase">homs</div>
+
+                <div class="col-6 p-0 ps-1">
+                    <div class="d-flex bg-secondary-gray-light mobile-fixed-height flex-column align-items-center justify-content-center p-2 h-100">
+                        <div class="fs-0 fw-bolder lh-1 text-primary-red">
+                            {{ $sustainableRate[0]->number }}%
+                        </div>
+                        <div class="text-secondary-gray-darker fs-7 fw-medium lh-1 mt-2 text-center">
+                            Project Sustainability rate
+                        </div>
                     </div>
-                    {{--<div class="statis-city text-uppercase">homs</div>--}}
-                </div>
-            </div>
-            <div class="row d-flex justify-content-center statistics-container">
-                <div
-                    class="col-lg-4 col-md-4 col-sm-4 col-4 p-0 d-flex justify-content-center align-items-center text-center">
-                    <div class="chartContainer">
-                        <div class="category-title" style="text-align: left">Top 5 Project Categories</div>
-                        <canvas id="barChartsm"></canvas>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-4 p-0 position-relative">
-                    <img class="w-100 h-100" src="/images/home/Micro/s3.jpg">
-                    <div class="overlay">
-                        <div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$damascusCount}}</div>
-                        <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
-                        <div class="text-uppercase">damascus</div>
-                    </div>
-                    {{--<div class="statis-city text-uppercase">damascus</div>--}}
-                </div>
-                <div
-                    class="col-lg-4 col-md-4 col-sm-4 col-4 p-0 d-flex justify-content-center align-items-center text-center">
-                    <div class="chartContainer">
-                        <div class="category-title" style="text-align: left">Beneficiaries' Age Classification</div>
-                        <canvas id="barageChartsm"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="row d-flex justify-content-center statistics-container">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-4 p-0 position-relative">
-                    <img class="w-100 h-100" src="/images/home/Micro/s4.jpg">
-                    <div class="overlay">
-                        <div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$wadiCount}}</div>
-                        <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
-                        <div class="text-uppercase">Al Wadi</div>
-                    </div>
-                    {{--<div class="statis-city text-uppercase">aleppo</div>--}}
-                </div>
-                <div
-                    class="col-lg-4 col-md-4 col-sm-4 col-4 d-flex justify-content-center align-items-center flex-column">
-                    <div class="w-75 text-center">
-                        <div class="statistics-num-edited">{{$sustainableRate[0]->number}}%</div>
-                        <div>Sustainable Projects Rate</div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-4 p-0 position-relative">
-                    <img class="w-100 h-100" src="/images/home/Micro/s5.jpg">
-                    <div class="overlay">
-                        <div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$latakiaCount}}</div>
-                        <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
-                        <div class="text-uppercase">latakia</div>
-                    </div>
-                    {{--<div class="statis-city text-uppercase">homs</div>--}}
                 </div>
             </div>
 
+            <div class="col-12 m-0 p-3 bg-secondary-gray-light">
+                <div class="fw-bold text-secondary-gray-dark fs-7 mb-3">Beneficiaries' Age Classification</div>
+                <div class="d-flex justify-content-around">
+                    @foreach($agerange as $index => $range)
+                        <div class="text-center">
+                            <div class="gauge-circle">
+                                <canvas id="age-chart-mobile-{{ $index }}"></canvas>
+                                <div class="gauge-circle-number">
+                                    {{ round(($allCount > 0) ? ($range->project_count / $allCount) * 100 : 0) }}%
+                                </div>
+                            </div>
+                            <div class="fw-bold fs-8 text-secondary-gray-dark mt-2">{{ $range->Name }}</div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
 
-            {{--<div class="col-lg-6 col-md-6 col-sm-4 col-12 d-flex justify-content-center align-items-center position-relative">--}}
-            {{--<div id="citiesMap">--}}
-            {{--<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg"--}}
-            {{--viewBox="0 0 680.69 590.49">--}}
-            {{--<defs>--}}
-            {{--<style>--}}
-            {{--.cls-1 {--}}
-            {{--fill: #ccc;--}}
-            {{--stroke: #fff;--}}
-            {{--stroke-width: .5px;--}}
-            {{--}--}}
-            {{--</style>--}}
-            {{--</defs>--}}
-            {{--<g id="Layer_1-2" data-name="Layer 1">--}}
-            {{--<g>--}}
-            {{--<path class="cls-1"--}}
-            {{--d="M21.92,162.97s9-5.19,1.63-17.33c-7.37-12.14-14.04-24.42-16.9-26.22s7.59-6.5,7.59-6.5l2.07-3.55,2.05-1.22s1.45-4.06,3.07-5.15,5.82-2,5.82-2l4.77-6.72s5.88-2.1,6.62-2.75,5.3-3.13,7.2-3.9,3.27-2.61,2.96-4.7,.57-4.75,.57-4.75c0,0-.33-4.38-.71-6.17s-1.2-5.65,2.3-7.92,12.07-3.21,21.8,.5c0,0,18-8.01,24.86-6.9l3.08-.64,10.79,25.35s14.19,21.15,15.26,27.61c1.06,6.46,4.26,34.84,4.26,34.84l-24.48,36.9s-36.19,17.03-39.03,17.39-37.77-7.45-37.77-7.45c0,0-2.68-8.52-3.74-12.06s-4.04-16.66-4.04-16.66Z"/>--}}
-            {{--<g>--}}
-            {{--<path id="SY-HA" class="cls-1 land"--}}
-            {{--d="M628.38,84.75l-1.72,.55-3.77,3.08-12.38,3.03-28.9,4.97-.94,.51-1.01,.96-11.44,18.81-.48,11.18-2.9,20.66-.99,4.51,12.01,26.44,.9,24.57-6.39,9.41h0l-12.91-1.76-13.87-.03-10.64-1.17-8.21-2.48-5.82-1.2-6.93-3.84-1.83-2.55-2.73-1.81-78.85-76.71-3.89-4.93-2.14-4.34-3.84-6.04-1.49-3.93h0l-.23-2.06-.8-1.38-2.8-2.4-1.92-1.09-7.76-2.82-4.64-2.18-5.67,1.2-2.19-.35-1.84-1.12-5.8-7.51-.79-3.34-1.76-3.59-.34-1.68h0l1.38-.53,1.47,.24,8.01-1.15,5.19-1.39,6.93-.71,5.92-2.14,8.59-.63,3.52-.69,4.98-2.61,7.44-2.54,5.39-3.07,3.7-1.44,3.61-2.96,4.66-1.32,4.91-.81,2.76-1.08,3.12-1.86,2.26-2.02,1.86-.74,4.88-3.11,6.15-2.72,3.42-2.97,1.95-1.15,11.02-2.11,3.7-1.74,2.03-1.56,7.42-2.92,3.39-2.32,4.56-.98,2.99-1.76,4.13,.13,1.15,1.27,1.66,.35,3.64-2.13,3.58-.32,2.92,.35,5.1,1.55,11.54,2.15,5.6,.39,3.49,1.6,.73,1.51,.65,.42,1.87-.15,3.51-1.73,23.32,.12,5.83-.65,10.12-3.25,7.22-.08,3.07-.46,22.07-4.98,4.22-2.16,4.19-1.37,5-2.89,1.7-2.74,1.74-1.71,5.63-3.96,2.36-4.02,.87-.48,.73,.22,.06,1.19-1.49,2.89,.19,.79,2.7-.34,2.85,1.15,1.98-1.18,1.21,2.41,1.39,.56,.62,1.43,2.24,1.07,.76,1.09-.26,2.07-1.56,1.34-.52,1.69,.16,1.33,2.49,5.88-.12,3.89,.37,.72,1.52,.88,.34,1.81-13.99,13.24-7.48,8.13-4.35,3.96-20.34,22.61-3.56,2.9-2.31,2.74Z"/>--}}
-            {{--<path id="SY-DY" class="cls-1 land"--}}
-            {{--d="M558.09,272.84l.44,13.6-.17,9.21,.66,8.91-10.23,14.23-11.26,24.96-1.63,1.47-.54,2.32-41.86,21.27-42.28,22.45h0l-18.9-27.9-56.12-79.71,1.24-9.45-8.14-17.14-6.67-5.67-5.15-3.39h0l45.24-61.78-1.74-.39-2.78-1.91-1.32-.15,20.33-81.13h0l1.49,3.93,3.84,6.04,2.14,4.34,3.89,4.93,78.85,76.71,2.73,1.81,1.83,2.55,6.93,3.84,5.82,1.2,8.21,2.48,10.64,1.17,13.87,.03,12.91,1.76h0l-5.26,7.75-1,12.08-3.51,11.83-1.91,9.67-.89,8.57,.31,9.5Z"/>--}}
-            {{--<path id="SY-ID" class="cls-1 land"--}}
-            {{--d="M152.57,210.53l-2.24,1-.89,2.81-2.01,3.94-1.07,1.26-1.33,.88-3.32,.94-.81,.9-1.08,3.18-1.68,2.4-.07,1.96,1.06,.7,1.44-.09,2.28-2.93,1.24,.28,.66,1.92-.04,5.33-.2,.27-1.77-.68-.77,.29-1.2,1.05-1.13,1.85-1.17,.46-5.84,.19-1.62-.77-.63-5.3,1.23-2.39,.22-1.52-.28-1.75-1.12-1.57-.48,.04-1.57,2.5-2.4,2.14-1.3,2.87-.74,.36-2.52-.02-1.16,.49-.85-1.33-1.78-1.1-.84-1.83-3.81-3.02-8.83,1.7-2.59,1.24-4.34,.27-3.23-.32-6.68-1.87-4.03-.06-.97-.74-1.15-2.56-3.07-1.55-2.76,1.67-2.66,.48-1.11-1.11-1.03-4.11-1.66-3.14,1.1-1.68-.56-3.39,.23-2.03-.73-1.9v-1.43s2.52-11.66,2.52-11.66l-.05-3.29-.81-.38-5.14-.1-.75-.44-1.06-3.11-1.49-.34-2.19,1.11-1.91,.06-1.93-1.01-.67-1.21h0l3.01-1.8,.54-1.77-.24-.8-1.71-.58-3.95,.17-6.88,1.09-1.11-.64-.29-.77,.48-1.71-.52-2.6h0l.66,1.63,1.43,.57,1.46-2.4,.72-5.85-.79-2.08,.73-2.01,2.61-3.94,1.64-1.06,1.6-.37,1.93,.23,1.56,.85,2.4-.3,.37-.39-1.12-2.35,.35-1.38,1.99-1.47,2.71,1.42,2.46-.27,1.05-.74,.39-1.06-.11-1.95,1.49-2.39-.6-2.68,.96-1.86-1.17-1.89-.45-2.34,1.15-2.86-1.49-3.24,1.28-2.3,1.2-.35,.27-.98-.51-2.85,.6-.37,3.2,1.83,2.24,.37,1.36,.8,1.09-.44,1.45-3.48,1.42,.55,1.36-.97h2.01s1.48,1.23,1.48,1.23l2.7-.47,2.54,1.77,.92,.13,.92-.13,1.37-1.38h3.47s2.65-1.78,2.65-1.78l.57-1.3-1.31-2,.82-2.48-.56-.57-2.39-.68-.19-1.43h0l2.96-.54,2.84,.48,1.08-.6,1.33-1.56,1.38-.13,1.02,1.18,.49,3.09,2.7,1.96,2.16,3.33,1.26,1.05,.39,1.69-.82,1.57-6.66,6.52-4,2.75-.85,1.5,.46,1.14,1.8,1.59,.14,1.87,.54,.57,2.81,1.86,6.17,2.32,3.28,1.99,.71,1.92,.25,6.15,5.77,8.34,.34,1.7,1.66,1.71,.4,2.61,1.61,1.28,1.64,2.71,3.96,.99,1.93,2.49,2.74,1.38,1.05,1.2,.2,1.3-.68,1.73-4.15,3.13,1.6,5.54,1.68,2.17,.08,3.33,1.52,.35,.86,.84,1.17,2.53,2.54,1.05,1.88,2.07,4.63,1.9Z"/>--}}
-            {{--<path id="SY-RD" class="cls-1 land colored active"--}}
-            {{--d="M255.11,493.57l-9.04-6.49-7.11-5.92-7.54-5.29-9.51-8.89-10.47-7.1-8.81-2.55-3.79-2.27-7.06-5.4-1.88-2.01-.02-.04-4.22-5.96-2.04-5.82-.02-.03-.06-.14-1.66-3.41-4.96-4.93-7.52-5.57-6.77-7.2-3.46-2.3-2.85-4.42-3.45-6.99-.86-.79-4.34,.27-1.96-.54-13.44-7.88-2.86-3.67-.02-.03h0s-.57-1-.57-1l-4.85-8.37-9.68-11.75-2.51,.5-6,2.83-5.55-.21-4.28-2.09-3.5,.1-1.82,1.01,.49,.53-1.02,1.42-2.67,1.39-.63,1.79-1.33,1.16-.73,2.65-2.05,.7-1.21,.88-2.59,3.23-.42,3.27-1.53,1.39-2.27,1.24-3.66-1.17-3.08,1.34-.29,1.48-3.55,2.87-.34,1.39-1.89,.71-2.03,2.08-3.43,4.84-.76,1.68,.14,1.13,3.05,2.59,4.03,1.35,2.2,1.85,.7,1.53-1.38,2.06-.69,.43-1.59-.07-4.41-1.74-2.11-.07-1.11-1.05-2.87-.7-2,2.16-3.15,.26-2.17-.58-1.12-1.98-.96,.14-4.13,2.71-4.54,1.13-3.54,5.29-1.99,.23-.55,.44-.39,1.37-1.91,3.1-2,2.33-.21,3.4-3.25,2.98-.22,.77,.46,1.12,3.86,.57,7.2,4.16,.58,.74,.19,2.42-1.21,1.6-3.13,1.69-5.79,1.16-1.64,.87,1.1,3.09-.28,1.42-1.33,1.88-4.27,3.69,.52,.38,.13,.85-.38,1.48-3.15,3.89-.9,2.16-.36,2.11,.28,3.23h0s2.23,1.28,2.23,1.28h0s0,0,0,0l.14,.39-1.09,1.6,3.39,3.35,4.16,.52h.03l.38,.93-.34,4.54,2.58,.99,1,1.95,2.7,.3,1.69-.46,2.81-2.15h0s1.76-.71,1.76-.71l5.6,.49,3.59-1.55h.02s3.11-.47,3.11-.47l.59-.47h.02s1.47-3.17,1.47-3.17l-.52-2.65,.18-1.11v-.02l1.32-.84,1.86,2.44,1.99,1.31,.6,2.3,3.15,.73,.99,1.69,2.02,1.76,3.62,.83,1.05-.61,.7-2.6,2-1.83,6.3-3.84,1.87-1.96,1.56-.63,.86,.75,1.27,3.23,3.46,3.87,.57,3.94,.3,.4,.96-.41,15.97-1.7,6.48-1.76,1.89,.2,3.27,2.99,3.21,1.7,1.25,1.38,.02,.02,.78,2.87v.04s4.14,4.25,4.14,4.25h0s.58,3.31,.58,3.31v.06s1.39,1.59,1.39,1.59l1.68,.78,6.08,.63,3.13,1.28,2.66,1.94h.02s.12,2.41,.12,2.41v.04l2.42,3.21,.46,1.39,2.71,1.12,2.32,1.52,1.48,.24,2.63-1.72,2.51,1.05,2.09,2.75,.67,6.7,.95,1.71,8.76,8.41,2.89,2.27,2.34,3.01,3.62,2.11,3.52,4.16,.02,.03,84.17-49.97-4.42-4.18Zm-189.67-42.6v.02l-7.15,.15-1.44-.74-.96-2.3-1.68-1.77v-4.26s1.36-.82,1.36-.82l10.13,.38-.26,9.36Z"/>--}}
-            {{--<path id="SY-HL" class="cls-1 land colored active"--}}
-            {{--d="M152.57,210.53l-4.63-1.9-1.88-2.07-2.54-1.05-1.17-2.53-.86-.84-1.52-.35-.08-3.33-1.68-2.17-1.6-5.54,4.15-3.13,.68-1.73-.2-1.3-1.05-1.2-2.74-1.38-1.93-2.49-3.96-.99-1.64-2.71-1.61-1.28-.4-2.61-1.66-1.71-.34-1.7-5.77-8.34-.25-6.15-.71-1.92-3.28-1.99-6.17-2.32-2.81-1.86-.54-.57-.14-1.87-1.8-1.59-.46-1.14,.85-1.5,4-2.75,6.66-6.52,.82-1.57-.39-1.69-1.26-1.05-2.16-3.33-2.7-1.96-.49-3.09-1.02-1.18-1.38,.13-1.33,1.56-1.08,.6-2.84-.48-2.96,.54h0l.05-1.44-.98-.96-2.02-.21-1.83,.82-1.39-.15,.46-1.3,1.62-1.61-.72-2.51,.27-1.97-2.36-.16-1.02-.67-1.18-3.27-.1-1.66-.71-.79-.02-2.74-1.27-2.2,.23-.73-.41-.63,.02-.49,2.09-1.32,1.88-3.07,1.4-5.02-.31-2.61-1.22-3.65,.44-2.36,4.69-6.65-.13-2.78-1.08-2.32,.94-2.32,3.88-4.05,.83-1.37-.04-1.23-.9-1.83,.75-1.13,.96,1.32,5.43,1.32,6.55,3.16,9.95,2.6,4.23-.41,4.47,2.37,3.1,3.06,3.64,1.58,.04,1.4-2.45,4.14-.57,2.16,2.06,.92,4.25,3.61,1.28-.4,1.93-3.92,2.33-.45,4.06,1.2,4.14-1.16,4.15-.16,6.92,1.24,3.84,.21,10.1,1.96,3.03-1.34,3.34-3.26,12.37-6.59,4.01-.8,3.3-1.26,6.54,.08,2.38-1.27,9.56-3.15,7.03-3.9,6.55-1.22,3.08-3.62,5.72-2.7,4.74-1.61,2.21-1.49,3.67,.15,2.29-.9,9.07,1.65,5.68,.44,5.13,1.91,4.39,2.36,7.09,2.95,6.72,6.95h0l.13,3.83,1.57,7.16-.46,1.96-1,.7-6.05,.77-.7,.98,.72,3.88,1.35,1.4,1.8-.32,4.6-3.34,1.27,.48,.45,1.11-.38,9.96-1.67,8.29-1.88,5.64-2.46,3.48-3.8,4.2-6.39,4.32-9.83,5.1-9.79,1.8-10.35,.43-3.13,.57-1,1.04-4.35,1.98-1.75,1.6-2.08,3.13-1.22,2.94-2.89,4.09-.44,3.65,.6,4.49,1.51,2.22,4.32,4.38,1.5,2.61,4.39,3.5,.09,1.21-2.45,5.68-2.61,2.52-4.28,5.64-2.62,4.49-2.88,8.11-1.77,7.54-.44,5.59,7.58,9.55,13.6,13.53h0l-6.88-.07-11.94,.78-7.57-.68-15.59-.08-11.47-1.54-5.01-2.15-9.03-6.14-3.15-.15-13.93,1.69-5.27-.23-5.79-3.59-7.47-2.37Z"/>--}}
-            {{--<path id="SY-RA" class="cls-1 land"--}}
-            {{--d="M262.34,231.49l-1.61-2.56-5.06-3.87h0l-13.6-13.53-7.58-9.55,.44-5.59,1.77-7.54,2.88-8.11,2.62-4.49,4.28-5.64,2.61-2.52,2.45-5.68-.09-1.21-4.39-3.5-1.5-2.61-4.32-4.38-1.51-2.22-.6-4.49,.44-3.65,2.89-4.09,1.22-2.94,2.08-3.13,1.75-1.6,4.35-1.98,1-1.04,3.13-.57,10.35-.43,9.79-1.8,9.83-5.1,6.39-4.32,3.8-4.2,2.46-3.48,1.88-5.64,1.67-8.29,.38-9.96-.45-1.11-1.27-.48-4.6,3.34-1.8,.32-1.35-1.4-.72-3.88,.7-.98,6.05-.77,1-.7,.46-1.96-1.57-7.16-.13-3.83h0l9.26,8.76,5.43,1.39,14.29,.31,10.36-.63,6.61,.8,14.33,4,11.98-2.9,9.58-.63h0l.34,1.68,1.76,3.59,.79,3.34,5.8,7.51,1.84,1.12,2.19,.35,5.67-1.2,4.64,2.18,7.76,2.82,1.92,1.09,2.8,2.4,.8,1.38,.23,2.06h0l-20.33,81.13,1.32,.15,2.78,1.91,1.74,.39-45.24,61.78h0l-11.79-4.57-10.68-1.96-12.3-4.19-21.71-4.39-16.21-1.94-6.82-.37h-8.59s-7.05,.92-7.05,.92Z"/>--}}
-            {{--<path id="SY-LA" class="cls-1 land"--}}
-            {{--d="M17.15,221.57l-7.25-5.92-2.59-.78-.78,1.29-.83-.98-.79-.23-.33-.44,.36-1.09,.11,.1-.27,1.06,.63-.76,.28-1.26-.4-.27,.67-1.02-.95-.36-.13-.77-.51,.26-.03-.92-.32,.19-1.42-.87v-.47s-.58,0-.58,0l1.32-1.49-.34-1.03-.67-.24-1.51,.62-.41-.79,1.21,.04,1.34-.92,.14,.4,.7,.11,.24-.6,.65,.07,.63-2.02,.57-.23,.1,.54,.44-.07-.29-1.1,.51-.06,.79-1.86-.44-.44-.23-1.7-.98-.63,.09-1.73,1.32-1.29,1.75-.38,.16-.8,.68-.46-.12-.57,1.02-.5,.3-.83,1.25-.43,.44-2.72,1.11-.6-.56-5-.88-1.13,.02-1.31-.91-.9-.03-1.9-1.34-.88,.57-1.56-1.15-.37,.04-.41,.79,.14,.56-.46,.39,.6,.73-.16,.36,.54,1.75-.09,1.96-1.85,.84-.03,.72-.93,.82-3.53,.49-.3,.25-1.1,.52-.73,1.86-.89,.09-.43,1.73,1.66,6.72-2.63,.7,.07,1.44,1.91-.89,4.15,.36,1.06,3.17,.26,6.72,1.68,1.77,1.24,1.37,2.6h0l.52,2.6-.48,1.71,.29,.77,1.11,.64,6.88-1.09,3.95-.17,1.71,.58,.24,.8-.54,1.77-3.01,1.8h0l-1.2,.47-.76,.95,.05,3.3-.42,1.4-.84,.88-2.21,.52-.73,1.63,1.99,3.37,.69,5.4-.52,8.2-2.29,12.96,1.07,4.61,1.23,2.49,.03,2.89,2.31,8.99,.21,5.55h0l-4.46-2.36-4.57,1.97-10.01,.22-3.49,.82-.89-.2-4.82-3.77-1.57-.77-2.58-.19h0l-.3-.62-.59,.04-.34-1.72,.29-2.06-.3-.96,.35-.69-.42-.27,.38-2.28-.31-.16-.12-5.63,.4-.36-.94-3.72,.42-.6-1.12-1.93-1.96-2.14Z"/>--}}
-            {{--<path id="SY-HM" class="cls-1 land "--}}
-            {{--d="M55.45,185.35l.67,1.21,1.93,1.01,1.91-.06,2.19-1.11,1.49,.34,1.06,3.11,.75,.44,5.14,.1,.81,.38,.05,3.29-2.53,11.66v1.43s.73,1.9,.73,1.9l-.23,2.03,.56,3.39-1.1,1.68,1.66,3.14,1.03,4.11,1.11,1.11,2.66-.48,2.76-1.67,3.07,1.55,1.15,2.56,.97,.74,4.03,.06,6.68,1.87,3.23,.32,4.34-.27,2.59-1.24,8.83-1.7,3.81,3.02,.84,1.83,1.78,1.1,.85,1.33,1.16-.49,2.52,.02,.74-.36,1.3-2.87,2.4-2.14,1.57-2.5,.48-.04,1.12,1.57,.28,1.75-.22,1.52-1.23,2.39,.63,5.3,1.62,.77,5.84-.19,1.17-.46,1.13-1.85,1.2-1.05,.77-.29,1.77,.68,.2-.27,.04-5.33-.66-1.92-1.24-.28-2.28,2.93-1.44,.09-1.06-.7,.07-1.96,1.68-2.4,1.08-3.18,.81-.9,3.32-.94,1.33-.88,1.07-1.26,2.01-3.94,.89-2.81,2.24-1h0l7.47,2.37,5.79,3.59,5.27,.23,13.93-1.69,3.15,.15,9.03,6.14,5.01,2.15,11.47,1.54,15.59,.08,7.57,.68,11.94-.78,6.88,.07h0l5.06,3.87,1.61,2.56h0l.09,8.28-.62,7.61-1.74,4.28-3.36,4.81-.91,2.08-.51,3.04,.48,4.92-7.1,2.52-8.21,3.64-1.65,1.11-2.5,2.53-.26,1.71-2.12,3.55-.1,2.5-.94,2.14-2.01,2.16-1.14,.52-.98-.43-5.01-6.73-7.86-6.53-1.06-5.62-2.25-3.45-3.96-.68-2.56-2.43-1.4-.57-3.31,.47-10.35,3.07-3.11,.19-6.38,3.97-1.33,2.04-.27,5.21,.58,2.35-1.07,1.21-1.37-.18-1.65-2.45-.72-.4h-5.47s-1.77,1.3-1.77,1.3l-1.07,.29-3.36-1.44-.92,.76-.23,1.84-1.88-.57-2.01,.21-.72,2.07-1.24,1.28-.66,2.13-1.69,1.37-2.8-1.04-1.92-2.98-2.08-.34-2.84,1.07-.98,2.66-2.98-1.73h-1.44s-1.82,2.13-1.82,2.13l-3.36,.43-7.09,5.16-1.29-.24-.38-2.28-1.63-1.95-.53-1.88-1.98-2.69-1.18-3.4-1.86-1.2-1.5-.31-1.38,.02-2.37,1.51-2.65,.15-2.09,1.76-3.77-.22-1.37,.62-1.12-.47-1.86,1.5-1.98,.22-2.56,1-2.26,1.53-3.13,.37-2.12-.91-.74,.09-2.85,1.6-1.02,.12-1.34-.31-.56-2.11-1.88-.54,.88-1.87-.12-.89-1.26-.7-.99,.06-1.23,.74-1.23,2.37-2.28,1.6-.44,1.25,.13,1.67-1.09,.88-.1,2.01-1.13,.78-.24,.89-.64,.49-1.81-1.2h-1.35s-.94-1.53-.94-1.53l-.69-.4-1.14,.49-1.76,2.13-.87,.06-.55-2.51-2.35-.71,1.52-1.53-.78-1.39h0l-.87-1.3-3-2.12-1.75-4.97-5.94,.72-4.76-.75-.97-.71-.54-1.55,.14-1.45,.6-.55,2.87,.28,1.68-1.04,1.86-.28,.5-.59,1.99-.1,2.7-2.31,.15-1.85,1.03-2.5-.8-5.73-.36-11.44h0l-.21-5.55-2.31-8.99-.03-2.89-1.23-2.49-1.07-4.61,2.29-12.96,.52-8.2-.69-5.4-1.99-3.37,.73-1.63,2.21-.52,.84-.88,.42-1.4-.05-3.3,.76-.95,1.2-.47Z"/>--}}
-            {{--<path id="SY-HI" class="cls-1 land colored active"--}}
-            {{--d="M429.13,403.11l-51.62,27.85-68.48,37.84-49.51,28.92h0l-4.42-4.19-9.05-6.5-7.11-5.93-7.54-5.29-9.51-8.9-10.47-7.09-8.8-2.56-3.8-2.26-7.06-5.4-1.89-2.01-4.23-6-2.04-5.82-1.73-3.59-4.96-4.93-7.51-5.59-6.78-7.19-3.46-2.3-2.85-4.41-3.45-6.99-.86-.79-4.35,.26-1.96-.53-13.45-7.88-2.86-3.67-5.44-9.4-9.67-11.77-2.52,.51-6,2.84-5.55-.21-4.28-2.09-3.5,.1-1.82,1.02h0l-2.66-1.26-.75-1.34-.81-4.1,.49-1.13,1.5-1.58-.18-1.78-3.53-1.23-2.91-6.74,.2-1.19,2.43-2.99-.61-1.36-3.63-1.47-.84-1.79-3.82-1.92-1.62-2.88-.3-1.77-3.22,.17-1.2,.83-2.89-1.05-1.51,.98-1.96-.85-.82-1.31,.51-1.46,4.89-2.06,1.43-1.02,.38-.9-.52-2.1,1.45-3.8,.79,.08,1.52,1.82,1.72-.15,.85-4.28-1.08-.22-2.22,1.14-1.89-.31-3.72-2.35-1.97-1.89,.08-1.03-1.82-2.42-1.44-.27-1,1.1-.59,3.51-2.29,1.99-1.8,.21-2.67-.55-1.82,.74-2.53-1.47-3.02,.77-4.15-1.14-2.45,.52h0l.37-2.51,3.16-5.46,3.18-4.32,.84-2.46,1.37-.88,1.23-2.36,2.19-.91,.96-1.8,3.53-2.91-.08-3.62,.71-1.78,3.48-1.62h0l.78,1.39-1.52,1.53,2.35,.71,.55,2.51,.87-.06,1.76-2.13,1.14-.49,.69,.4,.94,1.52h1.35s1.81,1.21,1.81,1.21l.64-.49,.24-.89,1.13-.78,.1-2.01,1.09-.88-.13-1.67,.44-1.25,2.28-1.6,1.23-2.37,1.23-.74,.99-.06,1.26,.7,.12,.89-.88,1.87,1.88,.54,.56,2.11,1.34,.31,1.02-.12,2.85-1.6,.74-.09,2.12,.91,3.13-.37,2.26-1.53,2.56-1,1.98-.22,1.86-1.5,1.12,.47,1.37-.62,3.77,.22,2.09-1.76,2.65-.15,2.37-1.51,1.38-.02,1.5,.31,1.86,1.2,1.18,3.4,1.98,2.69,.53,1.88,1.63,1.95,.38,2.28,1.29,.24,7.09-5.16,3.36-.43,1.82-2.14h1.44s2.98,1.74,2.98,1.74l.98-2.66,2.84-1.07,2.08,.34,1.92,2.98,2.8,1.04,1.69-1.37,.66-2.13,1.24-1.28,.72-2.07,2.01-.21,1.88,.57,.23-1.84,.92-.76,3.36,1.44,1.07-.29,1.77-1.3h5.47s.72,.41,.72,.41l1.65,2.45,1.37,.18,1.07-1.21-.58-2.35,.27-5.21,1.33-2.04,6.38-3.97,3.11-.19,10.35-3.07,3.31-.47,1.4,.57,2.56,2.43,3.96,.68,2.25,3.45,1.06,5.62,7.86,6.53,5.01,6.73,.98,.43,1.14-.52,2.01-2.16,.94-2.14,.1-2.5,2.12-3.55,.26-1.71,2.5-2.53,1.65-1.11,8.21-3.64,7.1-2.52-.48-4.92,.51-3.04,.91-2.08,3.36-4.81,1.74-4.28,.62-7.61-.09-8.28h0l7.05-.91h8.59s6.82,.36,6.82,.36l16.21,1.94,21.71,4.39,12.3,4.19,10.68,1.96,11.79,4.57h0l5.15,3.39,6.67,5.67,8.14,17.14-1.24,9.45,56.12,79.71,18.9,27.9h0l-22.1,11.83Z"/>--}}
-            {{--<path id="SY-TA" class="cls-1 land"--}}
-            {{--d="M20.54,306.74l-.51-5.86-4.11-9.77-1.05-3.6-1.51-.41-.4-1.16,.52,1.06,1.18,.21-.39-.26-.29-.1,.32-.39-.48-.1,.46-.25-.45-.21,1.74-1.18-.07-3.98-.7-1.72,.45,.33,.28-2.8,1.6-1.21,.52-.99-.49-3.93-.7-1.42,.03-1.46,.71-1.77-.42-3.21,.55-.26,.33-1.16,.99-.15,1.16-3.44,.65-.12,.5-.72-.33-1.98,.81-.92,1.96-.98,.26-.59-.43-3.97-1.49-3.56h0l2.58,.19,1.57,.77,4.82,3.77,.89,.2,3.49-.81,10.01-.22,4.57-1.98,4.46,2.37h0l.37,11.44,.8,5.72-1.03,2.5-.15,1.85-2.7,2.31-1.99,.1-.5,.59-1.86,.28-1.68,1.05-2.87-.29-.61,.56-.14,1.45,.54,1.56,.97,.7,4.76,.76,5.94-.72,1.76,4.97,3,2.12,.87,1.31h0l-3.48,1.62-.71,1.78,.08,3.62-3.52,2.91-.97,1.8-2.19,.92-1.23,2.36-1.36,.87-.84,2.47-3.18,4.32-3.16,5.47-.37,2.5h0l-2.84,.74-1.98-.32-2.89,.24-1.66-1.5-2.27-.21-.51-.59-1.27,1.2-.11-.39-.89,.47-3.68-10.79Z"/>--}}
-            {{--<path id="SY-DI" class="cls-1 land colored active"--}}
-            {{--d="M56.85,450.39l-.96-2.3-1.68-1.77v-4.27s1.36-.83,1.36-.83l10.13,.39-.26,9.36-7.15,.16-1.44-.73Z"/>--}}
-            {{--<path id="SY-QU" class="cls-1 land"--}}
-            {{--d="M11.34,473.59l2.24,1.28,.13,.39-1.1,1.62,3.38,3.35,4.18,.51,.38,.94-.34,4.55h0l-1.11,5.25,.19,.59,2.38,1.7,.35,1.22-2.98,5.46-.81,6.29,2.26,4.39,1.57,1.91,.32,2.29-.55,.74-1.57-1.88-3.39,.33-.19,.87,.9,1.75,.06,2.93-3,2.69h0l.89-2.52-2.05-3.18-.73-7.73-.49-1.66,.36-3.65-.48-2.04,.69-.94,2.02,.54,1.69-.43,.03-.78-1.34-1.9,1.85-1.86,.29-3.04-2.08-2.99-2.99-.8-.18-1.26,1.26-1.56,.62-1.87-.74-3.74-3.18-3.57,1.21-1.91,.04-2.29Z"/>--}}
-            {{--<path id="SY-DR" class="cls-1 land"--}}
-            {{--d="M60.94,579l-4.28-4.32-13.11-9.97-2.79,1.14-4.51-.67-2.36,.08-2.03,.58-.58-3.61-1.36-3.09-3.54-3.64,.52-4.08-.27-1.37-1.66-.89-2.65,.04-2.04-1.13,.99-1.25v-1s-.81-.73-.81-.73l-1.2-.03-1.12-.74-.63-1.66-.83-.75-1.67,.23-1.94-.33-2.3-1.27h-1.68s-2.74,.74-2.74,.74l-1.49-.66-.32-.57-.96,.12-.31-.5,.44-1.21,3.24-3.52,2.57-4.28,1.68-1.69,3.44-6.22h0l3-2.69-.06-2.93-.9-1.75,.19-.87,3.39-.33,1.57,1.88,.55-.74-.32-2.29-1.57-1.91-2.26-4.39,.81-6.29,2.98-5.46-.35-1.22-2.38-1.7-.19-.59,1.11-5.25h0l2.58,.99,1,1.94,2.7,.32,1.7-.47,2.8-2.15,1.76-.7,5.6,.49,3.61-1.56,3.11-.46,.59-.48,1.47-3.16-.52-2.65,.2-1.13,1.31-.83,1.88,2.43,1.97,1.31,.61,2.3,3.14,.73,.99,1.68,2.03,1.76,3.61,.84,1.06-.61,.7-2.61,2.01-1.83,6.3-3.84,1.87-1.96,1.56-.63,.86,.75,1.27,3.24,3.46,3.87,.58,3.94h0l-1.35,1.12-.93,.18-3.92-.6-2.89,2.08-1.22,2.35,.45,1.68-.36,2.1,1.35,3.69,.22,3.16,.94,.65,2.1-.63,1.3,.27,.36,3.55,1.1,2.62-1.33,.31-6.22-.46-3.33,.2-2.43,.85-4.24,3.39-3.11,1.81-.36,1.22,.58,1.78-1.18,2.88,.86,4.38,1.83,3.49-1.17,2.38,.43,4.24,1.1,3.41-.19,.64-.99,.38-.26,.58,.14,3.27,.83,.78,3.4,.95,3.99,.45,1.19,1.51-.46,2.21-2.63,2-2.38,.91-.12,.64,1,1.9-.92,2.81,1.06,.55,1.81,.17,3.44-.26,1.56,1.43,1.95-.21,1.09,.81,.27,.77-.05,.93-1.27,1.47-.3,1.05,3.01,3.61,.34,.96-1.21,5.82,.46,3.97-.92,4.75h0l-1.02-.28-2.31-1.66-7.14-1.07-3.01-2.7Z"/>--}}
-            {{--<path id="SY-SU" class="cls-1 land"--}}
-            {{--d="M82.02,487.76l.27,.32,.97-.41,15.95-1.7,6.49-1.77,1.89,.21,3.28,2.99,3.21,1.7,1.27,1.39,.8,2.92,4.15,4.26,.59,3.35,1.38,1.59,1.68,.78,6.07,.63,3.13,1.28,2.68,1.95,.12,2.46,2.43,3.2,.45,1.39,2.71,1.12,2.32,1.52,1.49,.24,2.63-1.71,2.51,1.05,2.1,2.75,.67,6.7,.96,1.72,8.75,8.41,2.9,2.27,2.34,3.01,3.62,2.11,3.54,4.19h0l-55.92,33.43-6.87,4.86-4.49,4.08-2.08,.19-8.77-2.56-2.57,.8-2.12-1.62-2.19-.38-15.9-1.76h0l.92-4.75-.46-3.97,1.21-5.82-.34-.96-3.01-3.61,.3-1.05,1.27-1.47,.05-.93-.27-.77-1.09-.81-1.95,.21-1.56-1.43-3.44,.26-1.81-.17-1.06-.55,.92-2.81-1-1.9,.12-.64,2.38-.91,2.63-2,.46-2.21-1.19-1.51-3.99-.45-3.4-.95-.83-.78-.14-3.27,.26-.58,.99-.38,.19-.64-1.1-3.41-.43-4.24,1.17-2.38-1.83-3.49-.86-4.38,1.18-2.88-.58-1.78,.36-1.22,3.11-1.81,4.24-3.39,2.43-.85,3.33-.2,6.22,.46,1.33-.31-1.1-2.62-.36-3.55-1.3-.27-2.1,.63-.94-.65-.22-3.16-1.35-3.69,.36-2.1-.45-1.68,1.22-2.35,2.89-2.08,3.92,.6,.93-.18,1.35-1.12Z"/>--}}
-            {{--</g>--}}
-            {{--</g>--}}
-            {{--</g>--}}
-            {{--@if($student_count)--}}
-            {{--@if($student_count[0]->student_count)--}}
-            {{--<div id="alepmap" class="tooltip position-absolute">Aleppo--}}
-            {{--| {{$student_count[0]->student_count}} Students--}}
-            {{--</div>--}}
-            {{--@endif--}}
-            {{--@if($student_count[2]->student_count)--}}
-            {{--<div id="homsmap" class="tooltip position-absolute">Homs--}}
-            {{--| {{$student_count[2]->student_count}}--}}
-            {{--Students--}}
-            {{--</div>--}}
-            {{--@endif--}}
-            {{--@if($student_count[4]->student_count)--}}
-            {{--<div id="tartusmap" class="tooltip position-absolute">Tartus--}}
-            {{--| {{$student_count[4]->student_count}} Students--}}
-            {{--</div>--}}
-            {{--@endif--}}
-            {{--@if($student_count[3]->student_count)--}}
-            {{--<div id="latakiamap" class="tooltip position-absolute">Latakia--}}
-            {{--| {{$student_count[3]->student_count}} Students--}}
-            {{--</div>--}}
-            {{--@endif--}}
-            {{--@if($student_count[1]->student_count)--}}
-            {{--<div id="damasmap" class="tooltip position-absolute">Damascus--}}
-            {{--| {{$student_count[1]->student_count}} Students--}}
-            {{--</div>--}}
-            {{--@endif--}}
-            {{--@endif--}}
-            {{--</svg>--}}
-            {{--</div>--}}
-            {{--<svg class="dottted-line" viewBox="0 0 800 110">--}}
-            {{--<mask id="theMask" maskUnits="userSpaceOnUse">--}}
-            {{--<path id="masker"--}}
-            {{--d="M0 10h924a20 20 0 0 1 20 20v110a20 20 0 0 0 20 20h500a20 20 0 0 0 20-20V30a20 20 0 0 1 20-20h924"--}}
-            {{--fill="transparent" stroke="white" stroke-width="6"/>--}}
-            {{--</mask>--}}
-            {{--<g mask="url(#theMask)">--}}
-            {{--<path d="M0 10h924a20 20 0 0 1 20" stroke-dasharray="8,8" fill="transparent"--}}
-            {{--stroke="#BC1818" stroke-width="4"/>--}}
-            {{--</g>--}}
-            {{--</svg>--}}
-            {{--<div class="statistics-num-edited count_int"> {{$aleppoCount}}--}}
-            {{--</div>--}}
-            {{--</div>--}}
+            <div class="row m-0 w-100 my-2">
+                <div class="col-6 p-0 pe-1">
+                    <div class="text-center p-3 bg-secondary-gray-light h-100 d-flex flex-column justify-content-center align-items-center">
+                        <div class="mobile-statistics-city">Aleppo</div>
+
+                        <div class="mobile-statistics-underline"></div>
+
+                        <div class="mobile-statistics-number">
+                            {{ number_format($aleppoCount, 0) }}
+                        </div>
+
+                        <div class="mobile-statistics-projects">Projects</div>
+                    </div>
+                </div>
+
+                <div class="col-6 p-0 ps-1">
+                    <div class="bg-secondary-gray-light mobile-categories-padding h-100 d-flex flex-column justify-content-center">
+                        <div class="fs-8 fw-bold text-secondary-gray-dark mb-2">Top 5 Categories</div>
+
+                        <ol class="fw-bolder fs-8 text-secondary-gray-dark lh-sm m-0 ps-3">
+                            @foreach(array_slice((array)$categories, 0, 5) as $category)
+                                <li>{{ is_array($category) ? $category['Name'] : $category->Name }}</li>
+                            @endforeach
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            @php
+                $cities = [
+                    ['name' => 'Homs', 'count' => $homsCount],
+                    ['name' => 'Damascus', 'count' => $damascusCount],
+                    ['name' => 'Latakia', 'count' => $latakiaCount],
+                    ['name' => 'Wadi', 'count' => $wadiCount],
+                    ['name' => 'Idleb', 'count' => $idlebCount],
+                    ['name' => 'Tartus', 'count' => $tartusCount],
+                ];
+            @endphp
+
+            <div class="row m-0 w-100">
+                @foreach($cities as $index => $city)
+                    @php
+                        $paddingVariable = ($index % 2 == 0) ? 'p-0 pe-1' : 'p-0 ps-1';
+                    @endphp
+
+                    <div class="col-6 {{ $paddingVariable }} mb-2">
+                        <div class="text-center p-3 bg-secondary-gray-light h-100 d-flex flex-column justify-content-center align-items-center">
+
+                            <div class="mobile-statistics-city">
+                                {{ $city['name'] }}
+                            </div>
+
+                            <div class="mobile-statistics-underline"></div>
+
+                            <div class="mobile-statistics-number">
+                                {{ is_numeric($city['count']) ? number_format((int)$city['count'], 0) : ($city['count'] ?? 'Soon') }}
+                            </div>
+
+                            <div class="mobile-statistics-projects">
+                                Projects
+                            </div>
+
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
         </div>
-
-        {{--<div class="row">--}}
-        {{--<div class="col-6 d-flex justify-content-start"></div>--}}
-        {{--<div class="col-6 d-flex justify-content-start flex-column lh-sm"--}}
-        {{--style="padding-left: 3vw;">--}}
-        {{--<div class="statistics-num count_int" data-aos="fade-up"--}}
-        {{--data-aos-duration="600">{{$aleppoCount}}</div>--}}
-        {{--<div class="statistics-title text-capitalize" data-aos="fade-up"--}}
-        {{--data-aos-duration="800">@lang('projects.aleppo')</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
-        {{--<div class="col-6 d-flex justify-content-end text-end flex-column lh-sm"--}}
-        {{--style="padding-right: 3vw;">--}}
-        {{--<div class="row">--}}
-        {{--<div class="statistics-num count_int" data-aos="fade-up"--}}
-        {{--data-aos-duration="600">{{$homsCount}}</div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
-        {{--<div class="statistics-title text-capitalize" data-aos="fade-up"--}}
-        {{--data-aos-duration="800">@lang('projects.homs')</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="col-6 d-flex justify-content-start"></div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
-        {{--<div class="col-6 d-flex justify-content-start"></div>--}}
-        {{--<div class="col-6 d-flex justify-content-start flex-column lh-sm"--}}
-        {{--style="padding-left: 3vw;">--}}
-        {{--<div class="row">--}}
-        {{--<div class="statistics-num count_int" data-aos="fade-up"--}}
-        {{--data-aos-duration="600">{{$damascusCount}}</div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
-        {{--<div class="statistics-title text-capitalize" data-aos="fade-up"--}}
-        {{--data-aos-duration="800">@lang('projects.damascus')</div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
-        {{--<div class="statistics-subtitle" data-aos="fade-up" data-aos-duration="1000">dummy text do not--}}
-        {{--read--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
     </div>
     <div class="horizontal-line"></div>
-    <div id="projects-section" class="small-margin section-space" data-aos="fade-up"
+    <div id="projects-section" class="small-margin pt-5 section-space" data-aos="fade-up"
          data-aos-duration="800">
         <livewire:micro-projects/>
     </div>
@@ -634,6 +425,8 @@
         document.addEventListener('livewire:init', () => {
             let syriaMap = null;
             let markers = [];
+            // Use a LayerGroup to manage markers more efficiently
+            let markerLayerGroup = L.layerGroup();
 
             const iconDefault = L.icon({
                 iconUrl: '/images/ico/marker-icon-2x-red.png',
@@ -644,10 +437,15 @@
             });
 
             function initMap() {
-                if (syriaMap) return;
+                // Ensure the element exists before initializing (important for responsive toggles)
+                const mapEl = document.getElementById('syria_map');
+                if (!mapEl || syriaMap) return;
+
                 syriaMap = L.map('syria_map', {
                     center: [34.8021, 38.9968],
                     zoom: 7,
+                    // Helpful for mobile touch
+                    tap: L.Browser.safari && L.Browser.mobile
                 });
 
                 L.tileLayer(
@@ -655,61 +453,135 @@
                     { attribution: '' }
                 ).addTo(syriaMap);
 
-                L.Util.requestAnimFrame(syriaMap.invalidateSize, syriaMap, !1, syriaMap._container);
+                markerLayerGroup.addTo(syriaMap);
+
+                // Give the browser a moment to render the container before fixing size
+                setTimeout(() => {
+                    syriaMap.invalidateSize();
+                }, 250);
             }
 
             function clearMarkers() {
-                markers.forEach(m => syriaMap.removeLayer(m));
+                markerLayerGroup.clearLayers();
                 markers = [];
             }
 
             function addMarkers(newMarkers) {
                 if (!newMarkers || !Array.isArray(newMarkers)) return;
+
                 newMarkers.forEach(p => {
                     if (!p.lat || !p.lng) return;
                     const marker = L.marker([p.lat, p.lng], { icon: iconDefault })
                         .bindPopup(
                             `<b>Project:</b> ${p.name ?? ''}<br><b>Beneficiary:</b> ${p.beneficiary ?? ''}`
-                        )
-                        .addTo(syriaMap);
+                        );
+
+                    marker.addTo(markerLayerGroup);
                     markers.push(marker);
                 });
 
-                // Wait a bit, then auto-zoom after map size is validated
                 if (markers.length > 0) {
                     setTimeout(() => {
                         const group = new L.featureGroup(markers);
-                        syriaMap.fitBounds(group.getBounds(), { padding: [40, 40] });
+                        // Added maxZoom to prevent zooming into a single point too deeply
+                        syriaMap.fitBounds(group.getBounds(), { padding: [40, 40], maxZoom: 12 });
                     }, 300);
                 }
             }
 
-
-            // Initialize map once
+            // Initialize map
             initMap();
 
             // Handle filter updates
-            Livewire.on('updateMapMarkers', data => {
+            Livewire.on('updateMapMarkers', (event) => {
+                // Livewire v3 passes data inside an array or as an object depending on emit style
+                const data = Array.isArray(event) ? event[0] : event;
                 clearMarkers();
                 addMarkers(data.markers);
 
-                // Force browser to refresh layout like when console opens
                 setTimeout(() => {
-                    window.dispatchEvent(new Event('resize'));
                     syriaMap.invalidateSize();
                 }, 100);
             });
 
-            // Handle "Load More" — only add new markers
-            Livewire.on('appendMapMarkers', data => {
+            // Handle "Load More"
+            Livewire.on('appendMapMarkers', (event) => {
+                const data = Array.isArray(event) ? event[0] : event;
                 addMarkers(data.markers);
             });
-            L.Util.requestAnimFrame(syriaMap.invalidateSize, syriaMap, !1, syriaMap._container);
-            window.dispatchEvent(new Event('resize'));
+
+            // REFRESH MAP ON WINDOW RESIZE
+            // This is crucial for your CSS Grid/Responsive layout
+            window.addEventListener('resize', () => {
+                if (syriaMap) {
+                    syriaMap.invalidateSize();
+                }
+            });
         });
     </script>
 @endonce
 
+<script>
+    $(document).ready(function() {
+        const ageData = @json($agerange);
+        const maxVal = {{ $allCount }};
+
+        function getChartConfig(value) {
+            return {
+                type: "radialGauge",
+                data: {
+                    datasets: [{
+                        data: [value],
+                        backgroundColor: "#bc1818",
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    rotation: Math.PI,
+                    domain: [0, maxVal],
+                    trackColor: '#BABABA',
+                    centerPercentage: 82,
+                    roundedCorners: true,
+                    // The Nuclear Option: Set font size to 0 and color to transparent
+                    centerArea: {
+                        displayText: false, // Specific to some radialGauge versions
+                        display: false,
+                        text: "",
+                        fontColor: 'transparent',
+                        fontSize: 0,
+                        padding: 0
+                    },
+                    centerText: {
+                        display: false,
+                        value: "",
+                        fontSize: 0,
+                        color: 'transparent'
+                    },
+                    legend: { display: false },
+                    tooltips: { enabled: false },
+                    animation: {
+                        animateRotate: true,
+                        duration: 1500
+                    }
+                }
+            };
+        }
+
+        ageData.forEach((item, index) => {
+            let desktopCanvas = document.getElementById(`age-chart-${index}`);
+            if (desktopCanvas) {
+                new Chart(desktopCanvas.getContext('2d'), getChartConfig(item.project_count));
+            }
+
+            let mobileCanvas = document.getElementById(`age-chart-mobile-${index}`);
+            if (mobileCanvas) {
+                new Chart(mobileCanvas.getContext('2d'), getChartConfig(item.project_count));
+            }
+        });
+    });
+</script>
 <script>
     $(window).scroll(testScroll);
     let viewed = false;
@@ -803,7 +675,7 @@
                             formatter: (value) => `${value}`, // Display project_count values
                             anchor: 'end', // Position outside the end of the bar
                             align: 'right', // Align to the right of each bar
-                            color: '#616262', // Color of project_count values
+                            color: '#bc1818', // Color of project_count values
                             font: (context) => {
                                 let width = context.chart.width;
                                 return {weight: 'bold', size: Math.max(Math.round(width / 32) * 1.1)};

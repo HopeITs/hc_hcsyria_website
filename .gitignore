@@ -22,8 +22,9 @@ yarn-error.log
 /public/images/
 /node_modules/
 /storage/
-.idea
-.vs
+.idea/
+.vs/
 private-2019-03-29-11-35.zip
 public/projects_wadi/
 .env.save
+.ai

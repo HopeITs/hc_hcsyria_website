@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\app",
+    "\\app\\Http",
+    "\\app\\Http\\Controllers",
+    "\\database",
+    "\\database\\migrations",
+    "\\resources",
+    "\\resources\\views",
+    "\\resources\\views\\livewire",
+    "\\routes"
+  ],
+  "SelectedNode": "\\resources\\views\\livewire\\micro-projects.blade.php",
+  "PreviewInSolutionExplorer": true
+}
