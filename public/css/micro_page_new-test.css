@@ -667,7 +667,7 @@ img.copy-icon:hover, img.location-icon:hover {
 }
 @media (min-width: 1700px) and (max-width:1849px ) {
     #MicroCarousel .carousel-inner{
-        height: 25vw !important;
+        height: 25.2vw !important;
     }
 }
 @media (min-width: 1500px) and (max-width:1699px ) {
