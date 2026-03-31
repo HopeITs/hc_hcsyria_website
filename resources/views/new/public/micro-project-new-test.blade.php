@@ -40,12 +40,10 @@
     <link href="/css/typeahead.css" rel="stylesheet">
     <link href="/css/jquery.fancybox.min.css" rel="stylesheet">
     <link rel="alternate" hreflang="x-default" href="https://www.hcsyria.org"/>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
     <link href='https://fonts.googleapis.com/css?family=Martel' rel='stylesheet'>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/respond.min.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="/js/aos.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/jquery.prettyPhoto.js"></script>
     <script type="text/javascript" src="/js/jquery.balloon.min.js"></script>
@@ -78,9 +76,9 @@
     $active = 'micro';
 @endphp
 <div id="Micro" class="page_start">
-        <div class="preloader">
-            <div class="preloader-gif"></div>
-        </div>
+    <div class="preloader">
+        <div class="preloader-gif"></div>
+    </div>
     @include('new.public.navbar')
     <div class="page-margin">
         <div class="container-fluid">
@@ -123,7 +121,7 @@
             <div class="micro-page-margin">
 
                 {{--row 1 --}}
-                    <div class="row">
+                <div class="row">
                     {{--carousel (column 1)--}}
                     <div class="col-xl-6 col-lg-12 col-md-12 mb-md-4 mb-xl-0  col-12">
                         <div id="MicroCarousel" class="carousel slide h-100 w-100"
@@ -150,48 +148,48 @@
                             {{--total projects in syria--}}
                             <div class="col bg-primary-red d-flex  flex-column align-items-center justify-content-center text-center  py-6 text-white">
 
-                                        <div class="single-card-number">
-                                            {{ number_format($allCount, 0) }}
-                                        </div>
-                                        <div class="single-card-label">
-                                            Total Projects in <strong>Syria</strong>
-                                        </div>
+                                <div class="single-card-number">
+                                    {{ number_format($allCount, 0) }}
+                                </div>
+                                <div class="single-card-label">
+                                    Total Projects in <strong>Syria</strong>
+                                </div>
                             </div>
                             {{--Project Sustainability rate--}}
                             <div class="col bg-secondary-gray-light d-flex flex-column align-items-center  justify-content-center text-center ">
-                                    <div class="single-card-number text-primary-red">
-                                        {{$sustainableRate[0]->number}}%
-                                    </div>
-                                    <div class="single-card-label text-secondary-gray-darker">
-                                        Project Sustainability rate
-                                    </div>
+                                <div class="single-card-number text-primary-red">
+                                    {{$sustainableRate[0]->number}}%
+                                </div>
+                                <div class="single-card-label text-secondary-gray-darker">
+                                    Project Sustainability rate
+                                </div>
                             </div>
                         </div>
                         {{--Beneficiaries (row 2) --}}
                         <div class="row w-100">
                             <div class="col bg-secondary-gray-light d-flex  flex-column align-items-center justify-content-center p-3">
 
-                                    <div class="fw-bold benefeciaries-text text-left mb-xl-2 mb-md-3 w-100 text-secondary-gray-dark">
-                                        Beneficiaries' Age Classification
-                                    </div>
-                                    <div class="d-flex justify-content-around w-100 mt-1">
-                                        @foreach($agerange as $index => $range)
-                                            @php
-                                                $percentage = ($allCount > 0) ? ($range->project_count / $allCount) * 100 : 0;
-                                            @endphp
-                                            <div class="text-center d-flex flex-grow-1 flex-column align-items-center">
-                                                <div class="position-relative chart-sizing ">
-                                                    <canvas id="age-chart-{{ $index }}"></canvas>
-                                                    <div class="beneficiaries-chart-percentage">
-                                                        <div class="micro-radial-number">{{ round($percentage) }}</div>
-                                                        <div class="micro-radial-percentage">%</div>
-                                                    </div>
-                                                </div>
-                                                <div class="micro-radial-range">
-                                                    {{ $range->Name }}
+                                <div class="fw-bold benefeciaries-text text-left mb-xl-2 mb-md-3 w-100 text-secondary-gray-dark">
+                                    Beneficiaries' Age Classification
+                                </div>
+                                <div class="d-flex justify-content-around w-100 mt-1">
+                                    @foreach($agerange as $index => $range)
+                                        @php
+                                            $percentage = ($allCount > 0) ? ($range->project_count / $allCount) * 100 : 0;
+                                        @endphp
+                                        <div class="text-center d-flex flex-grow-1 flex-column align-items-center">
+                                            <div class="position-relative chart-sizing ">
+                                                <canvas id="age-chart-{{ $index }}"></canvas>
+                                                <div class="beneficiaries-chart-percentage">
+                                                    <div class="micro-radial-number">{{ round($percentage) }}</div>
+                                                    <div class="micro-radial-percentage">%</div>
                                                 </div>
                                             </div>
-                                        @endforeach
+                                            <div class="micro-radial-range">
+                                                {{ $range->Name }}
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
 
                             </div>
@@ -230,42 +228,42 @@
                     </div>
                     {{--top 5 categories column--}}
                     <div class="col-3  ">
-                            <div class=" single-statistics-card-container bg-secondary-gray-light">
-                                <div class="categories-title" >Top 5 Project Categories</div>
-                                <ol class="categories-list" >
-                                    @foreach($categories as $category)
-                                        <li>{{ $category->Name }}</li>
-                                    @endforeach
-                                </ol>
-                            </div>
+                        <div class=" single-statistics-card-container bg-secondary-gray-light">
+                            <div class="categories-title" >Top 5 Project Categories</div>
+                            <ol class="categories-list" >
+                                @foreach($categories as $category)
+                                    <li>{{ $category->Name }}</li>
+                                @endforeach
+                            </ol>
+                        </div>
 
                     </div>
                 </div>
                 {{--row 3 --}}
                 <div class="row mt-md-4">
-                      <div class="col  cities-big-container">
-                          @php
-                              $row2Cities = [
-                                  'Latakia' => $latakiaCount,
-                                  'Al Wadi' => $wadiCount,
-                                  'Idleb' => $idlebCount,
-                                  'Tartus' => $tartusCount
-                              ];
-                          @endphp
+                    <div class="col  cities-big-container">
+                        @php
+                            $row2Cities = [
+                                'Latakia' => $latakiaCount,
+                                'Al Wadi' => $wadiCount,
+                                'Idleb' => $idlebCount,
+                                'Tartus' => $tartusCount
+                            ];
+                        @endphp
 
-                          @foreach($row2Cities as $city => $count)
-                              <div class=" custom-padding   bg-secondary-gray-light position-relative">
-                                  <div class="statistics-city">{{$city}}</div>
-                                  <div class="statistics-underline"></div>
-                                  <div class="statistics-number">{{ is_numeric($count) ? number_format((int)$count, 0) : $count }}</div>
-                                  <div class="statistics-projects">Projects</div>
+                        @foreach($row2Cities as $city => $count)
+                            <div class=" custom-padding   bg-secondary-gray-light position-relative">
+                                <div class="statistics-city">{{$city}}</div>
+                                <div class="statistics-underline"></div>
+                                <div class="statistics-number">{{ is_numeric($count) ? number_format((int)$count, 0) : $count }}</div>
+                                <div class="statistics-projects">Projects</div>
 
-                                  @if(!$loop->last)
-                                      <div class="big-statistics-seperator"></div>
-                                  @endif
-                              </div>
-                          @endforeach
-                      </div>
+                                @if(!$loop->last)
+                                    <div class="big-statistics-seperator"></div>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
@@ -501,6 +499,7 @@
 
                 setTimeout(() => {
                     syriaMap.invalidateSize();
+                    if (typeof AOS !== 'undefined') AOS.refresh();
                 }, 100);
             });
 
@@ -508,6 +507,9 @@
             Livewire.on('appendMapMarkers', (event) => {
                 const data = Array.isArray(event) ? event[0] : event;
                 addMarkers(data.markers);
+                setTimeout(() => {
+                    if (typeof AOS !== 'undefined') AOS.refresh();
+                }, 100);
             });
 
             // REFRESH MAP ON WINDOW RESIZE
@@ -989,31 +991,42 @@
         const filterSection = document.querySelector(".filters-section");
         const projectSection = document.querySelector("#map-section");
 
-        if (!filterSection || !projectSection) return;
+        if (filterSection && projectSection) {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            filterSection.classList.remove("fade-in");
+                            filterSection.classList.add("fade-out");
+                            filterSection.style.position = "static";
+                        } else {
+                            filterSection.classList.remove("fade-out");
+                            filterSection.classList.add("fade-in");
+                            filterSection.style.position = "sticky";
+                        }
+                    });
+                },
+                {
+                    root: null,
+                    threshold: 0,
+                }
+            );
+            observer.observe(projectSection);
+        }
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Fade in (normal/static)
-                        filterSection.classList.remove("fade-in");
-                        filterSection.classList.add("fade-out");
-                        filterSection.style.position = "static";
-                    } else {
-                        // Fade out (sticky)
-                        filterSection.classList.remove("fade-out");
-                        filterSection.classList.add("fade-in");
-                        filterSection.style.position = "sticky";
+        const projectsContainer = document.querySelector("#projects-section");
+        if (projectsContainer) {
+            let resizeTimeout;
+            const resizeObserver = new ResizeObserver(() => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    if (typeof AOS !== 'undefined') {
+                        AOS.refresh();
                     }
-                });
-            },
-            {
-                root: null,
-                threshold: 0,
-            }
-        );
-
-        observer.observe(projectSection);
+                }, 150);
+            });
+            resizeObserver.observe(projectsContainer);
+        }
     });
 </script>
 
