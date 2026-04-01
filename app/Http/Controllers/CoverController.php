@@ -77,6 +77,12 @@ class CoverController extends Controller
                 $Cover->save();
             }
         } else {
+            foreach (range(0, count($request->file('small_image')) - 1) as $i) {
+                $request->validate(['small_image_home.' . $i => 'mimes:jpeg|max:200']);
+            }
+            foreach (range(0, count($request->file('big_image')) - 1) as $i) {
+                $request->validate(['big_image_home.' . $i => 'mimes:jpeg|max:600|min:250']);
+            }
             $images->attachIterator(new \ArrayIterator($request->file('small_image_home')));
             $images->attachIterator(new \ArrayIterator($request->file('big_image_home')));
             foreach ($images as $i => $image) {
@@ -98,8 +104,8 @@ class CoverController extends Controller
                 ->with('success', count($request->file('image')) . ' Images stored');
         }
         else{
-            return redirect()->route('covers', ['tab' => $categoryName])
-                ->with('success', count($request->file('small_image_home')) . ' Images stored');
+//            return redirect()->route('covers', ['tab' => $categoryName])
+//                ->with('success', count($request->file('small_image_home')) . ' Images stored');
         }
     }
 
