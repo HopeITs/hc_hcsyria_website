@@ -77,10 +77,10 @@ class CoverController extends Controller
                 $Cover->save();
             }
         } else {
-            foreach (range(0, count($request->file('small_image')) - 1) as $i) {
+            foreach (range(0, count($request->file('small_image_home')) - 1) as $i) {
                 $request->validate(['small_image_home.' . $i => 'mimes:jpeg|max:200']);
             }
-            foreach (range(0, count($request->file('big_image')) - 1) as $i) {
+            foreach (range(0, count($request->file('big_image_home')) - 1) as $i) {
                 $request->validate(['big_image_home.' . $i => 'mimes:jpeg|max:600|min:250']);
             }
             $images->attachIterator(new \ArrayIterator($request->file('small_image_home')));
