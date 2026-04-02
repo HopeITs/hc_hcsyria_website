@@ -57,6 +57,7 @@ class CoverController extends Controller
 
     public function store(Request $request)
     {
+        return $request->file('small_image_home');
         if ($request->input('id') != 0) {
             $categoryName = WhatCategory::find($request->input('id'))->name;
         } else {
