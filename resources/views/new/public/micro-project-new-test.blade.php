@@ -405,8 +405,7 @@
         </div>
     </div>
     <div class="horizontal-line"></div>
-    <div id="projects-section" class="small-margin pt-5 section-space" data-aos="fade-up"
-         data-aos-duration="800">
+    <div id="projects-section" class="small-margin pt-5 section-space">
         <livewire:micro-projects/>
     </div>
     <div class="horizontal-line"></div>
