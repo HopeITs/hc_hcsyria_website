@@ -103,13 +103,13 @@ class SchoolController extends Controller
         $initiativePrev = Initiative::find($id);
         if ($request->hasFile('logo')) {
             if ($initiative->logo != '0') {
-                File::delete(public_path($initiative->logo));
+                File::delete($initiative->logo);
             }
             $imgName = (string)time();
             $iniCategory = DB::table('what_categories')->where('id',9)->get()->pluck('name')[0];
             $path = '/images/initiatives/'.$iniCategory.'/';
             $imgExt = $request->file('logo')->getClientOriginalExtension();
-            $request->file('logo')->move(public_path($path),$imgName.'.'.$imgExt);
+            $request->file('logo')->move($path,$imgName.'.'.$imgExt);
             $initiative->logo = $path.$imgName.'.'.$imgExt;
             $this->saveToLog(self::INITIATIVES, $id,'Logo changed');
         }
@@ -210,7 +210,7 @@ class SchoolController extends Controller
             $iniCategory = DB::table('what_categories')->where('id',9)->get()->pluck('name')[0];
             $path = '/images/initiatives/'.$iniCategory.'/'.$request->input('title').'/';
             $imgExt = $request->file('logo')->getClientOriginalExtension();
-            $request->file('logo')->move(public_path($path),$imgName.'.'.$imgExt);
+            $request->file('logo')->move($path,$imgName.'.'.$imgExt);
             $initiative->logo = $path.$imgName.'.'.$imgExt;
         }
         $initiative->video = $request->filled('video') ? $request->input('video') : '0';
@@ -237,11 +237,11 @@ class SchoolController extends Controller
         Initiative::destroy($id);
         InitiativeEnglish::where('initiative_id', $id)->delete();
         InitiativeFrench::where('initiative_id', $id)->delete();
-        File::delete(public_path($initiative->logo));
+        File::delete($initiative->logo);
         $images = InitiativeImage::where('initiative_id', $id)->get();
         InitiativeImage::where('initiative_id', $id)->delete();
         foreach ($images as $image) {
-            File::delete(public_path($image->path),substr(public_path($image->path), 0, -4).'b.jpg');
+            File::delete($image->path,substr($image->path, 0, -4).'b.jpg');
         }
         $this->saveToLog(self::INITIATIVES, $id, 'Initiative deleted');
         return redirect()->back()->with('success', 'Initiative '.$id.' deleted successfully');
@@ -297,12 +297,12 @@ class SchoolController extends Controller
         $images->attachIterator(new \ArrayIterator($request->file('big_image')));
         foreach ($images as $i => $image) {
             $imgName = (string)time() . $i[0];
-            $path = '/initiatives/' . $categoryName . '/' . $request->input('title') . '/';
-            $image[0]->move(public_path($path), $imgName . '.jpg');
-            $image[1]->move(public_path($path), $imgName . 'b.jpg');
+            $path = 'images/initiatives/' . $categoryName . '/' . $request->input('title') . '/';
+            $image[0]->move($path, $imgName . '.jpg');
+            $image[1]->move($path, $imgName . 'b.jpg');
             $initiativeImage = new InitiativeImage();
             $initiativeImage->initiative_id = $request->input('initiative_id');
-            $initiativeImage->path = '/'.public_path($path) . $imgName . '.jpg';
+            $initiativeImage->path = '/'.$path . $imgName . '.jpg';
             $initiativeImage->save();
         }
         $this->saveToLog(self::INITIATIVES, $request->input('initiative_id'), count($request->file('small_image')) . ' Images stored');
@@ -316,8 +316,8 @@ class SchoolController extends Controller
             if ($request->input($img->id) == '1') {
                 $deletedImagesCount++;
                 $img->delete();
-                File::delete(public_path($img->path));
-                File::delete(public_path(substr($img->path, 0, -4).'b.jpg'));
+                File::delete($img->path);
+                File::delete(substr($img->path, 0, -4).'b.jpg');
             }
         }
         $this->saveToLog(self::INITIATIVES, $id,$deletedImagesCount . ' Images deleted');

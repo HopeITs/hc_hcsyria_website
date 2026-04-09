@@ -71,7 +71,7 @@ class CoverController extends Controller
             foreach ($images as $i => $image) {
                 $imgName = (string)time() . $i[0];
                 $path = '/images/home/' . $categoryName;
-                $image[0]->move(public_path($path), $imgName . '.jpg');
+                $image[0]->move($path, $imgName . '.jpg');
                 $Cover = new Cover();
                 $Cover->what_category_id = $categoryId;
                 $Cover->image_path = $path . '/' . $imgName . '.jpg';
@@ -89,8 +89,8 @@ class CoverController extends Controller
             foreach ($images as $i => $image) {
                 $imgName = (string)time() . $i[0];
                 $path = '/images/home/Cover/';
-                $image[0]->move(public_path($path), $imgName . '.jpg');
-                $image[1]->move(public_path($path), $imgName . 'b.jpg');
+                $image[0]->move($path, $imgName . '.jpg');
+                $image[1]->move($path, $imgName . 'b.jpg');
                 $Cover = new Cover();
                 $Cover->what_category_id = $categoryId;
                 $Cover->image_path = $path . '/' . $imgName . 'b.jpg';
@@ -121,7 +121,7 @@ class CoverController extends Controller
             if (isset($selectedImages[$img->id]) && $selectedImages[$img->id] == '1') {
                 $deletedImagesCount++;
                 // Delete file from disk
-                File::delete(public_path($img->MPI_Path));
+                File::delete($img->MPI_Path);
                 // Delete from database
                 $img->delete();
             }

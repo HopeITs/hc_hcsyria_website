@@ -106,7 +106,7 @@ class SuccessController extends Controller
         $imgName = (string)time();
         $whoCategory = DB::table('who_categories')->where('id',$request->input('who_category_id'))->get()->pluck('name')[0];
         $path = '/images/successes/'.$whoCategory.'/';
-        $request->file('image_path')->move(public_path($path),$imgName.'.jpg');
+        $request->file('image_path')->move($path,$imgName.'.jpg');
         $success->image_path = $path.$imgName.'.jpg';
 
         $success->inner_image_path = '0';
@@ -202,11 +202,11 @@ class SuccessController extends Controller
         $success = Success::find($id);
         $successPrev = Success::find($id);
         if ($request->hasFile('image_path')) {
-            File::delete(public_path($success->image_path));
+            File::delete($success->image_path);
             $imgName = (string)time();
             $whoCategory = DB::table('who_categories')->where('id',$request->input('who_category_id'))->get()->pluck('name')[0];
             $path = '/images/successes/'.$whoCategory.'/';
-            $request->file('image_path')->move(public_path($path),$imgName.'.jpg');
+            $request->file('image_path')->move($path,$imgName.'.jpg');
             $success->image_path = $path.$imgName.'.jpg';
             $this->saveToLog(self::SUCCESSES, $success->id,'Image changed');
         }
@@ -271,9 +271,9 @@ class SuccessController extends Controller
         Success::destroy($id);
         SuccessEnglish::where('success_id', $id)->delete();
         SuccessFrench::where('success_id', $id)->delete();
-        File::delete(public_path($success->image_path));
-        File::delete(public_path($success->inner_image_path));
-        File::delete(public_path($success->inner_big_image_path));
+        File::delete($success->image_path);
+        File::delete($success->inner_image_path);
+        File::delete($success->inner_big_image_path);
         $this->saveToLog(self::SUCCESSES, $success->id, 'Success deleted');
         return redirect()->back()->with('success', 'Success deleted');
     }

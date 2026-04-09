@@ -151,13 +151,13 @@ class ContentController extends Controller
             }
             foreach ($request->file('image') as $i => $image) {
                 $imgName = time() . $i . '.jpg';
-                $path = '/home/' . $projectName . '/Brief/';
+                $path = 'images/home/' . $projectName . '/Brief/';
 
-                $image->move(public_path($path), $imgName);
+                $image->move($path, $imgName);
 
                 $project->media()->create([
                     'mediaType' => 'image',
-                    'mediaURL'  => '/images'.$path.$imgName,
+                    'mediaURL'  => '/'.$path.$imgName,
                 ]);
             }
         }
@@ -184,7 +184,7 @@ class ContentController extends Controller
             if ($request->input($img->id) == '1') {
                 $deletedImagesCount++;
                 $img->delete();
-                File::delete(public_path($img->mediaURL));
+                File::delete($img->mediaURL);
             }
         }
         $images = HopeProjectMedia::where('project_id', $id)->get();

@@ -69,7 +69,7 @@ class NewsController extends Controller
             $file = $request->file('file');
             $fileName = $file->getClientOriginalName();
             $path = '/files/news/';
-            $file->move(public_path($path), $fileName);
+            $file->move($path, $fileName);
             $news->file = $path . $fileName;
         } else $news->file = '0';
 
@@ -147,7 +147,7 @@ class NewsController extends Controller
             $file = $request->file('file');
             $fileName = $file->getClientOriginalName();
             $path = '/files/news/';
-            $file->move(public_path($path), $fileName);
+            $file->move($path, $fileName);
             $news->file = $path . $fileName;
         } else $news->file = '0';
 //        if ($news->isDirty('file')) {
@@ -208,7 +208,7 @@ class NewsController extends Controller
         $images = NewsImage::where('news_id', $news->id)->get();
         NewsImage::where('news_id', $news->id)->delete();
         foreach ($images as $image) {
-            File::delete(public_path($image->path), substr(public_path($image->path), 0, -4) . 'b.jpg');
+            File::delete($image->path, substr($image->path, 0, -4) . 'b.jpg');
         }
         $this->saveToLog(self::NEWS, $news->id, 'News deleted');
         return redirect()->back()->with('success', 'News ' . $news->id . ' deleted successfully');
@@ -268,7 +268,7 @@ class NewsController extends Controller
     public function file_destroy($path)
     {
         $news = NEWS::find($path);
-        File::delete(public_path($news->file));
+        File::delete($news->file);
         $news->file = '0';
         $news->save();
         return redirect()->back();

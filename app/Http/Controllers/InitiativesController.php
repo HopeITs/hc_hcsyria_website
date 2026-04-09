@@ -146,7 +146,7 @@ class InitiativesController extends Controller
             $iniCategory = DB::table('what_categories')->where('id',$request->input('what_category_id'))->get()->pluck('name')[0];
             $path = '/images/initiatives/'.$iniCategory.'/'.$request->input('title').'/';
             $imgExt = $request->file('logo')->getClientOriginalExtension();
-            $request->file('logo')->move(public_path($path),$imgName.'.'.$imgExt);
+            $request->file('logo')->move($path,$imgName.'.'.$imgExt);
             $initiative->logo = $path.$imgName.'.'.$imgExt;
         }
         $initiative->video = $request->filled('video') ? $request->input('video') : '0';
@@ -254,7 +254,7 @@ class InitiativesController extends Controller
         $initiativePrev = Initiative::find($id);
         if ($request->hasFile('logo')) {
             if ($initiative->logo != '0') {
-                File::delete(public_path($initiative->logo));
+                File::delete($initiative->logo);
             }
             $imgName = (string)time();
             $iniCategory = DB::select('select what_categories.name from what_categories where what_categories.id = (SELECT what_category_id from initiatives where initiatives.id = '.$id.')');
@@ -263,7 +263,7 @@ class InitiativesController extends Controller
 //            $iniCategory = DB::table('what_categories')->where('id',$request->input('what_category_id'))->get()->pluck('name')[0];
             $path = '/images/initiatives/'.$iniCategory.'/';
             $imgExt = $request->file('logo')->getClientOriginalExtension();
-            $request->file('logo')->move(public_path($path),$imgName.'.'.$imgExt);
+            $request->file('logo')->move($path,$imgName.'.'.$imgExt);
             $initiative->logo = $path.$imgName.'.'.$imgExt;
             $this->saveToLog(self::INITIATIVES, $id,'Logo changed');
         }
@@ -345,11 +345,11 @@ class InitiativesController extends Controller
         Initiative::destroy($id);
         InitiativeEnglish::where('initiative_id', $id)->delete();
         InitiativeFrench::where('initiative_id', $id)->delete();
-        File::delete(public_path($initiative->logo));
+        File::delete($initiative->logo);
         $images = InitiativeImage::where('initiative_id', $id)->get();
         InitiativeImage::where('initiative_id', $id)->delete();
         foreach ($images as $image) {
-            File::delete(public_path($image->path),substr(public_path($image->path), 0, -4).'b.jpg');
+            File::delete($image->path,substr($image->path, 0, -4).'b.jpg');
         }
         $this->saveToLog(self::INITIATIVES, $id, 'Initiative deleted');
         return redirect()->back()->with('success', 'Initiative '.$id.' deleted successfully');
