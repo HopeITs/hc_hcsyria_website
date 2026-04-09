@@ -103,16 +103,16 @@
                                                 <div class="image-group form-control mb-3">
                                                     <div class="row">
                                                         <div class="form-group col-lg-6 col-md-6 col-12">
-                                                            <label for="small_image_{{ $i }}">Small Image</label>
+                                                            <label for="small_image_home">Small Image</label>
                                                             <input type="file"
-                                                                   name="small_image[]"
+                                                                   name="small_image_home[]"
                                                                    accept="image/jpeg"
                                                                    required>
                                                         </div>
                                                         <div class="form-group col-lg-6 col-md-6 col-12">
-                                                            <label for="big_image_{{ $i }}">Large Image</label>
+                                                            <label for="big_image_home">Large Image</label>
                                                             <input type="file"
-                                                                   name="big_image[]"
+                                                                   name="big_image_home[]"
                                                                    accept="image/jpeg"
                                                                    required>
                                                         </div>
@@ -254,11 +254,11 @@
             image_group_html = '<div class="image-group form-control">' +
                 '<div class="row">' +
                 '<div class="form-group col-lg-6 col-md-6 col-12">' +
-                '<label for="small_image">Small Image</label>' +
-                '<input accept="image/jpeg" required="" name="small_image[]" type="file" style="padding-left: 3px;">' +
+                '<label for="small_image_home">Small Image</label>' +
+                '<input accept="image/jpeg" required="" name="small_image_home[]" type="file" style="padding-left: 3px;">' +
                 '</div><div class="form-group col-lg-6 col-md-6 col-12">' +
-                '<label for="big_image">Large Image</label>' +
-                '<input accept="image/jpeg" required="" name="big_image[]" type="file" style="padding-left: 3px;">' +
+                '<label for="big_image_home">Large Image</label>' +
+                '<input accept="image/jpeg" required="" name="big_image_home[]" type="file" style="padding-left: 3px;">' +
                 '</div></div>' +
                 '</div>'
         } else {
