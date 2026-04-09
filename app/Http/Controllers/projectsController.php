@@ -414,7 +414,7 @@ WHERE projects.`MPE_Published` = 0  GROUP BY projects.MicroProject_ID;
         $images = DB::table('images')->where('project_id', $id)->get();
         DB::table('images')->where('project_id', $id)->delete();
         foreach ($images as $image) {
-            File::delete(public_path($image->MPI_Path), substr(public_path($image->MPI_Path), 0, -4) . 'b.jpg');
+            File::delete($image->MPI_Path, substr($image->MPI_Path, 0, -4) . 'b.jpg');
         }
         $this->saveToLog(self::MICRO, $id, 'Project Deleted');
         return response()->json('Project has been deleted');
