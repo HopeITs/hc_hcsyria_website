@@ -527,26 +527,26 @@ WHERE projects.`MPE_Published` = 0  GROUP BY projects.MicroProject_ID;
         foreach ($images as $i => $image) {
             $imgName = (string)time() . $i[0];
             if ($city == 'Aleppo') {
-                $path = '/projects/' . $request->input('MicroProject_ID') . '/';
+                $path = 'images/projects/' . $request->input('MicroProject_ID') . '/';
             } elseif ($city == 'Homs') {
-                $path = '/projects_homs/' . $request->input('MicroProject_ID') . '/';
+                $path = 'images/projects_homs/' . $request->input('MicroProject_ID') . '/';
             } elseif ($city == 'Damascus') {
-                $path = '/projects_damascus/' . $request->input('MicroProject_ID') . '/';
+                $path = 'images/projects_damascus/' . $request->input('MicroProject_ID') . '/';
             } elseif ($city == 'Latakia') {
-                $path = '/projects_latakia/' . $request->input('MicroProject_ID') . '/';
+                $path = 'images/projects_latakia/' . $request->input('MicroProject_ID') . '/';
             } elseif ($city == 'Al Wadi') {
-                $path = '/projects_wadi/' . $request->input('MicroProject_ID') . '/';
+                $path = 'images/projects_wadi/' . $request->input('MicroProject_ID') . '/';
             } elseif ($city == 'Tartus') {
-                $path = '/projects_tartus/' . $request->input('MicroProject_ID') . '/';
+                $path = 'images/projects_tartus/' . $request->input('MicroProject_ID') . '/';
             } elseif ($city == 'Idleb') {
-                $path = '/projects_idleb/' . $request->input('MicroProject_ID') . '/';
+                $path = 'images/projects_idleb/' . $request->input('MicroProject_ID') . '/';
             }
 
-            $image[0]->move(public_path($path), $imgName . '.jpg');
-            $image[1]->move(public_path($path), $imgName . 'b.jpg');
+            $image[0]->move($path, $imgName . '.jpg');
+            $image[1]->move($path, $imgName . 'b.jpg');
 
             $projectImage = new Image;
-            $projectImage->MPI_Path = '/'.public_path($path) . $imgName . '.jpg';
+            $projectImage->MPI_Path = '/'.$path . $imgName . '.jpg';
             $projectImage->MicroProject_ID = $request->input('MicroProject_ID');
             $projectImage->project_id = $request->input('project_id');
             $projectImage->timestamps = false;
@@ -572,12 +572,13 @@ WHERE projects.`MPE_Published` = 0  GROUP BY projects.MicroProject_ID;
             $this->saveToLog(self::MICRO, $id , 'Made Offline');
         }
         $images = Image::where('project_id', $id)->orderBy('image_order')->get();
+
         foreach ($images as $img) {
-            if ($request->input($img->id) == 1) {
+//            if ($request->input($img->id) == 1) {
                 $img->delete();
-                File::delete(public_path($img->MPI_Path));
-                File::delete(public_path(substr($img->MPI_Path, 0, -4) . 'b.jpg'));
-            }
+                File::delete($img->MPI_Path);
+                File::delete(substr($img->MPI_Path, 0, -4) . 'b.jpg');
+//            }
         }
         $imageIdsArray = Image::where('project_id', $id)
             ->orderBy('image_order')
