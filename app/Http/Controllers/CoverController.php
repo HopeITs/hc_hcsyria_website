@@ -98,14 +98,14 @@ class CoverController extends Controller
                 if (!$smallImage || !$bigImage) continue;
 
                 $imgName = time() . $i;
-                $path = public_path('/images/home/Cover/');
+                $path = '/images/home/Cover/';
 
                 $smallImage->move($path, $imgName . '.jpg');
                 $bigImage->move($path, $imgName . 'b.jpg');
 
                 $Cover = new Cover();
                 $Cover->what_category_id = $categoryId;
-                $Cover->image_path = '/images/home/Cover/' . $imgName . 'b.jpg';
+                $Cover->image_path = $path . $imgName . 'b.jpg';
                 $Cover->save();
             }
         }
