@@ -73,11 +73,11 @@ class CoverController extends Controller
             $images->attachIterator(new \ArrayIterator($request->file('image')));
             foreach ($images as $i => $image) {
                 $imgName = (string)time() . $i[0];
-                $path = '/images/home/' . $categoryName;
+                $path = 'images/home/' . $categoryName;
                 $image[0]->move($path, $imgName . '.jpg');
                 $Cover = new Cover();
                 $Cover->what_category_id = $categoryId;
-                $Cover->image_path = $path . '/' . $imgName . '.jpg';
+                $Cover->image_path = '/'.$path . '/' . $imgName  . '.jpg';
                 $Cover->save();
             }
         } else {
@@ -98,14 +98,14 @@ class CoverController extends Controller
                 if (!$smallImage || !$bigImage) continue;
 
                 $imgName = time() . $i;
-                $path = '/images/home/Cover/';
+                $path = 'images/home/Cover/';
 
                 $smallImage->move($path, $imgName . '.jpg');
                 $bigImage->move($path, $imgName . 'b.jpg');
 
                 $Cover = new Cover();
                 $Cover->what_category_id = $categoryId;
-                $Cover->image_path = $path . $imgName . 'b.jpg';
+                $Cover->image_path = '/'.$path . $imgName . 'b.jpg';
                 $Cover->save();
             }
         }
