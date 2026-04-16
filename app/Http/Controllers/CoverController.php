@@ -57,7 +57,6 @@ class CoverController extends Controller
 
     public function store(Request $request)
     {
-
         if ($request->input('id') != 0) {
             $categoryName = WhatCategory::find($request->input('id'))->name;
         } else {
@@ -65,7 +64,6 @@ class CoverController extends Controller
         }
         $categoryId = $request->input('id');
         $images = new \MultipleIterator();
-
         if ($categoryId != 0) {
             $request->validate([
                 'image.*' => 'required|image|mimes:jpeg,jpg|max:4096', // 4MB
@@ -80,7 +78,8 @@ class CoverController extends Controller
                 $Cover->image_path = '/'.$path . '/' . $imgName  . '.jpg';
                 $Cover->save();
             }
-        } else {
+        }
+        else {
             $request->validate([
                 'small_image_home.*' => 'required|image|mimes:jpeg,jpg|max:2048', // 2MB
                 'big_image_home.*'   => 'required|image|mimes:jpeg,jpg|max:5120', // 5MB
@@ -111,17 +110,9 @@ class CoverController extends Controller
         }
 
         $this->saveToLog(self::COVER, $categoryId, 'Images stored');
-
-        if($categoryId != 0 ){
-            return redirect()->route('covers', ['tab' => $categoryName])
-                ->with('success', count($request->file('image')) . ' Images stored');
-        }
-        else{
-            return redirect()->route('covers', ['tab' => $categoryName])
-                ->with('success', count($request->file('small_image_home')) . ' Images stored');
-        }
+        return redirect()->route('covers', ['tab' => $categoryName])
+            ->with('success', ' Images stored');
     }
-
     public function destroy(Request $request, $id)
     {
         $images = Cover::where('what_category_id', $id)->get();
