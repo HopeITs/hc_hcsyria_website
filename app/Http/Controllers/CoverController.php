@@ -57,6 +57,7 @@ class CoverController extends Controller
 
     public function store(Request $request)
     {
+
         if ($request->input('id') != 0) {
             $categoryName = WhatCategory::find($request->input('id'))->name;
         } else {
@@ -66,6 +67,9 @@ class CoverController extends Controller
         $images = new \MultipleIterator();
 
         if ($categoryId != 0) {
+            $request->validate([
+                'image.*' => 'required|image|mimes:jpeg,jpg|max:4096', // 4MB
+            ]);
             $images->attachIterator(new \ArrayIterator($request->file('image')));
             foreach ($images as $i => $image) {
                 $imgName = (string)time() . $i[0];
@@ -77,6 +81,10 @@ class CoverController extends Controller
                 $Cover->save();
             }
         } else {
+            $request->validate([
+                'small_image_home.*' => 'required|image|mimes:jpeg,jpg|max:2048', // 2MB
+                'big_image_home.*'   => 'required|image|mimes:jpeg,jpg|max:5120', // 5MB
+            ]);
             $smallImages = $request->file('small_image_home');
             $bigImages = $request->file('big_image_home');
 
