@@ -103,14 +103,14 @@
                                                 <div class="image-group form-control mb-3">
                                                     <div class="row">
                                                         <div class="form-group col-lg-6 col-md-6 col-12">
-                                                            <label for="small_image_home">Small Image</label>
+                                                            <label for="small_image_home_{{ $i }}">Small Image</label>
                                                             <input type="file"
                                                                    name="small_image_home[]"
                                                                    accept="image/jpeg"
                                                                    required>
                                                         </div>
                                                         <div class="form-group col-lg-6 col-md-6 col-12">
-                                                            <label for="big_image_home">Large Image</label>
+                                                            <label for="big_image_home_{{ $i }}">Large Image</label>
                                                             <input type="file"
                                                                    name="big_image_home[]"
                                                                    accept="image/jpeg"
@@ -254,10 +254,10 @@
             image_group_html = '<div class="image-group form-control">' +
                 '<div class="row">' +
                 '<div class="form-group col-lg-6 col-md-6 col-12">' +
-                '<label for="small_image_home">Small Image</label>' +
-                '<input accept="image/jpeg" required="" name="small_image_home[]" type="file" style="padding-left: 3px;">' +
+                '<label >Small Image</label>' +
+                '<input accept="image/jpeg" required name="small_image_home[]" type="file" style="padding-left: 3px;">' +
                 '</div><div class="form-group col-lg-6 col-md-6 col-12">' +
-                '<label for="big_image_home">Large Image</label>' +
+                '<label >Large Image</label>' +
                 '<input accept="image/jpeg" required="" name="big_image_home[]" type="file" style="padding-left: 3px;">' +
                 '</div></div>' +
                 '</div>'
@@ -265,8 +265,10 @@
             image_group_html = '<div class="image-group form-control">' +
                 '<div class="row">' +
                 '<div class="form-group col-lg-6 col-md-6 col-12">' +
-                '<label for="image">Image</label>' +
-                '<input accept="image/jpeg" required="" name="image[]" type="file" style="padding-left: 3px;">' +
+                '<label>Image</label>' +
+                '<input accept="image/jpeg" required name="image[]" type="file" style="padding-left: 3px;">' +
+                '</div>' +
+                '</div>' +
                 '</div>';
         }
         let countInput = document.getElementById(`images-count-` + what_category_id);
