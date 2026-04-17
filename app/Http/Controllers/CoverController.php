@@ -80,31 +80,24 @@ class CoverController extends Controller
             }
         }
         else {
-            $request->validate([
-                'small_image_home.*' => 'required|image|mimes:jpeg,jpg|max:2048', // 2MB
-                'big_image_home.*'   => 'required|image|mimes:jpeg,jpg|max:5120', // 5MB
-            ]);
-            $smallImages = $request->file('small_image_home');
-            $bigImages = $request->file('big_image_home');
-
-            if (!$smallImages || !$bigImages) {
-                dd('No files uploaded');
+            foreach (range(0, count($request->file('small_image')) - 1) as $i) {
+                $request->validate(['small_image_home.' . $i => 'mimes:jpeg|max:200']);
+            }
+            foreach (range(0, count($request->file('big_image')) - 1) as $i) {
+                $request->validate(['big_image_home.' . $i => 'mimes:jpeg|max:600|min:250']);
             }
 
-            foreach ($smallImages as $i => $smallImage) {
-                $bigImage = $bigImages[$i] ?? null;
-
-                if (!$smallImage || !$bigImage) continue;
-
-                $imgName = time() . $i;
-                $path = 'images/home/Cover/';
-
-                $smallImage->move($path, $imgName . '.jpg');
-                $bigImage->move($path, $imgName . 'b.jpg');
-
+            $images = new \MultipleIterator();
+            $images->attachIterator(new \ArrayIterator($request->file('small_image_home')));
+            $images->attachIterator(new \ArrayIterator($request->file('big_image_home')));
+            foreach ($images as $i => $image) {
+                $imgName = (string)time() . $i[0];
+                $path = 'images/home/Cover';
+                $image[0]->move($path, $imgName . '.jpg');
+                $image[1]->move($path, $imgName . 'b.jpg');
                 $Cover = new Cover();
                 $Cover->what_category_id = $categoryId;
-                $Cover->image_path = '/'.$path . $imgName . 'b.jpg';
+                $Cover->image_path = '/'.$path . '/' . $imgName  . '.jpg';
                 $Cover->save();
             }
         }
