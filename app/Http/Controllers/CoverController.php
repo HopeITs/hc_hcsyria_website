@@ -57,6 +57,7 @@ class CoverController extends Controller
 
     public function store(Request $request)
     {
+        return $request;
         if ($request->input('id') != 0) {
             $categoryName = WhatCategory::find($request->input('id'))->name;
         } else {
@@ -87,17 +88,14 @@ class CoverController extends Controller
                 $request->validate(['big_image_home.' . $i => 'mimes:jpeg|max:600|min:250']);
             }
 
-            $images = new \MultipleIterator();
-            $images->attachIterator(new \ArrayIterator($request->file('small_image_home')));
-            $images->attachIterator(new \ArrayIterator($request->file('big_image_home')));
-            foreach ($images as $i => $image) {
-                $imgName = (string)time() . $i[0];
+            foreach ($request->file('small_image_home') as $i => $image) {
+                $imgName = time() . '_' . $i;
                 $path = 'images/home/Cover';
                 $image[0]->move($path, $imgName . '.jpg');
                 $image[1]->move($path, $imgName . 'b.jpg');
                 $Cover = new Cover();
                 $Cover->what_category_id = $categoryId;
-                $Cover->image_path = '/'.$path . '/' . $imgName  . '.jpg';
+                $Cover->image_path = '/images/home/Cover/'. $imgName . '.jpg';
                 $Cover->save();
             }
         }
