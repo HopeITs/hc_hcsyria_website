@@ -80,11 +80,11 @@ class CoverController extends Controller
             }
         }
         else {
-            return 'hi';
             $request->validate([
                 'small_image_home.' => 'required|image|mimes:jpeg,jpg|max:2048',
                 'big_image_home.'   => 'required|image|mimes:jpeg,jpg|max:5120',
             ]);
+            return $request->file('small_image_home');
             $smallImages = $request->file('small_image_home');
             $bigImages = $request->file('big_image_home');
 
