@@ -63,7 +63,6 @@ class CoverController extends Controller
             $categoryName = "Home";
         }
         $categoryId = $request->input('id');
-        return $categoryId;
         $images = new \MultipleIterator();
         if ($categoryId != 0) {
             $request->validate([
@@ -81,9 +80,10 @@ class CoverController extends Controller
             }
         }
         else {
+            return 'hi';
             $request->validate([
-                'small_image_home.*' => 'required|image|mimes:jpeg,jpg|max:2048',
-                'big_image_home.*'   => 'required|image|mimes:jpeg,jpg|max:5120',
+                'small_image_home.' => 'required|image|mimes:jpeg,jpg|max:2048',
+                'big_image_home.'   => 'required|image|mimes:jpeg,jpg|max:5120',
             ]);
             $smallImages = $request->file('small_image_home');
             $bigImages = $request->file('big_image_home');
