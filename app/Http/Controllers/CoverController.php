@@ -63,6 +63,7 @@ class CoverController extends Controller
             $categoryName = "Home";
         }
         $categoryId = $request->input('id');
+        return $categoryId;
         $images = new \MultipleIterator();
         if ($categoryId != 0) {
             $request->validate([
