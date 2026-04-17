@@ -57,7 +57,6 @@ class CoverController extends Controller
 
     public function store(Request $request)
     {
-        return $request;
         if ($request->input('id') != 0) {
             $categoryName = WhatCategory::find($request->input('id'))->name;
         } else {
@@ -81,21 +80,32 @@ class CoverController extends Controller
             }
         }
         else {
-            foreach (range(0, count($request->file('small_image_home')) - 1) as $i) {
-                $request->validate(['small_image_home.' . $i => 'mimes:jpeg|max:200']);
-            }
-            foreach (range(0, count($request->file('big_image_home')) - 1) as $i) {
-                $request->validate(['big_image_home.' . $i => 'mimes:jpeg|max:600|min:250']);
+            $request->validate([
+                'small_image_home.*' => 'required|image|mimes:jpeg,jpg|max:2048',
+                'big_image_home.*'   => 'required|image|mimes:jpeg,jpg|max:5120',
+            ]);
+            $smallImages = $request->file('small_image_home');
+            $bigImages = $request->file('big_image_home');
+
+            return $smallImages;
+            if (!$smallImages || !$bigImages) {
+                dd('No files uploaded');
             }
 
-            foreach ($request->file('small_image_home') as $i => $image) {
-                $imgName = time() . '_' . $i;
-                $path = 'images/home/Cover';
-                $image[0]->move($path, $imgName . '.jpg');
-                $image[1]->move($path, $imgName . 'b.jpg');
+            foreach ($smallImages as $i => $smallImage) {
+                $bigImage = $bigImages[$i] ?? null;
+
+                if (!$smallImage || !$bigImage) continue;
+
+                $imgName = time() . $i;
+                $path = 'images/home/Cover/';
+
+                $smallImage->move($path, $imgName . '.jpg');
+                $bigImage->move($path, $imgName . 'b.jpg');
+
                 $Cover = new Cover();
                 $Cover->what_category_id = $categoryId;
-                $Cover->image_path = '/images/home/Cover/'. $imgName . '.jpg';
+                $Cover->image_path = '/'.$path . $imgName . 'b.jpg';
                 $Cover->save();
             }
         }
