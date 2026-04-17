@@ -80,34 +80,27 @@ class CoverController extends Controller
             }
         }
         else {
-            $request->validate([
-                'small_image_home.*' => 'required|image|mimes:jpeg,jpg|max:2048',
-                'big_image_home.*'   => 'required|image|mimes:jpeg,jpg|max:5120',
-            ]);
-            return $request->all();
-            $smallImages = $request->file('small_image_home');
-            $bigImages = $request->file('big_image_home');
-
-            return $smallImages;
-            if (!$smallImages || !$bigImages) {
-                dd('No files uploaded');
+            foreach (range(0, count($request->file('small_image')) - 1) as $i) {
+                $request->validate(['small_image.' . $i => 'mimes:jpeg|max:4096']);
+            }
+            foreach (range(0, count($request->file('big_image')) - 1) as $i) {
+                $request->validate(['big_image.' . $i => 'mimes:jpeg|max:600|min:4096']);
             }
 
-            foreach ($smallImages as $i => $smallImage) {
-                $bigImage = $bigImages[$i] ?? null;
+            $images = new \MultipleIterator();
+            $images->attachIterator(new \ArrayIterator($request->file('small_image')));
+            $images->attachIterator(new \ArrayIterator($request->file('big_image')));
+            foreach ($images as $i => $image) {
+                $imgName = (string)time() . $i[0];
+                $path = 'images/home/Cover';
 
-                if (!$smallImage || !$bigImage) continue;
+                $image[0]->move($path, $imgName . '.jpg');
+                $image[1]->move($path, $imgName . 'b.jpg');
 
-                $imgName = time() . $i;
-                $path = 'images/home/Cover/';
-
-                $smallImage->move($path, $imgName . '.jpg');
-                $bigImage->move($path, $imgName . 'b.jpg');
-
-                $Cover = new Cover();
-                $Cover->what_category_id = $categoryId;
-                $Cover->image_path = '/'.$path . $imgName . 'b.jpg';
-                $Cover->save();
+                $cover = new Cover;
+                $cover->what_category_id = $categoryId;
+                $cover->image_path = '/'.$path . '/' . $imgName  . '.jpg';
+                $cover->save();
             }
         }
 
