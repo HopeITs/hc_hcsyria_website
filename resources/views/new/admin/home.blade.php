@@ -60,7 +60,7 @@
                 @include('new.admin.messages')
                 <div class="card">
                     <div class=" main-color-bg card-title">Online Micro-Projects
-                        <span>{{$projectsAleppo + $projectsHoms + $projectsDamascus + $projectsLatakia + $projectsWadi}}</span>
+                        <span>{{$projectsAleppo + $projectsHoms + $projectsDamascus + $projectsLatakia + $projectsWadi + $projectsTartus + $projectsIdleb}}</span>
                     </div>
                     <div class="card-body">
                         <div class="row">
