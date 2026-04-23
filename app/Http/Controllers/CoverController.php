@@ -57,7 +57,6 @@ class CoverController extends Controller
 
     public function store(Request $request)
     {
-        return $request->file('small_image_home');
         if ($request->input('id') != 0) {
             $categoryName = WhatCategory::find($request->input('id'))->name;
         } else {
@@ -65,51 +64,50 @@ class CoverController extends Controller
         }
         $categoryId = $request->input('id');
         $images = new \MultipleIterator();
-
         if ($categoryId != 0) {
+            $request->validate([
+                'image.*' => 'required|image|mimes:jpeg,jpg|max:4096', // 4MB
+            ]);
             $images->attachIterator(new \ArrayIterator($request->file('image')));
             foreach ($images as $i => $image) {
                 $imgName = (string)time() . $i[0];
-                $path = '/images/home/' . $categoryName;
-                $image[0]->move(public_path($path), $imgName . '.jpg');
+                $path = 'images/home/' . $categoryName;
+                $image[0]->move($path, $imgName . '.jpg');
                 $Cover = new Cover();
                 $Cover->what_category_id = $categoryId;
-                $Cover->image_path = $path . '/' . $imgName . '.jpg';
+                $Cover->image_path = '/'.$path . '/' . $imgName  . '.jpg';
                 $Cover->save();
             }
-        } else {
-            foreach (range(0, count($request->file('small_image_home')) - 1) as $i) {
-                $request->validate(['small_image_home.' . $i => 'mimes:jpeg|max:200']);
+        }
+        else {
+            foreach (range(0, count($request->file('small_image')) - 1) as $i) {
+                $request->validate(['small_image.' . $i => 'mimes:jpeg|max:4096']);
             }
-            foreach (range(0, count($request->file('big_image_home')) - 1) as $i) {
-                $request->validate(['big_image_home.' . $i => 'mimes:jpeg|max:600|min:250']);
+            foreach (range(0, count($request->file('big_image')) - 1) as $i) {
+                $request->validate(['big_image.' . $i => 'mimes:jpeg|max:600|min:4096']);
             }
-            $images->attachIterator(new \ArrayIterator($request->file('small_image_home')));
-            $images->attachIterator(new \ArrayIterator($request->file('big_image_home')));
+
+            $images = new \MultipleIterator();
+            $images->attachIterator(new \ArrayIterator($request->file('small_image')));
+            $images->attachIterator(new \ArrayIterator($request->file('big_image')));
             foreach ($images as $i => $image) {
                 $imgName = (string)time() . $i[0];
-                $path = '/images/home/Cover/';
-                $image[0]->move(public_path($path), $imgName . '.jpg');
-                $image[1]->move(public_path($path), $imgName . 'b.jpg');
-                $Cover = new Cover();
-                $Cover->what_category_id = $categoryId;
-                $Cover->image_path = $path . '/' . $imgName . 'b.jpg';
-                $Cover->save();
+                $path = 'images/home/Cover';
+
+                $image[0]->move($path, $imgName . '.jpg');
+                $image[1]->move($path, $imgName . 'b.jpg');
+
+                $cover = new Cover;
+                $cover->what_category_id = $categoryId;
+                $cover->image_path = '/'.$path . '/' . $imgName  . '.jpg';
+                $cover->save();
             }
         }
 
         $this->saveToLog(self::COVER, $categoryId, 'Images stored');
-
-        if($categoryId != 0 ){
-            return redirect()->route('covers', ['tab' => $categoryName])
-                ->with('success', count($request->file('image')) . ' Images stored');
-        }
-        else{
-//            return redirect()->route('covers', ['tab' => $categoryName])
-//                ->with('success', count($request->file('small_image_home')) . ' Images stored');
-        }
+        return redirect()->route('covers', ['tab' => $categoryName])
+            ->with('success', ' Images stored');
     }
-
     public function destroy(Request $request, $id)
     {
         $images = Cover::where('what_category_id', $id)->get();
@@ -121,7 +119,7 @@ class CoverController extends Controller
             if (isset($selectedImages[$img->id]) && $selectedImages[$img->id] == '1') {
                 $deletedImagesCount++;
                 // Delete file from disk
-                File::delete(public_path($img->MPI_Path));
+                File::delete($img->MPI_Path);
                 // Delete from database
                 $img->delete();
             }

@@ -414,7 +414,7 @@ WHERE projects.`MPE_Published` = 0  GROUP BY projects.MicroProject_ID;
         $images = DB::table('images')->where('project_id', $id)->get();
         DB::table('images')->where('project_id', $id)->delete();
         foreach ($images as $image) {
-            File::delete(public_path($image->MPI_Path), substr(public_path($image->MPI_Path), 0, -4) . 'b.jpg');
+            File::delete($image->MPI_Path, substr($image->MPI_Path, 0, -4) . 'b.jpg');
         }
         $this->saveToLog(self::MICRO, $id, 'Project Deleted');
         return response()->json('Project has been deleted');
@@ -560,35 +560,43 @@ WHERE projects.`MPE_Published` = 0  GROUP BY projects.MicroProject_ID;
         return view('new.admin.add-image', ['project' => $project, 'images' => $images])->with('success', count($request->file('small_image')) . ' Images stored');
     }
 
-    Public function delete_images(Request $request, $id)
+    public function delete_images(Request $request, $id)
     {
         $project = Project::where('id', $id)->first();
-        if($project->MPE_Published == '1'){
+
+        if ($project->MPE_Published == '1') {
             $project->MPE_Published = '0';
             $project->MPE_PublishDate = Carbon::now("Asia/Damascus");
 
             $project->timestamps = false;
             $project->save();
-            $this->saveToLog(self::MICRO, $id , 'Made Offline');
-        }
-        $images = Image::where('project_id', $id)->orderBy('image_order')->get();
 
-        foreach ($images as $img) {
-//            if ($request->input($img->id) == 1) {
-                $img->delete();
+            $this->saveToLog(self::MICRO, $id, 'Made Offline');
+        }
+
+        $selectedImages = $request->input('selected_images', []);
+
+        foreach (array_keys($selectedImages) as $imageId) {
+            $img = Image::find($imageId);
+
+            if ($img && $img->project_id == $id) {
                 File::delete($img->MPI_Path);
                 File::delete(substr($img->MPI_Path, 0, -4) . 'b.jpg');
-//            }
+                $img->delete();
+            }
         }
-        $imageIdsArray = Image::where('project_id', $id)
-            ->orderBy('image_order')
-            ->pluck('id')
-            ->toArray();
 
-        $images = Image::where('project_id', $id)->orderBy('image_order')->get();
+        // refresh images
+        $images = Image::where('project_id', $id)
+            ->orderBy('image_order')
+            ->get();
+
         $this->saveToLog(self::MICRO, $id, 'Image Deleted');
 
-        return view('new.admin.add-image', ['project' => $project, 'images' => $images])->with('success', 'Images removed');
+        return view('new.admin.add-image', [
+            'project' => $project,
+            'images' => $images
+        ])->with('success', 'Selected images removed');
     }
 
     public function order_images(Request $request){

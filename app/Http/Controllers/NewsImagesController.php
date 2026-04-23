@@ -61,12 +61,12 @@ class NewsImagesController extends Controller
 //            $titleCut = substr($request->input('title'), 0, 7);
             $news_id = $request->input('news_id');
 
-            $path = '/news/' . $categoryName . '/' . $news_id . '/';
-            $image[0]->move(public_path($path), $imgName . '.jpg');
-            $image[1]->move(public_path($path), $imgName . 'b.jpg');
+            $path = 'images/news/' . $categoryName . '/' . $news_id . '/';
+            $image[0]->move($path, $imgName . '.jpg');
+            $image[1]->move($path, $imgName . 'b.jpg');
             $newsImage = new NewsImage();
             $newsImage->news_id = $request->input('news_id');
-            $newsImage->path = '/'.public_path($path) . $imgName . '.jpg';
+            $newsImage->path = '/'.$path . $imgName . '.jpg';
             $newsImage->save();
         }
         $this->saveToLog(self::NEWS, $request->input('news_id'), count($request->file('small_image')) . ' Images stored');
@@ -81,8 +81,8 @@ class NewsImagesController extends Controller
             if ($request->input($img->id) == '1') {
                 $deletedImagesCount++;
                 $img->delete();
-                File::delete(public_path($img->path));
-                File::delete(public_path(substr($img->path, 0, -4).'b.jpg'));
+                File::delete($img->path);
+                File::delete(substr($img->path, 0, -4).'b.jpg');
             }
         }
         $this->saveToLog(self::NEWS, $id,$deletedImagesCount . ' Images deleted');

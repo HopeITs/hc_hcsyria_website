@@ -85,40 +85,26 @@
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $what_category->id }}">
 
-                                    <div class="row mb-3">
-                                        <div class="form-group col-lg-3 col-md-3 col-12">
-                                            <label for="images-count-{{ $what_category->id }}">Images Count</label>
-                                            <input id="images-count-{{ $what_category->id }}"
-                                                   type="number"
-                                                   step="1"
-                                                   value="3"
-                                                   min="1" class="form-control"
-                                                   onchange="addImageGroup({{ $what_category->id }})">
-                                        </div>
-                                    </div>
-
                                     <div class="mb-3" id="images-group-{{ $what_category->id }}">
                                         @if($what_category->id == 0)
-                                            @for ($i = 0; $i < 3; $i++)
                                                 <div class="image-group form-control mb-3">
                                                     <div class="row">
                                                         <div class="form-group col-lg-6 col-md-6 col-12">
-                                                            <label for="small_image_home">Small Image</label>
+                                                            <label for="small_image">Small Image</label>
                                                             <input type="file"
-                                                                   name="small_image_home[]"
+                                                                   name="small_image[]"
                                                                    accept="image/jpeg"
                                                                    required>
                                                         </div>
                                                         <div class="form-group col-lg-6 col-md-6 col-12">
-                                                            <label for="big_image_home">Large Image</label>
+                                                            <label for="big_image">Large Image</label>
                                                             <input type="file"
-                                                                   name="big_image_home[]"
+                                                                   name="big_image[]"
                                                                    accept="image/jpeg"
                                                                    required>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            @endfor
                                         @else
                                             <!-- Single images for other categories -->
                                             @for ($i = 0; $i < 3; $i++)
@@ -250,25 +236,27 @@
 <script>
     let image_group_html = '';
     function addImageGroup(what_category_id) {
-        if (what_category_id === 0) {
+        // if (what_category_id === 0) {
+        //     image_group_html = '<div class="image-group form-control">' +
+        //         '<div class="row">' +
+        //         '<div class="form-group col-lg-6 col-md-6 col-12">' +
+        //         '<label >Small Image</label>' +
+        //         '<input accept="image/jpeg" required name="small_image_home[]" type="file" style="padding-left: 3px;">' +
+        //         '</div><div class="form-group col-lg-6 col-md-6 col-12">' +
+        //         '<label >Large Image</label>' +
+        //         '<input accept="image/jpeg" required="" name="big_image_home[]" type="file" style="padding-left: 3px;">' +
+        //         '</div></div>' +
+        //         '</div>'
+        // } else {
             image_group_html = '<div class="image-group form-control">' +
                 '<div class="row">' +
                 '<div class="form-group col-lg-6 col-md-6 col-12">' +
-                '<label for="small_image_home">Small Image</label>' +
-                '<input accept="image/jpeg" required="" name="small_image_home[]" type="file" style="padding-left: 3px;">' +
-                '</div><div class="form-group col-lg-6 col-md-6 col-12">' +
-                '<label for="big_image_home">Large Image</label>' +
-                '<input accept="image/jpeg" required="" name="big_image_home[]" type="file" style="padding-left: 3px;">' +
-                '</div></div>' +
-                '</div>'
-        } else {
-            image_group_html = '<div class="image-group form-control">' +
-                '<div class="row">' +
-                '<div class="form-group col-lg-6 col-md-6 col-12">' +
-                '<label for="image">Image</label>' +
-                '<input accept="image/jpeg" required="" name="image[]" type="file" style="padding-left: 3px;">' +
+                '<label>Image</label>' +
+                '<input accept="image/jpeg" required name="image[]" type="file" style="padding-left: 3px;">' +
+                '</div>' +
+                '</div>' +
                 '</div>';
-        }
+        // }
         let countInput = document.getElementById(`images-count-` + what_category_id);
         let imagesGroup = document.getElementById(`images-group-` + what_category_id);
         let default_images_count = imagesGroup.querySelectorAll('.image-group').length;

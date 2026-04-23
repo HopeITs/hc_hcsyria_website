@@ -33,13 +33,13 @@ class InitiativeImagesRehabilitationController extends Controller
         ]);
         $categoryName = WhatCategory::find($request->input('what_category_id'))->name;
         $imgName = (string)time();
-        $path = '/initiatives/' . $categoryName . '/' . $request->input('title') . '/';
-        $request->file('before_image')->move(public_path($path), $imgName . 'before.jpg');
-        $request->file('after_image')->move(public_path($path), $imgName . 'after.jpg');
+        $path = 'images/initiatives/' . $categoryName . '/' . $request->input('title') . '/';
+        $request->file('before_image')->move($path, $imgName . 'before.jpg');
+        $request->file('after_image')->move($path, $imgName . 'after.jpg');
         $initiativeImageRehabilitation = new InitiativeImageRehabilitation();
         $initiativeImageRehabilitation->initiative_id = $request->input('initiative_id');
-        $initiativeImageRehabilitation->path_1 = '/'.public_path($path) . $imgName . 'before.jpg';
-        $initiativeImageRehabilitation->path_2 = '/'.public_path($path) . $imgName . 'after.jpg';
+        $initiativeImageRehabilitation->path_1 = '/'.$path . $imgName . 'before.jpg';
+        $initiativeImageRehabilitation->path_2 = '/'.$path . $imgName . 'after.jpg';
         $initiativeImageRehabilitation->save();
         $this->saveToLog(self::INITIATIVES, $request->input('initiative_id'), 'Before & After Images stored');
         return redirect('admin/initiatives/images/rehabilitation/'.$request->input('initiative_id'))->with('success', 'Before & After Images stored');
@@ -52,7 +52,7 @@ class InitiativeImagesRehabilitationController extends Controller
         foreach ($rehabilitationImages as $images) {
             if ($request->input($images->id) == '1') {
                 $images->delete();
-                File::delete(public_path($images->path_1), public_path($images->path_2));
+                File::delete($images->path_1, $images->path_2);
             }
             $deletedImagesCount++;
         }

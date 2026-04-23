@@ -60,10 +60,10 @@ class TeamController extends Controller
         $profile->belong_to = $request->input('belong_to');
 
         $imgName = $request->input('belong_to') . '_' . $request->input('first_name'). '_' . $request->input('last_name');
-        $path = '/team/';
-        $request->file('image_path')->move(public_path($path),$imgName.'.jpg');
+        $path = 'images/team/';
+        $request->file('image_path')->move($path,$imgName.'.jpg');
 
-        $profile->image_path = '/'.public_path($path) . $imgName . '.jpg';
+        $profile->image_path = '/'.$path . $imgName . '.jpg';
 
         $profile->position_french = '0';
 
@@ -126,12 +126,12 @@ class TeamController extends Controller
         $profile = Profile::find($id);
         $profilePrev = Profile::find($id);
         if ($request->hasFile('image_path')) {
-            File::delete(public_path($profile->image_path));
+            File::delete($profile->image_path);
             $imgName = $request->input('belong_to') . '_' . $request->input('first_name'). '_' . $request->input('last_name');
-            $path = '/team/';
-            $request->file('image_path')->move(public_path($path),$imgName.'.jpg');
+            $path = 'images/team/';
+            $request->file('image_path')->move($path,$imgName.'.jpg');
 
-            $profile->image_path = '/'.public_path($path) . $imgName . '.jpg';
+            $profile->image_path = '/'.$path . $imgName . '.jpg';
             $this->saveToLog(self::TEAM, $profile->id,'Image changed');
         }
 
@@ -188,7 +188,7 @@ class TeamController extends Controller
         $profile = Profile::find($id);
         Profile::destroy($id);
 
-        File::delete(public_path($profile->image_path));
+        File::delete($profile->image_path);
         $this->saveToLog(self::TEAM, $profile->id, 'Team Member deleted');
         return redirect()->back()->with('team', 'Team Member deleted');
     }

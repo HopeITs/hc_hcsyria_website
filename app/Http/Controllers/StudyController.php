@@ -90,7 +90,7 @@ class StudyController extends Controller
 
         $places = Place::All();
         $students = DB::select("
-SELECT DISTINCT(students.`id`)  as 'ID', 
+SELECT DISTINCT(students.`id`)  as 'ID',
 studyzonecenters.name as 'Center',
 students.firstname as 'firstname',
 students.fathername as 'fathername' ,
@@ -401,124 +401,124 @@ GROUP BY students.id
 , COUNT(*) AS entry_count
 FROM student_entries
 JOIN students ON student_entries.student_id = students.id
-where center_id in (5) 
-GROUP BY entry_date, center_id  
+where center_id in (5)
+GROUP BY entry_date, center_id
 ORDER BY student_entries.center_id ASC;");
 
             $statis_count_babsharqi = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
 , COUNT(*) AS entry_count
 FROM student_entries
 JOIN students ON student_entries.student_id = students.id
-where center_id in (19) 
-GROUP BY entry_date, center_id  
+where center_id in (19)
+GROUP BY entry_date, center_id
 ORDER BY student_entries.center_id ASC;");
 
             $statis_count_nouzha = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
 , COUNT(*) AS entry_count
 FROM student_entries
 JOIN students ON student_entries.student_id = students.id
-where center_id in (2) 
-GROUP BY entry_date, center_id  
+where center_id in (2)
+GROUP BY entry_date, center_id
 ORDER BY student_entries.center_id ASC;");
 
             $statis_count_arman = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
 , COUNT(*) AS entry_count
 FROM student_entries
 JOIN students ON student_entries.student_id = students.id
-where center_id in (3) 
-GROUP BY entry_date, center_id  
+where center_id in (3)
+GROUP BY entry_date, center_id
 ORDER BY student_entries.center_id ASC;");
 
             $statis_count_mahatta = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
 , COUNT(*) AS entry_count
 FROM student_entries
 JOIN students ON student_entries.student_id = students.id
-where center_id in (6) 
-GROUP BY entry_date, center_id  
+where center_id in (6)
+GROUP BY entry_date, center_id
 ORDER BY student_entries.center_id ASC;");
 
             $statis_count_mouzeina = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
 , COUNT(*) AS entry_count
 FROM student_entries
 JOIN students ON student_entries.student_id = students.id
-where center_id in (7) 
-GROUP BY entry_date, center_id  
+where center_id in (7)
+GROUP BY entry_date, center_id
 ORDER BY student_entries.center_id ASC;");
 
             $statis_count_adawia = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
 , COUNT(*) AS entry_count
 FROM student_entries
 JOIN students ON student_entries.student_id = students.id
-where center_id in (15) 
-GROUP BY entry_date, center_id  
+where center_id in (15)
+GROUP BY entry_date, center_id
 ORDER BY student_entries.center_id ASC;");
 
             $statis_count_hamidiye = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
 , COUNT(*) AS entry_count
 FROM student_entries
 JOIN students ON student_entries.student_id = students.id
-where center_id in (16) 
-GROUP BY entry_date, center_id  
+where center_id in (16)
+GROUP BY entry_date, center_id
 ORDER BY student_entries.center_id ASC;");
 
             $statis_count_villat = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
 , COUNT(*) AS entry_count
 FROM student_entries
 JOIN students ON student_entries.student_id = students.id
-where center_id in (14) 
-GROUP BY entry_date, center_id  
+where center_id in (14)
+GROUP BY entry_date, center_id
 ORDER BY student_entries.center_id ASC;");
 
             $statis_count_ziraa1 = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
 , COUNT(*) AS entry_count
 FROM student_entries
 JOIN students ON student_entries.student_id = students.id
-where center_id in (4) 
-GROUP BY entry_date, center_id  
+where center_id in (4)
+GROUP BY entry_date, center_id
 ORDER BY student_entries.center_id ASC;");
 
             $statis_count_ziraa2 = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
 , COUNT(*) AS entry_count
 FROM student_entries
 JOIN students ON student_entries.student_id = students.id
-where center_id in (8) 
-GROUP BY entry_date, center_id  
+where center_id in (8)
+GROUP BY entry_date, center_id
 ORDER BY student_entries.center_id ASC;");
 
             $statis_count_azar = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
 , COUNT(*) AS entry_count
 FROM student_entries
 JOIN students ON student_entries.student_id = students.id
-where center_id in (12) 
-GROUP BY entry_date, center_id  
+where center_id in (12)
+GROUP BY entry_date, center_id
 ORDER BY student_entries.center_id ASC;");
 
             $statis_count_mashrouh = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
 , COUNT(*) AS entry_count
 FROM student_entries
 JOIN students ON student_entries.student_id = students.id
-where center_id in (13) 
-GROUP BY entry_date, center_id  
+where center_id in (13)
+GROUP BY entry_date, center_id
 ORDER BY student_entries.center_id ASC;");
 
             $statis_count_khrab = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
 , COUNT(*) AS entry_count
 FROM student_entries
 JOIN students ON student_entries.student_id = students.id
-where center_id in (17) 
-GROUP BY entry_date, center_id  
+where center_id in (17)
+GROUP BY entry_date, center_id
 ORDER BY student_entries.center_id ASC;");
 
         $statis_avg = DB::select("SELECT entry_date
-, AVG(entry_count) AS avg_entry_count 
+, AVG(entry_count) AS avg_entry_count
 FROM ( SELECT DATE(student_entries.created_at) AS entry_date
       , center_id
       , studyzonecenters.name as center
-      , COUNT(*) AS entry_count 
-    FROM student_entries JOIN students ON student_entries.student_id = students.id 
-    LEFT JOIN studyzonecenters on studyzonecenters.id = student_entries.center_id 
-    GROUP BY entry_date, center_id ) AS subquery 
-GROUP BY entry_date  
+      , COUNT(*) AS entry_count
+    FROM student_entries JOIN students ON student_entries.student_id = students.id
+    LEFT JOIN studyzonecenters on studyzonecenters.id = student_entries.center_id
+    GROUP BY entry_date, center_id ) AS subquery
+GROUP BY entry_date
 ORDER BY entry_date;");
 
         $iniStudy = Initiative::with('english', 'place')->where('what_category_id', '7')->where('online', '1')->get();
@@ -526,7 +526,7 @@ ORDER BY entry_date;");
         $places = Place::All();
         $sucstudy = Success::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center')->where('what_category_id', '7')->where('online', '1')->get();
         $sucpending = Success::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center')->where('what_category_id', '7')->where('online', '0')->get();
-   
+
         return view('new.admin.study.index', ['allplaces'=>$allplaces,'user_places'=>$user_places,'iniStudy' => $iniStudy, 'students_count' => $students_count, 'studentsentry_count' => $studentsentry_count, 'iniPending' => $iniPending, 'sucpending' => $sucpending, 'places' => $places, 'sucstudy' => $sucstudy, 'students' => $students,
 //            'studentsentry' => $studentsentry,
             'centers' => $centers, 'statis_count' => $statis_count, 'statis_count_adawia' => $statis_count_adawia, 'statis_count_arman' => $statis_count_arman, 'statis_count_azar' => $statis_count_azar, 'statis_count_babtouma' => $statis_count_babtouma, 'statis_count_hamidiye' => $statis_count_hamidiye, 'statis_count_khrab' => $statis_count_khrab, 'statis_count_mahatta' => $statis_count_mahatta, 'statis_count_mashrouh' => $statis_count_mashrouh, 'statis_count_mouzeina' => $statis_count_mouzeina, 'statis_count_nouzha' => $statis_count_nouzha, 'statis_count_villat' => $statis_count_villat, 'statis_count_ziraa1' => $statis_count_ziraa1, 'statis_count_ziraa2' => $statis_count_ziraa2,'statis_count_babsharqi'=>$statis_count_babsharqi, 'centernames' => $centernames, 'statis_avg' => $statis_avg,'user_centers'=>$user_centers]);
@@ -923,13 +923,13 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
         $initiativePrev = Initiative::find($id);
         if ($request->hasFile('logo')) {
             if ($initiative->logo != '0') {
-                File::delete(public_path($initiative->logo));
+                File::delete($initiative->logo);
             }
             $imgName = (string)time();
             $iniCategory = DB::table('what_categories')->where('id', 7)->get()->pluck('name')[0];
             $path = '/images/initiatives/' . $iniCategory . '/';
             $imgExt = $request->file('logo')->getClientOriginalExtension();
-            $request->file('logo')->move(public_path($path), $imgName . '.' . $imgExt);
+            $request->file('logo')->move($path, $imgName . '.' . $imgExt);
             $initiative->logo = $path . $imgName . '.' . $imgExt;
             $this->saveToLog(self::INITIATIVES, $id, 'Logo changed');
         }
@@ -1010,7 +1010,7 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
             $iniCategory = DB::table('what_categories')->where('id', 7)->get()->pluck('name')[0];
             $path = '/images/initiatives/' . $iniCategory . '/' . $request->input('title') . '/';
             $imgExt = $request->file('logo')->getClientOriginalExtension();
-            $request->file('logo')->move(public_path($path), $imgName . '.' . $imgExt);
+            $request->file('logo')->move($path, $imgName . '.' . $imgExt);
             $initiative->logo = $path . $imgName . '.' . $imgExt;
         }
         $initiative->video = $request->filled('video') ? $request->input('video') : '0';
@@ -1043,11 +1043,11 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
         Initiative::destroy($id);
         InitiativeEnglish::where('initiative_id', $id)->delete();
         InitiativeFrench::where('initiative_id', $id)->delete();
-        File::delete(public_path($initiative->logo));
+        File::delete($initiative->logo);
         $images = InitiativeImage::where('initiative_id', $id)->get();
         InitiativeImage::where('initiative_id', $id)->delete();
         foreach ($images as $image) {
-            File::delete(public_path($image->path), substr(public_path($image->path), 0, -4) . 'b.jpg');
+            File::delete($image->path, substr($image->path, 0, -4) . 'b.jpg');
         }
         $this->saveToLog(self::INITIATIVES, $id, 'Initiative deleted');
         return redirect()->back()->with('success', 'Initiative ' . $id . ' deleted successfully');
@@ -1104,12 +1104,12 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
         $images->attachIterator(new \ArrayIterator($request->file('big_image')));
         foreach ($images as $i => $image) {
             $imgName = (string)time() . $i[0];
-            $path = '/initiatives/' . $categoryName . '/' . $request->input('title') . '/';
-            $image[0]->move(public_path($path), $imgName . '.jpg');
-            $image[1]->move(public_path($path), $imgName . 'b.jpg');
+            $path = 'images/initiatives/' . $categoryName . '/' . $request->input('title') . '/';
+            $image[0]->move($path, $imgName . '.jpg');
+            $image[1]->move($path, $imgName . 'b.jpg');
             $initiativeImage = new InitiativeImage();
             $initiativeImage->initiative_id = $request->input('initiative_id');
-            $initiativeImage->path = '/'.public_path($path) . $imgName . '.jpg';
+            $initiativeImage->path = '/'.$path. $imgName . '.jpg';
             $initiativeImage->save();
         }
         $this->saveToLog(self::INITIATIVES, $request->input('initiative_id'), count($request->file('small_image')) . ' Images stored');
@@ -1122,12 +1122,12 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
         $success = Success::find($request->input('success_id'));
         $successPrev = Success::find($request->input('success_id'));
         if ($request->hasFile('image_path')) {
-            File::delete(public_path($success->image_path));
+            File::delete($success->image_path);
             $imgName = (string)time();
             $whoCategory = DB::table('who_categories')->where('id', $request->input('who_category_id'))->get()->pluck('name')[0];
-            $path = '/successes/' . $whoCategory . '/';
-            $request->file('image_path')->move(public_path($path), $imgName . '.jpg');
-            $success->image_path = '/'.public_path($path) . $imgName . '.jpg';
+            $path = 'images/successes/' . $whoCategory . '/';
+            $request->file('image_path')->move($path, $imgName . '.jpg');
+            $success->image_path = '/'.$path . $imgName . '.jpg';
             $this->saveToLog(self::SUCCESSES, $success->id, 'Image changed');
         }
         $success->save();
@@ -1142,8 +1142,8 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
             if ($request->input($img->id) == '1') {
                 $deletedImagesCount++;
                 $img->delete();
-                File::delete(public_path($img->path));
-                File::delete(public_path(substr($img->path, 0, -4) . 'b.jpg'));
+                File::delete($img->path);
+                File::delete(substr($img->path, 0, -4) . 'b.jpg');
             }
         }
         $this->saveToLog(self::INITIATIVES, $id, $deletedImagesCount . ' Images deleted');
@@ -1158,8 +1158,8 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
             if ($request->input($img->id) == '1') {
                 $deletedImagesCount++;
                 $img->delete();
-                File::delete(public_path($img->path));
-                File::delete(public_path(substr($img->path, 0, -4) . 'b.jpg'));
+                File::delete($img->path);
+                File::delete(substr($img->path, 0, -4) . 'b.jpg');
             }
         }
         $this->saveToLog(self::INITIATIVES, $id, $deletedImagesCount . ' Images deleted');
@@ -1199,7 +1199,7 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
         $imgName = (string)time();
         $whoCategory = DB::table('who_categories')->where('id', $request->input('who_category_id'))->get()->pluck('name')[0];
         $path = '/images/successes/' . $whoCategory . '/';
-        $request->file('image_path')->move(public_path($path), $imgName . '.jpg');
+        $request->file('image_path')->move($path, $imgName . '.jpg');
         $success->image_path = $path . $imgName . '.jpg';
 
         $success->inner_image_path = '0';
@@ -1263,11 +1263,11 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
         $success = Success::find($id);
         $successPrev = Success::find($id);
         if ($request->hasFile('image_path')) {
-            File::delete(public_path($success->image_path));
+            File::delete($success->image_path);
             $imgName = (string)time();
             $whoCategory = DB::table('who_categories')->where('id', $request->input('who_category_id'))->get()->pluck('name')[0];
             $path = '/images/successes/' . $whoCategory . '/';
-            $request->file('image_path')->move(public_path($path), $imgName . '.jpg');
+            $request->file('image_path')->move($path, $imgName . '.jpg');
             $success->image_path = $path . $imgName . '.jpg';
             $this->saveToLog(self::SUCCESSES, $success->id, 'Image changed');
         }
@@ -1314,9 +1314,9 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
         Success::destroy($id);
         SuccessEnglish::where('success_id', $id)->delete();
         SuccessFrench::where('success_id', $id)->delete();
-        File::delete(public_path($success->image_path));
-        File::delete(public_path($success->inner_image_path));
-        File::delete(public_path($success->inner_big_image_path));
+        File::delete($success->image_path);
+        File::delete($success->inner_image_path);
+        File::delete($success->inner_big_image_path);
         $this->saveToLog(self::SUCCESSES, $success->id, 'Success deleted');
         return redirect()->back()->with('success', 'Success deleted');
     }

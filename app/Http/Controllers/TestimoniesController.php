@@ -40,7 +40,7 @@ class TestimoniesController extends Controller
         $iniCategory = DB::table('what_categories')->where('id',$request->input('what_category_id'))->get()->pluck('name')[0];
         $iniTitle = DB::table('initiatives_english')->where('initiative_id',$request->input('initiative_id'))->get()->pluck('title')[0];
         $path = '/images/initiatives/'.$iniCategory.'/'.$iniTitle.'/';
-        $request->file('image_path')->move(public_path($path),$imgName.'.jpg');
+        $request->file('image_path')->move($path,$imgName.'.jpg');
         $testimony->image_path = $path.$imgName.'.jpg';
         $testimony->french_translation = '0';
         $testimony->initiative_id = $request->input('initiative_id');
@@ -66,12 +66,12 @@ class TestimoniesController extends Controller
         ]);
         $testimony = Testimony::find($id);
         if ($request->hasFile('image_path')) {
-            File::delete(public_path($testimony->image_path));
+            File::delete($testimony->image_path);
             $imgName = (string)time();
             $iniCategory = DB::table('what_categories')->where('id', $id)->get()->pluck('name')[0];
             $iniTitle = DB::table('initiatives_english')->where('initiative_id', $id)->get()->pluck('title')[0];
             $path = '/images/initiatives/'.$iniCategory.'/'.$iniTitle.'/';
-            $request->file('image_path')->move(public_path($path),$imgName.'.jpg');
+            $request->file('image_path')->move($path,$imgName.'.jpg');
             $testimony->image_path = $path.$imgName.'.jpg';
             $this->saveToLog(self::INITIATIVES, $testimony->initiative_id,'Testimony image changed');
         }
@@ -97,7 +97,7 @@ class TestimoniesController extends Controller
         Testimony::destroy($id);
         TestimonyEnglish::where('testimony_id', $id)->delete();
         TestimonyFrench::where('testimony_id', $id)->delete();
-        File::delete(public_path($testimony->image_path));
+        File::delete($testimony->image_path);
         $this->saveToLog(self::INITIATIVES, $testimony->initiative_id, 'Testimony deleted');
         return redirect()->route('initiatives.testimonies.index', [$testimony->initiative_id])->with('success', 'Testimony deleted');
     }

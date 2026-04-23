@@ -31,16 +31,16 @@ class RootsController extends Controller
         if ($file = $request->hasFile('file')) {
             $file = $request->file('file');
             $fileName = $file->getClientOriginalName();
-            $path = '../files/rootsofhope/';
-            $file->move(public_path($path), $fileName);
+            $path = '/files/rootsofhope/';
+            $file->move($path, $fileName);
             $roots->file_path = '/files/rootsofhope/'.$fileName;
         } else $roots->file_path = '0';
         if ($image_file = $request->hasFile('image_file')) {
             $image_file = $request->file('image_file');
             $fileName = $image_file->getClientOriginalName();
-            $path = '/rootsofhope/';
-            $image_file->move(public_path($path), $fileName);
-            $roots->image_path = '/images'.$path . $fileName;
+            $path = 'images/rootsofhope/';
+            $image_file->move($path, $fileName);
+            $roots->image_path = '/'.$path . $fileName;
         } else $roots->image_path = '0';
         $roots->title = $request->input('title');
         $roots->save();
@@ -71,11 +71,11 @@ class RootsController extends Controller
         // Handle image upload (only if new file provided)
         if ($request->hasFile('image_file')) {
             $imageName = $request->image_file->getClientOriginalName();
-            $request->image_file->move(public_path('/rootsofhope/'), $imageName);
+            $request->image_file->move('/images/rootsofhope/', $imageName);
 
             // Optionally delete old image
-            if ($roots->image_path && file_exists(public_path($roots->image_path))) {
-                unlink(public_path($roots->image_path));
+            if ($roots->image_path && file_exists($roots->image_path)) {
+                unlink($roots->image_path);
             }
 
             $roots->image_path = '/images/rootsofhope/'.$imageName;
@@ -84,11 +84,11 @@ class RootsController extends Controller
         // Handle file upload (only if new file provided)
         if ($request->hasFile('file')) {
             $fileName = $request->file->getClientOriginalName();
-            $request->file->move(public_path('../files/rootsofhope/'), $fileName);
+            $request->file->move('/files/rootsofhope/', $fileName);
 
             // Optionally delete old file
-            if ($roots->file_path && file_exists(public_path($roots->file_path))) {
-                unlink(public_path($roots->file_path));
+            if ($roots->file_path && file_exists($roots->file_path)) {
+                unlink($roots->file_path);
             }
 
             $roots->file_path = '/files/rootsofhope/'.$fileName;
@@ -100,8 +100,8 @@ class RootsController extends Controller
     {
         $roots = RootsOfHope::find($id);
         $roots::destroy($id);
-        File::delete(public_path($roots->image_path));
-        File::delete(public_path($roots->file_path));
+        File::delete($roots->image_path);
+        File::delete($roots->file_path);
         $this->saveToLog(self::Magazine, $roots->id, 'Magazine deleted');
         return redirect()->back()->with('success', 'Magazine ' . $roots->id . ' deleted successfully');
     }

@@ -55,12 +55,12 @@ class InitiativeImagesController extends Controller
         $images->attachIterator(new \ArrayIterator($request->file('big_image')));
         foreach ($images as $i => $image) {
             $imgName = (string)time() . $i[0];
-            $path = '/initiatives/' . $categoryName . '/' . $request->input('title') . '/';
-            $image[0]->move(public_path($path), $imgName . '.jpg');
-            $image[1]->move(public_path($path), $imgName . 'b.jpg');
+            $path = 'images/initiatives/' . $categoryName . '/' . $request->input('title') . '/';
+            $image[0]->move($path, $imgName . '.jpg');
+            $image[1]->move($path, $imgName . 'b.jpg');
             $initiativeImage = new InitiativeImage();
             $initiativeImage->initiative_id = $request->input('initiative_id');
-            $initiativeImage->path = '/'.public_path($path) . $imgName . '.jpg';
+            $initiativeImage->path = '/'.$path . $imgName . '.jpg';
             $initiativeImage->save();
         }
         $this->saveToLog(self::INITIATIVES, $request->input('initiative_id'), count($request->file('small_image')) . ' Images stored');
@@ -76,8 +76,8 @@ class InitiativeImagesController extends Controller
             if ($request->input($img->id) == '1') {
                 $deletedImagesCount++;
                 $img->delete();
-                File::delete(public_path($img->path));
-                File::delete(public_path(substr($img->path, 0, -4).'b.jpg'));
+                File::delete($img->path);
+                File::delete(substr($img->path, 0, -4).'b.jpg');
             }
         }
         $this->saveToLog(self::INITIATIVES, $id,$deletedImagesCount . ' Images deleted');
