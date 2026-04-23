@@ -167,21 +167,55 @@
                         </div>
                         {{--Beneficiaries (row 2) --}}
                         <div class="row w-100">
-                            <div class="col bg-secondary-gray-light d-flex  flex-column align-items-center justify-content-center p-3">
+                            <div class="col bg-secondary-gray-light d-flex flex-column align-items-center justify-content-center p-3">
 
                                 <div class="fw-bold benefeciaries-text text-left mb-xl-2 mb-md-3 w-100 text-secondary-gray-dark">
                                     Beneficiaries' Age Classification
                                 </div>
+
+                                @php
+                                    $chartTotalCount = 0;
+                                    foreach($agerange as $r) {
+                                        $chartTotalCount += $r->project_count;
+                                    }
+
+                                    $finalPercentages = [];
+                                    $remainders = [];
+
+                                    if ($chartTotalCount > 0) {
+                                        foreach($agerange as $index => $range) {
+                                            $exactPercentage = ($range->project_count / $chartTotalCount) * 100;
+                                            $finalPercentages[$index] = floor($exactPercentage);
+                                            $remainders[$index] = $exactPercentage - $finalPercentages[$index];
+                                        }
+
+                                        $sumOfFloors = array_sum($finalPercentages);
+                                        $pointsToDistribute = 100 - $sumOfFloors;
+
+                                        arsort($remainders);
+
+                                        foreach($remainders as $index => $remainder) {
+                                            if ($pointsToDistribute > 0) {
+                                                $finalPercentages[$index]++;
+                                                $pointsToDistribute--;
+                                            } else {
+                                                break;
+                                            }
+                                        }
+                                    } else {
+                                        foreach($agerange as $index => $range) {
+                                            $finalPercentages[$index] = 0;
+                                        }
+                                    }
+                                @endphp
+
                                 <div class="d-flex justify-content-around w-100 mt-1">
                                     @foreach($agerange as $index => $range)
-                                        @php
-                                            $percentage = ($allCount > 0) ? ($range->project_count / $allCount) * 100 : 0;
-                                        @endphp
                                         <div class="text-center d-flex flex-grow-1 flex-column align-items-center">
                                             <div class="position-relative chart-sizing ">
                                                 <canvas id="age-chart-{{ $index }}"></canvas>
                                                 <div class="beneficiaries-chart-percentage">
-                                                    <div class="micro-radial-number">{{ round($percentage) }}</div>
+                                                    <div class="micro-radial-number">{{ $finalPercentages[$index] }}</div>
                                                     <div class="micro-radial-percentage">%</div>
                                                 </div>
                                             </div>
