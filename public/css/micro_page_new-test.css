@@ -177,6 +177,22 @@
     font-size: 1vw;
 }
 
+.carousel-control-prev,
+.carousel-control-next {
+    pointer-events: none !important;
+    z-index: 9999 !important;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    pointer-events: auto !important;
+    cursor: pointer;
+}
+
+.horizontal-line {
+    pointer-events: none;
+}
+
 span.twitter-typeahead .tt-suggestion {
     display: block;
     padding: 3px 20px;
@@ -988,6 +1004,7 @@ img.copy-icon:hover, img.location-icon:hover {
     }
     #Micro .video .image-mask {
         bottom: -0.3vw;
+        pointer-events: none;
     }
     #about-section .video{
         margin-bottom: 2vw;
