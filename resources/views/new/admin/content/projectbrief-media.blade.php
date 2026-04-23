@@ -59,13 +59,19 @@
                         <h3 class="title">Add Media</h3>
                         <form id="uploadForm" action="{{ route('projectBrief.images.store', $what->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            {{ Form::hidden('project_id', $what->id) }}
+                            <input type="hidden" name="project_id" value="{{ $what->id }}">
 
                             {{-- Project Name (readonly) --}}
                             <div class="row mb-3">
                                 <div class="form-group col-lg-3 col-md-3 col-12">
-                                    {{ Form::label('name', 'Project Name') }}
-                                    {{ Form::text('name', $what->name, ['class' => 'form-control', 'readonly', 'style' =>'cursor: not-allowed;']) }}
+                                    <label for="name">Project Name</label>
+                                    <input type="text"
+                                           name="name"
+                                           id="name"
+                                           value="{{ $what->name }}"
+                                           class="form-control"
+                                           readonly
+                                           style="cursor: not-allowed;">
                                 </div>
                             </div>
 
@@ -127,7 +133,7 @@
                             <div id="video-section" style="display: {{ $what->media->isNotEmpty() && $what->media[0]->mediaType==='video' ? 'block' : 'none' }};">
                                 <div class="row mb-3">
                                     <div class="form-group col-lg-8 col-md-8 col-12">
-                                        {{ Form::label('media_video', 'Video URL') }}
+                                        <label for="media_video">Video URL</label>
                                         <input type="url" name="videoURL" class="form-control"
                                                value="{{ $what->media->isNotEmpty() && $what->media[0]->mediaType == 'video' ? $what->media[0]->mediaURL : '' }}">
                                     </div>
