@@ -1792,7 +1792,7 @@
                         </div>
                         @if($this->hasMore)
                             <div class="text-center mt-5 mb-1">
-                                <button class="apply-btn loadmore" wire:click="loadMore">Load More</button>
+                                <button class="apply-btn loadmore m-0" wire:click="loadMore">Load More</button>
                             </div>
                         @endif
                     @else
