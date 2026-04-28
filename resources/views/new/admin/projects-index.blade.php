@@ -246,9 +246,9 @@
 
                                 <td class="text-center">{{$project['Mobile']}}</td>
                                 <td class="text-center">
-                                    @if($project['MPE_Location'] != '0')
-                                        <a href="https://www.google.com/maps/search/?api=1&query={{$project['MPE_Location']}}"
-                                           class="btn btn-success icon-btn " target="_blank">
+                                    @if ($project['latitude'] != '0' && $project['longtitude'] != '0')
+                                        <a href="https://www.google.com/maps/search/?api=1&query={{ $project['latitude'] }},{{ $project['longtitude'] }}"
+                                           class="btn btn-success" target="_blank">
                                             <i class="fa fa-map-marker"></i>
                                         </a>
                                     @endif
@@ -356,9 +356,9 @@
 
                                 <td class="text-center">{{$project['Mobile']}}</td>
                                 <td class="text-center">
-                                    @if($project['MPE_Location'] != '0')
-                                        <a href="https://www.google.com/maps/search/?api=1&query={{$project['MPE_Location']}}"
-                                           class="btn btn-success icon-btn " target="_blank">
+                                    @if ($project['latitude'] != '0' && $project['longtitude'] != '0')
+                                        <a href="https://www.google.com/maps/search/?api=1&query={{ $project['latitude'] }},{{ $project['longtitude'] }}"
+                                           class="btn btn-success" target="_blank">
                                             <i class="fa fa-map-marker"></i>
                                         </a>
                                     @endif
