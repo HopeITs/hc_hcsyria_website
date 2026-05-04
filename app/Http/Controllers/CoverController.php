@@ -81,11 +81,6 @@ class CoverController extends Controller
             }
         }
         else {
-
-            dd(
-                $request->file('small_image'),
-                $request->file('big_image')
-            );
             foreach (range(0, count($request->file('small_image')) - 1) as $i) {
                 $request->validate([
                     'small_image.' . $i => 'required|image|mimes:jpeg,jpg|max:4096',
@@ -108,7 +103,7 @@ class CoverController extends Controller
 
                 $cover = new Cover;
                 $cover->what_category_id = $categoryId;
-                $cover->image_path = '/'.$path . '/' . $imgName  . '.jpg';
+                $cover->image_path = '/'.$path . '/' . $imgName  . 'b.jpg';
                 $cover->save();
             }
         }
