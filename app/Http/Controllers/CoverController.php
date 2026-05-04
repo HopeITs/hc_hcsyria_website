@@ -63,6 +63,7 @@ class CoverController extends Controller
             $categoryName = "Home";
         }
         $categoryId = $request->input('id');
+
         $images = new \MultipleIterator();
         if ($categoryId != 0) {
             $request->validate([
@@ -80,22 +81,26 @@ class CoverController extends Controller
             }
         }
         else {
+
             foreach (range(0, count($request->file('small_image')) - 1) as $i) {
-                $request->validate(['small_image.' . $i => 'mimes:jpeg|max:4096']);
-            }
-            foreach (range(0, count($request->file('big_image')) - 1) as $i) {
-                $request->validate(['big_image.' . $i => 'mimes:jpeg|max:600|min:4096']);
+                $request->validate([
+                    'small_image.' . $i => 'required|image|mimes:jpeg,jpg|max:4096',
+                ]);
             }
 
-            $images = new \MultipleIterator();
+            foreach (range(0, count($request->file('big_image')) - 1) as $i) {
+                $request->validate([
+                    'big_image.' . $i => 'required|image|mimes:jpeg,jpg|max:6144',
+                ]);
+            }
             $images->attachIterator(new \ArrayIterator($request->file('small_image')));
             $images->attachIterator(new \ArrayIterator($request->file('big_image')));
             foreach ($images as $i => $image) {
                 $imgName = (string)time() . $i[0];
                 $path = 'images/home/Cover';
 
-                $image[0]->move($path, $imgName . '.jpg');
-                $image[1]->move($path, $imgName . 'b.jpg');
+                $image[0]->move($path, $imgName . 'b.jpg');
+                $image[1]->move($path, $imgName . '.jpg');
 
                 $cover = new Cover;
                 $cover->what_category_id = $categoryId;

@@ -84,10 +84,17 @@
                                 <form action="{{ route('covers.store', $what_category->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $what_category->id }}">
+                                    <div class="row mb-3">
+                                        <div class="form-group col-lg-3 col-md-3 col-12">
+                                            <label for="images-count-{{ $what_category->id }}">Images Count</label>
 
+                                            <input id="images-count-{{ $what_category->id }}" type="number" class="form-control" step="1"  value="{{ $what_category->id == 0 ? 1 : 3 }}"
+                                                   min="1" onchange="addImageGroup({{ $what_category->id }})">
+                                        </div>
+                                    </div>
                                     <div class="mb-3" id="images-group-{{ $what_category->id }}">
                                         @if($what_category->id == 0)
-                                                <div class="image-group form-control mb-3">
+                                                <div class="image-group-{{ $what_category->id }} form-control mb-3">
                                                     <div class="row">
                                                         <div class="form-group col-lg-6 col-md-6 col-12">
                                                             <label for="small_image">Small Image</label>
@@ -108,7 +115,7 @@
                                         @else
                                             <!-- Single images for other categories -->
                                             @for ($i = 0; $i < 3; $i++)
-                                                <div class="image-group form-control mb-3">
+                                                <div class="image-group-{{ $what_category->id }} form-control mb-3">
                                                     <div class="row">
                                                         <div class="form-group col-lg-6 col-md-6 col-12">
                                                             <label for="image_{{ $i }}">Image</label>
@@ -234,21 +241,15 @@
     });
 </script>
 <script>
-    let image_group_html = '';
-    function addImageGroup(what_category_id) {
-        // if (what_category_id === 0) {
-        //     image_group_html = '<div class="image-group form-control">' +
-        //         '<div class="row">' +
-        //         '<div class="form-group col-lg-6 col-md-6 col-12">' +
-        //         '<label >Small Image</label>' +
-        //         '<input accept="image/jpeg" required name="small_image_home[]" type="file" style="padding-left: 3px;">' +
-        //         '</div><div class="form-group col-lg-6 col-md-6 col-12">' +
-        //         '<label >Large Image</label>' +
-        //         '<input accept="image/jpeg" required="" name="big_image_home[]" type="file" style="padding-left: 3px;">' +
-        //         '</div></div>' +
-        //         '</div>'
-        // } else {
-            image_group_html = '<div class="image-group form-control">' +
+    function addImageGroup(id) {
+        let image_group = '';
+        let container = $('#images-group-' + id);
+        let desiredCount = parseInt(document.getElementById('images-count-' + id).value);
+        let currentCount = container.children('.image-group-' + id).length;
+        while (currentCount < desiredCount) {
+            if(id !== 0)
+             image_group +=
+                '<div class="image-group-' + id + ' form-control mb-3">' +
                 '<div class="row">' +
                 '<div class="form-group col-lg-6 col-md-6 col-12">' +
                 '<label>Image</label>' +
@@ -256,22 +257,26 @@
                 '</div>' +
                 '</div>' +
                 '</div>';
-        // }
-        let countInput = document.getElementById(`images-count-` + what_category_id);
-        let imagesGroup = document.getElementById(`images-group-` + what_category_id);
-        let default_images_count = imagesGroup.querySelectorAll('.image-group').length;
-        let count = parseInt(countInput.value);
-
-        if (count > default_images_count) {
-            default_images_count++;
-            $(imagesGroup).append(image_group_html);
-            countInput.value = default_images_count;
-        } else {
-            if (default_images_count !== 1) {
-                default_images_count--;
-                $(imagesGroup).children().last().remove();
-                countInput.value = default_images_count;
-            }
+            else
+                 image_group +=
+                    '<div class="image-group-'+id+' form-control mb-3">'+
+                        '<div class="row">'+
+                            '<div class="form-group col-lg-6 col-md-6 col-12">' +
+                                '<label for="small_image">Small Image&nbsp;</label>' +
+                                '<input type="file" name="small_image[]" accept="image/jpeg" required>' +
+                            '</div>' +
+                            '<div class="form-group col-lg-6 col-md-6 col-12">' +
+                                '<label for="big_image">Large Image&nbsp;</label>' +
+                                '<input type="file" name="big_image[]" accept="image/jpeg" required>' +
+                            '</div>' +
+                        '</div>'+
+                    '</div>';
+            container.append(image_group);
+            currentCount++;
+        }
+        while (currentCount > desiredCount) {
+            container.children('.image-group-' + id).last().remove();
+            currentCount--;
         }
     }
 </script>
