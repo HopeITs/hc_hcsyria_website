@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <script src="/js/jquery.js"></script>
     @include('new.admin.navbar')
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,6 +32,16 @@
 
 @stack('navbar_body')
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="container-fluid">
     <div class="row d-flex justify-content-center">
         <div class="col-lg-8 col-md-11 col-sm-11 col-11">
@@ -63,33 +72,22 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-lg-8 col-md-8 col-12">
-                                    <label>What-category <span class="red-color">*</span></label><br>
-                                    <div class="btn-group w-100" data-toggle="buttons">
-                                        @foreach($what_categories as $category)
-                                            <input type="radio" class="btn-check" value="{{$category->id}}"
-                                                   name="what_category_id"
-                                                   id="what_category_{{$category->id}}"
+                                    <label>Tags <span class="red-color">*</span></label><br>
+                                    <div class="btn-group w-100 flex-wrap" data-toggle="buttons">
+                                        @foreach($tags as $tag)
+                                            <input type="checkbox" class="btn-check" value="{{$tag->id}}"
+                                                   name="tag_ids[]"
+                                                   id="tag_{{$tag->id}}"
                                                    autocomplete="off">
-                                            <label class="btn btn-outline-primary"
-                                                   for="what_category_{{$category->id}}">{{$category->name}}</label>
+                                            <label class="btn btn-outline-primary mb-2"
+                                                   for="tag_{{$tag->id}}">{{$tag->name}}</label>
                                         @endforeach
                                     </div>
+                                    <small class="text-muted">You can select multiple tags.</small>
                                 </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="form-group col-lg-8 col-md-8 col-12">
-                                    <label>Who-category <span class="red-color">*</span></label><br>
-                                    <div class="btn-group w-100" data-toggle="buttons">
-                                        @foreach($who_categories as $category)
-                                            <input type="radio" class="btn-check" value="{{$category->id}}"
-                                                   name="who_category_id"
-                                                   id="who_category_{{$category->id}}"
-                                                   autocomplete="off">
-                                            <label class="btn btn-outline-primary"
-                                                   for="who_category_{{$category->id}}">{{$category->name}}</label>
-                                        @endforeach
-                                    </div>
-                                </div>
+                                @error('tag_ids')
+                                <div class="text-danger small">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-lg-8 col-md-8 col-12">
@@ -106,17 +104,9 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="form-group col-lg-8 col-md-8 col-12" id="edition_group">
-                                    <label for="edition">Choose edition: <span class="red-color">*</span></label>
-                                    <select class="form-select" id="edition" placeholder="Choose edition..."
-                                            name="edition_id">
-                                        <option value="">Choose edition...</option>
-                                        @foreach($editions as $edition)
-                                            <option value="{{ $edition->id }}">
-                                                {{ $edition->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                <div class="form-group col-lg-4 col-md-4 col-12">
+                                    <label for="date">Publish Date</label>
+                                    <input type="datetime-local" name="date" id="date" class="form-control">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -170,7 +160,7 @@
                                               id="editor"
                                               class="form-control"
                                               placeholder="Content"
-                                              required></textarea>
+                                              ></textarea>
                                 </div>
                             </div>
 
@@ -208,9 +198,9 @@
 
 @stack('navbar_scripts')
 
+<script type="text/javascript" src="/js/selectize.min.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
 <script type="text/javascript" src="/js/ckeditor-initialize.js"></script>
-<script type="text/javascript" src="/js/selectize.min.js"></script>
 
 </body>
 </html>

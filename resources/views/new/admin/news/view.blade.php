@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#f6f6f6">
     <meta name="apple-mobile-web-app-status-bar-style" content="#f6f6f6">
-    <title>{{$news->english->title}}</title>
+    <title>{{ optional($news->english)->title ?? 'News Article' }}</title>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 
     <link href="/css/font-awesome.min.css" rel="stylesheet">
@@ -70,7 +70,7 @@
             @if($news->type != '3')
                 <div class="col-lg-6 col-md-6 col-sm-6 col-12 news_colomn">
                     <div class="news_data_column left">
-                        <div class="news_title">{{$news->english->title}}
+                        <div class="news_title">{{ optional($news->english)->title ?? 'No Title' }}
                             @if($news->video != 0)
                                 <a href="{{$news->video}}" class="launch-modal"
                                    id="newsletterVideo-{{ $news->id}}"
@@ -81,31 +81,36 @@
                             @endif
                         </div>
                         <div class="text-column">
-                            {!!implode(' ', array_slice(explode(' ', strip_tags($news->english->description)), 0, 55)).'...'!!}
-
+                            {!!implode(' ', array_slice(explode(' ', strip_tags(optional($news->english)->description ?? '')), 0, 55)).'...'!!}
                         </div>
                         <a href="{{ route('new.public.article',
-                                    [Str::slug(strtolower($selectedEdition->name)),
-                                    $news->id,
-                                    Str::slug(strtolower($news->english->title))]   ) }}"
+                            [Str::slug(strtolower(optional($selectedEdition)->name ?? 'latest')),
+                            $news->id,
+                            Str::slug(strtolower(optional($news->english)->title ?? 'news'))]   ) }}"
                            class="readmore-btn left" style="text-decoration: none">@lang('main.readMore')
                         </a>
                     </div>
                 </div>
             @endif
-            @if($news->type == '3')
-                <div class="col-lg-6 col-md-6 col-sm-6 col-12 news_colomn d-flex align-items-center">
-                    <div class="news_data_column left">
-                        <div class="news_title">{{$news->english->title}}</div>
-                        <div class="text-column" style="column-count: 1">
-                            {{$news->english->description}}
+                @if($news->type == '3')
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-12 news_colomn d-flex align-items-center">
+                        <div class="news_data_column left">
+                            <div class="news_title">{{ optional($news->english)->title ?? 'No Title' }}</div>
+                            <div class="text-column" style="column-count: 1">
+                                {{ optional($news->english)->description ?? 'No Description' }}
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endif
+                @endif
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 news_colomn ">
                 @if($news->type != '3')
-                    <img class="news_img" src="{{$news->firstImage->path}}" alt="newsletter">
+                    @if($news->firstImage)
+                        <img class="news_img" src="{{ $news->firstImage->path }}" alt="newsletter">
+                    @else
+                        <div class="news_img d-flex justify-content-center align-items-center" style="background-color: #f1f1f1; min-height: 300px; border-radius: 5px;">
+                            <span class="text-muted"><i class="fa fa-picture-o fa-3x"></i><br>No Image Uploaded</span>
+                        </div>
+                    @endif
                 @else
                     <div class="video">
                         <iframe class="news_img" src="{{$news->video}}" frameborder="0"

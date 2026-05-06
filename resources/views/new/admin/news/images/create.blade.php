@@ -60,20 +60,25 @@
                         <form action="{{ route('news.images.store',[$news->id])}}" method="POST"
                               enctype="multipart/form-data">
                             <input type="hidden" name="news_id" value="{{ $news->id }}">
-                            <input type="hidden" name="what_category_id" value="{{ $news->whatCategory->id }}">
                             @csrf
                             {{--@method('PUT')--}}
                             <div class="row mb-3">
                                 <div class="form-group col-lg-6 col-md-6 col-12">
                                     <label for="title">Title</label>
-                                    <input type="text" id="title" name="title" value="{{ $news->english->title }}"
+                                    <input type="text" id="title" name="title" value="{{ optional($news->english)->title ?? 'No Title' }}"
                                            class="form-control" required readonly style="cursor: not-allowed;">
                                 </div>
 
                                 <div class="form-group col-lg-6 col-md-6 col-12">
-                                    <label for="category_name">Category</label>
-                                    <input type="text" id="category_name" name="category_name" value="{{ $news->whatCategory->name }}"
-                                           class="form-control" readonly style="cursor: not-allowed;">
+                                    <label for="category_name">Tags</label>
+                                    <div class="form-control" style="background-color: #e9ecef; cursor: not-allowed; height: auto; min-height: 38px;">
+                                        @foreach($news->tags as $tag)
+                                            <span class="badge" style="background-color: #C92228; color: white; margin-right: 2px;">{{ $tag->name }}</span>
+                                        @endforeach
+                                        @if($news->tags->isEmpty())
+                                            <span class="text-muted">No Tags Attached</span>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                             <div class="row mb-3">

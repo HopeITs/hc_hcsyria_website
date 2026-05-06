@@ -65,10 +65,10 @@
                     <a class="btn btn-success" href="{{route('news.create')}}">
                         <i class="fa fa-plus-square"></i>&nbsp; Create new News</a>
                 @endif
-                @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
-                    <a class="btn btn-success" href="{{route('news.edition')}}">
-                        <i class="fa fa-plus-square"></i>&nbsp; Editions</a>
-                @endif
+{{--                @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))--}}
+{{--                    <a class="btn btn-success" href="{{route('news.edition')}}">--}}
+{{--                        <i class="fa fa-plus-square"></i>&nbsp; Editions</a>--}}
+{{--                @endif--}}
             </div>
         </div>
         <div>
@@ -116,8 +116,8 @@
                             <tr>
                                 <th scope="col" class="text-center">ID</th>
                                 <th scope="col" class="text-center">Title</th>
-                                <th scope="col" class="text-center">Edition</th>
-                                <th scope="col" class="text-center">Category</th>
+                                <th scope="col" class="text-center">Date</th>
+                                <th scope="col" class="text-center">Tags</th>
                                 <th scope="col" class="text-center">Place</th>
                                 <th scope="col" class="text-center">Action</th>
                             </tr>
@@ -126,9 +126,13 @@
                             @foreach($newsArticles as $news)
                                 <tr>
                                     <td class="text-center">{{$news['id']}}</td>
-                                    <td class="text-center">{{$news['english']['title']}}</td>
-                                    <td class="text-center">{{$news['edition']['name']}}</td>
-                                    <td class="text-center">{{$news['whatCategory']['name']}}</td>
+                                    <td class="text-center">{{ $news['english']['title'] ?? 'No Title' }}</td>
+                                    <td class="text-center">{{ isset($news['date']) ? \Carbon\Carbon::parse($news['date'])->format('Y-m-d') : 'N/A' }}</td>
+                                    <td class="text-center">
+                                        @foreach($news->tags as $tag)
+                                            <span class="badge" style="background-color: #C92228; color: white; margin: 2px;">{{ $tag->name }}</span>
+                                        @endforeach
+                                    </td>
                                     <td class="text-center">{{$news['place']['name']}}</td>
                                     <td class="text-end">
                                         @if(count($news->images) != 0)
@@ -185,8 +189,8 @@
                             <tr>
                                 <th scope="col" class="text-center">ID</th>
                                 <th scope="col" class="text-center">Title</th>
-                                <th scope="col" class="text-center">Edition</th>
-                                <th scope="col" class="text-center">Category</th>
+                                <th scope="col" class="text-center">Date</th>
+                                <th scope="col" class="text-center">Tags</th>
                                 <th scope="col" class="text-center">Place</th>
                                 <th scope="col" class="text-center">Action</th>
                             </tr>
@@ -195,9 +199,13 @@
                             @foreach($newsVideos as $news)
                                 <tr>
                                     <td class="text-center">{{$news['id']}}</td>
-                                    <td class="text-center">{{$news['english']['title']}}</td>
-                                    <td class="text-center">{{$news['edition']['name']}}</td>
-                                    <td class="text-center">{{$news['whatCategory']['name']}}</td>
+                                    <td class="text-center">{{ $news['english']['title'] ?? 'No Title' }}</td>
+                                    <td class="text-center">{{ isset($news['date']) ? \Carbon\Carbon::parse($news['date'])->format('Y-m-d') : 'N/A' }}</td>
+                                    <td class="text-center">
+                                        @foreach($news->tags as $tag)
+                                            <span class="badge" style="background-color: #C92228; color: white; margin: 2px;">{{ $tag->name }}</span>
+                                        @endforeach
+                                    </td>
                                     <td class="text-center">{{$news['place']['name']}}</td>
                                     <td class="text-end">
                                         <a href="{{route('news.show', $news['id'])}}"
@@ -248,8 +256,8 @@
                             <tr>
                                 <th scope="col" class="text-center">ID</th>
                                 <th scope="col" class="text-center">Title</th>
-                                <th scope="col" class="text-center">Edition</th>
-                                <th scope="col" class="text-center">Category</th>
+                                <th scope="col" class="text-center">Date</th>
+                                <th scope="col" class="text-center">tags</th>
                                 <th scope="col" class="text-center">Place</th>
                                 <th scope="col" class="text-center">Action</th>
                             </tr>
@@ -258,9 +266,13 @@
                             @foreach($newsPending as $news)
                                 <tr>
                                     <td class="text-center">{{$news['id']}}</td>
-                                    <td class="text-center">{{$news['english']['title']}}</td>
-                                    <td class="text-center">{{$news['edition']['name']}}</td>
-                                    <td class="text-center">{{$news['whatCategory']['name']}}</td>
+                                    <td class="text-center">{{ $news['english']['title'] ?? 'No Title' }}</td>
+                                    <td class="text-center">{{ isset($news['date']) ? \Carbon\Carbon::parse($news['date'])->format('Y-m-d') : 'N/A' }}</td>
+                                    <td class="text-center">
+                                        @foreach($news->tags as $tag)
+                                            <span class="badge" style="background-color: #C92228; color: white; margin: 2px;">{{ $tag->name }}</span>
+                                        @endforeach
+                                    </td>
                                     <td class="text-center">{{$news['place']['name']}}</td>
                                     <td class="text-end">
                                         @if(count($news->images) != 0)
@@ -587,6 +599,9 @@
                 }
             });
         }
+    });
+    $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
     });
 </script>
 @stack('fancyVideo')

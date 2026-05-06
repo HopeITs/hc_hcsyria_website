@@ -14,7 +14,6 @@
     <link href="/css/dashboard_new.css" rel="stylesheet">
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
     <link href="/css/micro_page_new.css" rel="stylesheet">
-    {{--<link href="{{asset('css/main-new.css')}}" rel="stylesheet">--}}
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
@@ -62,89 +61,59 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- NEW TAGS SYSTEM -->
                             <div class="row mb-3">
                                 <div class="form-group col-lg-8 col-md-8 col-12">
-                                    <label>What-category <span class="red-color">*</span></label><br>
-                                    <div class="btn-group w-100" data-toggle="buttons">
-                                        @foreach($what_categories as $category)
-                                            <input type="radio" class="btn-check" value="{{$category->id}}"
-                                                   name="what_category_id"
-                                                   id="what_category_{{$category->id}}"
-                                                   autocomplete="off"
-                                                   @if($newsData->what_category_id == $category->id) checked @endif >
-                                            <label class="btn btn-outline-primary"
-                                                   for="what_category_{{$category->id}}">{{$category->name}}</label>
-                                        @endforeach
+                                    <label>Tags <span class="red-color">*</span></label><br>
+                                    <div class="btn-group w-100 flex-wrap" data-toggle="buttons">
+                                        @if(isset($tags))
+                                            @foreach($tags as $tag)
+                                                <input type="checkbox" class="btn-check" value="{{$tag->id}}"
+                                                       name="tag_ids[]"
+                                                       id="tag_{{$tag->id}}"
+                                                       autocomplete="off"
+                                                       @if($newsData->tags && $newsData->tags->contains($tag->id)) checked @endif>
+                                                <label class="btn btn-outline-primary mb-2"
+                                                       for="tag_{{$tag->id}}">{{$tag->name}}</label>
+                                            @endforeach
+                                        @endif
                                     </div>
+                                    <small class="text-muted">You can select multiple tags.</small>
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="form-group col-lg-8 col-md-8 col-12">
-                                    <label>Who-category <span class="red-color">*</span></label><br>
-                                    <div class="btn-group w-100" data-toggle="buttons">
-                                        @foreach($who_categories as $category)
-                                            <input type="radio" class="btn-check" value="{{$category->id}}"
-                                                   name="who_category_id"
-                                                   id="who_category_{{$category->id}}"
-                                                   autocomplete="off"
-                                                   @if($newsData->who_category_id == $category->id) checked @endif >
-                                            <label class="btn btn-outline-primary"
-                                                   for="who_category_{{$category->id}}">{{$category->name}}</label>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-lg-8 col-md-8 col-12">
                                     <label>Place <span class="red-color">*</span></label><br>
                                     <div class="btn-group w-100" data-toggle="buttons">
-                                        @foreach($places as $place)
-                                            <input type="radio" class="btn-check" value="{{$place->id}}" name="place_id"
-                                                   id="place_{{$place->id}}"
-                                                   autocomplete="off"
-                                                   @if($newsData->place_id == $place->id) checked @endif >
-                                            <label class="btn btn-outline-primary"
-                                                   for="place_{{$place->id}}">{{$place->name}}</label>
-                                        @endforeach
+                                        @if(isset($places))
+                                            @foreach($places as $place)
+                                                <input type="radio" class="btn-check" value="{{$place->id}}" name="place_id"
+                                                       id="place_{{$place->id}}"
+                                                       autocomplete="off"
+                                                       @if($newsData->place_id == $place->id) checked @endif >
+                                                <label class="btn btn-outline-primary"
+                                                       for="place_{{$place->id}}">{{$place->name}}</label>
+                                            @endforeach
+                                        @endif
                                     </div>
                                 </div>
                             </div>
-                            {{--<div class="row mb-3">--}}
-                                {{--<div class="form-group col-lg-8 col-md-8 col-12" id="micro_projects_group">--}}
-                                    {{--<label for="link-microproject">Link to micro project <span--}}
-                                                {{--class="red-color">*</span></label>--}}
-                                    {{--<select class="form-select" id="link-microproject"--}}
-                                            {{--placeholder="Choose micro-project to link..." name="project_id">--}}
-                                        {{--<option value="">Choose micro-project to link...</option>--}}
-                                        {{--@foreach($microProjects as $project)--}}
-                                            {{--<option value="{{ $project->MicroProject_ID }}"--}}
-                                                    {{--@if($project->MicroProject_ID ==  $newsData->project_id) selected @endif>--}}
-                                                {{--{{ $project->MicroProject_ID }} | {{ $project->MPE_BeneficiaryName }}--}}
-                                                {{--| {{ $project->english->MPE_Name }}--}}
-                                            {{--</option>--}}
-                                        {{--@endforeach--}}
-                                    {{--</select>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
+
+                            <!-- NEW DATE FIELD -->
                             <div class="row mb-3">
-                                <div class="form-group col-lg-8 col-md-8 col-12" id="edition_group">
-                                    <label for="edition">Choose edition: <span class="red-color">*</span></label>
-                                    <select class="form-select" id="edition" placeholder="Choose edition..."
-                                            name="edition_id">
-                                        <option value="">Choose edition...</option>
-                                        @foreach($editions as $edition)
-                                            <option value="{{ $edition->id }}"
-                                                    @if($edition->id ==  $newsData->edition_id) selected @endif()>
-                                                {{ $edition->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                <div class="form-group col-lg-4 col-md-4 col-12">
+                                    <label for="date">Publish Date</label>
+                                    <input type="datetime-local" name="date" id="date" class="form-control"
+                                           value="{{ $newsData->date ? \Carbon\Carbon::parse($newsData->date)->format('Y-m-d\TH:i') : '' }}">
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-lg-4 col-md-4 col-12">
                                     <label for="rank">Rank <span class="red-color">*</span></label>
-                                    <select class="form-select" id="rank" placeholder="Choose Rank..." name="rank">
+                                    <select class="form-select" id="rank" name="rank">
                                         <option @if($newsData->rank == 1) selected @endif() value="1">1</option>
                                         <option @if($newsData->rank == 2) selected @endif() value="2">2</option>
                                         <option @if($newsData->rank == 3) selected @endif() value="3">3</option>
@@ -160,15 +129,17 @@
                                     </select>
                                 </div>
                             </div>
+
+                            <!-- SAFE ENGLISH FIELDS -->
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    <label for="title">Title</label> <span class="red-color">*</span>
+                                    <label for="title">Title <span class="red-color">*</span></label>
                                     <input type="text"
                                            name="title"
                                            id="title"
                                            class="form-control"
                                            placeholder="Title"
-                                           value="{{ $newsData->english->title }}"
+                                           value="{{ optional($newsData->english)->title ?? '' }}"
                                            required>
                                 </div>
                             </div>
@@ -176,26 +147,24 @@
                             <div class="row mb-3">
                                 <div class="form-group col-12">
                                     <label for="description">Description</label>
-                                    <span>
-            <small>(maximum:900 characters with spaces OR leave the box empty to let it automatically!)</small>
-        </span>
+                                    <span><small>(maximum:900 characters with spaces OR leave the box empty to let it automatically!)</small></span>
                                     <textarea name="description"
                                               id="description"
                                               class="form-control"
-                                              placeholder="Description">{{ $newsData->english->description }}</textarea>
+                                              placeholder="Description">{{ optional($newsData->english)->description ?? '' }}</textarea>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    <label for="content">Content</label> <span class="red-color">*</span>
+                                    <label for="content">Content <span class="red-color">*</span></label>
                                     <textarea name="content"
                                               id="editor"
                                               class="form-control"
-                                              placeholder="Content"
-                                              required>{{ $newsData->english->content }}</textarea>
+                                              placeholder="Content">{{ optional($newsData->english)->content ?? '' }}</textarea>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-12">
                                     <label for="video">Video Link</label>
@@ -213,36 +182,26 @@
                                     <p id="file">{{ $newsData->file == '0' ? '' : $newsData->file }}</p>
                                 </div>
                                 <div class="col-4 text-end">
-                                @if($newsData->file != '0')
-                                        {{--<form action="{{route('news.file.destroy', $newsData->file )}}"--}}
-                                              {{--method="POST"--}}
-                                              {{--style="float: right; padding-left: 10px "--}}
-                                              {{--enctype="multipart/form-data">--}}
-                                            {{--@method('DELETE')--}}
-                                            {{--@csrf--}}
-                                            <button class="btn btn-danger icon-btn show_confirm"
-                                                    type="submit">
-                                                <i class="fa fa-trash-o"></i>
-                                            </button>
-                                        {{--</form>--}}
-                                @endif
+                                    @if($newsData->file != '0')
+                                        <button class="btn btn-danger icon-btn show_confirm" type="button">
+                                            <i class="fa fa-trash-o"></i>
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-12">
                                     @if($newsData->file == '0')
-                                        <input class="form-control" type="file" name="file" id="file"
-                                               value="{{}}">
+                                        <input class="form-control" type="file" name="file" id="file">
                                     @endif
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end" style="margin-top: 5vw;">
                                 <button class="btn btn-primary" onclick="event.preventDefault();window.history.back();">
-                                    <i
-                                            class="fa fa-arrow-left"></i> Back
+                                    <i class="fa fa-arrow-left"></i> Back
                                 </button>
-                                <button type="submit" class="btn btn-info" style="margin-left: 15px;"><i
-                                            class="fa fa-refresh"></i> Update
+                                <button type="submit" class="btn btn-info" style="margin-left: 15px;">
+                                    <i class="fa fa-refresh"></i> Update
                                 </button>
                             </div>
                         </form>
@@ -255,20 +214,6 @@
 
 @stack('navbar_scripts')
 
-{{--<script>--}}
-    {{--$(document).ready(function () {--}}
-        {{--$('#link-microproject').selectize();--}}
-    {{--});--}}
-    {{--$("input[name='what_category_id']").change(function () {--}}
-        {{--if ($("input[value='13']").is(':checked')) {     //products--}}
-            {{--$('#micro_projects_group').show();--}}
-            {{--$('#link-microproject').attr('required', true);--}}
-        {{--} else {--}}
-            {{--$('#micro_projects_group').hide();--}}
-            {{--$('#link-microproject').attr('required', false);--}}
-        {{--}--}}
-    {{--});--}}
-{{--</script>--}}
 <script>
     $('.show_confirm').click(function (event) {
         var form = $(this).closest("form");
@@ -289,27 +234,11 @@
                 )
             }
         }, function (dismiss) {
-            // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
             if (dismiss === 'cancel') {
-                swal(
-                    'Cancelled',
-                )
+                swal('Cancelled')
             }
         });
     });
-    // if (e) {
-    //     alert('yes');
-    //     return true;
-    // }
-    // if (confirm("Do you really want to: \nDelete " + e + " ?"))
-    //     return true;
-    // else
-    //     return false;
-    // }
-
-    // ).catch(swal.noop);
-    // }
-    // ;
 </script>
 <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
 <script type="text/javascript" src="/js/ckeditor-initialize.js"></script>

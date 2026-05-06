@@ -751,7 +751,7 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Title</th>
-                                                <th>Category</th>
+                                                <th>Tags</th>
                                                 <th>Type</th>
                                                 <th>
                                                     Action
@@ -762,8 +762,12 @@
                                                 <tbody>
                                                 <tr>
                                                     <th>{{$news['id']}}</th>
-                                                    <td>{{$news['english']['title']}}</td>
-                                                    <td>{{ucfirst($news['whatCategory']['name'])}}</td>
+                                                    <td>{{ $news['english']['title'] ?? 'No Title' }}</td>
+                                                    <td>
+                                                        @foreach($news->tags as $tag)
+                                                            <span class="badge" style="background-color: #C92228; color: white; margin: 2px;">{{ $tag->name }}</span>
+                                                        @endforeach
+                                                    </td>
                                                     <td>
                                                         @if($news['type'] == '0') {{'Article'}}
                                                         @elseif($news['type'] == '1') {{'Product'}}
@@ -1792,7 +1796,7 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Title</th>
-                                                <th>Category</th>
+                                                <th>Tags</th>
                                                 <th>Type</th>
                                                 @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
                                                     <th>Action</th>
@@ -1803,8 +1807,12 @@
                                                 <tbody>
                                                 <tr>
                                                     <th>{{$news['id']}}</th>
-                                                    <td>{{$news['english']['title']}}</td>
-                                                    <td>{{ucfirst($news['whatCategory']['name'])}}</td>
+                                                    <td>{{ $news['english']['title'] ?? 'No Title' }}</td>
+                                                    <td>
+                                                        @foreach($news->tags as $tag)
+                                                            <span class="badge" style="background-color: #C92228; color: white; margin: 2px;">{{ $tag->name }}</span>
+                                                        @endforeach
+                                                    </td>
                                                     <td>
                                                         @if($news['type'] == '0') {{'Article'}}
                                                         @elseif($news['type'] == '1') {{'Product'}}
