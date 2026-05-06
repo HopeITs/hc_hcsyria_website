@@ -4,16 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Initiative;
 use App\InitiativeFrench;
+use App\Models\News;
+use App\NewsFrench;
 use App\Project;
 use App\ProjectFrench;
 use App\Success;
-use App\News;
-use App\NewsFrench;
 use App\SuccessFrench;
 use App\TestimonyFrench;
 use App\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {

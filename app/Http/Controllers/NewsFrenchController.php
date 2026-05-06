@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\News;
+use App\Models\News;
+use App\Models\NewsImage;
 use App\NewsFrench;
-use App\NewsImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

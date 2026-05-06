@@ -10,6 +10,6 @@ class NewsEnglish extends Model
 
     public function news()
     {
-        return $this->belongsTo('App\News');
+        return $this->belongsTo('App\Models\News');
     }
 }

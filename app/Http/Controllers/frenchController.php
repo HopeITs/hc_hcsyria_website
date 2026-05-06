@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Image;
 use App\Initiative;
 use App\InitiativeFrench;
+use App\Models\News;
+use App\Project;
 use App\ProjectFrench;
 use App\Success;
 use App\Testimony;
 use Illuminate\Http\Request;
-use App\Image;
-use App\Project;
-use App\News;
 use Illuminate\Support\Facades\DB;
 
 class frenchController extends Controller

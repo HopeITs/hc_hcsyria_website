@@ -2,47 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\InitiativeEnglish;
-use App\Models\Cover;
-use App\Models\InfoDisc;
-use App\Models\ProjectDonor;
-use App\Models\RootsOfHope;
-use App\Student;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Input;
-use function Laravel\Prompts\select;
-use Session;
-use Carbon\Carbon;
-use Jenssegers\Agent\Agent;
-use Illuminate\Support\Arr;
 use App\Donor;
-use App\YouthProfile;
+use App\Edition;
+use App\HopeProjects;
+use App\Initiative;
 use App\InitiativeImage;
 use App\InitiativeImageRehabilitation;
-use App\NewsImage;
+use App\Mail\UserSubscribedEmail;
+use App\Models\Cover;
+use App\Models\InfoDisc;
+use App\Models\News;
+use App\Models\NewsImage;
+use App\Models\ProjectDonor;
+use App\Models\RootsOfHope;
+use App\Models\Subscribers;
 use App\Place;
-use App\StudyzoneCenter;
+use App\Project;
+use App\Student;
 use App\SubWhatCategory;
 use App\Success;
 use App\Testimony;
 use App\WhatCategory;
-use App\News;
-use App\Edition;
-use App\Models\Subscribers;
-use Illuminate\Http\Request;
-use App\Project;
-use App\Initiative;
-use Illuminate\Support\Facades\DB;
 use App\WhoCategory;
-use Illuminate\Support\Facades\Route;
-use function Monolog\toArray;
-use App\Mail\UserSubscribedEmail;
+use App\YouthProfile;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
-use Stevebauman\Location\Facades\Location;
-use PDF;
-use App\HopeProjects;
 use Illuminate\Support\Str;
+use Jenssegers\Agent\Agent;
+use PDF;
+use function Monolog\toArray;
+
 class publicController extends Controller
 {
     public function set_locale($locale)

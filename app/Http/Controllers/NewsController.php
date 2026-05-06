@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Edition;
-use App\News;
+use App\Mail\UserEmail;
+use App\Models\News;
+use App\Models\NewsImage;
+use App\Models\Subscriber;
 use App\NewsEnglish;
-use App\NewsImage;
-use App\WhatCategory;
-use App\WhoCategory;
 use App\Place;
 use App\Project;
-use Illuminate\Support\Facades\File;
+use App\WhatCategory;
+use App\WhoCategory;
 use Illuminate\Http\Request;
-use App\Models\Subscriber;
-use App\Models\Subscribers;
-use App\Mail\UserEmail;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 
 class NewsController extends Controller
@@ -26,74 +26,103 @@ class NewsController extends Controller
 
     public function index()
     {
-        $newsArticles = NEWS::with('english', 'edition', 'whatCategory')->where('type', '0')->where('online', '1')->get();
-        $newsProducts = NEWS::with('english', 'edition', 'whatCategory')->where('type', '1')->where('online', '1')->get();
-        $newsShortParagraphs = NEWS::with('english', 'edition', 'whatCategory')->where('type', '2')->where('online', '1')->get();
-        $newsVideos = NEWS::with('english', 'edition', 'whatCategory')->where('type', '3')->where('online', '1')->get();
-        $newsPending = NEWS::with('english', 'edition', 'whatCategory')->where('type', '0')->where('online', '0')->get();
+        // We now eager-load 'tags' instead of 'whatCategory'
+        $newsArticles = News::with('english', 'edition', 'tags')->where('type', '0')->where('online', '1')->get();
+        $newsProducts = News::with('english', 'edition', 'tags')->where('type', '1')->where('online', '1')->get();
+        $newsShortParagraphs = News::with('english', 'edition', 'tags')->where('type', '2')->where('online', '1')->get();
+        $newsVideos = News::with('english', 'edition', 'tags')->where('type', '3')->where('online', '1')->get();
+        $newsPending = News::with('english', 'edition', 'tags')->where('type', '0')->where('online', '0')->get();
+
         $newsSubscribers = Subscriber::all();
-        return view('new.admin.news.index', ['newsArticles' => $newsArticles, 'newsSubscribers' => $newsSubscribers, 'newsProducts' => $newsProducts, 'newsShortParagraphs' => $newsShortParagraphs, 'newsVideos' => $newsVideos, 'newsPending' => $newsPending]);
+
+        return view('new.admin.news.index', [
+            'newsArticles' => $newsArticles,
+            'newsSubscribers' => $newsSubscribers,
+            'newsProducts' => $newsProducts,
+            'newsShortParagraphs' => $newsShortParagraphs,
+            'newsVideos' => $newsVideos,
+            'newsPending' => $newsPending
+        ]);
     }
 
     public function create()
     {
         $microProjects = Project::with('english')->where('MPE_Done', '1')->where('MPE_Published', '1')->get();
-        $what_categories = WhatCategory::whereIn('id', [11, 12, 13, 14, 15, 16])->get();
-        $who_categories = WhoCategory::all();
+        $tags = Tag::all();
         $editions = Edition::all();
         $places = Place::all();
-        return view('new.admin.news.create', ['microProjects' => $microProjects, 'what_categories' => $what_categories, 'who_categories' => $who_categories, 'places' => $places, 'editions' => $editions,]);
+
+        return view('new.admin.news.create', [
+            'microProjects' => $microProjects,
+            'tags' => $tags,
+            'places' => $places,
+            'editions' => $editions
+        ]);
     }
 
     public function store(Request $request)
-    {
-        $request->validate(['type' => 'required|numeric', 'what_category_id' => 'required|numeric', 'who_category_id' => 'required|numeric', 'place_id' => 'required', 'edition_id' => 'required|numeric', 'rank' => 'required|numeric', 'title' => 'required|max:100', 'description' => 'max:900', 'content' => 'required', 'video' => 'max:100',
+{
+    // 1. Updated Validation: added 'tag_ids' and removed required category IDs
+    $request->validate([
+        'type' => 'required|numeric',
+        'tag_ids' => 'required|array|min:1', // New: many-to-many tags
+        'tag_ids.*' => 'exists:tags,id',
+        'place_id' => 'required',
+        'edition_id' => 'nullable|numeric',
+        'rank' => 'required|numeric',
+        'title' => 'required|max:100',
+        'description' => 'max:900',
+        'content' => 'required',
+        'video' => 'max:100',
+        'date' => 'nullable|date', // Added for your new 'date' column
+    ]);
 
-        ]);
+    $news = new News;
+    $news->type = $request->input('type');
+    $news->place_id = $request->input('place_id');
+    $news->edition_id = $request->input('edition_id');
+    $news->rank = $request->input('rank');
+    $news->online = 0;
 
-        if ($request->input('what_category_id') == '13') //products
-        {
-            $request->validate(['project_id' => 'required']);
-        }
+    // 2. Setting new columns from your SQL overhaul
+    $news->date = $request->input('date') ?? now();
+    $news->priority_status = $request->input('priority_status', 0);
 
-        $news = new News;
+    $news->video = $request->filled('video') ? $request->input('video') : '0';
 
-        $news->type = $request->input('type');
-        $news->what_category_id = $request->input('what_category_id');
-        $news->who_category_id = $request->input('who_category_id');
-        $news->place_id = $request->input('place_id');
-        $news->edition_id = $request->input('edition_id');
-        $news->rank = $request->input('rank');
-        $news->video = $request->filled('video') ? $request->input('video') : '0';
-        if ($file = $request->hasFile('file')) {
-            $file = $request->file('file');
-            $fileName = $file->getClientOriginalName();
-            $path = '/files/news/';
-            $file->move($path, $fileName);
-            $news->file = $path . $fileName;
-        } else $news->file = '0';
-
-        if ($request->input('what_category_id') == '13') //products
-        {
-            $news->project_id = $request->filled('project') ? $request->input('project') : '0';
-        }
-
-        $news->save();
-
-        $engnews = new NewsEnglish;
-
-        $engnews->news_id = $news->id;
-        $engnews->title = $request->input('title');
-
-        $sub_description = substr($request->input('description'), strpos($request->input('description'), '://') + 3, 5);
-
-        $engnews->description = $request->filled('description') ? $request->input('description') : '0';
-        $engnews->content = $request->input('content');
-        $engnews->save();
-
-        $this->saveToLog(self::NEWS, $news->id, 'one of News Created');
-        return redirect()->back()->with('success', 'News ' . $news->id . ' has been created');
+    if ($request->hasFile('file')) {
+        $file = $request->file('file');
+        $fileName = $file->getClientOriginalName();
+        $path = '/files/news/';
+        $file->move(public_path($path), $fileName);
+        $news->file = $path . $fileName;
+    } else {
+        $news->file = '0';
     }
+
+    // Logic for products based on your specific IDs
+    if ($request->input('type') == '1')
+    {
+        $news->project_id = $request->filled('project_id') ? $request->input('project_id') : '0';
+    }
+
+    $news->save();
+
+    if ($request->has('tag_ids')) {
+        $news->tags()->sync($request->input('tag_ids'));
+    }
+
+    // Handle English content
+    $engnews = new NewsEnglish;
+    $engnews->news_id = $news->id;
+    $engnews->title = $request->input('title');
+    $engnews->description = $request->filled('description') ? $request->input('description') : '0';
+    $engnews->content = $request->input('content');
+    $engnews->save();
+
+    $this->saveToLog(self::NEWS, $news->id, 'News Created');
+    return redirect()->back()->with('success', 'News ' . $news->id . ' has been created and is pending approval.');
+}
 
     /////////////////////////////////////////////////////////////////////////////////
     public function show($id)
@@ -114,26 +143,31 @@ class NewsController extends Controller
     public function edit($id)
     {
         $microProjects = Project::with('english')->where('MPE_Done', '1')->where('MPE_Published', '1')->get();
-        $what_categories = WhatCategory::whereIn('id', [11, 12, 13, 14, 15, 16])->get();
-        $who_categories = WhoCategory::all();
+        $tags = Tag::all();
         $places = Place::all();
-        $editions = Edition::all();
 
-        $newsData = News::with('english')->where('id', $id)->first();
+        $newsData = News::with('english', 'tags')->where('id', $id)->first();
 
-        return view('new.admin.news.edit', ['newsData' => $newsData, 'what_categories' => $what_categories, 'who_categories' => $who_categories, 'places' => $places, 'editions' => $editions, 'microProjects' => $microProjects,
+        return view('new.admin.news.edit', ['newsData' => $newsData,'tags' => $tags, 'places' => $places,'microProjects' => $microProjects,
 
         ]);
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate(['type' => 'required|numeric', 'what_category_id' => 'required|numeric', 'who_category_id' => 'required|numeric', 'place_id' => 'required', 'title' => 'required|max:100', 'description' => 'max:900', 'content' => 'required', 'edition_id' => 'required|numeric', 'rank' => 'required|numeric', 'video' => 'max:100',]);
-
-        if ($request->input('what_category_id') == '13') //products
-        {
-            $request->validate(['project_id' => 'required']);
-        }
+        // 1. New validation for tags and date (removed old categories)
+        $request->validate([
+            'type' => 'required|numeric',
+            'tag_ids' => 'required|array|min:1',
+            'tag_ids.*' => 'exists:tags,id',
+            'place_id' => 'required',
+            'title' => 'required|max:100',
+            'description' => 'max:900',
+            'content' => 'required',
+            'rank' => 'required|numeric',
+            'video' => 'max:100',
+            'date' => 'nullable|date'
+        ]);
 
         $news = News::find($id);
         $newsPrev = News::find($id);
@@ -142,38 +176,31 @@ class NewsController extends Controller
         if ($news->isDirty('video')) {
             $this->saveToLogWithData(self::NEWS, $id, 'Video Edited', $newsPrev->video, $news->video);
         }
-//        $news->file = $request->filled('file') ? $request->input('file') : '0';
+
         if ($file = $request->hasFile('file')) {
             $file = $request->file('file');
             $fileName = $file->getClientOriginalName();
             $path = '/files/news/';
-            $file->move($path, $fileName);
+            $file->move(public_path($path), $fileName);
             $news->file = $path . $fileName;
-        } else $news->file = '0';
-//        if ($news->isDirty('file')) {
-//            $this->saveToLogWithData(self::NEWS, $id,'File Edited', $newsPrev->file, $news->file);
-//        }
+        }
 
+        // 2. Save the core columns
         $news->type = $request->input('type');
         $news->rank = $request->input('rank');
-        $news->what_category_id = $request->input('what_category_id');
-        $news->who_category_id = $request->input('who_category_id');
         $news->place_id = $request->input('place_id');
-        $news->edition_id = $request->input('edition_id');
-
-//        if ($request->input('what_category_id') == '13') {
-//            $news->project_id = $request->input('project_id');
-//            if ($news->isDirty('project_id')) {
-//                $microName = Project::where('MicroProject_ID', $request->input('project_id'))->first()['MIE_BeneficiaryName'];
-//                $microNamePrev = Project::where('MicroProject_ID', $newsPrev->project_id)->first()['MIE_BeneficiaryName'];
-//                $this->saveToLogWithData(self::NEWS, $news->id, 'Link to micro project changed', $microNamePrev, $microName);
-//            }
-//        }
+        $news->date = $request->input('date') ?? now();
 
         $news->save();
 
+        // 3. Sync the new tags (Removes old tags, adds newly checked ones)
+        if ($request->has('tag_ids')) {
+            $news->tags()->sync($request->input('tag_ids'));
+        }
+
         $engNews = NewsEnglish::where('news_id', $id)->first();
         $engNewsPrev = NewsEnglish::where('news_id', $id)->first();
+
         $engNews->title = $request->input('title');
         if ($engNews->isDirty('title')) {
             $this->saveToLogWithData(self::NEWS, $id, 'Title edited', $engNewsPrev->title, $engNews->title);
@@ -188,21 +215,19 @@ class NewsController extends Controller
             $this->saveToLogWithData(self::NEWS, $id, 'Content edited', $engNewsPrev->content, $engNews->content);
         }
 
-//        $engNews->edition = $request->input('edition');
-//        if ($engNews->isDirty('edition')) {
-//            $this->saveToLogWithData(self::NEWS, $id,'Edition edited', $engNewsPrev->edition, $engNews->edition);
-//        }
-
         $engNews->save();
 
         return redirect('admin\home')->with('success', 'News ' . $news->id . ' has been updated');
-
     }
 
     public function destroy($id)
     {
-        $news = NEWS::find($id);
-        NEWS::destroy($id);
+        $news = News::find($id);
+
+        // Safely detach all tags from this news article before deleting it
+        $news->tags()->detach();
+
+        News::destroy($id);
         NewsEnglish::where('news_id', $news->id)->delete();
 //        NewsFrench::where('news_id', $news->id)->delete();
         $images = NewsImage::where('news_id', $news->id)->get();

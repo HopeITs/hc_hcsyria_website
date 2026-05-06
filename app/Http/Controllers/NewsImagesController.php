@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\News;
-use App\NewsImage;
+use App\Models\News;
+use App\Models\NewsImage;
 use App\WhatCategory;
+use File;
 use Illuminate\Http\Request;
 use Validator;
-use File;
 
 class NewsImagesController extends Controller
 {
