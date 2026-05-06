@@ -1,28 +1,43 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Tag;
 
 class News extends Model
 {
     protected $table = 'news';
+
+    protected $fillable = [
+        'rank', 'type', 'video', 'file', 'english_check',
+        'date', 'priority_status', 'view_count'
+    ];
+
+    protected $casts = [
+        'date' => 'datetime',
+    ];
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'news_tags', 'news_id', 'tag_id');
+    }
     public function images()
     {
-        return $this->hasMany('App\NewsImage')->orderBy('image_order');
+        return $this->hasMany(NewsImage::class, 'news_id')->orderBy('image_order');
     }
 
     public function firstImage(){
-        return $this->hasOne('App\NewsImage')->orderBy('image_order');
+        return $this->hasOne(NewsImage::class, 'news_id')->orderBy('image_order');
     }
 
     public function ImagesRandom() {
-        return $this->hasMany('App\NewsImage')->orderBy('image_order');
+        return $this->hasMany('App\Models\NewsImage')->orderBy('image_order');
     }
 
     public function english()
     {
-        return $this->hasOne('App\NewsEnglish');
+        return $this->hasOne('App\NewsEnglish', 'news_id');
     }
 
     public function french()
