@@ -1,5 +1,12 @@
 <?php
 //NEW ROUTES
+use App\Livewire\NewsPage;
+
+Route::get('/newstest', function () {
+    return view('new.public.newsletter-test');
+})->name('public.news');
+
+
 Route::get('/projects/school-to-school', 'PublicController@school_to_school')->name('new.public.school2school');
 Route::get('/projects/childrenuni', 'PublicController@childrenUni');
 Route::get('/projects/leap', 'PublicController@leap')->name('public.leap');
@@ -18,6 +25,7 @@ Route::get('/projects/{type}', 'PublicController@initiatives_by_type')->name('pu
 Route::get('/newsletter/{edition}/{type}', 'PublicController@news_by_type')->name('new.public.newsletter');
 Route::get('/newsletter-/{edition}/{id}-{slug}', 'PublicController@show_article')->name('new.public.article');
 Route::post('newsletter/subscribe','PublicController@subscribe')->name('newsletter.subscribe');
+
 
 Route::get('/who-we-are','PublicController@about_us')->name('new.public.who-we-are');
 
