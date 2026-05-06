@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\News;
 use App\Models\NewsImage;
 use App\WhatCategory;
-use File;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class NewsImagesController extends Controller
 {
@@ -18,87 +18,150 @@ class NewsImagesController extends Controller
 
     public function create($id)
     {
-        $news = News::with('whatCategory')->where('id', $id)->first();
-        $images = NewsImage::where('news_id', $id)->orderby('image_order')->get();
+        $news = News::with('whatCategory')->where('id', $id)->firstOrFail();
+        $images = NewsImage::where('news_id', $id)->orderBy('image_order')->get();
+
         return view('new.admin.news.images.create', [
             'news' => $news,
-            'images' => $images
+            'images' => $images,
+            'hasImportant' => News::where('priority_status', 1)->where('id', '!=', $id)->exists(),
+            'hasPinned'    => News::where('priority_status', 2)->where('id', '!=', $id)->exists(),
         ]);
     }
 
     public function store(Request $request)
     {
+        $news = News::with('whatCategory')->findOrFail($request->input('news_id'));
+        $categoryName = $news->whatCategory ? $news->whatCategory->name : 'Uncategorized';
+        $path = 'images/news/' . $categoryName . '/' . $news->id . '/';
+
         $request->validate([
-            'news_id' => 'required|numeric',
-            'title' => 'required',
-            'what_category_id' => 'required',
+            'news_id'         => 'required|numeric',
+            'thumbnail_image' => 'required|image|mimes:jpeg,jpg',
+            'important_image' => 'nullable|image|mimes:jpeg,jpg',
+            'pinned_image'    => 'nullable|image|mimes:jpeg,jpg',
         ]);
-        $validator = Validator::make($request->all(), [
-            'small_image' => 'image|mimes:jpeg|max:' . count($request->file('big_image')),
-        ]);
-        if ($validator->fails()) {
-            return redirect('/admin/news/images/create/' . $request->input('news_id'))
-                ->withErrors('the number of small images must be the same as the number of big images')
-                ->withInput();
-        }
-        foreach (range(0, count($request->file('small_image')) - 1) as $i) {
-            $request->validate([
-                'small_image.' . $i => 'image|mimes:jpeg|max:500'
-            ]);
-        }
-        foreach (range(0, count($request->file('big_image')) - 1) as $i) {
-            $request->validate([
-                'big_image.' . $i => 'image|mimes:jpeg|max:600'
-            ]);
-        }
-        $categoryName = WhatCategory::find($request->input('what_category_id'))->name;
-        $images = new \MultipleIterator();
-        $images->attachIterator(new \ArrayIterator($request->file('small_image')));
-        $images->attachIterator(new \ArrayIterator($request->file('big_image')));
-        foreach ($images as $i => $image) {
-            $imgName = (string)time() . $i[0];
 
-//            $titleCut = substr($request->input('title'), 0, 7);
-            $news_id = $request->input('news_id');
+        if ($request->has('is_important') && $request->hasFile('important_image')) {
+            $exists = News::where('priority_status', 1)->where('id', '!=', $news->id)->exists();
+            if ($exists) {
+                return redirect()->back()->with('placement_error', 'Upload failed: Another news article is already set as Important. Please unmark it first.');
+            }
+        }
 
-            $path = 'images/news/' . $categoryName . '/' . $news_id . '/';
-            $image[0]->move($path, $imgName . '.jpg');
-            $image[1]->move($path, $imgName . 'b.jpg');
+        if ($request->has('is_pinned') && $request->hasFile('pinned_image')) {
+            $exists = News::where('priority_status', 2)->where('id', '!=', $news->id)->exists();
+            if ($exists) {
+                return redirect()->back()->with('placement_error', 'Upload failed: Another news article is already set as Pinned. Please unmark it first.');
+            }
+        }
+
+        $uploadedCount = 0;
+
+        if ($request->hasFile('thumbnail_image')) {
+            $imgName = time() . '_thumb';
+            $request->file('thumbnail_image')->move($path, $imgName . '.jpg');
+
             $newsImage = new NewsImage();
-            $newsImage->news_id = $request->input('news_id');
-            $newsImage->path = '/'.$path . $imgName . '.jpg';
+            $newsImage->news_id = $news->id;
+            $newsImage->path = '/' . $path . $imgName . '.jpg';
+            $newsImage->sizetype = 0;
             $newsImage->save();
+            $uploadedCount++;
         }
-        $this->saveToLog(self::NEWS, $request->input('news_id'), count($request->file('small_image')) . ' Images stored');
-        return redirect('admin/news/images/'.$request->input('news_id'))->with('success', count($request->file('small_image')) . ' Images stored');
+
+        if ($request->has('is_important') && $request->hasFile('important_image')) {
+            $imgName = time() . '_important';
+            $request->file('important_image')->move($path, $imgName . '.jpg');
+
+            $newsImage = new NewsImage();
+            $newsImage->news_id = $news->id;
+            $newsImage->path = '/' . $path . $imgName . '.jpg';
+            $newsImage->sizetype = 1;
+            $newsImage->save();
+
+            $news->priority_status = 1;
+            $news->save();
+            $uploadedCount++;
+        }
+
+        if ($request->has('is_pinned') && $request->hasFile('pinned_image')) {
+            $imgName = time() . '_pinned';
+            $request->file('pinned_image')->move($path, $imgName . '.jpg');
+
+            $newsImage = new NewsImage();
+            $newsImage->news_id = $news->id;
+            $newsImage->path = '/' . $path . $imgName . '.jpg';
+            $newsImage->sizetype = 2;
+            $newsImage->save();
+
+            $news->priority_status = 2;
+            $news->save();
+            $uploadedCount++;
+        }
+
+        if (!$request->has('is_important') && !$request->has('is_pinned')) {
+            $news->priority_status = 0;
+            $news->save();
+        }
+
+        if ($request->hasFile('small_image') && $request->hasFile('big_image')) {
+            $smallImages = $request->file('small_image');
+            $bigImages = $request->file('big_image');
+
+            if(count($smallImages) === count($bigImages)) {
+                foreach ($smallImages as $i => $smallImg) {
+                    if (!isset($smallImages[$i]) || !isset($bigImages[$i])) continue;
+
+                    $imgName = time() . '_reg_' . $i;
+                    $smallImages[$i]->move($path, $imgName . '.jpg');
+                    $bigImages[$i]->move($path, $imgName . 'b.jpg');
+
+                    $newsImage = new NewsImage();
+                    $newsImage->news_id = $news->id;
+                    $newsImage->path = '/' . $path . $imgName . '.jpg';
+                    $newsImage->sizetype = 3;
+                    $newsImage->save();
+
+                    $uploadedCount++;
+                }
+            }
+        }
+
+        $this->saveToLog(self::NEWS, $news->id, $uploadedCount . ' Images stored');
+        return redirect('admin/news/images/' . $news->id)->with('success', $uploadedCount . ' Images successfully uploaded and mapped.');
     }
 
     public function destroy(Request $request, $id)
     {
         $images = NewsImage::where('news_id', $id)->get();
         $deletedImagesCount = 0;
+
+        $news = News::find($id);
+
         foreach ($images as $img) {
             if ($request->input($img->id) == '1') {
+
+                if ($img->sizetype == 1 && $news->priority_status == 1) {
+                    $news->priority_status = 0;
+                    $news->save();
+                } elseif ($img->sizetype == 2 && $news->priority_status == 2) {
+                    $news->priority_status = 0;
+                    $news->save();
+                }
+
                 $deletedImagesCount++;
+                File::delete(public_path($img->path));
+
+                if ($img->sizetype == 3) {
+                    File::delete(public_path(substr($img->path, 0, -4) . 'b.jpg'));
+                }
+
                 $img->delete();
-                File::delete($img->path);
-                File::delete(substr($img->path, 0, -4).'b.jpg');
             }
         }
-        $this->saveToLog(self::NEWS, $id,$deletedImagesCount . ' Images deleted');
-        return redirect('admin/news/images/'.$id)->with('success', $deletedImagesCount . ' Images deleted');
-    }
 
-    public function order_images(Request $request){
-        $imageIdsArray = $request->input('imageIds');
-        $count = 1;
-        foreach ($imageIdsArray as $id) {
-            $image = NewsImage::find($id);
-            $image->image_order = $count;
-            $image->save();
-            $count ++;
-        }
-        return 'Images has been reordered !!';
+        $this->saveToLog(self::NEWS, $id, $deletedImagesCount . ' Images deleted');
+        return redirect('admin/news/images/' . $id)->with('success', $deletedImagesCount . ' Images deleted');
     }
-
 }

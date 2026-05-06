@@ -62,7 +62,6 @@
                                 </div>
                             </div>
 
-                            <!-- NEW TAGS SYSTEM -->
                             <div class="row mb-3">
                                 <div class="form-group col-lg-8 col-md-8 col-12">
                                     <label>Tags <span class="red-color">*</span></label><br>
@@ -101,7 +100,6 @@
                                 </div>
                             </div>
 
-                            <!-- NEW DATE FIELD -->
                             <div class="row mb-3">
                                 <div class="form-group col-lg-4 col-md-4 col-12">
                                     <label for="date">Publish Date</label>
@@ -130,7 +128,6 @@
                                 </div>
                             </div>
 
-                            <!-- SAFE ENGLISH FIELDS -->
                             <div class="row mb-3">
                                 <div class="form-group col-12">
                                     <label for="title">Title <span class="red-color">*</span></label>
