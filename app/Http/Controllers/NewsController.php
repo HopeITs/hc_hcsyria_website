@@ -26,7 +26,6 @@ class NewsController extends Controller
 
     public function index()
     {
-        // We now eager-load 'tags' instead of 'whatCategory'
         $newsArticles = News::with('english', 'edition', 'tags')->where('type', '0')->where('online', '1')->get();
         $newsProducts = News::with('english', 'edition', 'tags')->where('type', '1')->where('online', '1')->get();
         $newsShortParagraphs = News::with('english', 'edition', 'tags')->where('type', '2')->where('online', '1')->get();
@@ -62,29 +61,28 @@ class NewsController extends Controller
 
     public function store(Request $request)
 {
-    // 1. Updated Validation: added 'tag_ids' and removed required category IDs
     $request->validate([
         'type' => 'required|numeric',
-        'tag_ids' => 'required|array|min:1', // New: many-to-many tags
+        'tag_ids' => 'required|array|min:1',
         'tag_ids.*' => 'exists:tags,id',
         'place_id' => 'required',
         'edition_id' => 'nullable|numeric',
-        'rank' => 'required|numeric',
+        'rank' => 'nullable|numeric',
         'title' => 'required|max:100',
-        'description' => 'max:900',
+        'description' => 'nullable|max:900',
         'content' => 'required',
         'video' => 'max:100',
-        'date' => 'nullable|date', // Added for your new 'date' column
+        'date' => 'nullable|date',
     ]);
 
     $news = new News;
     $news->type = $request->input('type');
     $news->place_id = $request->input('place_id');
     $news->edition_id = $request->input('edition_id');
-    $news->rank = $request->input('rank');
+
+    $news->rank = $request->input('rank') ?? 1;
     $news->online = 0;
 
-    // 2. Setting new columns from your SQL overhaul
     $news->date = $request->input('date') ?? now();
     $news->priority_status = $request->input('priority_status', 0);
 
@@ -100,7 +98,6 @@ class NewsController extends Controller
         $news->file = '0';
     }
 
-    // Logic for products based on your specific IDs
     if ($request->input('type') == '1')
     {
         $news->project_id = $request->filled('project_id') ? $request->input('project_id') : '0';
@@ -112,11 +109,10 @@ class NewsController extends Controller
         $news->tags()->sync($request->input('tag_ids'));
     }
 
-    // Handle English content
     $engnews = new NewsEnglish;
     $engnews->news_id = $news->id;
     $engnews->title = $request->input('title');
-    $engnews->description = $request->filled('description') ? $request->input('description') : '0';
+    $engnews->description = $request->input('description') ?? '0';
     $engnews->content = $request->input('content');
     $engnews->save();
 
@@ -155,29 +151,28 @@ class NewsController extends Controller
 
     public function update(Request $request, $id)
     {
-        // 1. New validation for tags and date (removed old categories)
         $request->validate([
             'type' => 'required|numeric',
             'tag_ids' => 'required|array|min:1',
             'tag_ids.*' => 'exists:tags,id',
             'place_id' => 'required',
             'title' => 'required|max:100',
-            'description' => 'max:900',
+            'description' => 'nullable|max:900',
             'content' => 'required',
-            'rank' => 'required|numeric',
-            'video' => 'max:100',
+            'rank' => 'nullable|numeric',
+            'video' => 'nullable|max:100',
             'date' => 'nullable|date'
         ]);
 
         $news = News::find($id);
-        $newsPrev = News::find($id);
+        $newsPrev = clone $news;
 
         $news->video = $request->filled('video') ? $request->input('video') : '0';
         if ($news->isDirty('video')) {
             $this->saveToLogWithData(self::NEWS, $id, 'Video Edited', $newsPrev->video, $news->video);
         }
 
-        if ($file = $request->hasFile('file')) {
+        if ($request->hasFile('file')) {
             $file = $request->file('file');
             $fileName = $file->getClientOriginalName();
             $path = '/files/news/';
@@ -185,32 +180,28 @@ class NewsController extends Controller
             $news->file = $path . $fileName;
         }
 
-        // 2. Save the core columns
         $news->type = $request->input('type');
-        $news->rank = $request->input('rank');
+        $news->rank = $request->input('rank') ?? $news->rank ?? 1;
         $news->place_id = $request->input('place_id');
-        $news->date = $request->input('date') ?? now();
-
+        $news->date = $request->input('date') ?? $news->date ?? now();
         $news->save();
 
-        // 3. Sync the new tags (Removes old tags, adds newly checked ones)
         if ($request->has('tag_ids')) {
             $news->tags()->sync($request->input('tag_ids'));
         }
 
         $engNews = NewsEnglish::where('news_id', $id)->first();
-        $engNewsPrev = NewsEnglish::where('news_id', $id)->first();
+        $engNewsPrev = clone $engNews;
 
         $engNews->title = $request->input('title');
+        $engNews->description = $request->input('description') ?? '0';
+        $engNews->content = $request->input('content');
         if ($engNews->isDirty('title')) {
             $this->saveToLogWithData(self::NEWS, $id, 'Title edited', $engNewsPrev->title, $engNews->title);
         }
-
-        $engNews->description = $request->filled('description') ? $request->input('description') : '0';
         if ($engNews->isDirty('description')) {
-            $this->saveToLogWithData(self::NEWS, $id, 'description edited', $engNewsPrev->description, $engNews->description);
+            $this->saveToLogWithData(self::NEWS, $id, 'Description edited', $engNewsPrev->description, $engNews->description);
         }
-        $engNews->content = $request->input('content');
         if ($engNews->isDirty('content')) {
             $this->saveToLogWithData(self::NEWS, $id, 'Content edited', $engNewsPrev->content, $engNews->content);
         }
@@ -219,12 +210,10 @@ class NewsController extends Controller
 
         return redirect('admin\home')->with('success', 'News ' . $news->id . ' has been updated');
     }
-
     public function destroy($id)
     {
         $news = News::find($id);
 
-        // Safely detach all tags from this news article before deleting it
         $news->tags()->detach();
 
         News::destroy($id);

@@ -109,25 +109,25 @@
                                     <input type="datetime-local" name="date" id="date" class="form-control">
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="form-group col-lg-4 col-md-4 col-12">
-                                    <label for="rank">Rank <span class="red-color">*</span></label>
-                                    <select class="form-select" id="rank" placeholder="Choose Rank..." name="rank">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                    </select>
-                                </div>
-                            </div>
+{{--                            <div class="row mb-3">--}}
+{{--                                <div class="form-group col-lg-4 col-md-4 col-12">--}}
+{{--                                    <label for="rank">Rank <span class="red-color">*</span></label>--}}
+{{--                                    <select class="form-select" id="rank" placeholder="Choose Rank..." name="rank">--}}
+{{--                                        <option value="1">1</option>--}}
+{{--                                        <option value="2">2</option>--}}
+{{--                                        <option value="3">3</option>--}}
+{{--                                        <option value="4">4</option>--}}
+{{--                                        <option value="5">5</option>--}}
+{{--                                        <option value="6">6</option>--}}
+{{--                                        <option value="7">7</option>--}}
+{{--                                        <option value="8">8</option>--}}
+{{--                                        <option value="9">9</option>--}}
+{{--                                        <option value="10">10</option>--}}
+{{--                                        <option value="11">11</option>--}}
+{{--                                        <option value="12">12</option>--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                             <div class="row mb-3">
                                 <div class="form-group col-12">
                                     <label for="title">Title</label> <span class="red-color">*</span>
@@ -140,18 +140,18 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="form-group col-12">
-                                    <label for="description">Description</label>
-                                    <span>
-            <small>(maximum:900 characters with spaces OR leave the box empty to let it automatically!)</small>
-        </span>
-                                    <textarea name="description"
-                                              id="description"
-                                              class="form-control"
-                                              placeholder="Description"></textarea>
-                                </div>
-                            </div>
+{{--                            <div class="row mb-3">--}}
+{{--                                <div class="form-group col-12">--}}
+{{--                                    <label for="description">Description</label>--}}
+{{--                                    <span>--}}
+{{--            <small>(maximum:900 characters with spaces OR leave the box empty to let it automatically!)</small>--}}
+{{--        </span>--}}
+{{--                                    <textarea name="description"--}}
+{{--                                              id="description"--}}
+{{--                                              class="form-control"--}}
+{{--                                              placeholder="Description"></textarea>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
                             <div class="row mb-3">
                                 <div class="form-group col-12">

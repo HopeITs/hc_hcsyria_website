@@ -108,25 +108,25 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="form-group col-lg-4 col-md-4 col-12">
-                                    <label for="rank">Rank <span class="red-color">*</span></label>
-                                    <select class="form-select" id="rank" name="rank">
-                                        <option @if($newsData->rank == 1) selected @endif() value="1">1</option>
-                                        <option @if($newsData->rank == 2) selected @endif() value="2">2</option>
-                                        <option @if($newsData->rank == 3) selected @endif() value="3">3</option>
-                                        <option @if($newsData->rank == 4) selected @endif() value="4">4</option>
-                                        <option @if($newsData->rank == 5) selected @endif() value="5">5</option>
-                                        <option @if($newsData->rank == 6) selected @endif() value="6">6</option>
-                                        <option @if($newsData->rank == 7) selected @endif() value="7">7</option>
-                                        <option @if($newsData->rank == 8) selected @endif() value="8">8</option>
-                                        <option @if($newsData->rank == 9) selected @endif() value="9">9</option>
-                                        <option @if($newsData->rank == 10) selected @endif() value="10">10</option>
-                                        <option @if($newsData->rank == 11) selected @endif() value="11">11</option>
-                                        <option @if($newsData->rank == 12) selected @endif() value="12">12</option>
-                                    </select>
-                                </div>
-                            </div>
+{{--                            <div class="row mb-3">--}}
+{{--                                <div class="form-group col-lg-4 col-md-4 col-12">--}}
+{{--                                    <label for="rank">Rank <span class="red-color">*</span></label>--}}
+{{--                                    <select class="form-select" id="rank" name="rank">--}}
+{{--                                        <option @if($newsData->rank == 1) selected @endif() value="1">1</option>--}}
+{{--                                        <option @if($newsData->rank == 2) selected @endif() value="2">2</option>--}}
+{{--                                        <option @if($newsData->rank == 3) selected @endif() value="3">3</option>--}}
+{{--                                        <option @if($newsData->rank == 4) selected @endif() value="4">4</option>--}}
+{{--                                        <option @if($newsData->rank == 5) selected @endif() value="5">5</option>--}}
+{{--                                        <option @if($newsData->rank == 6) selected @endif() value="6">6</option>--}}
+{{--                                        <option @if($newsData->rank == 7) selected @endif() value="7">7</option>--}}
+{{--                                        <option @if($newsData->rank == 8) selected @endif() value="8">8</option>--}}
+{{--                                        <option @if($newsData->rank == 9) selected @endif() value="9">9</option>--}}
+{{--                                        <option @if($newsData->rank == 10) selected @endif() value="10">10</option>--}}
+{{--                                        <option @if($newsData->rank == 11) selected @endif() value="11">11</option>--}}
+{{--                                        <option @if($newsData->rank == 12) selected @endif() value="12">12</option>--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
                             <div class="row mb-3">
                                 <div class="form-group col-12">
@@ -141,16 +141,16 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="form-group col-12">
-                                    <label for="description">Description</label>
-                                    <span><small>(maximum:900 characters with spaces OR leave the box empty to let it automatically!)</small></span>
-                                    <textarea name="description"
-                                              id="description"
-                                              class="form-control"
-                                              placeholder="Description">{{ optional($newsData->english)->description ?? '' }}</textarea>
-                                </div>
-                            </div>
+{{--                            <div class="row mb-3">--}}
+{{--                                <div class="form-group col-12">--}}
+{{--                                    <label for="description">Description</label>--}}
+{{--                                    <span><small>(maximum:900 characters with spaces OR leave the box empty to let it automatically!)</small></span>--}}
+{{--                                    <textarea name="description"--}}
+{{--                                              id="description"--}}
+{{--                                              class="form-control"--}}
+{{--                                              placeholder="Description">{{ optional($newsData->english)->description ?? '' }}</textarea>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
                             <div class="row mb-3">
                                 <div class="form-group col-12">
