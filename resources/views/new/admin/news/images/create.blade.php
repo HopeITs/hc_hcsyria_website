@@ -284,11 +284,11 @@
                             <div class="row mb-3 mt-4">
                                 <div class="form-group col-lg-6 col-md-6 col-12">
                                     <label for="title">Title</label>
-                                    <input type="text" id="title" name="title" value="{{ optional($news->english)->title ?? 'No Title' }}" class="form-control" required readonly style="cursor: not-allowed;">
+                                    <input type="text" id="title" value="{{ optional($news->english)->title ?? 'No Title' }}" class="form-control" readonly style="cursor: not-allowed; background-color: #f8f9fa;">
                                 </div>
 
                                 <div class="form-group col-lg-6 col-md-6 col-12">
-                                    <label for="category_name">Tags</label>
+                                    <label>Tags</label>
                                     <div class="form-control" style="background-color: #e9ecef; cursor: not-allowed; height: auto; min-height: 38px;">
                                         @foreach($news->tags as $tag)
                                             <span class="badge" style="background-color: #C92228; color: white; margin-right: 2px;">{{ $tag->name }}</span>
@@ -296,6 +296,19 @@
                                         @if($news->tags->isEmpty())
                                             <span class="text-muted">No Tags Attached</span>
                                         @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-lg-6 col-md-6 col-12 mt-2">
+                                    <label>City</label>
+                                    <input type="text" value="{{ $news->place->name ?? 'N/A' }}" class="form-control" readonly style="cursor: not-allowed; background-color: #f8f9fa;">
+                                </div>
+
+                                <div class="form-group col-lg-6 col-md-6 col-12 mt-2">
+                                    <label>Publish Date</label>
+                                    <div class="form-control" style="background-color: #f8f9fa; cursor: not-allowed;">
+                                        <i class="fa fa-calendar text-muted mr-2"></i>
+                                        {{ $news->date ? \Carbon\Carbon::parse($news->date)->format('M d, Y - h:i A') : 'N/A' }}
                                     </div>
                                 </div>
                             </div>
