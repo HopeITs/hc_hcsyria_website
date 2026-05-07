@@ -27,9 +27,38 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     {{--@stack('navbar_styles')--}}
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body>
+<style>
+    .flatpickr-day.selected, .flatpickr-day.startRange,
+    .flatpickr-day.endRange, .flatpickr-day.selected.prevMonthDay,
+    .flatpickr-day.selected.nextMonthDay, .flatpickr-day.selected:hover,
+    .flatpickr-day.startRange:hover, .flatpickr-day.endRange:hover,
+    .flatpickr-day.selected.prevMonthDay:hover,
+    .flatpickr-day.selected.nextMonthDay:hover {
+        background: #C92228 !important;
+        border-color: #C92228 !important;
+    }
+    .flatpickr-months .flatpickr-month,
+    .flatpickr-current-month .flatpickr-monthDropdown-months:hover {
+        fill: #C92228 !important;
+    }
+    .flatpickr-calendar {
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        border-top: 3px solid #C92228;
+    }
+    #date:focus {
+        border-color: #ced4da !important;
+        box-shadow: none !important;
+        outline: 0 none !important;
+    }
 
+    .input-group-text {
+        border-color: #ced4da !important;
+    }
+</style>
 @stack('navbar_body')
 
 @if ($errors->any())
@@ -104,9 +133,20 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="form-group col-lg-4 col-md-4 col-12">
-                                    <label for="date">Publish Date</label>
-                                    <input type="datetime-local" name="date" id="date" class="form-control">
+                                <div class="form-group col-lg-4 col-md-6 col-12">
+                                    <label for="date" class="font-weight-bold">News Date</label>
+                                    <div class="input-group" style="display: flex;">
+                                        <div class="input-group-prepend" style="display: flex;">
+                                            <span class="input-group-text bg-white" style="border-right: none; border-radius: 5px 0 0 5px;">
+                                                <i class="fa fa-calendar" style="color: #C92228;"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" name="date" id="date"
+                                               class="form-control bg-white"
+                                               placeholder="Select Date and Time.."
+                                               style="border-left: none; border-radius: 0 5px 5px 0; box-shadow: none !important;"
+                                               readonly>
+                                    </div>
                                 </div>
                             </div>
 {{--                            <div class="row mb-3">--}}
@@ -201,6 +241,15 @@
 <script type="text/javascript" src="/js/selectize.min.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
 <script type="text/javascript" src="/js/ckeditor-initialize.js"></script>
-
+<script>
+    flatpickr("#date", {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        time_24hr: true,
+        defaultDate: "{{ isset($newsData) ? $newsData->date : 'today' }}",
+        allowInput: true,
+        static: true
+    });
+</script>
 </body>
 </html>
