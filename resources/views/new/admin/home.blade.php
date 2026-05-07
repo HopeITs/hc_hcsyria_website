@@ -743,84 +743,57 @@
                                     @endif
                                 @endif
                                 @if($user->permissions->contains('name', 'Newsletter') || ($user->permissions->contains('name', 'Home'))|| ($user->roles->contains('name', 'Admin')))
-                                    @if(count($newsPublish))
-                                        <table class="table table-striped table-bordered table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th colspan="6" class="text-center">News</th>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Title</th>
-                                                <th>Tags</th>
-                                                <th>Type</th>
-                                                <th>
-                                                    Action
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            @foreach($newsPublish as $news)
-                                                <tbody>
+                                        @if(count($newsPublish))
+                                            <table class="table table-striped table-bordered table-hover w-100 mb-4">
+                                                <thead>
                                                 <tr>
-                                                    <th>{{$news['id']}}</th>
-                                                    <td>{{ $news['english']['title'] ?? 'No Title' }}</td>
-                                                    <td>
-                                                        @foreach($news->tags as $tag)
-                                                            <span class="badge" style="background-color: #C92228; color: white; margin: 2px;">{{ $tag->name }}</span>
-                                                        @endforeach
-                                                    </td>
-                                                    <td>
-                                                        @if($news['type'] == '0') {{'Article'}}
-                                                        @elseif($news['type'] == '1') {{'Product'}}
-                                                        @elseif($news['type'] == '2') {{'Short Paragraph'}}
-                                                        @elseif($news['type'] == '3') {{'Video'}}
-                                                        @else {{'N/A'}}
-                                                        @endif
-                                                    </td>
-
-                                                    <td class="text-end">
-                                                        @if(count($news->images) != 0 )
-                                                            <i class="fa fa-picture-o"
-                                                               style="padding: 0.3vw 0.6vw;"></i>
-                                                        @endif
-
-                                                        <a href="{{route('news.show', $news['id'])}}"
-                                                           class="btn btn-primary edit-btn mb-2"><span
-                                                                    class="fa fa-eye"></span>&nbsp;View</a>
-                                                        @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
-                                                            <a href="{{route('news.edit', $news['id'])}}"
-                                                               class="btn btn-primary edit-btn mb-2"><span
-                                                                        class="fa fa-edit"></span>&nbsp;Edit</a>
-                                                        @endif
-                                                        @if($user->roles->contains('name', 'Admin')
-                                                        || $user->roles->contains('name', 'Photos Editor')
-                                                        || $user->roles->contains('name', 'Publisher'))
-                                                            <a href="{{route('news.images.create', $news['id'])}}"
-                                                               class="btn btn-primary edit-btn mb-2">
-                                                                <i class='fa-solid fa-plus-minus'></i>
-                                                                Image</a>
-                                                        @endif
-                                                        @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
-                                                            <form action="{{ route('news.destroy', $news['id']) }}"
-                                                                  style="float: right"
-                                                                  method="POST"
-                                                                  enctype="multipart/form-data">
-                                                                @method('DELETE')
-                                                                @csrf
-                                                                <button class="btn btn-danger icon-btn edit-btn mb-2 show_confirm"
-                                                                        type="submit" data-id="{{$news['id']}}">
-                                                                    <i class="fa fa-trash-o"></i>
-                                                                </button>
-                                                            </form>
-
-                                                        @endif
-
-                                                    </td>
-
+                                                    <th colspan="6" class="text-center">News</th>
                                                 </tr>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Title</th>
+                                                    <th>Type</th>
+                                                    <th>Date</th>
+                                                    <th>City</th>
+                                                    <th class="text-center">Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($newsPublish as $news)
+                                                    <tr>
+                                                        <th>{{$news['id']}}</th>
+                                                        <td>{{ $news['english']['title'] ?? 'No Title' }}</td>
+                                                        <td>
+                                                            @if($news['type'] == '0') Article
+                                                            @elseif($news['type'] == '1') Product
+                                                            @elseif($news['type'] == '2') Short Paragraph
+                                                            @elseif($news['type'] == '3') Video
+                                                            @else N/A @endif
+                                                        </td>
+                                                        <td>{{ $news->date ? Carbon::parse($news->date)->format('M d, Y') : 'N/A' }}</td>
+                                                        <td>{{ $news->place->name ?? 'N/A' }}</td>
+
+                                                        <td class="text-end">
+                                                            @if(count($news->images) != 0 )
+                                                                <i class="fa fa-picture-o" style="padding: 0.3vw 0.6vw;"></i>
+                                                            @endif
+                                                            <a href="{{route('news.show', $news['id'])}}" class="btn btn-primary edit-btn mb-2"><span class="fa fa-eye"></span>&nbsp;View</a>
+                                                            @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
+                                                                <a href="{{route('news.edit', $news['id'])}}" class="btn btn-primary edit-btn mb-2"><span class="fa fa-edit"></span>&nbsp;Edit</a>
+                                                            @endif
+                                                            <a href="{{route('news.images.create', $news['id'])}}" class="btn btn-primary edit-btn mb-2"><i class='fa-solid fa-plus-minus'></i> Image</a>
+                                                            @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
+                                                                <form action="{{ route('news.destroy', $news['id']) }}" style="display:inline-block;" method="POST">
+                                                                    @method('DELETE') @csrf
+                                                                    <button class="btn btn-danger edit-btn mb-2 show_confirm" type="submit" data-id="{{$news['id']}}"><i class="fa fa-trash-o"></i></button>
+                                                                </form>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                                 </tbody>
-                                            @endforeach
-                                        </table>
-                                    @endif
+                                            </table>
+                                        @endif
                                 @endif
                             </div>
                         </div>
@@ -1786,106 +1759,71 @@
                                         </table>
                                     @endif
                                 @endif
-                                @if($user->permissions->contains('name', 'Newsletter') || ($user->permissions->contains('name', 'Home')) ||($user->roles->contains('name', 'Admin')))
-                                    @if(count($newsEngCheck))
-                                        <table class="table table-striped table-bordered table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th colspan="5" class="text-center">News</th>
-                                            </tr>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Title</th>
-                                                <th>Tags</th>
-                                                <th>Type</th>
-                                                @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
-                                                    <th>Action</th>
-                                                @endif
-                                            </tr>
-                                            </thead>
-                                            @foreach($newsEngCheck as $news)
-                                                <tbody>
+                                    @if($user->permissions->contains('name', 'Newsletter') || ($user->permissions->contains('name', 'Home')) ||($user->roles->contains('name', 'Admin')))
+                                        @if(count($newsEngCheck))
+                                            <table class="table table-striped table-bordered table-hover w-100">
+                                                <thead>
                                                 <tr>
-                                                    <th>{{$news['id']}}</th>
-                                                    <td>{{ $news['english']['title'] ?? 'No Title' }}</td>
-                                                    <td>
-                                                        @foreach($news->tags as $tag)
-                                                            <span class="badge" style="background-color: #C92228; color: white; margin: 2px;">{{ $tag->name }}</span>
-                                                        @endforeach
-                                                    </td>
-                                                    <td>
-                                                        @if($news['type'] == '0') {{'Article'}}
-                                                        @elseif($news['type'] == '1') {{'Product'}}
-                                                        @elseif($news['type'] == '2') {{'Short Paragraph'}}
-                                                        @elseif($news['type'] == '3') {{'Video'}}
-                                                        @else {{'N/A'}}
-                                                        @endif
-                                                    </td>
-
-                                                    <td class="text-end">
-
-                                                        @if(count($news->images) != 0 )
-                                                            <i class="fa fa-picture-o"
-                                                               style="padding: 0.3vw 0.6vw;"></i>
-                                                        @endif
-
-                                                        <a href="{{route('news.show', $news['id'])}}"
-                                                           class="btn btn-primary mb-2 edit-btn">
-                                                            <span class="fa fa-eye"></span>&nbsp;View</a>
-                                                        @if($user->roles->contains('name', 'Admin')
-                                                                                                            || $user->roles->contains('name', 'English Editor')
-                                                                                                            || $user->roles->contains('name', 'English Checker'))
-                                                            <a href="{{route('news.edit', $news['id'])}}"
-                                                               class="btn btn-primary edit-btn mb-2"><span
-                                                                        class="fa fa-edit"></span>&nbsp;Edit</a>
-                                                        @endif
-                                                        @if($user->roles->contains('name', 'Admin')
-                                                            || $user->roles->contains('name', 'Photos Editor')
-                                                            || $user->roles->contains('name', 'Publisher'))
-                                                            <a href="{{route('news.images.create', $news['id'])}}"
-                                                               class="btn btn-primary edit-btn mb-2">
-                                                                <i class='fa-solid fa-plus-minus'></i>
-                                                                Image</a>
-                                                        @endif
-                                                        @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Checker'))
-                                                                <form action="{{ route('news.Englishchecked') }}"
-                                                                      method="POST"
-                                                                      enctype="multipart/form-data"
-                                                                      style="float:right;">
-
-                                                                    @csrf
-
-                                                                    <input type="hidden" name="id" value="{{ $news['id'] }}">
-
-                                                                    <button type="submit" class="btn btn-success icon-btn edit-btn">
-                                                                        <i class="fa fa-check"></i>
-                                                                    </button>
-
-                                                                </form>
-                                                        @endif
-                                                        @if($user->roles->contains('name', 'Admin')
-                                                        || $user->roles->contains('name', 'English Editor')
-                                                        || $user->roles->contains('name', 'English Checker'))
-                                                            <form action="{{ route('news.destroy', $news['id']) }}"
-                                                                  method="POST"
-                                                                  enctype="multipart/form-data">
-                                                                @method('DELETE')
-                                                                @csrf
-                                                                <button class="btn btn-danger icon-btn edit-btn mb-2 show_confirm"
-                                                                        type="submit" data-id="{{$news['id']}}">
-                                                                    <i class="fa fa-trash-o"></i>
-                                                                </button>
-                                                            </form>
-
-                                                        @endif
-
-                                                    </td>
+                                                    <th colspan="6" class="text-center">News</th>
                                                 </tr>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Title</th>
+                                                    <th>Type</th>
+                                                    <th>Date</th>
+                                                    <th>City</th>
+                                                    <th class="text-center">Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($newsEngCheck as $news)
+                                                    <tr>
+                                                        <th>{{$news['id']}}</th>
+                                                        <td>{{ $news['english']['title'] ?? 'No Title' }}</td>
+                                                        <td>
+                                                            @if($news['type'] == '0') Article
+                                                            @elseif($news['type'] == '1') Product
+                                                            @elseif($news['type'] == '2') Short Paragraph
+                                                            @elseif($news['type'] == '3') Video
+                                                            @else N/A @endif
+                                                        </td>
+                                                        <td>{{ $news->date ? \Carbon\Carbon::parse($news->date)->format('M d, Y') : 'N/A' }}</td>
+                                                        <td>{{ $news->place->name ?? 'N/A' }}</td>
+
+                                                        <td class="text-end">
+                                                            @if(count($news->images) != 0 )
+                                                                <i class="fa fa-picture-o" style="padding: 0.3vw 0.6vw;"></i>
+                                                            @endif
+
+                                                            <a href="{{route('news.show', $news['id'])}}" class="btn btn-primary mb-2 edit-btn"><span class="fa fa-eye"></span>&nbsp;View</a>
+
+                                                            @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor') || $user->roles->contains('name', 'English Checker'))
+                                                                <a href="{{route('news.edit', $news['id'])}}" class="btn btn-primary edit-btn mb-2"><span class="fa fa-edit"></span>&nbsp;Edit</a>
+                                                            @endif
+
+                                                            <a href="{{route('news.images.create', $news['id'])}}" class="btn btn-primary edit-btn mb-2"><i class='fa-solid fa-plus-minus'></i> Image</a>
+
+                                                            @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Checker'))
+                                                                <form action="{{ route('news.Englishchecked') }}" method="POST" style="display:inline-block;">
+                                                                    @csrf
+                                                                    <input type="hidden" name="id" value="{{ $news['id'] }}">
+                                                                    <button type="submit" class="btn btn-success edit-btn mb-2"><i class="fa fa-check"></i></button>
+                                                                </form>
+                                                            @endif
+
+                                                            @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor') || $user->roles->contains('name', 'English Checker'))
+                                                                <form action="{{ route('news.destroy', $news['id']) }}" style="display:inline-block;" method="POST">
+                                                                    @method('DELETE') @csrf
+                                                                    <button class="btn btn-danger edit-btn mb-2 show_confirm" type="submit" data-id="{{$news['id']}}"><i class="fa fa-trash-o"></i></button>
+                                                                </form>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                                 </tbody>
-                                            @endforeach
-                                        </table>
+                                            </table>
+                                        @endif
                                     @endif
-                                @endif
                             </div>
                         </div>
                     @endif
