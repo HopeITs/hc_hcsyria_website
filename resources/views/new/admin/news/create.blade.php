@@ -91,7 +91,7 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-lg-8 col-md-8 col-12">
-                                    <label>Place <span class="red-color">*</span></label><br>
+                                    <label>News City <span class="red-color">*</span></label><br>
                                     <div class="btn-group w-100" data-toggle="buttons">
                                         @foreach($places as $place)
                                             <input type="radio" class="btn-check" value="{{$place->id}}" name="place_id"
