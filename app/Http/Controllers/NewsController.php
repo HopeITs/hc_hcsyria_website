@@ -33,6 +33,7 @@ class NewsController extends Controller
         $newsPending = News::with('english', 'edition', 'tags')->where('type', '0')->where('online', '0')->get();
 
         $newsSubscribers = Subscriber::all();
+        $allTags = Tag::all();
 
         return view('new.admin.news.index', [
             'newsArticles' => $newsArticles,
@@ -40,10 +41,10 @@ class NewsController extends Controller
             'newsProducts' => $newsProducts,
             'newsShortParagraphs' => $newsShortParagraphs,
             'newsVideos' => $newsVideos,
-            'newsPending' => $newsPending
+            'newsPending' => $newsPending,
+            'allTags' => $allTags
         ]);
     }
-
     public function create()
     {
         $microProjects = Project::with('english')->where('MPE_Done', '1')->where('MPE_Published', '1')->get();
@@ -388,5 +389,28 @@ class NewsController extends Controller
     {
         $sub = Subscriber::where('token', $token)->first();
         return $sub;
+    }
+
+    public function tag_store(Request $request)
+    {
+        $request->validate(['name' => 'required|unique:tags,name|max:50']);
+        Tag::create(['name' => $request->name]);
+        return redirect()->back()->with('success', 'Tag created successfully');
+    }
+
+    public function tag_update(Request $request, $id)
+    {
+        $request->validate(['name' => 'required|max:50|unique:tags,name,'.$id]);
+        $tag = Tag::findOrFail($id);
+        $tag->update(['name' => $request->name]);
+        return redirect()->back()->with('success', 'Tag updated successfully');
+    }
+
+    public function tag_destroy($id)
+    {
+        $tag = Tag::findOrFail($id);
+        $tag->news()->detach();
+        $tag->delete();
+        return redirect()->back()->with('success', 'Tag deleted successfully');
     }
 }

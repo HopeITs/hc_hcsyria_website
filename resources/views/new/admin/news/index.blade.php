@@ -64,6 +64,10 @@
                 @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
                     <a class="btn btn-success" href="{{route('news.create')}}">
                         <i class="fa fa-plus-square"></i>&nbsp; Create new News</a>
+
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addTagModal">
+                        <i class="fa fa-tags"></i>&nbsp; Add New Tag
+                    </button>
                 @endif
 {{--                @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))--}}
 {{--                    <a class="btn btn-success" href="{{route('news.edition')}}">--}}
@@ -105,6 +109,13 @@
                         </button>
                     </li>
                 @endif
+                <li class="nav-item" role="presentation">
+                    <button id="TagsTab" class="TagsTab nav-link" data-bs-toggle="tab"
+                            data-bs-target="#TagsPane"
+                            role="tab" aria-controls="TagsPane" aria-selected="false">Tags
+                        <small>({{ $allTags->count() }})</small>
+                    </button>
+                </li>
             </ul>
             <div class="tab-content mt-5">
                 <div class="tab-pane show active fade" id="Article" role="tabpanel" aria-labelledby="ArticleTab"
@@ -360,6 +371,90 @@
                         </table>
                     @endif
                 </div>
+                <div class="tab-pane fade" id="TagsPane" role="tabpanel" aria-labelledby="TagsTab" tabindex="0">
+                    <table class="table table-striped table-bordered table-hover" id="tableTags" style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="text-center">ID</th>
+                            <th scope="col" class="text-center">Name</th>
+                            <th scope="col" class="text-center">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($allTags as $tag)
+                            <tr>
+                                <td class="text-center">{{ $tag->id }}</td>
+                                <td class="text-center">
+                                    <span class="badge" style="background-color: #C92228; color: white;">{{ $tag->name }}</span>
+                                </td>
+                                <td class="text-end">
+                                    <button type="button"
+                                            class="btn btn-primary btn-sm edit-tag-btn"
+                                            data-id="{{ $tag->id }}"
+                                            data-name="{{ $tag->name }}">
+                                        <i class="fa fa-edit"></i> Edit
+                                    </button>
+
+                                    <form action="{{ route('tags.destroy', $tag->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm show_confirm" data-id="Tag: {{ $tag->name }}">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal fade" id="addTagModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form action="{{ route('tags.store') }}" method="POST">
+                        @csrf
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Create New Tag</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Tag Name</label>
+                                    <input type="text" name="name" class="form-control" required placeholder="Enter tag name">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success">Save Tag</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="modal fade" id="editTagModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form id="editTagForm" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit Tag</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="text-dark">Tag Name</label>
+                                    <input type="text" name="name" id="editTagName" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Update Tag</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -404,10 +499,24 @@
                 [10, 25, 50, 'All']
             ],
         });
+        tableTags = new DataTable('#tableTags', {
+            "scrollX": true,
+            buttons: ['excel', 'pdf', 'colvis'],
+            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'All']]
+        });
         tableArticle.buttons().container().appendTo('#tableArticle_wrapper .col-md-6:eq(0)');
         tableVideo.buttons().container().appendTo('#tableVideo_wrapper .col-md-6:eq(0)');
         tablePnd.buttons().container().appendTo('#tablePnd_wrapper .col-md-6:eq(0)');
         tableSub.buttons().container().appendTo('#tableSub_wrapper .col-md-6:eq(0)');
+        tableTags.buttons().container().appendTo('#tableTags_wrapper .col-md-6:eq(0)');
+
+        $(document).on('click', '.edit-tag-btn', function() {
+            let id = $(this).data('id');
+            let name = $(this).data('name');
+            $('#editTagName').val(name);
+            $('#editTagForm').attr('action', '/admin/tags/update/' + id);
+            $('#editTagModal').modal('show');
+        });
     });
 </script>
 <script>

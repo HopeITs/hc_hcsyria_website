@@ -1,11 +1,15 @@
 <?php
 //NEW ROUTES
+use App\Http\Controllers\NewsController;
 use App\Livewire\NewsPage;
 
 Route::get('/newstest', function () {
     return view('new.public.newsletter-test');
 })->name('public.news');
 
+Route::post('/admin/tags/store', [NewsController::class, 'tag_store'])->name('tags.store');
+Route::put('/admin/tags/update/{id}', [NewsController::class, 'tag_update'])->name('tags.update');
+Route::delete('/admin/tags/destroy/{id}', [NewsController::class, 'tag_destroy'])->name('tags.destroy');
 
 Route::get('/projects/school-to-school', 'PublicController@school_to_school')->name('new.public.school2school');
 Route::get('/projects/childrenuni', 'PublicController@childrenUni');
