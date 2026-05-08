@@ -92,23 +92,21 @@
                             </div>
 
                             <div class="row mb-3">
-                                <div class="form-group col-lg-8 col-md-8 col-12">
-                                    <label>Tags <span class="red-color">*</span></label><br>
-                                    <div class="btn-group w-100 flex-wrap" data-toggle="buttons">
-                                        @if(isset($tags))
-                                            @foreach($tags as $tag)
-                                                <input type="checkbox" class="btn-check" value="{{$tag->id}}"
-                                                       name="tag_ids[]"
-                                                       id="tag_{{$tag->id}}"
-                                                       autocomplete="off"
-                                                       @if($newsData->tags && $newsData->tags->contains($tag->id)) checked @endif>
-                                                <label class="btn btn-outline-primary mb-2"
-                                                       for="tag_{{$tag->id}}">{{$tag->name}}</label>
-                                            @endforeach
-                                        @endif
-                                    </div>
-                                    <small class="text-muted">You can select multiple tags.</small>
+                                <div class="form-group col-lg-12 col-md-12 col-12">
+                                    <label>Tags <span class="red-color">*</span></label>
+
+                                    <livewire:forms.tags-input
+                                        name="news_tags"
+                                        :value="$existingTagsString"
+                                        placeholder="Search or add tags..."
+                                        suggestions="{{ $allTagsString }}"
+                                        :forceSuggestion="false"/>
+
+                                    <small class="text-muted">Add or remove tags for this news article.</small>
                                 </div>
+                                @error('news_tags')
+                                <div class="text-danger small">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="row mb-3">

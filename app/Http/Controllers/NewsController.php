@@ -47,13 +47,13 @@ class NewsController extends Controller
     public function create()
     {
         $microProjects = Project::with('english')->where('MPE_Done', '1')->where('MPE_Published', '1')->get();
-        $tags = Tag::all();
+        $allTagsString = Tag::pluck('name')->implode(',');
         $editions = Edition::all();
         $places = Place::all();
 
         return view('new.admin.news.create', [
             'microProjects' => $microProjects,
-            'tags' => $tags,
+            'allTagsString' => $allTagsString,
             'places' => $places,
             'editions' => $editions
         ]);
@@ -63,8 +63,7 @@ class NewsController extends Controller
 {
     $request->validate([
         'type' => 'required|numeric',
-        'tag_ids' => 'required|array|min:1',
-        'tag_ids.*' => 'exists:tags,id',
+        'news_tags' => 'required|string',
         'place_id' => 'required',
         'edition_id' => 'nullable|numeric',
         'rank' => 'nullable|numeric',
@@ -105,8 +104,17 @@ class NewsController extends Controller
 
     $news->save();
 
-    if ($request->has('tag_ids')) {
-        $news->tags()->sync($request->input('tag_ids'));
+    if ($request->filled('news_tags')) {
+        $tagNames = explode(',', $request->news_tags);
+
+        $tagIds = [];
+        foreach ($tagNames as $name) {
+            $trimmedName = trim($name);
+            if (empty($trimmedName)) continue;
+            $tag = Tag::firstOrCreate(['name' => $trimmedName]);
+            $tagIds[] = $tag->id;
+        }
+        $news->tags()->sync($tagIds);
     }
 
     $engnews = new NewsEnglish;
@@ -139,13 +147,19 @@ class NewsController extends Controller
     public function edit($id)
     {
         $microProjects = Project::with('english')->where('MPE_Done', '1')->where('MPE_Published', '1')->get();
-        $tags = Tag::all();
+        $allTagsString = Tag::pluck('name')->implode(',');
         $places = Place::all();
 
         $newsData = News::with('english', 'tags')->where('id', $id)->first();
 
-        return view('new.admin.news.edit', ['newsData' => $newsData,'tags' => $tags, 'places' => $places,'microProjects' => $microProjects,
+        $existingTagsString = $newsData->tags->pluck('name')->implode(',');
 
+        return view('new.admin.news.edit', [
+            'newsData' => $newsData,
+            'allTagsString' => $allTagsString,
+            'places' => $places,
+            'microProjects' => $microProjects,
+            'existingTagsString' => $existingTagsString,
         ]);
     }
 
@@ -153,8 +167,7 @@ class NewsController extends Controller
     {
         $request->validate([
             'type' => 'required|numeric',
-            'tag_ids' => 'required|array|min:1',
-            'tag_ids.*' => 'exists:tags,id',
+            'news_tags' => 'required|string',
             'place_id' => 'required',
             'title' => 'required|max:100',
             'description' => 'nullable|max:900',
@@ -186,8 +199,17 @@ class NewsController extends Controller
         $news->date = $request->input('date') ?? $news->date ?? now();
         $news->save();
 
-        if ($request->has('tag_ids')) {
-            $news->tags()->sync($request->input('tag_ids'));
+        if ($request->filled('news_tags')) {
+            $tagNames = explode(',', $request->news_tags);
+            $tagIds = [];
+            foreach ($tagNames as $name) {
+                $trimmedName = trim($name);
+                if (empty($trimmedName)) continue;
+
+                $tag = Tag::firstOrCreate(['name' => $trimmedName]);
+                $tagIds[] = $tag->id;
+            }
+            $news->tags()->sync($tagIds);
         }
 
         $engNews = NewsEnglish::where('news_id', $id)->first();

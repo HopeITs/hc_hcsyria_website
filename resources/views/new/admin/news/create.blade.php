@@ -99,25 +99,24 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
-                                <div class="form-group col-lg-8 col-md-8 col-12">
-                                    <label>Tags <span class="red-color">*</span></label><br>
-                                    <div class="btn-group w-100 flex-wrap" data-toggle="buttons">
-                                        @foreach($tags as $tag)
-                                            <input type="checkbox" class="btn-check" value="{{$tag->id}}"
-                                                   name="tag_ids[]"
-                                                   id="tag_{{$tag->id}}"
-                                                   autocomplete="off">
-                                            <label class="btn btn-outline-primary mb-2"
-                                                   for="tag_{{$tag->id}}">{{$tag->name}}</label>
-                                        @endforeach
-                                    </div>
-                                    <small class="text-muted">You can select multiple tags.</small>
+                                <div class="form-group col-lg-12 col-md-12 col-12">
+                                    <label>Tags <span class="red-color">*</span></label>
+
+                                    <livewire:forms.tags-input
+                                        name="news_tags"
+                                        placeholder="Search or add tags..."
+                                        suggestions="{{ $allTagsString}}"
+                                        :forceSuggestion="false"/>
+
+                                    <small class="text-muted">You can select from suggestions or type new ones. Press Enter to add.</small>
                                 </div>
-                                @error('tag_ids')
+                                @error('news_tags')
                                 <div class="text-danger small">{{ $message }}</div>
                                 @enderror
                             </div>
+
                             <div class="row mb-3">
                                 <div class="form-group col-lg-8 col-md-8 col-12">
                                     <label>News City <span class="red-color">*</span></label><br>
