@@ -127,8 +127,7 @@
             <div class="tab-content mt-5">
                 <div class="tab-pane fade {{ !request('tab') || request('tab') == 'Article' ? 'show active' : '' }}"
                      id="Article" role="tabpanel" aria-labelledby="ArticleTab" tabindex="0">
-                    <table class="table table-striped table-bordered table-hover" id="tableArticle"
-                           style="width: 100%">
+                    <table class="table w-100 table-striped table-bordered table-hover" id="tableArticle">
                         @if($newsArticles)
                             <thead>
                             <tr>
@@ -148,7 +147,7 @@
                                     <td class="text-center">{{ isset($news['date']) ? \Carbon\Carbon::parse($news['date'])->format('Y-m-d') : 'N/A' }}</td>
                                     <td class="text-center">
                                         @foreach($news->tags as $tag)
-                                            <span class="badge" style="background-color: #C92228; color: white; margin: 2px;">{{ $tag->name }}</span>
+                                            <span class="badge" >{{ $tag->name }}</span>
                                         @endforeach
                                     </td>
                                     <td class="text-center">{{$news['place']['name']}}</td>
@@ -167,8 +166,9 @@
                                         @endif
                                         @if($user->roles->contains('name', 'Admin'))
                                             <form action="{{ route('news.destroy', $news['id']) }}"
-                                                  method="POST" style="float: right; padding-left: 10px"
-                                                  enctype="multipart/form-data">
+                                                  method="POST"
+                                                  enctype="multipart/form-data"
+                                                  class="float-pad">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button class="btn mb-2 btn-danger icon-btn show_confirm" type="submit"
@@ -176,9 +176,9 @@
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
                                             </form>
-                                                <form action="{{ route('news.offline') }}" method="POST" style="float:right; padding-left:10px;">
+                                                <form action="{{ route('news.offline') }}" method="POST" class="float-pad">
                                                     @csrf
-                                                    <input type="hidden" name="id" value="{{ $news['id'] }}">
+                                                    <input type="hidden" name="id" class="float-pad" value="{{ $news['id'] }}">
                                                     <button type="submit" class="btn mb-2 icon-btn btn-danger offline_confirm" data-id="{{ $news['id'] }}">
                                                         <i class="fa fa-power-off"></i>
                                                     </button>
@@ -198,8 +198,7 @@
                 </div>
                 <div class="tab-pane show fade" id="Video" role="tabpanel" aria-labelledby="VideoTab"
                      tabindex="0">
-                    <table class="table table-striped table-bordered table-hover" id="tableVideo"
-                           style="width: 100%">
+                    <table class="table w-100 table-striped table-bordered table-hover" id="tableVideo">
                         @if($newsVideos)
                             <thead>
                             <tr>
@@ -219,7 +218,7 @@
                                     <td class="text-center">{{ isset($news['date']) ? \Carbon\Carbon::parse($news['date'])->format('Y-m-d') : 'N/A' }}</td>
                                     <td class="text-center">
                                         @foreach($news->tags as $tag)
-                                            <span class="badge" style="background-color: #C92228; color: white; margin: 2px;">{{ $tag->name }}</span>
+                                            <span class="badge">{{ $tag->name }}</span>
                                         @endforeach
                                     </td>
                                     <td class="text-center">{{$news['place']['name']}}</td>
@@ -234,7 +233,7 @@
                                         @endif
                                         @if($user->roles->contains('name', 'Admin'))
                                             <form action="{{ route('news.destroy', $news['id']) }}"
-                                                  method="POST" style="float: right; padding-left: 10px"
+                                                  method="POST" class="float-pad"
                                                   enctype="multipart/form-data">
                                                 @method('DELETE')
                                                 @csrf
@@ -243,7 +242,7 @@
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
                                             </form>
-                                            <form action="{{ route('news.offline') }}" method="POST" style="float:right; padding-left:10px;">
+                                            <form action="{{ route('news.offline') }}" method="POST" class="float-pad ">
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{ $news['id'] }}">
                                                 <button type="submit" class="btn mb-2 icon-btn btn-danger offline_confirm">
@@ -265,8 +264,7 @@
                 </div>
                 <div class="tab-pane show fade" id="Pending" role="tabpanel" aria-labelledby="PendingTab"
                      tabindex="0">
-                    <table class="table table-striped table-bordered table-hover" id="tablePnd"
-                           style="width: 100%">
+                    <table class="table w-100 table-striped table-bordered table-hover" id="tablePnd">
                         @if($newsPending)
                             <thead>
                             <tr>
@@ -292,7 +290,7 @@
 
                                     <td class="text-center">
                                         @foreach($news->tags as $tag)
-                                            <span class="badge" style="background-color: #C92228; color: white; margin: 2px;">{{ $tag->name }}</span>
+                                            <span class="badge">{{ $tag->name }}</span>
                                         @endforeach
                                     </td>
 
@@ -311,7 +309,7 @@
                                             </a>
                                         @endif
                                         @if($user->roles->contains('name', 'Admin'))
-                                            <form action="{{ route('news.destroy', $news['id']) }}" method="POST" style="float: right; padding-left: 10px">
+                                            <form action="{{ route('news.destroy', $news['id']) }}" method="POST" class="float-pad">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button class="btn mb-2 btn-danger icon-btn show_confirm" type="submit" data-id="{{$news['id']}}">
@@ -343,8 +341,7 @@
                                 @endif
                             </div>
                         </div>
-                        <table class="table table-striped table-bordered table-hover" id="tableSub"
-                               style="width: 100%">
+                        <table class="table w-100 table-striped table-bordered table-hover" id="tableSub">
                             <thead>
                             <tr>
                                 <th scope="col" class="text-center">#</th>
@@ -356,8 +353,8 @@
                             <tbody>
                             @foreach($newsSubscribers as $sub)
                                 <tr>
-                                    <td><input type="checkbox" class="user-checkbox" name="users[]"
-                                               value="{{ $sub['mail'] }}" style="display: block;"></td>
+                                    <td><input type="checkbox" class="d-block user-checkbox" name="users[]"
+                                               value="{{ $sub['mail'] }}" ></td>
                                     <td class="text-center">{{$sub['id']}}</td>
                                     <td class="text-center">{{$sub['mail']}}</td>
                                     <td class="text-end">
@@ -381,7 +378,7 @@
                     @endif
                 </div>
                 <div class="tab-pane fade" id="TagsPane" role="tabpanel" aria-labelledby="TagsTab" tabindex="0">
-                    <table class="table table-striped table-bordered table-hover" id="tableTags" style="width: 100%">
+                    <table class="table w-100 table-striped table-bordered table-hover" id="tableTags">
                         <thead>
                         <tr>
                             <th scope="col" class="text-center">ID</th>
@@ -394,7 +391,7 @@
                             <tr>
                                 <td class="text-center">{{ $tag->id }}</td>
                                 <td class="text-center">
-                                    <span class="badge" style="background-color: #C92228; color: white;">{{ $tag->name }}</span>
+                                    <span class="badge">{{ $tag->name }}</span>
                                 </td>
                                 <td class="text-end">
                                     <button type="button"
@@ -404,12 +401,12 @@
                                         <i class="fa fa-edit"></i> Edit
                                     </button>
 
-                                    <form action="{{ route('tags.destroy', $tag->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm show_confirm" data-id="Tag: {{ $tag->name }}">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
+                                    <form action="{{ route('tags.destroy', $tag->id) }}" class="d-inline" method="POST"">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm show_confirm" data-id="Tag: {{ $tag->name }}">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
                                     </form>
                                 </td>
                             </tr>
@@ -539,7 +536,7 @@
 </script>
 <script>
     $(document).ready(function() {
-        $('.show_confirm').click(function (event) {
+        $(document).on('click', '.show_confirm', function (event) {
             var form = $(this).closest("form");
             var id = $(this).data("id");
             event.preventDefault();
@@ -562,7 +559,7 @@
             });
         });
 
-        $('.offline_confirm').click(function (event) {
+        $(document).on('click', '.offline_confirm', function (event) {
             var form = $(this).closest("form");
             var id = $(this).data("id");
             event.preventDefault();
@@ -577,9 +574,6 @@
             }).then((result) => {
                 if (result) {
                     form.submit();
-                }
-            }, function (dismiss) {
-                if (dismiss === 'cancel') {
                 }
             });
         });

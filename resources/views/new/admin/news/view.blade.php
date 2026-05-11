@@ -107,7 +107,7 @@
                     @if($news->firstImage)
                         <img class="news_img" src="{{ $news->firstImage->path }}" alt="newsletter">
                     @else
-                        <div class="news_img d-flex justify-content-center align-items-center" style="background-color: #f1f1f1; min-height: 300px; border-radius: 5px;">
+                        <div class="news_img d-flex image-fallback justify-content-center align-items-center">
                             <span class="text-muted"><i class="fa fa-picture-o fa-3x"></i><br>No Image Uploaded</span>
                         </div>
                     @endif
