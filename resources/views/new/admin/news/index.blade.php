@@ -79,10 +79,13 @@
             <ul class="nav nav-tabs d-lg-flex d-md-flex d-sm-flex d-block position-relative mt-5" id="tabList"
                 role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button id="ArticleTab" class="ArticleTab nav-link active" data-bs-toggle="tab"
+                    <button id="ArticleTab"
+                            class="ArticleTab nav-link {{ !request('tab') || request('tab') == 'Article' ? 'active' : '' }}"
+                            data-bs-toggle="tab"
                             data-bs-target="#Article"
-                            role="tab" aria-controls="Articles" aria-selected="true">Articles
-                        <small>({{ $newsArticles->count() }})</small>
+                            role="tab" aria-controls="Articles"
+                            aria-selected="{{ !request('tab') || request('tab') == 'Article' ? 'true' : 'false' }}">
+                        Articles <small>({{ $newsArticles->count() }})</small>
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -110,16 +113,20 @@
                     </li>
                 @endif
                 <li class="nav-item" role="presentation">
-                    <button id="TagsTab" class="TagsTab nav-link" data-bs-toggle="tab"
+                    <button id="TagsTab"
+                            class="TagsTab nav-link {{ request('tab') == 'Tags' ? 'active' : '' }}"
+                            data-bs-toggle="tab"
                             data-bs-target="#TagsPane"
-                            role="tab" aria-controls="TagsPane" aria-selected="false">Tags
-                        <small>({{ $allTags->count() }})</small>
+                            role="tab"
+                            aria-controls="TagsPane"
+                            aria-selected="{{ request('tab') == 'Tags' ? 'true' : 'false' }}">
+                        Tags <small>({{ $allTags->count() }})</small>
                     </button>
                 </li>
             </ul>
             <div class="tab-content mt-5">
-                <div class="tab-pane show active fade" id="Article" role="tabpanel" aria-labelledby="ArticleTab"
-                     tabindex="0">
+                <div class="tab-pane fade {{ !request('tab') || request('tab') == 'Article' ? 'show active' : '' }}"
+                     id="Article" role="tabpanel" aria-labelledby="ArticleTab" tabindex="0">
                     <table class="table table-striped table-bordered table-hover" id="tableArticle"
                            style="width: 100%">
                         @if($newsArticles)
@@ -169,12 +176,10 @@
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
                                             </form>
-                                                <form action="{{ route('news.offline') }}"
-                                                      method="POST"
-                                                      style="float:right; padding-left:10px;">
+                                                <form action="{{ route('news.offline') }}" method="POST" style="float:right; padding-left:10px;">
                                                     @csrf
                                                     <input type="hidden" name="id" value="{{ $news['id'] }}">
-                                                    <button type="submit" class="btn mb-2 icon-btn btn-danger">
+                                                    <button type="submit" class="btn mb-2 icon-btn btn-danger offline_confirm" data-id="{{ $news['id'] }}">
                                                         <i class="fa fa-power-off"></i>
                                                     </button>
                                                 </form>
@@ -241,7 +246,7 @@
                                             <form action="{{ route('news.offline') }}" method="POST" style="float:right; padding-left:10px;">
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{ $news['id'] }}">
-                                                <button type="submit" class="btn mb-2 icon-btn btn-danger">
+                                                <button type="submit" class="btn mb-2 icon-btn btn-danger offline_confirm">
                                                     <i class="fa fa-power-off"></i>
                                                 </button>
                                             </form>
@@ -266,9 +271,9 @@
                             <thead>
                             <tr>
                                 <th scope="col" class="text-center">ID</th>
-                                <th scope="col" class="text-center">Title</th>
+                                <th scope="col" class="text-center">Type</th> <th scope="col" class="text-center">Title</th>
                                 <th scope="col" class="text-center">Date</th>
-                                <th scope="col" class="text-center">tags</th>
+                                <th scope="col" class="text-center">Tags</th>
                                 <th scope="col" class="text-center">Place</th>
                                 <th scope="col" class="text-center">Action</th>
                             </tr>
@@ -277,43 +282,47 @@
                             @foreach($newsPending as $news)
                                 <tr>
                                     <td class="text-center">{{$news['id']}}</td>
+
+                                    <td class="text-center">
+                                        {{ $news->type == '3' ? 'Video' : 'Article' }}
+                                    </td>
+
                                     <td class="text-center">{{ $news['english']['title'] ?? 'No Title' }}</td>
                                     <td class="text-center">{{ isset($news['date']) ? \Carbon\Carbon::parse($news['date'])->format('Y-m-d') : 'N/A' }}</td>
+
                                     <td class="text-center">
                                         @foreach($news->tags as $tag)
                                             <span class="badge" style="background-color: #C92228; color: white; margin: 2px;">{{ $tag->name }}</span>
                                         @endforeach
                                     </td>
-                                    <td class="text-center">{{$news['place']['name']}}</td>
+
+                                    <td class="text-center">{{$news['place']['name'] ?? 'N/A'}}</td>
+
                                     <td class="text-end">
                                         @if(count($news->images) != 0)
-                                            <i class="fa fa-picture-o"
-                                               style="padding: 0.3vw 0.6vw;"></i>
+                                            <i class="fa fa-picture-o" style="padding: 0.3vw 0.6vw;"></i>
                                         @endif
-                                        <a href="{{route('news.show', $news['id'])}}"
-                                           class="btn mb-2 btn-primary"><span
-                                                    class="fa fa-eye"></span>&nbsp;View</a>
+                                        <a href="{{route('news.show', $news['id'])}}" class="btn mb-2 btn-primary">
+                                            <span class="fa fa-eye"></span>&nbsp;View
+                                        </a>
                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
-                                            <a href="{{route('news.edit', $news['id'])}}"
-                                               class="btn mb-2 btn-primary edit-btn"><span
-                                                        class="fa fa-edit"></span>&nbsp;Edit</a>
+                                            <a href="{{route('news.edit', $news['id'])}}" class="btn mb-2 btn-primary edit-btn">
+                                                <span class="fa fa-edit"></span>&nbsp;Edit
+                                            </a>
                                         @endif
                                         @if($user->roles->contains('name', 'Admin'))
-                                            <form action="{{ route('news.destroy', $news['id']) }}"
-                                                  method="POST" style="float: right; padding-left: 10px"
-                                                  enctype="multipart/form-data">
+                                            <form action="{{ route('news.destroy', $news['id']) }}" method="POST" style="float: right; padding-left: 10px">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button class="btn mb-2 btn-danger icon-btn show_confirm" type="submit"
-                                                        data-id="{{$news['id']}}">
+                                                <button class="btn mb-2 btn-danger icon-btn show_confirm" type="submit" data-id="{{$news['id']}}">
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
                                             </form>
                                         @endif
                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Photos Editor'))
-                                            <a href="{{route('news.images.create', $news['id'])}}"
-                                               class="btn mb-2 btn-primary edit-btn">
-                                                <i class='fa-solid fa-plus-minus'></i> Image</a>
+                                            <a href="{{route('news.images.create', $news['id'])}}" class="btn mb-2 btn-primary edit-btn">
+                                                <i class='fa-solid fa-plus-minus'></i> Image
+                                            </a>
                                         @endif
                                     </td>
                                 </tr>
@@ -529,123 +538,81 @@
     });
 </script>
 <script>
-    $('.show_confirm').click(function (event) {
-        var form = $(this).closest("form");
-// var id = event.target.attributes['id'].nodeValue;
-        var id = $(this).data("id");
-        event.preventDefault();
+    $(document).ready(function() {
+        $('.show_confirm').click(function (event) {
+            var form = $(this).closest("form");
+            var id = $(this).data("id");
+            event.preventDefault();
 
-        swal({
-            title: `Are you sure you want to delete ` + id + `?`,
-            showCancelButton: true,
-            confirmButtonText: 'Delete',
-// dangerMode: true,
-        }).then((result) => {
-            if (result) {
-                form.submit();
-                swal(
-                    'Terhapus!',
-                    'Data berhasil terhapus.',
-                    'success',
-                    window.location.href = getLink
-                )
-            }
-        }, function (dismiss) {
-// dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
-            if (dismiss === 'cancel') {
-                swal(
-                    'Cancelled',
-                )
-            }
+            swal({
+                title: "Are you sure you want to delete " + id + "?",
+                text: "This action cannot be undone!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#C92228",
+                confirmButtonText: 'Yes, delete it!',
+            }).then((result) => {
+                if (result) {
+                    form.submit();
+                }
+            }, function (dismiss) {
+                if (dismiss === 'cancel') {
+                    swal('Cancelled');
+                }
+            });
+        });
+
+        $('.offline_confirm').click(function (event) {
+            var form = $(this).closest("form");
+            var id = $(this).data("id");
+            event.preventDefault();
+
+            swal({
+                title: "Make News #" + id + " Offline?",
+                text: "It will be moved to the Pending tab for review.",
+                type: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#C92228",
+                confirmButtonText: 'Yes, make it offline',
+            }).then((result) => {
+                if (result) {
+                    form.submit();
+                }
+            }, function (dismiss) {
+                if (dismiss === 'cancel') {
+                }
+            });
         });
     });
 </script>
 <script>
     $(document).ready(function () {
-        let url1 = window.location.href;
-        let url2 = new URL(url1);
-        let tab = url2.searchParams.get("tab") + "Tab";
-        let t = document.getElementById(tab);
-        let tt = new bootstrap.Tab(t);
-        tt.show();
-    });
-</script>
-<script>
-    $(function () {
-        let url1 = window.location.href;
-        let newurl = '';
-        $('#ArticleTab').on('click', function () {
-            if (url1.includes('tab')) {
-                if (history.pushState) {
-                    if (url1.includes('Article'))
-                        newurl = url1.replace("Article", "Article");
-                    else if (url1.includes('Video'))
-                        newurl = url1.replace("Video", "Article");
-                    else if (url1.includes('Pending'))
-                        newurl = url1.replace("Pending", "Article");
-                    else if (url1.includes('Subscriber'))
-                        newurl = url1.replace("Subscriber", "Article");
-                }
+        let urlParams = new URLSearchParams(window.location.search);
+        let tabParam = urlParams.get("tab");
+
+        if (tabParam) {
+            $('.nav-tabs button').removeClass('active').attr('aria-selected', 'false');
+            $('.tab-pane').removeClass('show active');
+
+            let tabElement = document.getElementById(tabParam + "Tab");
+            let paneId = tabParam === 'Tags' ? 'TagsPane' : tabParam;
+            let paneElement = document.getElementById(paneId);
+
+            if (tabElement && paneElement) {
+                $(tabElement).addClass('active').attr('aria-selected', 'true');
+                $(paneElement).addClass('show active');
+
+                $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust().draw();
             }
-            else {
-                newurl = url1 + '?tab=Article';
-                window.history.pushState({path: newurl}, '', newurl)
-            }
-            window.history.pushState({path: newurl}, '', newurl);
-        });
-        $('#VideoTab').on('click', function () {
-            if (url1.includes('tab')) {
-                if (history.pushState) {
-                    if (url1.includes('Article'))
-                        newurl = url1.replace("Article", "Video");
-                    else if (url1.includes('Video'))
-                        newurl = url1.replace("Video", "Video");
-                    else if (url1.includes('Pending'))
-                        newurl = url1.replace("Pending", "Video");
-                    else if (url1.includes('Subscriber'))
-                        newurl = url1.replace("Subscriber", "Video");
-                }
-            }
-            else {
-                newurl = url1 + '?tab=Video';
-            }
-            window.history.pushState({path: newurl}, '', newurl);
-        });
-        $('#PendingTab').on('click', function () {
-            if (url1.includes('tab')) {
-                if (history.pushState) {
-                    if (url1.includes('Article'))
-                        newurl = url1.replace("Article", "Pending");
-                    else if (url1.includes('Video'))
-                        newurl = url1.replace("Video", "Pending");
-                    else if (url1.includes('Pending'))
-                        newurl = url1.replace("Pending", "Pending");
-                    else if (url1.includes('Subscriber'))
-                        newurl = url1.replace("Subscriber", "Pending");
-                }
-            }
-            else {
-                newurl = url1 + '?tab=Pending';
-            }
-            window.history.pushState({path: newurl}, '', newurl);
-        });
-        $('#SubscriberTab').on('click', function () {
-            if (url1.includes('tab')) {
-                if (history.pushState) {
-                    if (url1.includes('Article'))
-                        newurl = url1.replace("Article", "Subscriber");
-                    else if (url1.includes('Video'))
-                        newurl = url1.replace("Video", "Subscriber");
-                    else if (url1.includes('Pending'))
-                        newurl = url1.replace("Pending", "Subscriber");
-                    else if (url1.includes('Subscriber'))
-                        newurl = url1.replace("Subscriber", "Subscriber");
-                }
-            }
-            else {
-                newurl = url1 + '?tab=Subscriber';
-            }
-            window.history.pushState({path: newurl}, '', newurl);
+        }
+
+        $('.nav-tabs button').on('click', function () {
+            let targetTab = $(this).attr('id').replace('Tab', '');
+            let currentUrl = new URL(window.location.href);
+
+            currentUrl.searchParams.set("tab", targetTab);
+
+            window.history.pushState({ path: currentUrl.href }, '', currentUrl.href);
         });
     });
 </script>

@@ -26,12 +26,11 @@ class NewsController extends Controller
 
     public function index()
     {
-        $newsArticles = News::with('english', 'edition', 'tags')->where('type', '0')->where('online', '1')->get();
-        $newsProducts = News::with('english', 'edition', 'tags')->where('type', '1')->where('online', '1')->get();
+        $newsArticles = News::with('english', 'edition', 'tags')->where('type', '0')->where('online', '1')->get();        $newsProducts = News::with('english', 'edition', 'tags')->where('type', '1')->where('online', '1')->get();
         $newsShortParagraphs = News::with('english', 'edition', 'tags')->where('type', '2')->where('online', '1')->get();
         $newsVideos = News::with('english', 'edition', 'tags')->where('type', '3')->where('online', '1')->get();
-        $newsPending = News::with('english', 'edition', 'tags')->where('type', '0')->where('online', '0')->get();
-
+        $newsPending = News::with('english', 'edition', 'tags')->where('online', '0')->get();
+        $newsProducts = News::with('english', 'edition', 'tags')->where('type', '1')->where('online', '1')->get();
         $newsSubscribers = Subscriber::all();
         $allTags = Tag::all();
 
@@ -126,8 +125,7 @@ class NewsController extends Controller
     $engnews->save();
 
     $this->saveToLog(self::NEWS, $news->id, 'News Created');
-    return redirect()->back()->with('success', 'News ' . $news->id . ' has been created and is pending approval.');
-}
+    return redirect()->action([NewsController::class, 'index'])->with('success', 'News ' . $news->id . ' has been created and is pending approval.');}
 
     /////////////////////////////////////////////////////////////////////////////////
     public function show($id)
@@ -178,8 +176,10 @@ class NewsController extends Controller
             'date' => 'nullable|date'
         ]);
 
-        $news = News::find($id);
+        $news = News::findOrFail($id);
         $newsPrev = clone $news;
+
+        $news->online = 0;
 
         $news->video = $request->filled('video') ? $request->input('video') : '0';
         if ($news->isDirty('video')) {
@@ -198,6 +198,7 @@ class NewsController extends Controller
         $news->rank = $request->input('rank') ?? $news->rank ?? 1;
         $news->place_id = $request->input('place_id');
         $news->date = $request->input('date') ?? $news->date ?? now();
+
         $news->save();
 
         if ($request->filled('news_tags')) {
@@ -214,24 +215,23 @@ class NewsController extends Controller
         }
 
         $engNews = NewsEnglish::where('news_id', $id)->first();
-        $engNewsPrev = clone $engNews;
 
-        $engNews->title = $request->input('title');
-        $engNews->description = $request->input('description') ?? '0';
-        $engNews->content = $request->input('content');
-        if ($engNews->isDirty('title')) {
-            $this->saveToLogWithData(self::NEWS, $id, 'Title edited', $engNewsPrev->title, $engNews->title);
-        }
-        if ($engNews->isDirty('description')) {
-            $this->saveToLogWithData(self::NEWS, $id, 'Description edited', $engNewsPrev->description, $engNews->description);
-        }
-        if ($engNews->isDirty('content')) {
-            $this->saveToLogWithData(self::NEWS, $id, 'Content edited', $engNewsPrev->content, $engNews->content);
+        if ($engNews) {
+            $engNewsPrev = clone $engNews;
+            $engNews->title = $request->input('title');
+            $engNews->description = $request->input('description') ?? '0';
+            $engNews->content = $request->input('content');
+
+            // Logging logic
+            if ($engNews->isDirty('title')) { $this->saveToLogWithData(self::NEWS, $id, 'Title edited', $engNewsPrev->title, $engNews->title); }
+            if ($engNews->isDirty('description')) { $this->saveToLogWithData(self::NEWS, $id, 'Description edited', $engNewsPrev->description, $engNews->description); }
+            if ($engNews->isDirty('content')) { $this->saveToLogWithData(self::NEWS, $id, 'Content edited', $engNewsPrev->content, $engNews->content); }
+
+            $engNews->save();
         }
 
-        $engNews->save();
-
-        return redirect('admin\home')->with('success', 'News ' . $news->id . ' has been updated');
+        return redirect()->route('news.index', ['tab' => 'Pending'])
+            ->with('success', 'News ' . $news->id . ' has been updated and moved to Pending for approval.');
     }
     public function destroy($id)
     {
@@ -395,7 +395,9 @@ class NewsController extends Controller
     {
         $request->validate(['name' => 'required|unique:tags,name|max:50']);
         Tag::create(['name' => $request->name]);
-        return redirect()->back()->with('success', 'Tag created successfully');
+
+        return redirect()->route('news.index', ['tab' => 'Tags'])
+            ->with('success', 'Tag created successfully');
     }
 
     public function tag_update(Request $request, $id)
@@ -403,7 +405,9 @@ class NewsController extends Controller
         $request->validate(['name' => 'required|max:50|unique:tags,name,'.$id]);
         $tag = Tag::findOrFail($id);
         $tag->update(['name' => $request->name]);
-        return redirect()->back()->with('success', 'Tag updated successfully');
+
+        return redirect()->route('news.index', ['tab' => 'Tags'])
+            ->with('success', 'Tag updated successfully');
     }
 
     public function tag_destroy($id)
@@ -411,6 +415,8 @@ class NewsController extends Controller
         $tag = Tag::findOrFail($id);
         $tag->news()->detach();
         $tag->delete();
-        return redirect()->back()->with('success', 'Tag deleted successfully');
+
+        return redirect()->route('news.index', ['tab' => 'Tags'])
+            ->with('success', 'Tag deleted successfully');
     }
 }

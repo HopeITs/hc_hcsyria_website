@@ -129,7 +129,8 @@ class NewsImagesController extends Controller
         }
 
         $this->saveToLog(self::NEWS, $news->id, $uploadedCount . ' Images stored');
-        return redirect('admin/news/images/' . $news->id)->with('success', $uploadedCount . ' Images successfully uploaded and mapped.');
+        return redirect()->route('news.index', ['tab' => 'Article'])
+            ->with('success', $uploadedCount . ' Images successfully uploaded and mapped.');
     }
 
     public function destroy(Request $request, $id)
@@ -162,6 +163,7 @@ class NewsImagesController extends Controller
         }
 
         $this->saveToLog(self::NEWS, $id, $deletedImagesCount . ' Images deleted');
-        return redirect('admin/news/images/' . $id)->with('success', $deletedImagesCount . ' Images deleted');
+        return redirect()->route('news.index', ['tab' => 'Article'])
+            ->with('success', $deletedImagesCount . ' Images deleted');
     }
 }

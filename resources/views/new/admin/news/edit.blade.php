@@ -73,7 +73,7 @@
                     <div class="col">
                         <h3 class="title">Edit News</h3>
                         <form action="{{ route('news.update',[$newsData->id])}}" method="POST"
-                              enctype="multipart/form-data">
+                              enctype="multipart/form-data" novalidate>
                             @csrf
                             @method('PUT')
                             <div class="row mb-3">
@@ -254,10 +254,34 @@
         enableTime: true,
         dateFormat: "Y-m-d H:i",
         time_24hr: true,
-        defaultDate: "{{ isset($newsData) ? $newsData->date : 'today' }}",
-        allowInput: true,
+        defaultDate: "{{ $newsData->date ?? now() }}",
+        allowInput: false,
         static: true
     });
+
+    let newsEditor;
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .then(editor => {
+            newsEditor = editor;
+        })
+        .catch(error => { console.error(error); });
+
+    // 3. Handle Form Submission
+    $('form').on('submit', function(e) {
+        // Sync CKEditor
+        if (newsEditor) {
+            const editorData = newsEditor.getData();
+            $('#editor').val(editorData);
+        }
+
+    });
+
+    document.addEventListener('invalid', (function() {
+        return function(e) {
+            e.preventDefault();
+        };
+    })(), true);
 </script>
 </body>
 </html>

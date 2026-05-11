@@ -770,7 +770,7 @@
                                                             @elseif($news['type'] == '3') Video
                                                             @else N/A @endif
                                                         </td>
-                                                        <td>{{ $news->date ? Carbon::parse($news->date)->format('M d, Y') : 'N/A' }}</td>
+                                                        <td>{{ $news->date ? \Carbon\Carbon::parse($news->date)->format('M d, Y') : 'N/A' }}</td>
                                                         <td>{{ $news->place->name ?? 'N/A' }}</td>
 
                                                         <td class="text-end">
