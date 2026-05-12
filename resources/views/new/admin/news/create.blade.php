@@ -177,7 +177,7 @@
 
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    <label for="video">Video Link</label>
+                                    <label for="video">Video Link <span id="video-star" class="red-color" style="display: none;">*</span></label>
                                     <input type="text"
                                            name="video"
                                            id="video"
@@ -219,6 +219,24 @@
         time_24hr: true,
         defaultDate: "{{ isset($newsData) ? \Carbon\Carbon::parse($newsData->date)->format('Y-m-d') : 'today' }}",        allowInput: true,
         static: true
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        function checkVideoRequired() {
+            let selectedType = $('input[name="type"]:checked').val();
+            if (selectedType == "3") {
+                $('#video').attr('required', true);
+                $('#video-star').show();
+            } else {
+                $('#video').removeAttr('required');
+                $('#video-star').hide();
+            }
+        }
+        checkVideoRequired();
+        $('input[name="type"]').change(function() {
+            checkVideoRequired();
+        });
     });
 </script>
 </body>

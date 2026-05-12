@@ -105,9 +105,9 @@
                             </div>
 
                             <div class="row mb-3">
-                                <div class="form-group col-lg-4 col-md-6 col-12">
-                                    <label for="date" class="font-weight-bold">News Date</label>
-                                    <div class="input-group d-flex">
+                                <div class="form-group col-lg-3 col-md-4 col-sm-6 col-12">
+                                    <label for="date" class="font-weight-bold">News Date <span class="red-color">*</span></label>
+                                    <div class="input-group" style="width: 200px;">
                                         <div class="input-group-prepend d-flex">
                                             <span class="input-group-text bg-white ">
                                                 <i class="fa fa-calendar" style="color: #C92228;"></i>
@@ -115,8 +115,8 @@
                                         </div>
                                         <input type="text" name="date" id="date"
                                                class="form-control border-form-control bg-white"
-                                               placeholder="Select Date and Time.."
-                                               readonly>
+                                               placeholder="Select Date.."
+                                               readonly required>
                                     </div>
                                 </div>
                             </div>
@@ -150,7 +150,7 @@
 
                             <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    <label for="video">Video Link</label>
+                                    <label for="video">Video Link <span id="video-star" class="red-color" style="display: none;">*</span></label>
                                     <input type="text"
                                            name="video"
                                            id="video"
@@ -160,26 +160,23 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="form-group col-8">
-                                    <label for="file">File Link</label>
-                                    <p id="file">{{ $newsData->file == '0' ? '' : $newsData->file }}</p>
-                                </div>
-                                <div class="col-4 text-end">
-                                    @if($newsData->file != '0')
-                                        <button class="btn btn-danger icon-btn show_confirm" type="button">
-                                            <i class="fa fa-trash-o"></i>
-                                        </button>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="row mb-3">
                                 <div class="form-group col-12">
-                                    @if($newsData->file == '0')
+                                    <label for="file">Upload File</label>
+
+                                    @if($newsData->file != '0')
+                                        <div class="d-flex align-items-center justify-content-between border rounded p-2 bg-light">
+                                            <span class="text-truncate" style="max-width: 90%;"><i class="fa fa-file-o mr-2"></i> {{ $newsData->file }}</span>
+                                            <button class="btn btn-sm btn-danger show_confirm" type="button" title="Delete current file">
+                                                <i class="fa fa-trash-o"></i>
+                                            </button>
+                                        </div>
+                                    @else
                                         <input class="form-control" type="file" name="file" id="file">
                                     @endif
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-end" style="margin-top: 5vw;">
+
+                            <div class="d-flex justify-content-end" style="margin-top: 3vw;">
                                 <button class="btn btn-primary" onclick="event.preventDefault();window.history.back();">
                                     <i class="fa fa-arrow-left"></i> Back
                                 </button>
@@ -227,37 +224,33 @@
 <script type="text/javascript" src="/js/ckeditor-initialize.js"></script>
 <script>
     flatpickr("#date", {
-        enableTime: true,
-        dateFormat: "Y-m-d H:i",
-        time_24hr: true,
-        defaultDate: "{{ $newsData->date ?? now() }}",
-        allowInput: false,
+        enableTime: false,
+        dateFormat: "Y-m-d",
+        defaultDate: "{{ \Carbon\Carbon::parse($newsData->date)->format('Y-m-d') }}",
         static: true
     });
 
-    let newsEditor;
-    ClassicEditor
-        .create(document.querySelector('#editor'))
-        .then(editor => {
-            newsEditor = editor;
-        })
-        .catch(error => { console.error(error); });
-
-    // 3. Handle Form Submission
-    $('form').on('submit', function(e) {
-        // Sync CKEditor
-        if (newsEditor) {
-            const editorData = newsEditor.getData();
-            $('#editor').val(editorData);
+    $(document).ready(function() {
+        function checkVideoRequired() {
+            let selectedType = $('input[name="type"]:checked').val();
+            if (selectedType == "3") { // Video type
+                $('#video').attr('required', true);
+                $('#video-star').show();
+            } else {
+                $('#video').removeAttr('required');
+                $('#video-star').hide();
+            }
         }
 
-    });
+        checkVideoRequired();
+        $('input[name="type"]').change(checkVideoRequired);
 
-    document.addEventListener('invalid', (function() {
-        return function(e) {
-            e.preventDefault();
-        };
-    })(), true);
+        $('form').on('submit', function(e) {
+            if (newsEditor) {
+                $('#editor').val(newsEditor.getData());
+            }
+        });
+    });
 </script>
 </body>
 </html>

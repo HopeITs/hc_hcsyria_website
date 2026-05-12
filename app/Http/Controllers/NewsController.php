@@ -70,7 +70,7 @@ class NewsController extends Controller
         'title' => 'required|max:100',
         'description' => 'nullable|max:900',
         'content' => 'required',
-        'video' => 'max:100',
+        'video' => 'required_if:type,3|max:100',
         'date' => 'nullable|date_format:Y-m-d',
     ]);
 
@@ -175,16 +175,18 @@ class NewsController extends Controller
             'description' => 'nullable|max:900',
             'content' => 'required',
             'rank' => 'nullable|numeric',
-            'video' => 'nullable|max:100',
-            'date' => 'nullable|date_format:Y-m-d'
+            'video' => 'required_if:type,3|nullable|max:100',
+            'date' => 'required|date_format:Y-m-d'
         ]);
 
         $news = News::findOrFail($id);
         $newsPrev = clone $news;
 
         $news->online = 0;
+        $news->type = $request->input('type');
 
-        $news->video = $request->filled('video') ? $request->input('video') : '0';
+        $news->video = ($request->input('type') == '3') ? $request->input('video') : '0';
+
         if ($news->isDirty('video')) {
             $this->saveToLogWithData(self::NEWS, $id, 'Video Edited', $newsPrev->video, $news->video);
         }
@@ -197,10 +199,9 @@ class NewsController extends Controller
             $news->file = $path . $fileName;
         }
 
-        $news->type = $request->input('type');
         $news->rank = $request->input('rank') ?? $news->rank ?? 1;
         $news->place_id = $request->input('place_id');
-        $news->date = $request->input('date') ?? $news->date ?? now();
+        $news->date = $request->input('date');
 
         $news->save();
 
@@ -219,23 +220,15 @@ class NewsController extends Controller
         }
 
         $engNews = NewsEnglish::where('news_id', $id)->first();
-
         if ($engNews) {
-            $engNewsPrev = clone $engNews;
             $engNews->title = $request->input('title');
             $engNews->description = $request->input('description') ?? '0';
             $engNews->content = $request->input('content');
-
-            // Logging logic
-            if ($engNews->isDirty('title')) { $this->saveToLogWithData(self::NEWS, $id, 'Title edited', $engNewsPrev->title, $engNews->title); }
-            if ($engNews->isDirty('description')) { $this->saveToLogWithData(self::NEWS, $id, 'Description edited', $engNewsPrev->description, $engNews->description); }
-            if ($engNews->isDirty('content')) { $this->saveToLogWithData(self::NEWS, $id, 'Content edited', $engNewsPrev->content, $engNews->content); }
-
             $engNews->save();
         }
 
         return redirect()->route('news.index', ['tab' => 'Pending'])
-            ->with('success', 'News ' . $news->id . ' has been updated and moved to Pending for approval.');
+            ->with('success', 'News updated successfully.');
     }
     public function destroy($id)
     {
