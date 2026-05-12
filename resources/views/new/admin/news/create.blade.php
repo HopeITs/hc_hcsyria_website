@@ -99,7 +99,9 @@
                                                    id="place_{{$place->id}}"
                                                    autocomplete="off">
                                             <label class="btn btn-outline-primary"
-                                                   for="place_{{$place->id}}">{{$place->name}}</label>
+                                                   for="place_{{$place->id}}">
+                                                {{ $place->name == 'All' ? 'Syria' : $place->name }}
+                                            </label>
                                         @endforeach
                                     </div>
                                 </div>

@@ -97,7 +97,9 @@
                                                        autocomplete="off"
                                                        @if($newsData->place_id == $place->id) checked @endif >
                                                 <label class="btn btn-outline-primary"
-                                                       for="place_{{$place->id}}">{{$place->name}}</label>
+                                                       for="place_{{$place->id}}">
+                                                    {{ $place->name == 'All' ? 'Syria' : $place->name }}
+                                                </label>
                                             @endforeach
                                         @endif
                                     </div>
