@@ -81,9 +81,9 @@
                                         name="news_tags"
                                         placeholder="Search or add tags..."
                                         suggestions="{{ $allTagsString}}"
-                                        :forceSuggestion="false"/>
+                                        :forceSuggestion="true"/>
 
-                                    <small class="text-muted">You can select from suggestions or type new ones. Press Enter to add.</small>
+                                    <small class="text-muted">Only Tags From List Can Be Chosen</small>
                                 </div>
                                 @error('news_tags')
                                 <div class="text-danger small">{{ $message }}</div>
@@ -115,7 +115,7 @@
                                         </div>
                                         <input type="text" name="date" id="date"
                                                class="form-control border-form-control bg-white"
-                                               placeholder="Select Date and Time.."
+                                               placeholder="Select Date.."
                                                readonly>
                                     </div>
                                 </div>
@@ -214,11 +214,10 @@
 <script type="text/javascript" src="/js/ckeditor-initialize.js"></script>
 <script>
     flatpickr("#date", {
-        enableTime: true,
-        dateFormat: "Y-m-d H:i",
+        enableTime: false,
+        dateFormat: "Y-m-d",
         time_24hr: true,
-        defaultDate: "{{ isset($newsData) ? $newsData->date : 'today' }}",
-        allowInput: true,
+        defaultDate: "{{ isset($newsData) ? \Carbon\Carbon::parse($newsData->date)->format('Y-m-d') : 'today' }}",        allowInput: true,
         static: true
     });
 </script>

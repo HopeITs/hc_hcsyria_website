@@ -71,7 +71,7 @@ class NewsController extends Controller
         'description' => 'nullable|max:900',
         'content' => 'required',
         'video' => 'max:100',
-        'date' => 'nullable|date',
+        'date' => 'nullable|date_format:Y-m-d',
     ]);
 
     $news = new News;
@@ -111,10 +111,12 @@ class NewsController extends Controller
         foreach ($tagNames as $name) {
             $trimmedName = trim($name);
             if (empty($trimmedName)) continue;
-            $tag = Tag::firstOrCreate(['name' => $trimmedName]);
-            $tagIds[] = $tag->id;
+            $tag = Tag::where('name', $trimmedName)->first();
+            if ($tag) {
+                $tagIds[] = $tag->id;
+            }
+            $news->tags()->sync($tagIds);
         }
-        $news->tags()->sync($tagIds);
     }
 
     $engnews = new NewsEnglish;
@@ -125,7 +127,8 @@ class NewsController extends Controller
     $engnews->save();
 
     $this->saveToLog(self::NEWS, $news->id, 'News Created');
-    return redirect()->action([NewsController::class, 'index'])->with('success', 'News ' . $news->id . ' has been created and is pending approval.');}
+    return redirect()->action([NewsController::class, 'index'])->with('success', 'News ' . $news->id . ' has been created and is pending approval.');
+    }
 
     /////////////////////////////////////////////////////////////////////////////////
     public function show($id)
@@ -173,7 +176,7 @@ class NewsController extends Controller
             'content' => 'required',
             'rank' => 'nullable|numeric',
             'video' => 'nullable|max:100',
-            'date' => 'nullable|date'
+            'date' => 'nullable|date_format:Y-m-d'
         ]);
 
         $news = News::findOrFail($id);
@@ -207,9 +210,10 @@ class NewsController extends Controller
             foreach ($tagNames as $name) {
                 $trimmedName = trim($name);
                 if (empty($trimmedName)) continue;
-
-                $tag = Tag::firstOrCreate(['name' => $trimmedName]);
-                $tagIds[] = $tag->id;
+                $tag = Tag::where('name', $trimmedName)->first();
+                if ($tag) {
+                    $tagIds[] = $tag->id;
+                }
             }
             $news->tags()->sync($tagIds);
         }
