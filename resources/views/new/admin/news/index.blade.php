@@ -144,13 +144,19 @@
                                 <tr>
                                     <td class="text-center">{{$news['id']}}</td>
                                     <td class="text-center">{{ $news['english']['title'] ?? 'No Title' }}</td>
-                                    <td class="text-center">{{ isset($news['date']) ? \Carbon\Carbon::parse($news['date'])->format('Y-m-d') : 'N/A' }}</td>
+                                    <td class="text-center">{{ isset($news['date']) ? \Carbon\Carbon::parse($news['date'])->format('M d, Y') : 'N/A' }}</td>
                                     <td class="text-center">
                                         @foreach($news->tags as $tag)
                                             <span class="badge" >{{ $tag->name }}</span>
                                         @endforeach
                                     </td>
-                                    <td class="text-center">{{$news['place']['name']}}</td>
+                                    <td>
+                                        @if(isset($news->place->name))
+                                            {{ $news->place->name == 'All' ? 'Syria' : $news->place->name }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
                                     <td class="text-end">
                                         @if(count($news->images) != 0)
                                             <i class="fa fa-picture-o"
@@ -160,7 +166,7 @@
                                            class="btn mb-2 btn-primary"><span
                                                     class="fa fa-eye"></span>&nbsp;View</a>
                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
-                                            <a href="{{route('news.edit', $news['id'])}}"
+                                            <a href="{{route('news.edit', [$news['id'], 'ref' => 'index'])}}"
                                                class="btn mb-2 btn-primary edit-btn"><span
                                                         class="fa fa-edit"></span>&nbsp;Edit</a>
                                         @endif
@@ -215,19 +221,24 @@
                                 <tr>
                                     <td class="text-center">{{$news['id']}}</td>
                                     <td class="text-center">{{ $news['english']['title'] ?? 'No Title' }}</td>
-                                    <td class="text-center">{{ isset($news['date']) ? \Carbon\Carbon::parse($news['date'])->format('Y-m-d') : 'N/A' }}</td>
+                                    <td class="text-center">{{ isset($news['date']) ? \Carbon\Carbon::parse($news['date'])->format('M d, Y') : 'N/A' }}</td>
                                     <td class="text-center">
                                         @foreach($news->tags as $tag)
                                             <span class="badge">{{ $tag->name }}</span>
                                         @endforeach
                                     </td>
-                                    <td class="text-center">{{$news['place']['name']}}</td>
-                                    <td class="text-end">
+                                    <td>
+                                        @if(isset($news->place->name))
+                                            {{ $news->place->name == 'All' ? 'Syria' : $news->place->name }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>                                    <td class="text-end">
                                         <a href="{{route('news.show', $news['id'])}}"
                                            class="btn mb-2 btn-primary"><span
                                                     class="fa fa-eye"></span>&nbsp;View</a>
                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
-                                            <a href="{{route('news.edit', $news['id'])}}"
+                                            <a href="{{route('news.edit', [$news['id'], 'ref' => 'index'])}}"
                                                class="btn mb-2 btn-primary edit-btn"><span
                                                         class="fa fa-edit"></span>&nbsp;Edit</a>
                                         @endif
@@ -286,7 +297,7 @@
                                     </td>
 
                                     <td class="text-center">{{ $news['english']['title'] ?? 'No Title' }}</td>
-                                    <td class="text-center">{{ isset($news['date']) ? \Carbon\Carbon::parse($news['date'])->format('Y-m-d') : 'N/A' }}</td>
+                                    <td class="text-center">{{ isset($news['date']) ? \Carbon\Carbon::parse($news['date'])->format('M d, Y') : 'N/A' }}</td>
 
                                     <td class="text-center">
                                         @foreach($news->tags as $tag)
@@ -294,8 +305,13 @@
                                         @endforeach
                                     </td>
 
-                                    <td class="text-center">{{$news['place']['name'] ?? 'N/A'}}</td>
-
+                                    <td>
+                                        @if(isset($news->place->name))
+                                            {{ $news->place->name == 'All' ? 'Syria' : $news->place->name }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
                                     <td class="text-end">
                                         @if(count($news->images) != 0)
                                             <i class="fa fa-picture-o" style="padding: 0.3vw 0.6vw;"></i>
@@ -304,7 +320,7 @@
                                             <span class="fa fa-eye"></span>&nbsp;View
                                         </a>
                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
-                                            <a href="{{route('news.edit', $news['id'])}}" class="btn mb-2 btn-primary edit-btn">
+                                            <a href="{{route('news.edit', [$news['id'], 'ref' => 'index'])}}" class="btn mb-2 btn-primary edit-btn">
                                                 <span class="fa fa-edit"></span>&nbsp;Edit
                                             </a>
                                         @endif

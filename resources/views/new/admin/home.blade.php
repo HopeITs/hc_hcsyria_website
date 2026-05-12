@@ -771,15 +771,20 @@
                                                             @else N/A @endif
                                                         </td>
                                                         <td>{{ $news->date ? \Carbon\Carbon::parse($news->date)->format('M d, Y') : 'N/A' }}</td>
-                                                        <td>{{ $news->place->name ?? 'N/A' }}</td>
-
+                                                        <td>
+                                                            @if(isset($news->place->name))
+                                                                {{ $news->place->name == 'All' ? 'Syria' : $news->place->name }}
+                                                            @else
+                                                                N/A
+                                                            @endif
+                                                        </td>
                                                         <td class="text-end">
                                                             @if(count($news->images) != 0 )
                                                                 <i class="fa fa-picture-o" style="padding: 0.3vw 0.6vw;"></i>
                                                             @endif
                                                             <a href="{{route('news.show', $news['id'])}}" class="btn btn-primary edit-btn mb-2"><span class="fa fa-eye"></span>&nbsp;View</a>
                                                             @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
-                                                                <a href="{{route('news.edit', $news['id'])}}" class="btn btn-primary edit-btn mb-2"><span class="fa fa-edit"></span>&nbsp;Edit</a>
+                                                                <a href="{{route('news.edit', [$news->id, 'ref' => 'dashboard'])}}" class="btn btn-primary edit-btn mb-2"><span class="fa fa-edit"></span>&nbsp;Edit</a>
                                                             @endif
                                                             <a href="{{route('news.images.create', $news['id'])}}" class="btn btn-primary edit-btn mb-2"><i class='fa-solid fa-plus-minus'></i> Image</a>
                                                             @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
@@ -1788,8 +1793,13 @@
                                                             @else N/A @endif
                                                         </td>
                                                         <td>{{ $news->date ? \Carbon\Carbon::parse($news->date)->format('M d, Y') : 'N/A' }}</td>
-                                                        <td>{{ $news->place->name ?? 'N/A' }}</td>
-
+                                                        <td>
+                                                            @if(isset($news->place->name))
+                                                                {{ $news->place->name == 'All' ? 'Syria' : $news->place->name }}
+                                                            @else
+                                                                N/A
+                                                            @endif
+                                                        </td>
                                                         <td class="text-end">
                                                             @if(count($news->images) != 0 )
                                                                 <i class="fa fa-picture-o" style="padding: 0.3vw 0.6vw;"></i>
@@ -1798,7 +1808,7 @@
                                                             <a href="{{route('news.show', $news['id'])}}" class="btn btn-primary mb-2 edit-btn"><span class="fa fa-eye"></span>&nbsp;View</a>
 
                                                             @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor') || $user->roles->contains('name', 'English Checker'))
-                                                                <a href="{{route('news.edit', $news['id'])}}" class="btn btn-primary edit-btn mb-2"><span class="fa fa-edit"></span>&nbsp;Edit</a>
+                                                                <a href="{{route('news.edit', [$news->id, 'ref' => 'dashboard'])}}" class="btn btn-primary edit-btn mb-2"><span class="fa fa-edit"></span>&nbsp;Edit</a>
                                                             @endif
 
                                                             <a href="{{route('news.images.create', $news['id'])}}" class="btn btn-primary edit-btn mb-2"><i class='fa-solid fa-plus-minus'></i> Image</a>

@@ -146,15 +146,16 @@ class NewsController extends Controller
         return view('new.admin.news.view', ['news' => $news, 'images' => $images,'selectedEdition'=>$selectedEdition]);
     }
 
-    public function edit($id)
+    public function edit($id, Request $request)
     {
         $microProjects = Project::with('english')->where('MPE_Done', '1')->where('MPE_Published', '1')->get();
         $allTagsString = Tag::pluck('name')->implode(',');
         $places = Place::all();
 
         $newsData = News::with('english', 'tags')->where('id', $id)->first();
-
         $existingTagsString = $newsData->tags->pluck('name')->implode(',');
+
+        $ref = $request->query('ref', 'index');
 
         return view('new.admin.news.edit', [
             'newsData' => $newsData,
@@ -162,6 +163,7 @@ class NewsController extends Controller
             'places' => $places,
             'microProjects' => $microProjects,
             'existingTagsString' => $existingTagsString,
+            'ref' => $ref,
         ]);
     }
 
@@ -227,6 +229,14 @@ class NewsController extends Controller
             $engNews->save();
         }
 
+        $ref = $request->input('ref');
+
+        if ($ref === 'dashboard') {
+            return redirect()->route('home')->with('success', 'News updated successfully.');
+        }
+        else if ($ref === 'show') {
+            return redirect()->route('news.show', [$id])->with('success', 'News updated successfully.');
+        }
         return redirect()->route('news.index', ['tab' => 'Pending'])
             ->with('success', 'News updated successfully.');
     }

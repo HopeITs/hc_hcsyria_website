@@ -44,7 +44,7 @@
             <button class="btn btn-primary edit-btn" onclick="window.history.back();"><i
                     class="fa fa-arrow-left"></i> Back
             </button>
-            <a href="{{route('news.edit', $news->id)}}" class="btn btn-primary edit-btn">
+            <a href="{{route('news.edit', [$news->id, 'ref' => 'show'])}}" class="btn btn-primary edit-btn">
                 <span class="fa fa-edit"></span>&nbsp;Edit</a>
             @if(($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher'))
                && $news->online == '0' && $news->english_check == '1' )

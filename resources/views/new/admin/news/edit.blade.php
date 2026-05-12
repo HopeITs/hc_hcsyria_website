@@ -53,6 +53,7 @@
                               enctype="multipart/form-data" novalidate>
                             @csrf
                             @method('PUT')
+                            <input type="hidden" name="ref" value="{{ $ref }}">
                             <div class="row mb-3">
                                 <div class="form-group col-lg-8 col-md-8 col-12">
                                     <label>Type <span class="red-color">*</span></label><br>
@@ -227,8 +228,8 @@
 <script>
     flatpickr("#date", {
         enableTime: false,
-        dateFormat: "Y-m-d",
-        defaultDate: "{{ \Carbon\Carbon::parse($newsData->date)->format('Y-m-d') }}",
+        dateFormat: "M d, Y",
+        defaultDate: "{{ \Carbon\Carbon::parse($newsData->date)->format('M d, Y') }}",
         static: true
     });
 

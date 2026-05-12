@@ -217,9 +217,9 @@
 <script>
     flatpickr("#date", {
         enableTime: false,
-        dateFormat: "Y-m-d",
+        dateFormat: "M d, Y",
         time_24hr: true,
-        defaultDate: "{{ isset($newsData) ? \Carbon\Carbon::parse($newsData->date)->format('Y-m-d') : 'today' }}",        allowInput: true,
+        defaultDate: "{{ isset($newsData) ? \Carbon\Carbon::parse($newsData->date)->format('M d, Y') : 'today' }}",        allowInput: true,
         static: true
     });
 </script>
