@@ -492,6 +492,7 @@
     }
 </script>
 @stack('preloader')
+@include('new.admin.scripts.popup-messages')
 </body>
 
 </html>

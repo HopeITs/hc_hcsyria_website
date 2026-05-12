@@ -405,4 +405,5 @@
         toggleSections(); // run on load
     });
 </script>
+@include('new.admin.scripts.popup-messages')
 </body>

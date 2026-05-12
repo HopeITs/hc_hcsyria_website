@@ -322,4 +322,5 @@
     });
 </script>
 @stack('imageOrder')
+@include('new.admin.scripts.popup-messages')
 </body>

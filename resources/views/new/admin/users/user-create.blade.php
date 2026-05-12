@@ -167,5 +167,6 @@
         }
     }
 </script>
+@include('new.admin.scripts.popup-messages')
 </body>
 </html>

@@ -446,5 +446,6 @@
 
     $('#cancel-crop-btn').click(() => $('#cropModal').modal('hide'));
 </script>
+@include('new.admin.scripts.popup-messages')
 </body>
 </html>

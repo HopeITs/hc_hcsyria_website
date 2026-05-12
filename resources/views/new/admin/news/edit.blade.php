@@ -108,11 +108,12 @@
                             </div>
 
                             <div class="row mb-3">
-                                <div class="form-group col-lg-3 col-md-4 col-sm-6 col-12">
+                                <div class="form-group col-lg-4 col-md-6 col-12">
                                     <label for="date" class="font-weight-bold">News Date <span class="red-color">*</span></label>
-                                    <div class="input-group" style="width: 200px;">
+
+                                    <div class="input-group">
                                         <div class="input-group-prepend d-flex">
-                                            <span class="input-group-text bg-white ">
+                                            <span class="input-group-text bg-white">
                                                 <i class="fa fa-calendar" style="color: #C92228;"></i>
                                             </span>
                                         </div>
@@ -255,5 +256,6 @@
         });
     });
 </script>
+@include('new.admin.scripts.popup-messages')
 </body>
 </html>

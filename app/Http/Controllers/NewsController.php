@@ -71,7 +71,7 @@ class NewsController extends Controller
         'description' => 'nullable|max:900',
         'content' => 'required',
         'video' => 'required_if:type,3|max:100',
-        'date' => 'nullable|date_format:Y-m-d',
+        'date' => 'required',
     ]);
 
     $news = new News;
@@ -178,7 +178,7 @@ class NewsController extends Controller
             'content' => 'required',
             'rank' => 'nullable|numeric',
             'video' => 'required_if:type,3|nullable|max:100',
-            'date' => 'required|date_format:Y-m-d'
+            'date' => 'required'
         ]);
 
         $news = News::findOrFail($id);

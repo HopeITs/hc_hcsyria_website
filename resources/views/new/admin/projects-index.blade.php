@@ -568,4 +568,5 @@
     });
 </script>
 @stack('fancyVideo')
+@include('new.admin.scripts.popup-messages')
 </body>
