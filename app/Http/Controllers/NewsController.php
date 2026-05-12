@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Mail;
 
 class NewsController extends Controller
 {
+    const NEWS = 'News';
+    const TAGS = 'Tags';
+    const EDITIONS = 'Editions';
+    const SUBSCRIBERS = 'Subscribers';
     public function __construct()
     {
         $this->middleware(['auth']);
@@ -266,15 +270,19 @@ class NewsController extends Controller
         }
         $news->online = '1';
         $news->save();
+
+        $this->saveToLog(self::NEWS, $news->id, 'News Status: Online');
+
         return redirect()->route('news.index', ['tab' => 'Article'])
             ->with('success', 'News #' . $news->id . ' has been published successfully!');
     }
-
     public function offline(Request $request)
     {
         $news = NEWS::find($request->input('id'));
         $news->online = '0';
         $news->save();
+
+        $this->saveToLog(self::NEWS, $news->id, 'News Status: Offline');
 
         return redirect()->back()->with('success', 'News #' . $news->id . ' is now Offline.');
     }
@@ -345,6 +353,8 @@ class NewsController extends Controller
         $news->timestamps = false;
         $news->save();
 
+        $this->saveToLog(self::NEWS, $news->id, 'English Content Checked');
+
         return redirect()->back()->with('success', 'News #' . $news->id . ' has been marked as English Checked.');
     }
     public function sendEmail(Request $request)
@@ -404,7 +414,9 @@ class NewsController extends Controller
     public function tag_store(Request $request)
     {
         $request->validate(['name' => 'required|unique:tags,name|max:50']);
-        Tag::create(['name' => $request->name]);
+        $tag = Tag::create(['name' => $request->name]);
+
+        $this->saveToLog(self::TAGS, $tag->id, 'Tag Created: ' . $tag->name);
 
         return redirect()->route('news.index', ['tab' => 'Tags'])
             ->with('success', 'Tag created successfully');
@@ -414,7 +426,11 @@ class NewsController extends Controller
     {
         $request->validate(['name' => 'required|max:50|unique:tags,name,'.$id]);
         $tag = Tag::findOrFail($id);
+        $oldName = $tag->name;
+
         $tag->update(['name' => $request->name]);
+
+        $this->saveToLogWithData(self::TAGS, $tag->id, 'Tag Updated', $oldName, $tag->name);
 
         return redirect()->route('news.index', ['tab' => 'Tags'])
             ->with('success', 'Tag updated successfully');
@@ -423,8 +439,12 @@ class NewsController extends Controller
     public function tag_destroy($id)
     {
         $tag = Tag::findOrFail($id);
+        $tagName = $tag->name;
+
         $tag->news()->detach();
         $tag->delete();
+
+        $this->saveToLog(self::TAGS, $id, 'Tag Deleted: ' . $tagName);
 
         return redirect()->route('news.index', ['tab' => 'Tags'])
             ->with('success', 'Tag deleted successfully');
