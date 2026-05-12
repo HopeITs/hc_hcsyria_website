@@ -115,7 +115,7 @@
                                         </div>
                                         <input type="text" name="date" id="date"
                                                class="form-control border-form-control bg-white"
-                                               placeholder="Select Date.."
+                                               placeholder="Select Date.." required
                                                readonly>
                                     </div>
                                 </div>
