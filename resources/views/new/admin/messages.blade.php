@@ -8,8 +8,8 @@
 
 @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong><i class="fa fa-check-circle"></i> Success:</strong> {{ session('success') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        {{session('success')}}
     </div>
 @endif
 

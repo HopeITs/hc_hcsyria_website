@@ -626,6 +626,31 @@
         });
     });
 </script>
+<script>
+    $(document).ready(function() {
+        // Log to console for debugging (you can remove this once it works)
+        console.log("Check for session success: {{ session('success') }}");
+
+        @if(session('success'))
+        swal({
+            title: "Success!",
+            text: "{{ session('success') }}",
+            type: "success",
+            timer: 4000, // Show for 4 seconds
+            showConfirmButton: false
+        });
+        @endif
+
+        @if(session('error'))
+        swal({
+            title: "Error!",
+            text: "{{ session('error') }}",
+            type: "error",
+            confirmButtonColor: "#C92228"
+        });
+        @endif
+    });
+</script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <script type="text/javascript">
 

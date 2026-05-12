@@ -261,9 +261,13 @@ class NewsController extends Controller
     public function online(Request $request)
     {
         $news = NEWS::find($request->input('id'));
+        if(!$news) {
+            return redirect()->route('news.index')->with('error', 'News item not found.');
+        }
         $news->online = '1';
         $news->save();
-        return redirect()->back()->with('success', 'News ' . $request->input('id') . ' is online');
+        return redirect()->route('news.index', ['tab' => 'Article'])
+            ->with('success', 'News #' . $news->id . ' has been published successfully!');
     }
 
     public function offline(Request $request)
@@ -271,9 +275,9 @@ class NewsController extends Controller
         $news = NEWS::find($request->input('id'));
         $news->online = '0';
         $news->save();
-        return redirect()->back()->with('success', 'News ' . $request->input('id') . ' is offline');
-    }
 
+        return redirect()->back()->with('success', 'News #' . $news->id . ' is now Offline.');
+    }
     public function edition()
     {
         $editions = Edition::all();
@@ -340,10 +344,9 @@ class NewsController extends Controller
         $news->english_check = '1';
         $news->timestamps = false;
         $news->save();
-//      $news->saveToLog(self::NEWS, $request->input('id'),'English Checked');
-        return redirect()->back()->with('success', 'NEWS ' . $request->input('id') . ' English Checked');
-    }
 
+        return redirect()->back()->with('success', 'News #' . $news->id . ' has been marked as English Checked.');
+    }
     public function sendEmail(Request $request)
     {
         //list of mails

@@ -47,11 +47,11 @@
             <a href="{{route('news.edit', [$news->id, 'ref' => 'show'])}}" class="btn btn-primary edit-btn">
                 <span class="fa fa-edit"></span>&nbsp;Edit</a>
             @if(($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher'))
-               && $news->online == '0' && $news->english_check == '1' )
-                <form action="{{ route('news.online') }}" method="POST">
+                    && $news->online == '0' && $news->english_check == '1' )
+                <form action="{{ route('news.online') }}" method="POST" style="display:inline-block;">
                     @csrf
                     <input type="hidden" name="id" value="{{ $news->id }}">
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" class="btn btn-success publish_confirm" data-id="{{ $news->id }}">
                         <i class="fa fa-upload"></i> Publish
                     </button>
                 </form>
@@ -138,6 +138,51 @@
         }
     });
 </script>
+<script>
+    $(document).on('click', '.publish_confirm', function (event) {
+        var form = $(this).closest("form");
+        var id = $(this).data("id");
+        event.preventDefault();
 
+        swal({
+            title: "Publish News #" + id + "?",
+            text: "This will make the news visible on the public website.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#28a745",
+            confirmButtonText: 'Yes, Publish!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result) {
+                form.submit();
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        // Log to console for debugging (you can remove this once it works)
+        console.log("Check for session success: {{ session('success') }}");
+
+        @if(session('success'))
+        swal({
+            title: "Success!",
+            text: "{{ session('success') }}",
+            type: "success",
+            timer: 4000, // Show for 4 seconds
+            showConfirmButton: false
+        });
+        @endif
+
+        @if(session('error'))
+        swal({
+            title: "Error!",
+            text: "{{ session('error') }}",
+            type: "error",
+            confirmButtonColor: "#C92228"
+        });
+        @endif
+    });
+</script>
 </body>
 </html>
