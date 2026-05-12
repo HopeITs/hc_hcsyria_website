@@ -82,10 +82,10 @@
                                 </div>
 
                                 <div class="form-group col-lg-6 col-md-6 col-12 mt-2">
-                                    <label>Publish Date</label>
+                                    <label>News Date</label>
                                     <div class="form-control custom-cursor-disabled">
                                         <i class="fa fa-calendar text-muted mr-2"></i>
-                                        {{ $news->date ? \Carbon\Carbon::parse($news->date)->format('M d, Y - h:i A') : 'N/A' }}
+                                        {{ $news->date ? \Carbon\Carbon::parse($news->date)->format('M d, Y') : 'N/A' }}
                                     </div>
                                 </div>
                             </div>
