@@ -42,19 +42,29 @@ class NewsImagesController extends Controller
             'pinned_image'    => 'nullable|image|mimes:jpeg,jpg',
         ]);
 
-        if ($request->has('is_important') && $request->hasFile('important_image')) {
+        if ($request->has('is_important')) {
             $exists = News::where('priority_status', 1)->where('id', '!=', $news->id)->exists();
             if ($exists) {
                 return redirect()->back()->with('placement_error', 'Upload failed: Another news article is already set as Important. Please unmark it first.');
             }
-        }
+            $news->priority_status = 1;
+            $this->cleanUpOldSpecialImages($news->id, 2);
 
-        if ($request->has('is_pinned') && $request->hasFile('pinned_image')) {
+        } elseif ($request->has('is_pinned')) {
             $exists = News::where('priority_status', 2)->where('id', '!=', $news->id)->exists();
             if ($exists) {
                 return redirect()->back()->with('placement_error', 'Upload failed: Another news article is already set as Pinned. Please unmark it first.');
             }
+            $news->priority_status = 2;
+            $this->cleanUpOldSpecialImages($news->id, 1);
+
+        } else {
+            $news->priority_status = 0;
+            $this->cleanUpOldSpecialImages($news->id, 1);
+            $this->cleanUpOldSpecialImages($news->id, 2);
         }
+
+        $news->save(); // Save the priority status immediately!
 
         $uploadedCount = 0;
 
@@ -65,44 +75,33 @@ class NewsImagesController extends Controller
             $newsImage = new NewsImage();
             $newsImage->news_id = $news->id;
             $newsImage->path = '/' . $path . $imgName . '.jpg';
-            $newsImage->sizetype = 0;
+            $newsImage->sizetype = 0; // Sizetype 0
             $newsImage->save();
             $uploadedCount++;
         }
 
-        if ($request->has('is_important') && $request->hasFile('important_image')) {
+        if ($request->hasFile('important_image')) {
             $imgName = time() . '_important';
             $request->file('important_image')->move($path, $imgName . '.jpg');
 
             $newsImage = new NewsImage();
             $newsImage->news_id = $news->id;
             $newsImage->path = '/' . $path . $imgName . '.jpg';
-            $newsImage->sizetype = 1;
+            $newsImage->sizetype = 1; // Sizetype 1
             $newsImage->save();
-
-            $news->priority_status = 1;
-            $news->save();
             $uploadedCount++;
         }
 
-        if ($request->has('is_pinned') && $request->hasFile('pinned_image')) {
+        if ($request->hasFile('pinned_image')) {
             $imgName = time() . '_pinned';
             $request->file('pinned_image')->move($path, $imgName . '.jpg');
 
             $newsImage = new NewsImage();
             $newsImage->news_id = $news->id;
             $newsImage->path = '/' . $path . $imgName . '.jpg';
-            $newsImage->sizetype = 2;
+            $newsImage->sizetype = 2; // Sizetype 2
             $newsImage->save();
-
-            $news->priority_status = 2;
-            $news->save();
             $uploadedCount++;
-        }
-
-        if (!$request->has('is_important') && !$request->has('is_pinned')) {
-            $news->priority_status = 0;
-            $news->save();
         }
 
         if ($request->hasFile('small_image') && $request->hasFile('big_image')) {
@@ -120,7 +119,7 @@ class NewsImagesController extends Controller
                     $newsImage = new NewsImage();
                     $newsImage->news_id = $news->id;
                     $newsImage->path = '/' . $path . $imgName . '.jpg';
-                    $newsImage->sizetype = 3;
+                    $newsImage->sizetype = 3; // Sizetype 3
                     $newsImage->save();
 
                     $uploadedCount++;
@@ -137,7 +136,6 @@ class NewsImagesController extends Controller
     {
         $images = NewsImage::where('news_id', $id)->get();
         $deletedImagesCount = 0;
-
         $news = News::find($id);
 
         foreach ($images as $img) {
@@ -165,5 +163,16 @@ class NewsImagesController extends Controller
         $this->saveToLog(self::NEWS, $id, $deletedImagesCount . ' Images deleted');
         return redirect()->route('news.index', ['tab' => 'Article'])
             ->with('success', $deletedImagesCount . ' Images deleted');
+    }
+
+    private function cleanUpOldSpecialImages($news_id, $sizetype)
+    {
+        $oldImages = NewsImage::where('news_id', $news_id)->where('sizetype', $sizetype)->get();
+        foreach ($oldImages as $oldImg) {
+            if (File::exists(public_path($oldImg->path))) {
+                File::delete(public_path($oldImg->path));
+            }
+            $oldImg->delete();
+        }
     }
 }

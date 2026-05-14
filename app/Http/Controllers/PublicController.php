@@ -1522,81 +1522,15 @@ ORDER BY `student_count` DESC');
 
         return view('public.disc-inner', ['initiatives' => $initiatives, 'successes' => $successes,]);
     }
-
-    public function news_by_edition($ed)
+    public function newsletter()
     {
-        $edition = Edition::all()->last();
-        $ed2 = Edition::orderBy('id', 'asc')->pluck('id')->last();
-        $agent = new Agent();
-        $selectedType = 'Edition';
-        $editions = Edition::where('online', 1)->get();
-        $whatCategories = WhatCategory::whereIn('id', [11, 14])->get();
-        $whoCategories = WhoCategory::get();
-        if ($ed != $ed2) {
-            $selectedEdition = Edition::where('id', substr($ed, 0, 1))->first();
-        } else {
-            $selectedEdition = $edition;
-        }
-        if (is_null($selectedEdition)) {
-            return view('new.errors.404', ['edition' => $edition]);
-        } else
-            $news = NEWS::with('english', 'french', 'firstImage')->where('edition_id', $selectedEdition->id)->where('online', 1)->orderBy('rank', 'asc')->get();
-        $subscribers = Subscribers::get();
-        return view('new.public.newsletter', ['edition' => $edition, 'selectedEdition' => $selectedEdition, 'news' => $news, 'editions' => $editions, 'subscribers' => $subscribers, 'whatCategories' => $whatCategories, 'whoCategories' => $whoCategories, 'selectedType' => $selectedType, 'agent' => $agent]);
-    }
+        $edition = \App\Edition::all()->select('id')->last();
+        $agent = new \Jenssegers\Agent\Agent();
 
-    public function news_by_who($ed)
-    {
-        $edition = Edition::all()->select('id')->last();
-        $agent = new Agent();
-        $selectedType = 'Category';
-        $selectedEdition = WhoCategory::where('id', $ed)->first();
-        if (is_null($selectedEdition)) return view('new.errors.404', ['edition' => $edition]); else
-            $news = NEWS::with('english', 'french', 'firstImage')->where('who_category_id', $selectedEdition->id)->where('online', 1)->orderBy('rank', 'asc')->get();
-
-        $editions = Edition::where('online', 1)->get();
-
-        $whatCategories = WhatCategory::whereIn('id', [11, 14])->get();
-        $whoCategories = WhoCategory::get();
-
-        $subscribers = Subscribers::get();
-
-        return view('new.public.newsletter', ['edition' => $edition, 'selectedEdition' => $selectedEdition, 'news' => $news, 'editions' => $editions, 'subscribers' => $subscribers, 'whatCategories' => $whatCategories, 'whoCategories' => $whoCategories, 'selectedType' => $selectedType, 'agent' => $agent]);
-    }
-
-    public function news_by_what($ed)
-    {
-        $edition = Edition::all()->select('id')->last();
-        $agent = new Agent();
-        $selectedType = 'Category';
-        $selectedEdition = WhatCategory::where('id', $ed)->first();
-//        $selectedWhatCategoryID = WhatCategory::select('id')->where('name', $edition)->get();
-        if (is_null($selectedEdition)) return view('new.errors.404', ['edition' => $edition]); else
-            $news = NEWS::with('english', 'french', 'firstImage')->where('what_category_id', $selectedEdition->id)->where('online', 1)->orderBy('rank', 'asc')->get();
-
-        $editions = Edition::where('online', 1)->get();
-
-        $whatCategories = WhatCategory::whereIn('id', [11, 14])->get();
-        $whoCategories = WhoCategory::get();
-
-        $subscribers = Subscribers::get();
-
-        return view('new.public.newsletter', ['edition' => $edition, 'selectedEdition' => $selectedEdition, 'news' => $news, 'editions' => $editions, 'subscribers' => $subscribers, 'whatCategories' => $whatCategories, 'whoCategories' => $whoCategories, 'selectedType' => $selectedType, 'agent' => $agent]);
-    }
-
-    public function news_by_type($data, $type)
-    {
-        switch ($type) {
-            case 1:
-                return PublicController::news_by_edition($data);
-                break;
-            case 2:
-                return PublicController::news_by_who($data);
-                break;
-            case 3:
-                return PublicController::news_by_what($data);
-                break;
-        }
+        return view('new.public.newsletter-test', [
+            'edition' => $edition,
+            'agent' => $agent
+        ]);
     }
 
     public function subscribe(Request $request)

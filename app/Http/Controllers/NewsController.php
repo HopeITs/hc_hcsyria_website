@@ -11,8 +11,6 @@ use App\Models\Subscriber;
 use App\NewsEnglish;
 use App\Place;
 use App\Project;
-use App\WhatCategory;
-use App\WhoCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
@@ -30,11 +28,11 @@ class NewsController extends Controller
 
     public function index()
     {
-        $newsArticles = News::with('english', 'edition', 'tags')->where('type', '0')->where('online', '1')->get();        $newsProducts = News::with('english', 'edition', 'tags')->where('type', '1')->where('online', '1')->get();
-        $newsShortParagraphs = News::with('english', 'edition', 'tags')->where('type', '2')->where('online', '1')->get();
-        $newsVideos = News::with('english', 'edition', 'tags')->where('type', '3')->where('online', '1')->get();
-        $newsPending = News::with('english', 'edition', 'tags')->where('online', '0')->get();
-        $newsProducts = News::with('english', 'edition', 'tags')->where('type', '1')->where('online', '1')->get();
+        $newsArticles = News::with('english', 'edition', 'tags')->where('type', '0')->where('online', '1')->orderBy('date', 'desc')->get();        $newsProducts = News::with('english', 'edition', 'tags')->where('type', '1')->where('online', '1')->get();
+        $newsShortParagraphs = News::with('english', 'edition', 'tags')->where('type', '2')->where('online', '1')->orderBy('date', 'desc')->get();
+        $newsVideos = News::with('english', 'edition', 'tags')->where('type', '3')->where('online', '1')->orderBy('date', 'desc')->get();
+        $newsPending = News::with('english', 'edition', 'tags')->where('online', '0')->orderBy('date', 'desc')->get();
+        $newsProducts = News::with('english', 'edition', 'tags')->where('type', '1')->where('online', '1')->orderBy('date', 'desc')->get();
         $newsSubscribers = Subscriber::all();
         $allTags = Tag::all();
 

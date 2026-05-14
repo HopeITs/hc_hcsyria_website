@@ -1,9 +1,9 @@
 <script>
     $(document).ready(function() {
-        @if(session('success') || isset($success))
+        @if(session('success'))
         swal({
             title: "Success!",
-            text: "{{ session('success') ?? $success }}",
+            text: "{!! session('success') !!}",
             type: "success",
             timer: 2500,
             showConfirmButton: false,
@@ -12,10 +12,10 @@
         });
         @endif
 
-        @if(session('error') || isset($err))
+        @if(session('error'))
         swal({
             title: "Error!",
-            text: "{{ session('error') ?? $err }}",
+            text: "{!! session('error') !!}",
             type: "error",
             confirmButtonColor: "#C92228",
             confirmButtonText: "Close"
