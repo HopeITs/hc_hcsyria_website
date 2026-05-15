@@ -1,12 +1,47 @@
 <div>
     <style>
         .custom-container { max-width: 1140px; margin: 0 auto; }
-        .hero-image-container { position: relative; width: 100%; aspect-ratio: 4.5 / 1; overflow: hidden; cursor: pointer; }
-        .hero-image-container::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url("{{ asset('images/our-news/header-image.jpg') }}"); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; transition: transform 0.5s ease-in-out, filter 0.5s ease-in-out; z-index: 1; }
-        .hero-image-container:hover::before { transform: scale(1.02); }
-        .hero-top-info { position: absolute; top: 0; left: 0; font-size: 0.7rem; font-weight: 500; color: white; padding: 16px 16px; z-index: 2; }
-        .hero-timestamp { position: absolute; bottom: 0; right: 0; background: rgba(255, 255, 255, 0.7); color: #414042; padding: 4px 16px; font-weight: 800; font-size: 0.85rem; margin: 0; z-index: 2; }
-
+        .hero-image-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4.5 / 1;
+            overflow: hidden;
+            cursor: pointer;
+            z-index: 1;
+            background-color: #fff;
+        }
+        .hero-main-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease-in-out;
+        }
+        .hero-image-container:hover .hero-main-img {
+            transform: scale(1.01);
+        }
+        .hero-top-info {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: white;
+            padding: 16px 16px;
+            z-index: 2;
+        }
+        .hero-timestamp {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.7);
+            color: #414042;
+            padding: 4px 16px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            margin: 0;
+            z-index: 2;
+        }
         .hero-caption-bar {
             background: #fdfdfd;
             border: 1px solid #dee2e6;
@@ -185,9 +220,15 @@
 
         <div class="row g-2 mb-2">
             <div class="col-12">
+                @php
+                    $dynamicHeader = $carouselImages->first()
+                        ? $carouselImages->first()->image_path
+                        : asset('images/our-news/header-image.jpg');
+                @endphp
                 <div class="hero-image-container">
-                    <div class="hero-top-info">Aleppo</div>
-                    <div class="hero-timestamp" id="current-timestamp"></div>
+                    <img src="{{ $dynamicHeader }}" class="hero-main-img" alt="Header">
+                    <div class="hero-top-info" style="pointer-events: none;">Caption</div>
+                    <div class="hero-timestamp" id="current-timestamp" style="pointer-events: none;"></div>
                 </div>
                 <div class="hero-caption-bar">
                     <div class="ticker-mask">

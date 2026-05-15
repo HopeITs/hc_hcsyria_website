@@ -30,10 +30,16 @@ class CoverController extends Controller
             'name' => 'Who-We-Are',
             'french_name' => '',
         ]);
+        $manualCategory3 = new WhatCategory([
+            'id' => 40,
+            'name' => 'Our News',
+            'french_name' => '',
+        ]);
 
         $manualCategory->setRelation('covers', Cover::where('what_category_id', 0)->orderBy('image_order')->get());
         $manualCategory2->setRelation('covers', Cover::where('what_category_id', 20)->orderBy('image_order')->get());
-        $what_categories = $what_categories->push($manualCategory, $manualCategory2);
+        $manualCategory3->setRelation('covers', Cover::where('what_category_id', 40)->orderBy('image_order')->get());
+        $what_categories = $what_categories->push($manualCategory, $manualCategory2, $manualCategory3);
         return view('new.admin.cover', ['what_categories' => $what_categories]);
     }
 
@@ -57,62 +63,73 @@ class CoverController extends Controller
 
     public function store(Request $request)
     {
-        if ($request->input('id') != 0) {
-            $categoryName = WhatCategory::find($request->input('id'))->name;
-        } else {
-            $categoryName = "Home";
-        }
         $categoryId = $request->input('id');
 
+        if ($categoryId == 0) {
+            $categoryName = "Home";
+        } elseif ($categoryId == 20) {
+            $categoryName = "Who-We-Are";
+        } elseif ($categoryId == 40) {
+            $categoryName = "Newsletter";
+        } else {
+            $category = WhatCategory::find($categoryId);
+            if (!$category) {
+                return redirect()->back()->with('error', 'Category not found');
+            }
+            $categoryName = $category->name;
+        }
+
         $images = new \MultipleIterator();
+
         if ($categoryId != 0) {
             $request->validate([
-                'image.*' => 'required|image|mimes:jpeg,jpg|max:4096', // 4MB
+                'image.*' => 'required|image|mimes:jpeg,jpg|max:4096',
             ]);
-            $images->attachIterator(new \ArrayIterator($request->file('image')));
-            foreach ($images as $i => $image) {
-                $imgName = (string)time() . $i[0];
+
+            $files = $request->file('image');
+            foreach ($files as $i => $image) {
+                $imgName = (string)time() . $i;
                 $path = 'images/home/' . $categoryName;
-                $image[0]->move($path, $imgName . '.jpg');
+
+                if(!File::exists(public_path($path))) {
+                    File::makeDirectory(public_path($path), 0777, true, true);
+                }
+
+                $image->move(public_path($path), $imgName . '.jpg');
+
                 $Cover = new Cover();
                 $Cover->what_category_id = $categoryId;
-                $Cover->image_path = '/'.$path . '/' . $imgName  . '.jpg';
+                $Cover->image_path = '/' . $path . '/' . $imgName . '.jpg';
                 $Cover->save();
             }
         }
         else {
-//            foreach (range(0, count($request->file('small_image')) - 1) as $i) {
-//                $request->validate([
-//                    'small_image.' . $i => 'required|image|mimes:jpeg,jpg|max:4096',
-//                ]);
-//            }
-//
-//            foreach (range(0, count($request->file('big_image')) - 1) as $i) {
-//                $request->validate([
-//                    'big_image.' . $i => 'required|image|mimes:jpeg,jpg|max:6144',
-//                ]);
-//            }
             $images->attachIterator(new \ArrayIterator($request->file('small_image')));
             $images->attachIterator(new \ArrayIterator($request->file('big_image')));
+
             foreach ($images as $i => $image) {
                 $imgName = (string)time() . $i[0];
                 $path = 'images/home/Cover';
 
-                $image[0]->move($path, $imgName . 'b.jpg');
-                $image[1]->move($path, $imgName . '.jpg');
+                if(!File::exists(public_path($path))) {
+                    File::makeDirectory(public_path($path), 0777, true, true);
+                }
+
+                $image[0]->move(public_path($path), $imgName . 'b.jpg');
+                $image[1]->move(public_path($path), $imgName . '.jpg');
 
                 $cover = new Cover;
                 $cover->what_category_id = $categoryId;
-                $cover->image_path = '/'.$path . '/' . $imgName  . 'b.jpg';
+                $cover->image_path = '/' . $path . '/' . $imgName  . 'b.jpg';
                 $cover->save();
             }
         }
 
         $this->saveToLog(self::COVER, $categoryId, 'Images stored');
+
         return redirect()->route('covers', ['tab' => $categoryName])
-            ->with('success', ' Images stored');
-    }
-    public function destroy(Request $request, $id)
+            ->with('success', 'Images stored');
+    }    public function destroy(Request $request, $id)
     {
         $images = Cover::where('what_category_id', $id)->get();
         $deletedImagesCount = 0;
@@ -134,7 +151,9 @@ class CoverController extends Controller
             $categoryName = "Home";
         } elseif ($id == 20) {
             $categoryName = 'Who-We-Are';
-        } else {
+        } elseif ($id == 40) {
+            $categoryName = 'Newsletter';
+        } else{
             $category = WhatCategory::find($id);
             $categoryName = $category ? $category->name : 'Unknown';
         }

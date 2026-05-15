@@ -1525,8 +1525,13 @@ ORDER BY `student_count` DESC');
     public function newsletter()
     {
         $agent = new \Jenssegers\Agent\Agent();
+        $carouselImages = \App\Models\Cover::where('what_category_id', 40)
+            ->orderBy('image_order', 'asc')
+            ->get();
+
         return view('new.public.newsletter', [
-            'agent' => $agent
+            'agent' => $agent,
+            'carouselImages' => $carouselImages
         ]);
     }
 

@@ -11,6 +11,7 @@ class NewsPage extends Component
     public int $amount = 0;
     public bool $hasMore = true;
 
+    public $carouselImages;
     public function loadMore()
     {
         $this->amount += 5;

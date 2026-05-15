@@ -161,7 +161,7 @@
     </div>
 </div>
 
-<livewire:news-page />
+<livewire:news-page :carouselImages="$carouselImages"/>
 
 <div class="separator-container" data-aos="fade-up" data-aos-duration="800">
     <div class="small horizontal-line"></div>

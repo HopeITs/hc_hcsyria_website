@@ -84,11 +84,11 @@
                                 <form action="{{ route('covers.store', $what_category->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $what_category->id }}">
-                                    <div class="row mb-3">
+                                    <div class="row mb-3" @if($what_category->id == 40) style="display:none;" @endif>
                                         <div class="form-group col-lg-3 col-md-3 col-12">
                                             <label for="images-count-{{ $what_category->id }}">Images Count</label>
-
-                                            <input id="images-count-{{ $what_category->id }}" type="number" class="form-control" step="1"  value="{{ $what_category->id == 0 ? 1 : 3 }}"
+                                            <input id="images-count-{{ $what_category->id }}" type="number" class="form-control" step="1"
+                                                   value="{{ $what_category->id == 40 ? 1 : ($what_category->id == 0 ? 1 : 3) }}"
                                                    min="1" onchange="addImageGroup({{ $what_category->id }})">
                                         </div>
                                     </div>
@@ -112,8 +112,16 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                        @elseif($what_category->id == 40)
+                                            <div class="image-group-{{ $what_category->id }} form-control mb-3">
+                                                <div class="row">
+                                                    <div class="form-group col-12">
+                                                        <label>Our News Page Header Image</label>
+                                                        <input type="file" name="image[]" accept="image/jpeg" required>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @else
-                                            <!-- Single images for other categories -->
                                             @for ($i = 0; $i < 3; $i++)
                                                 <div class="image-group-{{ $what_category->id }} form-control mb-3">
                                                     <div class="row">
@@ -187,21 +195,23 @@
                                                        name="selectAll" onchange="selectAll(this)"/>
                                             </button>
                                             <span> Select/Deselect All Image</span>
-                                            <form class="order-form" action="/admin/covers/order/{{$what_category->id}}"
-                                                  method="POST"
-                                                  enctype="multipart/form-data">
-                                                @method('POST')
-                                                @csrf
-                                                <div id="submit-container" class="position-relative mb-1">
-                                                    <button type='submit' data-id="{{ $what_category->id }}"
-                                                            class="btn btn-primary icon-btn submit-order-btn" value="">
-                                                        <i class='fa save' style="cursor: pointer">&#xf0c7;</i>
-                                                    </button>
-                                                    <span>Save Image Order</span>
+                                                @if($what_category->id != 40)
+                                                <form class="order-form" action="/admin/covers/order/{{$what_category->id}}"
+                                                      method="POST"
+                                                      enctype="multipart/form-data">
+                                                    @method('POST')
+                                                    @csrf
+                                                    <div id="submit-container" class="position-relative mb-1">
+                                                        <button type='submit' data-id="{{ $what_category->id }}"
+                                                                class="btn btn-primary icon-btn submit-order-btn" value="">
+                                                            <i class='fa save' style="cursor: pointer">&#xf0c7;</i>
+                                                        </button>
+                                                        <span>Save Image Order</span>
 
-                                                </div>
-                                            </form>
-                                        @endif
+                                                    </div>
+                                                </form>
+                                                @endif
+                                            @endif
                                     </div>
                                 </div>
                             @endif
@@ -242,6 +252,7 @@
 </script>
 <script>
     function addImageGroup(id) {
+        if (id === 40) return;
         let image_group = '';
         let container = $('#images-group-' + id);
         let desiredCount = parseInt(document.getElementById('images-count-' + id).value);
