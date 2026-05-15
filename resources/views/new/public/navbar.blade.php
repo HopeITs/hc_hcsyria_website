@@ -142,7 +142,7 @@
                                    href="/rootsofhope">Roots Of Hope <span class="newest">new</span></a></li>
                             <li role="separator" class="div"></li>
                             <li><a class="nav-list-links close-nav"
-                                   href="/newsletter/{{$edition['id']}}/1">@lang('navbar.newsletter')</a></li>
+                                   href="/our-news">@lang('navbar.newsletter')</a></li>
 
                         </ul>
                     </ul>
@@ -156,7 +156,7 @@
                             <li><a class="nav-list-links close-nav"
                                    href="rootsofhope">Roots Of Hope <span class="newest">new</span></a></li>
                             <li><a class="nav-list-links close-nav"
-                                   href="/newsletter/{{$edition['id']}}/1">@lang('navbar.newsletter')</a></li>
+                                   href="/our-news">@lang('navbar.newsletter')</a></li>
                         </ul>
                     </ul>
                 </li>

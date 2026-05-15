@@ -175,7 +175,13 @@
     </svg>
 
     <div class="custom-container mt-4">
-        <h1 class="mb-4">News page</h1>
+        <div class="row mx-0 mt-4 mb-2">
+            <div class="col-12 p-0">
+                <div class="d-flex justify-content-center align-items-center" style="background-color: #b5121b; color: white; padding: 14px 0;">
+                    <h1 class="m-0" style="font-family: 'Lato', sans-serif; font-size: 2.4rem; font-weight: 800; letter-spacing: 1px;">OUR NEWS</h1>
+                </div>
+            </div>
+        </div>
 
         <div class="row g-2 mb-2">
             <div class="col-12">
@@ -308,7 +314,11 @@
             @foreach($remainingNews as $news)
                 @php
                     $thumbImg = $news->images->where('sizetype', 0)->first() ?? $news->images->first();
-                    $imgPath = $thumbImg ? asset($thumbImg->path) : 'https://picsum.photos/400/400?random='.$news->id;
+                    if ($thumbImg && file_exists(public_path($thumbImg->path))) {
+                        $imgPath = asset($thumbImg->path);
+                    } else {
+                        $imgPath = 'https://picsum.photos/400/400?random='.$news->id;
+                    }
                     $date = $news->date ? \Carbon\Carbon::parse($news->date)->format('d/m/Y') : '';
                     $place = $news->place->name ?? 'Syria';
                 @endphp

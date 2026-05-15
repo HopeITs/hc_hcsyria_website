@@ -3,9 +3,6 @@
 use App\Http\Controllers\NewsController;
 use App\Livewire\NewsPage;
 
-Route::get('/newstest', function () {
-    return view('new.public.newsletter-test');
-})->name('public.news');
 
 Route::post('/admin/tags/store', [NewsController::class, 'tag_store'])->name('tags.store');
 Route::put('/admin/tags/update/{id}', [NewsController::class, 'tag_update'])->name('tags.update');
@@ -26,7 +23,7 @@ Route::get('/projects/disc/{type}/{id}-{slug}', 'PublicController@initiativeOfPr
 Route::get('/projects/study-zone/{type}/{id}-{slug}', 'PublicController@initiativeOfProject')->name('new.public.studyzone.project');
 Route::get('/projects/{type}', 'PublicController@initiatives_by_type')->name('public.initiatives.type');
 
-Route::get('/newsletter/{edition}/{type}', 'PublicController@news_by_type')->name('new.public.newsletter');
+Route::get('/our-news', 'PublicController@newsletter')->name('new.public.newsletter');
 Route::get('/newsletter-/{edition}/{id}-{slug}', 'PublicController@show_article')->name('new.public.article');
 Route::post('newsletter/subscribe','PublicController@subscribe')->name('newsletter.subscribe');
 

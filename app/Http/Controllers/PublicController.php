@@ -1524,11 +1524,8 @@ ORDER BY `student_count` DESC');
     }
     public function newsletter()
     {
-        $edition = \App\Edition::all()->select('id')->last();
         $agent = new \Jenssegers\Agent\Agent();
-
-        return view('new.public.newsletter-test', [
-            'edition' => $edition,
+        return view('new.public.newsletter', [
             'agent' => $agent
         ]);
     }
