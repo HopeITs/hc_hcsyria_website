@@ -98,7 +98,7 @@
     @include('new.public.partials.cover-carousel', ['carouselImages' => $carouselImages])
     <div class="small horizontal-line d-lg-none d-md-none d-sm-none d-block" style="margin-top: 3vw" data-aos="fade-up"
          data-aos-duration="800"></div>
-    <div id="about-section" class="first-about">
+    {{-- <div id="about-section" class="first-about">
         <div class="seperator-line" style="background: white;height: 1vw;"></div>
         <div class="horizontal-line d-lg-block d-md-block d-sm-block d-none"></div>
         <div style="margin-top: 7vw" data-aos="fade-up" data-aos-duration="1000">
@@ -158,7 +158,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="horizontal-line d-lg-none d-md-none d-sm-none d-block" data-aos="fade-up"></div>
     <div id="who-we-are" class="section-space">
         <div class="container-fluid">
