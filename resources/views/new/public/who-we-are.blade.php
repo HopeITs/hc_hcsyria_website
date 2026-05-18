@@ -159,7 +159,7 @@
             </div>
         </div>
     </div> --}}
-    <div class="horizontal-line d-lg-none d-md-none d-sm-none d-block" data-aos="fade-up"></div>
+    <div class="horizontal-line aos-init" data-aos="fade-up" data-aos-duration="600"></div>
     <div id="who-we-are" class="section-space">
         <div class="container-fluid">
             <div class="row">
