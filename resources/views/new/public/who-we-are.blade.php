@@ -500,144 +500,40 @@
                 </div>
             </div>
             <div class="small horizontal-line" data-aos="fade-up" data-aos-duration="600"></div>
-        </div>
-        <div class="card-height aos-init aos-animate" data-aos="fade-up"
-             data-aos-duration="600">
+        <div class="card-height aos-init aos-animate" data-aos="fade-up" data-aos-duration="600">
             <div class="container-fluid">
-                <div class="row d-flex justify-content-evenly align-items-center  mt-4"
-                     data-aos="fade-up" data-aos-duration="800">
-                    @foreach($donors as $donor)
-                        @if($loop->index <8 )
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-4  mb-4 d-flex align-items-center justify-content-center">
-                                @if($donor->id==13)
-                                    <div class="missio-donor-logo">
+                @php
+                    $donorsPerRow = 6;
+                    $totalDonors = count($donors);
+                    $totalRows = ceil($totalDonors / $donorsPerRow);
+                @endphp
+
+                @for($row = 0; $row < $totalRows; $row++)
+                    <div class="row d-flex justify-content-evenly align-items-center {{ $row == 0 ? 'mt-4' : '' }}"
+                        data-aos="fade-up" data-aos-duration="800">
+                        @foreach($donors as $donor)
+                            @if($loop->index >= $row * $donorsPerRow && $loop->index < ($row + 1) * $donorsPerRow)
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-4 mb-4 d-flex align-items-center justify-content-center">
+                                    @php
+                                        $logoClass = match($donor->id) {
+                                            3, 6, 17, 18    => 'louvre-donor-logo',
+                                            4, 5, 15        => 'kerk-donor-logo',
+                                            8               => 'hungary-donor-logo',
+                                            12, 13, 16, 20  => 'missio-donor-logo',
+                                            default         => 'project-donor-logo',
+                                        };
+                                    @endphp
+                                    <div class="{{ $logoClass }}">
                                         <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
+                                            src="{{ $donor->logo }}">
                                     </div>
-                                @elseif($donor->id==12)
-                                    <div class="missio-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @elseif($donor->id== 5)
-                                    <div class="kerk-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @elseif($donor->id== 15)
-                                    <div class="kerk-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @elseif($donor->id== 4)
-                                    <div class="kerk-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @elseif($donor->id== 3)
-                                    <div class="louvre-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @elseif($donor->id== 6)
-                                    <div class="louvre-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @elseif($donor->id== 8)
-                                    <div class="hungary-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @else
-                                    <div class="project-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @endif
-                                {{--<div class="logo-container">--}}
-                                {{--<img class="w-100 h-100" src="{{$donor -> logo}}"--}}
-                                {{--style="object-fit: contain">--}}
-                                {{--</div>--}}
-                            </div>
-                        @endif
-                    @endforeach
-                </div>
-                <div class="row d-flex justify-content-evenly align-items-center "
-                     data-aos="fade-up" data-aos-duration="800">
-                    @foreach($donors as $donor)
-                        @if($loop->index >=8 )
-                            <div class="col-lg-1 p-0 col-md-1 col-sm-1 col-4 mb-4 d-flex align-items-center justify-content-center">
-                                @if($donor->id==13)
-                                    <div class="missio-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @elseif($donor->id==12)
-                                    <div class="missio-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @elseif($donor->id== 5)
-                                    <div class="kerk-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @elseif($donor->id== 15)
-                                    <div class="kerk-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @elseif($donor->id== 4)
-                                    <div class="kerk-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @elseif($donor->id== 3)
-                                    <div class="louvre-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @elseif($donor->id== 6)
-                                    <div class="louvre-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @elseif($donor->id== 8)
-                                    <div class="hungary-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @elseif($donor->id== 16)
-                                    <div class="missio-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @elseif($donor->id== 17)
-                                    <div class="louvre-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @elseif($donor->id== 18)
-                                    <div class="louvre-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @else
-                                    <div class="project-donor-logo">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{$donor -> logo}}">
-                                    </div>
-                                @endif
-                                {{--<div class="logo-container">--}}
-                                {{--<img class="w-100 h-100" src="{{$donor -> logo}}"--}}
-                                {{--style="object-fit: contain">--}}
-                                {{--</div>--}}
-                            </div>
-                        @endif
-                    @endforeach
-                </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                @endfor
             </div>
+        </div>
         </div>
     </div>
 </div>
