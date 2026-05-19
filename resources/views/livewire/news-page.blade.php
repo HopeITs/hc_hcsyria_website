@@ -75,7 +75,6 @@
             border-top-left-radius: 4px;
         }
 
-        /* Ticker Mask Improvements */
         .hero-caption-bar {
             background: #fdfdfd;
             border: 1px solid #dee2e6;
@@ -139,7 +138,6 @@
             .span-2 { grid-column: span 2; }
         }
 
-        /* Enforce exact matching margins to gaps */
         .grid-adaptive-row {
             display: grid;
             grid-template-columns: 1fr;
@@ -231,11 +229,10 @@
         .chevron-icon { position: absolute; bottom: 15px; right: 15px; width: 14px; height: 14px; fill: white; transition: transform 0.3s ease; }
         .news-card:hover .chevron-icon { transform: translateX(4px); }
 
-        /* Perfect Alignment Pinned Row CSS Grid */
         .pinned-row {
             display: flex;
             flex-direction: column;
-            gap: 0; /* Keep them connected vertically on mobile */
+            gap: 0;
             margin-bottom: 12px !important;
         }
 
@@ -252,7 +249,7 @@
             position: relative;
             text-decoration: none;
             transition: background-color 0.2s ease;
-            width: auto; /* Fixed: allows CSS Grid to anchor to the right edge naturally */
+            width: auto;
             margin-left: 0;
         }
         .pinned-box:hover { background-color: var(--primary-red-hover); color: white; text-decoration: none; }
@@ -260,7 +257,6 @@
         .pinned-box .news-title { font-size: 1.25rem; margin-bottom: 10px; padding-right: 20px; }
         .pinned-box .news-content { -webkit-line-clamp: 3; }
 
-        /* Match the 3-column tablet grid perfectly */
         @media (min-width: 768px) {
             .pinned-row {
                 display: grid;
@@ -271,14 +267,13 @@
             .pinned-img-container { grid-column: span 1; }
             .pinned-box {
                 grid-column: span 2;
-                margin-left: -12px; /* Pulls the red box left over the gap to touch the image */
-                padding: 2rem 2rem 2rem 28px; /* Adds the gap back inside the box so text perfectly aligns */
+                margin-left: -12px;
+                padding: 2rem 2rem 2rem 28px;
             }
             .pinned-box .news-title { font-size: 1.5rem; }
             .pinned-box .news-content { -webkit-line-clamp: 4; }
         }
 
-        /* Match the 5-column desktop grid perfectly */
         @media (min-width: 992px) {
             .pinned-row {
                 grid-template-columns: repeat(5, 1fr);
@@ -288,8 +283,8 @@
             .pinned-img-container { grid-column: span 2; }
             .pinned-box {
                 grid-column: span 3;
-                margin-left: -16px; /* Pulls the red box left over the 16px gap */
-                padding: 2rem 2rem 2rem 36px; /* 16px gap + 20px text overlay padding = 36px perfect text alignment */
+                margin-left: -16px;
+                padding: 2rem 2rem 2rem 36px;
             }
         }
 
