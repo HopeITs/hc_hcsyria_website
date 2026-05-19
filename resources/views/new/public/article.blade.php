@@ -33,17 +33,11 @@
     <link href="/css/animate.css" rel="stylesheet">
     <link href="/css/responsive.css" rel="stylesheet">
 
-    {{--<link href="/css/initiatives.css" rel="stylesheet">--}}
-    {{--<link href="/css/main.css" rel="stylesheet">--}}
-    {{--<link href="/css/news.css" rel="stylesheet">--}}
-
     <link href="/css/jquery.fancybox.min.css" rel="stylesheet">
     <link href="/css/hover-effect.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
     <link rel="alternate" hreflang="x-default" href="https://www.hcsyria.org/"/>
 
-    {{--<link href='https://fonts.googleapis.com/css?family=Noto Serif' rel='stylesheet'>--}}
-    {{--<link href='https://fonts.googleapis.com/css?family=Libre Baskerville' rel='stylesheet'>--}}
     <link href='https://fonts.googleapis.com/css?family=Caudex' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Archivo' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Archivo Black' rel='stylesheet'>
@@ -66,6 +60,31 @@
     <script type="text/javascript" src="/js/fancybox.config.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
+    <style>
+        :root {
+            --primary-red: #b5121b;
+            --text-dark: #414042;
+        }
+        .custom-container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        #news-carousel,
+        #news-carousel .carousel-inner,
+        #news-carousel .carousel-item {
+            height: auto !important;
+            min-height: auto !important;
+            max-height: none !important;
+        }
+        #news-carousel .carousel-item img {
+            width: 100% !important;
+            height: auto !important;
+            object-fit: contain !important;
+        }
+    </style>
+
 </head>
 <body>
 @include('new.public.components.analytics-body')
@@ -83,217 +102,151 @@
     <div class="preloader-gif"></div>
 </div>
 @include('new.public.navbar')
+
 <div id="Newsletter" class="news-article page_start">
-    <div class="page-margin">
+
+    <div class="page-margin mb-3">
         <div class="container-fluid">
-            <div class="row d-flex ">
-                <div class="col d-flex justify-content-end flex-column pe-0">
-                    <div class="first-column">
-                        {{--<div style="height: 2.5vw"></div>--}}
-                    </div>
+            <div class="row d-flex" style="min-height: 6vw;">
+                <div class="col-6 d-flex justify-content-end flex-column pe-0 position-relative">
+                    <div class="first-column w-100"></div>
                     <div class="content">
-                        <div class="main_title" data-aos="fade-up" data-aos-duration="600">Published by<br>
-                            <div style="font-weight: 900">Christian Hope
-                                Center
-                            </div>
+                        <div class="main_title aos-init aos-animate" data-aos="fade-up" data-aos-duration="600">
+                            PUBLISHED BY
                         </div>
-                        {{--<div class="main_subtitle" data-aos="fade-up" data-aos-duration="1000">Aleppo - Syria</div>--}}
+                        <div class="main_subtitle aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000">
+                            CHRISTIAN HOPE CENTER
+                        </div>
                     </div>
                 </div>
-                <div class="col d-flex justify-content-end align-items-end ps-0">
-                </div>
+                <div class="col-6"></div>
             </div>
         </div>
     </div>
-    <div class="page-margin">
-        <div class="container-fluid">
-            <div class="row d-flex justify-content-center">
-                <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-                    <div class="page-margin">
-                        <div class="inner-container">
-                            <div id="news_title" class="captial">@lang('main.news_title')</div>
-                            <div class="row news_ticket h-100">
-                                <div class="col-12 p-0 position-relative">
-                                    <div class="news_title">{{ $article->$language->title }}
-                                        @if($article->video != 0)
-                                            <a href="{{$article->video}}" class="launch-modal"
-                                               id="newsletterVideo-{{ $article->id}}"
-                                               data-fancybox="newsletterVideo-{{ $article->id}}">
-                                                <img class="video-icon"
-                                                     src="/images/ico/video-ini-icon.svg">
-                                            </a>
-                                        @endif
-                                    </div>
+
+    <div class="custom-container mt-4">
+
+        <div class="row mx-0 mt-4 mb-3">
+            <div class="col-12 p-0">
+                <div class="d-flex justify-content-center align-items-center" style="background-color: var(--primary-red); color: white; padding: 16px 0;">
+                    <h1 class="m-0" style="font-family: 'Lato', sans-serif; font-size: calc(1.5rem + 1vw); font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">OUR NEWS</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mx-0 justify-content-center mb-5">
+            <div class="col-12 p-0">
+                <div class="inner-container" style="background-color: #f6f6f6; padding: 1rem 2rem;">
+                    <div class="row  h-100 g-0">
+
+                        <div class="col-12 p-0 position-relative mb-4" style="border-left: none !important; padding-left: 0 !important;">
+                            <style>
+                                .news_title::before, .news_title::after { display: none !important; content: none !important; }
+                            </style>
+                            <div class="d-flex justify-content-between align-items-center mb-2 gap-3" style="border: none !important;">
+                                <h1 class="news_title m-0" style="font-family: 'Lato', sans-serif !important; font-size: 2rem; font-weight: 700 !important; color: #555555 !important; line-height: 1.2; border: none !important; border-left: none !important; padding-left: 0 !important; box-shadow: none !important;">
+                                    {{ $article->$language->title }}
+                                </h1>
+
+                                <div class="d-flex align-items-center gap-2" style="flex-shrink: 0;">
+                                    @if($article->video != 0)
+                                        <a href="{{$article->video}}" class="launch-modal"
+                                           id="newsletterVideo-{{ $article->id}}"
+                                           data-fancybox="newsletterVideo-{{ $article->id}}" style="display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 32px; height: 32px;">
+                                            <img class="video-icon"
+                                                 src="/images/ico/video-ini-icon.svg" style="width: 100%; height: 100%; display: block; object-fit: contain;">
+                                        </a>
+                                    @endif
+                                    <a href="#" style="background-color: var(--primary-red); color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; text-decoration: none; flex-shrink: 0;">
+                                        <i class="fa fa-share" style="font-size: 14px;"></i>
+                                    </a>
                                 </div>
-                                <div class="col-12 news_colomn">
-                                    <div id="news-carousel" class="carousel slide" data-bs-ride="carousel">
-                                        <div class="carousel-indicators">
+                            </div>
+
+                            <hr style="border: none; border-top: 1px solid #ccc; margin: 8px 0 10px 0; opacity: 1;">
+
+                            <div style="font-family: 'Lato', sans-serif !important; font-size: 0.85rem; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">
+                                {{ $article->place->name ?? 'Damascus' }} {{ $article->date ? \Carbon\Carbon::parse($article->date)->format('j/n/Y') : '' }}
+                            </div>
+                        </div>
+
+
+                        <div class="col-12 news_colomn p-0 mb-4">
+                            <div id="news-carousel" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                    <?php $k = 0 ?>
+                                    @foreach($images as $image)
+                                        <button data-bs-target="#news-carousel"
+                                                data-bs-slide-to="{{$k++}}"
+                                                @if($k == 1) class="active" @endif></button>
+                                    @endforeach
+                                </div>
+                                <div class="carousel-inner">
+                                    @if(count($images)>0)
                                             <?php $k = 0 ?>
-                                            @foreach($images as $image)
-                                                <button data-bs-target="#news-carousel"
-                                                        data-bs-slide-to="{{$k++}}"
-                                                        @if($k == 1) class="active" @endif></button>
-                                            @endforeach
-                                        </div>
-                                        <div class="carousel-inner">
-                                            @if(count($images)>0)
-                                                <?php $k = 0 ?>
-                                                @foreach($images as $image)
-                                                    <div class="carousel-item @if($k++ == 0) active @endif">
-                                                        <a href="{{substr($image->path, 0, -4).'b.jpg'}}"
-                                                           data-fancybox="gallery"
-                                                           data-caption="{{ ucfirst( $article->$language->title) }}">
-                                                            <img class="w-100 h-100" src="{{$image->path}}"></a>
-                                                    </div>
-                                                @endforeach
-                                            @endif
-                                        </div>
-                                        <button class="carousel-control-prev" type="button"
-                                                data-bs-target="#news-carousel"
-                                                data-bs-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Previous</span>
-                                        </button>
-                                        <button class="carousel-control-next" type="button"
-                                                data-bs-target="#news-carousel"
-                                                data-bs-slide="next">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Next</span>
-                                        </button>
-
-                                    </div>
-                                </div>
-                                <div class="col-12 news_colomn">
-                                    <div class="text-column">
-                                        {!! $article->$language->content !!}
-                                    </div>
-                                </div>
-                                <div class="col-12 news_colomn">
-                                    <div class="row file_section">
-                                        @if( $article->file != '0')
-                                            <div class="col-auto">
-                                                <div>@lang('main.attachment'):
-                                                    <a href="{{ $article->file }}" class="file_btn"
-                                                       data-toggle="tooltip" rel="tooltip"
-                                                       data-placement="bottom" title="{{substr($article->file, 12)}}">
-                                                        <span class="fa fa-paperclip"></span>
-                                                    </a>
-                                                </div>
+                                        @foreach($images as $image)
+                                            <div class="carousel-item @if($k++ == 0) active @endif">
+                                                <img class="d-block" src="{{substr($image->path, 0, -4).'b.jpg'}}" alt="Article Image">
                                             </div>
-                                            <div class="col-2 d-flex justify-content-end align-items-baseline">
-                                                <button class="btn back_btn"
-                                                        onclick="event.preventDefault();window.history.back();">
-                                                    <i class="fa fa-arrow-left"></i>
-                                                </button>
-                                                <div>Back</div>
-                                            </div>
-                                        @endif
-                                        @if( $article->file == '0')
-                                            <div class="col-12 d-flex justify-content-end align-items-baseline">
-                                                <button class="btn back_btn"
-                                                        onclick="event.preventDefault();window.history.back();">
-                                                    <i class="fa fa-arrow-left"></i>
-                                                    <div>Back</div>
-                                                </button>
-                                            </div>
-                                        @endif
-                                    </div>
+                                        @endforeach
+                                    @endif
                                 </div>
+                                <button class="carousel-control-prev" type="button"
+                                        data-bs-target="#news-carousel"
+                                        data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                        data-bs-target="#news-carousel"
+                                        data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
                             </div>
                         </div>
+
+
+                        <div class="col-12 news_colomn p-0 mb-4">
+                            <div style="column-count: 1; -webkit-column-count: 1; -moz-column-count: 1; font-size: 1.1rem; line-height: 1.8; color: #555;">
+                                {!! $article->$language->content !!}
+                            </div>
+                        </div>
+
+                        <div class="col-12 p-0">
+                            <hr style="border: none; border-top: 2px solid #999; margin: 0 0 20px 0; opacity: 1;">
+                        </div>
+
+                        <div class="col-12 news_colomn p-0 mt-3">
+                            <div class="row file_section mx-0">
+                                @if( $article->file != '0')
+                                    <div class="col-auto p-0">
+                                        <div>@lang('main.attachment'):
+                                            <a href="{{ $article->file }}" class="file_btn"
+                                               data-toggle="tooltip" rel="tooltip"
+                                               data-placement="bottom" title="{{substr($article->file, 12)}}">
+                                                <span class="fa fa-paperclip"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col p-0 d-flex justify-content-end align-items-baseline">
+                                        <button class="btn back_btn"
+                                                onclick="event.preventDefault();window.history.back();">
+                                            <i class="fa fa-arrow-left"></i>
+                                        </button>
+                                        <div class="ms-2">Back</div>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    {{--<div class="outer-container">--}}
-    {{--<div class="inner-container">--}}
-    {{--<div id="news_title" class="captial">@lang('main.news_title')</div>--}}
-    {{--<div class="row news_ticket h-100">--}}
-    {{--<div class="col-12 p-0 position-relative">--}}
-    {{--<div class="news_title">{{ $article->$language->title }}--}}
-    {{--@if($article->video != 0)--}}
-    {{--<a href="{{$article->video}}" class="launch-modal"--}}
-    {{--id="newsletterVideo-{{ $article->id}}"--}}
-    {{--data-fancybox="newsletterVideo-{{ $article->id}}">--}}
-    {{--<img class="video-icon"--}}
-    {{--src="/images/ico/video-ini-icon.svg">--}}
-    {{--</a>--}}
-    {{--@endif--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--<div class="col-12 news_colomn">--}}
-    {{--<div id="news-carousel" class="carousel slide" data-bs-ride="carousel">--}}
-    {{--<div class="carousel-indicators">--}}
-    {{--<?php $k = 0 ?>--}}
-    {{--@foreach($images as $image)--}}
-    {{--<button data-bs-target="#news-carousel"--}}
-    {{--data-bs-slide-to="{{$k++}}"--}}
-    {{--@if($k == 1) class="active" @endif></button>--}}
-    {{--@endforeach--}}
-    {{--</div>--}}
-    {{--<div class="carousel-inner">--}}
-    {{--@if(count($images)>0)--}}
-    {{--<?php $k = 0 ?>--}}
-    {{--@foreach($images as $image)--}}
-    {{--<div class="carousel-item @if($k++ == 0) active @endif">--}}
-    {{--<a href="{{substr($image->path, 0, -4).'b.jpg'}}"--}}
-    {{--data-fancybox="gallery"--}}
-    {{--data-caption="{{ ucfirst( $article->$language->title) }}">--}}
-    {{--<img class="w-100 h-100" src="{{$image->path}}"></a>--}}
-    {{--</div>--}}
-    {{--@endforeach--}}
-    {{--@endif--}}
-    {{--</div>--}}
-    {{--<button class="carousel-control-prev" type="button" data-bs-target="#news-carousel"--}}
-    {{--data-bs-slide="prev">--}}
-    {{--<span class="carousel-control-prev-icon" aria-hidden="true"></span>--}}
-    {{--<span class="visually-hidden">Previous</span>--}}
-    {{--</button>--}}
-    {{--<button class="carousel-control-next" type="button" data-bs-target="#news-carousel"--}}
-    {{--data-bs-slide="next">--}}
-    {{--<span class="carousel-control-next-icon" aria-hidden="true"></span>--}}
-    {{--<span class="visually-hidden">Next</span>--}}
-    {{--</button>--}}
 
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--<div class="col-12 news_colomn">--}}
-    {{--<div class="text-column">--}}
-    {{--{!! $article->$language->content !!}--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--<div class="col-12 news_colomn">--}}
-    {{--<div class="row file_section">--}}
-    {{--@if( $article->file != '0')--}}
-    {{--<div class="col-auto">--}}
-    {{--<div>@lang('main.attachment'):--}}
-    {{--<a href="{{ $article->file }}" class="file_btn" data-toggle="tooltip" rel="tooltip"--}}
-    {{--data-placement="bottom" title="{{substr($article->file, 12)}}">--}}
-    {{--<span class="fa fa-paperclip"></span>--}}
-    {{--</a>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--<div class="col-2 d-flex justify-content-end align-items-baseline">--}}
-    {{--<button class="btn back_btn" onclick="event.preventDefault();window.history.back();">--}}
-    {{--<i class="fa fa-arrow-left"></i>--}}
-    {{--</button>--}}
-    {{--<div>Back</div>--}}
-    {{--</div>--}}
-    {{--@endif--}}
-    {{--@if( $article->file == '0')--}}
-    {{--<div class="col-12 d-flex justify-content-end align-items-baseline">--}}
-    {{--<button class="btn back_btn" onclick="event.preventDefault();window.history.back();">--}}
-    {{--<i class="fa fa-arrow-left"></i>--}}
-    {{--<div>Back</div>--}}
-    {{--</button>--}}
-    {{--</div>--}}
-    {{--@endif--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
+    </div>
+
     <div class="small horizontal-line" data-aos="fade-up" data-aos-duration="500"></div>
     <div class="subscribe-section">
         <div class="container-fluid">
@@ -334,9 +287,8 @@
     </div>
     <div class="horizontal-line last"></div>
 </div>
-</div>
+
 @include('new.public.footer')
-{{--</section>--}}
 
 <script>
     $(document).ready(function () {
@@ -395,13 +347,8 @@
 @stack('navbar-whatwedo')
 @stack('preloader')
 @stack('fancyVideo')
-{{--<script>--}}
-{{--$(document).ready(function () {--}}
-{{--$('.file_btn').tooltip();--}}
-{{--});--}}
-{{--</script>--}}
+
 <script>
-    // do your stuff
     $('#small_screen').hide();
     $('#large_screen').hide();
 
@@ -428,7 +375,6 @@
                 tipSize: 0,
                 delay: 100,
                 hideDuration: 500,
-                // offsetX: 120,
                 showAnimation: function (d, c) {
                     this.fadeIn(d, c);
                 },

@@ -1592,45 +1592,30 @@ ORDER BY `student_count` DESC');
 //        return response()->json(array('msg' => $fillDropdownItems));
 //    }
 
-    public function show_article($ed, $id, $slug)
+    public function show_article($id, $city, $date)
     {
-        $edition = Edition::all()->select('id')->last();
         if (!is_numeric($id)) {
-            return view('new.errors.404', ['edition' => $edition]);
+            return view('new.errors.404');
         }
-        $article = NEWS::with('english', 'french', 'images')->where('id', $id)->where('online', '1')->first();
+
+        $article = NEWS::with('english', 'french', 'images')
+            ->where('id', $id)
+            ->where('online', '1')
+            ->first();
 
         if (!isset($article)) {
-            return view('new.errors.404', ['edition' => $edition]);
+            return view('new.errors.404');
         }
 
-        $articlePath = $ed . '/' . $id . '-' . Str::slug(strtolower($article->english->title));
+        $articlePath = $id . '-' . Str::slug(strtolower($city)) . '-' . $date;
         $images = NewsImage::where('news_id', $id)->get();
 
-//        $initiativesSameType = Initiative::with('english', 'french', 'firstImage')
-//            ->where('id', '!=', $mainInitiative->id)
-//            ->where('sub_what_category_id', '!=', '2') // f2f stories
-//            ->where('what_category_id', $mainInitiative->what_category_id)
-//            ->where('online', '1')
-//            ->inRandomOrder()
-//            ->limit(3)
-//            ->get();
-//        $removeIDs = $initiativesSameType->pluck('id');
-//        $removeIDs->prepend($mainInitiative->id);
-//        $initiativesSameCategory = Initiative::with('english', 'french', 'firstImage', 'SubWhatCategory')
-//            ->whereNotIn('id', $removeIDs)
-//            ->where('sub_what_category_id', '!=', '2') // f2f stories
-//            ->where('who_category_id', $mainInitiative->who_category_id)
-//            ->where('online', '1')
-//            ->inRandomOrder()
-//            ->limit(4)
-//            ->get();
-
-        return view('new.public.article', ['edition' => $edition, 'article' => $article, 'images' => $images, 'articlePath' => $articlePath,
-
+        return view('new.public.article', [
+            'article'     => $article,
+            'images'      => $images,
+            'articlePath' => $articlePath
         ]);
     }
-
     public function hometest()
     {
         $fundedCount = Project::whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2])->count();

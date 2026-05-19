@@ -24,7 +24,7 @@ Route::get('/projects/study-zone/{type}/{id}-{slug}', 'PublicController@initiati
 Route::get('/projects/{type}', 'PublicController@initiatives_by_type')->name('public.initiatives.type');
 
 Route::get('/our-news', 'PublicController@newsletter')->name('new.public.newsletter');
-Route::get('/newsletter-/{edition}/{id}-{slug}', 'PublicController@show_article')->name('new.public.article');
+Route::get('/our-news/{id}-{city}-{date}', 'PublicController@show_article')->name('new.public.article');
 Route::post('newsletter/subscribe','PublicController@subscribe')->name('newsletter.subscribe');
 
 

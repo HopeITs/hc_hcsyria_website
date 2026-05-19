@@ -139,7 +139,7 @@
                                             <div class="custom-radio-btn mt-1"></div>
                                             <div>
                                                 <h5 class="mb-1" style="font-weight: 700;">Mark as Important News</h5>
-                                                <p class="text-muted small mb-0">3:2 Aspect Ratio. Only ONE news can be important.</p>
+                                                <p class="text-muted small mb-0">3:2 Aspect Ratio. Only ONE news can be important (Setting this will replace the current important news).</p>
                                             </div>
                                         </div>
                                         <div id="important_upload_area" class="upload-sub-area">
@@ -156,7 +156,7 @@
                                             <div class="custom-radio-btn mt-1"></div>
                                             <div>
                                                 <h5 class="mb-1" style="font-weight: 700;">Mark as Pinned News</h5>
-                                                <p class="text-muted small mb-0">2:1 Aspect Ratio. Only ONE news can be pinned.</p>
+                                                <p class="text-muted small mb-0">2:1 Aspect Ratio. Multiple news can be pinned at the same time.</p>
                                             </div>
                                         </div>
                                         <div id="pinned_upload_area" class="upload-sub-area">
@@ -449,3 +449,4 @@
 @include('new.admin.scripts.popup-messages')
 </body>
 </html>
+

@@ -136,7 +136,7 @@
                 {{--</li>--}}
                 @if($user->permissions->contains('name','Newsletter') || ($user->roles->contains('name', 'Admin')))
                     <li><a href="{{route('news.index')}}"
-                           @if(isset($page)) @if($page == 'news-index') class="active" @endif @endif>Newsletter</a></li>
+                           @if(isset($page)) @if($page == 'news-index') class="active" @endif @endif>News</a></li>
                 @endif
                 @if($user->permissions->contains('name','Roots')))
                     <li><a href="{{route('roots.index')}}"

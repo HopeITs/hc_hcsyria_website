@@ -173,7 +173,6 @@
         </div>
     </div>
 </div>
-
 <div class="container-fluid" data-aos="fade-up" data-aos-duration="800">
     <div class="letter page-margin">
         <div class="row d-flex justify-content-center">
