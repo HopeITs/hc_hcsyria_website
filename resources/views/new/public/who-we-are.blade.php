@@ -284,30 +284,24 @@
                             {{--                            @if($agent->isPhone())--}}
                             <div class="d-lg-none d-md-none d-sm-none d-block">
                                 <div class="section-title-desc">
-                                    <div data-aos="fade-up" data-aos-duration="300">Our mission is to uphold the
-                                        Christian presence in Syria by providing
+                                    <div data-aos="fade-up" data-aos-duration="300">Our mission is to strengthen families and communities in Syria by providing practical support, educational opportunities, 
                                     </div>
-                                    <div data-aos="fade-up" data-aos-duration="600"> support and assistance to Christian
-                                        families. We believe that the family unit is the foundation of society, and
-                                        through our programs,
+                                    <div data-aos="fade-up" data-aos-duration="600"> 
+                                        social services, and community-based programs that promote dignity, resilience, 
                                     </div>
-                                    <div data-aos="fade-up" data-aos-duration="900">we aim to support every aspect of
-                                        family life.
+                                    <div data-aos="fade-up" data-aos-duration="900"> and a better quality of life.
                                     </div>
                                 </div>
                             </div>
                             {{--@else--}}
                             <div class="d-lg-block d-md-block d-sm-block d-none">
                                 <div class="section-title-desc">
-                                    <div data-aos="fade-up" data-aos-duration="300">Our mission is to uphold the
-                                        Christian presence in Syria by providing support and assistance to Christian
-                                        families.
+                                    <div data-aos="fade-up" data-aos-duration="300">Our mission is to strengthen families and communities in Syria by providing practical support, educational opportunities, 
                                     </div>
-                                    <div data-aos="fade-up" data-aos-duration="600">We believe that the family unit is
-                                        the foundation of society, and through our programs,
+                                    <div data-aos="fade-up" data-aos-duration="600"> 
+                                        social services, and community-based programs that promote dignity, resilience, 
                                     </div>
-                                    <div data-aos="fade-up" data-aos-duration="900">we aim to support every aspect of
-                                        family life.
+                                    <div data-aos="fade-up" data-aos-duration="900"> and a better quality of life.
                                     </div>
                                 </div>
                             </div>

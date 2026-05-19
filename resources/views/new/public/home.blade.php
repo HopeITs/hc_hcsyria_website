@@ -215,8 +215,8 @@
         <div class="row w-100 d-flex justify-content-center">
             <div class="col-lg-10 col-md-10 col-sm-10 col-11 d-flex flex-column align-items-center">
                 <div class="description">
-                    Welcome to <span>HOPE CENTER</span>, a dedicated non-governmental organization, working actively to
-                    shape the destiny of the Christian community in Syria.
+                    Welcome to <span>HOPE CENTER</span>, a dedicated non-governmental organization, 
+                    working actively to serve the most vulnerable communities in Syria.
                     {{--Enter our arena of <span>HOPE</span>. As a dedicated non-governmental organization, we're on the--}}
                     {{--front lines, actively shaping--}}
                     {{--a different destiny for Aleppo. Beyond mere statistics, we Ire working tirelessly to ensure that the--}}
