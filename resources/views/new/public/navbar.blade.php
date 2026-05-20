@@ -139,7 +139,7 @@
                     <ul class="dropdown-menu dropdown_menu_big multi-column news" aria-labelledby="dropdown" style="left: 0vw !important;min-width: -webkit-fill-available;">
                         <ul class="multi-column-dropdown">
                             <li><a class="nav-list-links close-nav"
-                                   href="/rootsofhope">Roots Of Hope <span class="newest">new</span></a></li>
+                                   href="/rootsofhope">Roots Of Hope</a></li>
                             <li role="separator" class="div"></li>
                             <li><a class="nav-list-links close-nav"
                                    href="/our-news">@lang('navbar.newsletter')</a></li>
@@ -154,7 +154,7 @@
                     <ul class="dropdown-menu dropdown_menu_big multi-column columns-2">
                         <ul class="multi-column-dropdown ">
                             <li><a class="nav-list-links close-nav"
-                                   href="rootsofhope">Roots Of Hope <span class="newest">new</span></a></li>
+                                   href="rootsofhope">Roots Of Hope</a></li>
                             <li><a class="nav-list-links close-nav"
                                    href="/our-news">@lang('navbar.newsletter')</a></li>
                         </ul>
