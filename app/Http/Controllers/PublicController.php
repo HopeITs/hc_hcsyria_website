@@ -436,8 +436,7 @@ from projects LIMIT 1;');
             $languageTable = 'projects_english';
         }
 
-        $donors = Donor::where('is_micro', '1')->whereNotIn('id', [9, 10])->orderby('rank')->get();
-
+        $donors = $this->getSortedDonors([9, 10], true);
 
 //        $aleppoMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectAIDs, 'id'))->orderByRaw('case
 //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
@@ -1092,11 +1091,31 @@ from projects LIMIT 1;');
     {
         $edition = Edition::all()->select('id')->last();
         $agent = new Agent();
-        $carouselImages = Cover::where('what_category_id',20)->orderBy('image_order', 'asc')->select('image_path')->get();
+        $carouselImages = Cover::where('what_category_id', 20)->orderBy('image_order', 'asc')->select('image_path')->get();
         $values = DB::table('hope_values')->get();
-        $donors = DB::table('donors')->whereNotIn('id', [9, 10,19])->orderBy('rank')->get();
 
-        return view('new.public.who-we-are', ['carouselImages'=>$carouselImages,'edition' => $edition, 'values' => $values, 'donors' => $donors, 'agent' => $agent]);
+        $donors = $this->getSortedDonors([9, 10, 19], false);
+
+        return view('new.public.who-we-are', [
+            'carouselImages' => $carouselImages,
+            'edition' => $edition,
+            'values' => $values,
+            'donors' => $donors,
+            'agent' => $agent
+        ]);
+    }
+
+    private function getSortedDonors($excludeIds = [9, 10, 19], $isMicro = false)
+    {
+        $query = \App\Donor::query();
+
+        if ($isMicro) {
+            $query->where('is_micro', '1');
+        }
+
+        return $query->whereNotIn('id', $excludeIds)
+            ->orderBy('rank', 'asc')
+            ->get();
     }
 
     public function about()
