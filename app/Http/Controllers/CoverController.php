@@ -43,22 +43,32 @@ class CoverController extends Controller
         return view('new.admin.cover', ['what_categories' => $what_categories]);
     }
 
-    function show($id)
+    public function show($id)
     {
         $agent = new Agent();
-        if (!is_numeric($id)) {
-            return view('new.errors.404');
-        }
-        if($id != 0){
-            $what_category = WhatCategory::with('covers')->where('id', $id)->get();
+        $images = Cover::where('what_category_id', $id)->orderBy('image_order', 'asc')->get();
 
-        if (count($what_category) == 0) {
-            return view('new.errors.404');
+        if ($id == 40) {
+            return view('new.admin.cover-view', [
+                'id' => $id,
+                'images' => $images,
+                'carouselImages' => $images,
+                'tickerNews' => collect(),
+                'importantNews' => null,
+                'latestEdition' => false,
+                'regularNews' => collect(),
+                'pinnedNews' => collect(),
+                'hasMore' => false
+            ]);
         }
-        }
-        else $what_category = null;
-        $images = Cover::where('what_category_id', $id)->orderby('image_order', 'asc')->get();
-        return view('new.admin.cover-view', ['what_category' => $what_category, 'images' => $images, 'agent' => $agent]);
+
+        $what_category = ($id != 0) ? WhatCategory::with('covers')->where('id', $id)->get() : null;
+
+        return view('new.admin.cover-view', [
+            'what_category' => $what_category,
+            'images' => $images,
+            'agent' => $agent
+        ]);
     }
 
     public function store(Request $request)

@@ -142,8 +142,10 @@
                                         <button class="btn btn-primary" onclick="event.preventDefault();window.history.back();">
                                             <i class="fa fa-arrow-left"></i> Back
                                         </button>
-                                        <a href="{{ route('covers.show', $what_category->id) }}" class="btn btn-primary" style="margin-left: 15px;">
-                                            <i class="fa fa-eye"></i>&nbsp;View
+                                        <a href="{{ route('covers.show', $what_category->id) }}"
+                                           class="btn btn-primary"
+                                           style="margin-left: 15px;">
+                                            <i class="fa fa-eye"></i>&nbsp;Preview
                                         </a>
                                         <button type="submit" class="btn btn-danger" style="margin-left: 15px;">
                                             <i class="fa fa-external-link"></i> Upload

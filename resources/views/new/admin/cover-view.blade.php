@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#f6f6f6">
     <meta name="apple-mobile-web-app-status-bar-style" content="#f6f6f6">
-    <title>@if($what_category && count($what_category) > 0){{ $what_category[0]->name }}@else Home @endif</title>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <link href="/css/lato.css" rel="stylesheet">
     <link href="/css/font-awesome.min.css" rel="stylesheet">
@@ -51,73 +50,67 @@
         left: 0;
         width: 100%;
     }
+    .hero-image-container { position: relative; width: 100%; aspect-ratio: 4.5 / 1; overflow: hidden; background-color: #000; }
+    .hero-main-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-top-info { position: absolute; top: 0; left: 0; font-size: 0.75rem; font-weight: 600; color: white; padding: 12px 16px; z-index: 2; text-transform: uppercase; }
+    .hero-timestamp { position: absolute; bottom: 0; right: 0; background: rgba(255, 255, 255, 0.9); color: #414042; padding: 6px 16px; font-weight: 800; font-size: 0.75rem; z-index: 2; border-top-left-radius: 4px; }
+    .hero-caption-bar { background: #fdfdfd; border: 1px solid #dee2e6; border-top: none; padding: 12px 0; width: 100%; }
 
 </style>
 <body>
-
 @stack('navbar_body')
 
 <section id="projects" class="disc">
-    <div style="padding: 0 7% 1%;">
-        <div class="row d-flex justify-content-end">
+    <div style="padding: 1% 7% 1%;">
+        <div class="row d-flex justify-content-end mb-3">
             <div class="col d-flex justify-content-end gap-3">
-                <button class="btn btn-primary edit-btn" onclick="window.history.back();"><i
-                        class="fa fa-arrow-left"></i> Back
+                <button class="btn btn-primary edit-btn" onclick="window.history.back();">
+                    <i class="fa fa-arrow-left"></i> Back
                 </button>
-                {{--                @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))--}}
-                {{--                    <a href="{{route('covers')}}" class="btn btn-primary edit-btn">--}}
-                {{--                        <span class="fa fa-edit"></span>&nbsp;Edit</a>--}}
-                {{--                @endif--}}
             </div>
         </div>
-    </div>
-    @php $isPhone = $agent->isPhone(); @endphp
-    <div id="HomeCarousel" class="carousel slide" data-bs-ride="carousel" @if($isPhone) data-aos="fade-up"
-         data-aos-duration="800" @endif>
-        <div class="carousel-indicators">
-            @foreach($images as $index => $image)
-                <button type="button" data-bs-target="#HomeCarousel" data-bs-slide-to="{{ $index }}"
-                        class="{{ $index === 0 ? 'active' : '' }}"
-                        @if($index === 0) aria-current="true" @endif
-                        aria-label="Slide {{ $index + 1 }}"></button>
-            @endforeach
-        </div>
 
-        <div class="carousel-inner" @if(!$what_category) style="height: 100%" @endif>
-            @foreach($images as $index => $image)
-                <div class="carousel-item {{ $index === 0 ? 'active' : '' }} position-relative">
-                    <img src="{{ $image->image_path }}" class="d-block w-100 h-100" style="object-fit: cover;">
-                    @if($what_category)
-                    <img src="/images/home/image-mask.png" class="image-mask"/>
-                    @endif
+        @if(isset($id) && $id == 40)
+            <div class="hero-image-container">
+                @if($images->isNotEmpty())
+                    <img src="{{ $images->first()->image_path }}" class="hero-main-img" alt="News Header">
+                @endif
+                <div class="hero-top-info">Caption</div>
+                <div class="hero-timestamp" id="current-timestamp"></div>
+            </div>
+            <div class="hero-caption-bar">
+                <div style="text-align: center; color: #444; font-weight: 500;">
+                    LIVE NEWS TICKER PREVIEW
                 </div>
-            @endforeach
-        </div>
+            </div>
 
-        <button class="carousel-control-prev" type="button" data-bs-target="#HomeCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#HomeCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+            <script>
+                function updateTimestamp() {
+                    const now = new Date();
+                    const options = { hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short', year: 'numeric' };
+                    document.getElementById('current-timestamp').innerText = now.toLocaleString('en-GB', options).replace(',', ' |');
+                }
+                updateTimestamp();
+            </script>
+        @else
+            <div id="HomeCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    @foreach($images as $index => $image)
+                        <button type="button" data-bs-target="#HomeCarousel" data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}"></button>
+                    @endforeach
+                </div>
+                <div class="carousel-inner">
+                    @foreach($images as $index => $image)
+                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                            <img src="{{ $image->image_path }}" class="d-block w-100" style="height: 33.5vw; object-fit: cover;">
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
     </div>
 </section>
-@stack('navbar_scripts')
 
-<script>
-    $(document).ready(function () {
-        if ("ontouchstart" in document.documentElement) {
-            $('.swipe-arrows').css('display', 'block');
-            $(".touch-slide").swiperight(function () {
-                $(this).carousel('prev');
-            });
-            $(".touch-slide").swipeleft(function () {
-                $(this).carousel('next');
-            });
-        }
-    });
-</script>
 </body>
+
 </html>
