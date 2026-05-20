@@ -366,7 +366,6 @@
                         $dateMeta = $importantNews->date ? \Carbon\Carbon::parse($importantNews->date)->format('d/m/Y') : '';
                         $urlDate = $importantNews->date ? \Carbon\Carbon::parse($importantNews->date)->format('Ymd') : '00000000';
 
-                        // Modified to show Syria when location is All or missing
                         $place = (isset($importantNews->place->name) && $importantNews->place->name !== 'All') ? $importantNews->place->name : 'Syria';
 
                         $fullContent = $importantNews->english->content ?? '';
@@ -418,7 +417,6 @@
                         $dateMeta = $news->date ? \Carbon\Carbon::parse($news->date)->format('d/m/Y') : '';
                         $urlDate = $news->date ? \Carbon\Carbon::parse($news->date)->format('Ymd') : '00000000';
 
-                        // Modified to show Syria when location is All or missing
                         $place = (isset($news->place->name) && $news->place->name !== 'All') ? $news->place->name : 'Syria';
                     @endphp
                     <a href="{{ route('new.public.article', ['id' => $news->id, 'city' => Illuminate\Support\Str::slug(strtolower($place)), 'date' => $urlDate]) }}" target="_blank" rel="noopener noreferrer" class="news-card ratio-1-1">
@@ -439,7 +437,6 @@
                     $imgPath = $pinnedImg ? asset($pinnedImg->path) : 'https://picsum.photos/seed/'.$pNews->id.'/600/300';
                     $pinnedContent = strip_tags($pNews->english->content ?? '');
 
-                    // Modified to show Syria when location is All or missing
                     $pinnedCity = (isset($pNews->place->name) && $pNews->place->name !== 'All') ? $pNews->place->name : 'Syria';
 
                     $urlDate = $pNews->date ? \Carbon\Carbon::parse($pNews->date)->format('Ymd') : '00000000';
@@ -477,7 +474,6 @@
                 $imgPath = $pinnedImg ? asset($pinnedImg->path) : 'https://picsum.photos/seed/'.$pNews->id.'/600/300';
                 $pinnedContent = strip_tags($pNews->english->content ?? '');
 
-                // Modified to show Syria when location is All or missing
                 $pinnedCity = (isset($pNews->place->name) && $pNews->place->name !== 'All') ? $pNews->place->name : 'Syria';
 
                 $urlDate = $pNews->date ? \Carbon\Carbon::parse($pNews->date)->format('Ymd') : '00000000';
