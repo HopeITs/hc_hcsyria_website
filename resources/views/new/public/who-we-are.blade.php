@@ -284,10 +284,10 @@
                             {{--                            @if($agent->isPhone())--}}
                             <div class="d-lg-none d-md-none d-sm-none d-block">
                                 <div class="section-title-desc">
-                                    <div data-aos="fade-up" data-aos-duration="300">Our mission is to strengthen families and communities in Syria by providing practical support, educational opportunities, 
+                                    <div data-aos="fade-up" data-aos-duration="300">Our mission is to strengthen families and communities in Syria by providing practical support, educational opportunities,
                                     </div>
-                                    <div data-aos="fade-up" data-aos-duration="600"> 
-                                        social services, and community-based programs that promote dignity, resilience, 
+                                    <div data-aos="fade-up" data-aos-duration="600">
+                                        social services, and community-based programs that promote dignity, resilience,
                                     </div>
                                     <div data-aos="fade-up" data-aos-duration="900"> and a better quality of life.
                                     </div>
@@ -296,10 +296,10 @@
                             {{--@else--}}
                             <div class="d-lg-block d-md-block d-sm-block d-none">
                                 <div class="section-title-desc">
-                                    <div data-aos="fade-up" data-aos-duration="300">Our mission is to strengthen families and communities in Syria by providing practical support, educational opportunities, 
+                                    <div data-aos="fade-up" data-aos-duration="300">Our mission is to strengthen families and communities in Syria by providing practical support, educational opportunities,
                                     </div>
-                                    <div data-aos="fade-up" data-aos-duration="600"> 
-                                        social services, and community-based programs that promote dignity, resilience, 
+                                    <div data-aos="fade-up" data-aos-duration="600">
+                                        social services, and community-based programs that promote dignity, resilience,
                                     </div>
                                     <div data-aos="fade-up" data-aos-duration="900"> and a better quality of life.
                                     </div>
@@ -500,42 +500,36 @@
                 </div>
             </div>
             <div class="small horizontal-line" data-aos="fade-up" data-aos-duration="600"></div>
-        <div class="card-height aos-init aos-animate" data-aos="fade-up" data-aos-duration="600">
-            <div class="container-fluid">
-                @php
-                    $donorsPerRow = 6;
-                    $totalDonors = count($donors);
-                    $totalRows = ceil($totalDonors / $donorsPerRow);
-                @endphp
+            <div class="card-height aos-init aos-animate" data-aos="fade-up" data-aos-duration="600">
+                <div class="container-fluid">
+                    @foreach($donors->chunk(6) as $chunk)
+                        <div class="row d-flex justify-content-evenly align-items-center my-4"
+                             data-aos="fade-up" data-aos-duration="800">
 
-                @for($row = 0; $row < $totalRows; $row++)
-                    <div class="row d-flex justify-content-evenly align-items-center {{ $row == 0 ? 'mt-4' : '' }}"
-                        data-aos="fade-up" data-aos-duration="800">
-                        @foreach($donors as $donor)
-                            @if($loop->index >= $row * $donorsPerRow && $loop->index < ($row + 1) * $donorsPerRow)
+                            @foreach($chunk as $donor)
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-4 mb-4 d-flex align-items-center justify-content-center">
                                     @php
-                                        $logoClass = match($donor->id) {
+                                        $logoClass = match((int)$donor->id) {
                                             3, 6, 17, 18    => 'louvre-donor-logo',
                                             4, 5, 15        => 'kerk-donor-logo',
                                             8               => 'hungary-donor-logo',
                                             12, 13, 16, 20  => 'missio-donor-logo',
                                             default         => 'project-donor-logo',
                                         };
+
+                                        $adjustmentClass = ($donor->id == 5) ? 'ms-4' : '';
                                     @endphp
-                                    <div class="{{ $logoClass }}">
+
+                                    <div class="{{ $logoClass }} {{ $adjustmentClass }}">
                                         <img class="w-100 h-100" style="object-fit: contain"
-                                            src="{{ $donor->logo }}">
+                                             src="{{ $donor->logo }}" alt="{{ $donor->name }}">
                                     </div>
                                 </div>
-                            @endif
-                        @endforeach
-                    </div>
-                @endfor
-            </div>
-        </div>
-        </div>
-    </div>
+                            @endforeach
+                        </div>
+                    @endforeach
+                </div>
+            </div>        </div>
 </div>
 <div class="last horizontal-line"></div>
 {{--<div class="d-lg-none d-md-none d-sm-none d-block">--}}
