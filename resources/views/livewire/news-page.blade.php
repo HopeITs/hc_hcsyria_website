@@ -216,7 +216,9 @@
         }
         @media (min-width: 992px) { .news-overlay { padding: 24px 20px; } }
 
-        .news-meta { font-size: 0.65rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;}
+        /* MODIFIED: Reduced font-size, removed uppercase, added nowrap/ellipsis to force single line */
+        .news-meta { font-size: 0.55rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 6px; font-weight: 600; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+
         .news-title { font-size: 1rem; font-weight: 700; line-height: 1.25; margin: 0; color: white; padding-right: 15px; }
         .large-title { font-size: 1.3rem; margin-bottom: 6px; }
 
@@ -325,7 +327,7 @@
                                 @foreach($tickerNews as $ticker)
                                     @if($ticker)
                                         @php
-                                            $tickerCity = $ticker->place->name ?? 'Syria';
+                                            $tickerCity = (isset($ticker->place->name) && $ticker->place->name !== 'All') ? $ticker->place->name : 'Syria';
                                             $tickerDate = $ticker->date ? \Carbon\Carbon::parse($ticker->date)->format('Ymd') : '00000000';
                                         @endphp
                                         <a href="{{ route('new.public.article', ['id' => $ticker->id, 'city' => Illuminate\Support\Str::slug(strtolower($tickerCity)), 'date' => $tickerDate]) }}" target="_blank" rel="noopener noreferrer" class="ticker-item">
@@ -339,7 +341,7 @@
                                 @foreach($tickerNews as $ticker)
                                     @if($ticker)
                                         @php
-                                            $tickerCity = $ticker->place->name ?? 'Syria';
+                                            $tickerCity = (isset($ticker->place->name) && $ticker->place->name !== 'All') ? $ticker->place->name : 'Syria';
                                             $tickerDate = $ticker->date ? \Carbon\Carbon::parse($ticker->date)->format('Ymd') : '00000000';
                                         @endphp
                                         <a href="{{ route('new.public.article', ['id' => $ticker->id, 'city' => Illuminate\Support\Str::slug(strtolower($tickerCity)), 'date' => $tickerDate]) }}" target="_blank" rel="noopener noreferrer" class="ticker-item">
@@ -363,7 +365,10 @@
                         $imgPath = $importantImg ? asset($importantImg->path) : 'https://picsum.photos/seed/important/800/500';
                         $dateMeta = $importantNews->date ? \Carbon\Carbon::parse($importantNews->date)->format('d/m/Y') : '';
                         $urlDate = $importantNews->date ? \Carbon\Carbon::parse($importantNews->date)->format('Ymd') : '00000000';
-                        $place = $importantNews->place->name ?? 'Syria';
+
+                        // Modified to show Syria when location is All or missing
+                        $place = (isset($importantNews->place->name) && $importantNews->place->name !== 'All') ? $importantNews->place->name : 'Syria';
+
                         $fullContent = $importantNews->english->content ?? '';
                         $cleanContent = strip_tags($fullContent);
                     @endphp
@@ -412,7 +417,9 @@
                         }
                         $dateMeta = $news->date ? \Carbon\Carbon::parse($news->date)->format('d/m/Y') : '';
                         $urlDate = $news->date ? \Carbon\Carbon::parse($news->date)->format('Ymd') : '00000000';
-                        $place = $news->place->name ?? 'Syria';
+
+                        // Modified to show Syria when location is All or missing
+                        $place = (isset($news->place->name) && $news->place->name !== 'All') ? $news->place->name : 'Syria';
                     @endphp
                     <a href="{{ route('new.public.article', ['id' => $news->id, 'city' => Illuminate\Support\Str::slug(strtolower($place)), 'date' => $urlDate]) }}" target="_blank" rel="noopener noreferrer" class="news-card ratio-1-1">
                         <img src="{{ $imgPath }}" alt="News Thumbnail">
@@ -431,7 +438,10 @@
                     $pinnedImg = $pNews->images->where('sizetype', 2)->first() ?? $pNews->images->first();
                     $imgPath = $pinnedImg ? asset($pinnedImg->path) : 'https://picsum.photos/seed/'.$pNews->id.'/600/300';
                     $pinnedContent = strip_tags($pNews->english->content ?? '');
-                    $pinnedCity = $pNews->place->name ?? 'Syria';
+
+                    // Modified to show Syria when location is All or missing
+                    $pinnedCity = (isset($pNews->place->name) && $pNews->place->name !== 'All') ? $pNews->place->name : 'Syria';
+
                     $urlDate = $pNews->date ? \Carbon\Carbon::parse($pNews->date)->format('Ymd') : '00000000';
                 @endphp
                 <div class="pinned-row">
@@ -466,7 +476,10 @@
                 $pinnedImg = $pNews->images->where('sizetype', 2)->first() ?? $pNews->images->first();
                 $imgPath = $pinnedImg ? asset($pinnedImg->path) : 'https://picsum.photos/seed/'.$pNews->id.'/600/300';
                 $pinnedContent = strip_tags($pNews->english->content ?? '');
-                $pinnedCity = $pNews->place->name ?? 'Syria';
+
+                // Modified to show Syria when location is All or missing
+                $pinnedCity = (isset($pNews->place->name) && $pNews->place->name !== 'All') ? $pNews->place->name : 'Syria';
+
                 $urlDate = $pNews->date ? \Carbon\Carbon::parse($pNews->date)->format('Ymd') : '00000000';
             @endphp
             <div class="pinned-row">

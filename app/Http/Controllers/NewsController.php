@@ -135,17 +135,8 @@ class NewsController extends Controller
     /////////////////////////////////////////////////////////////////////////////////
     public function show($id)
     {
-        if (!is_numeric($id)) {
-            return view('new.errors.404');
-        }
-        $news = News::with('english', 'edition')->where('id', $id)->first();
-        if (!isset($news)) {
-            return view('new.errors.404');
-        }
-        $selectedEdition = Edition::where('id', $news->edition_id)->first();
-        $images = NewsImage::where('news_id', $id)->orderby('image_order')->get();
-
-        return view('new.admin.news.view', ['news' => $news, 'images' => $images,'selectedEdition'=>$selectedEdition]);
+        $news = News::with('english', 'images', 'place')->findOrFail($id);
+        return view('new.admin.news.view', ['news' => $news]);
     }
 
     public function edit($id, Request $request)
