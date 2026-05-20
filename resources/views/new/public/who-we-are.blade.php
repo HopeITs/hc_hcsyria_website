@@ -510,15 +510,22 @@
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-4 mb-4 d-flex align-items-center justify-content-center">
                                     @php
                                         $logoClass = match((int)$donor->id) {
-                                            3, 6, 17, 18    => 'louvre-donor-logo',
+                                            3, 6, 17    => 'louvre-donor-logo',
                                             4, 5, 15        => 'kerk-donor-logo',
                                             8               => 'hungary-donor-logo',
                                             12, 13, 16, 20  => 'missio-donor-logo',
+                                            18              => 'paris-donor-logo',
                                             default         => 'project-donor-logo',
                                         };
 
                                         $adjustmentClass = ($donor->id == 5) ? 'ms-4' : '';
                                     @endphp
+                                    <style>
+                                        .paris-donor-logo {
+                                            width: 70%;
+                                            height: 100px;
+                                        }
+                                    </style>
 
                                     <div class="{{ $logoClass }} {{ $adjustmentClass }}">
                                         <img class="w-100 h-100" style="object-fit: contain"
