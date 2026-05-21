@@ -11,7 +11,7 @@ class News extends Model
 
     protected $fillable = [
         'rank', 'type', 'video', 'duration', 'file', 'english_check',
-        'date', 'priority_status', 'view_count'
+        'date', 'priority_status', 'view_count','total_views',
     ];
 
     protected $casts = [

@@ -31,6 +31,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Jenssegers\Agent\Agent;
 use PDF;
@@ -1616,7 +1617,6 @@ ORDER BY `student_count` DESC');
         if (!is_numeric($id)) {
             return view('new.errors.404');
         }
-
         $article = NEWS::with('english', 'french', 'images')
             ->where('id', $id)
             ->where('online', '1')
@@ -1624,6 +1624,15 @@ ORDER BY `student_count` DESC');
 
         if (!isset($article)) {
             return view('new.errors.404');
+        }
+
+        $article->increment('total_views');
+
+        $sessionKey = 'viewed_article_' . $article->id;
+
+        if (!Session::has($sessionKey)) {
+            $article->increment('view_count');
+            Session::put($sessionKey, true);
         }
 
         $articlePath = $id . '-' . Str::slug(strtolower($city)) . '-' . $date;

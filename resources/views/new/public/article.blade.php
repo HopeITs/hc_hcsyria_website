@@ -27,7 +27,7 @@
     <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
     <link href='/css/lato.css' rel='stylesheet' type='text/css'>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/animate.css" rel="stylesheet">
@@ -82,6 +82,57 @@
             width: 100% !important;
             height: auto !important;
             object-fit: contain !important;
+        }
+
+        .action-badge {
+            color: white !important;
+            padding: 6px 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none !important;
+            gap: 6px;
+        }
+
+
+        .action-badge.icon-only {
+            padding: 0;
+            width: 25px;
+            height: 25px;
+            flex-shrink: 0;
+        }
+
+        .action-badge i, .action-badge img {
+            font-size: 0.9rem;
+            object-fit: contain;
+            display: block;
+            margin: auto;
+        }
+
+        .custom-share-menu {
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #eaeaea;
+            padding: 10px 0;
+            min-width: 180px;
+            margin-top: 10px !important;
+        }
+
+        .custom-share-menu .dropdown-item {
+            padding: 10px 20px;
+            transition: background-color 0.2s ease;
+        }
+
+        .custom-share-menu .dropdown-item:hover {
+            background-color: #f6f6f6;
+        }
+
+        .custom-share-menu i {
+            width: 24px;
+            text-align: center;
         }
     </style>
 
@@ -149,24 +200,65 @@
                                 </h1>
 
                                 <div class="d-flex align-items-center gap-2" style="flex-shrink: 0;">
+
+
                                     @if($article->video != 0)
-                                        <a href="{{$article->video}}" class="launch-modal"
+                                        <a href="{{$article->video}}" class="launch-modal action-badge icon-only"
                                            id="newsletterVideo-{{ $article->id}}"
-                                           data-fancybox="newsletterVideo-{{ $article->id}}" style="display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 32px; height: 32px;">
-                                            <img class="video-icon"
-                                                 src="/images/ico/video-ini-icon.svg" style="width: 100%; height: 100%; display: block; object-fit: contain;">
+                                           data-fancybox="newsletterVideo-{{ $article->id}}" title="Play Video">
+                                            <img src="/images/our-news/logo/PLAY-VIDEO.svg" alt="Play">
                                         </a>
                                     @endif
-                                    <a href="#" style="background-color: var(--primary-red); color: white; border-radius: 6px; width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; text-decoration: none; flex-shrink: 0;">
-                                        <i class="fa fa-share" style="font-size: 14px;"></i>
-                                    </a>
+
+                                        <div class="dropdown d-inline-block" >
+                                            <a href="#" class="action-badge icon-only" style="margin-top: 4.5px" id="shareDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Share Article">
+                                                <img src="/images/our-news/logo/SHARE.svg" alt="Share">
+                                            </a>
+
+                                            <ul class="dropdown-menu dropdown-menu-end custom-share-menu" aria-labelledby="shareDropdown">
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center gap-3" href="#" onclick="copyToClipboard(event)">
+                                                        <i class="fa-solid fa-link fs-5 text-dark"></i>
+                                                        <span class="fw-bold text-dark">Copy Link</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center gap-3" href="https://api.whatsapp.com/send?text={{ urlencode($article->$language->title . ' - ' . url()->current()) }}" target="_blank">
+                                                        <i class="fa-brands fa-whatsapp fs-5" style="color: #25D366;"></i>
+                                                        <span class="fw-bold text-dark">WhatsApp</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center gap-3" href="https://t.me/share/url?url={{ urlencode(url()->current()) }}&text={{ urlencode($article->$language->title) }}" target="_blank">
+                                                        <i class="fa-brands fa-telegram fs-5" style="color: #0088cc;"></i>
+                                                        <span class="fw-bold text-dark">Telegram</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item d-flex align-items-center gap-3" href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(url()->current()) }}" target="_blank">
+                                                        <i class="fa-brands fa-linkedin fs-5" style="color: #0077b5;"></i>
+                                                        <span class="fw-bold text-dark">LinkedIn</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
                                 </div>
                             </div>
 
                             <hr style="border: none; border-top: 1px solid #ccc; margin: 8px 0 10px 0; opacity: 1;">
 
-                            <div style="font-family: 'Lato', sans-serif !important; font-size: 0.85rem; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">
-                                {{ $article->place->name ?? 'Damascus' }} {{ $article->date ? \Carbon\Carbon::parse($article->date)->format('j/n/Y') : '' }}
+                            <div class="d-flex justify-content-between align-items-center" style="font-family: 'Lato', sans-serif !important; font-size: 0.85rem; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">
+
+                                <div style="font-family: 'Lato', sans-serif !important; font-size: 0.85rem; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    {{ $article->place->name ?? 'Damascus' }} {{ $article->date ? \Carbon\Carbon::parse($article->date)->format('j/n/Y') : '' }}
+                                </div>
+
+                                <span style="display: flex; align-items: center; gap: 6px; color: #999;">
+                                    {{ $article->total_views ?? 0 }}
+                                    <i class="fa fa-eye" style="font-size: 1.2em; margin-top: 2px"></i>
+                                </span>
+
                             </div>
                         </div>
 
@@ -385,7 +477,23 @@
         })
     });
 </script>
+<script>
+    $(document).ready(function() {
+        $('#shareDropdown').on('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
 
+            var $menu = $(this).next('.dropdown-menu');
+            $menu.toggleClass('show');
+        });
+
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.dropdown').length) {
+                $('.dropdown-menu').removeClass('show');
+            }
+        });
+    });
+</script>
 @stack('navbar-scripts')
 
 </body>
