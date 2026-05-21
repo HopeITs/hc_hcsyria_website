@@ -10,7 +10,7 @@ class News extends Model
     protected $table = 'news';
 
     protected $fillable = [
-        'rank', 'type', 'video', 'file', 'english_check',
+        'rank', 'type', 'video', 'duration', 'file', 'english_check',
         'date', 'priority_status', 'view_count'
     ];
 

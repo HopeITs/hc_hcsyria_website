@@ -5,7 +5,7 @@
             --primary-red-hover: #9a0f17;
             --text-dark: #414042;
             --white-translucent: rgba(255, 255, 255, 0.85);
-            --black-overlay: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);
+            --black-overlay: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);
         }
 
         .custom-container {
@@ -214,9 +214,8 @@
             justify-content: flex-end;
             pointer-events: none;
         }
-        @media (min-width: 992px) { .news-overlay { padding: 24px 20px; } }
+        @media (min-width: 992px) { .news-overlay { padding: 15px 20px; } }
 
-        /* MODIFIED: Reduced font-size, removed uppercase, added nowrap/ellipsis to force single line */
         .news-meta { font-size: 0.55rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 6px; font-weight: 600; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
 
         .news-title { font-size: 1rem; font-weight: 700; line-height: 1.25; margin: 0; color: white; padding-right: 15px; }
@@ -297,6 +296,31 @@
         .news-title-clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; min-height: 2.4em; line-height: 1.2; }
         .important-content-clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.4em; line-height: 1.2; }
         .pinned-content-clamp { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; min-height: 4.8em; line-height: 1.2; }
+
+        .video-duration-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: rgba(89, 89, 88, 0.50);
+            color: white;
+            padding: 3px 8px 3px 6px;
+            border-radius: 6px;
+            font-family: Lato , sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .video-duration-badge svg {
+            width: 12px;
+            height: 12px;
+            fill: currentColor;
+        }
     </style>
 
     <div class="custom-container mt-4">
@@ -372,6 +396,11 @@
                         $cleanContent = strip_tags($fullContent);
                     @endphp
                     <a href="{{ route('new.public.article', ['id' => $importantNews->id, 'city' => Illuminate\Support\Str::slug(strtolower($place)), 'date' => $urlDate]) }}" target="_blank" rel="noopener noreferrer" class="news-card ratio-3-2" style="height: 100%;">
+                        @if(!empty($importantNews->duration))
+                            <div class="video-duration-badge">
+                                <svg viewBox="0 0 16 16"><path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg>                                {{ \Carbon\Carbon::parse($importantNews->duration)->format(str_starts_with($importantNews->duration, '00:') ? 'i:s' : 'H:i:s') }}
+                            </div>
+                        @endif
                         <img src="{{ $imgPath }}" alt="{{ $importantNews->english->title ?? 'News' }}">
                         <div class="news-overlay">
                             <span class="news-meta">{{ $dateMeta }} - {{ $place }}</span>
@@ -420,6 +449,11 @@
                         $place = (isset($news->place->name) && $news->place->name !== 'All') ? $news->place->name : 'Syria';
                     @endphp
                     <a href="{{ route('new.public.article', ['id' => $news->id, 'city' => Illuminate\Support\Str::slug(strtolower($place)), 'date' => $urlDate]) }}" target="_blank" rel="noopener noreferrer" class="news-card ratio-1-1">
+                        @if(!empty($news->duration))
+                            <div class="video-duration-badge">
+                                <svg viewBox="0 0 16 16"><path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg>                                {{ \Carbon\Carbon::parse($news->duration)->format(str_starts_with($news->duration, '00:') ? 'i:s' : 'H:i:s') }}
+                            </div>
+                        @endif
                         <img src="{{ $imgPath }}" alt="News Thumbnail">
                         <div class="news-overlay">
                             <span class="news-meta">{{ $dateMeta }} - {{ $place }}</span>
@@ -443,6 +477,11 @@
                 @endphp
                 <div class="pinned-row">
                     <div class="pinned-img-container">
+                        @if(!empty($pNews->duration))
+                            <div class="video-duration-badge">
+                                <svg viewBox="0 0 16 16"><path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg>                                {{ \Carbon\Carbon::parse($pNews->duration)->format(str_starts_with($pNews->duration, '00:') ? 'i:s' : 'H:i:s') }}
+                            </div>
+                        @endif
                         <img src="{{ $imgPath }}" alt="Pinned News">
                     </div>
                     <a href="{{ route('new.public.article', ['id' => $pNews->id, 'city' => Illuminate\Support\Str::slug(strtolower($pinnedCity)), 'date' => $urlDate]) }}" target="_blank" rel="noopener noreferrer" class="pinned-box">
@@ -480,6 +519,11 @@
             @endphp
             <div class="pinned-row">
                 <div class="pinned-img-container">
+                    @if(!empty($pNews->duration))
+                        <div class="video-duration-badge">
+                            <svg viewBox="0 0 16 16"><path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg>                            {{ \Carbon\Carbon::parse($pNews->duration)->format(str_starts_with($pNews->duration, '00:') ? 'i:s' : 'H:i:s') }}
+                        </div>
+                    @endif
                     <img src="{{ $imgPath }}" alt="Pinned News">
                 </div>
                 <a href="{{ route('new.public.article', ['id' => $pNews->id, 'city' => Illuminate\Support\Str::slug(strtolower($pinnedCity)), 'date' => $urlDate]) }}" target="_blank" rel="noopener noreferrer" class="pinned-box">
