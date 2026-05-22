@@ -51,6 +51,16 @@
                 </a>
             @endif
 
+                @if($news->english_check == '1' && (count($news->images) > 0 || ($news->video && $news->video != '0')))
+                    <form action="{{ route('news.online') }}" method="POST" class="m-0 p-0 d-flex">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $news->id }}">
+                        <button type="submit" class="btn btn-success edit-btn d-flex align-items-center gap-2" style="background-color: #389e47; border-color: #389e47; color: white;">
+                            <i class="fa-solid fa-arrow-up-from-bracket"></i> Publish
+                        </button>
+                    </form>
+                @endif
+
             @if(isset($user) && ($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Photos Editor')))
                 <a href="{{route('news.images.create', $news->id)}}" class="btn btn-primary edit-btn">
                     <i class='fa-solid fa-plus-minus'></i> Image

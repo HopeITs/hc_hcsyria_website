@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Http;
+use DateInterval;
+use Exception;
 
 class News extends Model
 {
@@ -18,6 +21,20 @@ class News extends Model
         'date' => 'datetime',
     ];
 
+    // --- AUTOMATED YOUTUBE DURATION LOGIC ---
+    protected static function booted()
+    {
+        static::saving(function ($news) {
+            // Check if the 'video' column was just changed/added and is not empty or '0'
+            if ($news->isDirty('video') && !empty($news->video) && $news->video !== '0') {
+                $duration = self::fetchYoutubeDuration($news->video);
+
+                if ($duration) {
+                    $news->duration = $duration;
+                }
+            }
+        });
+    }
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'news_tags', 'news_id', 'tag_id');
@@ -70,4 +87,44 @@ class News extends Model
         return $this->belongsTo('App\Project', 'project_id');
     }
 
+    public static function fetchYoutubeDuration($url)
+    {
+        $apiKey = env('YOUTUBE_API_KEY');
+        if (empty($apiKey)) return null;
+
+        $videoId = self::extractYoutubeId($url);
+        if (!$videoId) return null;
+
+        $response = Http::get("https://www.googleapis.com/youtube/v3/videos", [
+            'id' => $videoId,
+            'part' => 'contentDetails',
+            'key' => $apiKey
+        ]);
+
+        if ($response->successful() && !empty($response->json('items'))) {
+            $isoDuration = $response->json('items.0.contentDetails.duration');
+
+            try {
+                $interval = new DateInterval($isoDuration);
+                return $interval->format('%H:%I:%S');
+            } catch (Exception $e) {
+                return null;
+            }
+        }
+
+        return null;
+    }
+
+    private static function extractYoutubeId($url)
+    {
+        if (empty($url)) return null;
+
+        if (preg_match('/^[a-zA-Z0-9_-]{11}$/', trim($url))) {
+            return trim($url);
+        }
+
+        preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/\s]{11})%i', $url, $matches);
+
+        return $matches[1] ?? null;
+    }
 }
