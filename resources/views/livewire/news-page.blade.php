@@ -348,11 +348,17 @@
                         ? $carouselImages->first()->image_path
                         : asset('images/our-news/header-image.jpg');
                 @endphp
+
                 <div class="hero-image-container">
                     <img src="{{ $dynamicHeader }}" class="hero-main-img" alt="Header">
-                    <div class="hero-top-info" style="pointer-events: none;">Caption</div>
+                    @if(!empty($carouselImages) && $carouselImages->first() && !empty($carouselImages->first()->caption))
+                        <div class="hero-top-info" style="pointer-events: none;">
+                            {{ $carouselImages->first()->caption }}
+                        </div>
+                    @endif
                     <div class="hero-timestamp" id="current-timestamp" style="pointer-events: none;"></div>
                 </div>
+
                 <div class="hero-caption-bar">
                     <div class="ticker-mask">
                         <div class="ticker-wrapper">

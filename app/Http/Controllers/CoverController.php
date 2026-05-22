@@ -94,6 +94,7 @@ class CoverController extends Controller
         if ($categoryId != 0) {
             $request->validate([
                 'image.*' => 'required|image|mimes:jpeg,jpg|max:4096',
+                'caption' => 'nullable|string|max:255',
             ]);
 
             $files = $request->file('image');
@@ -110,6 +111,7 @@ class CoverController extends Controller
                 $Cover = new Cover();
                 $Cover->what_category_id = $categoryId;
                 $Cover->image_path = '/' . $path . '/' . $imgName . '.jpg';
+                $Cover->caption = $request->input('caption');
                 $Cover->save();
             }
         }
@@ -131,6 +133,7 @@ class CoverController extends Controller
                 $cover = new Cover;
                 $cover->what_category_id = $categoryId;
                 $cover->image_path = '/' . $path . '/' . $imgName  . 'b.jpg';
+                $cover->caption = $request->input('caption');
                 $cover->save();
             }
         }
@@ -139,7 +142,8 @@ class CoverController extends Controller
 
         return redirect()->route('covers', ['tab' => $categoryName])
             ->with('success', 'Images stored');
-    }    public function destroy(Request $request, $id)
+    }
+    public function destroy(Request $request, $id)
     {
         $images = Cover::where('what_category_id', $id)->get();
         $deletedImagesCount = 0;

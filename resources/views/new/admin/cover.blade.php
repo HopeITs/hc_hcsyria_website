@@ -19,9 +19,6 @@
     <link href="/css/dashboard_new.css" rel="stylesheet">
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
     <link href="/css/backend.css" rel="stylesheet">
-    <!--[if lt IE 9]>
-    <script src="/js/html5shiv.js"></script>
-    <script src="/js/respond.min.js"></script> <![endif]-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
@@ -81,77 +78,89 @@
                                 </div>
                             @endif
                             <h3 class="title">Add Cover</h3>
-                                <form action="{{ route('covers.store', $what_category->id) }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <input type="hidden" name="id" value="{{ $what_category->id }}">
-                                    <div class="row mb-3" @if($what_category->id == 40) style="display:none;" @endif>
-                                        <div class="form-group col-lg-3 col-md-3 col-12">
-                                            <label for="images-count-{{ $what_category->id }}">Images Count</label>
-                                            <input id="images-count-{{ $what_category->id }}" type="number" class="form-control" step="1"
-                                                   value="{{ $what_category->id == 40 ? 1 : ($what_category->id == 0 ? 1 : 3) }}"
-                                                   min="1" onchange="addImageGroup({{ $what_category->id }})">
-                                        </div>
+                            <form action="{{ route('covers.store', $what_category->id) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $what_category->id }}">
+                                <div class="row mb-3" @if($what_category->id == 40) style="display:none;" @endif>
+                                    <div class="form-group col-lg-3 col-md-3 col-12">
+                                        <label for="images-count-{{ $what_category->id }}">Images Count</label>
+                                        <input id="images-count-{{ $what_category->id }}" type="number" class="form-control" step="1"
+                                               value="{{ $what_category->id == 40 ? 1 : ($what_category->id == 0 ? 1 : 3) }}"
+                                               min="1" onchange="addImageGroup({{ $what_category->id }})">
                                     </div>
-                                    <div class="mb-3" id="images-group-{{ $what_category->id }}">
-                                        @if($what_category->id == 0)
-                                                <div class="image-group-{{ $what_category->id }} form-control mb-3">
-                                                    <div class="row">
-                                                        <div class="form-group col-lg-6 col-md-6 col-12">
-                                                            <label for="small_image">Small Image</label>
-                                                            <input type="file"
-                                                                   name="small_image[]"
-                                                                   accept="image/jpeg"
-                                                                   required>
-                                                        </div>
-                                                        <div class="form-group col-lg-6 col-md-6 col-12">
-                                                            <label for="big_image">Large Image</label>
-                                                            <input type="file"
-                                                                   name="big_image[]"
-                                                                   accept="image/jpeg"
-                                                                   required>
-                                                        </div>
-                                                    </div>
+                                </div>
+                                <div class="mb-3" id="images-group-{{ $what_category->id }}">
+                                    @if($what_category->id == 0)
+                                        <div class="image-group-{{ $what_category->id }} form-control mb-3">
+                                            <div class="row">
+                                                <div class="form-group col-lg-6 col-md-6 col-12">
+                                                    <label for="small_image">Small Image</label>
+                                                    <input type="file"
+                                                           name="small_image[]"
+                                                           accept="image/jpeg"
+                                                           required>
                                                 </div>
-                                        @elseif($what_category->id == 40)
+                                                <div class="form-group col-lg-6 col-md-6 col-12">
+                                                    <label for="big_image">Large Image</label>
+                                                    <input type="file"
+                                                           name="big_image[]"
+                                                           accept="image/jpeg"
+                                                           required>
+                                                </div>
+                                                <div class="form-group col-12 mt-2">
+                                                    <label>Image Caption (Optional)</label>
+                                                    <input type="text" name="caption" class="form-control" placeholder="Enter a caption...">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @elseif($what_category->id == 40)
+                                        <div class="image-group-{{ $what_category->id }} form-control mb-3">
+                                            <div class="row">
+                                                <div class="form-group col-12">
+                                                    <label>Our News Page Header Image</label>
+                                                    <input type="file" name="image[]" accept="image/jpeg" required>
+                                                </div>
+                                                <div class="form-group col-12 mt-3">
+                                                    <label>Image Caption</label>
+                                                    <input type="text" name="caption" class="form-control" placeholder="Enter a caption for News Header...">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @else
+                                        @for ($i = 0; $i < 3; $i++)
                                             <div class="image-group-{{ $what_category->id }} form-control mb-3">
                                                 <div class="row">
-                                                    <div class="form-group col-12">
-                                                        <label>Our News Page Header Image</label>
-                                                        <input type="file" name="image[]" accept="image/jpeg" required>
+                                                    <div class="form-group col-lg-6 col-md-6 col-12">
+                                                        <label for="image_{{ $i }}">Image</label>
+                                                        <input type="file"
+                                                               name="image[]"
+                                                               accept="image/jpeg"
+                                                               required>
+                                                    </div>
+                                                    <div class="form-group col-lg-6 col-md-6 col-12">
+                                                        <label>Image Caption (Optional)</label>
+                                                        <input type="text" name="caption" class="form-control" placeholder="Enter a caption...">
                                                     </div>
                                                 </div>
                                             </div>
-                                        @else
-                                            @for ($i = 0; $i < 3; $i++)
-                                                <div class="image-group-{{ $what_category->id }} form-control mb-3">
-                                                    <div class="row">
-                                                        <div class="form-group col-lg-6 col-md-6 col-12">
-                                                            <label for="image_{{ $i }}">Image</label>
-                                                            <input type="file"
-                                                                   name="image[]"
-                                                                   accept="image/jpeg"
-                                                                   required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endfor
-                                        @endif
-                                    </div>
+                                        @endfor
+                                    @endif
+                                </div>
 
-                                    <div class="d-flex justify-content-end mt-3">
-                                        <button class="btn btn-primary" onclick="event.preventDefault();window.history.back();">
-                                            <i class="fa fa-arrow-left"></i> Back
-                                        </button>
-                                        <a href="{{ route('covers.show', $what_category->id) }}"
-                                           class="btn btn-primary"
-                                           style="margin-left: 15px;">
-                                            <i class="fa fa-eye"></i>&nbsp;Preview
-                                        </a>
-                                        <button type="submit" class="btn btn-danger" style="margin-left: 15px;">
-                                            <i class="fa fa-external-link"></i> Upload
-                                        </button>
-                                    </div>
-                                </form>
+                                <div class="d-flex justify-content-end mt-3">
+                                    <button class="btn btn-primary" onclick="event.preventDefault();window.history.back();">
+                                        <i class="fa fa-arrow-left"></i> Back
+                                    </button>
+                                    <a href="{{ route('covers.show', $what_category->id) }}"
+                                       class="btn btn-primary"
+                                       style="margin-left: 15px;">
+                                        <i class="fa fa-eye"></i>&nbsp;Preview
+                                    </a>
+                                    <button type="submit" class="btn btn-danger" style="margin-left: 15px;">
+                                        <i class="fa fa-external-link"></i> Upload
+                                    </button>
+                                </div>
+                            </form>
 
                             @if(!$what_category->covers->isEmpty())
                                 <div class="row mt-5 position-relative">
@@ -171,13 +180,17 @@
                                                             @foreach($what_category->covers as $img)
                                                                 <input type="hidden" name="what_category_id" value="{{ $img->what_category_id }}">
 
-                                                                <!-- Image checkbox -->
                                                                 <li class="image-checkbox" id="image_{{ $img->id }}">
                                                                     <img class="img-responsive" id="{{$img['id']}}" src="{{ $img->image_path }}" />
 
                                                                     <input type="checkbox" name="selected_images[{{ $img->id }}]" value="1" />
 
                                                                     <i class="fa fa-check hidden"></i>
+                                                                    @if($img->caption)
+                                                                        <div style="position: absolute; bottom: 0; left: 0; background: rgba(0,0,0,0.6); color: white; width: 100%; text-align: center; padding: 2px; font-size: 10px;">
+                                                                            {{ Str::limit($img->caption, 20) }}
+                                                                        </div>
+                                                                    @endif
                                                                 </li>
                                                             @endforeach
                                                         </ul>
@@ -197,7 +210,7 @@
                                                        name="selectAll" onchange="selectAll(this)"/>
                                             </button>
                                             <span> Select/Deselect All Image</span>
-                                                @if($what_category->id != 40)
+                                            @if($what_category->id != 40)
                                                 <form class="order-form" action="/admin/covers/order/{{$what_category->id}}"
                                                       method="POST"
                                                       enctype="multipart/form-data">
@@ -212,8 +225,8 @@
 
                                                     </div>
                                                 </form>
-                                                @endif
                                             @endif
+                                        @endif
                                     </div>
                                 </div>
                             @endif
@@ -261,28 +274,36 @@
         let currentCount = container.children('.image-group-' + id).length;
         while (currentCount < desiredCount) {
             if(id !== 0)
-             image_group +=
-                '<div class="image-group-' + id + ' form-control mb-3">' +
-                '<div class="row">' +
-                '<div class="form-group col-lg-6 col-md-6 col-12">' +
-                '<label>Image</label>' +
-                '<input accept="image/jpeg" required name="image[]" type="file" style="padding-left: 3px;">' +
-                '</div>' +
-                '</div>' +
-                '</div>';
+                image_group +=
+                    '<div class="image-group-' + id + ' form-control mb-3">' +
+                    '<div class="row">' +
+                    '<div class="form-group col-lg-6 col-md-6 col-12">' +
+                    '<label>Image</label>' +
+                    '<input accept="image/jpeg" required name="image[]" type="file" style="padding-left: 3px;">' +
+                    '</div>' +
+                    '<div class="form-group col-lg-6 col-md-6 col-12">' +
+                    '<label>Image Caption (Optional)</label>' +
+                    '<input type="text" name="caption" class="form-control" placeholder="Enter a caption...">' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
             else
-                 image_group +=
+                image_group +=
                     '<div class="image-group-'+id+' form-control mb-3">'+
-                        '<div class="row">'+
-                            '<div class="form-group col-lg-6 col-md-6 col-12">' +
-                                '<label for="small_image">Small Image&nbsp;</label>' +
-                                '<input type="file" name="small_image[]" accept="image/jpeg" required>' +
-                            '</div>' +
-                            '<div class="form-group col-lg-6 col-md-6 col-12">' +
-                                '<label for="big_image">Large Image&nbsp;</label>' +
-                                '<input type="file" name="big_image[]" accept="image/jpeg" required>' +
-                            '</div>' +
-                        '</div>'+
+                    '<div class="row">'+
+                    '<div class="form-group col-lg-6 col-md-6 col-12">' +
+                    '<label for="small_image">Small Image&nbsp;</label>' +
+                    '<input type="file" name="small_image[]" accept="image/jpeg" required>' +
+                    '</div>' +
+                    '<div class="form-group col-lg-6 col-md-6 col-12">' +
+                    '<label for="big_image">Large Image&nbsp;</label>' +
+                    '<input type="file" name="big_image[]" accept="image/jpeg" required>' +
+                    '</div>' +
+                    '<div class="form-group col-12 mt-2">' +
+                    '<label>Image Caption (Optional)</label>' +
+                    '<input type="text" name="caption" class="form-control" placeholder="Enter a caption...">' +
+                    '</div>' +
+                    '</div>'+
                     '</div>';
             container.append(image_group);
             currentCount++;
@@ -390,3 +411,4 @@
 </script>
 @stack('imageOrder')
 </body>
+</html>

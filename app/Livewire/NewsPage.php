@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\News;
 use App\Edition;
 use App\Models\PageView;
+use App\Models\Cover;
 
 class NewsPage extends Component
 {
@@ -20,6 +21,8 @@ class NewsPage extends Component
 
     public function render()
     {
+        $this->carouselImages = Cover::where('what_category_id', 40)->orderBy('image_order', 'asc')->get();
+
         $regularLimit = 10 + $this->amount;
         $pinnedLimit = ($regularLimit / 5) - 1;
 
