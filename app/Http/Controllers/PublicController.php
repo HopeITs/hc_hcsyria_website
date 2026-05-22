@@ -26,6 +26,7 @@ use App\WhatCategory;
 use App\WhoCategory;
 use App\YouthProfile;
 use Carbon\Carbon;
+use App\Models\PageView;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -1544,6 +1545,19 @@ ORDER BY `student_count` DESC');
     }
     public function newsletter()
     {
+        $pageName = 'news_index';
+        $sessionKey = 'has_viewed_' . $pageName;
+
+        $pageTracker = PageView::firstOrCreate(
+            ['page_name' => $pageName],
+            ['views' => 0]
+        );
+
+        if (!Session::has($sessionKey)) {
+            $pageTracker->increment('views');
+            Session::put($sessionKey, true);
+        }
+
         $agent = new \Jenssegers\Agent\Agent();
         $carouselImages = \App\Models\Cover::where('what_category_id', 40)
             ->orderBy('image_order', 'asc')
@@ -1551,7 +1565,8 @@ ORDER BY `student_count` DESC');
 
         return view('new.public.newsletter', [
             'agent' => $agent,
-            'carouselImages' => $carouselImages
+            'carouselImages' => $carouselImages,
+            'pageViews' => $pageTracker->views
         ]);
     }
 

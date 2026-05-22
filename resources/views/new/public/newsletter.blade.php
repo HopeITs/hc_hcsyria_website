@@ -32,6 +32,8 @@
     <link href='https://fonts.googleapis.com/css?family=Caudex' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Archivo' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Archivo Black' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
     <script src="/js/html5shiv.js"></script>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/respond.min.js"></script>
@@ -142,30 +144,9 @@
 </div>
 @include('new.public.navbar')
 
-<div class="page-margin mb-3">
-    <div class="container-fluid">
-        <div class="row d-flex" style="min-height: 10vw;">
-            <div class="col-6 d-flex justify-content-end flex-column pe-0 position-relative">
-                <div class="first-column w-100"></div>
-                <div class="content">
-                    <div class="main_title aos-init aos-animate" data-aos="fade-up" data-aos-duration="600">
-                        PUBLISHED BY
-                    </div>
-                    <div class="main_subtitle aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000">
-                        CHRISTIAN HOPE CENTER
-                    </div>
-                </div>
-            </div>
-            <div class="col-6"></div>
-        </div>
-    </div>
-</div>
 
 <livewire:news-page :carouselImages="$carouselImages"/>
 
-<div class="separator-container" data-aos="fade-up" data-aos-duration="800">
-    <div class="small horizontal-line"></div>
-</div>
 <div class="container-fluid" data-aos="fade-up" data-aos-duration="800">
     <div class="row">
         <div class="col-12 d-flex justify-content-center flex-column align-items-center">
@@ -204,10 +185,6 @@
         </div>
     </div>
 </div>
-<div class="separator-container" style="margin: 17px auto !important; ">
-    <div class="small horizontal-line"></div>
-</div>
-<div class="horizontal-line last"></div>
 
 @include('new.public.footer')
 

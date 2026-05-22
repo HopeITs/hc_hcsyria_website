@@ -339,7 +339,6 @@
 
     </div>
 
-    <div class="small horizontal-line" data-aos="fade-up" data-aos-duration="500"></div>
     <div class="subscribe-section">
         <div class="container-fluid">
             <div class="row" data-aos="fade-up" data-aos-duration="600">
@@ -377,7 +376,6 @@
             </div>
         </div>
     </div>
-    <div class="horizontal-line last"></div>
 </div>
 
 @include('new.public.footer')

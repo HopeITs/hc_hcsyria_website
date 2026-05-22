@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\News;
 use App\Edition;
+use App\Models\PageView;
 
 class NewsPage extends Component
 {
@@ -71,12 +72,16 @@ class NewsPage extends Component
         $tickerNews = $tickerNews->merge($latestForTicker);
         $latestEdition = Edition::where('online', '1')->orderBy('id', 'desc')->first();
 
+        $tracker = PageView::where('page_name', 'news_index')->first();
+        $currentViews = $tracker ? $tracker->views : 0;
+
         return view('livewire.news-page', [
             'importantNews' => $importantNews,
             'pinnedNews'    => $allPinned,
             'regularNews'   => $allRegular,
             'tickerNews'    => $tickerNews,
             'latestEdition' => $latestEdition,
+            'pageViews'     => $currentViews,
         ]);
     }
 }

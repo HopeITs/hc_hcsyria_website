@@ -192,7 +192,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.85;
+            opacity: 0.9;
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
         }
         .news-card:hover img { transform: scale(1.03); opacity: 1; }
@@ -228,18 +228,29 @@
 
         .news-content { font-size: 0.85rem; color: var(--white-translucent); margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .chevron-icon { position: absolute; bottom: 15px; right: 15px; width: 14px; height: 14px; fill: white; transition: transform 0.3s ease; }
-        .news-card:hover .chevron-icon { transform: translateX(4px); }
 
         .pinned-row {
             display: flex;
             flex-direction: column;
             gap: 0;
             margin-bottom: 12px !important;
+            text-decoration: none !important;
+            color: inherit;
+            overflow: hidden;
         }
 
-        .pinned-img-container { width: 100%; height: 100%; overflow: hidden; position: relative; }
-        .pinned-img-container img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16 / 9; display: block;}
-
+        .pinned-img-container {
+            width: 100%; height: 100%; overflow: hidden; position: relative;
+            background-color: #000;
+        }
+        .pinned-img-container img {
+            width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16 / 9; display: block;
+            opacity: 0.9;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+        }
+        .pinned-row:hover .pinned-img-container img {
+            transform: scale(1.03); opacity: 1;
+        }
         .pinned-box {
             background-color: var(--primary-red);
             color: white;
@@ -248,16 +259,12 @@
             flex-direction: column;
             justify-content: center;
             position: relative;
-            text-decoration: none;
-            transition: background-color 0.2s ease;
             width: auto;
             margin-left: 0;
         }
-        .pinned-box:hover { background-color: var(--primary-red-hover); color: white; text-decoration: none; }
-        .pinned-box .pin-icon { position: absolute; top: 16px; right: 16px; width: 16px; height: 16px; opacity: 0.8; }
-        .pinned-box .news-title { font-size: 1.25rem; margin-bottom: 10px; padding-right: 20px; }
-        .pinned-box .news-content { -webkit-line-clamp: 3; }
-
+        .pinned-box .pin-icon { position: absolute; top: 16px; right: 16px; width: 16px; height: 16px; opacity: 0.9; }        .pinned-box .news-title { font-size: 1.25rem; margin-bottom: 10px; padding-right: 20px; }
+        .pinned-box .news-title { font-size: 1.25rem; margin-bottom: 10px; padding-right: 20px; color: white; }
+        .pinned-box .news-content { -webkit-line-clamp: 3; color: white; }
         @media (min-width: 768px) {
             .pinned-row {
                 display: grid;
@@ -323,11 +330,13 @@
         }
     </style>
 
-    <div class="custom-container mt-4">
-        <div class="row mx-0 mt-4 mb-3">
+    <div class="custom-container" style="margin-top: 8rem">
+        <div class="row mx-0  mb-3">
             <div class="col-12 p-0">
-                <div class="d-flex justify-content-center align-items-center" style="background-color: var(--primary-red); color: white; padding: 16px 0;">
+                <div class="d-flex justify-content-center align-items-center position-relative" style="background-color: var(--primary-red); color: white; padding: 16px 0;">
+
                     <h1 class="m-0" style="font-family: 'Lato', sans-serif; font-size: calc(1.5rem + 1vw); font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">OUR NEWS</h1>
+
                 </div>
             </div>
         </div>
@@ -475,7 +484,7 @@
 
                     $urlDate = $pNews->date ? \Carbon\Carbon::parse($pNews->date)->format('Ymd') : '00000000';
                 @endphp
-                <div class="pinned-row">
+                <a href="{{ route('new.public.article', ['id' => $pNews->id, 'city' => Illuminate\Support\Str::slug(strtolower($pinnedCity)), 'date' => $urlDate]) }}" target="_blank" rel="noopener noreferrer" class="pinned-row">
                     <div class="pinned-img-container">
                         @if(!empty($pNews->duration))
                             <div class="video-duration-badge">
@@ -484,7 +493,7 @@
                         @endif
                         <img src="{{ $imgPath }}" alt="Pinned News">
                     </div>
-                    <a href="{{ route('new.public.article', ['id' => $pNews->id, 'city' => Illuminate\Support\Str::slug(strtolower($pinnedCity)), 'date' => $urlDate]) }}" target="_blank" rel="noopener noreferrer" class="pinned-box">
+                    <div class="pinned-box">
                         <h2 class="news-title">{{ $pNews->english->title ?? '' }}</h2>
                         <p class="news-content pinned-content-clamp">
                             @php
@@ -498,8 +507,8 @@
                             @endphp
                         </p>
                         <svg xmlns="http://www.w3.org/2000/svg" class="chevron-icon" style="bottom: 20px; right: 20px;" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
-                    </a>
-                </div>
+                    </div>
+                </a>
             @endif
         @endforeach
 
@@ -517,7 +526,7 @@
 
                 $urlDate = $pNews->date ? \Carbon\Carbon::parse($pNews->date)->format('Ymd') : '00000000';
             @endphp
-            <div class="pinned-row">
+            <a href="{{ route('new.public.article', ['id' => $pNews->id, 'city' => Illuminate\Support\Str::slug(strtolower($pinnedCity)), 'date' => $urlDate]) }}" target="_blank" rel="noopener noreferrer" class="pinned-row">
                 <div class="pinned-img-container">
                     @if(!empty($pNews->duration))
                         <div class="video-duration-badge">
@@ -526,7 +535,7 @@
                     @endif
                     <img src="{{ $imgPath }}" alt="Pinned News">
                 </div>
-                <a href="{{ route('new.public.article', ['id' => $pNews->id, 'city' => Illuminate\Support\Str::slug(strtolower($pinnedCity)), 'date' => $urlDate]) }}" target="_blank" rel="noopener noreferrer" class="pinned-box">
+                <div class="pinned-box">
                     <svg xmlns="http://www.w3.org/2000/svg" class="pin-icon" fill="currentColor" viewBox="0 0 16 16"><path d="M4.146.146A.5.5 0 0 1 4.5 0h7a.5.5 0 0 1 .5.5c0 .68-.342 1.174-.646 1.479-.126.125-.25.224-.354.298v4.431l.078.048c.203.127.476.314.751.555C12.36 7.775 13 8.527 13 9.5a.5.5 0 0 1-.5.5h-4v4.5c0 .276-.224.5-.5.5s-.5-.224-.5-.5V10h-4a.5.5 0 0 1-.5-.5c0-.973.64-1.725 1.17-2.189A5.921 5.921 0 0 1 5 6.708V2.277a2.77 2.77 0 0 1-.354-.298C4.342 1.674 4 1.179 4 .5a.5.5 0 0 1 .146-.354z"/></svg>
                     <h2 class="news-title">{{ $pNews->english->title ?? '' }}</h2>
                     <p class="news-content pinned-content-clamp">
@@ -541,8 +550,8 @@
                         @endphp
                     </p>
                     <svg xmlns="http://www.w3.org/2000/svg" class="chevron-icon" style="bottom: 20px; right: 20px;" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
-                </a>
-            </div>
+                </div>
+            </a>
         @endfor
 
         @if($hasMore)
