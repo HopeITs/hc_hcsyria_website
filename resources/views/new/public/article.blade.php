@@ -217,7 +217,7 @@
 
                                             <ul class="dropdown-menu dropdown-menu-end custom-share-menu" aria-labelledby="shareDropdown">
                                                 <li>
-                                                    <a class="dropdown-item d-flex align-items-center gap-3" href="#" onclick="copyToClipboard(event)">
+                                                    <a class="dropdown-item d-flex align-items-center gap-3" href="#" onclick="copyToClipboard(event, this)">
                                                         <i class="fa-solid fa-link fs-5 text-dark"></i>
                                                         <span class="fw-bold text-dark">Copy Link</span>
                                                     </a>
@@ -493,6 +493,25 @@
             }
         });
     });
+</script>
+<script>
+    function copyToClipboard(e, button) {
+        e.preventDefault();
+        const url = window.location.href;
+
+        navigator.clipboard.writeText(url).then(() => {
+            const textSpan = button.querySelector('span');
+
+            textSpan.innerText = 'Link Copied!';
+
+            setTimeout(() => {
+                textSpan.innerText = 'Copy Link';
+            }, 3000);
+
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    }
 </script>
 @stack('navbar-scripts')
 
