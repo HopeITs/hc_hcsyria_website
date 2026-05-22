@@ -48,27 +48,30 @@ class publicController extends Controller
 
     public function homepage()
     {
+        $pageName = 'home';
+        $sessionKey = 'has_viewed_' . $pageName;
+
+        $pageTracker = \App\Models\PageView::firstOrCreate(
+            ['page_name' => $pageName],
+            ['views' => 0]
+        );
+
+        if (!\Illuminate\Support\Facades\Session::has($sessionKey)) {
+            $pageTracker->increment('views');
+            \Illuminate\Support\Facades\Session::put($sessionKey, true);
+        }
+
         $agent = new Agent();
         $carouselImages = Cover::where('what_category_id',0)->orderBy('image_order', 'asc')->select('image_path')->get();
         $fundedCount = Project::whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2])->count();
 
-//        $newProjectsCount = Project::whereIn('projectsubtype_id', [4, 6])->whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2])->count(); //new
-//        $expandrojectsCount = Project::whereIn('projectsubtype_id', [5, 7])->whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2])->count(); //expand
-
         $familyMembersCount = Project::whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2])->sum('FamilyMembers');
 
-        $workLossCount = Project::where('WorkLoss', '1')->whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2])->count(); //WorkLoss
+        $workLossCount = Project::where('WorkLoss', '1')->whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2])->count();
         $workLossRatio = $workLossCount * 100 / $fundedCount;
-
-//        $newRatio = $newProjectsCount * 100 / $fundedCount;
-//        $expandRatio = $expandrojectsCount * 100 / $fundedCount;
-
-//        $newRatio = number_format($newRatio, 2, '.', '');
-//        $expandRatio = number_format($expandRatio, 2, '.', '');
         $workLossRatio = number_format($workLossRatio, 2, '.', '');
 
         $lastEdition = Edition::latest()->first();
-        $agent = new Agent();
         $date = Carbon::parse('2059-09-01');
         $now = Carbon::now();
 
@@ -79,9 +82,19 @@ class publicController extends Controller
         $years = $difference->years;
         $months = $difference->months;
         $days = $difference->dayz;
-        return view('new.public.home', ['carouselImages'=>$carouselImages,'edition' => $edition, 'years' => $years, 'months' => $months, 'dayz' => $days, 'agent' => $agent, 'fundedCount' => $fundedCount, 'familyMembersCount' => $familyMembersCount, //            'newRatio' => $newRatio, 'expandRatio' => $expandRatio,
-            'lastEdition' => $lastEdition, 'workLossRatio' => $workLossRatio, //            'newProjectsCount' => $newProjectsCount,
-//            'expandrojectsCount' => $expandrojectsCount
+
+        return view('new.public.home', [
+            'carouselImages'=>$carouselImages,
+            'edition' => $edition,
+            'years' => $years,
+            'months' => $months,
+            'dayz' => $days,
+            'agent' => $agent,
+            'fundedCount' => $fundedCount,
+            'familyMembersCount' => $familyMembersCount,
+            'lastEdition' => $lastEdition,
+            'workLossRatio' => $workLossRatio,
+            'pageViews' => $pageTracker->views
         ]);
     }
 
@@ -106,11 +119,30 @@ class publicController extends Controller
 
     public function roots()
     {
-        $agent = new Agent();
-        $edition = Edition::all()->select('id')->last();
-        $roots = RootsOfHope::where('online',1)->get();
-        $latest_root = RootsOfHope::all()->where('online',1)->last();
-        return view('new.public.rootsofhope', ['edition' => $edition, 'agent' => $agent,'roots'=>$roots,'latest_root'=>$latest_root]);
+        $pageName = 'roots_of_hope';
+        $sessionKey = 'has_viewed_' . $pageName;
+
+        $pageTracker = \App\Models\PageView::firstOrCreate(
+            ['page_name' => $pageName],
+            ['views' => 0]
+        );
+
+        if (!\Illuminate\Support\Facades\Session::has($sessionKey)) {
+            $pageTracker->increment('views');
+            \Illuminate\Support\Facades\Session::put($sessionKey, true);
+        }
+
+        $agent = new \Jenssegers\Agent\Agent();
+        $edition = \App\Edition::all()->select('id')->last();
+        $roots = \App\Models\RootsOfHope::where('online',1)->get();
+        $latest_root = \App\Models\RootsOfHope::where('online',1)->get()->last();
+
+        return view('new.public.rootsofhope', [
+            'edition' => $edition,
+            'agent' => $agent,
+            'roots'=>$roots,
+            'latest_root'=>$latest_root
+        ]);
     }
     public function micro_project_new(Request $request)
     {
@@ -349,6 +381,19 @@ from projects LIMIT 1;');
 
     function micro_project_new_test(Request $request)
     {
+        $pageName = 'micro_projects';
+        $sessionKey = 'has_viewed_' . $pageName;
+
+        $pageTracker = \App\Models\PageView::firstOrCreate(
+            ['page_name' => $pageName],
+            ['views' => 0]
+        );
+
+        if (!\Illuminate\Support\Facades\Session::has($sessionKey)) {
+            $pageTracker->increment('views');
+            \Illuminate\Support\Facades\Session::put($sessionKey, true);
+        }
+
         $partners_ongoing = ProjectDonor::where('what_category_id', 10)->with('donors')->where('isActive', 1)->orderBy('rank', 'asc')->get();
         $partners_previous = ProjectDonor::where('what_category_id', 10)->with('donors')->where('isActive', 0)->orderBy('rank', 'asc')->get();
 
@@ -407,20 +452,20 @@ HAVING age.Name is not null
 ORDER BY age.ID;');
         $sustainableRate = DB::select('SELECT ROUND
 (
-	(
+    (
     (SELECT COUNT(id)
-		FROM `projects`
-		WHERE MPE_Published = 1
-		and MPE_Done = 1
-		and MPE_FundedDate <= DATE_SUB(now(), INTERVAL 9 MONTH)
-	)
-	* 100
-	)
-	/
-	(SELECT COUNT(id)
-		FROM `projects`
-		WHERE MPE_Published <> 0
-	)
+       FROM `projects`
+       WHERE MPE_Published = 1
+       and MPE_Done = 1
+       and MPE_FundedDate <= DATE_SUB(now(), INTERVAL 9 MONTH)
+    )
+    * 100
+    )
+    /
+    (SELECT COUNT(id)
+       FROM `projects`
+       WHERE MPE_Published <> 0
+    )
 ,0) as \'number\'
 from projects LIMIT 1;');
         if (session('locale') == 'fr') {
@@ -473,7 +518,6 @@ from projects LIMIT 1;');
 //            'aleppoMap' => $aleppoMap, 'homsMap' => $homsMap, 'damasMap' => $damasMap,
             'agent' => $agent]);
     }
-
     public function get_projects_IDs($searchStr, $donor, $city, $video, $langTable)
     {
         if ($donor == '') {
@@ -842,13 +886,40 @@ from projects LIMIT 1;');
 
     public function initiatives_by_type($type)
     {
+        $pageName = match (Str::lower($type)) {
+            'social-activities'   => 'social_activities_all',
+            'cash-aid-earthquake' => 'cash-aid-earthquake',
+            'relief'              => 'relief_all',
+            'rehabilitation'      => 'Rehabilitation',
+            'earthquake-response' => 'Earthquake_response_all',
+            default               => 'initiatives_' . Str::slug($type, '_'),
+        };
+
+        $sessionKey = 'has_viewed_' . $pageName;
+
+        $pageTracker = \App\Models\PageView::firstOrCreate(
+            ['page_name' => $pageName],
+            ['views' => 0]
+        );
+
+        if (!Session::has($sessionKey)) {
+            $pageTracker->increment('views');
+            Session::put($sessionKey, true);
+        }
+
         $agent = new Agent();
 
         $edition = Edition::all()->select('id')->last();
         $whatCategory = WhatCategory::whereRaw('replace(lower(name)," ","-") LIKE "' . $type . '"')->first();
+
+        if (is_null($whatCategory)) {
+            return view('new.errors.404', ['edition' => $edition]);
+        }
+
         $carouselImages = Cover::where('what_category_id',$whatCategory->id)->orderBy('image_order', 'asc')->select('image_path')->get();
-        if (is_null($whatCategory)) return view('new.errors.404', ['edition' => $edition]);
+
         $initiatives = Initiative::with('english', 'french', 'ImagesRandom')->where('what_category_id', $whatCategory->id)->where('online', '1')->orderBy('id', 'desc')->get();
+
         if ($whatCategory->id == '3') {
             foreach ($initiatives as $initiative) {
                 $imagesRehabilitation = InitiativeImageRehabilitation::where('initiative_id', $initiative->id)->get();
@@ -873,9 +944,21 @@ from projects LIMIT 1;');
             return view('new.public.initiatives', ['carouselImages'=>$carouselImages,'edition' => $edition, 'initiatives' => $initiatives, 'whatCategory' => $whatCategory, 'agent' => $agent]);
         }
     }
-
     public function school_to_school()
     {
+        $pageName = 'school_to_school';
+        $sessionKey = 'has_viewed_' . $pageName;
+
+        $pageTracker = \App\Models\PageView::firstOrCreate(
+            ['page_name' => $pageName],
+            ['views' => 0]
+        );
+
+        if (!\Illuminate\Support\Facades\Session::has($sessionKey)) {
+            $pageTracker->increment('views');
+            \Illuminate\Support\Facades\Session::put($sessionKey, true);
+        }
+
         $agent = new Agent();
         $brief = HopeProjects::with('media')
             ->where('what_category_id', 9)
@@ -888,13 +971,9 @@ from projects LIMIT 1;');
 
         $initiatives = Initiative::with('english', 'french', 'ImagesRandom', 'firstImage')//            ->join('initiatives_english','initiatives.id','initiative_id')
         ->where('what_category_id', 9)->where('online', '1')->orderBy('rank')->get();
+
         return view('new.public.school-to-school', ['partners_ongoing'=>$partners_ongoing,'partners_previous'=>$partners_previous,'brief'=>$brief,'carouselImages'=>$carouselImages,'edition' => $edition, 'photos' => $photos, 'initiatives' => $initiatives, 'agent' => $agent]);
-//        return [
-//            'initiatives' => $initiatives,
-//        ];
-
     }
-
     public function initiativeOfProject($type, $id, $slug)
     {
         $edition = Edition::all()->select('id')->last();
@@ -961,6 +1040,19 @@ from projects LIMIT 1;');
 
     public function childrenUni(Request $request)
     {
+        $pageName = 'children_uni';
+        $sessionKey = 'has_viewed_' . $pageName;
+
+        $pageTracker = \App\Models\PageView::firstOrCreate(
+            ['page_name' => $pageName],
+            ['views' => 0]
+        );
+
+        if (!\Illuminate\Support\Facades\Session::has($sessionKey)) {
+            $pageTracker->increment('views');
+            \Illuminate\Support\Facades\Session::put($sessionKey, true);
+        }
+
         $edition = Edition::all()->select('id')->last();
         $brief = HopeProjects::with('media')
             ->where('what_category_id', 17)
@@ -969,6 +1061,7 @@ from projects LIMIT 1;');
         $partners_previous = ProjectDonor::where('what_category_id',17)->with('donors')->where('isActive',0)->orderBy('rank','asc')->get();
         $agent = new Agent();
         $carouselImages = Cover::where('what_category_id',17)->orderBy('image_order', 'asc')->select('image_path')->get();
+
         if (session('locale') == 'fr') {
             $language = 'french';
             $languageTable = 'initiatives_french';
@@ -981,34 +1074,25 @@ from projects LIMIT 1;');
         $searchStr = strtolower(addslashes($request->input('search')));
         $cuActivitiesIDs = $this->get_cuactivities_IDs($searchStr, $languageTable);
 
-
         if ($searchStr != '') {
 
             $ini_A = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->whereIn('initiatives.id', Arr::pluck($cuActivitiesIDs, 'id'))->where('what_category_id', 17)//Children
             ->where('online', '1')->where('place_id', '3')//aleppo
             ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_A');
-//            ->withQueryString();
-//            ->appends(request()->except('ini_A'));
 
             $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->whereIn('initiatives.id', Arr::pluck($cuActivitiesIDs, 'id'))->where('what_category_id', 17)//Children
             ->where('online', '1')->where('place_id', '1')//homs
             ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
-//            ->withQueryString();
-//            ->appends(request()->except('ini_A'));
 
         } else {
 
             $ini_A = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 17)//Children
             ->where('online', '1')->where('place_id', '3')//aleppo
             ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_A');
-//            ->withQueryString();
-//            ->appends(request()->except('ini_A'));
 
             $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 17)//Children
             ->where('online', '1')->where('place_id', '1')//homs
             ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
-//            ->withQueryString();
-//            ->appends(request()->except('ini_A'));
         }
 
         $initiatives = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 17)//Children
@@ -1018,9 +1102,21 @@ from projects LIMIT 1;');
 
         return view('new.public.children-uni', ['partners_previous'=>$partners_previous,'partners_ongoing'=>$partners_ongoing,'brief'=> $brief,'carouselImages'=>$carouselImages,'edition' => $edition, 'initiatives' => $initiatives, 'ini_A' => $ini_A, 'ini_H' => $ini_H, 'whatCategory' => $whatCategory, 'agent' => $agent, 'search' => $searchStr, 'searchProject' => $searchCU]);
     }
-
     public function leap(Request $request)
     {
+        $pageName = 'leap';
+        $sessionKey = 'has_viewed_' . $pageName;
+
+        $pageTracker = \App\Models\PageView::firstOrCreate(
+            ['page_name' => $pageName],
+            ['views' => 0]
+        );
+
+        if (!\Illuminate\Support\Facades\Session::has($sessionKey)) {
+            $pageTracker->increment('views');
+            \Illuminate\Support\Facades\Session::put($sessionKey, true);
+        }
+
         $edition = Edition::all()->select('id')->last();
         $brief = HopeProjects::with('media')
             ->where('what_category_id', 19)
@@ -1029,6 +1125,7 @@ from projects LIMIT 1;');
         $partners_previous = ProjectDonor::where('what_category_id',19)->with('donors')->where('isActive',0)->orderBy('rank','asc')->get();
         $agent = new Agent();
         $carouselImages = Cover::where('what_category_id',19)->orderBy('image_order', 'asc')->select('image_path')->get();
+
         if (session('locale') == 'fr') {
             $language = 'french';
             $languageTable = 'initiatives_french';
@@ -1041,34 +1138,25 @@ from projects LIMIT 1;');
         $searchStr = strtolower(addslashes($request->input('search')));
         $leapActivitiesIDs = $this->get_leapactivities_IDs($searchStr, $languageTable);
 
-
         if ($searchStr != '') {
 
             $ini_A = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->whereIn('initiatives.id', Arr::pluck($leapActivitiesIDs, 'id'))->where('what_category_id', 19)//LEAP
             ->where('online', '1')->where('place_id', '3')//aleppo
             ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_A');
-//            ->withQueryString();
-//            ->appends(request()->except('ini_A'));
 
             $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->whereIn('initiatives.id', Arr::pluck($leapActivitiesIDs, 'id'))->where('what_category_id', 19)//LEAP
             ->where('online', '1')->where('place_id', '1')//homs
             ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
-//            ->withQueryString();
-//            ->appends(request()->except('ini_A'));
 
         } else {
 
             $ini_A = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 19)//LEAP
             ->where('online', '1')->where('place_id', '3')//aleppo
             ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_A');
-//            ->withQueryString();
-//            ->appends(request()->except('ini_A'));
 
             $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 19)//LEAP
             ->where('online', '1')->where('place_id', '1')//homs
             ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
-//            ->withQueryString();
-//            ->appends(request()->except('ini_A'));
         }
 
         $initiatives = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 19)//LEAP
@@ -1084,6 +1172,19 @@ from projects LIMIT 1;');
 
     public function about_us()
     {
+        $pageName = 'who_we_are';
+        $sessionKey = 'has_viewed_' . $pageName;
+
+        $pageTracker = PageView::firstOrCreate(
+            ['page_name' => $pageName],
+            ['views' => 0]
+        );
+
+        if (!Session::has($sessionKey)) {
+            $pageTracker->increment('views');
+            Session::put($sessionKey, true);
+        }
+
         $edition = Edition::all()->select('id')->last();
         $agent = new Agent();
         $carouselImages = Cover::where('what_category_id', 20)->orderBy('image_order', 'asc')->select('image_path')->get();
@@ -1151,10 +1252,28 @@ from projects LIMIT 1;');
 
     public function christian_youth()
     {
+        $pageName = 'christian_youth';
+        $sessionKey = 'has_viewed_' . $pageName;
+
+        $pageTracker = \App\Models\PageView::firstOrCreate(
+            ['page_name' => $pageName],
+            ['views' => 0]
+        );
+
+        if (!\Illuminate\Support\Facades\Session::has($sessionKey)) {
+            $pageTracker->increment('views');
+            \Illuminate\Support\Facades\Session::put($sessionKey, true);
+        }
+
         $edition = Edition::all()->select('id')->last();
         $agent = new Agent();
         $carouselImages = Cover::where('what_category_id',15)->orderBy('image_order', 'asc')->select('image_path')->get();
-        return view('new.public.youth', ['carouselImages'=>$carouselImages,'edition' => $edition, 'agent' => $agent]);
+
+        return view('new.public.youth', [
+            'carouselImages'=>$carouselImages,
+            'edition' => $edition,
+            'agent' => $agent
+        ]);
     }
 
     public function christian_youth_member($id)
@@ -1260,6 +1379,19 @@ from projects LIMIT 1;');
 
     public function family_to_family()
     {
+        $pageName = 'family_to_family';
+        $sessionKey = 'has_viewed_' . $pageName;
+
+        $pageTracker = \App\Models\PageView::firstOrCreate(
+            ['page_name' => $pageName],
+            ['views' => 0]
+        );
+
+        if (!\Illuminate\Support\Facades\Session::has($sessionKey)) {
+            $pageTracker->increment('views');
+            \Illuminate\Support\Facades\Session::put($sessionKey, true);
+        }
+
         $edition = Edition::all()->select('id')->last();
         $brief = HopeProjects::with('media')
             ->where('what_category_id', 8)
@@ -1271,20 +1403,8 @@ from projects LIMIT 1;');
         $carouselImages = Cover::where('what_category_id',8)->orderBy('image_order', 'asc')->select('image_path')->get();
         $familyMap = DB::select('select * from familypartners');
         $partners = Initiative::with('english', 'french', 'ImagesRandom')->join('initiatives_english', 'initiatives.id', 'initiative_id')->where('sub_what_category_id', 1)->where('online', '1')->orderBy('rank')->get();
-//        $families = DB::Select('select count(distinct hcsyria_f2f_aleppo.family.id) as familyCount from hcsyria_f2f_aleppo.family');
-//        $familyCount = floatval($families[0]->familyCount);
-//        $individuals = DB::Select('select count(distinct hcsyria_f2f_aleppo.person.id) as personCount from hcsyria_f2f_aleppo.person');
-//        $personCount = floatval($individuals[0]->personCount);
-//        $statistics = DB::Select('select * from hcsyria_f2f_aleppo.web_statistics');
-//        $familyMap = DB::Select('SELECT `location_latitude` as location_latitude,`location_longitude` as location_longitude FROM hcsyria_f2f_ajudy.`family`
-//                                 INNER JOIN hcsyria_f2f_ajudy.family_partner on family_partner.family_id = family.id
-//                                 where family_partner.IsActive = 1');
 
-        return view('new.public.family-to-family', ['partners_previous'=>$partners_previous,'partners_ongoing'=>$partners_ongoing,'carouselImages'=>$carouselImages,'edition' => $edition, 'partners' => $partners, //            'familyCount' => $familyCount,
-//            'personCount' => $personCount,
-//            'statistics' => $statistics,
-
-        'brief' => $brief, 'familyMap' => $familyMap, 'agent' => $agent]);
+        return view('new.public.family-to-family', ['partners_previous'=>$partners_previous,'partners_ongoing'=>$partners_ongoing,'carouselImages'=>$carouselImages,'edition' => $edition, 'partners' => $partners, 'brief' => $brief, 'familyMap' => $familyMap, 'agent' => $agent]);
     }
 //    public function show_donate()
 //    {
@@ -1309,6 +1429,19 @@ from projects LIMIT 1;');
 //    }
     public function studyzone(Request $request)
     {
+        $pageName = 'study_zone';
+        $sessionKey = 'has_viewed_' . $pageName;
+
+        $pageTracker = \App\Models\PageView::firstOrCreate(
+            ['page_name' => $pageName],
+            ['views' => 0]
+        );
+
+        if (!\Illuminate\Support\Facades\Session::has($sessionKey)) {
+            $pageTracker->increment('views');
+            \Illuminate\Support\Facades\Session::put($sessionKey, true);
+        }
+
         $edition = Edition::all()->select('id')->last();
         $brief = HopeProjects::with('media')
             ->where('what_category_id', 7)
@@ -1316,23 +1449,27 @@ from projects LIMIT 1;');
         $partners_ongoing = ProjectDonor::where('what_category_id',7)->with('donors')->where('isActive',1)->orderBy('rank','asc')->get();
         $partners_previous = ProjectDonor::where('what_category_id',7)->with('donors')->where('isActive',0)->orderBy('rank','asc')->get();
         $all_students = Student::count();
-//        $all_students = round(($all_students_temp * 100) / $mytickets, 2);
+
         $agent = new Agent();
         $carouselImages = Cover::where('what_category_id',7)->orderBy('image_order', 'asc')->select('image_path')->get();
         $testemonies = Success::with('english', 'french')->where('what_category_id', '7')//Study
         ->where('online', '1')->orderBy('id', 'desc')->limit(4)->get();
+
         $studyzone_centers = DB::select('select places.name as "placename", SUBSTRING_INDEX(studyzonecenters.name,\'-\',-1) as name ,studyzonecenters.id, studyzonecenters.name_fr , work_hours , address,location,telephone,email,facebook,instagram,latitude,longtitude,studyzonecenters.rank,place_id,active
         FROM `studyzonecenters` LEFT  JOIN  places on places.id = studyzonecenters.place_id order by placename, studyzonecenters.name asc ;');
+
         $studyzone_centers_a = DB::select('select SUBSTRING_INDEX(name,\'-\',-1) as name ,id, name_fr ,active, start_date, work_hours , address,location,telephone,email,facebook,instagram,latitude,longtitude,studyzonecenters.rank,place_id,active
         FROM `studyzonecenters` WHERE place_id = 3 ORDER BY studyzonecenters.rank;');
-//        $studyzone_centers_a = StudyzoneCenter::where('active', '1')->where('place_id', 3)->get();
-//        $studyzone_centers_h = StudyzoneCenter::where('active', '1')->where('place_id', 1)->get();
+
         $studyzone_centers_h = DB::select('select SUBSTRING_INDEX(name,\'-\',-1) as name ,id, name_fr ,active, start_date, work_hours , address,location,telephone,email,facebook,instagram,latitude,longtitude,studyzonecenters.rank,place_id,active
         FROM `studyzonecenters` WHERE place_id = 1 ORDER BY studyzonecenters.rank;');
+
         $studyzone_centers_d = DB::select('select SUBSTRING_INDEX(name,\'-\',-1) as name ,id, name_fr ,active, start_date, work_hours , address,location,telephone,email,facebook,instagram,latitude,longtitude,studyzonecenters.rank,place_id,active
         FROM `studyzonecenters` WHERE place_id = 2 ORDER BY studyzonecenters.rank;');
+
         $studyzone_centers_l = DB::select('select SUBSTRING_INDEX(name,\'-\',-1) as name ,id, name_fr ,active, start_date, work_hours , address,location,telephone,email,facebook,instagram,latitude,longtitude,studyzonecenters.rank,place_id,active
         FROM `studyzonecenters` WHERE place_id = 4 ORDER BY studyzonecenters.rank;');
+
         $studyzone_centers_t = DB::select('select SUBSTRING_INDEX(name,\'-\',-1) as name ,id, name_fr ,active, start_date, work_hours , address,location,telephone,email,facebook,instagram,latitude,longtitude,studyzonecenters.rank,place_id,active
         FROM `studyzonecenters` WHERE place_id = 6 ORDER BY studyzonecenters.rank;');
 
@@ -1379,12 +1516,12 @@ FROM
     LEFT JOIN hcsz_centers ON hcsz_student_entries.center_id = hcsz_centers.id
     LEFT JOIN hcsz_cities ON hcsz_centers.city_id = hcsz_cities.id
     LEFT JOIN (
-		SELECT COUNT(hcsz_students.id) AS total_count
-		FROM hcsz_students
-		LEFT JOIN hcsz_student_entries ON hcsz_students.id = hcsz_student_entries.student_id
-		WHERE hcsz_student_entries.entry_time >= DATE_FORMAT(DATE_SUB(CURRENT_DATE, INTERVAL 2 MONTH), "%Y-%m-01")
+       SELECT COUNT(hcsz_students.id) AS total_count
+       FROM hcsz_students
+       LEFT JOIN hcsz_student_entries ON hcsz_students.id = hcsz_student_entries.student_id
+       WHERE hcsz_student_entries.entry_time >= DATE_FORMAT(DATE_SUB(CURRENT_DATE, INTERVAL 2 MONTH), "%Y-%m-01")
        AND hcsz_student_entries.entry_time < DATE_ADD(LAST_DAY(CURRENT_DATE), INTERVAL 1 DAY)
-		and hcsz_students.gender IS NOT null and hcsz_students.gender <> 0
+       and hcsz_students.gender IS NOT null and hcsz_students.gender <> 0
    ) AS total ON 1=1
 WHERE
      hcsz_student_entries.entry_time >= DATE_FORMAT(DATE_SUB(CURRENT_DATE, INTERVAL 2 MONTH), "%Y-%m-01")
@@ -1432,9 +1569,9 @@ ORDER BY `student_count` DESC');
         }
         $initiatives = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 7)->where('online', '1')->orderBy('id', 'desc')->get();
         $whatCategory = WhatCategory::where('id', $initiatives[0]->what_category_id)->with('subCategory')->first();
+
         return view('new.public.study-zone', ['partners_ongoing'=>$partners_ongoing,'partners_previous'=>$partners_previous,'brief'=>$brief,'carouselImages'=>$carouselImages,'all_students' => $all_students, 'edition' => $edition, 'testemonies' => $testemonies, 'studyzone_centers' => $studyzone_centers, 'studyzone_centers_a' => $studyzone_centers_a, 'studyzone_centers_h' => $studyzone_centers_h, 'studyzone_centers_d' => $studyzone_centers_d, 'studyzone_centers_l' => $studyzone_centers_l, 'studyzone_centers_t' => $studyzone_centers_t, 'agent' => $agent, 'ini_A' => $ini_A, 'ini_H' => $ini_H, 'ini_D' => $ini_D, 'ini_L' => $ini_L, 'ini_T' => $ini_T, 'whatCategory' => $whatCategory, 'searchProject' => $searchST, 'student_count' => $student_count, 'education_fields' => $education_fields, 'gender_percentage' => $gender_percentage]);
     }
-
     public function studyzone_all(Request $request)
     {
         if (session('locale') == 'fr') {
@@ -1473,6 +1610,19 @@ ORDER BY `student_count` DESC');
 
     public function disc(Request $request)
     {
+        $pageName = 'disc';
+        $sessionKey = 'has_viewed_' . $pageName;
+
+        $pageTracker = \App\Models\PageView::firstOrCreate(
+            ['page_name' => $pageName],
+            ['views' => 0]
+        );
+
+        if (!\Illuminate\Support\Facades\Session::has($sessionKey)) {
+            $pageTracker->increment('views');
+            \Illuminate\Support\Facades\Session::put($sessionKey, true);
+        }
+
         $edition = Edition::all()->select('id')->last();
         $agent = new Agent();
         $carouselImages = Cover::where('what_category_id',5)->orderBy('image_order', 'asc')->select('image_path')->get();
@@ -1485,6 +1635,7 @@ ORDER BY `student_count` DESC');
         $testemonies = Success::with('english', 'french')->where('Sub_what_category_id', 16)//Job Opportunities
         ->where('what_category_id', '5')//DISC
         ->where('online', '1')->orderBy('id', 'desc')->limit(4)->get();
+
         if (session('locale') == 'fr') {
             $language = 'french';
             $languageTable = 'initiatives_french';
@@ -1492,6 +1643,7 @@ ORDER BY `student_count` DESC');
             $language = 'english';
             $languageTable = 'initiatives_english';
         }
+
         $searchST = $this->search_list_DISC_activities($languageTable);
         $searchStr = strtolower(addslashes($request->input('search')));
         $discActivitiesIDs = $this->get_discactivities_IDs($searchStr, $languageTable);
@@ -1502,6 +1654,7 @@ ORDER BY `student_count` DESC');
 
             $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '8')->whereIn('initiatives.id', Arr::pluck($discActivitiesIDs, 'id'))->where('what_category_id', '5')->where('online', '1')->where('place_id', '1')//homs
             ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
+
             $ini_D = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '8')->whereIn('initiatives.id', Arr::pluck($discActivitiesIDs, 'id'))->where('what_category_id', '5')->where('online', '1')->where('place_id', '2')//Damascus
             ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_D');
 
@@ -1511,10 +1664,11 @@ ORDER BY `student_count` DESC');
 
             $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '8')->where('what_category_id', '5')->where('online', '1')->where('place_id', '1')//homs
             ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
+
             $ini_D = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '8')->where('what_category_id', '5')->where('online', '1')->where('place_id', '2')//Damascus
             ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_D');
-
         }
+
         $initiatives = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 5)->where('online', '1')->orderBy('id', 'desc')->get();
 
         $whatCategory = WhatCategory::where('id', $initiatives[0]->what_category_id)->with('subCategory')->first();
@@ -1524,9 +1678,9 @@ ORDER BY `student_count` DESC');
         if (empty($statistics)) {
             $statistics = null;
         }
+
         return view('new.public.disc', ['partners_previous'=> $partners_previous ,'partners_ongoing'=> $partners_ongoing,'brief'=> $brief,'carouselImages'=>$carouselImages,'statistics' => $statistics, 'testemonies' => $testemonies, 'agent' => $agent, 'ini_A' => $ini_A, 'ini_H' => $ini_H, 'ini_D' => $ini_D, 'whatCategory' => $whatCategory, 'edition' => $edition, 'searchProject' => $searchST]);
     }
-
     public function discByPlace($place)
     {
         $edition = Edition::all()->select('id')->last();
@@ -1545,7 +1699,7 @@ ORDER BY `student_count` DESC');
     }
     public function newsletter()
     {
-        $pageName = 'news_index';
+        $pageName = 'our-news';
         $sessionKey = 'has_viewed_' . $pageName;
 
         $pageTracker = PageView::firstOrCreate(
