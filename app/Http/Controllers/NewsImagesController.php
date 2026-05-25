@@ -32,8 +32,7 @@ class NewsImagesController extends Controller
     public function store(Request $request)
     {
         $news = News::with('whatCategory')->findOrFail($request->input('news_id'));
-        $categoryName = $news->whatCategory ? $news->whatCategory->name : 'Uncategorized';
-        $path = 'images/news/' . $categoryName . '/' . $news->id . '/';
+        $path = 'images/news/' . $news->id . '/';
 
         $request->validate([
             'news_id'         => 'required|numeric',
@@ -51,10 +50,6 @@ class NewsImagesController extends Controller
             $this->cleanUpOldSpecialImages($news->id, 2);
 
         } elseif ($request->has('is_pinned')) {
-            $exists = News::where('priority_status', 2)->where('id', '!=', $news->id)->exists();
-            if ($exists) {
-                return redirect()->back()->with('placement_error', 'Upload failed: Another news article is already set as Pinned. Please unmark it first.');
-            }
             $news->priority_status = 2;
             $this->cleanUpOldSpecialImages($news->id, 1);
 

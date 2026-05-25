@@ -45,7 +45,7 @@
         }
 
         .hero-image-container:hover .hero-main-img {
-            transform: scale(1.03);
+            transform: scale(1.02);
         }
 
         .hero-top-info {
@@ -195,7 +195,7 @@
             opacity: 0.9;
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
         }
-        .news-card:hover img { transform: scale(1.03); opacity: 1; }
+        .news-card:hover img { transform: scale(1.02); opacity: 1; }
 
         .ratio-3-2 { aspect-ratio: 4/3; }
         .ratio-1-1 { aspect-ratio: 1 / 1; }
@@ -249,7 +249,7 @@
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
         }
         .pinned-row:hover .pinned-img-container img {
-            transform: scale(1.03); opacity: 1;
+            transform: scale(1.02); opacity: 1;
         }
         .pinned-box {
             background-color: var(--primary-red);

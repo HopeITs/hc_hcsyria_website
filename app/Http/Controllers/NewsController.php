@@ -243,10 +243,11 @@ class NewsController extends Controller
         NewsEnglish::where('news_id', $news->id)->delete();
 //        NewsFrench::where('news_id', $news->id)->delete();
         $images = NewsImage::where('news_id', $news->id)->get();
-        NewsImage::where('news_id', $news->id)->delete();
-        foreach ($images as $image) {
-            File::delete($image->path, substr($image->path, 0, -4) . 'b.jpg');
+        if ($images->isNotEmpty()) {
+            $folderPath = dirname(public_path($images->first()->path));
+            File::deleteDirectory($folderPath);
         }
+        NewsImage::where('news_id', $news->id)->delete();
         $this->saveToLog(self::NEWS, $news->id, 'News deleted');
         return redirect()->back()->with('success', 'News ' . $news->id . ' deleted successfully');
     }

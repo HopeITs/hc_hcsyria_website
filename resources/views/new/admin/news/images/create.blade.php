@@ -372,12 +372,21 @@
     });
 
     // Placement logic
+    // Placement logic
     $('.placement-checkbox').on('change', function() {
         let id = $(this).attr('id');
         let checked = $(this).is(':checked');
 
         if (id === 'check_important') {
             if (checked) {
+                let hasImportant = {{ $hasImportant ? 'true' : 'false' }};
+
+                if (hasImportant) {
+                    swal('Cannot Set Important', 'Another news article is already set as Important. Please unmark it first.', 'warning');
+                    $(this).prop('checked', false);
+                    return;
+                }
+
                 $('#check_pinned').prop('checked', false).trigger('change');
                 $('#card_important').addClass('active').removeClass('dimmed');
                 $('#important_upload_area').slideDown();
