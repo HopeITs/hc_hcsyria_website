@@ -180,15 +180,15 @@
                                                             @foreach($what_category->covers as $img)
                                                                 <input type="hidden" name="what_category_id" value="{{ $img->what_category_id }}">
 
-                                                                <li class="image-checkbox" id="image_{{ $img->id }}">
-                                                                    <img class="img-responsive" id="{{$img['id']}}" src="{{ $img->image_path }}" />
+                                                                <li class="image-checkbox" id="image_{{ $img->id }}" style="position: relative; display: inline-block;">
+                                                                    <img class="img-responsive" id="{{$img['id']}}" src="{{ $img->image_path }}" style="display: block; max-width: 100%; height: auto;" />
 
                                                                     <input type="checkbox" name="selected_images[{{ $img->id }}]" value="1" />
 
                                                                     <i class="fa fa-check hidden"></i>
                                                                     @if($img->caption)
-                                                                        <div style="position: absolute; bottom: 0; left: 0; background: rgba(0,0,0,0.6); color: white; width: 100%; text-align: center; padding: 2px; font-size: 10px;">
-                                                                            {{ Str::limit($img->caption, 20) }}
+                                                                        <div style="position: absolute; bottom: 0; left: 0; background: rgba(0, 0, 0, 0.7); color: white; width: 100%; text-align: center; padding: 6px 10px; font-size: 12px; box-sizing: border-box; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;">
+                                                                            {{ $img->caption }}
                                                                         </div>
                                                                     @endif
                                                                 </li>
