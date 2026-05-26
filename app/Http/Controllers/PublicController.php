@@ -1341,7 +1341,7 @@ from projects LIMIT 1;');
         $studyzone_centers_t = DB::select('select SUBSTRING_INDEX(name,\'-\',-1) as name ,id, name_fr ,active, start_date, work_hours , address,location,telephone,email,facebook,instagram,latitude,longtitude,studyzonecenters.rank,place_id,active
         FROM `studyzonecenters` WHERE place_id = 6 ORDER BY studyzonecenters.rank;');
 
-        $student_count = DB::connection('mysql_second')->select('SELECT
+        $student_count_raw = DB::connection('mysql_second')->select('SELECT
     hcsz_cities.code as name,
     COALESCE(COUNT(hcsz_student_entries.id), 0) AS student_count
 FROM
@@ -1354,6 +1354,10 @@ WHERE
   hcsz_cities.id NOT IN (0,7,5)
 GROUP BY
     hcsz_cities.code;');
+
+        $student_count = collect($student_count_raw)->keyBy(function($item) {
+            return strtolower($item->name);
+        });
 
         $education_fields = DB::connection('mysql_second')->select('SELECT
     JSON_UNQUOTE(JSON_EXTRACT(hcsz_educations.name, \'$.en\')) as name,
