@@ -15,7 +15,7 @@ use App\Models\News;
 use App\Models\NewsImage;
 use App\Models\ProjectDonor;
 use App\Models\RootsOfHope;
-use App\Models\Subscriber;
+use App\Models\Subscribers;
 use App\Place;
 use App\Project;
 use App\Student;
@@ -1728,40 +1728,30 @@ ORDER BY `student_count` DESC');
     public function subscribe(Request $request)
     {
         if ($request->ajax()) {
-
-            $request->validate([
-                'email' => 'required|email'
-            ]);
-
-            $emailAddress = $request->input('email');
-
-            $exists = Subscriber::where('mail', $emailAddress)->exists();
-
-            if ($exists) {
-                return response()->json(['msg' => 'true']);
-            }
-
             try {
-                $subscriber = new Subscriber();
-                $subscriber->mail = $emailAddress;
+                $data = $request->input('email');
 
-                $subscriber->token = Str::random(50);
+                $exists = Subscribers::where('mail', $data)->exists();
+
+                if ($exists) {
+                    return response()->json(['msg' => 'true']);
+                }
+
+                $subscriber = new Subscribers();
+                $subscriber->mail = $data;
+                $subscriber->token = \Illuminate\Support\Str::random(50);
                 $subscriber->save();
-
-                Mail::to($subscriber->mail)->send(new UserSubscribedEmail());
 
                 return response()->json(['msg' => 'false']);
 
             } catch (\Exception $e) {
-                Log::error('Newsletter Email Failed for ' . $emailAddress . ': ' . $e->getMessage());
-
-                return response()->json(['msg' => 'false']);
+                \Illuminate\Support\Facades\Log::error('DB Save Failed: ' . $e->getMessage());
+                return response()->json(['error' => 'Database connection failed.'], 500);
             }
         }
 
         return response()->json(['error' => 'Invalid request'], 400);
     }
-
 
 //    public function fillDropdownEdition()
 //    {

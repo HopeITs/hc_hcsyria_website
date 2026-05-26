@@ -52,104 +52,6 @@
     <script type="text/javascript" src="/js/main.js"></script>
     <script type="text/javascript" src="/js/wow.min.js"></script>
     <script type="text/javascript" src="/js/swipe.index.js"></script>
-
-    <style>
-        .subscribe-title {
-            font-family: 'Archivo', sans-serif;
-            color: #555;
-            font-size: 1.1rem;
-            font-weight: 400;
-        }
-
-        .separator-container {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            margin-bottom: 62px;
-        }
-
-        .small.horizontal-line {
-            width: 4px !important;
-            height: 60px !important;
-            background-color: #be1e2d !important;
-            display: block !important;
-            margin: 0 auto !important;
-        }
-
-        .subscription {
-            display: flex;
-            background: #ffffff;
-            border: 1px solid #ddd;
-            border-radius: 50px;
-            padding: 5px;
-            transition: all 0.3s ease;
-            max-width: 550px;
-            margin: 0 auto;
-        }
-
-        .subscription:focus-within {
-            border-color: #be1e2d;
-            box-shadow: 0 0 8px rgba(190, 30, 45, 0.15);
-        }
-
-        .add-email {
-            flex: 1;
-            border: none !important;
-            background: transparent !important;
-            padding: 10px 25px;
-            outline: none !important;
-            color: #444;
-            font-size: 1rem;
-        }
-
-        .submit-email {
-            background-color: #be1e2d;
-            color: white;
-            border: none;
-            padding: 12px 35px;
-            border-radius: 50px;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .submit-email:hover {
-            background-color: #a01926;
-        }
-
-        .submit-email:active {
-            transform: scale(0.98);
-        }
-
-        .subscribe-container img {
-            width: 100px;
-            height: auto;
-            margin-bottom: 10px;
-        }
-
-        .subscribe-container {
-            text-align: center;
-            background: #f9f9f9;
-            border-radius: 10px;
-            width: 100%;
-            max-width: 850px;
-            margin: 0 auto;
-            border: none;
-            transition: transform 0.3s ease;
-        }
-
-        /* Fixed Error Message Styling */
-        .subscribe-error-msg, label.error {
-            color: #be1e2d;
-            font-size: 0.85rem;
-            margin-top: 10px;
-            font-weight: 600;
-            display: block;
-            text-align: center;
-        }
-    </style>
 </head>
 
 <body>
@@ -194,10 +96,6 @@
                         </form>
 
                         <div id="validation-errors-container" class="w-100 mt-2"></div>
-
-                        <label id="subscribe-error" class="subscribe-error-msg d-none">
-                            Email has already subscribed!
-                        </label>
                     </div>
                 </div>
             </div>
@@ -212,68 +110,83 @@
     AOS.init();
 </script>
 <script>
-    $(document).ready(function () {
-        $("#subsribeForm").validate({
-            debug: false,
-            rules: {
-                email: {
-                    required: true,
-                    email: true
-                }
-            },
-            messages: {
-                email: {
-                    required: "Email field is required!",
-                    email: "Please Enter a valid format!"
-                }
-            },
-            // FIX: Safely append the error to the dedicated container
-            errorPlacement: function(error, element) {
-                error.appendTo('#validation-errors-container');
-            },
-            submitHandler: function (form) {
-                let emailInput = $("#email");
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('subsribeForm');
 
-                $.ajax({
-                    url: "{{ route('newsletter.subscribe')}}",
-                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                    type: "POST",
-                    data: {
-                        formData: $(form).serialize(),
-                        email: emailInput.val(),
-                        submit: true // Spoofing the button name for the PHP controller
+        if (form) {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault(); // STOPS the silent page refresh
+
+                const emailInput = document.getElementById('email').value;
+                const errorContainer = document.getElementById('validation-errors-container');
+                const beforeSubmit = document.getElementById('before-submit');
+                const submitBtn = document.querySelector('.submit-email');
+
+                // 1. Clear old UI errors
+                errorContainer.innerHTML = '';
+
+                // 2. Simple Frontend Validation
+                if (!emailInput || !emailInput.includes('@')) {
+                    errorContainer.innerHTML = '<span style="color:red; font-size: 14px;">Please enter a valid email address.</span>';
+                    return;
+                }
+
+                // 3. UI Feedback (Show "Sending...")
+                submitBtn.disabled = true;
+                beforeSubmit.innerText = 'Sending...';
+
+                // 4. Fire the AJAX request
+                fetch("{{ route('newsletter.subscribe') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'X-Requested-With': 'XMLHttpRequest'
                     },
-                    success: function (response) {
-                        if (response.msg === 'true') {
-                            $('#subscribe-error').removeClass('d-none');
+                    body: JSON.stringify({ email: emailInput })
+                })
+                    .then(async response => {
+                        if (!response.ok) throw new Error('Server Error');
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.msg === 'true') {
+                            // FIX: Inject the error into the container we KNOW works!
+                            errorContainer.innerHTML = '<span style="color:red; font-size: 15px; font-weight: 500;">Email already exists!</span>';
+                            beforeSubmit.innerText = 'Subscribe'; // Reset button text
 
-                            setTimeout(function () {
-                                $('#subscribe-error').addClass('d-none');
-                                emailInput.val("");
-                            }, 2000);
-                        }
-                        else if (response.msg === 'false') {
-                            $('#after-submit').removeClass('d-none');
-                            $('#before-submit').addClass('d-none');
-                            $('#subscribe-error').addClass('d-none');
-
+                            // Auto-clear the error message after 3 seconds
                             setTimeout(() => {
-                                $('#after-submit').addClass('d-none');
-                                $('#before-submit').removeClass('d-none');
-                                emailInput.val("");
-                            }, 2000);
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("500 Server Error! Check storage/logs/laravel.log");
-                    }
-                });
+                                errorContainer.innerHTML = '';
+                            }, 3000);
 
-                return false;
-            }
-        });
+                        } else if (data.msg === 'false') {
+                            // Success!
+                            beforeSubmit.innerText = 'Subscribed!';
+                            document.getElementById('email').value = ''; // Clear the input
+
+                            // Reset the button text back to normal after 3 seconds
+                            setTimeout(() => {
+                                beforeSubmit.innerText = 'Subscribe';
+                            }, 3000);
+                        }
+                    })
+                    .catch(error => {
+                        // Catch server crashes
+                        errorContainer.innerHTML = '<span style="color:red; font-size: 14px;">Server error. Please try again later.</span>';
+                        beforeSubmit.innerText = 'Subscribe'; // Reset text
+                        console.error('Subscription Error:', error);
+                    })
+                    .finally(() => {
+                        // Always re-enable the button when the network request finishes
+                        submitBtn.disabled = false;
+                    });
+            });
+        }
     });
 </script>
+
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll('.dropdown-menu').forEach(function (element) {

@@ -464,3 +464,98 @@
     border-color: #2e823b;
     color: white;
 }
+
+ .subscribe-title {
+     font-family: 'Archivo', sans-serif;
+     color: #555;
+     font-size: 1.1rem;
+     font-weight: 400;
+ }
+
+.separator-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 62px;
+}
+
+.small.horizontal-line {
+    width: 4px !important;
+    height: 60px !important;
+    background-color: #be1e2d !important;
+    display: block !important;
+    margin: 0 auto !important;
+}
+
+.subscription {
+    display: flex;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    padding: 5px;
+    transition: all 0.3s ease;
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+.subscription:focus-within {
+    border-color: #be1e2d;
+    box-shadow: 0 0 8px rgba(190, 30, 45, 0.15);
+}
+
+.add-email {
+    flex: 1;
+    border: none !important;
+    background: transparent !important;
+    padding: 10px 25px;
+    outline: none !important;
+    color: #444;
+    font-size: 1rem;
+}
+
+.submit-email {
+    background-color: #be1e2d;
+    color: white;
+    border: none;
+    padding: 12px 35px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.submit-email:hover {
+    background-color: #a01926;
+}
+
+.submit-email:active {
+    transform: scale(0.98);
+}
+
+.subscribe-container img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.subscribe-container {
+    text-align: center;
+    background: #f9f9f9;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+.subscribe-error-msg, label.error {
+    color: #be1e2d;
+    font-size: 0.85rem;
+    margin-top: 10px;
+    font-weight: 600;
+    display: block;
+    text-align: center;
+}
