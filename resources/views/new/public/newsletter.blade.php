@@ -8,7 +8,6 @@
     }
 @endphp
 <head>
-    <script src="/js/jquery.js"></script>
     @include('new.public.components.analytics-head')
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -44,7 +43,6 @@
 
     <link href="/css/aos.css" rel="stylesheet">
     <script src="/js/aos.js"></script>
-    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/jquery.prettyPhoto.js"></script>
     <script type="text/javascript" src="/js/jquery.balloon.min.js"></script>
     <script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
@@ -187,15 +185,6 @@
     });
 </script>
 
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll('.dropdown-menu').forEach(function (element) {
-            element.addEventListener('click', function (e) {
-                e.stopPropagation();
-            });
-        })
-    });
-</script>
 <script>
     $(window).on('load', function() {
         $('.preloader').fadeOut('slow');
