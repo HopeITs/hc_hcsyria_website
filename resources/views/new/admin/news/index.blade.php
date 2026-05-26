@@ -11,27 +11,24 @@
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <meta name="author" content="mai youssef">
     <title>Admin | News</title>
+
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    {{--<link href="/css/dataTables.bootstrap.min.css" rel="stylesheet">--}}
     <link href="/css/backend.css" rel="stylesheet">
     <link href="/css/dashboard_new.css" rel="stylesheet">
-    {{--<link href="{{asset('css/main-new.css')}}" rel="stylesheet">--}}
     <link href="/css/tabs.css" rel="stylesheet">
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
-    <link href="/css/backend.css" rel="stylesheet">
-    {{--@stack('navbar_styles')--}}
-    <!--[if lt IE 9]>
-    <script type="text/javascript" src="/js/html5shiv.js"></script>
-    <script type="text/javascript" src="/js/respond.min.js"></script> <![endif]-->
+
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+
     <link href="/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
+
     <script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="/js/dataTables.bootstrap5.min.js"></script>
     <script type="text/javascript" src="/js/responsive.bootstrap5.min.js"></script>
@@ -39,6 +36,7 @@
     <script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
     <link href="/css/jquery.fancybox.min.css" rel="stylesheet">
     <script type="text/javascript" src="/js/fancybox.config.js"></script>
+    <link href="{{asset('css/our-news.css')}}" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="/js/dataTables.buttons.min.js"></script>
     <script type="text/javascript" src="/js/buttons.bootstrap5.min.js"></script>
     <link rel="stylesheet" href="/css/buttons.bootstrap5.min.css">
@@ -52,6 +50,7 @@
 <body>
 
 @stack('navbar_body')
+
 <div id="main">
     <div class="container">
         <div class="row">
@@ -63,52 +62,44 @@
             <div class="col">
                 @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
                     <a class="btn btn-success" href="{{route('news.create')}}">
-                        <i class="fa fa-plus-square"></i>&nbsp; Create new News</a>
+                        <i class="fa fa-plus-square"></i>&nbsp; Create new News
+                    </a>
 
                     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addTagModal">
                         <i class="fa fa-tags"></i>&nbsp; Add New Tag
                     </button>
                 @endif
-{{--                @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))--}}
-{{--                    <a class="btn btn-success" href="{{route('news.edition')}}">--}}
-{{--                        <i class="fa fa-plus-square"></i>&nbsp; Editions</a>--}}
-{{--                @endif--}}
             </div>
         </div>
         <div>
-            <ul class="nav nav-tabs d-lg-flex d-md-flex d-sm-flex d-block position-relative mt-5" id="tabList"
-                role="tablist">
+            <ul class="nav nav-tabs d-lg-flex d-md-flex d-sm-flex d-block position-relative mt-5" id="tabList" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button id="ArticleTab"
                             class="ArticleTab nav-link {{ !request('tab') || request('tab') == 'Article' ? 'active' : '' }}"
                             data-bs-toggle="tab"
                             data-bs-target="#Article"
-                            role="tab" aria-controls="Articles"
+                            role="tab" aria-controls="Article"
                             aria-selected="{{ !request('tab') || request('tab') == 'Article' ? 'true' : 'false' }}">
                         Articles <small>({{ $newsArticles->count() }})</small>
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button id="VideoTab" class="VideoTab nav-link" data-bs-toggle="tab" data-bs-target="#Video"
-                            role="tab" aria-controls="Video" aria-selected="false">Videos
-                        <small>({{ $newsVideos->count() }})</small>
+                            role="tab" aria-controls="Video" aria-selected="false">
+                        Videos <small>({{ $newsVideos->count() }})</small>
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button id="PendingTab" class="PendingTab nav-link" data-bs-toggle="tab"
-                            data-bs-target="#Pending"
-                            role="tab" aria-controls=pending" aria-selected="false"
-                            aria-selected="false">Pending
-                        <small>({{ $newsPending->count() }})</small>
+                            data-bs-target="#Pending" role="tab" aria-controls="Pending" aria-selected="false">
+                        Pending <small>({{ $newsPending->count() }})</small>
                     </button>
                 </li>
                 @if($user->roles->contains('name', 'Admin'))
                     <li class="nav-item" role="presentation">
                         <button id="SubscriberTab" class="SubscriberTab nav-link" data-bs-toggle="tab"
-                                data-bs-target="#Subscriber"
-                                role="tab" aria-controls=Subscriber" aria-selected="false"
-                                aria-selected="false">Subscribers
-                            <small>({{ $newsSubscribers->count() }})</small>
+                                data-bs-target="#Subscriber" role="tab" aria-controls="Subscriber" aria-selected="false">
+                            Subscribers <small>({{ $newsSubscribers->count() }})</small>
                         </button>
                     </li>
                 @endif
@@ -117,13 +108,13 @@
                             class="TagsTab nav-link {{ request('tab') == 'Tags' ? 'active' : '' }}"
                             data-bs-toggle="tab"
                             data-bs-target="#TagsPane"
-                            role="tab"
-                            aria-controls="TagsPane"
+                            role="tab" aria-controls="TagsPane"
                             aria-selected="{{ request('tab') == 'Tags' ? 'true' : 'false' }}">
                         Tags <small>({{ $allTags->count() }})</small>
                     </button>
                 </li>
             </ul>
+
             <div class="tab-content mt-5">
                 <div class="tab-pane fade {{ !request('tab') || request('tab') == 'Article' ? 'show active' : '' }}"
                      id="Article" role="tabpanel" aria-labelledby="ArticleTab" tabindex="0">
@@ -159,16 +150,15 @@
                                     </td>
                                     <td class="text-end">
                                         @if(count($news->images) != 0)
-                                            <i class="fa fa-picture-o"
-                                               style="padding: 0.3vw 0.6vw;"></i>
+                                            <i class="fa fa-picture-o icon-padded"></i>
                                         @endif
                                         <a href="{{route('news.show', $news['id'])}}"
                                            class="btn mb-2 btn-primary"><span
-                                                    class="fa fa-eye"></span>&nbsp;View</a>
+                                                class="fa fa-eye"></span>&nbsp;View</a>
                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
                                             <a href="{{route('news.edit', [$news['id'], 'ref' => 'index'])}}"
                                                class="btn mb-2 btn-primary edit-btn"><span
-                                                        class="fa fa-edit"></span>&nbsp;Edit</a>
+                                                    class="fa fa-edit"></span>&nbsp;Edit</a>
                                         @endif
                                         @if($user->roles->contains('name', 'Admin'))
                                             <form action="{{ route('news.destroy', $news['id']) }}"
@@ -182,13 +172,13 @@
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
                                             </form>
-                                                <form action="{{ route('news.offline') }}" method="POST" class="float-pad">
-                                                    @csrf
-                                                    <input type="hidden" name="id" class="float-pad" value="{{ $news['id'] }}">
-                                                    <button type="submit" class="btn mb-2 icon-btn btn-danger offline_confirm" data-id="{{ $news['id'] }}">
-                                                        <i class="fa fa-power-off"></i>
-                                                    </button>
-                                                </form>
+                                            <form action="{{ route('news.offline') }}" method="POST" class="float-pad">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $news['id'] }}">
+                                                <button type="submit" class="btn mb-2 icon-btn btn-danger offline_confirm" data-id="{{ $news['id'] }}">
+                                                    <i class="fa fa-power-off"></i>
+                                                </button>
+                                            </form>
                                         @endif
                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Photos Editor'))
                                             <a href="{{route('news.images.create', $news['id'])}}"
@@ -202,8 +192,8 @@
                         @endif
                     </table>
                 </div>
-                <div class="tab-pane show fade" id="Video" role="tabpanel" aria-labelledby="VideoTab"
-                     tabindex="0">
+
+                <div class="tab-pane show fade" id="Video" role="tabpanel" aria-labelledby="VideoTab" tabindex="0">
                     <table class="table w-100 table-striped table-bordered table-hover" id="tableVideo">
                         @if($newsVideos)
                             <thead>
@@ -233,14 +223,15 @@
                                         @else
                                             N/A
                                         @endif
-                                    </td>                                    <td class="text-end">
+                                    </td>
+                                    <td class="text-end">
                                         <a href="{{route('news.show', $news['id'])}}"
                                            class="btn mb-2 btn-primary"><span
-                                                    class="fa fa-eye"></span>&nbsp;View</a>
+                                                class="fa fa-eye"></span>&nbsp;View</a>
                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
                                             <a href="{{route('news.edit', [$news['id'], 'ref' => 'index'])}}"
                                                class="btn mb-2 btn-primary edit-btn"><span
-                                                        class="fa fa-edit"></span>&nbsp;Edit</a>
+                                                    class="fa fa-edit"></span>&nbsp;Edit</a>
                                         @endif
                                         @if($user->roles->contains('name', 'Admin'))
                                             <form action="{{ route('news.destroy', $news['id']) }}"
@@ -253,10 +244,10 @@
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
                                             </form>
-                                            <form action="{{ route('news.offline') }}" method="POST" class="float-pad ">
+                                            <form action="{{ route('news.offline') }}" method="POST" class="float-pad">
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{ $news['id'] }}">
-                                                <button type="submit" class="btn mb-2 icon-btn btn-danger offline_confirm">
+                                                <button type="submit" class="btn mb-2 icon-btn btn-danger offline_confirm" data-id="{{ $news['id'] }}">
                                                     <i class="fa fa-power-off"></i>
                                                 </button>
                                             </form>
@@ -273,14 +264,15 @@
                         @endif
                     </table>
                 </div>
-                <div class="tab-pane show fade" id="Pending" role="tabpanel" aria-labelledby="PendingTab"
-                     tabindex="0">
+
+                <div class="tab-pane show fade" id="Pending" role="tabpanel" aria-labelledby="PendingTab" tabindex="0">
                     <table class="table w-100 table-striped table-bordered table-hover" id="tablePnd">
                         @if($newsPending)
                             <thead>
                             <tr>
                                 <th scope="col" class="text-center">ID</th>
-                                <th scope="col" class="text-center">Type</th> <th scope="col" class="text-center">Title</th>
+                                <th scope="col" class="text-center">Type</th>
+                                <th scope="col" class="text-center">Title</th>
                                 <th scope="col" class="text-center">Date</th>
                                 <th scope="col" class="text-center">Tags</th>
                                 <th scope="col" class="text-center">Place</th>
@@ -314,7 +306,7 @@
                                     </td>
                                     <td class="text-end">
                                         @if(count($news->images) != 0)
-                                            <i class="fa fa-picture-o" style="padding: 0.3vw 0.6vw;"></i>
+                                            <i class="fa fa-picture-o icon-padded"></i>
                                         @endif
                                         <a href="{{route('news.show', $news['id'])}}" class="btn mb-2 btn-primary">
                                             <span class="fa fa-eye"></span>&nbsp;View
@@ -345,8 +337,8 @@
                         @endif
                     </table>
                 </div>
-                <div class="tab-pane show fade" id="Subscriber" role="tabpanel" aria-labelledby="SubscriberTab"
-                     tabindex="0">
+
+                <div class="tab-pane show fade" id="Subscriber" role="tabpanel" aria-labelledby="SubscriberTab" tabindex="0">
                     @if($newsSubscribers)
                         <div class="row">
                             <div class="col">
@@ -369,8 +361,7 @@
                             <tbody>
                             @foreach($newsSubscribers as $sub)
                                 <tr>
-                                    <td><input type="checkbox" class="d-block user-checkbox" name="users[]"
-                                               value="{{ $sub['mail'] }}" ></td>
+                                    <td><input type="checkbox" class="d-block user-checkbox" name="users[]" value="{{ $sub['mail'] }}" ></td>
                                     <td class="text-center">{{$sub['id']}}</td>
                                     <td class="text-center">{{$sub['mail']}}</td>
                                     <td class="text-end">
@@ -380,8 +371,7 @@
                                                   enctype="multipart/form-data">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button class="btn mb-2 btn-danger icon-btn show_confirm" type="submit"
-                                                        data-id="{{$sub['id']}}">
+                                                <button class="btn mb-2 btn-danger icon-btn show_confirm" type="submit" data-id="{{$sub['id']}}">
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
                                             </form>
@@ -393,6 +383,7 @@
                         </table>
                     @endif
                 </div>
+
                 <div class="tab-pane fade" id="TagsPane" role="tabpanel" aria-labelledby="TagsTab" tabindex="0">
                     <table class="table w-100 table-striped table-bordered table-hover" id="tableTags">
                         <thead>
@@ -417,12 +408,12 @@
                                         <i class="fa fa-edit"></i> Edit
                                     </button>
 
-                                    <form action="{{ route('tags.destroy', $tag->id) }}" class="d-inline" method="POST"">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm show_confirm" data-id="Tag: {{ $tag->name }}">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
+                                    <form action="{{ route('tags.destroy', $tag->id) }}" class="d-inline" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm show_confirm" data-id="Tag: {{ $tag->name }}">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
                                     </form>
                                 </td>
                             </tr>
@@ -431,6 +422,7 @@
                     </table>
                 </div>
             </div>
+
             <div class="modal fade" id="addTagModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
                     <form action="{{ route('tags.store') }}" method="POST">
@@ -481,51 +473,29 @@
         </div>
     </div>
 </div>
+
 @stack('navbar_scripts')
 
 <script>
     $(document).ready(function () {
-        tableArticle = new DataTable('#tableArticle', {
-// responsive: true,
+        // DRY Approach: Shared DataTables configuration
+        let dtConfig = {
             "scrollX": true,
             buttons: ['excel', 'pdf', 'colvis'],
             lengthMenu: [
                 [10, 25, 50, -1],
                 [10, 25, 50, 'All']
             ]
-        });
-        tableVideo = new DataTable('#tableVideo', {
-// responsive: true,
-            "scrollX": true,
-            buttons: ['excel', 'pdf', 'colvis'],
-            lengthMenu: [
-                [10, 25, 50, -1],
-                [10, 25, 50, 'All']
-            ]
-        });
-        tablePnd = new DataTable('#tablePnd', {
-// responsive: true,
-            "scrollX": true,
-            buttons: ['excel', 'pdf', 'colvis'],
-            lengthMenu: [
-                [10, 25, 50, -1],
-                [10, 25, 50, 'All']
-            ]
-        });
-        tableSub = new DataTable('#tableSub', {
-// responsive: true,
-            "scrollX": true,
-            buttons: ['excel', 'pdf', 'colvis'],
-            lengthMenu: [
-                [10, 25, 50, -1],
-                [10, 25, 50, 'All']
-            ],
-        });
-        tableTags = new DataTable('#tableTags', {
-            "scrollX": true,
-            buttons: ['excel', 'pdf', 'colvis'],
-            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'All']]
-        });
+        };
+
+        // Initialize all tables using the shared configuration
+        let tableArticle = new DataTable('#tableArticle', dtConfig);
+        let tableVideo = new DataTable('#tableVideo', dtConfig);
+        let tablePnd = new DataTable('#tablePnd', dtConfig);
+        let tableSub = new DataTable('#tableSub', dtConfig);
+        let tableTags = new DataTable('#tableTags', dtConfig);
+
+        // Append buttons to the correct wrapper for each table
         tableArticle.buttons().container().appendTo('#tableArticle_wrapper .col-md-6:eq(0)');
         tableVideo.buttons().container().appendTo('#tableVideo_wrapper .col-md-6:eq(0)');
         tablePnd.buttons().container().appendTo('#tablePnd_wrapper .col-md-6:eq(0)');
@@ -539,17 +509,17 @@
             $('#editTagForm').attr('action', '/admin/tags/update/' + id);
             $('#editTagModal').modal('show');
         });
+
+        $(".selectAll").on("click", function (e) {
+            if ($(this).is(":checked")) {
+                tableSub.rows().select();
+            } else {
+                tableSub.rows().deselect();
+            }
+        });
     });
 </script>
-<script>
-    $(".selectAll").on("click", function (e) {
-        if ($(this).is(":checked")) {
-            tableSub.rows().select();
-        } else {
-            tableSub.rows().deselect();
-        }
-    });
-</script>
+
 <script>
     $(document).ready(function() {
         $(document).on('click', '.show_confirm', function (event) {
@@ -595,6 +565,7 @@
         });
     });
 </script>
+
 <script>
     $(document).ready(function () {
         let urlParams = new URLSearchParams(window.location.search);
@@ -626,9 +597,9 @@
         });
     });
 </script>
+
 <script>
     $(document).ready(function() {
-        // Log to console for debugging (you can remove this once it works)
         console.log("Check for session success: {{ session('success') }}");
 
         @if(session('success'))
@@ -636,7 +607,7 @@
             title: "Success!",
             text: "{{ session('success') }}",
             type: "success",
-            timer: 4000, // Show for 4 seconds
+            timer: 4000,
             showConfirmButton: false
         });
         @endif
@@ -651,9 +622,10 @@
         @endif
     });
 </script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-<script type="text/javascript">
 
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+<script type="text/javascript">
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -667,50 +639,45 @@
                 return c.value;
             });
             $.ajax({
-                    type: 'POST',
-                    url: "{{ route('ajax.send.email') }}",
-                    data: {ids: ids},
-                    beforeSend: function () {
-                        swal('Sending...');
-                    },
-                    success: function (data) {
-                        swal(data.success);
-                    },
-                }
-            );
+                type: 'POST',
+                url: "{{ route('ajax.send.email') }}",
+                data: {ids: ids},
+                beforeSend: function () {
+                    swal('Sending...');
+                },
+                success: function (data) {
+                    swal(data.success);
+                },
+            });
         } else {
-            swal("If you don't select any of the subscribers, email will be send to all subscribers !!");
             swal({
-                title: `Email will be send to all subscribers if you don't select specific ones ?`,
+                title: `Email will be sent to all subscribers if you don't select specific ones?`,
                 showCancelButton: true,
                 confirmButtonText: 'Send',
-// dangerMode: true,
             }).then((result) => {
                 if (result) {
                     $.ajax({
-                            type: 'POST',
-                            url: "{{ route('ajax.send.email.all') }}",
-                            beforeSend: function () {
-                                swal('Sending...');
-                            },
+                        type: 'POST',
+                        url: "{{ route('ajax.send.email.all') }}",
+                        beforeSend: function () {
+                            swal('Sending...');
+                        },
                         success: function (data) {
                             swal(data.success);
                             if (data.failed.length > 0) {
                                 alert('Failed to send to:\n' + data.failed.join("\n"));
                             }
                         },
-                        }
-                    );
+                    });
                 }
             }, function (dismiss) {
                 if (dismiss === 'cancel') {
-                    swal(
-                        'Cancelled',
-                    )
+                    swal('Cancelled');
                 }
             });
         }
     });
+
     $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
         $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
     });
@@ -719,33 +686,3 @@
 @include('new.admin.scripts.popup-messages')
 </body>
 </html>
-{{--<script type="text/javascript">--}}
-{{--function sendMail() {--}}
-{{--var selectRowsCount = $("input[class='user-checkbox']:checked").length;--}}
-{{--if (selectRowsCount > 0) {--}}
-{{--var ids = $.map($("input[class='user-checkbox']:checked"), function (c) {--}}
-{{--return c.value;--}}
-{{--});--}}
-{{--var queryString = 'ids={' + ids.join(',') + '}';--}}
-{{--// var myJsonString = JSON.stringify(ids);--}}
-
-{{--$.ajax({--}}
-{{--type: 'GET',--}}
-{{--dataType: 'json',--}}
-{{--headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},--}}
-{{--url:'http://'+location.host+'/users-send-email',--}}
-{{--data: queryString,--}}
-{{--// contentType: "application/json",--}}
-{{--success: function (data) {--}}
-{{--alert(data.success);--}}
-{{--}--}}
-{{--});--}}
-{{--} else {--}}
-{{--alert("Please select at least one user from list.");--}}
-{{--}--}}
-{{--console.log(selectRowsCount);--}}
-{{--console.log(ids);--}}
-{{--}--}}
-{{--</script>--}}
-{{--@stack('fancyVideo')--}}
-{{--</body>--}}

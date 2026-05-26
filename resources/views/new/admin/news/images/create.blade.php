@@ -13,11 +13,10 @@
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
-
+    <link href="{{asset('css/our-news.css')}}" rel="stylesheet" type="text/css">
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="/css/backend.css" rel="stylesheet">
@@ -27,24 +26,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
 
-    <style>
-
-
-    </style>
 </head>
 <body>
 
 @stack('navbar_body')
 
 <div class="container-fluid">
-    <div class="row d-flex justify-content-center">
+    <div class="row justify-content-center">
         <div class="col-lg-8 col-md-11 col-sm-11 col-11">
             <div id="projects">
                 <div class="row">
                     <div class="col">
                         @include('new.admin.messages')
                         @if(session('placement_error'))
-                            <div class="alert alert-danger font-weight-bold mt-3">
+                            <div class="alert alert-danger fw-bold mt-3">
                                 <i class="fa fa-exclamation-triangle"></i> {{ session('placement_error') }}
                             </div>
                         @endif
@@ -59,16 +54,16 @@
                             @csrf
 
                             <div class="row mb-3 mt-4">
-                                <div class="form-group col-lg-6 col-md-6 col-12">
-                                    <label for="title">Title</label>
+                                <div class="col-lg-6 col-md-6 col-12 mb-3">
+                                    <label for="title" class="form-label">Title</label>
                                     <input type="text" id="title" value="{{ optional($news->english)->title ?? 'No Title' }}" class="form-control custom-cursor-disabled" readonly>
                                 </div>
 
-                                <div class="form-group col-lg-6 col-md-6 col-12">
-                                    <label>Tags</label>
+                                <div class="col-lg-6 col-md-6 col-12 mb-3">
+                                    <label class="form-label">Tags</label>
                                     <div class="form-control news-info-tag-container">
                                         @foreach($news->tags as $tag)
-                                            <span class="badge red-brand-bg" style="margin-right: 2px;">{{ $tag->name }}</span>
+                                            <span class="badge red-brand-bg me-1">{{ $tag->name }}</span>
                                         @endforeach
                                         @if($news->tags->isEmpty())
                                             <span class="text-muted">No Tags Attached</span>
@@ -76,51 +71,50 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-lg-6 col-md-6 col-12 mt-2">
-                                    <label>City</label>
+                                <div class="col-lg-6 col-md-6 col-12 mb-3">
+                                    <label class="form-label">City</label>
                                     <input type="text" value="{{ $news->place->name ?? 'N/A' }}" class="form-control custom-cursor-disabled" readonly>
                                 </div>
 
-                                <div class="form-group col-lg-6 col-md-6 col-12 mt-2">
-                                    <label>News Date</label>
+                                <div class="col-lg-6 col-md-6 col-12 mb-3">
+                                    <label class="form-label">News Date</label>
                                     <div class="form-control custom-cursor-disabled">
-                                        <i class="fa fa-calendar text-muted mr-2"></i>
+                                        <i class="fa fa-calendar text-muted me-2"></i>
                                         {{ $news->date ? \Carbon\Carbon::parse($news->date)->format('M d, Y') : 'N/A' }}
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <div class="form-group col-lg-3 col-md-3 col-12">
-                                    <label for="image-count">Images Count</label>
+                                <div class="col-lg-3 col-md-3 col-12">
+                                    <label for="image-count" class="form-label">Images Count</label>
                                     <input id="images-count" type="number" class="form-control" step="1" value="3" min="1" onchange="addImageGroup()">
                                 </div>
                             </div>
 
                             <div class="mb-3" id="images-group">
                                 @for($i=0; $i<3; $i++)
-                                    <div class="image-group form-control">
+                                    <div class="image-group mb-3 border p-3 rounded bg-light">
                                         <div class="row">
-                                            <div class="form-group col-lg-6 col-md-6 col-12">
-                                                <label>Small Image</label>
-                                                <input type="file" name="small_image[]" accept="image/jpeg" required>
+                                            <div class="col-lg-6 col-md-6 col-12 mb-3 mb-md-0">
+                                                <label class="form-label">Small Image</label>
+                                                <input type="file" name="small_image[]" accept="image/jpeg" class="form-control" required>
                                             </div>
-                                            <div class="form-group col-lg-6 col-md-6 col-12">
-                                                <label>Large Image</label>
-                                                <input type="file" name="big_image[]" accept="image/jpeg" required>
+                                            <div class="col-lg-6 col-md-6 col-12">
+                                                <label class="form-label">Large Image</label>
+                                                <input type="file" name="big_image[]" accept="image/jpeg" class="form-control" required>
                                             </div>
                                         </div>
                                     </div>
                                 @endfor
                             </div>
 
-                            <br><br>
-                            <h3 class="title">News Thumbnails & Placement</h3>
+                            <h3 class="title mt-5 mb-4">News Thumbnails & Placement</h3>
 
-                            <div class="special-upload-box">
+                            <div class="special-upload-box mb-4">
                                 <div class="row align-items-center">
                                     <div class="col-lg-6 col-12">
-                                        <label for="thumbnail_image" style="font-size: 16px; font-weight: bold;">
+                                        <label for="thumbnail_image" class="fs-5 fw-bold">
                                             1:1 Default Thumbnail <span class="text-danger">*</span>
                                         </label>
                                         <p class="text-muted small mb-0">REQUIRED. Standard news grids.</p>
@@ -138,12 +132,12 @@
                                         <div class="d-flex align-items-start mb-2">
                                             <div class="custom-radio-btn mt-1"></div>
                                             <div>
-                                                <h5 class="mb-1" style="font-weight: 700;">Mark as Important News</h5>
+                                                <h5 class="mb-1 fw-bold">Mark as Important News</h5>
                                                 <p class="text-muted small mb-0">3:2 Aspect Ratio. Only ONE news can be important (Setting this will replace the current important news).</p>
                                             </div>
                                         </div>
-                                        <div id="important_upload_area" class="upload-sub-area">
-                                            <label class="font-weight-bold text-dark">Upload 3:2 Image <span class="text-danger">*</span></label>
+                                        <div id="important_upload_area" class="upload-sub-area mt-3">
+                                            <label class="fw-bold text-dark form-label">Upload 3:2 Image <span class="text-danger">*</span></label>
                                             <input type="file" name="important_image" id="important_image" accept="image/jpeg" class="form-control crop-trigger">
                                         </div>
                                     </label>
@@ -155,12 +149,12 @@
                                         <div class="d-flex align-items-start mb-2">
                                             <div class="custom-radio-btn mt-1"></div>
                                             <div>
-                                                <h5 class="mb-1" style="font-weight: 700;">Mark as Pinned News</h5>
+                                                <h5 class="mb-1 fw-bold">Mark as Pinned News</h5>
                                                 <p class="text-muted small mb-0">2:1 Aspect Ratio. Multiple news can be pinned at the same time.</p>
                                             </div>
                                         </div>
-                                        <div id="pinned_upload_area" class="upload-sub-area">
-                                            <label class="font-weight-bold text-dark">Upload 2:1 Image <span class="text-danger">*</span></label>
+                                        <div id="pinned_upload_area" class="upload-sub-area mt-3">
+                                            <label class="fw-bold text-dark form-label">Upload 2:1 Image <span class="text-danger">*</span></label>
                                             <input type="file" name="pinned_image" id="pinned_image" accept="image/jpeg" class="form-control crop-trigger">
                                         </div>
                                     </label>
@@ -182,16 +176,14 @@
                     </div>
                 </div>
 
-                <br><br>
-
                 @if(!$images->isEmpty())
-                    <div class="row mt-4">
+                    <div class="row mt-5">
                         <div class="col">
                             <h3 class="title">Uploaded Images</h3>
                             <form action="{{ route('news.images.destroy',[$news->id])}}" method="POST" id="delete-images-form">
                                 @csrf
                                 @method('DELETE')
-                                <div class="d-flex flex-wrap mt-4" style="gap: 20px;">
+                                <div class="d-flex flex-wrap mt-4 gap-3">
                                     @php $sortedImages = $images->sortBy(fn($img) => $img['sizetype'] ?? 3); @endphp
                                     @foreach($sortedImages as $img)
                                         <div class="image-card-wrapper">
@@ -230,7 +222,7 @@
                                     @endforeach
                                 </div>
 
-                                <div class="d-flex align-items-center mt-5 pt-3 border-top" style="gap: 15px;">
+                                <div class="d-flex align-items-center mt-5 pt-3 border-top gap-3">
                                     <button type="button" id="selectBtn" class="btn btn-secondary" onclick="toggleSelectAll()">
                                         <i class="fa fa-check-square-o"></i> Select/Deselect All
                                     </button>
@@ -260,7 +252,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="cropModal" tabindex="-1" data-backdrop="static">
+<div class="modal fade" id="cropModal" tabindex="-1" data-bs-backdrop="static">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-dark text-white">
@@ -285,15 +277,15 @@
 @stack('navbar_scripts')
 
 <script>
-    // Logic for dynamic image groups
-    let image_group = '<div class="image-group form-control">' +
+    // Updated logic for dynamic image groups with BS5 classes
+    let image_group = '<div class="image-group mb-3 border p-3 rounded bg-light">' +
         '<div class="row">' +
-        '<div class="form-group col-lg-6 col-md-6 col-12">' +
-        '<label>Small Image</label>' +
-        '<input accept="image/jpeg" required="" name="small_image[]" type="file">' +
-        '</div><div class="form-group col-lg-6 col-md-6 col-12">' +
-        '<label>Large Image</label>' +
-        '<input accept="image/jpeg" required="" name="big_image[]" type="file">' +
+        '<div class="col-lg-6 col-md-6 col-12 mb-3 mb-md-0">' +
+        '<label class="form-label">Small Image</label>' +
+        '<input accept="image/jpeg" required name="small_image[]" type="file" class="form-control">' +
+        '</div><div class="col-lg-6 col-md-6 col-12">' +
+        '<label class="form-label">Large Image</label>' +
+        '<input accept="image/jpeg" required name="big_image[]" type="file" class="form-control">' +
         '</div></div>' +
         '</div>';
     let images_count = 3;
@@ -371,7 +363,6 @@
         }
     });
 
-    // Placement logic
     // Placement logic
     $('.placement-checkbox').on('change', function() {
         let id = $(this).attr('id');
@@ -458,4 +449,3 @@
 @include('new.admin.scripts.popup-messages')
 </body>
 </html>
-

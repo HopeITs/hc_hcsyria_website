@@ -7,25 +7,26 @@
     <meta name="theme-color" content="#f6f6f6">
     <meta name="apple-mobile-web-app-status-bar-style" content="#f6f6f6">
     <title>Admin | Create News</title>
+
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/backend.css" rel="stylesheet">
     <link href="/css/dashboard_new.css" rel="stylesheet">
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
     <link href="/css/micro_page_new.css" rel="stylesheet">
-    {{--<link href="{{asset('css/main-new.css')}}" rel="stylesheet">--}}
+
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
     <script type="text/javascript" src="/js/jquery.prettyPhoto.js"></script>
     <script type="text/javascript" src="/js/jquery.mobile.custom.min.js"></script>
     <script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
-
+    <link href="{{asset('css/our-news.css')}}" rel="stylesheet" type="text/css">
     <link href="/css/jquery.fancybox.min.css" rel="stylesheet">
     <script type="text/javascript" src="/js/fancybox.config.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    {{--@stack('navbar_styles')--}}
+    <link href="{{asset('css/our-news.css')}}" rel="stylesheet" type="text/css">
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -56,14 +57,12 @@
                 <div class="row">
                     <div class="col">
                         <h3 class="title">Create News</h3>
-                        <form action="{{ route('news.store')}}"
-                              method="POST"
-                              enctype="multipart/form-data">
+                        <form action="{{ route('news.store')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row mb-3">
-                                <div class="form-group col-lg-8 col-md-8 col-12">
-                                    <label>Type <span class="red-color">*</span></label><br>
-                                    <div class="btn-group w-100" data-toggle="buttons">
+                                <div class="col-lg-8 col-md-8 col-12">
+                                    <label class="form-label fw-bold">Type <span class="red-color">*</span></label><br>
+                                    <div class="btn-group w-100">
                                         <input name="type" id="type_0" type="radio" class="btn-check" value="0">
                                         <label class="btn btn-outline-primary" for="type_0">Article</label>
 
@@ -74,8 +73,8 @@
                             </div>
 
                             <div class="row mb-3">
-                                <div class="form-group col-lg-12 col-md-12 col-12">
-                                    <label>Tags <span class="red-color">*</span></label>
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">Tags <span class="red-color">*</span></label>
 
                                     <livewire:forms.tags-input
                                         name="news_tags"
@@ -91,114 +90,72 @@
                             </div>
 
                             <div class="row mb-3">
-                                <div class="form-group col-lg-8 col-md-8 col-12">
-                                    <label>News City <span class="red-color">*</span></label><br>
-                                    <div class="btn-group w-100" data-toggle="buttons">
-                                        @foreach($places as $place)
-                                            <input type="radio" class="btn-check" value="{{$place->id}}" name="place_id"
-                                                   id="place_{{$place->id}}"
-                                                   autocomplete="off">
-                                            <label class="btn btn-outline-primary"
-                                                   for="place_{{$place->id}}">
-                                                {{ $place->name == 'All' ? 'Syria' : $place->name }}
-                                            </label>
-                                        @endforeach
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">News City <span class="red-color">*</span></label>
+
+                                    <div class="overflow-auto px-1 pb-2">
+                                        <div class="btn-group w-100 d-flex">
+                                            @foreach($places as $place)
+                                                <input type="radio" class="btn-check" value="{{$place->id}}" name="place_id"
+                                                       id="place_{{$place->id}}" autocomplete="off">
+                                                <label class="btn btn-outline-primary text-nowrap flex-fill" for="place_{{$place->id}}">
+                                                    {{ $place->name == 'All' ? 'Syria' : $place->name }}
+                                                </label>
+                                            @endforeach
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
+
                             <div class="row mb-3">
-                                <div class="form-group col-lg-4 col-md-6 col-12">
-                                    <label for="date" class="font-weight-bold">News Date</label>
-                                    <div class="input-group ">
-                                        <div class="input-group-prepend d-flex">
-                                            <span class="input-group-text bg-white">
-                                                <i class="fa fa-calendar" style="color: #C92228;"></i>
-                                            </span>
-                                        </div>
+                                <div class="col-lg-4 col-md-6 col-12">
+                                    <label for="date" class="form-label fw-bold">News Date</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white">
+                                            <i class="fa fa-calendar text-brand-red"></i>
+                                        </span>
                                         <input type="text" name="date" id="date"
                                                class="form-control border-form-control bg-white"
-                                               placeholder="Select Date.." required
-                                               readonly>
+                                               placeholder="Select Date.." required readonly>
                                     </div>
                                 </div>
                             </div>
-{{--                            <div class="row mb-3">--}}
-{{--                                <div class="form-group col-lg-4 col-md-4 col-12">--}}
-{{--                                    <label for="rank">Rank <span class="red-color">*</span></label>--}}
-{{--                                    <select class="form-select" id="rank" placeholder="Choose Rank..." name="rank">--}}
-{{--                                        <option value="1">1</option>--}}
-{{--                                        <option value="2">2</option>--}}
-{{--                                        <option value="3">3</option>--}}
-{{--                                        <option value="4">4</option>--}}
-{{--                                        <option value="5">5</option>--}}
-{{--                                        <option value="6">6</option>--}}
-{{--                                        <option value="7">7</option>--}}
-{{--                                        <option value="8">8</option>--}}
-{{--                                        <option value="9">9</option>--}}
-{{--                                        <option value="10">10</option>--}}
-{{--                                        <option value="11">11</option>--}}
-{{--                                        <option value="12">12</option>--}}
-{{--                                    </select>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-                            <div class="row mb-3">
-                                <div class="form-group col-12">
-                                    <label for="title">Title</label> <span class="red-color">*</span>
-                                    <input type="text"
-                                           name="title"
-                                           id="title"
-                                           class="form-control"
-                                           placeholder="Title"
-                                           required>
-                                </div>
-                            </div>
-
-{{--                            <div class="row mb-3">--}}
-{{--                                <div class="form-group col-12">--}}
-{{--                                    <label for="description">Description</label>--}}
-{{--                                    <span>--}}
-{{--            <small>(maximum:900 characters with spaces OR leave the box empty to let it automatically!)</small>--}}
-{{--        </span>--}}
-{{--                                    <textarea name="description"--}}
-{{--                                              id="description"--}}
-{{--                                              class="form-control"--}}
-{{--                                              placeholder="Description"></textarea>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
 
                             <div class="row mb-3">
-                                <div class="form-group col-12">
-                                    <label for="content">Content</label> <span class="red-color">*</span>
-                                    <textarea name="content"
-                                              id="editor"
-                                              class="form-control"
-                                              placeholder="Content"
-                                              ></textarea>
+                                <div class="col-12">
+                                    <label for="title" class="form-label fw-bold">Title <span class="red-color">*</span></label>
+                                    <input type="text" name="title" id="title" class="form-control" placeholder="Title" required>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <div class="form-group col-12">
-                                    <label for="video">Video Link <span id="video-star" class="red-color" style="display: none;">*</span></label>
-                                    <input type="text"
-                                           name="video"
-                                           id="video"
-                                           class="form-control"
-                                           placeholder="Video Link">
+                                <div class="col-12">
+                                    <label for="content" class="form-label fw-bold">Content <span class="red-color">*</span></label>
+                                    <textarea name="content" id="editor" class="form-control" placeholder="Content"></textarea>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
-                                <div class="form-group col-12">
-                                    <label for="upload_file">Upload File</label>
+                                <div class="col-12">
+                                    <label for="video" class="form-label fw-bold">Video Link <span id="video-star" class="red-color d-none">*</span></label>
+                                    <input type="text" name="video" id="video" class="form-control" placeholder="Video Link">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <label for="upload_file" class="form-label fw-bold">Upload File</label>
                                     <input class="form-control" type="file" name="file" id="upload_file">
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-end" style="margin-top: 5vw;">
+
+                            <div class="d-flex justify-content-end mt-custom-large mt-4">
                                 <button class="btn btn-primary" onclick="event.preventDefault();window.history.back();">
                                     <i class="fa fa-arrow-left"></i> Back
                                 </button>
-                                <button type="submit" class="btn btn-info" style="margin-left: 15px;"><i
-                                            class="fa fa-external-link"></i> Create
+                                <button type="submit" class="btn btn-info ms-3">
+                                    <i class="fa fa-external-link"></i> Create
                                 </button>
                             </div>
                         </form>
@@ -219,7 +176,8 @@
         enableTime: false,
         dateFormat: "M d, Y",
         time_24hr: true,
-        defaultDate: "{{ isset($newsData) ? \Carbon\Carbon::parse($newsData->date)->format('M d, Y') : 'today' }}",        allowInput: true,
+        defaultDate: "{{ isset($newsData) ? \Carbon\Carbon::parse($newsData->date)->format('M d, Y') : 'today' }}",
+        allowInput: true,
         static: true
     });
 </script>
@@ -229,10 +187,10 @@
             let selectedType = $('input[name="type"]:checked').val();
             if (selectedType == "3") {
                 $('#video').attr('required', true);
-                $('#video-star').show();
+                $('#video-star').removeClass('d-none');
             } else {
                 $('#video').removeAttr('required');
-                $('#video-star').hide();
+                $('#video-star').addClass('d-none');
             }
         }
         checkVideoRequired();

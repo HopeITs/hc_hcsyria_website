@@ -15,7 +15,7 @@ use App\Models\News;
 use App\Models\NewsImage;
 use App\Models\ProjectDonor;
 use App\Models\RootsOfHope;
-use App\Models\Subscribers;
+use App\Models\Subscriber;
 use App\Place;
 use App\Project;
 use App\Student;
@@ -31,6 +31,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -1726,20 +1727,39 @@ ORDER BY `student_count` DESC');
 
     public function subscribe(Request $request)
     {
-        if (Request()->ajax()) {
-            $data = $request->input('email');
-            $email = Subscribers::where('mail', $data)->get();
-            if ($email->count()) {
-                return response()->json(array('msg' => 'true'));
-            } else {
-                $subscriber = new Subscribers();
-                $subscriber->mail = $data;
-                $subscriber->token = str_random(50);
+        if ($request->ajax()) {
+
+            $request->validate([
+                'email' => 'required|email'
+            ]);
+
+            $emailAddress = $request->input('email');
+
+            $exists = Subscriber::where('mail', $emailAddress)->exists();
+
+            if ($exists) {
+                return response()->json(['msg' => 'true']);
+            }
+
+            try {
+                $subscriber = new Subscriber();
+                $subscriber->mail = $emailAddress;
+
+                $subscriber->token = Str::random(50);
                 $subscriber->save();
+
                 Mail::to($subscriber->mail)->send(new UserSubscribedEmail());
-                return response()->json(array('msg' => 'false'));
+
+                return response()->json(['msg' => 'false']);
+
+            } catch (\Exception $e) {
+                Log::error('Newsletter Email Failed for ' . $emailAddress . ': ' . $e->getMessage());
+
+                return response()->json(['msg' => 'false']);
             }
         }
+
+        return response()->json(['error' => 'Invalid request'], 400);
     }
 
 

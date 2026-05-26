@@ -17,9 +17,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="#f6f6f6">
     <meta property="fb:app_id" content="2133577546862306"/>
     <title>@lang('navbar.newsletter')</title>
+
     <link href="{{asset('css/main-new.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/navbar.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/newsletter.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/our-news.css')}}" rel="stylesheet" type="text/css">
     <link href='/css/lato.css' rel='stylesheet' type='text/css'>
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
     <link href="/css/font-awesome.min.css" rel="stylesheet">
@@ -29,15 +31,17 @@
     <link href="/css/jquery.fancybox.min.css" rel="stylesheet">
     <link href="/css/hover-effect.css" rel="stylesheet">
     <link rel="alternate" hreflang="x-default" href="https://www.hcsyria.org/"/>
+
     <link href='https://fonts.googleapis.com/css?family=Caudex' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Archivo' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Archivo Black' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="/css/font-awesome.min.css" rel="stylesheet">
+
     <script src="/js/html5shiv.js"></script>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/respond.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
     <link href="/css/aos.css" rel="stylesheet">
     <script src="/js/aos.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
@@ -50,7 +54,6 @@
     <script type="text/javascript" src="/js/swipe.index.js"></script>
 
     <style>
-
         .subscribe-title {
             font-family: 'Archivo', sans-serif;
             color: #555;
@@ -72,6 +75,7 @@
             display: block !important;
             margin: 0 auto !important;
         }
+
         .subscription {
             display: flex;
             background: #ffffff;
@@ -98,7 +102,6 @@
             font-size: 1rem;
         }
 
-
         .submit-email {
             background-color: #be1e2d;
             color: white;
@@ -111,9 +114,11 @@
             cursor: pointer;
             transition: background 0.3s ease;
         }
+
         .submit-email:hover {
             background-color: #a01926;
         }
+
         .submit-email:active {
             transform: scale(0.98);
         }
@@ -134,6 +139,16 @@
             border: none;
             transition: transform 0.3s ease;
         }
+
+        /* Fixed Error Message Styling */
+        .subscribe-error-msg, label.error {
+            color: #be1e2d;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            font-weight: 600;
+            display: block;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -142,26 +157,27 @@
 <div class="preloader">
     <div class="preloader-gif"></div>
 </div>
-@include('new.public.navbar')
 
+@include('new.public.navbar')
 
 <livewire:news-page :carouselImages="$carouselImages"/>
 
 <div class="container-fluid" data-aos="fade-up" data-aos-duration="800">
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-12 d-flex justify-content-center flex-column align-items-center">
             <div class="section-title">Get Latest Updates On Our News</div>
         </div>
     </div>
 </div>
-<div class="container-fluid" data-aos="fade-up" data-aos-duration="800">
+
+<div class="container-fluid mb-5" data-aos="fade-up" data-aos-duration="800">
     <div class="letter page-margin">
-        <div class="row d-flex justify-content-center">
-            <div class="subscribe-container">
-                <div class="row d-flex justify-content-center mt-2">
+        <div class="row justify-content-center">
+            <div class="subscribe-container py-4">
+                <div class="row justify-content-center mt-2">
                     <img src="/images/ico/letter.svg" alt="Newsletter Icon">
                 </div>
-                <div class="row d-flex justify-content-center">
+                <div class="row justify-content-center mb-3">
                     <div class="subscribe-title">
                         Subscribe To Receive The Latest News.
                     </div>
@@ -171,12 +187,15 @@
                         <form class="subscription" name="subsribeForm" id="subsribeForm">
                             @csrf
                             <input class="add-email" id="email" name="email" placeholder="Enter your email address..." type="email">
-                            <button class="submit-email" type="submit" name="submit">
+                            <button class="submit-email" type="submit">
                                 <span id="before-submit">Subscribe</span>
-                                <span id="after-submit" style="display:none;">Subscribed!</span>
+                                <span id="after-submit" class="d-none">Subscribed!</span>
                             </button>
                         </form>
-                        <label id="subscribe-error" class="subscribe-error" style="display:none; color: #be1e2d; font-size: 0.8rem; margin-top: 10px; font-weight: 600;">
+
+                        <div id="validation-errors-container" class="w-100 mt-2"></div>
+
+                        <label id="subscribe-error" class="subscribe-error-msg d-none">
                             Email has already subscribed!
                         </label>
                     </div>
@@ -208,41 +227,51 @@
                     email: "Please Enter a valid format!"
                 }
             },
+            // FIX: Safely append the error to the dedicated container
+            errorPlacement: function(error, element) {
+                error.appendTo('#validation-errors-container');
+            },
             submitHandler: function (form) {
-                let formData = $("form#subsribeForm").serialize()
+                let emailInput = $("#email");
+
                 $.ajax({
-                    // url: "http://" + location.host + "/newsletter/subscribe",
                     url: "{{ route('newsletter.subscribe')}}",
                     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                     type: "POST",
                     data: {
-                        formData,
-                        "email": $("input[name='email']").val()
+                        formData: $(form).serialize(),
+                        email: emailInput.val(),
+                        submit: true // Spoofing the button name for the PHP controller
                     },
                     success: function (response) {
                         if (response.msg === 'true') {
-                            document.getElementById('subscribe-error').style.display = 'block';
+                            $('#subscribe-error').removeClass('d-none');
+
                             setTimeout(function () {
-                                document.getElementById('subscribe-error').style.display = 'none';
-                                let input = document.getElementById('email');
-                                input.value = "";
+                                $('#subscribe-error').addClass('d-none');
+                                emailInput.val("");
                             }, 2000);
                         }
                         else if (response.msg === 'false') {
-                            document.getElementById('after-submit').style.display = 'block';
-                            document.getElementById('before-submit').style.display = 'none';
-                            document.getElementById('subscribe-error').style.display = 'none';
+                            $('#after-submit').removeClass('d-none');
+                            $('#before-submit').addClass('d-none');
+                            $('#subscribe-error').addClass('d-none');
+
                             setTimeout(() => {
-                                document.getElementById('after-submit').style.display = 'none';
-                                document.getElementById('before-submit').style.display = 'block';
-                                let input = document.getElementById('email');
-                                input.value = "";
+                                $('#after-submit').addClass('d-none');
+                                $('#before-submit').removeClass('d-none');
+                                emailInput.val("");
                             }, 2000);
                         }
                     },
+                    error: function(xhr, status, error) {
+                        console.error("500 Server Error! Check storage/logs/laravel.log");
+                    }
                 });
+
+                return false;
             }
-        })
+        });
     });
 </script>
 <script type="text/javascript">
