@@ -287,105 +287,49 @@
                                         </g>
                                     </g>
                                     @if($student_count)
-{{--                                        @if($student_count[0]->student_count)--}}
-                                            <div id="alepmap" class="tooltip position-absolute">Aleppo
-                                                | {{ number_format($student_count[0]->student_count, 0) }} Students
-                                            </div>
-                                            <div class="container">
-                                                <svg class="map-line aleppo" data-name="Layer 1"
-                                                     xmlns="http://www.w3.org/2000/svg" version="1.1"
-                                                     viewBox="0 0 208.1 10.8">
-                                                    <defs>
-                                                        <style>
-                                                            .cls-2 {
-                                                                fill: #063c54;
-                                                                stroke-width: 0px;
-                                                            }
-                                                        </style>
-                                                    </defs>
-                                                    <path class="cls-2"
-                                                          d="M1,4.9h2.5v1H1v-1ZM18,4.9h4.9v1h-4.9v-1ZM8.3,4.9h4.9v1h-4.9v-1ZM66.6,4.9h4.9v1h-4.9v-1ZM56.9,4.9h4.9v1h-4.9v-1ZM47.2,4.9h4.9v1h-4.9v-1ZM76.4,4.9h4.9v1h-4.9v-1ZM27.8,4.9h4.9v1h-4.9v-1ZM183.3,4.9h4.9v1h-4.9v-1ZM193,4.9h4.9v1h-4.9v-1ZM86.1,4.9h4.9v1h-4.9v-1ZM173.6,4.9h4.9v1h-4.9v-1ZM37.5,4.9h4.9v1h-4.9v-1ZM134.7,4.9h4.9v1h-4.9v-1ZM144.4,4.9h4.9v1h-4.9v-1ZM154.1,4.9h4.9v1h-4.9v-1ZM163.9,4.9h4.9v1h-4.9v-1ZM125,4.9h4.9v1h-4.9v-1ZM105.5,4.9h4.9v1h-4.9v-1ZM95.8,4.9h4.9v1h-4.9v-1ZM115.3,4.9h4.9v1h-4.9v-1ZM205.1,2.4c1.7,0,3,1.3,3,3s-1.3,3-3,3-3-1.3-3-3,1.3-3,3-3Z"/>
-                                                </svg>
-                                            </div>
-                                        {{--@endif--}}
-{{--                                        @if($student_count[2]->student_count)--}}
-                                            <div id="homsmap" class="tooltip position-absolute">Homs
-                                                | {{ number_format($student_count[2]->student_count, 0) }} Students
-                                            </div>
-                                            <svg class="map-line hom" data-name="Layer 1"
-                                                 xmlns="http://www.w3.org/2000/svg" version="1.1"
-                                                 viewBox="0 0 269.8 10.8">
-                                                <defs>
-                                                    <style>
-                                                        .cls-6 {
-                                                            fill: #063c54;
-                                                            stroke-width: 0px;
-                                                        }
-                                                    </style>
-                                                </defs>
-                                                <path class="cls-6"
-                                                      d="M0,4.9h2.5v1H0v-1ZM17.3,4.9h4.9v1h-4.9v-1ZM7.4,4.9h4.9v1h-4.9v-1ZM116.1,4.9h4.9v1h-4.9v-1ZM96.4,4.9h4.9v1h-4.9v-1ZM126,4.9h4.9v1h-4.9v-1ZM76.6,4.9h4.9v1h-4.9v-1ZM106.3,4.9h4.9v1h-4.9v-1ZM86.5,4.9h4.9v1h-4.9v-1ZM27.2,4.9h4.9v1h-4.9v-1ZM46.9,4.9h4.9v1h-4.9v-1ZM56.8,4.9h4.9v1h-4.9v-1ZM66.7,4.9h4.9v1h-4.9v-1ZM37,4.9h4.9v1h-4.9v-1ZM135.9,4.9h4.9v1h-4.9v-1ZM234.8,4.9h4.9v1h-4.9v-1ZM215,4.9h4.9v1h-4.9v-1ZM205.1,4.9h4.9v1h-4.9v-1ZM244.7,4.9h4.9v1h-4.9v-1ZM254.6,4.9h4.9v1h-4.9v-1ZM224.9,4.9h4.9v1h-4.9v-1ZM155.7,4.9h4.9v1h-4.9v-1ZM145.8,4.9h4.9v1h-4.9v-1ZM165.6,4.9h4.9v1h-4.9v-1ZM185.4,4.9h4.9v1h-4.9v-1ZM195.2,4.9h4.9v1h-4.9v-1ZM175.5,4.9h4.9v1h-4.9v-1ZM266.8,2.4c-1.7,0-3,1.3-3,3s1.4,3,3,3,3-1.4,3-3-1.4-3-3-3Z"/>
-                                            </svg>
-                                        {{--@endif--}}
-{{--                                        @if($student_count[4]->student_count)--}}
-                                            <div id="tartusmap" class="tooltip position-absolute">Tartus
-                                                | {{ number_format($student_count[4]->student_count, 0) }} Students
-                                            </div>
-                                            <svg class="map-line tar" data-name="Layer 1"
-                                                 xmlns="http://www.w3.org/2000/svg" version="1.1"
-                                                 viewBox="0 0 103.7 10.8">
-                                                <defs>
-                                                    <style>
-                                                        .cls-4 {
-                                                            fill: #063c54;
-                                                            stroke-width: 0px;
-                                                        }
-                                                    </style>
-                                                </defs>
-                                                <path class="cls-4"
-                                                      d="M19.6,4.9h4.9v1h-4.9v-1ZM29.5,4.9h4.9v1h-4.9v-1ZM39.3,4.9h4.9v1h-4.9v-1ZM0,4.9h4.9v1H0v-1ZM9.8,4.9h4.9v1h-4.9v-1ZM49.2,4.9h4.9v1h-4.9v-1ZM78.7,4.9h4.9v1h-4.9v-1ZM88.5,4.9h4.9v1h-4.9v-1ZM59,4.9h4.9v1h-4.9v-1ZM68.8,4.9h4.9v1h-4.9v-1ZM100.7,2.4c-1.7,0-3,1.3-3,3s1.4,3,3,3,3-1.4,3-3-1.4-3-3-3Z"/>
-                                            </svg>
-                                        {{--@endif--}}
-{{--                                        @if($student_count[3]->student_count)--}}
-                                            <div id="latakiamap" class="tooltip position-absolute">Latakia
-                                                | {{ number_format($student_count[3]->student_count, 0) }} Students
-                                            </div>
-                                            <svg class="map-line lat" data-name="Layer 1"
-                                                 xmlns="http://www.w3.org/2000/svg" version="1.1"
-                                                 viewBox="0 0 81.6 10.8">
-                                                <defs>
-                                                    <style>
-                                                        .cls-3 {
-                                                            fill: #063c54;
-                                                            stroke-width: 0px;
-                                                        }
-                                                    </style>
-                                                </defs>
-                                                <path class="cls-3"
-                                                      d="M27.1,4.9h4.9v1h-4.9v-1ZM17.3,4.9h4.9v1h-4.9v-1ZM36.9,4.9h4.9v1h-4.9v-1ZM7.4,4.9h4.9v1h-4.9v-1ZM66.5,4.9h4.9v1h-4.9v-1ZM46.8,4.9h4.9v1h-4.9v-1ZM56.6,4.9h4.9v1h-4.9v-1ZM78.6,2.4c-1.7,0-3,1.3-3,3s1.4,3,3,3,3-1.4,3-3-1.4-3-3-3ZM0,5.9h2.5v-1H0"/>
-                                            </svg>
+                                        @php
+                                            $cities = [
+                                                'aleppo' => [
+                                                    'name' => 'Aleppo', 'id' => 'alepmap', 'svg_class' => 'aleppo', 'cls' => 'cls-2', 'viewBox' => '0 0 208.1 10.8', 'has_container' => true,
+                                                    'path' => 'M1,4.9h2.5v1H1v-1ZM18,4.9h4.9v1h-4.9v-1ZM8.3,4.9h4.9v1h-4.9v-1ZM66.6,4.9h4.9v1h-4.9v-1ZM56.9,4.9h4.9v1h-4.9v-1ZM47.2,4.9h4.9v1h-4.9v-1ZM76.4,4.9h4.9v1h-4.9v-1ZM27.8,4.9h4.9v1h-4.9v-1ZM183.3,4.9h4.9v1h-4.9v-1ZM193,4.9h4.9v1h-4.9v-1ZM86.1,4.9h4.9v1h-4.9v-1ZM173.6,4.9h4.9v1h-4.9v-1ZM37.5,4.9h4.9v1h-4.9v-1ZM134.7,4.9h4.9v1h-4.9v-1ZM144.4,4.9h4.9v1h-4.9v-1ZM154.1,4.9h4.9v1h-4.9v-1ZM163.9,4.9h4.9v1h-4.9v-1ZM125,4.9h4.9v1h-4.9v-1ZM105.5,4.9h4.9v1h-4.9v-1ZM95.8,4.9h4.9v1h-4.9v-1ZM115.3,4.9h4.9v1h-4.9v-1ZM205.1,2.4c1.7,0,3,1.3,3,3s-1.3,3-3,3-3-1.3-3-3,1.3-3,3-3Z'
+                                                ],
+                                                'homs' => [
+                                                    'name' => 'Homs', 'id' => 'homsmap', 'svg_class' => 'hom', 'cls' => 'cls-6', 'viewBox' => '0 0 269.8 10.8', 'has_container' => false,
+                                                    'path' => 'M0,4.9h2.5v1H0v-1ZM17.3,4.9h4.9v1h-4.9v-1ZM7.4,4.9h4.9v1h-4.9v-1ZM116.1,4.9h4.9v1h-4.9v-1ZM96.4,4.9h4.9v1h-4.9v-1ZM126,4.9h4.9v1h-4.9v-1ZM76.6,4.9h4.9v1h-4.9v-1ZM106.3,4.9h4.9v1h-4.9v-1ZM86.5,4.9h4.9v1h-4.9v-1ZM27.2,4.9h4.9v1h-4.9v-1ZM46.9,4.9h4.9v1h-4.9v-1ZM56.8,4.9h4.9v1h-4.9v-1ZM66.7,4.9h4.9v1h-4.9v-1ZM37,4.9h4.9v1h-4.9v-1ZM135.9,4.9h4.9v1h-4.9v-1ZM234.8,4.9h4.9v1h-4.9v-1ZM215,4.9h4.9v1h-4.9v-1ZM205.1,4.9h4.9v1h-4.9v-1ZM244.7,4.9h4.9v1h-4.9v-1ZM254.6,4.9h4.9v1h-4.9v-1ZM224.9,4.9h4.9v1h-4.9v-1ZM155.7,4.9h4.9v1h-4.9v-1ZM145.8,4.9h4.9v1h-4.9v-1ZM165.6,4.9h4.9v1h-4.9v-1ZM185.4,4.9h4.9v1h-4.9v-1ZM195.2,4.9h4.9v1h-4.9v-1ZM175.5,4.9h4.9v1h-4.9v-1ZM266.8,2.4c-1.7,0-3,1.3-3,3s1.4,3,3,3,3-1.4,3-3-1.4-3-3-3Z'
+                                                ],
+                                                'tartus' => [
+                                                    'name' => 'Tartus', 'id' => 'tartusmap', 'svg_class' => 'tar', 'cls' => 'cls-4', 'viewBox' => '0 0 103.7 10.8', 'has_container' => false,
+                                                    'path' => 'M19.6,4.9h4.9v1h-4.9v-1ZM29.5,4.9h4.9v1h-4.9v-1ZM39.3,4.9h4.9v1h-4.9v-1ZM0,4.9h4.9v1H0v-1ZM9.8,4.9h4.9v1h-4.9v-1ZM49.2,4.9h4.9v1h-4.9v-1ZM78.7,4.9h4.9v1h-4.9v-1ZM88.5,4.9h4.9v1h-4.9v-1ZM59,4.9h4.9v1h-4.9v-1ZM68.8,4.9h4.9v1h-4.9v-1ZM100.7,2.4c-1.7,0-3,1.3-3,3s1.4,3,3,3,3-1.4,3-3-1.4-3-3-3Z'
+                                                ],
+                                                'latakia' => [
+                                                    'name' => 'Latakia', 'id' => 'latakiamap', 'svg_class' => 'lat', 'cls' => 'cls-3', 'viewBox' => '0 0 81.6 10.8', 'has_container' => false,
+                                                    'path' => 'M27.1,4.9h4.9v1h-4.9v-1ZM17.3,4.9h4.9v1h-4.9v-1ZM36.9,4.9h4.9v1h-4.9v-1ZM7.4,4.9h4.9v1h-4.9v-1ZM66.5,4.9h4.9v1h-4.9v-1ZM46.8,4.9h4.9v1h-4.9v-1ZM56.6,4.9h4.9v1h-4.9v-1ZM78.6,2.4c-1.7,0-3,1.3-3,3s1.4,3,3,3,3-1.4,3-3-1.4-3-3-3ZM0,5.9h2.5v-1H0'
+                                                ],
+                                                'damascus' => [
+                                                    'name' => 'Damascus', 'id' => 'damasmap', 'svg_class' => 'dam', 'cls' => 'cls-5', 'viewBox' => '0 0 172.8 10.8', 'has_container' => false,
+                                                    'path' => 'M10.1,4.9h4.9v1h-4.9v-1ZM69.1,4.9h4.9v1h-4.9v-1ZM78.9,4.9h4.9v1h-4.9v-1ZM49.4,4.9h4.9v1h-4.9v-1ZM19.9,4.9h4.9v1h-4.9v-1ZM88.8,4.9h4.9v1h-4.9v-1ZM29.8,4.9h4.9v1h-4.9v-1ZM39.6,4.9h4.9v1h-4.9v-1ZM59.3,4.9h4.9v1h-4.9v-1ZM138,4.9h4.9v1h-4.9v-1ZM147.8,4.9h4.9v1h-4.9v-1ZM157.6,4.9h4.9v1h-4.9v-1ZM118.3,4.9h4.9v1h-4.9v-1ZM108.4,4.9h4.9v1h-4.9v-1ZM128.1,4.9h4.9v1h-4.9v-1ZM98.6,4.9h4.9v1h-4.9v-1ZM169.8,2.4c1.7,0,3,1.3,3,3s-1.3,3-3,3-3-1.3-3-3,1.3-3,3-3ZM.8,4.9v1h4.3v-1H.8Z'
+                                                ],
+                                            ];
+                                        @endphp
 
-                                        {{--@endif--}}
-{{--                                        @if($student_count[1]->student_count)--}}
-                                            <div id="damasmap" class="tooltip position-absolute">Damascus
-                                                | {{ number_format($student_count[1]->student_count, 0) }} Students
+                                        @foreach($cities as $key => $city)
+                                            <div id="{{ $city['id'] }}" class="tooltip position-absolute">{{ $city['name'] }}
+                                                | {{ number_format($student_count[$key]->student_count ?? 0, 0) }} Students
                                             </div>
-                                            <svg
-                                                    class="dam map-line" data-name="Layer 1"
-                                                    xmlns="http://www.w3.org/2000/svg" version="1.1"
-                                                    viewBox="0 0 172.8 10.8">
-                                                <defs>
-                                                    <style>
-                                                        .cls-5 {
-                                                            fill: #063c54;
-                                                            stroke-width: 0px;
-                                                        }
-                                                    </style>
-                                                </defs>
-                                                <path class="cls-5"
-                                                      d="M10.1,4.9h4.9v1h-4.9v-1ZM69.1,4.9h4.9v1h-4.9v-1ZM78.9,4.9h4.9v1h-4.9v-1ZM49.4,4.9h4.9v1h-4.9v-1ZM19.9,4.9h4.9v1h-4.9v-1ZM88.8,4.9h4.9v1h-4.9v-1ZM29.8,4.9h4.9v1h-4.9v-1ZM39.6,4.9h4.9v1h-4.9v-1ZM59.3,4.9h4.9v1h-4.9v-1ZM138,4.9h4.9v1h-4.9v-1ZM147.8,4.9h4.9v1h-4.9v-1ZM157.6,4.9h4.9v1h-4.9v-1ZM118.3,4.9h4.9v1h-4.9v-1ZM108.4,4.9h4.9v1h-4.9v-1ZM128.1,4.9h4.9v1h-4.9v-1ZM98.6,4.9h4.9v1h-4.9v-1ZM169.8,2.4c1.7,0,3,1.3,3,3s-1.3,3-3,3-3-1.3-3-3,1.3-3,3-3ZM.8,4.9v1h4.3v-1H.8Z"/>
-                                            </svg>
-                                        {{--@endif--}}
+
+                                            @if($city['has_container'])
+                                                <div class="container">
+                                                    @endif
+
+                                                    <svg class="map-line {{ $city['svg_class'] }}" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="{{ $city['viewBox'] }}">
+                                                        <defs><style>.{{ $city['cls'] }} {fill: #063c54; stroke-width: 0px;}</style></defs>
+                                                        <path class="{{ $city['cls'] }}" d="{{ $city['path'] }}"/>
+                                                    </svg>
+
+                                                    @if($city['has_container'])
+                                                </div>
+                                            @endif
+                                        @endforeach
                                     @endif
                                 </svg>
                             </div>
@@ -617,7 +561,7 @@
                                                         <a href="{{substr($image->path, 0, -4).'b.jpg'}}"
                                                            data-fancybox="gallery-Cu-{{$initiative->id}}"
                                                            data-caption="{{ ucfirst($initiative->$language->title) }}">
-                                                            <img class="w-100 h-100 d-block" src="{{$image->path}}"
+                                                            <img loading="lazy" class="w-100 h-100 d-block" src="{{ asset($image->path) }}"
                                                                  style="object-fit: cover"/></a>
                                                     </div>
                                                 @endforeach
@@ -666,8 +610,7 @@
                                                     <a href="{{$initiative->video}}" class="launch-modal"
                                                        id="iniVideo-{{$initiative->id}}"
                                                        data-fancybox="iniVideo-{{$initiative->id}}">
-                                                        <img class="video-icon"
-                                                             src="/images/ico/video-ini-icon.svg">
+                                                        <img loading="lazy" class="video-icon" src="{{ asset('images/ico/video-ini-icon.svg') }}">
                                                     </a>
                                                 @endif
                                             </div>
@@ -810,8 +753,7 @@
                                                     <a href="{{$initiative->video}}" class="launch-modal"
                                                        id="iniVideo-{{$initiative->id}}"
                                                        data-fancybox="iniVideo-{{$initiative->id}}">
-                                                        <img class="video-icon"
-                                                             src="/images/ico/video-ini-icon.svg">
+                                                        <img loading="lazy" class="video-icon" src="{{ asset('images/ico/video-ini-icon.svg') }}">
                                                     </a>
                                                 @endif
                                             </div>
@@ -954,8 +896,7 @@
                                                     <a href="{{$initiative->video}}" class="launch-modal"
                                                        id="iniVideo-{{$initiative->id}}"
                                                        data-fancybox="iniVideo-{{$initiative->id}}">
-                                                        <img class="video-icon"
-                                                             src="/images/ico/video-ini-icon.svg">
+                                                        <img loading="lazy" class="video-icon" src="{{ asset('images/ico/video-ini-icon.svg') }}">
                                                     </a>
                                                 @endif
                                             </div>
@@ -1098,8 +1039,7 @@
                                                     <a href="{{$initiative->video}}" class="launch-modal"
                                                        id="iniVideo-{{$initiative->id}}"
                                                        data-fancybox="iniVideo-{{$initiative->id}}">
-                                                        <img class="video-icon"
-                                                             src="/images/ico/video-ini-icon.svg">
+                                                        <img loading="lazy" class="video-icon" src="{{ asset('images/ico/video-ini-icon.svg') }}">
                                                     </a>
                                                 @endif
                                             </div>
@@ -1242,8 +1182,7 @@
                                                     <a href="{{$initiative->video}}" class="launch-modal"
                                                        id="iniVideo-{{$initiative->id}}"
                                                        data-fancybox="iniVideo-{{$initiative->id}}">
-                                                        <img class="video-icon"
-                                                             src="/images/ico/video-ini-icon.svg">
+                                                        <img loading="lazy" class="video-icon" src="{{ asset('images/ico/video-ini-icon.svg') }}">
                                                     </a>
                                                 @endif
                                             </div>
