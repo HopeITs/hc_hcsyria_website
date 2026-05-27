@@ -140,9 +140,9 @@
                         <ul class="multi-column-dropdown">
                             <li><a class="nav-list-links close-nav"
                                    href="/rootsofhope">Roots Of Hope</a></li>
-                            <li role="separator" class="div"></li>
-                            <li><a class="nav-list-links close-nav"
-                                   href="/our-news">@lang('navbar.newsletter')</a></li>
+{{--                            <li role="separator" class="div"></li>--}}
+                            {{--<li><a class="nav-list-links close-nav"--}}
+                            {{--href="/our-news">@lang('navbar.newsletter')</a></li>--}}
 
                         </ul>
                     </ul>
