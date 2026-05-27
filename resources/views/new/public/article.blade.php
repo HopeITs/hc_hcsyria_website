@@ -24,6 +24,7 @@
     <link href="{{asset('css/main-new.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/navbar.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/newsletter.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/our-news.css')}}" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
     <link href='/css/lato.css' rel='stylesheet' type='text/css'>
@@ -155,27 +156,7 @@
 @include('new.public.navbar')
 
 <div id="Newsletter" class="news-article page_start">
-
-    <div class="page-margin mb-3">
-        <div class="container-fluid">
-            <div class="row d-flex" style="min-height: 6vw;">
-                <div class="col-6 d-flex justify-content-end flex-column pe-0 position-relative">
-                    <div class="first-column w-100"></div>
-                    <div class="content">
-                        <div class="main_title aos-init aos-animate" data-aos="fade-up" data-aos-duration="600">
-                            PUBLISHED BY
-                        </div>
-                        <div class="main_subtitle aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000">
-                            CHRISTIAN HOPE CENTER
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="custom-container mt-4">
+    <div class="custom-container mt-5">
 
         <div class="row mx-0 mt-4 mb-3">
             <div class="col-12 p-0">
@@ -339,41 +320,38 @@
 
     </div>
 
-    <div class="subscribe-section">
-        <div class="container-fluid">
-            <div class="row" data-aos="fade-up" data-aos-duration="600">
-                <div class="col-12 d-flex justify-content-center flex-column align-items-center">
-                    <div class="section-title">Join Our NewsLetter</div>
-                </div>
+    <div class="container-fluid" data-aos="fade-up" data-aos-duration="800">
+        <div class="row justify-content-center">
+            <div class="col-12 d-flex justify-content-center flex-column align-items-center">
+                <div class="section-title">Get Latest Updates On Our News</div>
             </div>
         </div>
     </div>
-    <div class="container-fluid" data-aos="fade-up" data-aos-duration="800">
-        <div class="letter page-margin">
-            <div class="row d-flex justify-content-center">
+
+    <div class="container-fluid my-5" data-aos="fade-up" data-aos-duration="800">
+        <div class="row justify-content-center mx-0">
+
+            <div class="col-12 col-md-10 col-lg-8">
                 <div class="subscribe-container">
-                    <div class="row d-flex justify-content-center">
-                        <img src="/images/ico/letter.svg">
-                    </div>
-                    <div class="row d-flex justify-content-center">
-                        <div class="text-capitalize subscribe-title">subscribe our newsletter to receive the latest news.</div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            {!! csrf_field() !!}
-                            <form class="subscription" name="subsribeForm" id="subsribeForm" action="" method="get">
-                                <input class="add-email" id="email" name="email" placeholder="Enter your Email Address"
-                                       type="email">
-                                <label id="subscribe-error" class="subscribe-error">Email has already subscribed! </label>
-                                <button class="submit-email" type="submit" name="submit">
-                                    <span id="before-submit" class="before-submit">Subscribe</span>
-                                    <span id="after-submit" class="after-submit">Subscribed!</span>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
+                    <img src="/images/ico/letter.svg" alt="Newsletter Icon">
+
+                    <h4 class="subscribe-title text-capitalize">
+                        Subscribe our newsletter to receive the latest news.
+                    </h4>
+
+                    <form class="subscription" name="subsribeForm" id="subsribeForm" action="" method="get">
+                        {!! csrf_field() !!}
+                        <input class="add-email" id="email" name="email" placeholder="Enter your Email Address" type="email">
+                        <button class="submit-email" type="submit" name="submit">
+                            <span id="before-submit" class="before-submit">Subscribe</span>
+                            <span id="after-submit" class="after-submit" style="display:none;">Subscribed!</span>
+                        </button>
+                    </form>
+
+                    <label id="subscribe-error" class="subscribe-error mt-2" style="display:none;">Email has already subscribed!</label>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

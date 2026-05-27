@@ -14,17 +14,20 @@ class NewsPage extends Component
     public bool $hasMore = true;
     public $carouselImages;
 
+    public int $chunkSize = 5;
     public function loadMore()
     {
-        $this->amount += 5;
+        $this->amount += $this->chunkSize;
     }
 
     public function render()
     {
         $this->carouselImages = Cover::where('what_category_id', 40)->orderBy('image_order', 'asc')->get();
 
-        $regularLimit = 10 + $this->amount;
-        $pinnedLimit = ($regularLimit / 5) - 1;
+        $baseLimit = $this->chunkSize * 2;
+        $regularLimit = $baseLimit + $this->amount;
+
+        $pinnedLimit = intval(($regularLimit / $this->chunkSize) - 1);
 
         $pinnedQuery = News::with(['english', 'place', 'images'])
             ->where('online', '1')

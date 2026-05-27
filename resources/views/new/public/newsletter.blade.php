@@ -70,34 +70,30 @@
     </div>
 </div>
 
-<div class="container-fluid mb-5" data-aos="fade-up" data-aos-duration="800">
-    <div class="letter page-margin">
-        <div class="row justify-content-center">
-            <div class="subscribe-container py-4">
-                <div class="row justify-content-center mt-2">
-                    <img src="/images/ico/letter.svg" alt="Newsletter Icon">
-                </div>
-                <div class="row justify-content-center mb-3">
-                    <div class="subscribe-title">
-                        Subscribe To Receive The Latest News.
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <form class="subscription" name="subsribeForm" id="subsribeForm">
-                            @csrf
-                            <input class="add-email" id="email" name="email" placeholder="Enter your email address..." type="email">
-                            <button class="submit-email" type="submit">
-                                <span id="before-submit">Subscribe</span>
-                                <span id="after-submit" class="d-none">Subscribed!</span>
-                            </button>
-                        </form>
+<div class="container-fluid my-5" data-aos="fade-up" data-aos-duration="800">
+    <div class="row justify-content-center mx-0">
 
-                        <div id="validation-errors-container" class="w-100 mt-2"></div>
-                    </div>
-                </div>
+        <div class="col-12 col-md-10 col-lg-8">
+            <div class="subscribe-container">
+                <img src="/images/ico/letter.svg" alt="Newsletter Icon">
+
+                <h4 class="subscribe-title text-capitalize">
+                    Subscribe our newsletter to receive the latest news.
+                </h4>
+
+                <form class="subscription" name="subsribeForm" id="subsribeForm" action="" method="get">
+                    {!! csrf_field() !!}
+                    <input class="add-email" id="email" name="email" placeholder="Enter your Email Address" type="email">
+                    <button class="submit-email" type="submit" name="submit">
+                        <span id="before-submit" class="before-submit">Subscribe</span>
+                        <span id="after-submit" class="after-submit" style="display:none;">Subscribed!</span>
+                    </button>
+                </form>
+
+                <label id="subscribe-error" class="subscribe-error mt-2" style="display:none;">Email has already subscribed!</label>
             </div>
         </div>
+
     </div>
 </div>
 

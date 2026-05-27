@@ -359,17 +359,9 @@
 
 .subscription .submit-email .before-submit,
 .subscription .submit-email .after-submit {
-    position: absolute;
-    top: 0;
-    left: 1.3vw;;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    line-height: 1.8vw;
-    transition: visibility .35s ease-in-out,
-    opacity .35s ease-in-out;
-    font-size: 1vw;
-    font-weight: 500;
+    transition: visibility .35s ease-in-out, opacity .35s ease-in-out;
+    font-size: 1.1vw;
+    font-weight: 700;
 }
 
 #after-submit{

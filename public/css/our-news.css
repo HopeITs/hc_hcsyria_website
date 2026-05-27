@@ -146,13 +146,9 @@
 .grid-5-columns {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 16px;
 }
 
-@media (min-width: 600px) {
-    .grid-5-columns { grid-template-columns: repeat(2, 1fr); }
-    .span-tablet-2 { grid-column: span 2; }
-}
 
 @media (min-width: 992px) {
     .grid-5-columns { grid-template-columns: repeat(5, 1fr); gap: 16px; }
@@ -168,15 +164,32 @@
 }
 
 @media (min-width: 480px) {
-    .grid-adaptive-row { grid-template-columns: repeat(2, 1fr); }
-}
+    .grid-adaptive-row {
+        grid-template-columns: repeat(2, 1fr);
+    }}
 
 @media (min-width: 768px) {
-    .grid-adaptive-row { grid-template-columns: repeat(3, 1fr); }
+    .grid-adaptive-row {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-5-columns {
+        grid-template-columns: 3fr 2fr;
+    }
+    .grid-5-columns .span-3,
+    .grid-5-columns .span-2,
+    .grid-5-columns .span-tablet-2 {
+        grid-column: auto;
+    }
 }
 
 @media (min-width: 992px) {
-    .grid-adaptive-row { grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 16px !important; }
+    /* Adaptive news grid: 5 columns */
+    .grid-adaptive-row {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 16px;
+        margin-bottom: 16px !important;
+    }
 }
 
 /* --- Magazine Link --- */

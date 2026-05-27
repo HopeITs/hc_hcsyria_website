@@ -1,5 +1,29 @@
 <div>
-    <div class="custom-container mt-custom">
+    <div class="custom-container mt-custom"
+         x-data="{
+        timer: null,
+        checkSize() {
+            let w = window.innerWidth;
+            let size = 5;
+
+            if (w < 480) {
+                size = 4;
+            } else if (w < 992) {
+                size = 6;
+            }
+
+            if ($wire.chunkSize !== size) {
+                $wire.set('chunkSize', size);
+            }
+        }
+     }"
+         x-init="
+        checkSize();
+        window.addEventListener('resize', () => {
+            clearTimeout(timer);
+            timer = setTimeout(() => checkSize(), 50);
+        });
+     ">
         <div class="row mx-0 mb-3">
             <div class="col-12 p-0">
                 <div class="d-flex justify-content-center align-items-center position-relative bg-primary-red text-white py-3">
@@ -114,7 +138,7 @@
         </div>
 
         @php
-            $regularChunks = $regularNews->chunk(5);
+            $regularChunks = $regularNews->chunk($this->chunkSize);
         @endphp
         @foreach($regularChunks as $index => $chunk)
             <div class="grid-adaptive-row">
