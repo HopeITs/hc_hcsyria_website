@@ -25,7 +25,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
-
 </head>
 <body>
 
@@ -49,7 +48,7 @@
                 <div class="row">
                     <div class="col">
                         <h3 class="title">Add Image</h3>
-                        <form action="{{ route('news.images.store',[$news->id])}}" method="POST" enctype="multipart/form-data">
+                        <form id="newsImageForm" action="{{ route('news.images.store',[$news->id])}}" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="news_id" value="{{ $news->id }}">
                             @csrf
 
@@ -87,26 +86,30 @@
 
                             <div class="row mb-3">
                                 <div class="col-lg-3 col-md-3 col-12">
-                                    <label for="image-count" class="form-label">Images Count</label>
-                                    <input id="images-count" type="number" class="form-control" step="1" value="3" min="1" onchange="addImageGroup()">
+                                    <label for="images-count" class="form-label">Images Count</label>
+                                    <input id="images-count" type="number" class="form-control" step="1" 
+                                           value="{{ $hasLocalRegular ? '0' : '3' }}" 
+                                           min="{{ $hasLocalRegular ? '0' : '1' }}" onchange="addImageGroup()">
                                 </div>
                             </div>
 
                             <div class="mb-3" id="images-group">
-                                @for($i=0; $i<3; $i++)
-                                    <div class="image-group mb-3 border p-3 rounded bg-light">
-                                        <div class="row">
-                                            <div class="col-lg-6 col-md-6 col-12 mb-3 mb-md-0">
-                                                <label class="form-label">Small Image</label>
-                                                <input type="file" name="small_image[]" accept="image/jpeg" class="form-control" required>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-12">
-                                                <label class="form-label">Large Image</label>
-                                                <input type="file" name="big_image[]" accept="image/jpeg" class="form-control" required>
+                                @if(!$hasLocalRegular)
+                                    @for($i=0; $i<3; $i++)
+                                        <div class="image-group mb-3 border p-3 rounded bg-light">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-12 mb-3 mb-md-0">
+                                                    <label class="form-label">Small Image</label>
+                                                    <input type="file" name="small_image[]" accept="image/jpeg" class="form-control" required>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-12">
+                                                    <label class="form-label">Large Image</label>
+                                                    <input type="file" name="big_image[]" accept="image/jpeg" class="form-control" required>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endfor
+                                    @endfor
+                                @endif
                             </div>
 
                             <h3 class="title mt-5 mb-4">News Thumbnails & Placement</h3>
@@ -115,12 +118,12 @@
                                 <div class="row align-items-center">
                                     <div class="col-lg-6 col-12">
                                         <label for="thumbnail_image" class="fs-5 fw-bold">
-                                            1:1 Default Thumbnail <span class="text-danger">*</span>
+                                            1:1 Default Thumbnail @if(!$hasLocalThumbnail)<span class="text-danger">*</span>@endif
                                         </label>
-                                        <p class="text-muted small mb-0">REQUIRED. Standard news grids.</p>
+                                        <p class="text-muted small mb-0">REQUIRED for main site card feeds.</p>
                                     </div>
                                     <div class="col-lg-6 col-12 mt-2 mt-lg-0">
-                                        <input type="file" name="thumbnail_image" id="thumbnail_image" accept="image/jpeg" required class="form-control crop-trigger">
+                                        <input type="file" name="thumbnail_image" id="thumbnail_image" accept="image/jpeg" @if(!$hasLocalThumbnail) required @endif class="form-control crop-trigger">
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +136,7 @@
                                             <div class="custom-radio-btn mt-1"></div>
                                             <div>
                                                 <h5 class="mb-1 fw-bold">Mark as Important News</h5>
-                                                <p class="text-muted small mb-0">3:2 Aspect Ratio. Only ONE news can be important (Setting this will replace the current important news).</p>
+                                                <p class="text-muted small mb-0">3:2 Aspect Ratio. Only ONE news can be important globally.</p>
                                             </div>
                                         </div>
                                         <div id="important_upload_area" class="upload-sub-area mt-3">
@@ -168,7 +171,7 @@
                                 <a href="{{route('news.show', [$news->id])}}" class="btn btn-secondary ms-3">
                                     <i class="fa fa-eye"></i>&nbsp;View
                                 </a>
-                                <button type="submit" class="btn btn-danger ms-3">
+                                <button type="button" id="submitFormBtn" class="btn btn-danger ms-3">
                                     <i class="fa fa-upload"></i> Upload
                                 </button>
                             </div>
@@ -182,7 +185,8 @@
                             <h3 class="title">Uploaded Images</h3>
                             <form action="{{ route('news.images.destroy',[$news->id])}}" method="POST" id="delete-images-form">
                                 @csrf
-                                @method('DELETE')
+                                @pragma('method','DELETE')
+                                <input type="hidden" name="_method" value="DELETE">
                                 <div class="d-flex flex-wrap mt-4 gap-3">
                                     @php $sortedImages = $images->sortBy(fn($img) => $img['sizetype'] ?? 3); @endphp
                                     @foreach($sortedImages as $img)
@@ -199,7 +203,7 @@
 
                                             @if($ribbon)
                                                 <div class="ribbon-wrapper">
-                                                    <div title="{{ $ribbon['txt'] }}" class="bookmark-ribbon">
+                                                    <div class="bookmark-ribbon" title="{{ $ribbon['txt'] }}">
                                                         <i class="fa {{ $ribbon['icon'] }}"></i>
                                                     </div>
                                                 </div>
@@ -264,7 +268,6 @@
                 </div>
             </div>
             <div class="modal-footer bg-light">
-                <span class="text-muted small me-auto"><i class="fa fa-info-circle"></i> Scroll to zoom, drag to move grid.</span>
                 <button type="button" class="btn btn-secondary" id="cancel-crop-btn">Cancel</button>
                 <button type="button" class="btn btn-danger" id="confirm-crop-btn">
                     <i class="fa fa-check"></i> Crop & Confirm
@@ -277,7 +280,6 @@
 @stack('navbar_scripts')
 
 <script>
-    // Updated logic for dynamic image groups with BS5 classes
     let image_group = '<div class="image-group mb-3 border p-3 rounded bg-light">' +
         '<div class="row">' +
         '<div class="col-lg-6 col-md-6 col-12 mb-3 mb-md-0">' +
@@ -288,21 +290,153 @@
         '<input accept="image/jpeg" required name="big_image[]" type="file" class="form-control">' +
         '</div></div>' +
         '</div>';
-    let images_count = 3;
+        
+    let images_count = parseInt(document.getElementById('images-count').value);
 
     function addImageGroup() {
-        let count = document.getElementById('images-count').value;
+        let count = parseInt(document.getElementById('images-count').value) || 0;
+        let floorLimit = {{ $hasLocalRegular ? 0 : 1 }};
+        
+        if (count < floorLimit) {
+            count = floorLimit;
+        }
+
         if (count > images_count) {
-            images_count++;
-            $('#images-group').append(image_group);
-        } else if (images_count > 1) {
-            images_count--;
-            $('#images-group').children().last().remove();
+            while(count > images_count) {
+                images_count++;
+                $('#images-group').append(image_group);
+            }
+        } else if (images_count > count) {
+            while(images_count > count && images_count > floorLimit) {
+                images_count--;
+                $('#images-group').children().last().remove();
+            }
         }
         document.getElementById('images-count').value = images_count;
     }
 
-    // Logic for existing images gallery
+    // Interactive Action Alert Interceptors
+    $('#submitFormBtn').on('click', function(e) {
+        e.preventDefault();
+        
+        let localThumbExists = {{ $hasLocalThumbnail ? 'true' : 'false' }};
+        let localImportantExists = {{ $hasLocalImportant ? 'true' : 'false' }};
+        let localPinnedExists = {{ $hasLocalPinned ? 'true' : 'false' }};
+        let globalImportantId = "{{ $globalImportantId }}";
+
+        let newThumbSelected = $('#thumbnail_image').val();
+        let isImportantChecked = $('#check_important').is(':checked');
+        let newImportantSelected = $('#important_image').val();
+        let isPinnedChecked = $('#check_pinned').is(':checked');
+        let newPinnedSelected = $('#pinned_image').val();
+
+        // Check 1: Thumbnail missing validation
+        if (!localThumbExists && !newThumbSelected) {
+            swal('Thumbnail Required', 'Please upload a default 1:1 thumbnail image to continue.', 'error');
+            return;
+        }
+
+        let runSubmit = () => { $('#newsImageForm').submit(); };
+
+        // Check 2: Intercept global overwrite shifts
+        if (isImportantChecked && globalImportantId !== "") {
+            swal({
+                title: 'Change Global Important News?',
+                text: "Another article is currently set as Important. Making this one Important will replace it.",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Yes, replace it'
+            }).then((result) => { if (result) executeLocalOverwritesCheck(); });
+        } else {
+            executeLocalOverwritesCheck();
+        }
+
+        function executeLocalOverwritesCheck() {
+            // Check 3: Intercept local thumbnail replacement
+            if (localThumbExists && newThumbSelected) {
+                swal({
+                    title: 'Replace Thumbnail?',
+                    text: "This article already has a thumbnail. Uploading a new one will replace the old file.",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, replace it'
+                }).then((result) => { if (result) checkImportantLocal(); });
+            } else {
+                checkImportantLocal();
+            }
+        }
+
+        function checkImportantLocal() {
+            // Check 4: Intercept local important replacement
+            if (isImportantChecked && localImportantExists && newImportantSelected) {
+                swal({
+                    title: 'Replace Important Image?',
+                    text: "An Important image already exists for this article. Uploading a new one will replace it.",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, replace it'
+                }).then((result) => { if (result) checkPinnedLocal(); });
+            } else {
+                checkPinnedLocal();
+            }
+        }
+
+        function checkPinnedLocal() {
+            // Check 5: Intercept local pinned replacement
+            if (isPinnedChecked && localPinnedExists && newPinnedSelected) {
+                swal({
+                    title: 'Replace Pinned Image?',
+                    text: "A Pinned image already exists for this article. Uploading a new one will replace it.",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, replace it'
+                }).then((result) => { if (result) runSubmit(); });
+            } else {
+                runSubmit();
+            }
+        }
+    });
+
+    // Placement UI toggle handling alterations
+    $('.placement-checkbox').on('change', function() {
+        let id = $(this).attr('id');
+        let checked = $(this).is(':checked');
+
+        if (id === 'check_important') {
+            if (checked) {
+                $('#check_pinned').prop('checked', false).trigger('change');
+                $('#card_important').addClass('active').removeClass('dimmed');
+                $('#important_upload_area').slideDown();
+                $('#important_image').prop('required', true);
+            } else {
+                $('#card_important').removeClass('active');
+                $('#important_upload_area').slideUp();
+                $('#important_image').prop('required', false);
+            }
+        }
+
+        if (id === 'check_pinned') {
+            if (checked) {
+                $('#check_important').prop('checked', false).trigger('change');
+                $('#card_pinned').addClass('active').removeClass('dimmed');
+                $('#pinned_upload_area').slideDown();
+                $('#pinned_image').prop('required', true);
+            } else {
+                $('#card_pinned').removeClass('active');
+                $('#pinned_upload_area').slideUp();
+                $('#pinned_image').prop('required', false);
+            }
+        }
+
+        if (!$('#check_important').is(':checked') && !$('#check_pinned').is(':checked')) {
+            $('.placement-card').removeClass('dimmed active');
+        } else {
+            $('.placement-card:not(.active)').addClass('dimmed');
+        }
+    });
+
+    // Gallery and Cropper logic remains fully functional
     $('.image-card-wrapper').on('click', function() {
         $('.image-card-wrapper').removeClass('show-actions');
         $(this).addClass('show-actions');
@@ -348,68 +482,23 @@
         }
     }
 
-    // SweetAlert confirmation logic
     $('.show_confirm').click(function (event) {
         var form = $(this).closest("form");
         event.preventDefault();
         if ($(".image-card-wrapper.selected").length > 0) {
             swal({
                 title: 'Delete selected images?',
+                text: 'This action cannot be undone.',
+                type: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Delete',
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete them'
             }).then((result) => { if (result) form.submit(); });
         } else {
-            swal('Notice', 'Please select images to delete.', 'info');
+            swal('No images selected', 'Please click the checkmarks on the images you want to delete.', 'info');
         }
     });
 
-    // Placement logic
-    $('.placement-checkbox').on('change', function() {
-        let id = $(this).attr('id');
-        let checked = $(this).is(':checked');
-
-        if (id === 'check_important') {
-            if (checked) {
-                let hasImportant = {{ $hasImportant ? 'true' : 'false' }};
-
-                if (hasImportant) {
-                    swal('Cannot Set Important', 'Another news article is already set as Important. Please unmark it first.', 'warning');
-                    $(this).prop('checked', false);
-                    return;
-                }
-
-                $('#check_pinned').prop('checked', false).trigger('change');
-                $('#card_important').addClass('active').removeClass('dimmed');
-                $('#important_upload_area').slideDown();
-                $('#important_image').prop('required', true);
-            } else {
-                $('#card_important').removeClass('active');
-                $('#important_upload_area').slideUp();
-                $('#important_image').prop('required', false);
-            }
-        }
-
-        if (id === 'check_pinned') {
-            if (checked) {
-                $('#check_important').prop('checked', false).trigger('change');
-                $('#card_pinned').addClass('active').removeClass('dimmed');
-                $('#pinned_upload_area').slideDown();
-                $('#pinned_image').prop('required', true);
-            } else {
-                $('#card_pinned').removeClass('active');
-                $('#pinned_upload_area').slideUp();
-                $('#pinned_image').prop('required', false);
-            }
-        }
-
-        if (!$('#check_important').is(':checked') && !$('#check_pinned').is(':checked')) {
-            $('.placement-card').removeClass('dimmed active');
-        } else {
-            $('.placement-card:not(.active)').addClass('dimmed');
-        }
-    });
-
-    // Cropper Logic
     let cropper;
     let currentFileInput;
     const ratios = { 'thumbnail_image': 1, 'important_image': 1.5, 'pinned_image': 2 };

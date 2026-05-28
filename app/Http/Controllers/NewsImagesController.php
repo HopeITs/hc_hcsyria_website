@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Validator;
 
 class NewsImagesController extends Controller
 {
+    const NEWS = 3;
+
     public function __construct()
     {
         $this->middleware(['auth']);
@@ -21,56 +23,65 @@ class NewsImagesController extends Controller
         $news = News::with('whatCategory')->where('id', $id)->firstOrFail();
         $images = NewsImage::where('news_id', $id)->orderBy('image_order')->get();
 
+        $globalImportantArticle = News::where('priority_status', 1)->where('id', '!=', $id)->first();
+
         return view('new.admin.news.images.create', [
             'news' => $news,
             'images' => $images,
-            'hasImportant' => News::where('priority_status', 1)->where('id', '!=', $id)->exists(),
-            'hasPinned'    => News::where('priority_status', 2)->where('id', '!=', $id)->exists(),
+            'hasLocalThumbnail' => $images->where('sizetype', 0)->isNotEmpty(),
+            'hasLocalImportant' => $images->where('sizetype', 1)->isNotEmpty(),
+            'hasLocalPinned'    => $images->where('sizetype', 2)->isNotEmpty(),
+            'hasLocalRegular'   => $images->where('sizetype', 3)->isNotEmpty(),
+            'globalImportantId' => $globalImportantArticle ? $globalImportantArticle->id : null,
         ]);
     }
 
     public function store(Request $request)
     {
-        $news = News::with('whatCategory')->findOrFail($request->input('news_id'));
+        $news = News::findOrFail($request->input('news_id'));
         $path = 'images/news/' . $news->id . '/';
+        
+        $existingImages = NewsImage::where('news_id', $news->id)->get();
+        $hasLocalThumbnail = $existingImages->where('sizetype', 0)->isNotEmpty();
 
         $request->validate([
             'news_id'         => 'required|numeric',
-            'thumbnail_image' => 'required|image|mimes:jpeg,jpg',
-            'important_image' => 'nullable|image|mimes:jpeg,jpg',
-            'pinned_image'    => 'nullable|image|mimes:jpeg,jpg',
+            'thumbnail_image' => ($hasLocalThumbnail ? 'nullable' : 'required') . '|image|mimes:jpeg,jpg|max:2048',
+            'important_image' => 'nullable|image|mimes:jpeg,jpg|max:2048',
+            'pinned_image'    => 'nullable|image|mimes:jpeg,jpg|max:2048',
+            'small_image.*'   => 'nullable|image|mimes:jpeg,jpg|max:2048',
+            'big_image.*'     => 'nullable|image|mimes:jpeg,jpg|max:2048',
         ]);
 
         if ($request->has('is_important')) {
-            $exists = News::where('priority_status', 1)->where('id', '!=', $news->id)->exists();
-            if ($exists) {
-                return redirect()->back()->with('placement_error', 'Upload failed: Another news article is already set as Important. Please unmark it first.');
-            }
+            News::where('priority_status', 1)->where('id', '!=', $news->id)->update(['priority_status' => 0]);
+            
             $news->priority_status = 1;
-            $this->cleanUpOldSpecialImages($news->id, 2);
-
+            if ($request->hasFile('important_image')) {
+                $this->cleanUpOldSpecialImages($news->id, 1);
+            }
         } elseif ($request->has('is_pinned')) {
             $news->priority_status = 2;
-            $this->cleanUpOldSpecialImages($news->id, 1);
-
+            if ($request->hasFile('pinned_image')) {
+                $this->cleanUpOldSpecialImages($news->id, 2);
+            }
         } else {
             $news->priority_status = 0;
-            $this->cleanUpOldSpecialImages($news->id, 1);
-            $this->cleanUpOldSpecialImages($news->id, 2);
         }
 
-        $news->save(); // Save the priority status immediately!
-
+        $news->save();
         $uploadedCount = 0;
 
         if ($request->hasFile('thumbnail_image')) {
+            $this->cleanUpOldSpecialImages($news->id, 0);
+            
             $imgName = time() . '_thumb';
             $request->file('thumbnail_image')->move($path, $imgName . '.jpg');
 
             $newsImage = new NewsImage();
             $newsImage->news_id = $news->id;
             $newsImage->path = '/' . $path . $imgName . '.jpg';
-            $newsImage->sizetype = 0; // Sizetype 0
+            $newsImage->sizetype = 0; 
             $newsImage->save();
             $uploadedCount++;
         }
@@ -82,7 +93,7 @@ class NewsImagesController extends Controller
             $newsImage = new NewsImage();
             $newsImage->news_id = $news->id;
             $newsImage->path = '/' . $path . $imgName . '.jpg';
-            $newsImage->sizetype = 1; // Sizetype 1
+            $newsImage->sizetype = 1; 
             $newsImage->save();
             $uploadedCount++;
         }
@@ -94,7 +105,7 @@ class NewsImagesController extends Controller
             $newsImage = new NewsImage();
             $newsImage->news_id = $news->id;
             $newsImage->path = '/' . $path . $imgName . '.jpg';
-            $newsImage->sizetype = 2; // Sizetype 2
+            $newsImage->sizetype = 2; 
             $newsImage->save();
             $uploadedCount++;
         }
@@ -114,7 +125,7 @@ class NewsImagesController extends Controller
                     $newsImage = new NewsImage();
                     $newsImage->news_id = $news->id;
                     $newsImage->path = '/' . $path . $imgName . '.jpg';
-                    $newsImage->sizetype = 3; // Sizetype 3
+                    $newsImage->sizetype = 3; 
                     $newsImage->save();
 
                     $uploadedCount++;
@@ -135,7 +146,6 @@ class NewsImagesController extends Controller
 
         foreach ($images as $img) {
             if ($request->input($img->id) == '1') {
-
                 if ($img->sizetype == 1 && $news->priority_status == 1) {
                     $news->priority_status = 0;
                     $news->save();
@@ -166,6 +176,9 @@ class NewsImagesController extends Controller
         foreach ($oldImages as $oldImg) {
             if (File::exists(public_path($oldImg->path))) {
                 File::delete(public_path($oldImg->path));
+            }
+            if ($sizetype == 3 && File::exists(public_path(substr($oldImg->path, 0, -4) . 'b.jpg'))) {
+                File::delete(public_path(substr($oldImg->path, 0, -4) . 'b.jpg'));
             }
             $oldImg->delete();
         }
