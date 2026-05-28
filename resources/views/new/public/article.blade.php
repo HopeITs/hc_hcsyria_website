@@ -212,12 +212,17 @@
                                             <div class="col-auto p-0">
                                                 <a href="{{ $article->file }}" class="file_btn" target="_blank" 
                                                 style="background-color: #b91c1c; color: white; padding: 4.8px 5px ; border-radius: 7px; display: inline-flex; align-items: center; justify-content: center; text-decoration: none;"
-                                                data-toggle="tooltip" rel="tooltip" data-placement="bottom"
+                                                data-toggle="tooltip" 
+                                                rel="tooltip" 
+                                                data-placement="top" 
+                                                data-bs-placement="top"
+                                                data-container="body"
+                                                data-bs-container="body"
                                                 title="{{ substr($article->file, 12) }}">
                                                     <span class="fa fa-paperclip"></span>
                                                 </a>
                                             </div>
-                                        @endif
+                                        @endif      
                                         <div class="dropdown d-inline-block">
                                             <a href="#" class="action-badge icon-only"
                                                 style="margin-top: 4.5px" id="shareDropdown"
@@ -468,27 +473,27 @@
         });
     </script>
     <script>
-        $(function() {
-            $('.file_btn').on("mouseenter", function() {
-                $('.bl').hide();
-                $(this).showBalloon({
-                    position: "right",
-                    contents: "{{ substr($article->file, 12) }}",
-                    classname: "bl",
-                    maxLifetime: 1000,
-                    tipSize: 0,
-                    delay: 100,
-                    hideDuration: 500,
-                    showAnimation: function(d, c) {
-                        this.fadeIn(d, c);
-                    },
-                    css: {
-                        fontSize: '1.1rem'
-                    }
-                });
-            })
-        });
-    </script>
+    $(function() {
+        $('.file_btn').on("mouseenter", function() {
+            $('.bl').hide();
+            $(this).showBalloon({
+                position: "top", 
+                contents: "{{ substr($article->file, 12) }}",
+                classname: "bl",
+                maxLifetime: 1000,
+                tipSize: 0,
+                delay: 100,
+                hideDuration: 500,
+                showAnimation: function(d, c) {
+                    this.fadeIn(d, c);
+                },
+                css: {
+                    fontSize: '1.1rem'
+                }
+            });
+        })
+    });
+</script>
     <script>
         $(document).ready(function() {
             $('#shareDropdown').on('click', function(e) {

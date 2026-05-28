@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Mail;
 
 class NewsController extends Controller
 {
-    const NEWS = 'News';
+    const NEWS = 3;
     const TAGS = 'Tags';
     const EDITIONS = 'Editions';
     const SUBSCRIBERS = 'Subscribers';
@@ -175,16 +175,14 @@ class NewsController extends Controller
         ]);
 
         $news = News::findOrFail($id);
-        $newsPrev = clone $news;
+        $changesLog = []; 
 
         $news->online = 0;
         $news->type = $request->input('type');
-
-        $news->video = ($request->input('type') == '3') ? $request->input('video') : '0';
-
-        if ($news->isDirty('video')) {
-            $this->saveToLogWithData(self::NEWS, $id, 'Video Edited', $newsPrev->video, $news->video);
-        }
+        $news->video = $request->filled('video') ? $request->input('video') : '0';
+        $news->rank = $request->input('rank') ?? $news->rank ?? 1;
+        $news->place_id = $request->input('place_id');
+        $news->date = $request->input('date');
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
@@ -194,10 +192,11 @@ class NewsController extends Controller
             $news->file = $path . $fileName;
         }
 
-        $news->rank = $request->input('rank') ?? $news->rank ?? 1;
-        $news->place_id = $request->input('place_id');
-        $news->date = $request->input('date');
-
+        if ($news->isDirty()) {
+            foreach ($news->getDirty() as $attribute => $newValue) {
+                $changesLog[] = ucfirst($attribute); 
+            }
+        }
         $news->save();
 
         if ($request->filled('news_tags')) {
@@ -206,12 +205,14 @@ class NewsController extends Controller
             foreach ($tagNames as $name) {
                 $trimmedName = trim($name);
                 if (empty($trimmedName)) continue;
-                $tag = Tag::where('name', $trimmedName)->first();
-                if ($tag) {
-                    $tagIds[] = $tag->id;
-                }
+                $tag = Tag::firstOrCreate(['name' => $trimmedName]);
+                $tagIds[] = $tag->id;
             }
-            $news->tags()->sync($tagIds);
+            
+            $syncResult = $news->tags()->sync($tagIds);
+            if (!empty($syncResult['attached']) || !empty($syncResult['detached']) || !empty($syncResult['updated'])) {
+                $changesLog[] = 'Tags';
+            }
         }
 
         $engNews = NewsEnglish::where('news_id', $id)->first();
@@ -219,19 +220,34 @@ class NewsController extends Controller
             $engNews->title = $request->input('title');
             $engNews->description = $request->input('description') ?? '0';
             $engNews->content = $request->input('content');
+
+            if ($engNews->isDirty()) {
+                foreach ($engNews->getDirty() as $attribute => $newValue) {
+                    $changesLog[] = ucfirst($attribute);
+                }
+            }
             $engNews->save();
         }
 
         $ref = $request->input('ref');
+        
+        if (!empty($changesLog)) {
+            $changedFieldsString = implode(', ', array_unique($changesLog));
+            $notificationMessage = 'News updated successfully. Edited fields: ' . $changedFieldsString;
+            
+            $logDescription = 'News Edited: ' . $changedFieldsString;
+            $this->saveToLogWithData(self::NEWS, $id, $logDescription, 'Various', $changedFieldsString);
+        } else {
+            $notificationMessage = 'News updated successfully (No changes detected).';
+        }
 
         if ($ref === 'dashboard') {
-            return redirect()->route('home')->with('success', 'News updated successfully.');
+            return redirect()->route('home')->with('success', $notificationMessage);
+        } else if ($ref === 'show') {
+            return redirect()->route('news.show', [$id])->with('success', $notificationMessage);
         }
-        else if ($ref === 'show') {
-            return redirect()->route('news.show', [$id])->with('success', 'News updated successfully.');
-        }
-        return redirect()->route('news.index', ['tab' => 'Pending'])
-            ->with('success', 'News updated successfully.');
+        
+        return redirect()->route('news.index', ['tab' => 'Pending'])->with('success', $notificationMessage);
     }
     public function destroy($id)
     {
