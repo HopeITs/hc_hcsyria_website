@@ -31,7 +31,7 @@
                 </a>
             @endif
 
-            @if($news->english_check == '1' && (count($news->images) > 0 || ($news->video && $news->video != '0')))
+            @if($news->online == '0' && $news->english_check == '1' && (count($news->images) > 0 || ($news->video && $news->video != '0')))
                 <form action="{{ route('news.online') }}" method="POST" class="m-0 p-0">
                     @csrf
                     <input type="hidden" name="id" value="{{ $news->id }}">
