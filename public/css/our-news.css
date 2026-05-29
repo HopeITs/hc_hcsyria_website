@@ -252,7 +252,7 @@
 .news-overlay {
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    padding: 20px;
+    padding: 20px 20px 14px 20px;
     background: var(--black-overlay);
     display: flex;
     flex-direction: column;
@@ -261,12 +261,11 @@
 }
 
 .news-meta {
-    font-size: 0.7rem;
+    font-size: 0.63rem;
     color: #fff;
-    font-weight: 600;
+    font-weight: 400;
     text-transform: uppercase;
-    margin-bottom: 5px;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -571,4 +570,241 @@
     font-weight: 600;
     display: block;
     text-align: center;
+}
+
+/* ==========================================================================
+   Appended from article.blade.php
+   Prefix 'news-article-' used to prevent conflicts with existing styles
+   ========================================================================== */
+
+.news-article-custom-container {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+#news-article-carousel,
+#news-article-carousel .carousel-inner,
+#news-article-carousel .carousel-item {
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+}
+
+#news-article-carousel .carousel-item img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+}
+
+.news-article-action-badge {
+    color: white !important;
+    padding: 6px 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none !important;
+    gap: 6px;
+}
+
+.news-article-action-badge.icon-only {
+    padding: 0;
+    width: 25px;
+    height: 25px;
+    flex-shrink: 0;
+}
+
+.news-article-action-badge i,
+.news-article-action-badge img {
+    font-size: 0.9rem;
+    object-fit: contain;
+    display: block;
+    margin: auto;
+}
+
+/* --- Mind-Blowing Share Menu UI (Compact & Outside) --- */
+.news-article-share-wrapper {
+    position: relative;
+    z-index: 1000;
+}
+
+.news-article-share-menu {
+    position: absolute;
+    top: -10px;
+    left: calc(100% + 15px);
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    padding: 6px 4px;
+    min-width: 150px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-10px) scale(0.95);
+    transform-origin: left top;
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.news-article-share-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0) scale(1);
+}
+
+.news-article-share-menu::before {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: -5px;
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.98);
+    transform: rotate(45deg);
+    border-left: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.news-article-share-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-decoration: none !important;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateX(10px);
+}
+
+.news-article-share-menu.show .news-article-share-item {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.news-article-share-menu.show .news-article-share-item:nth-child(1) { transition-delay: 0.05s; }
+.news-article-share-menu.show .news-article-share-item:nth-child(2) { transition-delay: 0.10s; }
+.news-article-share-menu.show .news-article-share-item:nth-child(3) { transition-delay: 0.15s; }
+.news-article-share-menu.show .news-article-share-item:nth-child(4) { transition-delay: 0.20s; }
+
+.news-article-share-item:hover {
+    background: #f8f9fa;
+}
+
+.news-article-share-img-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    flex-shrink: 0;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.news-article-share-item:hover .news-article-share-img-icon {
+    transform: scale(1.15) rotate(8deg);
+}
+
+.news-article-share-text {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    transition: color 0.3s ease;
+}
+
+@media (max-width: 992px) {
+    .news-article-share-menu {
+        top: calc(100% + 15px);
+        left: auto;
+        right: -10px;
+        transform-origin: top right;
+        transform: translateY(-10px) scale(0.95);
+    }
+    .news-article-share-menu.show {
+        transform: translateY(0) scale(1);
+    }
+    .news-article-share-menu::before {
+        top: -5px;
+        left: auto;
+        right: 18px;
+        border-bottom: none;
+        border-left: 1px solid #eaeaea;
+        border-top: 1px solid #eaeaea;
+    }
+}
+
+/* --- Converted Inline Styles --- */
+.news-article-inner-bg {
+    background-color: #f6f6f6;
+}
+
+.news-article-title {
+    font-family: 'Lato', sans-serif !important;
+    font-size: 2rem;
+    font-weight: 700 !important;
+    color: #555555 !important;
+    line-height: 1.2;
+    border: none !important;
+    border-left: none !important;
+    padding-left: 0 !important;
+    box-shadow: none !important;
+}
+
+.news-article-title::before,
+.news-article-title::after {
+    display: none !important;
+    content: none !important;
+}
+
+.news-article-file-btn {
+    background-color: #b91c1c;
+    color: white;
+    padding: 4.8px 5px;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.news-article-file-btn:hover {
+    color: white;
+}
+
+#Newsletter hr.news-article-divider-thin {
+    border: none;
+    border-top: 1px solid #ccc !important;
+    margin: 8px 0 10px 0;
+    opacity: 1;
+}
+
+#Newsletter hr.news-article-divider-thick {
+    border: none;
+    border-top: 2px solid #999 !important;
+    margin: 0 0 20px 0;
+    opacity: 1;
+}
+
+.news-article-meta-text {
+    font-family: 'Lato', sans-serif !important;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.news-article-content-body {
+    column-count: 1;
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
 }

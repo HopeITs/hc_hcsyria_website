@@ -22,10 +22,12 @@
     <meta property="og:title" content="{{ $article->$language->title }}" />
     <meta property="og:description" content="{{ $article->$language->description }}" />
     <title>@lang('navbar.newsletter')</title>
+    
     <link href="{{ asset('css/main-new.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/navbar.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/newsletter.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/our-news.css') }}" rel="stylesheet" type="text/css">
+    
     <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
     <link href='/css/lato.css' rel='stylesheet' type='text/css'>
@@ -34,7 +36,6 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/animate.css" rel="stylesheet">
     <link href="/css/responsive.css" rel="stylesheet">
-
     <link href="/css/jquery.fancybox.min.css" rel="stylesheet">
     <link href="/css/hover-effect.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
@@ -61,185 +62,6 @@
     <script type="text/javascript" src="/js/swipe.index.js"></script>
     <script type="text/javascript" src="/js/fancybox.config.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-
-    <style>
-        :root {
-            --primary-red: #b5121b;
-            --text-dark: #414042;
-        }
-
-        .custom-container {
-            max-width: 850px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        #news-carousel,
-        #news-carousel .carousel-inner,
-        #news-carousel .carousel-item {
-            height: auto !important;
-            min-height: auto !important;
-            max-height: none !important;
-        }
-
-        #news-carousel .carousel-item img {
-            width: 100% !important;
-            height: auto !important;
-            object-fit: contain !important;
-        }
-
-        .action-badge {
-            color: white !important;
-            padding: 6px 16px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Lato', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-decoration: none !important;
-            gap: 6px;
-        }
-
-        .action-badge.icon-only {
-            padding: 0;
-            width: 25px;
-            height: 25px;
-            flex-shrink: 0;
-        }
-
-        .action-badge i,
-        .action-badge img {
-            font-size: 0.9rem;
-            object-fit: contain;
-            display: block;
-            margin: auto;
-        }
-
-        /* --- Mind-Blowing Share Menu UI (Compact & Outside) --- */
-        .share-wrapper {
-            position: relative;
-            z-index: 1000;
-        }
-
-        .modern-share-menu {
-            position: absolute;
-            top: -10px;
-            left: calc(100% + 15px); /* Pushes the menu right outside the button */
-            background: rgba(255, 255, 255, 0.98);
-            border: 1px solid #eaeaea;
-            border-radius: 10px; /* Tighter radius */
-            padding: 6px 4px; /* Tighter padding */
-            min-width: 150px; /* Slimmer width */
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-            
-            /* Initial Hidden State */
-            opacity: 0;
-            visibility: hidden;
-            transform: translateX(-10px) scale(0.95);
-            transform-origin: left top;
-            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        /* Active State */
-        .modern-share-menu.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(0) scale(1);
-        }
-
-        /* The little triangle pointing LEFT to the button */
-        .modern-share-menu::before {
-            content: '';
-            position: absolute;
-            top: 18px;
-            left: -5px;
-            width: 10px;
-            height: 10px;
-            background: rgba(255, 255, 255, 0.98);
-            transform: rotate(45deg);
-            border-left: 1px solid #eaeaea;
-            border-bottom: 1px solid #eaeaea;
-        }
-
-        .share-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 12px;
-            border-radius: 6px; 
-            text-decoration: none !important;
-            transition: all 0.25s ease;
-            position: relative;
-            overflow: hidden;
-            
-            /* Hidden State for Staggered Animation */
-            opacity: 0;
-            transform: translateX(10px);
-        }
-
-        /* Staggered Entrance Animation */
-        .modern-share-menu.show .share-item {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        .modern-share-menu.show .share-item:nth-child(1) { transition-delay: 0.05s; }
-        .modern-share-menu.show .share-item:nth-child(2) { transition-delay: 0.10s; }
-        .modern-share-menu.show .share-item:nth-child(3) { transition-delay: 0.15s; }
-        .modern-share-menu.show .share-item:nth-child(4) { transition-delay: 0.20s; }
-
-        /* Hover States */
-        .share-item:hover {
-            background: #f8f9fa;
-        }
-
-        .share-img-icon {
-            width: 20px; /* Clean, compact icon size, no background */
-            height: 20px;
-            object-fit: contain;
-            flex-shrink: 0;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .share-item:hover .share-img-icon {
-            transform: scale(1.15) rotate(8deg);
-        }
-
-        .share-text {
-            font-family: 'Lato', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            transition: color 0.3s ease;
-        }
-
-        /* Mobile fallback: If the screen is too small, drop it downwards instead of off-screen */
-        @media (max-width: 992px) {
-            .modern-share-menu {
-                top: calc(100% + 15px);
-                left: auto;
-                right: -10px;
-                transform-origin: top right;
-                transform: translateY(-10px) scale(0.95);
-            }
-            .modern-share-menu.show {
-                transform: translateY(0) scale(1);
-            }
-            .modern-share-menu::before {
-                top: -5px;
-                left: auto;
-                right: 18px;
-                border-bottom: none;
-                border-left: 1px solid #eaeaea;
-                border-top: 1px solid #eaeaea;
-            }
-        }
-
-    </style>
-
 </head>
 
 <body>
@@ -257,116 +79,100 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
+    
     <div class="preloader">
         <div class="preloader-gif"></div>
     </div>
+    
     @include('new.public.navbar')
 
     <div id="Newsletter" class="news-article page_start">
-        <div class="custom-container mt-5">
+        <div class="news-article-custom-container mt-5">
 
             <div class="row mx-0 mt-4 mb-3">
                 <div class="col-12 p-0">
-                    <div class="d-flex justify-content-center align-items-center"
-                        style="background-color: var(--primary-red); color: white; padding: 16px 0;">
-                        <h1 class="m-0"
-                            style="font-family: 'Lato', sans-serif; font-size: calc(1.5rem + 1vw); font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;">
-                            OUR NEWS</h1>
+                    <div class="d-flex justify-content-center align-items-center bg-primary-red py-3">
+                        <h1 class="m-0 news-header-title text-white">OUR NEWS</h1>
                     </div>
                 </div>
             </div>
 
             <div class="row mx-0 justify-content-center mb-5">
                 <div class="col-12 p-0">
-                    <div class="inner-container" style="background-color: #f6f6f6; padding: 1rem 2rem;">
-                        <div class="row  h-100 g-0">
+                    <div class="inner-container news-article-inner-bg px-4 py-3">
+                        <div class="row h-100 g-0">
 
-                            <div class="col-12 p-0 position-relative mb-4"
-                                style="border-left: none !important; padding-left: 0 !important;">
-                                <style>
-                                    .news_title::before,
-                                    .news_title::after {
-                                        display: none !important;
-                                        content: none !important;
-                                    }
-                                </style>
-                                <div class="d-flex justify-content-between align-items-center mb-2 gap-3"
-                                    style="border: none !important;">
-                                    <h1 class="news_title m-0"
-                                        style="font-family: 'Lato', sans-serif !important; font-size: 2rem; font-weight: 700 !important; color: #555555 !important; line-height: 1.2; border: none !important; border-left: none !important; padding-left: 0 !important; box-shadow: none !important;">
+                            <div class="col-12 p-0 position-relative mb-4 border-start-0 ps-0">
+                                
+                                <div class="d-flex justify-content-between align-items-center mb-2 gap-3 border-0">
+                                    <h1 class="news-article-title m-0">
                                         {{ $article->$language->title }}
                                     </h1>
 
-                                    <div class="d-flex align-items-center gap-2" style="flex-shrink: 0;">
-
+                                    <div class="d-flex align-items-center gap-2 flex-shrink-0">
 
                                         @if ($article->video != 0)
-                                            <a href="{{ $article->video }}" class="launch-modal action-badge icon-only"
+                                            <a href="{{ $article->video }}" class="launch-modal news-article-action-badge icon-only"
                                                 id="newsletterVideo-{{ $article->id }}"
                                                 data-fancybox="newsletterVideo-{{ $article->id }}" title="Play Video">
                                                 <img src="/images/our-news/logo/PLAY-VIDEO.svg" alt="Play">
                                             </a>
                                         @endif
+                                        
                                         @if ($article->file != '0')
                                             <div class="col-auto p-0">
-                                                <a href="{{ $article->file }}" class="file_btn" target="_blank" 
-                                                style="background-color: #b91c1c; color: white; padding: 4.8px 5px ; border-radius: 7px; display: inline-flex; align-items: center; justify-content: center; text-decoration: none;"
-                                                data-toggle="tooltip" 
-                                                rel="tooltip" 
-                                                data-placement="top" 
-                                                data-bs-placement="top"
-                                                data-container="body"
-                                                data-bs-container="body"
-                                                title="{{ substr($article->file, 12) }}">
+                                                <a href="{{ $article->file }}" class="file_btn news-article-file-btn" target="_blank" 
+                                                    data-toggle="tooltip" 
+                                                    rel="tooltip" 
+                                                    data-placement="top" 
+                                                    data-bs-placement="top"
+                                                    data-container="body"
+                                                    data-bs-container="body"
+                                                    title="{{ substr($article->file, 12) }}">
                                                     <span class="fa fa-paperclip"></span>
                                                 </a>
                                             </div>
                                         @endif      
                                         
-                                        <div class="share-wrapper d-inline-block">
-                                            <a href="#" class="action-badge icon-only"
-                                                style="margin-top: 4.5px" id="modernShareToggle"
-                                                title="Share Article">
+                                        <div class="news-article-share-wrapper d-inline-block">
+                                            <a href="#" class="news-article-action-badge icon-only mt-1" id="modernShareToggle" title="Share Article">
                                                 <img src="/images/our-news/logo/SHARE.svg" alt="Share">
                                             </a>
 
-                                            <div class="modern-share-menu" id="modernShareMenu">
-                                                <a class="share-item" href="#" onclick="copyToClipboard(event, this)">
-                                                    <img src="/images/our-news/logo/copy-link-icon.svg" class="share-img-icon" alt="Copy">
-                                                    <span class="share-text">Copy Link</span>
+                                            <div class="news-article-share-menu" id="modernShareMenu">
+                                                <a class="news-article-share-item" href="#" onclick="copyToClipboard(event, this)">
+                                                    <img src="/images/our-news/logo/copy-link-icon.svg" class="news-article-share-img-icon" alt="Copy">
+                                                    <span class="news-article-share-text">Copy Link</span>
                                                 </a>
-                                                <a class="share-item" href="https://api.whatsapp.com/send?text={{ urlencode($article->$language->title . ' - ' . url()->current()) }}" target="_blank">
-                                                    <img src="/images/our-news/logo/whataspp-icon.svg" class="share-img-icon" alt="WhatsApp">
-                                                    <span class="share-text">WhatsApp</span>
+                                                <a class="news-article-share-item" href="https://api.whatsapp.com/send?text={{ urlencode($article->$language->title . ' - ' . url()->current()) }}" target="_blank">
+                                                    <img src="/images/our-news/logo/whataspp-icon.svg" class="news-article-share-img-icon" alt="WhatsApp">
+                                                    <span class="news-article-share-text">WhatsApp</span>
                                                 </a>
-                                                <a class="share-item" href="https://t.me/share/url?url={{ urlencode(url()->current()) }}&text={{ urlencode($article->$language->title) }}" target="_blank">
-                                                    <img src="/images/our-news/logo/telegram-icon.svg" class="share-img-icon" alt="Telegram">
-                                                    <span class="share-text">Telegram</span>
+                                                <a class="news-article-share-item" href="https://t.me/share/url?url={{ urlencode(url()->current()) }}&text={{ urlencode($article->$language->title) }}" target="_blank">
+                                                    <img src="/images/our-news/logo/telegram-icon.svg" class="news-article-share-img-icon" alt="Telegram">
+                                                    <span class="news-article-share-text">Telegram</span>
                                                 </a>
-                                                <a class="share-item" href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(url()->current()) }}" target="_blank">
-                                                    <img src="/images/our-news/logo/linked-in-icon.svg" class="share-img-icon" alt="LinkedIn">
-                                                    <span class="share-text">LinkedIn</span>
+                                                <a class="news-article-share-item" href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(url()->current()) }}" target="_blank">
+                                                    <img src="/images/our-news/logo/linked-in-icon.svg" class="news-article-share-img-icon" alt="LinkedIn">
+                                                    <span class="news-article-share-text">LinkedIn</span>
                                                 </a>
                                             </div>
                                         </div>
-                                        </div>
+                                    </div>
                                 </div>
 
-                                <hr
-                                    style="border: none; border-top: 1px solid #ccc; margin: 8px 0 10px 0; opacity: 1;">
+                                <hr class="news-article-divider-thin">
 
-                                <div class="d-flex justify-content-between align-items-center"
-                                    style="font-family: 'Lato', sans-serif !important; font-size: 0.85rem; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">
+                                <div class="d-flex justify-content-between align-items-center news-article-meta-text">
 
-                                    <div
-                                        style="font-family: 'Lato', sans-serif !important; font-size: 0.85rem; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    <div class="news-article-meta-text">
                                         {{ $article->place->name ?? 'Damascus' }}
                                         {{ $article->date ? \Carbon\Carbon::parse($article->date)->format('j/n/Y') : '' }}
                                     </div>
 
-                                    <span style="display: flex; align-items: center; gap: 6px; color: #999;">
+                                    <span class="d-flex align-items-center text-secondary gap-1">
                                         {{ $article->total_views ?? 0 }}
-                                        <i class="fa fa-eye" style="font-size: 1.2em; margin-top: 2px"></i>
+                                        <i class="fa fa-eye fs-5 mt-1"></i>
                                     </span>
 
                                 </div>
@@ -374,12 +180,11 @@
 
 
                             <div class="col-12 news_colomn p-0 mb-4">
-                                <div id="news-carousel" class="carousel slide" data-bs-ride="carousel">
+                                <div id="news-article-carousel" class="carousel slide" data-bs-ride="carousel">
                                     <div class="carousel-inner">
                                         @if (count($images) > 0)
                                             <?php $k = 0; ?>
                                             @foreach ($images as $image)
-                                                {{-- Skip images with 'thumb', 'pinned', or 'important' in the file path --}}
                                                 @if (preg_match('/thumb|pinned|important/i', $image->path))
                                                     @continue
                                                 @endif
@@ -393,31 +198,27 @@
                                         @endif
                                     </div>
                                     <button class="carousel-control-prev" type="button"
-                                        data-bs-target="#news-carousel" data-bs-slide="prev">
+                                        data-bs-target="#news-article-carousel" data-bs-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Previous</span>
                                     </button>
                                     <button class="carousel-control-next" type="button"
-                                        data-bs-target="#news-carousel" data-bs-slide="next">
+                                        data-bs-target="#news-article-carousel" data-bs-slide="next">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Next</span>
                                     </button>
                                 </div>
                             </div>
 
-
                             <div class="col-12 news_colomn p-0 mb-4">
-                                <div
-                                    style="column-count: 1; -webkit-column-count: 1; -moz-column-count: 1; font-size: 1.1rem; line-height: 1.8; color: #555;">
+                                <div class="news-article-content-body">
                                     {!! $article->$language->content !!}
                                 </div>
                             </div>
 
                             <div class="col-12 p-0">
-                                <hr style="border: none; border-top: 2px solid #999; margin: 0 0 20px 0; opacity: 1;">
+                                <hr class="news-article-divider-thick">
                             </div>
-
-
 
                         </div>
                     </div>
@@ -497,26 +298,19 @@
                         },
                         success: function(response) {
                             if (response.msg === 'true') {
-                                document.getElementById('subscribe-error').style.display =
-                                    'block';
+                                document.getElementById('subscribe-error').style.display = 'block';
                                 setTimeout(function() {
-                                    document.getElementById('subscribe-error').style
-                                        .display = 'none';
+                                    document.getElementById('subscribe-error').style.display = 'none';
                                     let input = document.getElementById('email');
                                     input.value = "";
                                 }, 2000);
                             } else if (response.msg === 'false') {
-                                document.getElementById('after-submit').style.display =
-                                    'block';
-                                document.getElementById('before-submit').style.display =
-                                    'none';
-                                document.getElementById('subscribe-error').style.display =
-                                    'none';
+                                document.getElementById('after-submit').style.display = 'block';
+                                document.getElementById('before-submit').style.display = 'none';
+                                document.getElementById('subscribe-error').style.display = 'none';
                                 setTimeout(() => {
-                                    document.getElementById('after-submit').style
-                                        .display = 'none';
-                                    document.getElementById('before-submit').style
-                                        .display = 'block';
+                                    document.getElementById('after-submit').style.display = 'none';
+                                    document.getElementById('before-submit').style.display = 'block';
                                     let input = document.getElementById('email');
                                     input.value = "";
                                 }, 2000);
@@ -581,7 +375,7 @@
 
             // Close when clicking anywhere outside
             $(document).on('click', function(e) {
-                if (!$(e.target).closest('.share-wrapper').length) {
+                if (!$(e.target).closest('.news-article-share-wrapper').length) {
                     $('#modernShareMenu').removeClass('show');
                 }
             });
@@ -593,12 +387,12 @@
             const url = window.location.href;
 
             navigator.clipboard.writeText(url).then(() => {
-                const textSpan = button.querySelector('.share-text');
+                const textSpan = button.querySelector('.news-article-share-text');
                 const originalText = textSpan.innerText;
 
                 // Provide instant gray visual feedback
                 textSpan.innerText = 'Link Copied!';
-                textSpan.style.color = '#888888'; // Sleek Gray
+                textSpan.style.color = '#888888';
 
                 // Reset back to normal after 2.5 seconds
                 setTimeout(() => {
