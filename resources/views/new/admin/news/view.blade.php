@@ -51,46 +51,105 @@
         </div>
 
         @php
-            $img = $news->firstImage;
-            $imgPath = $img ? asset($img->path) : 'https://picsum.photos/800/500';
+            // Shared Variables
             $title = optional($news->english)->title ?? 'No Title';
-            $content = strip_tags(optional($news->english)->content ?? '');
-
+            $fullContent = optional($news->english)->content ?? '';
+            $cleanContent = strip_tags($fullContent);
             $place = isset($news->place->name) ? ($news->place->name == 'All' ? 'Syria' : $news->place->name) : 'Syria';
-
             $date = $news->date ? \Carbon\Carbon::parse($news->date)->format('d/m/Y') : '';
+            
+            // Dynamic Thumbnail Logic based on Priority Status
+            $sizeType = 0; // Default to Regular
+            if ($news->priority_status == 1) $sizeType = 1; // Important
+            if ($news->priority_status == 2) $sizeType = 2; // Pinned
+
+            $targetImg = $news->images->where('sizetype', $sizeType)->first() ?? $news->images->first();
+            $imgPath = ($targetImg && file_exists(public_path($targetImg->path))) 
+                        ? asset($targetImg->path) 
+                        : 'https://picsum.photos/seed/'.$news->id.'/800/500';
         @endphp
 
         @if($news->priority_status == 1)
-            <div class="news-card card-important">
-                <img src="{{ $imgPath }}" alt="{{ $title }}">
-                <div class="news-overlay">
-                    <span class="news-meta">{{ $date }} - {{ $place }}</span>
-                    <h2 class="news-title">{{ $title }}</h2>
-                    <p class="news-content important-content-clamp">{{ $content }}</p>
+            <div class="grid-5-columns">
+                <div class="span-3 span-tablet-2">
+                    <div class="news-card card-important ratio-3-2 h-100 w-100">
+                        @if(!empty($news->duration))
+                            <div class="video-duration-badge">
+                                <svg viewBox="0 0 16 16"><path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg>
+                                {{ \Carbon\Carbon::parse($news->duration)->format(str_starts_with($news->duration, '00:') ? 'i:s' : 'H:i:s') }}
+                            </div>
+                        @endif
+                        <img src="{{ $imgPath }}" alt="{{ $title }}">
+                        <div class="news-overlay">
+                            <span class="news-meta">{{ $date }} - {{ $place }}</span>
+                            <h2 class="news-title large-title">{{ $title }}</h2>
+                            <p class="news-content important-content-clamp">
+                                @php
+                                    $words = explode(' ', $cleanContent);
+                                    $totalWords = count($words);
+                                    if ($totalWords > 18) {
+                                        array_splice($words, 18, 0, '<br>');
+                                    }
+                                    $finalWords = array_slice($words, 0, 37);
+                                    echo implode(' ', $finalWords) . ($totalWords > 36 ? '...' : '');
+                                @endphp
+                            </p>
+                        </div>
+                    </div>
                 </div>
+                
+                <div class="span-2 span-tablet-2 d-none d-md-block"></div>
             </div>
 
         @elseif($news->priority_status == 2)
-            <div class="card-pinned-wrapper">
+            <div class="card-pinned-wrapper w-100" style="max-width: 100%;">
                 <div class="pinned-row">
                     <div class="pinned-img-container">
+                        @if(!empty($news->duration))
+                            <div class="video-duration-badge">
+                                <svg viewBox="0 0 16 16"><path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg>
+                                {{ \Carbon\Carbon::parse($news->duration)->format(str_starts_with($news->duration, '00:') ? 'i:s' : 'H:i:s') }}
+                            </div>
+                        @endif
                         <img src="{{ $imgPath }}" alt="Pinned">
                     </div>
                     <div class="pinned-box">
-                        <span class="news-meta">{{ $date }} - {{ $place }}</span>
                         <h2 class="news-title">{{ $title }}</h2>
-                        <p class="news-content pinned-content-clamp">{{ $content }}</p>
+                        <p class="news-content pinned-content-clamp">
+                            @php
+                                $words = explode(' ', $cleanContent);
+                                $totalWords = count($words);
+                                if ($totalWords > 15) array_splice($words, 15, 0, '<br>');
+                                if ($totalWords > 30) array_splice($words, 31, 0, '<br>');
+                                if ($totalWords > 45) array_splice($words, 47, 0, '<br>');
+                                $finalWords = array_slice($words, 0, 63);
+                                echo implode(' ', $finalWords) . ($totalWords > 60 ? '...' : '');
+                            @endphp
+                        </p>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="chevron-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
                     </div>
                 </div>
             </div>
 
         @else
-            <div class="news-card card-standard">
-                <img src="{{ $imgPath }}" alt="{{ $title }}">
-                <div class="news-overlay">
-                    <span class="news-meta">{{ $date }} - {{ $place }}</span>
-                    <h3 class="news-title">{{ $title }}</h3>
+            <div class="grid-adaptive-row">
+                <div class="d-none d-lg-block" style="grid-column: span 2;"></div> 
+                
+                <div class="d-none d-md-block d-lg-none"></div>
+
+                <div class="news-card card-standard ratio-1-1 w-100">
+                    @if(!empty($news->duration))
+                        <div class="video-duration-badge">
+                            <svg viewBox="0 0 16 16"><path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg>
+                            {{ \Carbon\Carbon::parse($news->duration)->format(str_starts_with($news->duration, '00:') ? 'i:s' : 'H:i:s') }}
+                        </div>
+                    @endif
+                    <img src="{{ $imgPath }}" alt="{{ $title }}">
+                    <div class="news-overlay">
+                        <span class="news-meta">{{ $date }} - {{ $place }}</span>
+                        <h3 class="news-title news-title-clamp">{{ $title }}</h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="chevron-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+                    </div>
                 </div>
             </div>
         @endif
