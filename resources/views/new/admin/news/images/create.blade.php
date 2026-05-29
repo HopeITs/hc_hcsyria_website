@@ -185,7 +185,6 @@
                             <h3 class="title">Uploaded Images</h3>
                             <form action="{{ route('news.images.destroy',[$news->id])}}" method="POST" id="delete-images-form">
                                 @csrf
-                                @pragma('method','DELETE')
                                 <input type="hidden" name="_method" value="DELETE">
                                 <div class="d-flex flex-wrap mt-4 gap-3">
                                     @php $sortedImages = $images->sortBy(fn($img) => $img['sizetype'] ?? 3); @endphp

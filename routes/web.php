@@ -26,7 +26,10 @@ Route::get('/projects/{type}', 'PublicController@initiatives_by_type')->name('pu
 Route::get('/our-news', 'PublicController@newsletter')->name('new.public.newsletter');
 Route::get('/our-news/{id}-{city}-{date}', 'PublicController@show_article')->name('new.public.article');
 Route::post('our-news/subscribe','PublicController@subscribe')->name('newsletter.subscribe');
-
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('/news/preview/{id}', [App\Http\Controllers\NewsController::class, 'preview'])
+        ->name('news.preview');
+});
 
 Route::get('/who-we-are','PublicController@about_us')->name('new.public.who-we-are');
 

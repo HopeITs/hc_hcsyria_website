@@ -379,8 +379,12 @@
                                         @if (count($images) > 0)
                                             <?php $k = 0; ?>
                                             @foreach ($images as $image)
-                                                <div
-                                                    class="carousel-item @if ($k++ == 0) active @endif">
+                                                {{-- Skip images with 'thumb', 'pinned', or 'important' in the file path --}}
+                                                @if (preg_match('/thumb|pinned|important/i', $image->path))
+                                                    @continue
+                                                @endif
+                                                
+                                                <div class="carousel-item @if ($k++ == 0) active @endif">
                                                     <img class="d-block"
                                                         src="{{ substr($image->path, 0, -4) . 'b.jpg' }}"
                                                         alt="Article Image">

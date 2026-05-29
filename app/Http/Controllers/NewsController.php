@@ -455,4 +455,25 @@ class NewsController extends Controller
         return redirect()->route('news.index', ['tab' => 'Tags'])
             ->with('success', 'Tag deleted successfully');
     }
+    public function preview($id)
+{
+    $article = News::with('english', 'place', 'tags', 'images')->findOrFail($id);
+    
+    $images = $article->images;
+    $carouselImages = collect(); 
+    $tickerNews = collect();
+    $latestEdition = null;
+
+    $articlePath = $id . '-' . \Illuminate\Support\Str::slug(optional($article->english)->title) . '-' . \Carbon\Carbon::parse($article->date)->format('Ymd');
+
+    // This returns the article view directly
+    return view('new.public.article', [ 
+        'article' => $article,
+        'images' => $images,
+        'articlePath' => $articlePath,
+        'carouselImages' => $carouselImages,
+        'tickerNews' => $tickerNews,
+        'latestEdition' => $latestEdition
+    ]);
+}
 }
