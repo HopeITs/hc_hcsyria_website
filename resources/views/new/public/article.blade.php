@@ -101,7 +101,6 @@
             gap: 6px;
         }
 
-
         .action-badge.icon-only {
             padding: 0;
             width: 25px;
@@ -117,28 +116,128 @@
             margin: auto;
         }
 
-        .custom-share-menu {
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        /* --- Mind-Blowing Share Menu UI (Compact & Outside) --- */
+        .share-wrapper {
+            position: relative;
+            z-index: 1000;
+        }
+
+        .modern-share-menu {
+            position: absolute;
+            top: -10px;
+            left: calc(100% + 15px); /* Pushes the menu right outside the button */
+            background: rgba(255, 255, 255, 0.98);
             border: 1px solid #eaeaea;
-            padding: 10px 0;
-            min-width: 180px;
-            margin-top: 10px !important;
+            border-radius: 10px; /* Tighter radius */
+            padding: 6px 4px; /* Tighter padding */
+            min-width: 150px; /* Slimmer width */
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            
+            /* Initial Hidden State */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-10px) scale(0.95);
+            transform-origin: left top;
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
 
-        .custom-share-menu .dropdown-item {
-            padding: 10px 20px;
-            transition: background-color 0.2s ease;
+        /* Active State */
+        .modern-share-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0) scale(1);
         }
 
-        .custom-share-menu .dropdown-item:hover {
-            background-color: #f6f6f6;
+        /* The little triangle pointing LEFT to the button */
+        .modern-share-menu::before {
+            content: '';
+            position: absolute;
+            top: 18px;
+            left: -5px;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.98);
+            transform: rotate(45deg);
+            border-left: 1px solid #eaeaea;
+            border-bottom: 1px solid #eaeaea;
         }
 
-        .custom-share-menu i {
-            width: 24px;
-            text-align: center;
+        .share-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            border-radius: 6px; 
+            text-decoration: none !important;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+            
+            /* Hidden State for Staggered Animation */
+            opacity: 0;
+            transform: translateX(10px);
         }
+
+        /* Staggered Entrance Animation */
+        .modern-share-menu.show .share-item {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .modern-share-menu.show .share-item:nth-child(1) { transition-delay: 0.05s; }
+        .modern-share-menu.show .share-item:nth-child(2) { transition-delay: 0.10s; }
+        .modern-share-menu.show .share-item:nth-child(3) { transition-delay: 0.15s; }
+        .modern-share-menu.show .share-item:nth-child(4) { transition-delay: 0.20s; }
+
+        /* Hover States */
+        .share-item:hover {
+            background: #f8f9fa;
+        }
+
+        .share-img-icon {
+            width: 20px; /* Clean, compact icon size, no background */
+            height: 20px;
+            object-fit: contain;
+            flex-shrink: 0;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .share-item:hover .share-img-icon {
+            transform: scale(1.15) rotate(8deg);
+        }
+
+        .share-text {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            transition: color 0.3s ease;
+        }
+
+        /* Mobile fallback: If the screen is too small, drop it downwards instead of off-screen */
+        @media (max-width: 992px) {
+            .modern-share-menu {
+                top: calc(100% + 15px);
+                left: auto;
+                right: -10px;
+                transform-origin: top right;
+                transform: translateY(-10px) scale(0.95);
+            }
+            .modern-share-menu.show {
+                transform: translateY(0) scale(1);
+            }
+            .modern-share-menu::before {
+                top: -5px;
+                left: auto;
+                right: 18px;
+                border-bottom: none;
+                border-left: 1px solid #eaeaea;
+                border-top: 1px solid #eaeaea;
+            }
+        }
+
     </style>
 
 </head>
@@ -223,54 +322,34 @@
                                                 </a>
                                             </div>
                                         @endif      
-                                        <div class="dropdown d-inline-block">
+                                        
+                                        <div class="share-wrapper d-inline-block">
                                             <a href="#" class="action-badge icon-only"
-                                                style="margin-top: 4.5px" id="shareDropdown"
-                                                data-bs-toggle="dropdown" aria-expanded="false"
+                                                style="margin-top: 4.5px" id="modernShareToggle"
                                                 title="Share Article">
                                                 <img src="/images/our-news/logo/SHARE.svg" alt="Share">
                                             </a>
 
-                                            <ul class="dropdown-menu dropdown-menu-end custom-share-menu"
-                                                aria-labelledby="shareDropdown">
-                                                <li>
-                                                    <a class="dropdown-item d-flex align-items-center gap-3"
-                                                        href="#" onclick="copyToClipboard(event, this)">
-                                                        <i class="fa-solid fa-link fs-5 text-dark"></i>
-                                                        <span class="fw-bold text-dark">Copy Link</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item d-flex align-items-center gap-3"
-                                                        href="https://api.whatsapp.com/send?text={{ urlencode($article->$language->title . ' - ' . url()->current()) }}"
-                                                        target="_blank">
-                                                        <i class="fa-brands fa-whatsapp fs-5"
-                                                            style="color: #25D366;"></i>
-                                                        <span class="fw-bold text-dark">WhatsApp</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item d-flex align-items-center gap-3"
-                                                        href="https://t.me/share/url?url={{ urlencode(url()->current()) }}&text={{ urlencode($article->$language->title) }}"
-                                                        target="_blank">
-                                                        <i class="fa-brands fa-telegram fs-5"
-                                                            style="color: #0088cc;"></i>
-                                                        <span class="fw-bold text-dark">Telegram</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item d-flex align-items-center gap-3"
-                                                        href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(url()->current()) }}"
-                                                        target="_blank">
-                                                        <i class="fa-brands fa-linkedin fs-5"
-                                                            style="color: #0077b5;"></i>
-                                                        <span class="fw-bold text-dark">LinkedIn</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                            <div class="modern-share-menu" id="modernShareMenu">
+                                                <a class="share-item" href="#" onclick="copyToClipboard(event, this)">
+                                                    <img src="/images/our-news/logo/copy-link-icon.svg" class="share-img-icon" alt="Copy">
+                                                    <span class="share-text">Copy Link</span>
+                                                </a>
+                                                <a class="share-item" href="https://api.whatsapp.com/send?text={{ urlencode($article->$language->title . ' - ' . url()->current()) }}" target="_blank">
+                                                    <img src="/images/our-news/logo/whataspp-icon.svg" class="share-img-icon" alt="WhatsApp">
+                                                    <span class="share-text">WhatsApp</span>
+                                                </a>
+                                                <a class="share-item" href="https://t.me/share/url?url={{ urlencode(url()->current()) }}&text={{ urlencode($article->$language->title) }}" target="_blank">
+                                                    <img src="/images/our-news/logo/telegram-icon.svg" class="share-img-icon" alt="Telegram">
+                                                    <span class="share-text">Telegram</span>
+                                                </a>
+                                                <a class="share-item" href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(url()->current()) }}" target="_blank">
+                                                    <img src="/images/our-news/logo/linked-in-icon.svg" class="share-img-icon" alt="LinkedIn">
+                                                    <span class="share-text">LinkedIn</span>
+                                                </a>
+                                            </div>
                                         </div>
-
-                                    </div>
+                                        </div>
                                 </div>
 
                                 <hr
@@ -296,14 +375,6 @@
 
                             <div class="col-12 news_colomn p-0 mb-4">
                                 <div id="news-carousel" class="carousel slide" data-bs-ride="carousel">
-                                    <div class="carousel-indicators">
-                                        <?php $k = 0; ?>
-                                        @foreach ($images as $image)
-                                            <button data-bs-target="#news-carousel"
-                                                data-bs-slide-to="{{ $k++ }}"
-                                                @if ($k == 1) class="active" @endif></button>
-                                        @endforeach
-                                    </div>
                                     <div class="carousel-inner">
                                         @if (count($images) > 0)
                                             <?php $k = 0; ?>
@@ -494,36 +565,42 @@
         })
     });
 </script>
+
     <script>
         $(document).ready(function() {
-            $('#shareDropdown').on('click', function(e) {
+            // Toggle the sleek custom menu
+            $('#modernShareToggle').on('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-
-                var $menu = $(this).next('.dropdown-menu');
-                $menu.toggleClass('show');
+                $('#modernShareMenu').toggleClass('show');
             });
 
+            // Close when clicking anywhere outside
             $(document).on('click', function(e) {
-                if (!$(e.target).closest('.dropdown').length) {
-                    $('.dropdown-menu').removeClass('show');
+                if (!$(e.target).closest('.share-wrapper').length) {
+                    $('#modernShareMenu').removeClass('show');
                 }
             });
         });
-    </script>
-    <script>
+
+        // Elevated Copy Link Interaction with Gray Output
         function copyToClipboard(e, button) {
             e.preventDefault();
             const url = window.location.href;
 
             navigator.clipboard.writeText(url).then(() => {
-                const textSpan = button.querySelector('span');
+                const textSpan = button.querySelector('.share-text');
+                const originalText = textSpan.innerText;
 
+                // Provide instant gray visual feedback
                 textSpan.innerText = 'Link Copied!';
+                textSpan.style.color = '#888888'; // Sleek Gray
 
+                // Reset back to normal after 2.5 seconds
                 setTimeout(() => {
-                    textSpan.innerText = 'Copy Link';
-                }, 3000);
+                    textSpan.innerText = originalText;
+                    textSpan.style.color = '';
+                }, 2500);
 
             }).catch(err => {
                 console.error('Failed to copy: ', err);
