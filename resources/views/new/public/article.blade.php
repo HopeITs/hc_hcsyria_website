@@ -145,7 +145,7 @@
                                                     <span class="news-article-share-text">Copy Link</span>
                                                 </a>
                                                 <a class="news-article-share-item" href="https://api.whatsapp.com/send?text={{ urlencode($article->$language->title . ' - ' . url()->current()) }}" target="_blank">
-                                                    <img src="/images/our-news/logo/whataspp-icon.svg" class="news-article-share-img-icon" alt="WhatsApp">
+                                                    <img src="/images/our-news/logo/whatsapp-icon.svg" class="news-article-share-img-icon" alt="WhatsApp">
                                                     <span class="news-article-share-text">WhatsApp</span>
                                                 </a>
                                                 <a class="news-article-share-item" href="https://t.me/share/url?url={{ urlencode(url()->current()) }}&text={{ urlencode($article->$language->title) }}" target="_blank">
