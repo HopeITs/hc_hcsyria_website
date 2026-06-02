@@ -1,41 +1,4 @@
 <div>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-    <style>
-        .filter-title { font-size: 0.75rem; font-weight: 700; color: #495057; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.6rem; display: block; }
-        
-        .filter-input-group { position: relative; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; transition: all 0.2s ease-in-out; }
-        .filter-input-group.ring-focus { border-color: #c21a22; box-shadow: 0 0 0 3px rgba(194, 26, 34, 0.15); background: #fff; z-index: 10; }
-        
-        .filter-input { border: none; background: transparent; padding: 0.75rem 1rem; font-size: 0.95rem; width: 100%; border-radius: 8px; color: #333; outline: none !important; box-shadow: none !important; cursor: pointer; }
-        .filter-input:focus { outline: none; box-shadow: none; }
-
-        /* --- CUSTOM PRESTIGE DROPDOWNS --- */
-        .custom-dropdown-btn { width: 100%; text-align: left; background: transparent; border: none; padding: 0.75rem 1rem; font-size: 0.95rem; color: #333; display: flex; justify-content: space-between; align-items: center; border-radius: 8px; cursor: pointer; }
-        .custom-dropdown-btn:focus { outline: none; }
-        
-        .custom-dropdown-menu { position: absolute; top: calc(100% + 6px); left: 0; width: 100%; background: #ffffff; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.12); border: 1px solid #e9ecef; z-index: 1000; max-height: 260px; overflow-y: auto; padding: 0.5rem 0; }
-        .custom-dropdown-item { padding: 0.6rem 1.2rem; cursor: pointer; font-size: 0.95rem; color: #495057; transition: all 0.15s ease; display: flex; align-items: center; justify-content: space-between; }
-        .custom-dropdown-item:hover { background: #f8f9fa; color: #c21a22; padding-left: 1.5rem; }
-        .custom-dropdown-item.active { background: #fff5f6; color: #c21a22; font-weight: 600; border-left: 3px solid #c21a22; padding-left: calc(1.2rem - 3px); }
-        
-        /* Dropdown Scrollbar Customize */
-        .custom-dropdown-menu::-webkit-scrollbar { width: 6px; }
-        .custom-dropdown-menu::-webkit-scrollbar-track { background: transparent; }
-        .custom-dropdown-menu::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
-        
-        .dropdown-chevron { transition: transform 0.2s ease; stroke: #adb5bd; }
-        .dropdown-chevron.open { transform: rotate(180deg); stroke: #c21a22; }
-
-        /* --- HEADER FILTER BUTTON --- */
-        .btn-header-filter { background: transparent; color: #ffffff; border: none; display: flex; align-items: center; justify-content: center; padding: 0.5rem; transition: transform 0.2s ease, opacity 0.2s ease; cursor: pointer; opacity: 0.85; }
-        .btn-header-filter:hover { transform: scale(1.1); opacity: 1; color: #ffffff; }
-
-        .dynamic-news-wrapper { transition: opacity 0.3s; min-height: 300px; }
-        .is-filtering { opacity: 0.4; pointer-events: none; }
-        .flatpickr-day.selected { background: #c21a22 !important; border-color: #c21a22 !important; }
-    </style>
 
     <div class="custom-container mt-custom"
          x-data="{
