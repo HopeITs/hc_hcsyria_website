@@ -20,10 +20,6 @@
     margin-bottom: 10px;
 }
 
-#Newsletter h1, #Newsletter h2, #newsSection h3, #newsSection h4, #newsSection h5, #newsSection h6, #newsSection p {
-    font-family: 'Caudex';
-}
-
 #Newsletter h2 {
     color: #696969;
     text-shadow: 0 0 black;

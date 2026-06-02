@@ -168,9 +168,13 @@
                                 <button class="btn btn-secondary" onclick="event.preventDefault();window.history.back();">
                                     <i class="fa fa-arrow-left"></i> Back
                                 </button>
-                                <a href="{{route('news.show', [$news->id])}}" class="btn btn-secondary ms-3">
-                                    <i class="fa fa-eye"></i>&nbsp;View
-                                </a>
+
+                                @if(!$images->isEmpty())
+                                    <a href="{{route('news.show', [$news->id])}}" class="btn btn-secondary ms-3">
+                                        <i class="fa fa-eye"></i>&nbsp;View
+                                    </a>
+                                @endif
+                                
                                 <button type="button" id="submitFormBtn" class="btn btn-danger ms-3">
                                     <i class="fa fa-upload"></i> Upload
                                 </button>

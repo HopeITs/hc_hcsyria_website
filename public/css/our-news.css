@@ -808,3 +808,11 @@
     line-height: 1.8;
     color: #555;
 }
+.news-article-content-body,
+.news-article-content-body * {
+    overflow-wrap: anywhere !important; 
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    white-space: normal !important;
+    max-width: 100% !important;    
+}
