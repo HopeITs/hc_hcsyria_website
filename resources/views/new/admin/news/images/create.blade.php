@@ -301,6 +301,13 @@
         '</div>';
         
     let images_count = parseInt(document.getElementById('images-count').value);
+    
+    $('#newsImageForm').on('keydown', function(e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            e.preventDefault(); 
+            $(e.target).blur(); 
+        }
+    });
 
     function addImageGroup() {
         let count = parseInt(document.getElementById('images-count').value) || 0;
