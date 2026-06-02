@@ -88,13 +88,13 @@
                                 <div class="col-lg-3 col-md-3 col-12">
                                     <label for="images-count" class="form-label">Images Count</label>
                                     <input id="images-count" type="number" class="form-control" step="1" 
-                                           value="{{ $hasLocalRegular ? '0' : '3' }}" 
-                                           min="{{ $hasLocalRegular ? '0' : '1' }}" onchange="addImageGroup()">
+                                            value="{{ $hasLocalRegular ? '0' : ($news->type == 3 ? '0' : '3') }}" 
+                                            min="0" onchange="addImageGroup()">
                                 </div>
                             </div>
 
                             <div class="mb-3" id="images-group">
-                                @if(!$hasLocalRegular)
+                                @if(!$hasLocalRegular && $news->type != 3)
                                     @for($i=0; $i<3; $i++)
                                         <div class="image-group mb-3 border p-3 rounded bg-light">
                                             <div class="row">
@@ -283,14 +283,20 @@
 @stack('navbar_scripts')
 
 <script>
+    // 1. Initialize variables based on news type (3 = Video)
+    let isVideoNews = {{ $news->type == 3 ? 'true' : 'false' }};
+    // If video, we remove the "required" attribute
+    let reqAttr = isVideoNews ? '' : 'required';
+
+    // 2. Define the image group HTML template
     let image_group = '<div class="image-group mb-3 border p-3 rounded bg-light">' +
         '<div class="row">' +
         '<div class="col-lg-6 col-md-6 col-12 mb-3 mb-md-0">' +
         '<label class="form-label">Small Image</label>' +
-        '<input accept="image/jpeg" required name="small_image[]" type="file" class="form-control">' +
+        '<input accept="image/jpeg" ' + reqAttr + ' name="small_image[]" type="file" class="form-control">' +
         '</div><div class="col-lg-6 col-md-6 col-12">' +
         '<label class="form-label">Large Image</label>' +
-        '<input accept="image/jpeg" required name="big_image[]" type="file" class="form-control">' +
+        '<input accept="image/jpeg" ' + reqAttr + ' name="big_image[]" type="file" class="form-control">' +
         '</div></div>' +
         '</div>';
         
@@ -298,6 +304,16 @@
 
     function addImageGroup() {
         let count = parseInt(document.getElementById('images-count').value) || 0;
+        let container = $('#images-group');
+
+        // If it is a video, force count to 0 and empty the group
+        if (isVideoNews) {
+            document.getElementById('images-count').value = 0;
+            container.empty();
+            images_count = 0;
+            return;
+        }
+
         let floorLimit = {{ $hasLocalRegular ? 0 : 1 }};
         
         if (count < floorLimit) {
@@ -307,12 +323,12 @@
         if (count > images_count) {
             while(count > images_count) {
                 images_count++;
-                $('#images-group').append(image_group);
+                container.append(image_group);
             }
         } else if (images_count > count) {
             while(images_count > count && images_count > floorLimit) {
                 images_count--;
-                $('#images-group').children().last().remove();
+                container.children('.image-group').last().remove();
             }
         }
         document.getElementById('images-count').value = images_count;
@@ -342,7 +358,7 @@
         let runSubmit = () => { $('#newsImageForm').submit(); };
 
         // Check 2: Intercept global overwrite shifts
-        if (isImportantChecked && globalImportantId !== "") {
+        if (isImportantChecked && globalImportantId !== "" && globalImportantId != "{{ $news->id }}") {
             swal({
                 title: 'Change Global Important News?',
                 text: "Another article is currently set as Important. Making this one Important will replace it.",
@@ -356,7 +372,6 @@
         }
 
         function executeLocalOverwritesCheck() {
-            // Check 3: Intercept local thumbnail replacement
             if (localThumbExists && newThumbSelected) {
                 swal({
                     title: 'Replace Thumbnail?',
@@ -371,7 +386,6 @@
         }
 
         function checkImportantLocal() {
-            // Check 4: Intercept local important replacement
             if (isImportantChecked && localImportantExists && newImportantSelected) {
                 swal({
                     title: 'Replace Important Image?',
@@ -386,7 +400,6 @@
         }
 
         function checkPinnedLocal() {
-            // Check 5: Intercept local pinned replacement
             if (isPinnedChecked && localPinnedExists && newPinnedSelected) {
                 swal({
                     title: 'Replace Pinned Image?',
@@ -401,7 +414,45 @@
         }
     });
 
-    // Placement UI toggle handling alterations
+    // --- Unified File Size Validation (covers all image inputs) ---
+    $(document).on('change', 'input[type="file"]', function(e) {
+        if (!this.files || this.files.length === 0) return;
+
+        let file = this.files[0];
+        let fileSizeKB = file.size / 1024; 
+        let limitKB = 0;
+        let labelName = "";
+
+        if (this.id === 'thumbnail_image') { limitKB = 150; labelName = "Thumbnail"; }
+        else if (this.id === 'important_image') { limitKB = 600; labelName = "Important Image"; }
+        else if (this.id === 'pinned_image') { limitKB = 600; labelName = "Pinned Image"; }
+        else if (this.name === 'small_image[]') { limitKB = 150; labelName = "Small Image"; }
+        else if (this.name === 'big_image[]') { limitKB = 600; labelName = "Large Image"; }
+
+        if (limitKB > 0 && fileSizeKB > limitKB) {
+            swal({
+                title: 'File Too Large',
+                text: `The ${labelName} must be less than ${limitKB}KB. Your file is ${Math.round(fileSizeKB)}KB.`,
+                type: 'error',
+                confirmButtonColor: '#b5121b'
+            });
+            $(this).val(''); 
+            return; // Stop execution here if file is too large
+        }
+
+        // Only trigger cropper if size is okay and it's a crop-trigger input
+        if (this.classList.contains('crop-trigger')) {
+            currentFileInput = this;
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                $('#image-to-crop').attr('src', e.target.result);
+                $('#cropModal').modal('show');
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // --- Utility/Helper scripts ---
     $('.placement-checkbox').on('change', function() {
         let id = $(this).attr('id');
         let checked = $(this).is(':checked');
@@ -439,7 +490,6 @@
         }
     });
 
-    // Gallery and Cropper logic remains fully functional
     $('.image-card-wrapper').on('click', function() {
         $('.image-card-wrapper').removeClass('show-actions');
         $(this).addClass('show-actions');
@@ -506,75 +556,6 @@
     let currentFileInput;
     const ratios = { 'thumbnail_image': 1, 'important_image': 1.5, 'pinned_image': 2 };
 
-    $('.crop-trigger').on('change', function(e) {
-        if (!this.files || this.files.length === 0) return;
-
-        let file = this.files[0];
-        let fileSizeKB = file.size / 1024; 
-        let limitKB = 0;
-        let labelName = "";
-
-        if (this.id === 'thumbnail_image') {
-            limitKB = 150;
-            labelName = "Thumbnail";
-        } else if (this.id === 'important_image') {
-            limitKB = 600;
-            labelName = "Important Image";
-        } else if (this.id === 'pinned_image') {
-            limitKB = 600;
-            labelName = "Pinned Image";
-        }
-
-        if (limitKB > 0 && fileSizeKB > limitKB) {
-            swal({
-                title: 'File Too Large',
-                text: `The ${labelName} must be less than ${limitKB}KB. Your file is ${Math.round(fileSizeKB)}KB.`,
-                type: 'error',
-                confirmButtonColor: '#b5121b'
-            });
-            
-            $(this).val(''); 
-            return; 
-        }
-
-        currentFileInput = this;
-        let reader = new FileReader();
-        reader.onload = (e) => {
-            $('#image-to-crop').attr('src', e.target.result);
-            $('#cropModal').modal('show');
-        };
-        reader.readAsDataURL(file);
-    });
-
-    $(document).on('change', 'input[name="small_image[]"], input[name="big_image[]"]', function(e) {
-        if (!this.files || this.files.length === 0) return;
-
-        let file = this.files[0];
-        let fileSizeKB = file.size / 1024; 
-        let limitKB = 0;
-        let labelName = "";
-
-        if (this.name === 'small_image[]') {
-            limitKB = 150;
-            labelName = "Small Image";
-        } else if (this.name === 'big_image[]') {
-            limitKB = 600;
-            labelName = "Large Image";
-        }
-
-        // Validate size
-        if (limitKB > 0 && fileSizeKB > limitKB) {
-            swal({
-                title: 'File Too Large',
-                text: `The ${labelName} must be less than ${limitKB}KB. Your file is ${Math.round(fileSizeKB)}KB.`,
-                type: 'error',
-                confirmButtonColor: '#b5121b'
-            });
-            
-            $(this).val(''); 
-        }
-    });
-
     $('#cropModal').on('shown.bs.modal', function() {
         cropper = new Cropper(document.getElementById('image-to-crop'), {
             aspectRatio: ratios[currentFileInput.id],
@@ -597,6 +578,7 @@
 
     $('#cancel-crop-btn').click(() => $('#cropModal').modal('hide'));
 </script>
+
 @include('new.admin.scripts.popup-messages')
 </body>
 </html>

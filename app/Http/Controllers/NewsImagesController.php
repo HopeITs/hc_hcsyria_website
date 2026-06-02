@@ -39,34 +39,31 @@ class NewsImagesController extends Controller
     public function store(Request $request)
     {
         $news = News::findOrFail($request->input('news_id'));
+        $isVideo = ($news->type == 3);
         $path = 'images/news/' . $news->id . '/';
         
         $existingImages = NewsImage::where('news_id', $news->id)->get();
-        $hasLocalThumbnail = $existingImages->where('sizetype', 0)->isNotEmpty();
+    $hasLocalThumbnail = $existingImages->where('sizetype', 0)->isNotEmpty();
 
         $request->validate([
-                        'news_id'         => 'required|numeric',
-                        'thumbnail_image' => ($hasLocalThumbnail ? 'nullable' : 'required') . '|image|mimes:jpeg,jpg|max:150', 
-                        'important_image' => 'nullable|image|mimes:jpeg,jpg|max:600', 
-                        'pinned_image'    => 'nullable|image|mimes:jpeg,jpg|max:600', 
-                        'small_image.*'   => 'nullable|image|mimes:jpeg,jpg|max:150',
-                        'big_image.*'     => 'nullable|image|mimes:jpeg,jpg|max:600',
-                    ]);
+                                'news_id'         => 'required|numeric',
+                                'thumbnail_image' => ($hasLocalThumbnail ? 'nullable' : 'required') . '|image|mimes:jpeg,jpg|max:150',
+                                'important_image' => 'nullable|image|mimes:jpeg,jpg|max:600',
+                                'pinned_image'    => 'nullable|image|mimes:jpeg,jpg|max:600',
+                                'small_image.*'   => ($isVideo ? 'nullable' : 'required') . '|image|mimes:jpeg,jpg|max:150',
+                                'big_image.*'     => ($isVideo ? 'nullable' : 'required') . '|image|mimes:jpeg,jpg|max:600',
+                            ]);
+
 
         if ($request->has('is_important')) {
-            News::where('priority_status', 1)->where('id', '!=', $news->id)->update(['priority_status' => 0]);
-            
-            $news->priority_status = 1;
-            if ($request->hasFile('important_image')) {
-                $this->cleanUpOldSpecialImages($news->id, 1);
-            }
+        News::where('priority_status', 1)->where('id', '!=', $news->id)->update(['priority_status' => 0]);
+        $news->priority_status = 1;
+        if ($request->hasFile('important_image')) $this->cleanUpOldSpecialImages($news->id, 1);
         } elseif ($request->has('is_pinned')) {
-            $news->priority_status = 2;
-            if ($request->hasFile('pinned_image')) {
-                $this->cleanUpOldSpecialImages($news->id, 2);
-            }
+        $news->priority_status = 2;
+        if ($request->hasFile('pinned_image')) $this->cleanUpOldSpecialImages($news->id, 2);
         } else {
-            $news->priority_status = 0;
+        $news->priority_status = 0;
         }
 
         $news->save();
@@ -111,24 +108,21 @@ class NewsImagesController extends Controller
         }
 
         if ($request->hasFile('small_image') && $request->hasFile('big_image')) {
-            $smallImages = $request->file('small_image');
-            $bigImages = $request->file('big_image');
+        $smallImages = $request->file('small_image');
+        $bigImages = $request->file('big_image');
 
-            if(count($smallImages) === count($bigImages)) {
-                foreach ($smallImages as $i => $smallImg) {
-                    if (!isset($smallImages[$i]) || !isset($bigImages[$i])) continue;
-
-                    $imgName = time() . '_reg_' . $i;
-                    $smallImages[$i]->move($path, $imgName . '.jpg');
-                    $bigImages[$i]->move($path, $imgName . 'b.jpg');
-
-                    $newsImage = new NewsImage();
-                    $newsImage->news_id = $news->id;
-                    $newsImage->path = '/' . $path . $imgName . '.jpg';
-                    $newsImage->sizetype = 3; 
-                    $newsImage->save();
-
-                    $uploadedCount++;
+        if(count($smallImages) === count($bigImages)) {
+            foreach ($smallImages as $i => $smallImg) {
+                if (!isset($smallImages[$i]) || !isset($bigImages[$i])) continue;
+                $imgName = time() . '_reg_' . $i;
+                $smallImages[$i]->move($path, $imgName . '.jpg');
+                $bigImages[$i]->move($path, $imgName . 'b.jpg');
+                $newsImage = new NewsImage();
+                $newsImage->news_id = $news->id;
+                $newsImage->path = '/' . $path . $imgName . '.jpg';
+                $newsImage->sizetype = 3; 
+                $newsImage->save();
+                $uploadedCount++;
                 }
             }
         }

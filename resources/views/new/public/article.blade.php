@@ -111,7 +111,7 @@
 
                                     <div class="d-flex align-items-center gap-2 flex-shrink-0">
 
-                                        @if ($article->video != 0)
+                                        @if ($article->video != '0' && $article->type != 3)
                                             <a href="{{ $article->video }}" class="launch-modal news-article-action-badge icon-only"
                                                 id="newsletterVideo-{{ $article->id }}"
                                                 data-fancybox="newsletterVideo-{{ $article->id }}" title="Play Video">
@@ -180,34 +180,56 @@
 
 
                             <div class="col-12 news_colomn p-0 mb-4">
-                                <div id="news-article-carousel" class="carousel slide" data-bs-ride="carousel">
-                                    <div class="carousel-inner">
-                                        @if (count($images) > 0)
-                                            <?php $k = 0; ?>
-                                            @foreach ($images as $image)
-                                                @if (preg_match('/thumb|pinned|important/i', $image->path))
-                                                    @continue
-                                                @endif
-                                                
-                                                <div class="carousel-item @if ($k++ == 0) active @endif">
-                                                    <img class="d-block"
-                                                        src="{{ substr($image->path, 0, -4) . 'b.jpg' }}"
-                                                        alt="Article Image">
-                                                </div>
-                                            @endforeach
-                                        @endif
+                                @if ($article->type == 3 && $article->video != '0')
+                                    @php
+                                        $embedUrl = $article->video;
+                                        if (strpos($embedUrl, 'watch?v=') !== false) {
+                                            $embedUrl = str_replace('watch?v=', 'embed/', $embedUrl);
+                                            $embedUrl = explode('&', $embedUrl)[0]; // Remove extra URL parameters
+                                        } elseif (strpos($embedUrl, 'youtu.be/') !== false) {
+                                            $embedUrl = str_replace('youtu.be/', 'www.youtube.com/embed/', $embedUrl);
+                                            $embedUrl = explode('?', $embedUrl)[0];
+                                        }
+                                    @endphp
+                                    
+                                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 8px; background: #000;">
+                                        <iframe src="{{ $embedUrl }}" 
+                                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+                                                frameborder="0" 
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                                allowfullscreen>
+                                        </iframe>
                                     </div>
-                                    <button class="carousel-control-prev" type="button"
-                                        data-bs-target="#news-article-carousel" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Previous</span>
-                                    </button>
-                                    <button class="carousel-control-next" type="button"
-                                        data-bs-target="#news-article-carousel" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Next</span>
-                                    </button>
-                                </div>
+                                @else
+                                    <div id="news-article-carousel" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-inner">
+                                            @if (count($images) > 0)
+                                                <?php $k = 0; ?>
+                                                @foreach ($images as $image)
+                                                    @if (preg_match('/thumb|pinned|important/i', $image->path))
+                                                        @continue
+                                                    @endif
+                                                    
+                                                    <div class="carousel-item @if ($k++ == 0) active @endif">
+                                                        <img class="d-block"
+                                                            src="{{ substr($image->path, 0, -4) . 'b.jpg' }}"
+                                                            alt="Article Image">
+                                                    </div>
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                        <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#news-article-carousel" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button"
+                                            data-bs-target="#news-article-carousel" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
 
                             <div class="col-12 news_colomn p-0 mb-4">
