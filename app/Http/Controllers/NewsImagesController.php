@@ -45,13 +45,13 @@ class NewsImagesController extends Controller
         $hasLocalThumbnail = $existingImages->where('sizetype', 0)->isNotEmpty();
 
         $request->validate([
-            'news_id'         => 'required|numeric',
-            'thumbnail_image' => ($hasLocalThumbnail ? 'nullable' : 'required') . '|image|mimes:jpeg,jpg|max:2048',
-            'important_image' => 'nullable|image|mimes:jpeg,jpg|max:2048',
-            'pinned_image'    => 'nullable|image|mimes:jpeg,jpg|max:2048',
-            'small_image.*'   => 'nullable|image|mimes:jpeg,jpg|max:2048',
-            'big_image.*'     => 'nullable|image|mimes:jpeg,jpg|max:2048',
-        ]);
+                        'news_id'         => 'required|numeric',
+                        'thumbnail_image' => ($hasLocalThumbnail ? 'nullable' : 'required') . '|image|mimes:jpeg,jpg|max:150', 
+                        'important_image' => 'nullable|image|mimes:jpeg,jpg|max:600', 
+                        'pinned_image'    => 'nullable|image|mimes:jpeg,jpg|max:600', 
+                        'small_image.*'   => 'nullable|image|mimes:jpeg,jpg|max:150',
+                        'big_image.*'     => 'nullable|image|mimes:jpeg,jpg|max:600',
+                    ]);
 
         if ($request->has('is_important')) {
             News::where('priority_status', 1)->where('id', '!=', $news->id)->update(['priority_status' => 0]);

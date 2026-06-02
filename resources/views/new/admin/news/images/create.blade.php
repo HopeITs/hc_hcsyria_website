@@ -174,7 +174,7 @@
                                         <i class="fa fa-eye"></i>&nbsp;View
                                     </a>
                                 @endif
-                                
+
                                 <button type="button" id="submitFormBtn" class="btn btn-danger ms-3">
                                     <i class="fa fa-upload"></i> Upload
                                 </button>
@@ -507,13 +507,72 @@
     const ratios = { 'thumbnail_image': 1, 'important_image': 1.5, 'pinned_image': 2 };
 
     $('.crop-trigger').on('change', function(e) {
+        if (!this.files || this.files.length === 0) return;
+
+        let file = this.files[0];
+        let fileSizeKB = file.size / 1024; 
+        let limitKB = 0;
+        let labelName = "";
+
+        if (this.id === 'thumbnail_image') {
+            limitKB = 150;
+            labelName = "Thumbnail";
+        } else if (this.id === 'important_image') {
+            limitKB = 600;
+            labelName = "Important Image";
+        } else if (this.id === 'pinned_image') {
+            limitKB = 600;
+            labelName = "Pinned Image";
+        }
+
+        if (limitKB > 0 && fileSizeKB > limitKB) {
+            swal({
+                title: 'File Too Large',
+                text: `The ${labelName} must be less than ${limitKB}KB. Your file is ${Math.round(fileSizeKB)}KB.`,
+                type: 'error',
+                confirmButtonColor: '#b5121b'
+            });
+            
+            $(this).val(''); 
+            return; 
+        }
+
         currentFileInput = this;
         let reader = new FileReader();
         reader.onload = (e) => {
             $('#image-to-crop').attr('src', e.target.result);
             $('#cropModal').modal('show');
         };
-        reader.readAsDataURL(this.files[0]);
+        reader.readAsDataURL(file);
+    });
+
+    $(document).on('change', 'input[name="small_image[]"], input[name="big_image[]"]', function(e) {
+        if (!this.files || this.files.length === 0) return;
+
+        let file = this.files[0];
+        let fileSizeKB = file.size / 1024; 
+        let limitKB = 0;
+        let labelName = "";
+
+        if (this.name === 'small_image[]') {
+            limitKB = 150;
+            labelName = "Small Image";
+        } else if (this.name === 'big_image[]') {
+            limitKB = 600;
+            labelName = "Large Image";
+        }
+
+        // Validate size
+        if (limitKB > 0 && fileSizeKB > limitKB) {
+            swal({
+                title: 'File Too Large',
+                text: `The ${labelName} must be less than ${limitKB}KB. Your file is ${Math.round(fileSizeKB)}KB.`,
+                type: 'error',
+                confirmButtonColor: '#b5121b'
+            });
+            
+            $(this).val(''); 
+        }
     });
 
     $('#cropModal').on('shown.bs.modal', function() {

@@ -410,5 +410,30 @@
     });
 </script>
 @stack('imageOrder')
+<script>
+    $(document).on('change', 'input[type="file"]', function(e) {
+        if (!this.files || this.files.length === 0) return;
+
+        let file = this.files[0];
+        let fileSizeKB = file.size / 1024;
+        
+        let categoryId = $(this).closest('.tab-pane').attr('id');
+        let isNewsHeader = categoryId === 'project-40';
+        
+        let limitKB = isNewsHeader ? 600 : 2048; 
+        let labelName = isNewsHeader ? "News Header Image" : "Cover Image";
+
+        if (fileSizeKB > limitKB) {
+            swal({
+                title: 'File Too Large',
+                text: `The ${labelName} must be less than ${limitKB}KB. Your file is ${Math.round(fileSizeKB)}KB.`,
+                type: 'error',
+                confirmButtonColor: '#b5121b'
+            });
+            
+            $(this).val(''); 
+        }
+    });
+</script>
 </body>
 </html>

@@ -92,8 +92,9 @@ class CoverController extends Controller
         $images = new \MultipleIterator();
 
         if ($categoryId != 0) {
+            $maxSize = ($categoryId == 40) ? 600 : 2048;
             $request->validate([
-                'image.*' => 'required|image|mimes:jpeg,jpg|max:4096',
+                'image.*' => 'required|image|mimes:jpeg,jpg|max:' . $maxSize,
                 'caption' => 'nullable|string|max:255',
             ]);
 
