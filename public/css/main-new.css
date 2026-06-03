@@ -1566,3 +1566,62 @@ img {
     }
 }
 
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .error-wrapper {
+            flex: 1 0 auto;
+            display: flex;
+            align-items: center; 
+            justify-content: center; 
+            background: #ffffff;
+            padding: 60px 20px;
+        }
+        .error-content-box {
+            max-width: 600px;
+            text-align: center;
+            margin: 0 auto;
+        }
+        .error-giant-heading {
+            font-size: 8rem;
+            font-weight: 900;
+            color: #676766; 
+            line-height: 1;
+            margin-bottom: 20px;
+            letter-spacing: -0.04em;
+        }
+        .error-main-msg {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #676766;
+            margin-bottom: 14px;
+        }
+        .error-sub-msg {
+            font-size: 1.1rem;
+            color: #676766; 
+            margin-bottom: 35px;
+        }
+        .error-action-btn {
+            background-color: #bc1817; 
+            color: #ffffff !important;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.9rem;
+            padding: 12px 32px;
+            border-radius: 6px;
+            border: none;
+            box-shadow: 0 4px 6px -1px rgba(179, 27, 27, 0.2);
+            transition: all 0.2s ease-in-out;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            cursor: pointer;
+        }

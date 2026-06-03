@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129097809-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -19,38 +18,48 @@
     <meta name="theme-color" content="#f6f6f6">
     <meta name="apple-mobile-web-app-status-bar-style" content="#f6f6f6">
     <title>@lang('404.error')</title>
+    
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
     <link href="/css/animate.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-    {{--<link href="/css/main.css" rel="stylesheet">--}}
     <link href="/css/main-new.css" rel="stylesheet">
     <link href="/css/responsive.css" rel="stylesheet">
-    <!--[if lt IE 9]>
-    <script src="/js/html5shiv.js"></script>
-    <script src="/js/respond.min.js"></script> <![endif]-->
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
-</head><!--/head-->
+</head>
 <body>
 
 @include('new.public.navbar')
-<div id="page_error" class="page_start">
-    <div class="container-fluid">
-        <div class="row another-msg-container">
-            <div class="col-12 d-flex justify-content-end flex-column pe-1 another-message">
-                <div class="text-center">
-                    <div>{{ __('404.error1') }}</div>
-                    <div>{{ __('404.error2') }}</div>
+
+<div class="error-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 error-content-box animated fadeIn">
+                
+                <div class="error-giant-heading">404</div>
+                
+                <div class="error-main-msg">
+                    {{ __('404.error1') }}
                 </div>
+                
+                <div class="error-sub-msg">
+                    {{ __('404.error2') }}
+                </div>
+                
+                <a href="{{ route('new.public.home') }}" class="error-action-btn">
+                    <i class="bi bi-house-door-fill"></i> Back to Homepage
+                </a>
+
             </div>
         </div>
     </div>
 </div>
 
-
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/main.js"></script>
+
 @include('new.public.footer')
 </body>
 </html>

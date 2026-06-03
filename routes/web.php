@@ -539,3 +539,7 @@ Route::get('/homeangular', 'PublicController@hometest');
 //});
 
 Route::get('/search', 'PublicController@search')->name('search');
+
+Route::fallback(function () {
+    return response()->view('new.errors.404', [], 404);
+});
