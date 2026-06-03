@@ -176,13 +176,22 @@ class NewsController extends Controller
 
         $news = News::findOrFail($id);
         $changesLog = []; 
+        
+        $oldTextSegments = [];
+        $newTextSegments = [];
 
-        $news->online = 0;
         $news->type = $request->input('type');
         $news->video = $request->filled('video') ? $request->input('video') : '0';
         $news->rank = $request->input('rank') ?? $news->rank ?? 1;
         $news->place_id = $request->input('place_id');
         $news->date = $request->input('date');
+
+        $newOnlineStatus = 0;
+        if ($news->online != $newOnlineStatus) {
+            $oldTextSegments[] = "Status: " . ($news->online == 1 ? 'Online' : 'Offline');
+            $newTextSegments[] = "Status: Offline";
+        }
+        $news->online = $newOnlineStatus;
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
@@ -194,11 +203,16 @@ class NewsController extends Controller
 
         if ($news->isDirty()) {
             foreach ($news->getDirty() as $attribute => $newValue) {
+                if ($attribute !== 'online') { // status handled explicitly above
+                    $oldTextSegments[] = ucfirst($attribute) . ": '" . ($news->getOriginal($attribute) ?? 'none') . "'";
+                    $newTextSegments[] = ucfirst($attribute) . ": '" . $newValue . "'";
+                }
                 $changesLog[] = ucfirst($attribute); 
             }
         }
         $news->save();
 
+        // Track changes made to tags
         if ($request->filled('news_tags')) {
             $tagNames = explode(',', $request->news_tags);
             $tagIds = [];
@@ -209,12 +223,18 @@ class NewsController extends Controller
                 $tagIds[] = $tag->id;
             }
             
+            $existingTagsString = $news->tags->pluck('name')->implode(', ');
+            $newTagsString = implode(', ', array_filter(array_map('trim', $tagNames)));
+
             $syncResult = $news->tags()->sync($tagIds);
             if (!empty($syncResult['attached']) || !empty($syncResult['detached']) || !empty($syncResult['updated'])) {
+                $oldTextSegments[] = "Tags: [" . ($existingTagsString ?: 'none') . "]";
+                $newTextSegments[] = "Tags: [" . $newTagsString . "]";
                 $changesLog[] = 'Tags';
             }
         }
 
+        // Track changes made to the English title, description, or content body
         $engNews = NewsEnglish::where('news_id', $id)->first();
         if ($engNews) {
             $engNews->title = $request->input('title');
@@ -223,6 +243,16 @@ class NewsController extends Controller
 
             if ($engNews->isDirty()) {
                 foreach ($engNews->getDirty() as $attribute => $newValue) {
+                    $oldVal = $engNews->getOriginal($attribute);
+                    
+                    // Strip HTML tags for cleaner reading if the field edited is content
+                    if ($attribute === 'content') {
+                        $oldVal = strip_tags($oldVal);
+                        $newValue = strip_tags($newValue);
+                    }
+
+                    $oldTextSegments[] = ucfirst($attribute) . ": \"" . $oldVal . "\"";
+                    $newTextSegments[] = ucfirst($attribute) . ": \"" . $newValue . "\"";
                     $changesLog[] = ucfirst($attribute);
                 }
             }
@@ -234,9 +264,13 @@ class NewsController extends Controller
         if (!empty($changesLog)) {
             $changedFieldsString = implode(', ', array_unique($changesLog));
             $notificationMessage = 'News updated successfully. Edited fields: ' . $changedFieldsString;
-            
             $logDescription = 'News Edited: ' . $changedFieldsString;
-            $this->saveToLogWithData(self::NEWS, $id, $logDescription, 'Various', $changedFieldsString);
+            
+            // Build the absolute diff strings separated cleanly by spaces
+            $finalOld = implode(' ', $oldTextSegments);
+            $finalNew = implode(' ', $newTextSegments);
+
+            $this->saveToLogWithData(self::NEWS, $id, $logDescription, $finalOld, $finalNew);
         } else {
             $notificationMessage = 'News updated successfully (No changes detected).';
         }

@@ -172,24 +172,29 @@
     </div>
 
     <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="float: right"></button>
-                    <table class="table table-striped table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col">Previous Data</th>
-                            <th scope="col">Current Data</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td><p id="previous_data"></p></td>
-                            <td><p id="current_data"></p></td>
-                        </tr>
-                        </tbody>
-                    </table>
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content" style="border: none; border-radius: 14px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15); overflow: hidden;">
+                
+                <div class="modal-header-custom" style="padding: 16px 24px; background: #ffffff; color: #000; display: flex; justify-content: flex-end; align-items: center;">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="box-shadow: none;"></button>
+                </div>
+
+                <div class="diff-split-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background-color: #e2e8f0;">
+                    
+                    <div class="diff-panel" style="background: #ffffff; padding: 24px; min-height: 380px;">
+                        <div class="diff-panel-title previous" style="color: #ef4444; border-bottom: 2px solid #fee2e2; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; margin-bottom: 16px; padding-bottom: 8px;">
+                            <i class="bi bi-file-earmark-minus"></i> Previous State
+                        </div>
+                        <div id="previous_data_container"></div>
+                    </div>
+
+                    <div class="diff-panel" style="background: #ffffff; padding: 24px; min-height: 380px;">
+                        <div class="diff-panel-title current" style="color: #10b981; border-bottom: 2px solid #d1fae5; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; margin-bottom: 16px; padding-bottom: 8px;">
+                            <i class="bi bi-file-earmark-plus"></i> Current State
+                        </div>
+                        <div id="current_data_container"></div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -231,29 +236,47 @@
         }
     });
 
-    function highlight(newElem, oldElem) {
-        let oldTextList = oldElem.text().split(' ');
-        let newTextList = newElem.text().split(' ');
+    function highlight(newElemContainer, oldElemContainer, rawNewText, rawOldText) {
+        let oldTextList = rawOldText.split(' ');
+        let newTextList = rawNewText.split(' ');
         let old_text = '';
         let new_text = '';
 
-        newElem.text().split(' ').forEach(function (val, i) {
+        rawNewText.split(' ').forEach(function (val, i) {
             if ((val !== oldTextList[i - 3]) && (val !== oldTextList[i - 2]) && (val !== oldTextList[i - 1]) && (val !== oldTextList[i]) && (val !== oldTextList[i + 1]) && (val !== oldTextList[i + 2]) && (val !== oldTextList[i + 3])) {
-                new_text += "<span class='highlight_new'> " + val + " </span>";
+                new_text += "<span class='highlight_new' style='background-color: #d1fae5; color: #065f46; padding: 2px 4px; border-radius: 4px; font-weight: 600;'>" + val + "</span> ";
             } else {
-                new_text += " " + val;
+                new_text += val + " ";
             }
         });
-        newElem.html(new_text);
 
-        oldElem.text().split(' ').forEach(function (val, i) {
-            if ((val !== newTextList[i - 3]) && (val !== newTextList[i - 2]) && (val !== newTextList[i - 1]) && (val !== newTextList[i]) && (val !== newTextList[i + 1]) && (val !== newTextList[i + 2]) && (val !== newTextList[i + 3])) {
-                old_text += "<span class='highlight_old'> " + val + " </span>";
+        rawOldText.split(' ').forEach(function (val, i) {
+            if ((val !== newTextList[i - 3]) && (val !== newTextList[i - 2]) && (val !== newTextList[i - 1]) && (val !== newTextList[i]) && (val !== newTextList[i + 1]) && (val !== newTextList[i + 2]) && (val !== oldTextList[i + 3])) {
+                old_text += "<span class='highlight_old' style='background-color: #fee2e2; color: #b91c1c; padding: 2px 4px; border-radius: 4px; text-decoration: line-through; font-weight: 600;'>" + val + "</span> ";
             } else {
-                old_text += " " + val;
+                old_text += val + " ";
             }
         });
-        oldElem.html(old_text);
+
+        const fieldsToBreak = ['Type:', 'Video:', 'Place_id:', 'Tags:', 'Title:', 'Description:', 'Content:', 'Status:'];
+        
+        fieldsToBreak.forEach(function(field) {
+            let replacement = "</div><div class='log-row-item' style='display: flex; flex-direction: column; padding: 10px 0; border-bottom: 1px dashed #f1f5f9;'><span class='log-field-label' style='font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 2px;'>" + field.replace(':', '') + "</span><div class='log-field-value' style='font-family: monospace; font-size: 0.88rem; color: #334155; line-height: 1.5; white-space: pre-wrap; word-break: break-all;'>";
+            let regexPlain = new RegExp(field, 'g');
+            let regexSpan = new RegExp("<span[^>]*>" + field + "</span>", 'g');
+
+            new_text = new_text.replace(regexSpan, replacement).replace(regexPlain, replacement);
+            old_text = old_text.replace(regexSpan, replacement).replace(regexPlain, replacement);
+        });
+
+        newElemContainer.html("<div style='margin-top: -10px;'>" + new_text + "</div></div></div>");
+        oldElemContainer.html("<div style='margin-top: -10px;'>" + old_text + "</div></div></div>");
+        
+        $('.log-row-item').each(function() {
+            if($(this).text().trim() === "" || $(this).find('.log-field-label').text() === "undefined") {
+                $(this).remove();
+            }
+        });
     }
 </script>
 
@@ -300,10 +323,11 @@
             $(tableId).on('click', 'tbody tr', function () {
                 let rowData = table.row(this).data();
                 if (rowData && rowData.previous_data) {
-                    $('#previous_data').text(rowData.previous_data !== "0" ? rowData.previous_data : "");
-                    $('#current_data').text(rowData.current_data !== "0" ? rowData.current_data : "");
+                    let prevRaw = rowData.previous_data !== "0" ? rowData.previous_data : "";
+                    let currRaw = rowData.current_data !== "0" ? rowData.current_data : "";
+                    
                     $('.modal').modal('show');
-                    highlight($("#current_data"), $("#previous_data"));
+                    highlight($("#current_data_container"), $("#previous_data_container"), currRaw, prevRaw);
                 }
             });
 

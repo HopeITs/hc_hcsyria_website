@@ -22,11 +22,11 @@
                 <div class="d-flex justify-content-center align-items-center position-relative bg-primary-red text-white py-3">
                     <h1 class="m-0 text-uppercase news-header-title">OUR NEWS</h1>
                     
-                    <button type="button" class="btn-header-filter position-absolute end-0 me-3 me-md-4" data-bs-toggle="modal" data-bs-target="#newsFilterModal" aria-label="Filter News">
+                    {{-- <button type="button" class="btn-header-filter position-absolute end-0 me-3 me-md-4" data-bs-toggle="modal" data-bs-target="#newsFilterModal" aria-label="Filter News">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                         </svg>
-                    </button>
+                    </button> --}}
                 </div>
             </div>
         </div>
@@ -50,6 +50,7 @@
                     <div class="ticker-mask">
                         <div class="ticker-wrapper">
                             <div class="ticker-content">
+                                
                                 @foreach($tickerNews as $ticker)
                                     @if($ticker)
                                         @php
@@ -62,8 +63,22 @@
                                         </a>
                                     @endif
                                 @endforeach
+
+                                @foreach($tickerNews as $ticker)
+                                    @if($ticker)
+                                        @php
+                                            $tickerCity = (isset($ticker->place->name) && $ticker->place->name !== 'All') ? $ticker->place->name : 'Syria';
+                                            $tickerDate = $ticker->date ? \Carbon\Carbon::parse($ticker->date)->format('Ymd') : '00000000';
+                                        @endphp
+                                        <a href="{{ route('new.public.article', ['id' => $ticker->id, 'city' => Illuminate\Support\Str::slug(strtolower($tickerCity)), 'date' => $tickerDate]) }}" target="_blank" rel="noopener noreferrer" class="ticker-item">
+                                            {{ $ticker->english->title ?? 'New Update' }}
+                                            <img src="{{ asset('images/our-news/logo/001HC_Logomini.svg') }}" class="news-separator" alt="logo">
+                                        </a>
+                                    @endif
+                                @endforeach
+
                             </div>
-                        </div>
+                         </div>
                     </div>
                 </div>
             </div>
