@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Mail;
 class NewsController extends Controller
 {
     const NEWS = 3;
-    const TAGS = 'Tags';
+    const TAGS = 7;
     const EDITIONS = 'Editions';
     const SUBSCRIBERS = 'Subscribers';
     public function __construct()
@@ -456,10 +456,9 @@ class NewsController extends Controller
         $request->validate(['name' => 'required|unique:tags,name|max:50']);
         $tag = Tag::create(['name' => $request->name]);
 
-        $this->saveToLog(self::TAGS, $tag->id, 'Tag Created: ' . $tag->name);
+        $this->saveToLog(self::TAGS, 0, 'Tag Created: ' . $tag->name);
 
-        return redirect()->route('news.index', ['tab' => 'Tags'])
-            ->with('success', 'Tag created successfully');
+        return redirect()->route('news.index', ['tab' => 'Tags'])->with('success', 'Tag created successfully');
     }
 
     public function tag_update(Request $request, $id)
@@ -467,28 +466,25 @@ class NewsController extends Controller
         $request->validate(['name' => 'required|max:50|unique:tags,name,'.$id]);
         $tag = Tag::findOrFail($id);
         $oldName = $tag->name;
-
         $tag->update(['name' => $request->name]);
 
-        $this->saveToLogWithData(self::TAGS, $tag->id, 'Tag Updated', $oldName, $tag->name);
+        $this->saveToLogWithData(self::TAGS, 0, 'Tag Updated: ' . $oldName . ' -> ' . $tag->name, $oldName, $tag->name);
 
-        return redirect()->route('news.index', ['tab' => 'Tags'])
-            ->with('success', 'Tag updated successfully');
+        return redirect()->route('news.index', ['tab' => 'Tags'])->with('success', 'Tag updated successfully');
     }
 
     public function tag_destroy($id)
     {
         $tag = Tag::findOrFail($id);
         $tagName = $tag->name;
-
         $tag->news()->detach();
         $tag->delete();
 
-        $this->saveToLog(self::TAGS, $id, 'Tag Deleted: ' . $tagName);
+        $this->saveToLog(self::TAGS, 0, 'Tag Deleted: ' . $tagName);
 
-        return redirect()->route('news.index', ['tab' => 'Tags'])
-            ->with('success', 'Tag deleted successfully');
+        return redirect()->route('news.index', ['tab' => 'Tags'])->with('success', 'Tag deleted successfully');
     }
+
     public function preview($id)
     {
         $article = News::with('english', 'place', 'tags', 'images')->findOrFail($id);

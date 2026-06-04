@@ -21,7 +21,7 @@ class logController extends Controller
             'projectsCount' => (clone $baseQuery)->where('category', 0)->count(),
             'initiativesCount' => (clone $baseQuery)->where('category', 1)->count(),
             'successesCount' => (clone $baseQuery)->where('category', 2)->count(),
-            'newsCount' => (clone $baseQuery)->where('category', 3)->count(),
+            'newsCount' => (clone $baseQuery)->whereIn('category', [3, 7])->count(),
             'teamCount' => (clone $baseQuery)->where('category', 5)->count(),
         ]);
     }
@@ -34,9 +34,15 @@ class logController extends Controller
         $orderColumnIndex = $request->input('order.0.column', 4);
         $orderDir = $request->input('order.0.dir', 'desc');
 
-        $query = Log::with('user')->where('category', $category)->whereYear('created_at', '>', '2021');
+        $query = Log::with('user')->whereYear('created_at', '>', '2021');
 
-        $totalRecords = Log::where('category', $category)->whereYear('created_at', '>', '2021')->count();
+        if ($category == 3) {
+            $query->whereIn('category', [3, 7]);
+            $totalRecords = Log::whereIn('category', [3, 7])->whereYear('created_at', '>', '2021')->count();
+        } else {
+            $query->where('category', $category);
+            $totalRecords = Log::where('category', $category)->whereYear('created_at', '>', '2021')->count();
+        }
 
         if (!empty($search)) {
             $query->where(function($q) use ($search) {
@@ -62,7 +68,7 @@ class logController extends Controller
             $data[] = [
                 'id' => $log->id,
                 'operation' => $log->operation,
-                'project_id' => $log->project_id,
+                'project_id' => $log->project_id == 0 ? '-' : $log->project_id,
                 'username' => $log->user ? $log->user->name : 'N/A',
                 'created_at' => $log->created_at->toIso8601String(),
                 'current_data' => $log->current_data,

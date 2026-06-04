@@ -243,54 +243,50 @@
                     if (data.length > notificationPrevCount) {
                         $('#no-notification').hide();
                         for (let i = notificationPrevCount; i < data.length; i++) {
+                            let category = data[i]['category'];
+                            let projectType = '';
+                            let prefix = '';
+
+                            // EMERGENCY CLEANUP: This fixes the broken "Project 0" notifications already in your database
+                            if (category == 0 && data[i]['operation'].includes('Tag')) {
+                                category = 7; 
+                            }
+
+                            // Define the categories (7 is now Tags)
+                            if (category == 0) projectType = 'Project';
+                            else if (category == 1) projectType = 'Initiative';
+                            else if (category == 2) projectType = 'Success';
+                            else if (category == 3) projectType = 'News';
+                            else if (category == 4) projectType = 'Editions';
+                            else if (category == 5) projectType = 'Team Member';
+                            else if (category == 6) projectType = 'Subscriber';
+                            else if (category == 7) projectType = ''; // <--- Tags are left completely blank
+                            else if (category == 9) projectType = 'Cover';
+                            else if (category == 10) projectType = 'Project Content';
+                            else if (category == 11) projectType = 'Magazine';
+
+                            // SAFEGUARD: Only print the Category Word and ID if the ID is NOT 0
+                            if (projectType !== '' && data[i]['project_id'] !== null && data[i]['project_id'] != 0) {
+                                prefix = projectType + ' ' + data[i]['project_id'] + ' ';
+                            }
+
+                            // Clean up the text
+                            let operationText = data[i]['operation'].toString();
+                            if (projectType !== '') {
+                                operationText = operationText.replace(projectType, '').trim();
+                            }
+
+                            // Build the final text string
+                            let notificationText = prefix + operationText + ' by ' + data[i]['user']['name'];
+
                             let notification;
-                            let projectType;
-                            if (data[i]['category'] == 0) {
-                                projectType = 'Project';
-                            } else if (data[i]['category'] == 1) {
-                                projectType = 'Initiative';
-                            }
-                            else if (data[i]['category'] == 2) {
-                                projectType = 'Success';
-                            }
-                            else if (data[i]['category'] == 3) {
-                                projectType = 'News';
-                            }
-                            else if (data[i]['category'] == 4) {
-                                projectType = 'Editions';
-                            }
-                            else if (data[i]['category'] == 5) {
-                                projectType = 'Team Member';
-                            }
-                            else if (data[i]['category'] == 6) {
-                                projectType = 'Subscriber';
-                            }
-                            else if (data[i]['category'] == 9) {
-                                projectType = 'Cover';
-                            }
-                            else if (data[i]['category'] == 10) {
-                                projectType = 'Project Content';
-                            }
-                            else if (data[i]['category'] == 10) {
-                                projectType = 'Project Content';
-                            }
-                            else if (data[i]['category'] == 11) {
-                                projectType = 'Magazine';
-                            }
                             if (data[i]['seen'] == 0) {
-                                notification = '<div class="not-seen"><li><p class="notification-item">' + projectType + ' ' + data[i]['project_id'] + ' ' + data[i]['operation'].toString().replace(projectType, '') + ' by ' + data[i]['user']['name'] + '</p></li><div>'
+                                notification = '<div class="not-seen"><li><p class="notification-item">' + notificationText + '</p></li></div>';
                             } else {
-                                notification = '<div class="seen"><li><p class="notification-item">' + projectType + ' ' + data[i]['project_id'] + ' ' + data[i]['operation'].toString().replace(projectType, '') + ' by ' + data[i]['user']['name'] + '</p></li></div>'
+                                notification = '<div class="seen"><li><p class="notification-item">' + notificationText + '</p></li></div>';
                             }
-                            let notification_toast = '<p>' + projectType + ' ' + data[i]['project_id'] + ' ' + data[i]['operation'].toString().replace(projectType, '') + ' by ' + data[i]['user']['name'] + '</p>'
+
                             $('#notifications-body').prepend(notification);
-                            // $('.toast-body').prepend(notification_toast);
-                            // $("#myToast").toast({
-                            //     delay: 200
-                            // });
-                            // // Show toast
-                            // $("#myToast").toast("show");
-                            // $("#myToast").style.display="block";
                         }
                         notificationPrevCount = data.length;
                     } else if (data.length == 0) {
