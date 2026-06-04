@@ -193,6 +193,17 @@ class NewsController extends Controller
         }
         $news->online = $newOnlineStatus;
 
+        if ($request->input('remove_file') == '1' && $news->file != '0') {
+            $oldTextSegments[] = "File: '" . $news->file . "'";
+            $newTextSegments[] = "File: 'Removed'";
+            $changesLog[] = 'File';
+            
+            if (\Illuminate\Support\Facades\File::exists(public_path($news->file))) {
+                \Illuminate\Support\Facades\File::delete(public_path($news->file));
+            }
+            $news->file = '0'; 
+        }
+
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $fileName = $file->getClientOriginalName();

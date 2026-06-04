@@ -146,7 +146,12 @@
                             <div class="row mb-3">
                                 <div class="col-12">
                                     <label for="upload_file" class="form-label fw-bold">Upload File</label>
-                                    <input class="form-control" type="file" name="file" id="upload_file">
+                                    <div class="d-flex align-items-center">
+                                        <input class="form-control" type="file" name="file" id="upload_file">
+                                        <button type="button" class="btn btn-danger ms-2 d-none" id="clear_file_btn" title="Clear selected file">
+                                            <i class="fa fa-trash-o"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -197,6 +202,19 @@
         $('input[name="type"]').change(function() {
             checkVideoRequired();
         });
+    });
+
+    $('#upload_file').change(function() {
+        if ($(this).val()) {
+            $('#clear_file_btn').removeClass('d-none');
+        } else {
+            $('#clear_file_btn').addClass('d-none');
+        }
+    });
+
+    $('#clear_file_btn').click(function() {
+        $('#upload_file').val('');
+        $(this).addClass('d-none');
     });
 </script>
 @include('new.admin.scripts.popup-messages')

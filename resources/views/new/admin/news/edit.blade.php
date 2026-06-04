@@ -165,17 +165,33 @@
                                 <div class="col-12">
                                     <label for="file" class="form-label fw-bold">Upload File</label>
 
+                                    <input type="hidden" name="remove_file" id="remove_file" value="0">
+
                                     @if($newsData->file != '0')
-                                        <div class="d-flex align-items-center justify-content-between border rounded p-2 bg-light">
+                                        <div id="current_file_display" class="d-flex align-items-center justify-content-between border rounded p-2 bg-light mb-2">
                                             <span class="d-inline-block text-truncate max-w-90">
                                                 <i class="fa fa-file-o me-2"></i> {{ $newsData->file }}
                                             </span>
-                                            <button class="btn btn-sm btn-danger show_confirm" type="button" title="Delete current file">
+                                            <button type="button" class="btn btn-sm btn-danger remove_current_file_btn" title="Remove current file">
                                                 <i class="fa fa-trash-o"></i>
                                             </button>
                                         </div>
+
+                                        <div id="new_file_input_container" class="d-none">
+                                            <div class="d-flex align-items-center">
+                                                <input class="form-control" type="file" name="file" id="file">
+                                                <button type="button" class="btn btn-danger ms-2 d-none clear_new_file_btn" title="Clear selected file">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                     @else
-                                        <input class="form-control" type="file" name="file" id="file">
+                                        <div class="d-flex align-items-center">
+                                            <input class="form-control" type="file" name="file" id="file">
+                                            <button type="button" class="btn btn-danger ms-2 d-none clear_new_file_btn" title="Clear selected file">
+                                                <i class="fa fa-trash-o"></i>
+                                            </button>
+                                        </div>
                                     @endif
                                 </div>
                             </div>
@@ -199,27 +215,24 @@
 @stack('navbar_scripts')
 
 <script>
-    $('.show_confirm').click(function (event) {
-        var form = $(this).closest("form");
+    // New SweetAlert logic to just hide the file instead of changing pages
+    $('.remove_current_file_btn').click(function (event) {
         event.preventDefault();
 
         swal({
-            title: `Are you sure you want to delete ?`,
+            title: `Are you sure you want to remove this file?`,
             showCancelButton: true,
-            confirmButtonText: 'Delete',
+            confirmButtonText: 'Remove',
         }).then((result) => {
             if (result) {
-                form.submit();
-                swal(
-                    'Terhapus!',
-                    'Data berhasil terhapus.',
-                    'success',
-                    window.location.href = getLink
-                )
+                // Hide the old file, show the new upload box, set hidden input to 1
+                $('#current_file_display').addClass('d-none');
+                $('#new_file_input_container').removeClass('d-none');
+                $('#remove_file').val('1');
             }
         }, function (dismiss) {
             if (dismiss === 'cancel') {
-                swal('Cancelled')
+                swal('Cancelled');
             }
         });
     });
@@ -254,6 +267,19 @@
                 $('#editor').val(newsEditor.getData());
             }
         });
+    });
+
+    $('#file').change(function() {
+        if ($(this).val()) {
+            $('.clear_new_file_btn').removeClass('d-none');
+        } else {
+            $('.clear_new_file_btn').addClass('d-none');
+        }
+    });
+
+    $('.clear_new_file_btn').click(function() {
+        $('#file').val('');
+        $(this).addClass('d-none');
     });
 </script>
 @include('new.admin.scripts.popup-messages')
