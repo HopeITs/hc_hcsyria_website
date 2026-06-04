@@ -121,7 +121,7 @@
                                         
                                         @if ($article->file != '0')
                                             <div class="col-auto p-0">
-                                                <a href="{{ $article->file }}" class="file_btn news-article-file-btn" target="_blank" 
+                                                <a href="{{ $article->file }}" class="file_btn news-article-file-btn" download 
                                                     data-toggle="tooltip" 
                                                     rel="tooltip" 
                                                     data-placement="top" 
@@ -132,7 +132,7 @@
                                                     <span class="fa fa-paperclip"></span>
                                                 </a>
                                             </div>
-                                        @endif      
+                                        @endif    
                                         
                                         <div class="news-article-share-wrapper d-inline-block">
                                             <a href="#" class="news-article-action-badge icon-only mt-1" id="modernShareToggle" title="Share Article">
