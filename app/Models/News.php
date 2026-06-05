@@ -21,11 +21,9 @@ class News extends Model
         'date' => 'datetime',
     ];
 
-    // --- AUTOMATED YOUTUBE DURATION LOGIC ---
     protected static function booted()
     {
         static::saving(function ($news) {
-            // Check if the 'video' column was just changed/added and is not empty or '0'
             if ($news->isDirty('video') && !empty($news->video) && $news->video !== '0') {
                 $duration = self::fetchYoutubeDuration($news->video);
 
@@ -89,7 +87,7 @@ class News extends Model
 
     public static function fetchYoutubeDuration($url)
     {
-        $apiKey = env('YOUTUBE_API_KEY');
+        $apiKey = config('services.youtube.key');
         if (empty($apiKey)) return null;
 
         $videoId = self::extractYoutubeId($url);

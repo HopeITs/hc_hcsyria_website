@@ -25,7 +25,7 @@ class FetchYoutubeDurations extends Command
 
         $this->info("Found {$videos->count()} valid videos missing durations.");
 
-        $apiKey = env('YOUTUBE_API_KEY');
+        $apiKey = config('services.youtube.key');
 
         if (empty($apiKey)) {
             $this->error("YOUTUBE_API_KEY is missing from your .env file!");
