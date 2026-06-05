@@ -121,7 +121,7 @@
                                         
                                         @if ($article->file != '0')
                                             <div class="col-auto p-0">
-                                                <a href="{{ $article->file }}" class="file_btn news-article-file-btn" download 
+                                                <a href="{{ asset($article->file) }}" class="file_btn news-article-file-btn" download
                                                     data-toggle="tooltip" 
                                                     rel="tooltip" 
                                                     data-placement="top" 
