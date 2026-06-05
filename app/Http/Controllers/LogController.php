@@ -21,7 +21,7 @@ class logController extends Controller
             'projectsCount' => (clone $baseQuery)->where('category', 0)->count(),
             'initiativesCount' => (clone $baseQuery)->where('category', 1)->count(),
             'successesCount' => (clone $baseQuery)->where('category', 2)->count(),
-            'newsCount' => (clone $baseQuery)->whereIn('category', [3, 7])->count(),
+            'newsCount' => (clone $baseQuery)->whereIn('category', [3,35])->count(),
             'teamCount' => (clone $baseQuery)->where('category', 5)->count(),
         ]);
     }
@@ -37,8 +37,8 @@ class logController extends Controller
         $query = Log::with('user')->whereYear('created_at', '>', '2021');
 
         if ($category == 3) {
-            $query->whereIn('category', [3, 7]);
-            $totalRecords = Log::whereIn('category', [3, 7])->whereYear('created_at', '>', '2021')->count();
+            $query->whereIn('category', [3, 35]);
+            $totalRecords = Log::whereIn('category', [3, 35])->whereYear('created_at', '>', '2021')->count();
         } else {
             $query->where('category', $category);
             $totalRecords = Log::where('category', $category)->whereYear('created_at', '>', '2021')->count();
