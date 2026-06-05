@@ -268,19 +268,16 @@
                             Subscribe our newsletter to receive the latest news.
                         </h4>
 
-                        <form class="subscription" name="subsribeForm" id="subsribeForm" action=""
-                            method="get">
+                        <form class="subscription" name="subsribeForm" id="subsribeForm" action="" method="POST">
                             {!! csrf_field() !!}
-                            <input class="add-email" id="email" name="email"
-                                placeholder="Enter your Email Address" type="email">
+                            <input class="add-email" id="email" name="email" placeholder="Enter your Email Address" type="email">
                             <button class="submit-email" type="submit" name="submit">
                                 <span id="before-submit" class="before-submit">Subscribe</span>
                                 <span id="after-submit" class="after-submit" style="display:none;">Subscribed!</span>
                             </button>
                         </form>
 
-                        <label id="subscribe-error" class="subscribe-error mt-2" style="display:none;">Email has
-                            already subscribed!</label>
+                        <div id="validation-errors-container" class="mt-2 text-center" style="min-height: 24px;"></div>
                     </div>
                 </div>
 
@@ -291,56 +288,74 @@
     @include('new.public.footer')
 
     <script>
-        $(document).ready(function() {
-            $("#subsribeForm").validate({
-                debug: false,
-                rules: {
-                    email: {
-                        required: true,
-                        email: true
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('subsribeForm');
+
+            if (form) {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault(); // STOPS the silent page refresh
+
+                    const emailInput = document.getElementById('email').value;
+                    const errorContainer = document.getElementById('validation-errors-container');
+                    const beforeSubmit = document.getElementById('before-submit');
+                    const submitBtn = document.querySelector('.submit-email');
+
+                    // 1. Clear old UI errors
+                    errorContainer.innerHTML = '';
+
+                    // 2. Simple Frontend Validation
+                    if (!emailInput || !emailInput.includes('@')) {
+                        errorContainer.innerHTML = '<span style="color:red; font-size: 14px;">Please enter a valid email address.</span>';
+                        return;
                     }
-                },
-                messages: {
-                    email: {
-                        required: "Email field is required!",
-                        email: "Please Enter a valid format!"
-                    }
-                },
-                submitHandler: function(form) {
-                    let formData = $("form#subsribeForm").serialize()
-                    $.ajax({
-                        url: "http://" + location.host + "/newsletter/subscribe",
+
+                    // 3. UI Feedback (Show "Sending...")
+                    submitBtn.disabled = true;
+                    beforeSubmit.innerText = 'Sending...';
+
+                    // 4. Fire the AJAX request
+                    fetch("{{ route('newsletter.subscribe') }}", {
+                        method: 'POST',
                         headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                            'X-Requested-With': 'XMLHttpRequest'
                         },
-                        type: "POST",
-                        data: {
-                            formData,
-                            "email": $("input[name='email']").val()
-                        },
-                        success: function(response) {
-                            if (response.msg === 'true') {
-                                document.getElementById('subscribe-error').style.display = 'block';
-                                setTimeout(function() {
-                                    document.getElementById('subscribe-error').style.display = 'none';
-                                    let input = document.getElementById('email');
-                                    input.value = "";
-                                }, 2000);
-                            } else if (response.msg === 'false') {
-                                document.getElementById('after-submit').style.display = 'block';
-                                document.getElementById('before-submit').style.display = 'none';
-                                document.getElementById('subscribe-error').style.display = 'none';
+                        body: JSON.stringify({ email: emailInput })
+                    })
+                        .then(async response => {
+                            if (!response.ok) throw new Error('Server Error');
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.msg === 'true') {
+                                errorContainer.innerHTML = '<span style="color:red; font-size: 15px; font-weight: 500;">Email already exists!</span>';
+                                beforeSubmit.innerText = 'Subscribe'; 
+
                                 setTimeout(() => {
-                                    document.getElementById('after-submit').style.display = 'none';
-                                    document.getElementById('before-submit').style.display = 'block';
-                                    let input = document.getElementById('email');
-                                    input.value = "";
-                                }, 2000);
+                                    errorContainer.innerHTML = '';
+                                }, 3000);
+
+                            } else if (data.msg === 'false') {
+                                beforeSubmit.innerText = 'Subscribed!';
+                                document.getElementById('email').value = ''; 
+
+                                setTimeout(() => {
+                                    beforeSubmit.innerText = 'Subscribe';
+                                }, 3000);
                             }
-                        },
-                    });
-                }
-            })
+                        })
+                        .catch(error => {
+                            errorContainer.innerHTML = '<span style="color:red; font-size: 14px;">Server error. Please try again later.</span>';
+                            beforeSubmit.innerText = 'Subscribe';
+                            console.error('Subscription Error:', error);
+                        })
+                        .finally(() => {
+                            submitBtn.disabled = false;
+                        });
+                });
+            }
         });
     </script>
 
