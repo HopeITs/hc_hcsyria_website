@@ -83,7 +83,7 @@
                     Subscribe our newsletter to receive the latest news.
                 </h4>
 
-                <form class="subscription" name="subsribeForm" id="subsribeForm" action="" method="get">
+                <form class="subscription" name="subsribeForm" id="subsribeForm" action="" method="POST">
                     {!! csrf_field() !!}
                     <input class="add-email" id="email" name="email" placeholder="Enter your Email Address" type="email">
                     <button class="submit-email" type="submit" name="submit">
@@ -92,7 +92,7 @@
                     </button>
                 </form>
 
-                <label id="subscribe-error" class="subscribe-error mt-2" style="display:none;">Email has already subscribed!</label>
+                <div id="validation-errors-container" class="mt-2 text-center" style="min-height: 24px;"></div>
             </div>
         </div>
 
