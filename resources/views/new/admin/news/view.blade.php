@@ -70,7 +70,7 @@
             if ($news->priority_status == 2) $sizeType = 2; // Pinned
 
             $targetImg = $news->images->where('sizetype', $sizeType)->first() ?? $news->images->first();
-            $imgPath = ($targetImg && file_exists(public_path($targetImg->path))) 
+            $imgPath = $targetImg 
                         ? asset($targetImg->path) 
                         : 'https://picsum.photos/seed/'.$news->id.'/800/500';
         @endphp

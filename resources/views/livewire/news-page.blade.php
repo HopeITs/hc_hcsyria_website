@@ -275,11 +275,11 @@
                     @foreach($chunk as $news)
                         @php
                             $thumbImg = $news->images->where('sizetype', 0)->first() ?? $news->images->first();
-                            if ($thumbImg && file_exists(public_path($thumbImg->path))) {
-                                $imgPath = asset($thumbImg->path);
-                            } else {
-                                $imgPath = 'https://picsum.photos/seed/'.$news->id.'/400/400';
-                            }
+                            
+                            $imgPath = $thumbImg 
+                                ? asset($thumbImg->path) 
+                                : 'https://picsum.photos/seed/'.$news->id.'/400/400';
+                                
                             $dateMeta = $news->date ? \Carbon\Carbon::parse($news->date)->format('d/m/Y') : '';
                             $urlDate = $news->date ? \Carbon\Carbon::parse($news->date)->format('Ymd') : '00000000';
                             $place = (isset($news->place->name) && $news->place->name !== 'All') ? $news->place->name : 'Syria';
