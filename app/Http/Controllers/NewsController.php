@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Mail;
 class NewsController extends Controller
 {
     const NEWS = 3;
-    const TAGS = 7;
+    const TAGS = 35;
     const EDITIONS = 'Editions';
     const SUBSCRIBERS = 'Subscribers';
     public function __construct()
