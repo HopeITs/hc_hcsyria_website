@@ -30,7 +30,6 @@ class AppServiceProvider extends ServiceProvider
             $view->with('user', User::with('roles')->find(Auth::id()));
         });
         
-        
         Paginator::useBootstrap();
     }
 
@@ -41,8 +40,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if (is_dir('/www/www')) {
-            app()->usePublicPath('/www/www');
+        $liveServerPath = base_path('../www/www');
+        if (is_dir($liveServerPath)) {
+            app()->usePublicPath($liveServerPath);
         }
     }
 }
