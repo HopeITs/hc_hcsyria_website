@@ -104,38 +104,40 @@
 
                             <div class="col-12 p-0 position-relative mb-4 border-start-0 ps-0">
 
-                                <div class="d-flex justify-content-between align-items-center mb-2 gap-3 border-0">
+                                <div class="d-flex justify-content-between align-items-end mb-2 gap-3 border-0">
                                     <h1 class="news-article-title m-0">
                                         {{ $article->$language->title }}
                                     </h1>
+
 
                                     <div class="d-flex align-items-center gap-2 flex-shrink-0">
 
                                         @if ($article->video != '0' && $article->type != 3)
                                             <a href="{{ $article->video }}"
-                                                class="launch-modal news-article-action-badge icon-only"
+                                                class="launch-modal bg-primary-red d-flex justify-content-center align-items-center shadow-sm"
                                                 id="newsletterVideo-{{ $article->id }}"
-                                                data-fancybox="newsletterVideo-{{ $article->id }}" title="Play Video">
-                                                <img src="/images/our-news/logo/PLAY-VIDEO.svg" alt="Play">
+                                                data-fancybox="newsletterVideo-{{ $article->id }}" title="Play Video"
+                                                style="width: 25px; height: 25px; border-radius: 6px; text-decoration: none; transition: 0.2s;">
+                                                <i class="fa-solid fa-play text-white" style="font-size: 0.75rem; margin-left: 2px;"></i>
                                             </a>
                                         @endif
 
                                         @if ($article->file != '0')
-                                            <div class="col-auto p-0">
-                                                <a href="{{ asset($article->file) }}"
-                                                    class="file_btn news-article-file-btn" download
-                                                    data-toggle="tooltip" rel="tooltip" data-placement="top"
-                                                    data-bs-placement="top" data-container="body"
-                                                    data-bs-container="body" title="{{ substr($article->file, 12) }}">
-                                                    <span class="fa fa-paperclip"></span>
-                                                </a>
-                                            </div>
+                                            <a href="{{ asset($article->file) }}"
+                                                class="file_btn bg-primary-red d-flex justify-content-center align-items-center shadow-sm" download
+                                                data-toggle="tooltip" rel="tooltip" data-placement="top"
+                                                data-bs-placement="top" data-container="body"
+                                                data-bs-container="body" title="{{ substr($article->file, 12) }}"
+                                                style="width: 25px; height: 25px; border-radius: 6px; text-decoration: none; transition: 0.2s;">
+                                                <i class="fa-solid fa-paperclip text-white" style="font-size: 0.85rem;"></i>
+                                            </a>
                                         @endif
 
-                                        <div class="news-article-share-wrapper d-inline-block">
-                                            <a href="#" class="news-article-action-badge icon-only mt-1"
-                                                id="modernShareToggle" title="Share Article">
-                                                <img src="/images/our-news/logo/SHARE.svg" alt="Share">
+                                        <div class="news-article-share-wrapper d-inline-flex align-items-center">
+                                            <a href="#" class="bg-primary-red d-flex justify-content-center align-items-center shadow-sm"
+                                                id="modernShareToggle" title="Share Article"
+                                                style="width: 25px; height: 25px; border-radius: 6px; text-decoration: none; transition: 0.2s;">
+                                                <i class="fa-solid fa-share text-white" style="font-size: 0.8rem;"></i>
                                             </a>
 
                                             <div class="news-article-share-menu" id="modernShareMenu">
@@ -180,9 +182,9 @@
                                         {{ $article->date ? \Carbon\Carbon::parse($article->date)->format('j/n/Y') : '' }}
                                     </div>
 
-                                    <span class="d-flex align-items-center text-secondary gap-1">
-                                        {{ $article->total_views ?? 0 }}
-                                        <i class="fa fa-eye fs-5 mt-1"></i>
+                                    <span class="d-flex align-items-center text-secondary" style="gap: 6px;">
+                                        <span class="fw-bold" style="font-size: 1.1rem; line-height: 1;">{{ $article->total_views ?? 0 }}</span>
+                                        <i class="fa-solid fa-eye" style="font-size: 1.1rem; line-height: 1;"></i>
                                     </span>
 
                                 </div>
