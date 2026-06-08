@@ -19,17 +19,19 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        
         view()->composer('public.navbar', function($view)
         {
             $view->with('navbarWhoCategories', WhoCategory::all());
         });
+        
         view()->composer('*', function($view)
         {
             $view->with('user', User::with('roles')->find(Auth::id()));
         });
-        app()->usePublicPath('');
+        
+        
         Paginator::useBootstrap();
-
     }
 
     /**
@@ -39,8 +41,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('path.public', function() {
-            return '/www/www';
-        });
+        if (is_dir('/www/www')) {
+            app()->usePublicPath('/www/www');
+        }
     }
 }

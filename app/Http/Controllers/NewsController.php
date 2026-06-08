@@ -93,8 +93,9 @@ class NewsController extends Controller
         $file = $request->file('file');
         $fileName = $file->getClientOriginalName();
         $path = '/files/news/';
-        $destinationPath = '/www/www' . $path;
+        $destinationPath = public_path('files/news'); 
         $file->move($destinationPath, $fileName);
+        
         $news->file = $path . $fileName;
     } else {
         $news->file = '0';
@@ -214,7 +215,7 @@ class NewsController extends Controller
             
             $path = '/files/news/';
 
-            $destinationPath = '/www/www' . $path;
+            $destinationPath = public_path('files/news'); 
             $file->move($destinationPath, $fileName);
             
             $news->file = $path . $fileName;

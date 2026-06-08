@@ -22,12 +22,12 @@
     <meta property="og:title" content="{{ $article->$language->title }}" />
     <meta property="og:description" content="{{ $article->$language->description }}" />
     <title>@lang('navbar.newsletter')</title>
-    
+
     <link href="{{ asset('css/main-new.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/navbar.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/newsletter.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/our-news.css') }}" rel="stylesheet" type="text/css">
-    
+
     <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
     <link href='/css/lato.css' rel='stylesheet' type='text/css'>
@@ -79,11 +79,11 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
-    
+
     <div class="preloader">
         <div class="preloader-gif"></div>
     </div>
-    
+
     @include('new.public.navbar')
 
     <div id="Newsletter" class="news-article page_start">
@@ -103,7 +103,7 @@
                         <div class="row h-100 g-0">
 
                             <div class="col-12 p-0 position-relative mb-4 border-start-0 ps-0">
-                                
+
                                 <div class="d-flex justify-content-between align-items-center mb-2 gap-3 border-0">
                                     <h1 class="news-article-title m-0">
                                         {{ $article->$language->title }}
@@ -112,48 +112,58 @@
                                     <div class="d-flex align-items-center gap-2 flex-shrink-0">
 
                                         @if ($article->video != '0' && $article->type != 3)
-                                            <a href="{{ $article->video }}" class="launch-modal news-article-action-badge icon-only"
+                                            <a href="{{ $article->video }}"
+                                                class="launch-modal news-article-action-badge icon-only"
                                                 id="newsletterVideo-{{ $article->id }}"
                                                 data-fancybox="newsletterVideo-{{ $article->id }}" title="Play Video">
                                                 <img src="/images/our-news/logo/PLAY-VIDEO.svg" alt="Play">
                                             </a>
                                         @endif
-                                        
+
                                         @if ($article->file != '0')
                                             <div class="col-auto p-0">
-                                                <a href="{{ asset($article->file) }}" class="file_btn news-article-file-btn" download
-                                                    data-toggle="tooltip" 
-                                                    rel="tooltip" 
-                                                    data-placement="top" 
-                                                    data-bs-placement="top"
-                                                    data-container="body"
-                                                    data-bs-container="body"
-                                                    title="{{ substr($article->file, 12) }}">
+                                                <a href="{{ asset($article->file) }}"
+                                                    class="file_btn news-article-file-btn" download
+                                                    data-toggle="tooltip" rel="tooltip" data-placement="top"
+                                                    data-bs-placement="top" data-container="body"
+                                                    data-bs-container="body" title="{{ substr($article->file, 12) }}">
                                                     <span class="fa fa-paperclip"></span>
                                                 </a>
                                             </div>
-                                        @endif    
-                                        
+                                        @endif
+
                                         <div class="news-article-share-wrapper d-inline-block">
-                                            <a href="#" class="news-article-action-badge icon-only mt-1" id="modernShareToggle" title="Share Article">
+                                            <a href="#" class="news-article-action-badge icon-only mt-1"
+                                                id="modernShareToggle" title="Share Article">
                                                 <img src="/images/our-news/logo/SHARE.svg" alt="Share">
                                             </a>
 
                                             <div class="news-article-share-menu" id="modernShareMenu">
-                                                <a class="news-article-share-item" href="#" onclick="copyToClipboard(event, this)">
-                                                    <img src="/images/our-news/logo/copy-link-icon.svg" class="news-article-share-img-icon" alt="Copy">
+                                                <a class="news-article-share-item" href="#"
+                                                    onclick="copyToClipboard(event, this)">
+                                                    <img src="/images/our-news/logo/copy-link-icon.svg"
+                                                        class="news-article-share-img-icon" alt="Copy">
                                                     <span class="news-article-share-text">Copy Link</span>
                                                 </a>
-                                                <a class="news-article-share-item" href="https://api.whatsapp.com/send?text={{ urlencode($article->$language->title . ' - ' . url()->current()) }}" target="_blank">
-                                                    <img src="/images/our-news/logo/whatsapp-icon.svg" class="news-article-share-img-icon" alt="WhatsApp">
+                                                <a class="news-article-share-item"
+                                                    href="https://api.whatsapp.com/send?text={{ urlencode($article->$language->title . ' - ' . url()->current()) }}"
+                                                    target="_blank">
+                                                    <img src="/images/our-news/logo/whatsapp-icon.svg"
+                                                        class="news-article-share-img-icon" alt="WhatsApp">
                                                     <span class="news-article-share-text">WhatsApp</span>
                                                 </a>
-                                                <a class="news-article-share-item" href="https://t.me/share/url?url={{ urlencode(url()->current()) }}&text={{ urlencode($article->$language->title) }}" target="_blank">
-                                                    <img src="/images/our-news/logo/telegram-icon.svg" class="news-article-share-img-icon" alt="Telegram">
+                                                <a class="news-article-share-item"
+                                                    href="https://t.me/share/url?url={{ urlencode(url()->current()) }}&text={{ urlencode($article->$language->title) }}"
+                                                    target="_blank">
+                                                    <img src="/images/our-news/logo/telegram-icon.svg"
+                                                        class="news-article-share-img-icon" alt="Telegram">
                                                     <span class="news-article-share-text">Telegram</span>
                                                 </a>
-                                                <a class="news-article-share-item" href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(url()->current()) }}" target="_blank">
-                                                    <img src="/images/our-news/logo/linked-in-icon.svg" class="news-article-share-img-icon" alt="LinkedIn">
+                                                <a class="news-article-share-item"
+                                                    href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(url()->current()) }}"
+                                                    target="_blank">
+                                                    <img src="/images/our-news/logo/linked-in-icon.svg"
+                                                        class="news-article-share-img-icon" alt="LinkedIn">
                                                     <span class="news-article-share-text">LinkedIn</span>
                                                 </a>
                                             </div>
@@ -191,13 +201,14 @@
                                             $embedUrl = explode('?', $embedUrl)[0];
                                         }
                                     @endphp
-                                    
-                                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 8px; background: #000;">
-                                        <iframe src="{{ $embedUrl }}" 
-                                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
-                                                frameborder="0" 
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                                allowfullscreen>
+
+                                    <div
+                                        style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 8px; background: #000;">
+                                        <iframe src="{{ $embedUrl }}"
+                                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                                            frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen>
                                         </iframe>
                                     </div>
                                 @else
@@ -209,8 +220,9 @@
                                                     @if (preg_match('/thumb|pinned|important/i', $image->path))
                                                         @continue
                                                     @endif
-                                                    
-                                                    <div class="carousel-item @if ($k++ == 0) active @endif">
+
+                                                    <div
+                                                        class="carousel-item @if ($k++ == 0) active @endif">
                                                         <img class="d-block"
                                                             src="{{ substr($image->path, 0, -4) . 'b.jpg' }}"
                                                             alt="Article Image">
@@ -268,16 +280,19 @@
                             Subscribe our newsletter to receive the latest news.
                         </h4>
 
-                        <form class="subscription" name="subsribeForm" id="subsribeForm" action="" method="POST">
+                        <form class="subscription" name="subsribeForm" id="subsribeForm" action=""
+                            method="POST">
                             {!! csrf_field() !!}
-                            <input class="add-email" id="email" name="email" placeholder="Enter your Email Address" type="email">
+                            <input class="add-email" id="email" name="email"
+                                placeholder="Enter your Email Address" type="email">
                             <button class="submit-email" type="submit" name="submit">
                                 <span id="before-submit" class="before-submit">Subscribe</span>
                                 <span id="after-submit" class="after-submit" style="display:none;">Subscribed!</span>
                             </button>
                         </form>
 
-                        <div id="validation-errors-container" class="mt-2 text-center" style="min-height: 24px;"></div>
+                        <div id="validation-errors-container" class="mt-2 text-center" style="min-height: 24px;">
+                        </div>
                     </div>
                 </div>
 
@@ -288,50 +303,51 @@
     @include('new.public.footer')
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('subsribeForm');
 
             if (form) {
-                form.addEventListener('submit', function (e) {
-                    e.preventDefault(); // STOPS the silent page refresh
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
 
                     const emailInput = document.getElementById('email').value;
                     const errorContainer = document.getElementById('validation-errors-container');
                     const beforeSubmit = document.getElementById('before-submit');
                     const submitBtn = document.querySelector('.submit-email');
 
-                    // 1. Clear old UI errors
                     errorContainer.innerHTML = '';
 
-                    // 2. Simple Frontend Validation
                     if (!emailInput || !emailInput.includes('@')) {
-                        errorContainer.innerHTML = '<span style="color:red; font-size: 14px;">Please enter a valid email address.</span>';
+                        errorContainer.innerHTML =
+                            '<span style="color:red; font-size: 14px;">Please enter a valid email address.</span>';
                         return;
                     }
 
-                    // 3. UI Feedback (Show "Sending...")
                     submitBtn.disabled = true;
                     beforeSubmit.innerText = 'Sending...';
 
-                    // 4. Fire the AJAX request
-                    fetch("{{ route('newsletter.subscribe') }}", {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                            'X-Requested-With': 'XMLHttpRequest'
-                        },
-                        body: JSON.stringify({ email: emailInput })
-                    })
+z                    fetch("{{ route('newsletter.subscribe') }}", {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute('content'),
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
+                            body: JSON.stringify({
+                                email: emailInput
+                            })
+                        })
                         .then(async response => {
                             if (!response.ok) throw new Error('Server Error');
                             return response.json();
                         })
                         .then(data => {
                             if (data.msg === 'true') {
-                                errorContainer.innerHTML = '<span style="color:red; font-size: 15px; font-weight: 500;">Email already exists!</span>';
-                                beforeSubmit.innerText = 'Subscribe'; 
+                                errorContainer.innerHTML =
+                                    '<span style="color:red; font-size: 15px; font-weight: 500;">Email already exists!</span>';
+                                beforeSubmit.innerText = 'Subscribe';
 
                                 setTimeout(() => {
                                     errorContainer.innerHTML = '';
@@ -339,7 +355,7 @@
 
                             } else if (data.msg === 'false') {
                                 beforeSubmit.innerText = 'Subscribed!';
-                                document.getElementById('email').value = ''; 
+                                document.getElementById('email').value = '';
 
                                 setTimeout(() => {
                                     beforeSubmit.innerText = 'Subscribe';
@@ -347,7 +363,8 @@
                             }
                         })
                         .catch(error => {
-                            errorContainer.innerHTML = '<span style="color:red; font-size: 14px;">Server error. Please try again later.</span>';
+                            errorContainer.innerHTML =
+                                '<span style="color:red; font-size: 14px;">Server error. Please try again later.</span>';
                             beforeSubmit.innerText = 'Subscribe';
                             console.error('Subscription Error:', error);
                         })
@@ -379,27 +396,27 @@
         });
     </script>
     <script>
-    $(function() {
-        $('.file_btn').on("mouseenter", function() {
-            $('.bl').hide();
-            $(this).showBalloon({
-                position: "top", 
-                contents: "{{ substr($article->file, 12) }}",
-                classname: "bl",
-                maxLifetime: 1000,
-                tipSize: 0,
-                delay: 100,
-                hideDuration: 500,
-                showAnimation: function(d, c) {
-                    this.fadeIn(d, c);
-                },
-                css: {
-                    fontSize: '1.1rem'
-                }
-            });
-        })
-    });
-</script>
+        $(function() {
+            $('.file_btn').on("mouseenter", function() {
+                $('.bl').hide();
+                $(this).showBalloon({
+                    position: "top",
+                    contents: "{{ substr($article->file, 12) }}",
+                    classname: "bl",
+                    maxLifetime: 1000,
+                    tipSize: 0,
+                    delay: 100,
+                    hideDuration: 500,
+                    showAnimation: function(d, c) {
+                        this.fadeIn(d, c);
+                    },
+                    css: {
+                        fontSize: '1.1rem'
+                    }
+                });
+            })
+        });
+    </script>
 
     <script>
         $(document).ready(function() {
