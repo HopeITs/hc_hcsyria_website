@@ -421,6 +421,7 @@ WHERE projects.`MPE_Published` = 0  GROUP BY projects.MicroProject_ID;
         
         $this->saveToLog(self::MICRO, $id, 'Project Deleted');
         
+        // Return a clean JSON response for SweetAlert to display
         return response()->json(['success' => true, 'message' => 'Project has been deleted successfully!']);
     }
 

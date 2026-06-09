@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!--suppress ALL -->
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <script src="/js/jquery.js"></script>
@@ -20,31 +19,68 @@
     <link href="/css/dashboard_new.css" rel="stylesheet">
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
     <link href="/css/backend.css" rel="stylesheet">
-    <!--[if lt IE 9]>
-    <script src="/js/html5shiv.js"></script>
-    <script src="/js/respond.min.js"></script> <![endif]-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
 </head>
 <style>
     #selectAll {
-        /*position: absolute;*/
-        /*visibility: hidden;*/
         opacity: 0;
         display: block !important;
         position: relative;
         right: 5px;
         bottom: 5px;
     }
+
+    /* --- FIX: DRAG & DROP + VISUAL COVER INDICATOR --- */
+    #image-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: block; /* Removed flex to fix jQuery UI Sortable */
+    }
+
+    #image-list .image-checkbox {
+        position: relative;
+        display: inline-block; /* Restored inline-block for smooth drag & drop */
+        vertical-align: top;
+        margin: 0 15px 15px 0;
+        cursor: grab;
+    }
+
+    #image-list .image-checkbox:active {
+        cursor: grabbing;
+    }
+
+    /* Minimalist Cover Label */
+    #image-list .image-checkbox:first-child::after {
+        content: 'Cover';
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #b5121b;
+        color: #ffffff;
+        padding: 2px 6px;
+        font-size: 11px;
+        font-weight: bold;
+        border-bottom-right-radius: 4px;
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    /* Add a subtle matching border around the cover image */
+    #image-list .image-checkbox:first-child img {
+        border: 2px solid #b5121b;
+        box-sizing: border-box;
+    }
 </style>
 <body>
 
 @stack('navbar_body')
-
 
 <div class="container-fluid">
     <div class="row d-flex justify-content-center">
@@ -217,13 +253,13 @@
                                             </li>
                                         @endforeach
                                     </ul>
-                                    <button type="submit" class="btn btn-danger">
+                                    <button type="submit" class="btn btn-danger mt-3">
                                         <i class="fa fa-trash-o"></i> Delete Selected Images
                                     </button>
                                 </form>
                             @endif
                             <button id="selectBtn" style="cursor: pointer;"
-                                    class="btn btn-primary icon-btn position-relative mb-1">
+                                    class="btn btn-primary icon-btn position-relative mt-2 mb-1">
                                 <i class='fa save' style="left: 10px;">&#xf00c;</i>
                                 <input style="cursor: pointer;" id="selectAll" type="checkbox" class="icon-btn"
                                        name="selectAll" onchange="selectAll(this)"/>
@@ -234,7 +270,6 @@
                                 @method('POST')
                                 @csrf
                                 <div id="submit-container" class="position-relative mb-1">
-                                    {{--<i class="fa fa-save btn btn-primary icon-btn"></i>--}}
                                     <button type='submit' class="btn btn-primary icon-btn" id='submit' value="">
                                         <i class='fa save' style="cursor: pointer">&#xf0c7;</i>
                                     </button>
@@ -305,7 +340,6 @@
 <script>
     $('.show_confirm').click(function (event) {
         var form = $(this).closest("form");
-        // var id = event.target.attributes['id'].nodeValue;
         var id = $(this).data("id");
         let check = [];
         event.preventDefault();
@@ -315,13 +349,18 @@
             } else check.push('false');
         });
         if (!check.includes("true")) {
-            Swal.fire('Please select images!');
+            Swal.fire({
+                title: 'No Images Selected',
+                text: 'Please select images!',
+                icon: 'info'
+            });
             return;
         }
         if ({{$project->MPE_Published}}) {
             Swal.fire({
-                title: '<div class="mt-3">To apply the changes, the project will be returned to the offline dashboard.<br>Do you want to proceed?<div>',
+                html: '<div class="mt-3">To apply the changes, the project will be returned to the offline dashboard.<br>Do you want to proceed?<div>',
                 showCancelButton: true,
+                confirmButtonColor: '#b5121b',
                 confirmButtonText: 'Yes, delete it!',
                 cancelButtonText: 'No, cancel'
             }).then((result) => {
@@ -332,8 +371,10 @@
         }
         else{
             Swal.fire({
-                text: 'Are you sure you want to delete images?',
+                text: 'Are you sure you want to delete the selected images?',
+                icon: 'warning',
                 showCancelButton: true,
+                confirmButtonColor: '#b5121b',
                 confirmButtonText: 'Yes, delete it!',
                 cancelButtonText: 'No, cancel'
             }).then((result) => {
@@ -354,8 +395,6 @@
                 let $checkbox = $(this).find('input[type="checkbox"]');
                 $checkbox.prop("checked", true)
                 $(this).addClass('image-checkbox-checked');
-                // e.preventDefault();
-
             })
         } else {
             $('#selectBtn').addClass('btn-primary');
@@ -364,15 +403,12 @@
                 let $checkbox = $(this).find('input[type="checkbox"]');
                 $checkbox.prop("checked", false)
                 $(this).removeClass('image-checkbox-checked');
-                // e.preventDefault();
-
             })
         }
     }
 </script>
 <link rel="stylesheet" href="vendor/jquery/jquery-ui/jquery-ui.css">
-<script src="vendor/jquery/jquery-ui/jquery-ui.js" type="text/javascript"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 <script>
     //Reorder with jQuery Drag and Drop
     $(document).ready(function () {
@@ -385,14 +421,12 @@
         });
 
         $('#submit').click(function (e) {
+            e.preventDefault();
             let imageIdsArray = [];
             $('#image-list li').each(function (index) {
-                // if (index <= dropIndex) {
                 let id = $(this).attr('id');
                 let split_id = id.split("_");
                 imageIdsArray.push(split_id[1]);
-
-                // }
             });
 
             $.ajaxSetup({
@@ -405,15 +439,15 @@
                 url: "{{ route('order.images') }}",
                 data: {imageIds: imageIdsArray},
                 success: function (response) {
-                    swal('Images has successfully reordered !!');
-                    let res = document.getElementById('txtresponse');
-                    res.style.display = 'inline-block';
-                    $('#txtresponse').text(response);
-                    res.classList.add('alert');
-                    res.classList.add('alert-success');
+                    Swal.fire({
+                        title: "Saved!",
+                        text: "Images have successfully been reordered!",
+                        icon: "success",
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
                 }
             });
-            e.preventDefault();
         });
     });
 
@@ -424,15 +458,15 @@
     });
 
 </script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function () {
         document.getElementById('uploadBtn').addEventListener('click', function () {
             @if ($project->MPE_Published)
             Swal.fire({
-                title: '<div class="mt-3">To apply the changes, the project will be returned to the offline dashboard.<br>Do you want to proceed?<div>',
-                // text: 'This project is online. it will be returned to (Pending to Publish) status when uploading?',
+                html: '<div class="mt-3">To apply the changes, the project will be returned to the offline dashboard.<br>Do you want to proceed?<div>',
+                icon: 'warning',
                 showCancelButton: true,
+                confirmButtonColor: '#b5121b',
                 confirmButtonText: 'Yes, upload it!',
                 cancelButtonText: 'No, cancel'
             }).then((result) => {
@@ -449,3 +483,4 @@
 </script>
 @include('new.admin.scripts.popup-messages')
 </body>
+</html>

@@ -138,6 +138,7 @@ Route::get('/admin/covers/view/{id}', 'CoverController@show')->name('covers.show
 Route::delete('/admin/covers/delete/{id}', 'CoverController@destroy')->name('covers.delete');
 Route::post('/admin/covers/store', 'CoverController@store')->name('covers.store');
 Route::post('/admin/covers/order/{id}', 'CoverController@order')->name('covers.order');
+Route::post('/admin/covers/caption/update', [App\Http\Controllers\CoverController::class, 'updateCaption'])->name('covers.updateCaption');
 ///////////////////////////// CONTENT /////////////////////////////
 Route::get('/admin/content', 'ContentController@index')->name('content');
 Route::get('/admin/content/{id}/ajax-form', 'ContentController@ajaxForm')->name('content.ajaxForm');
@@ -149,6 +150,7 @@ Route::get('/admin/content/partners/showpartners/{id}', 'ContentController@show_
 Route::delete('/admin/content/brief/images/destroy/{id}', 'ContentController@destroy')->name('projectBrief.images.destroy');
 Route::post('/admin/content/brief/images/order', 'ContentController@order_images')->name('projectBrief.images.order');
 Route::post('/admin/content/partners/{id}', 'ContentController@save_partners')->name('project.save_partners');
+
 
 
 Route::get('/admin/log', 'LogController@index')->name('log');

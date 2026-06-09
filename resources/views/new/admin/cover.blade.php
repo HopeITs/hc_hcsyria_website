@@ -18,7 +18,6 @@
     <link href="/css/backend.css" rel="stylesheet">
     <link href="/css/dashboard_new.css" rel="stylesheet">
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
-    <link href="/css/backend.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
@@ -28,13 +27,48 @@
     <link href="/css/tabs.css" rel="stylesheet">
     <style>
         #selectAll {
-            /*position: absolute;*/
-            /*visibility: hidden;*/
             opacity: 0;
             display: block !important;
             position: relative;
             right: 5px;
             bottom: 5px;
+        }
+        
+        /* --- NEW CAPTION UI --- */
+        .image-caption-overlay {
+            position: absolute;
+            bottom: 0;
+            /* left: 0; */
+            width: 97%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+            color: white;
+            text-align: left;
+            padding: 16px 45px 10px 12px;
+            font-size: 16px;
+            box-sizing: border-box;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: 45px;
+        }
+
+        .btn-edit-caption {
+            position: absolute;
+            bottom: 6px;
+            right: 10px;
+            z-index: 10;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.25rem; 
+            padding: 10px 18px 4px 4px;
+            cursor: pointer;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .btn-edit-caption:hover {
+            transform: scale(1.15);
+            color: #ffffff;
         }
     </style>
 </head>
@@ -60,7 +94,6 @@
                                 {{ $what_category->name }}
                             </button>
                         </li>
-
                     @endforeach
                 </ul>
 
@@ -72,13 +105,12 @@
                              role="tabpanel"
                              aria-labelledby="{{ $what_category->name }}Tab"
                              tabindex="0">
-                            @if (session('success') && request('tab') == $what_category->name)
-                                <div class="alert alert-success">
-                                    {{ session('success') }}
-                                </div>
-                            @endif
+                             
+                            {{-- Old Bootstrap Alert Removed --}}
+                             
                             <h3 class="title">Add Cover</h3>
-                            <form action="{{ route('covers.store', $what_category->id) }}" method="POST" enctype="multipart/form-data">
+                            
+                            <form id="upload-form-{{ $what_category->id }}" class="cover-upload-form" data-category="{{ $what_category->id }}" data-has-images="{{ !$what_category->covers->isEmpty() ? 'true' : 'false' }}" action="{{ route('covers.store', $what_category->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $what_category->id }}">
                                 <div class="row mb-3" @if($what_category->id == 40) style="display:none;" @endif>
@@ -95,17 +127,11 @@
                                             <div class="row">
                                                 <div class="form-group col-lg-6 col-md-6 col-12">
                                                     <label for="small_image">Small Image</label>
-                                                    <input type="file"
-                                                           name="small_image[]"
-                                                           accept="image/jpeg"
-                                                           required>
+                                                    <input type="file" name="small_image[]" accept="image/jpeg" required>
                                                 </div>
                                                 <div class="form-group col-lg-6 col-md-6 col-12">
                                                     <label for="big_image">Large Image</label>
-                                                    <input type="file"
-                                                           name="big_image[]"
-                                                           accept="image/jpeg"
-                                                           required>
+                                                    <input type="file" name="big_image[]" accept="image/jpeg" required>
                                                 </div>
                                                 <div class="form-group col-12 mt-2">
                                                     <label>Image Caption (Optional)</label>
@@ -121,7 +147,7 @@
                                                     <input type="file" name="image[]" accept="image/jpeg" required>
                                                 </div>
                                                 <div class="form-group col-12 mt-3">
-                                                    <label>Image Caption</label>
+                                                    <label>Image Caption (Optional)</label>
                                                     <input type="text" name="caption" class="form-control" placeholder="Enter a caption for News Header...">
                                                 </div>
                                             </div>
@@ -132,10 +158,7 @@
                                                 <div class="row">
                                                     <div class="form-group col-lg-6 col-md-6 col-12">
                                                         <label for="image_{{ $i }}">Image</label>
-                                                        <input type="file"
-                                                               name="image[]"
-                                                               accept="image/jpeg"
-                                                               required>
+                                                        <input type="file" name="image[]" accept="image/jpeg" required>
                                                     </div>
                                                     <div class="form-group col-lg-6 col-md-6 col-12">
                                                         <label>Image Caption (Optional)</label>
@@ -148,12 +171,10 @@
                                 </div>
 
                                 <div class="d-flex justify-content-end mt-3">
-                                    <button class="btn btn-primary" onclick="event.preventDefault();window.history.back();">
+                                    <button type="button" class="btn btn-primary" onclick="event.preventDefault();window.history.back();">
                                         <i class="fa fa-arrow-left"></i> Back
                                     </button>
-                                    <a href="{{ route('covers.show', $what_category->id) }}"
-                                       class="btn btn-primary"
-                                       style="margin-left: 15px;">
+                                    <a href="{{ route('covers.show', $what_category->id) }}" class="btn btn-primary" style="margin-left: 15px;">
                                         <i class="fa fa-eye"></i>&nbsp;Preview
                                     </a>
                                     <button type="submit" class="btn btn-danger" style="margin-left: 15px;">
@@ -165,32 +186,35 @@
                             @if(!$what_category->covers->isEmpty())
                                 <div class="row mt-5 position-relative">
                                     <div class="col">
-                                        <h3 class="title">Uploaded Images <span>(Change Images' order with Drag and Drop - The first image is The Cover)</span>
-                                        </h3>
-                                        @if(!$what_category->covers->isEmpty())
-                                            <form action="{{ route('covers.delete',[$what_category->id])}}"
-                                                  method="POST"
-                                                  enctype="multipart/form-data">
+                                        <h3 class="title">Uploaded Images <span>(Change Images' order with Drag and Drop - The first image is The Cover)</span></h3>
+                                            <form action="{{ route('covers.delete',[$what_category->id])}}" method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('DELETE')
                                                 <div class="row">
                                                     <div class="form-group col">
-                                                        <ul class="image-sortable"
-                                                            id="image-list-{{$what_category->id}}">
+                                                        <ul class="image-sortable" id="image-list-{{$what_category->id}}">
                                                             @foreach($what_category->covers as $img)
                                                                 <input type="hidden" name="what_category_id" value="{{ $img->what_category_id }}">
 
                                                                 <li class="image-checkbox" id="image_{{ $img->id }}" style="position: relative; display: inline-block;">
+                                                                    
                                                                     <img class="img-responsive" id="{{$img['id']}}" src="{{ $img->image_path }}" style="display: block; max-width: 100%; height: auto;" />
-
                                                                     <input type="checkbox" name="selected_images[{{ $img->id }}]" value="1" />
-
                                                                     <i class="fa fa-check hidden"></i>
-                                                                    @if($img->caption)
-                                                                        <div style="position: absolute; bottom: 0; left: 0; background: rgba(0, 0, 0, 0.7); color: white; width: 100%; text-align: center; padding: 6px 10px; font-size: 12px; box-sizing: border-box; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;">
+                                                                    
+                                                                    {{-- ONLY SHOW CAPTION & EDIT BUTTON FOR HEADER (ID 40) --}}
+                                                                    @if($what_category->id == 40)
+                                                                        {{-- DYNAMIC CAPTION DIV --}}
+                                                                        <div id="caption-display-{{ $img->id }}" class="image-caption-overlay">
                                                                             {{ $img->caption }}
                                                                         </div>
+                                                                        
+                                                                        {{-- EDIT CAPTION BUTTON --}}
+                                                                        <button type="button" class="btn-edit-caption" data-id="{{ $img->id }}" data-caption="{{ $img->caption }}" title="Edit Caption">
+                                                                            <i class="bi bi-pencil-square"></i>
+                                                                        </button>
                                                                     @endif
+
                                                                 </li>
                                                             @endforeach
                                                         </ul>
@@ -198,40 +222,34 @@
                                                 </div>
                                                 <div class="position-relative" style="top: 110px;">
                                                     <button class="btn btn-danger show_confirm icon-btn" type="submit">
-                                                        <i class="fa save fa-trash-o"></i></button>
+                                                        <i class="fa save fa-trash-o"></i>
+                                                    </button>
                                                     <span> Delete Selected Images</span>
                                                 </div>
                                             </form>
-                                            <button style="cursor: pointer;" id="selectBtn"
-                                                    class="btn btn-primary icon-btn position-relative mb-1">
+                                            
+                                            <button style="cursor: pointer;" id="selectBtn" class="btn btn-primary icon-btn position-relative mb-1">
                                                 <i class='fa save' style="left: 10px;">&#xf00c;</i>
-                                                <input style="cursor: pointer;" id="selectAll" type="checkbox"
-                                                       class="icon-btn"
-                                                       name="selectAll" onchange="selectAll(this)"/>
+                                                <input style="cursor: pointer;" id="selectAll" type="checkbox" class="icon-btn" name="selectAll" onchange="selectAll(this)"/>
                                             </button>
                                             <span> Select/Deselect All Image</span>
+                                            
                                             @if($what_category->id != 40)
-                                                <form class="order-form" action="/admin/covers/order/{{$what_category->id}}"
-                                                      method="POST"
-                                                      enctype="multipart/form-data">
+                                                <form class="order-form" action="/admin/covers/order/{{$what_category->id}}" method="POST" enctype="multipart/form-data">
                                                     @method('POST')
                                                     @csrf
                                                     <div id="submit-container" class="position-relative mb-1">
-                                                        <button type='submit' data-id="{{ $what_category->id }}"
-                                                                class="btn btn-primary icon-btn submit-order-btn" value="">
+                                                        <button type='submit' data-id="{{ $what_category->id }}" class="btn btn-primary icon-btn submit-order-btn" value="">
                                                             <i class='fa save' style="cursor: pointer">&#xf0c7;</i>
                                                         </button>
                                                         <span>Save Image Order</span>
-
                                                     </div>
                                                 </form>
                                             @endif
-                                        @endif
                                     </div>
                                 </div>
                             @endif
                         </div>
-
                     @endforeach
                 </div>
             </div>
@@ -239,16 +257,47 @@
     </div>
 </div>
 
-
 @stack('navbar_scripts')
+
+{{-- --- GLOBAL SWEETALERT FOR SESSION MESSAGES --- --}}
+@if(session('success'))
+    <script>
+        $(document).ready(function() {
+            swal({
+                title: "Success!",
+                text: "{{ session('success') }}",
+                type: "success",
+                timer: 2000,
+                showConfirmButton: false
+            });
+        });
+    </script>
+@endif
+@if(session('error'))
+    <script>
+        $(document).ready(function() {
+            swal({
+                title: "Error!",
+                text: "{{ session('error') }}",
+                type: "error",
+                confirmButtonColor: '#b5121b'
+            });
+        });
+    </script>
+@endif
+
 <script>
     $(document).ready(function () {
         let url1 = window.location.href;
         let url2 = new URL(url1);
-        let tab = url2.searchParams.get("tab") + "Tab";
-        let t = document.getElementById(tab);
-        let tt = new bootstrap.Tab(t);
-        tt.show();
+        let tab = url2.searchParams.get("tab");
+        if(tab) {
+            let t = document.getElementById(tab + "Tab");
+            if(t) {
+                let tt = new bootstrap.Tab(t);
+                tt.show();
+            }
+        }
     });
 </script>
 <script>
@@ -256,11 +305,7 @@
         $(document).on('click', '.projectTab', function () {
             const tabValue = $(this).data('tab');
             let url = new URL(window.location.href);
-
-            // Set or update `tab` param
             url.searchParams.set('tab', tabValue);
-
-            // Push the new URL to browser history
             window.history.pushState({path: url.href}, '', url.href);
         });
     });
@@ -315,8 +360,7 @@
     }
 </script>
 <script>
-    // image gallery
-    // init the state from the input
+    // image gallery checkbox logic
     $(".image-checkbox").each(function () {
         if ($(this).find('input[type="checkbox"]').first().attr("checked")) {
             $(this).addClass('image-checkbox-checked');
@@ -325,36 +369,31 @@
         }
     });
 
-    // sync the state to the input
     $(".image-checkbox").on("click", function (e) {
+        // Prevent click if we are clicking the edit button
+        if($(e.target).closest('.btn-edit-caption').length > 0) return;
+
         $(this).toggleClass('image-checkbox-checked');
         var $checkbox = $(this).find('input[type="checkbox"]');
         $checkbox.prop("checked", !$checkbox.prop("checked"))
-
         e.preventDefault();
     });
 </script>
 <script>
     function selectAll(myCheckBox) {
         if (myCheckBox.checked === true) {
-            $('#selectBtn').removeClass('btn-primary');
-            $('#selectBtn').addClass('btn-success');
+            $('#selectBtn').removeClass('btn-primary').addClass('btn-success');
             $(".image-checkbox").each(function () {
                 let $checkbox = $(this).find('input[type="checkbox"]');
                 $checkbox.prop("checked", true)
                 $(this).addClass('image-checkbox-checked');
-                // e.preventDefault();
-
             })
         } else {
-            $('#selectBtn').addClass('btn-primary');
-            $('#selectBtn').removeClass('btn-success');
+            $('#selectBtn').addClass('btn-primary').removeClass('btn-success');
             $(".image-checkbox").each(function () {
                 let $checkbox = $(this).find('input[type="checkbox"]');
                 $checkbox.prop("checked", false)
                 $(this).removeClass('image-checkbox-checked');
-                // e.preventDefault();
-
             })
         }
     }
@@ -362,7 +401,6 @@
 <script>
     $('.show_confirm').click(function (event) {
         var form = $(this).closest("form");
-        // var id = event.target.attributes['id'].nodeValue;
         var id = $(this).data("id");
         let check = [];
         event.preventDefault();
@@ -375,34 +413,149 @@
         if (check.includes("true")) {
             swal({
                 title: `Are you sure you want to delete images? `,
-                // icon: "warning",
-                // buttons: true,
+                type: 'warning',
                 showCancelButton: true,
+                confirmButtonColor: '#b5121b',
                 confirmButtonText: 'Delete',
-                // dangerMode: true,
-            }).then((result) => {
+            }).then(function (result) {
                 if (result) {
                     form.submit();
-                    swal(
-                        'Terhapus!',
-                        'Data berhasil terhapus.',
-                        'success',
-                        window.location.href = getLink
-                    )
                 }
-            }, function (dismiss) {
-                // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
-                if (dismiss === 'cancel') {
-                    swal(
-                        'Cancelled',
-                    )
-                }
-            });
+            }, function (dismiss) {});
         } else {
-            swal('please select images !!')
+            swal({
+                title: 'No Images Selected',
+                text: 'Please select images !!',
+                type: 'info'
+            });
         }
-
     });
+
+    // ----------------------------------------------------
+    // EDIT CAPTION AJAX LOGIC
+    // ----------------------------------------------------
+    $('.btn-edit-caption').click(function(e) {
+        e.preventDefault();
+        e.stopPropagation(); // Stop checkbox from triggering
+
+        let imageId = $(this).data('id');
+        let currentCaption = $(this).attr('data-caption') || ""; 
+        let btnInstance = $(this);
+
+        swal({
+            title: 'Edit Caption',
+            input: 'text',
+            inputValue: currentCaption,
+            showCancelButton: true,
+            confirmButtonText: 'Save Caption',
+            showLoaderOnConfirm: true,
+            preConfirm: function (newCaption) {
+                return new Promise(function (resolve, reject) {
+                    $.ajax({
+                        url: "{{ route('covers.updateCaption') }}",
+                        type: "POST",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            image_id: imageId,
+                            caption: newCaption
+                        },
+                        success: function(response) {
+                            resolve(response);
+                        },
+                        error: function() {
+                            reject('Failed to update the caption. Please try again.');
+                        }
+                    });
+                });
+            },
+            allowOutsideClick: false
+        }).then(function (response) {
+            if (response && response.success) {
+                swal({
+                    type: 'success',
+                    title: 'Updated!',
+                    text: 'The caption has been saved.',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+
+                // Update UI dynamically
+                let displayDiv = $('#caption-display-' + imageId);
+                btnInstance.attr('data-caption', response.caption); 
+                
+                // We keep the div visible for the UI layout, but empty the text if null
+                displayDiv.text(response.caption ? response.caption : '');
+            }
+        });
+    });
+
+    // ----------------------------------------------------
+    // REORDER AJAX LOGIC (Prevent raw text redirect)
+    // ----------------------------------------------------
+    $('.order-form').on('submit', function(e) {
+        e.preventDefault();
+        let form = $(this);
+        let categoryId = form.find('button[type="submit"]').data('id');
+        
+        // Grab ordered IDs from the Sortable UI
+        let imageIds = [];
+        $('#image-list-' + categoryId + ' li').each(function() {
+            let imgId = $(this).attr('id').replace('image_', '');
+            imageIds.push(imgId);
+        });
+
+        $.ajax({
+            url: form.attr('action'),
+            type: 'POST',
+            data: {
+                _token: "{{ csrf_token() }}",
+                what_category_id: categoryId,
+                imageIds: imageIds
+            },
+            success: function(response) {
+                swal({
+                    title: "Saved!",
+                    text: response, // Reads "Images has been reordered !!" from Controller
+                    type: "success",
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            },
+            error: function() {
+                swal({
+                    title: "Error",
+                    text: "Failed to save order",
+                    type: "error"
+                });
+            }
+        });
+    });
+
+    // ----------------------------------------------------
+    // CATEGORY 40 OVERWRITE WARNING LOGIC
+    // ----------------------------------------------------
+    $('.cover-upload-form').on('submit', function(e) {
+        let form = $(this);
+        let categoryId = form.data('category');
+        let hasImages = form.data('has-images');
+
+        if (categoryId == 40 && hasImages === true) {
+            e.preventDefault();
+            swal({
+                title: 'Replace Header?',
+                text: 'Uploading a new header will automatically replace the existing one. Do you want to continue?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#b5121b',
+                confirmButtonText: 'Yes, Replace it!'
+            }).then(function (result) {
+                if (result) {
+                    form[0].submit(); 
+                }
+            }, function(dismiss) {});
+        }
+    });
+
 </script>
 <script>
     $("[type='number']").keypress(function (evt) {

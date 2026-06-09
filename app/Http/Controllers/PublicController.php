@@ -425,99 +425,99 @@ from projects LIMIT 1;');
         $familyMembersCount = Project::whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2])->sum('FamilyMembers');
         $edition = Edition::all()->select('id')->last();
         $categories = DB::select('SELECT
-    subcategory.Name,
-    COUNT(projects.id) AS project_count
-FROM
-    projects
-    LEFT JOIN subcategory on subcategory.ID = projects.SubCategory_ID
-WHERE projects.MPE_Published in (1,2)
-AND projects.MPE_Done in (1)
-AND projects.SubCategory_ID not in (1,2)
-GROUP BY
-    subcategory.Name
-HAVING subcategory.Name is not null
-ORDER BY `project_count` DESC  LIMIT 5;
-');
+                subcategory.Name,
+                COUNT(projects.id) AS project_count
+            FROM
+                projects
+                LEFT JOIN subcategory on subcategory.ID = projects.SubCategory_ID
+            WHERE projects.MPE_Published in (1,2)
+            AND projects.MPE_Done in (1)
+            AND projects.SubCategory_ID not in (1,2)
+            GROUP BY
+                subcategory.Name
+            HAVING subcategory.Name is not null
+            ORDER BY `project_count` DESC  LIMIT 5;
+            ');
 
-        $agerange = DB::select('SELECT
-    age.Name,
-    COUNT(projects.id) AS project_count
-FROM
-    projects
-    LEFT JOIN age ON (CASE WHEN YEAR(CURDATE()) - projects.DOB = 0 THEN 1 ELSE YEAR(CURDATE()) - projects.DOB END) BETWEEN age.Min AND age.Max
-WHERE projects.MPE_Published in (1,2)
-AND projects.MPE_Done in (1)
-GROUP BY
-    age.Name
-HAVING age.Name is not null
-ORDER BY age.ID;');
-        $sustainableRate = DB::select('SELECT ROUND
-(
-    (
-    (SELECT COUNT(id)
-       FROM `projects`
-       WHERE MPE_Published = 1
-       and MPE_Done = 1
-       and MPE_FundedDate <= DATE_SUB(now(), INTERVAL 9 MONTH)
-    )
-    * 100
-    )
-    /
-    (SELECT COUNT(id)
-       FROM `projects`
-       WHERE MPE_Published <> 0
-    )
-,0) as \'number\'
-from projects LIMIT 1;');
-        if (session('locale') == 'fr') {
-            $language = 'french';
-            $languageTable = 'projects_french';
-        } else {
-            $language = 'english';
-            $languageTable = 'projects_english';
-        }
+                    $agerange = DB::select('SELECT
+                age.Name,
+                COUNT(projects.id) AS project_count
+            FROM
+                projects
+                LEFT JOIN age ON (CASE WHEN YEAR(CURDATE()) - projects.DOB = 0 THEN 1 ELSE YEAR(CURDATE()) - projects.DOB END) BETWEEN age.Min AND age.Max
+            WHERE projects.MPE_Published in (1,2)
+            AND projects.MPE_Done in (1)
+            GROUP BY
+                age.Name
+            HAVING age.Name is not null
+            ORDER BY age.ID;');
+                    $sustainableRate = DB::select('SELECT ROUND
+            (
+                (
+                (SELECT COUNT(id)
+                FROM `projects`
+                WHERE MPE_Published = 1
+                and MPE_Done = 1
+                and MPE_FundedDate <= DATE_SUB(now(), INTERVAL 9 MONTH)
+                )
+                * 100
+                )
+                /
+                (SELECT COUNT(id)
+                FROM `projects`
+                WHERE MPE_Published <> 0
+                )
+            ,0) as \'number\'
+            from projects LIMIT 1;');
+                    if (session('locale') == 'fr') {
+                        $language = 'french';
+                        $languageTable = 'projects_french';
+                    } else {
+                        $language = 'english';
+                        $languageTable = 'projects_english';
+                    }
 
-        $donors = $this->getSortedDonors([9, 10], true);
+                    $donors = $this->getSortedDonors([9, 10], true);
 
-//        $aleppoMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectAIDs, 'id'))->orderByRaw('case
-//                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
-//                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
-//                                 else 0 end asc')->get();
-//        $homsMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectHIDs, 'id'))->orderByRaw('case
-//                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
-//                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
-//                                 else 0 end asc')->get();
-//
-//        $damasMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectDIDs, 'id'))->orderByRaw('case
-//                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
-//                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
-//                                 else 0 end asc')->get();
-//        $latakiaMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectLIDs, 'id'))->orderByRaw('case
-//                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
-//                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
-//                                 else 0 end asc')->get();
-//        $wadiMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectWIDs, 'id'))->orderByRaw('case
-//                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
-//                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
-//                                 else 0 end asc')->get();
-        $agent = new Agent();
+            //        $aleppoMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectAIDs, 'id'))->orderByRaw('case
+            //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
+            //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
+            //                                 else 0 end asc')->get();
+            //        $homsMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectHIDs, 'id'))->orderByRaw('case
+            //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
+            //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
+            //                                 else 0 end asc')->get();
+            //
+            //        $damasMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectDIDs, 'id'))->orderByRaw('case
+            //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
+            //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
+            //                                 else 0 end asc')->get();
+            //        $latakiaMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectLIDs, 'id'))->orderByRaw('case
+            //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
+            //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
+            //                                 else 0 end asc')->get();
+            //        $wadiMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectWIDs, 'id'))->orderByRaw('case
+            //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
+            //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
+            //                                 else 0 end asc')->get();
+                    $agent = new Agent();
 
-        return view('new.public.micro-project-new-test', ['brief' => $brief, 'carouselImages' => $carouselImages,
-//            'microProjectA' => $microProjectA,'microProjectW' => $microProjectW, 'microProjectL' => $microProjectL, 'microProjectH' => $microProjectH, 'microProjectD' => $microProjectD,
-            'edition' => $edition, 'donors' => $donors,
-//            'searchProject' => $searchProject, 'searchBeneficiary' => $searchBeneficiary,
-//
-//            'donor' => $donor, 'city' => $city, 'video' => $video, 'latakiaMap' => $latakiaMap,'wadiMap' => $wadiMap, 'search' => $searchStr,
-//
-//            'projectCopyA' => $projectCopyA,'projectCopyW' => $projectCopyW, 'projectCopyH' => $projectCopyH, 'projectCopyD' => $projectCopyD, 'projectCopyL' => $projectCopyL,
+                    return view('new.public.micro-project-new-test', ['brief' => $brief, 'carouselImages' => $carouselImages,
+            //            'microProjectA' => $microProjectA,'microProjectW' => $microProjectW, 'microProjectL' => $microProjectL, 'microProjectH' => $microProjectH, 'microProjectD' => $microProjectD,
+                        'edition' => $edition, 'donors' => $donors,
+            //            'searchProject' => $searchProject, 'searchBeneficiary' => $searchBeneficiary,
+            //
+            //            'donor' => $donor, 'city' => $city, 'video' => $video, 'latakiaMap' => $latakiaMap,'wadiMap' => $wadiMap, 'search' => $searchStr,
+            //
+            //            'projectCopyA' => $projectCopyA,'projectCopyW' => $projectCopyW, 'projectCopyH' => $projectCopyH, 'projectCopyD' => $projectCopyD, 'projectCopyL' => $projectCopyL,
 
-            'familyMembersCount' => $familyMembersCount, 'agerange' => $agerange, 'partners_ongoing' => $partners_ongoing, 'partners_previous' => $partners_previous,
+                        'familyMembersCount' => $familyMembersCount, 'agerange' => $agerange, 'partners_ongoing' => $partners_ongoing, 'partners_previous' => $partners_previous,
 
-            'sustainableRate' => $sustainableRate, 'categories' => $categories, 'wadiCount' => $wadiCount,
+                        'sustainableRate' => $sustainableRate, 'categories' => $categories, 'wadiCount' => $wadiCount,
 
-            'allCount' => $allCount, 'aleppoCount' => $aleppoCount, 'homsCount' => $homsCount, 'latakiaCount' => $latakiaCount, 'damascusCount' => $damascusCount, 'idlebCount' => $idlebCount , 'tartusCount'=>$tartusCount ,
-//            'aleppoMap' => $aleppoMap, 'homsMap' => $homsMap, 'damasMap' => $damasMap,
-            'agent' => $agent]);
+                        'allCount' => $allCount, 'aleppoCount' => $aleppoCount, 'homsCount' => $homsCount, 'latakiaCount' => $latakiaCount, 'damascusCount' => $damascusCount, 'idlebCount' => $idlebCount , 'tartusCount'=>$tartusCount ,
+            //            'aleppoMap' => $aleppoMap, 'homsMap' => $homsMap, 'damasMap' => $damasMap,
+                        'agent' => $agent]);
     }
     public function get_projects_IDs($searchStr, $donor, $city, $video, $langTable)
     {

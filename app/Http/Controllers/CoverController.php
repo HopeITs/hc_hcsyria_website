@@ -14,6 +14,8 @@ use App\Models\Cover;
 
 class CoverController extends Controller
 {
+    const COVER = 'Cover'; 
+
     function create()
     {
         $what_categories = WhatCategory::with(['covers' => function ($query) {
@@ -80,7 +82,7 @@ class CoverController extends Controller
         } elseif ($categoryId == 20) {
             $categoryName = "Who-We-Are";
         } elseif ($categoryId == 40) {
-            $categoryName = "Newsletter";
+            $categoryName = "Our News"; // Fixed name mapping
         } else {
             $category = WhatCategory::find($categoryId);
             if (!$category) {
@@ -97,6 +99,18 @@ class CoverController extends Controller
                 'image.*' => 'required|image|mimes:jpeg,jpg|max:' . $maxSize,
                 'caption' => 'nullable|string|max:255',
             ]);
+
+            // If Category 40, delete old images to enforce single header rule
+            if ($categoryId == 40) {
+                $oldCovers = Cover::where('what_category_id', 40)->get();
+                foreach($oldCovers as $old) {
+                    $pathToDelete = $old->image_path; 
+                    if(File::exists(public_path($pathToDelete))) {
+                        File::delete(public_path($pathToDelete));
+                    }
+                    $old->delete();
+                }
+            }
 
             $files = $request->file('image');
             foreach ($files as $i => $image) {
@@ -139,11 +153,19 @@ class CoverController extends Controller
             }
         }
 
-        $this->saveToLog(self::COVER, $categoryId, 'Images stored');
-
+        if(method_exists($this, 'saveToLog')) {
+            if ($categoryId == 40) {
+                // Changed from 'Images stored' to 'Header image stored'
+                $this->saveToLog('Header', 0, 'Header image stored'); 
+            } else {
+                $this->saveToLog(self::COVER, $categoryId, 'Images stored');
+            }
+        }
+    
         return redirect()->route('covers', ['tab' => $categoryName])
             ->with('success', 'Images stored');
     }
+
     public function destroy(Request $request, $id)
     {
         $images = Cover::where('what_category_id', $id)->get();
@@ -155,7 +177,11 @@ class CoverController extends Controller
             if (isset($selectedImages[$img->id]) && $selectedImages[$img->id] == '1') {
                 $deletedImagesCount++;
                 // Delete file from disk
-                File::delete($img->MPI_Path);
+                if(File::exists(public_path($img->image_path))) {
+                    File::delete(public_path($img->image_path));
+                } elseif (isset($img->MPI_Path) && File::exists($img->MPI_Path)) {
+                    File::delete($img->MPI_Path);
+                }
                 // Delete from database
                 $img->delete();
             }
@@ -167,13 +193,20 @@ class CoverController extends Controller
         } elseif ($id == 20) {
             $categoryName = 'Who-We-Are';
         } elseif ($id == 40) {
-            $categoryName = 'Newsletter';
+            $categoryName = 'Our News'; // Fixed name mapping
         } else{
             $category = WhatCategory::find($id);
             $categoryName = $category ? $category->name : 'Unknown';
         }
 
-        $this->saveToLog(self::COVER, $id, $deletedImagesCount . ' Images deleted');
+        if(method_exists($this, 'saveToLog')) {
+            if ($id == 40) {
+                // Changed from 'Images deleted' to 'Header image deleted'
+                $this->saveToLog('Header', 0, $deletedImagesCount . ' Header image deleted'); 
+            } else {
+                $this->saveToLog(self::COVER, $id, $deletedImagesCount . ' Images deleted');
+            }
+        }
 
         return redirect()->route('covers', ['tab' => $categoryName])
             ->with('success', $deletedImagesCount . ' Images deleted');
@@ -183,9 +216,6 @@ class CoverController extends Controller
     {
         $imageIdsArray = $request->input('imageIds');
         $categoryId = $request->input('what_category_id');
-//        if (!$categoryId || !is_array($imageIdsArray)) {
-//            return response()->json('Invalid data.', 422);
-//        }
 
         $count = 1;
         foreach ($imageIdsArray as $id) {
@@ -197,7 +227,33 @@ class CoverController extends Controller
                 $count++;
             }
         }
-        $this->saveToLog(self::COVER, $id, $categoryId . ' Images reordered');
+        
+        if(method_exists($this, 'saveToLog')) {
+            if ($categoryId == 40) {
+                // Changed from 'Images reordered' to 'Header image reordered'
+                $this->saveToLog('Header', 0, 'Header image reordered'); 
+            } else {
+                $this->saveToLog(self::COVER, $categoryId, 'Images reordered');
+            }
+        }
         return 'Images has been reordered !!';
+    }
+
+    // NEW METHOD TO UPDATE CAPTIONS VIA AJAX
+    public function updateCaption(Request $request)
+    {
+        $request->validate([
+            'image_id' => 'required|integer',
+            'caption' => 'nullable|string|max:255'
+        ]);
+
+        $cover = Cover::find($request->image_id);
+        if ($cover) {
+            $cover->caption = $request->caption;
+            $cover->save();
+            return response()->json(['success' => true, 'caption' => $cover->caption]);
+        }
+
+        return response()->json(['success' => false], 404);
     }
 }

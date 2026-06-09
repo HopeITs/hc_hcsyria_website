@@ -12,6 +12,34 @@
     padding: 0 15px;
 }
 
+@media (min-width: 1920px) { 
+    .custom-container { 
+        max-width: 1400px; 
+    }
+    .hero-image-container { 
+        aspect-ratio: 5 / 1; 
+    }
+    .news-header-title {
+        font-size: clamp(2rem, 1.5rem + 1vw, 2.5rem);
+    }
+    .subscribe-container { 
+        max-width: 1000px; 
+    }
+    .card-pinned-wrapper { 
+        max-width: 1200px; 
+    }
+}
+
+@media (min-width: 2560px) { /* 4K Screens */
+    .custom-container { 
+        max-width: 2100px; 
+    }
+    
+    .hero-image-container { 
+        aspect-ratio: 6 / 1; 
+    }
+}
+
 .mt-custom {
     margin-top: 8rem;
 }
@@ -154,13 +182,6 @@
     gap: 16px;
 }
 
-
-@media (min-width: 992px) {
-    .grid-5-columns { grid-template-columns: repeat(5, 1fr); gap: 16px; }
-    .span-3 { grid-column: span 3; }
-    .span-2 { grid-column: span 2; }
-}
-
 .grid-adaptive-row {
     display: grid;
     grid-template-columns: 1fr;
@@ -168,11 +189,14 @@
     margin-bottom: 12px !important;
 }
 
+/* 1. Mobile-Landscape / Small Tablets */
 @media (min-width: 480px) {
     .grid-adaptive-row {
         grid-template-columns: repeat(2, 1fr);
-    }}
+    }
+}
 
+/* 2. Tablets */
 @media (min-width: 768px) {
     .grid-adaptive-row {
         grid-template-columns: repeat(3, 1fr);
@@ -188,6 +212,7 @@
     }
 }
 
+/* 3. Desktops (Overrides Tablets) */
 @media (min-width: 992px) {
     /* Adaptive news grid: 5 columns */
     .grid-adaptive-row {
@@ -195,8 +220,16 @@
         gap: 16px;
         margin-bottom: 16px !important;
     }
+    
+    /* Top section grid: 5 columns */
+    .grid-5-columns { 
+        grid-template-columns: repeat(5, 1fr); 
+        gap: 16px; 
+    }
+    /* Re-apply the spans for desktop */
+    .grid-5-columns .span-3 { grid-column: span 3; }
+    .grid-5-columns .span-2 { grid-column: span 2; }
 }
-
 /* --- Magazine Link --- */
 .magazine-link {
     display: flex;
@@ -266,7 +299,7 @@
 }
 
 .news-meta {
-    font-size: 0.63rem;
+    font-size: 0.6rem;
     color: #fff;
     font-weight: 400;
     text-transform: uppercase;
@@ -278,7 +311,7 @@
 }
 
 .news-title {
-    font-size: 1.4rem;
+    font-size: 1.05rem;
     font-weight: 700;
     line-height: 1.2;
     margin: 0;
