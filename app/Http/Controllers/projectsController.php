@@ -408,17 +408,20 @@ WHERE projects.`MPE_Published` = 0  GROUP BY projects.MicroProject_ID;
     {
         $id = $request->form;
         $project = Project::find($id);
+        
         DB::table('projects')->where('id', $id)->delete();
         DB::table('projects_english')->where('project_id', $id)->delete();
         DB::table('projects_french')->where('project_id', $id)->delete();
+        
         $images = DB::table('images')->where('project_id', $id)->get();
         DB::table('images')->where('project_id', $id)->delete();
         foreach ($images as $image) {
             File::delete($image->MPI_Path, substr($image->MPI_Path, 0, -4) . 'b.jpg');
         }
+        
         $this->saveToLog(self::MICRO, $id, 'Project Deleted');
-        return response()->json('Project has been deleted');
-//        return redirect()->back()->with('success', 'Project ' . $project->id . ' deleted');
+        
+        return response()->json(['success' => true, 'message' => 'Project has been deleted successfully!']);
     }
 
     public function show($id)

@@ -22,6 +22,9 @@
     <script type="text/javascript" src="/js/jquery.mobile.custom.min.js"></script>
     <script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
 
+    <link rel="stylesheet" href="/css/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link href="/css/jquery.fancybox.min.css" rel="stylesheet">
     <script type="text/javascript" src="/js/fancybox.config.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -255,8 +258,8 @@
                                     <i
                                             class="fa fa-arrow-left"></i> Back
                                 </button>
-                                <button type="submit" class="btn btn-info" style="margin-left: 15px;"><i
-                                            class="fa fa-refresh"></i> Update
+                                <button type="submit" class="btn btn-info btn-save-confirm" style="margin-left: 15px;">
+                                    <i class="fa fa-refresh"></i> Update
                                 </button>
                             </div>
                         </form>
@@ -386,4 +389,78 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
 <script type="text/javascript" src="/js/ckeditor-initialize.js"></script>
 @include('new.admin.scripts.popup-messages')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        // 1. GLOBAL SUCCESS ALERT (Centered)
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: "{!! session('success') !!}",
+                position: 'center',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        @endif
+
+        // 2. EDIT CONFIRMATION
+        $('.btn-save-confirm').click(function(e) {
+            e.preventDefault();
+            let form = $(this).closest("form"); // Grab the form element
+            
+            Swal.fire({
+                title: 'Save Changes?',
+                text: "Are you sure you want to update this project?",
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#676768',
+                confirmButtonText: 'Yes, update it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); // Actually submit the form payload to your controller
+                }
+            });
+        });
+
+        // 3. PUBLISH CONFIRMATION
+        $('.btn-publish-confirm').click(function (e) {
+            e.preventDefault();
+            let form = $(this).closest("form");
+            Swal.fire({
+                title: 'Publish Project?',
+                text: "This will make the project visible to the public.",
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#676768',
+                confirmButtonText: 'Yes, publish!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+
+        // 4. MAKE OFFLINE CONFIRMATION
+        $('.btn-offline-confirm').click(function (e) {
+            e.preventDefault();
+            let form = $(this).closest("form");
+            Swal.fire({
+                title: 'Make Offline?',
+                text: "This project will no longer be visible to the public.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#f39c12',
+                cancelButtonColor: '#676768',
+                confirmButtonText: 'Yes, make offline'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
 </body>

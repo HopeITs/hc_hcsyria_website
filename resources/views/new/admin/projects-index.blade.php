@@ -179,18 +179,15 @@
                                             <form action="{{route('delete.project')}}" method="POST" style="display:inline;">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button class="btn btn-danger mb-2 show_confirm"
-                                                        type="submit"
-                                                        data-id="{{$project['id']}}" data-tag="{{$project['MicroProject_ID']}}">
+                                                <button class="btn btn-danger mb-2 btn-delete-confirm" type="button" data-id="{{$project['id']}}" data-tag="{{$project['MicroProject_ID']}}">
                                                     <i class="fa fa-trash-o"></i>
                                                 </button>
                                             </form>
                                         @endif
-                                            @if ($project->MPE_Published == 1 && ($user->roles->contains('name', 'Admin'))|| ($user->roles->contains('name', 'Publisher')))
-                                                <form action="/admin/projects/unpublish/{{ $project->id }}"
-                                                      method="POST" style="display:inline;">
+                                            @if ($project->MPE_Published == 1 && ($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher')))
+                                                <form action="/admin/projects/unpublish/{{ $project->id }}" method="POST" style="display:inline;" class="form-offline">
                                                     @csrf
-                                                    <button type="submit" class="btn btn-danger mb-2">
+                                                    <button type="button" class="btn btn-danger mb-2 btn-offline-confirm">
                                                         <i class="fa fa-power-off"></i>
                                                     </button>
                                                 </form>
@@ -292,19 +289,18 @@
                                               enctype="multipart/form-data">
                                             @method('DELETE')
                                             @csrf
-                                            <button class="btn btn-danger mb-2 show_confirm"
-                                                    type="submit"
-                                                    data-id="{{$project['id']}}" data-tag="{{$project['MicroProject_ID']}}">
+                                            <button class="btn btn-danger mb-2 btn-delete-confirm" type="button" data-id="{{$project['id']}}" data-tag="{{$project['MicroProject_ID']}}">
                                                 <i class="fa fa-trash-o"></i>
                                             </button>
                                         </form>
-                                            <form action="/admin/projects/unpublish/{{ $project->id }}"
-                                                  method="POST" style="display:inline;">
-                                                @csrf
-                                                <button type="submit" class="btn btn-danger mb-2">
-                                                    <i class="fa fa-power-off"></i>
-                                                </button>
-                                            </form>
+                                            @if ($project->MPE_Published == 1 && ($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher')))
+                                                <form action="/admin/projects/unpublish/{{ $project->id }}" method="POST" style="display:inline;" class="form-offline">
+                                                    @csrf
+                                                    <button type="button" class="btn btn-danger mb-2 btn-offline-confirm">
+                                                        <i class="fa fa-power-off"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
                                     @endif
                                 </td>
                             </tr>
@@ -402,19 +398,18 @@
                                               enctype="multipart/form-data">
                                             @method('DELETE')
                                             @csrf
-                                            <button class="btn btn-danger mb-2 show_confirm"
-                                                    type="submit"
-                                                    data-id="{{$project['id']}}" data-tag="{{$project['MicroProject_ID']}}">
+                                            <button class="btn btn-danger mb-2 btn-delete-confirm" type="button" data-id="{{$project['id']}}" data-tag="{{$project['MicroProject_ID']}}">
                                                 <i class="fa fa-trash-o"></i>
                                             </button>
                                         </form>
-                                            <form action="/admin/projects/unpublish/{{ $project->id }}"
-                                                  method="POST" style="display:inline;">
-                                                @csrf
-                                                <button type="submit" class="btn btn-danger mb-2">
-                                                    <i class="fa fa-power-off"></i>
-                                                </button>
-                                            </form>
+                                            @if ($project->MPE_Published == 1 && ($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher')))
+                                                <form action="/admin/projects/unpublish/{{ $project->id }}" method="POST" style="display:inline;" class="form-offline">
+                                                    @csrf
+                                                    <button type="button" class="btn btn-danger mb-2 btn-offline-confirm">
+                                                        <i class="fa fa-power-off"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
                                     @endif
                                 </td>
                             </tr>
@@ -430,84 +425,105 @@
 @stack('navbar_scripts')
 
 <script>
-    $('.show_confirm').click(function (event) {
-        event.preventDefault();
-        var form = $(this).closest("form");
-        var id = $(this).data("id");
-        var micro_id = $(this).data("tag");
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        // 1. GLOBAL SUCCESS ALERT (Centered)
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: "{!! session('success') !!}",
+                position: 'center',
+                showConfirmButton: false,
+                timer: 4000
+            });
+        @endif
 
-        Swal.fire({
-            title: `Are you sure you want to delete project ID ${micro_id}?`,
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: "DELETE",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: "{{ route('delete.project') }}",
-                    data: { "form": id },
-                    dataType: "json",
-                    beforeSend: function () {
-                        Swal.fire('Deleting...');
-                    },
-                    success: function (data) {
-                        Swal.fire('Deleted!', data, 'success');
-                        location.reload();
-                    },
-                    error: function () {
-                        Swal.fire('Error!', 'Something went wrong.', 'error');
-                    }
-                });
-            } else {
-                Swal.fire('Cancelled', 'The project was not deleted.');
-            }
+        // 2. EDIT CONFIRMATION
+        $('.btn-edit-confirm').click(function(e) {
+            e.preventDefault();
+            let url = $(this).attr('href');
+            Swal.fire({
+                title: 'Edit Project?',
+                text: "Are you sure you want to edit this project?",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, edit it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
+        });
+
+        // 3. MAKE OFFLINE CONFIRMATION
+        $('.btn-offline-confirm').click(function (e) {
+            e.preventDefault();
+            let form = $(this).closest("form");
+            Swal.fire({
+                title: 'Make Offline?',
+                text: "This project will no longer be visible to the public.",
+                icon: 'error',
+                iconSize: 'small',
+                showCancelButton: true,
+                confirmButtonColor: '#f39c12',
+                cancelButtonColor: '#676768',
+                confirmButtonText: 'Yes, make offline'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+
+        // 4. DESTROY CONFIRMATION (AJAX)
+        $('.btn-delete-confirm').click(function (e) {
+            e.preventDefault();
+            let id = $(this).data("id");
+            let micro_id = $(this).data("tag");
+
+            Swal.fire({
+                title: `Delete Project ID ${micro_id}?`,
+                text: "You won't be able to revert this!",
+                icon: 'error',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "DELETE",
+                        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                        url: "{{ route('delete.project') }}",
+                        data: { "form": id },
+                        dataType: "json",
+                        beforeSend: function () {
+                            Swal.fire({ title: 'Deleting...', allowOutsideClick: false, didOpen: () => { Swal.showLoading() } });
+                        },
+                        success: function (data) {
+                            // Centered Success Alert on successful delete
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Deleted!',
+                                text: data.message,
+                                position: 'center',
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(() => {
+                                location.reload();
+                            });
+                        },
+                        error: function () {
+                            Swal.fire('Error!', 'Something went wrong.', 'error');
+                        }
+                    });
+                }
+            });
         });
     });
-
-    function ConfirmDelete(e) {
-        event.preventDefault();
-        let id = e;
-        // alert(id);
-        // let form = $(this).closest("form");
-        // console.log(form);
-
-        swal({
-            title: `Are you sure you want to delete ` + id + `?`,
-            showCancelButton: true,
-            confirmButtonText: 'Delete',
-            // dangerMode: true,
-        }).then((result) => {
-            if (result) {
-                $.ajax({
-                    type: "DELETE",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: "{{route('delete.project')}}",
-                    data: {"form": id},
-                    dataType: "json",
-                    beforeSend: function () {
-                        swal('Deleting...');
-                    },
-                    success: function (data) {
-                        swal(data);
-                        location.reload();
-                    },
-                });
-            }
-        }, function (dismiss) {
-            // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
-            if (dismiss === 'cancel') {
-                swal(
-                    'Cancelled',
-                )
-            }
-        });
-    }
-
 </script>
 <script>
 

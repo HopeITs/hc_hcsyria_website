@@ -24,8 +24,8 @@
     <!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
     <script src="/js/respond.min.js"></script> <![endif]-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="/css/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
     <script type="text/javascript" src="/js/jquery.prettyPhoto.js"></script>
@@ -73,7 +73,7 @@
                         @csrf
                         <input type="hidden" name="MicroProject_ID" value="{{ $microProject[0]['MicroProject_ID'] }}">
                         <input type="hidden" name="id" value="{{ $microProject[0]['id'] }}">
-                        <button type="submit" class="col-auto btn btn-success">
+                        <button type="submit" class="col-auto btn btn-success btn-publish-confirm">
                             <i class="fa fa-upload"></i> Publish
                         </button>
                     </form>
@@ -386,6 +386,79 @@
 <script>
     $(".close").on('click', function () {
         $(".close").closest(".modal").modal('hide');
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        // 1. GLOBAL SUCCESS ALERT (Centered)
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: "{!! session('success') !!}",
+                position: 'center',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        @endif
+
+        // 2. EDIT CONFIRMATION
+        $('.btn-edit-confirm').click(function(e) {
+            e.preventDefault();
+            let url = $(this).attr('href');
+            Swal.fire({
+                title: 'Edit Project?',
+                text: "Are you sure you want to edit this project?",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, edit it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
+        });
+
+        // 3. PUBLISH CONFIRMATION
+        $('.btn-publish-confirm').click(function (e) {
+            e.preventDefault();
+            let form = $(this).closest("form");
+            Swal.fire({
+                title: 'Publish Project?',
+                text: "This will make the project visible to the public.",
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#676768',
+                confirmButtonText: 'Yes, publish!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+
+        // 4. MAKE OFFLINE CONFIRMATION
+        $('.btn-offline-confirm').click(function (e) {
+            e.preventDefault();
+            let form = $(this).closest("form");
+            Swal.fire({
+                title: 'Make Offline?',
+                text: "This project will no longer be visible to the public.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#f39c12',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, make offline'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
     });
 </script>
 @stack('fancyVideo')
