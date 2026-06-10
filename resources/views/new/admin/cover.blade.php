@@ -34,40 +34,47 @@
             bottom: 5px;
         }
         
-        /* --- NEW CAPTION UI --- */
         .image-caption-overlay {
             position: absolute;
             bottom: 0;
-            /* left: 0; */
-            width: 97%;
+            left: 0;
+            width: 100%;
             background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
             color: white;
-            text-align: left;
-            padding: 16px 45px 10px 12px;
-            font-size: 16px;
+            padding: 12px;
             box-sizing: border-box;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            gap: 10px; 
+        }
+
+        .image-caption-text {
+            font-size: 16px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            min-height: 45px;
+            flex-grow: 1; 
+            text-align: left;
         }
 
         .btn-edit-caption {
-            position: absolute;
-            bottom: 6px;
-            right: 10px;
-            z-index: 10;
             background: transparent;
             border: none;
             color: rgba(255, 255, 255, 0.7);
-            font-size: 1.25rem; 
-            padding: 10px 18px 4px 4px;
+            font-size: 1.15rem; 
+            padding: 0;
+            margin: 0;
             cursor: pointer;
             transition: transform 0.2s ease, color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
         }
 
         .btn-edit-caption:hover {
-            transform: scale(1.15);
+            transform: scale(1.1);
             color: #ffffff;
         }
     </style>
@@ -197,24 +204,30 @@
                                                                 <input type="hidden" name="what_category_id" value="{{ $img->what_category_id }}">
 
                                                                 <li class="image-checkbox" id="image_{{ $img->id }}" style="position: relative; display: inline-block;">
-                                                                    
-                                                                    <img class="img-responsive" id="{{$img['id']}}" src="{{ $img->image_path }}" style="display: block; max-width: 100%; height: auto;" />
+    
+                                                                    <div style="position: relative; display: inline-block; max-width: 100%; overflow: hidden; border-radius: 4px;">
+                                                                        
+                                                                        <img class="img-responsive" id="{{$img['id']}}" src="{{ $img->image_path }}" style="display: block; max-width: 100%; height: auto;" />
+                                                                        
+                                                                        @if($what_category->id == 40)
+                                                                            <div class="image-caption-overlay">
+                                                                                
+                                                                                <button type="button" class="btn-edit-caption" data-id="{{ $img->id }}" data-caption="{{ $img->caption }}" title="Edit Caption">
+                                                                                    <i class="bi bi-pencil-square"></i>
+                                                                                </button>
+                                                                                
+                                                                                <span id="caption-display-{{ $img->id }}" class="image-caption-text">
+                                                                                    {{ $img->caption }}
+                                                                                </span>
+                                                                                
+                                                                            </div>
+                                                                        @endif
+
+                                                                    </div>
+
                                                                     <input type="checkbox" name="selected_images[{{ $img->id }}]" value="1" />
                                                                     <i class="fa fa-check hidden"></i>
                                                                     
-                                                                    {{-- ONLY SHOW CAPTION & EDIT BUTTON FOR HEADER (ID 40) --}}
-                                                                    @if($what_category->id == 40)
-                                                                        {{-- DYNAMIC CAPTION DIV --}}
-                                                                        <div id="caption-display-{{ $img->id }}" class="image-caption-overlay">
-                                                                            {{ $img->caption }}
-                                                                        </div>
-                                                                        
-                                                                        {{-- EDIT CAPTION BUTTON --}}
-                                                                        <button type="button" class="btn-edit-caption" data-id="{{ $img->id }}" data-caption="{{ $img->caption }}" title="Edit Caption">
-                                                                            <i class="bi bi-pencil-square"></i>
-                                                                        </button>
-                                                                    @endif
-
                                                                 </li>
                                                             @endforeach
                                                         </ul>
