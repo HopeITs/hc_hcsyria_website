@@ -216,15 +216,14 @@
                                 @else
                                     <div id="news-article-carousel" class="carousel slide" data-bs-ride="carousel">
                                         <div class="carousel-inner">
-                                            @if (count($images) > 0)
-                                                <?php $k = 0; ?>
-                                                @foreach ($images as $image)
-                                                    @if (preg_match('/thumb|pinned|important/i', $image->path))
-                                                        @continue
-                                                    @endif
+                                            @php
+                                                // Filter out thumbnails/headers and sort exactly by your drag-and-drop order
+                                                $sortedCarouselImages = collect($images)->where('sizetype', 3)->sortBy('image_order');
+                                            @endphp
 
-                                                    <div
-                                                        class="carousel-item @if ($k++ == 0) active @endif">
+                                            @if ($sortedCarouselImages->isNotEmpty())
+                                                @foreach ($sortedCarouselImages as $image)
+                                                    <div class="carousel-item @if ($loop->first) active @endif">
                                                         <img class="d-block"
                                                             src="{{ substr($image->path, 0, -4) . 'b.jpg' }}"
                                                             alt="Article Image">
@@ -232,13 +231,14 @@
                                                 @endforeach
                                             @endif
                                         </div>
+                                        
                                         <button class="carousel-control-prev" type="button"
-                                            data-bs-target="#news-article-carousel" data-bs-slide="prev">
+                                            data-bs-target="#news-article-carousel" data-bs-ride="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Previous</span>
                                         </button>
                                         <button class="carousel-control-next" type="button"
-                                            data-bs-target="#news-article-carousel" data-bs-slide="next">
+                                            data-bs-target="#news-article-carousel" data-bs-ride="next">
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Next</span>
                                         </button>

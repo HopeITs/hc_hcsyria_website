@@ -496,7 +496,7 @@ Route::get('/admin/news/french/paid/{id}', 'NewsFrenchController@paid')->name('n
 Route::get('/admin/news/images/{id}', 'NewsImagesController@create')->name('news.images.create');
 Route::post('/admin/news/images', 'NewsImagesController@store')->name('news.images.store');
 Route::delete('/admin/news/images/{id}', 'NewsImagesController@destroy')->name('news.images.destroy');
-Route::post('admin/news/images/order', 'NewsImagesController@order_images')->name('newsorder.images');
+Route::post('/admin/news/images/order', [App\Http\Controllers\NewsImagesController::class, 'order_images'])->name('newsorder.images');
 ///////////////////////////// NEWS Editions /////////////////////////////
 
 Route::post('/admin/news/edition', 'NewsController@edition_store')->name('news.edition.store');

@@ -24,7 +24,33 @@
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
+    <style>
+        #news-image-list .ui-sortable-helper {
+            transition: none !important;
+            animation: none !important;
+            transform: scale(1.04) !important; 
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25) !important;
+            z-index: 99999 !important;
+            opacity: 0.95;
+            cursor: grabbing !important;
+        }
+
+        #news-image-list.sorting-active .image-card-wrapper {
+            transition: none !important;
+            animation: none !important;
+        }
+
+        #news-image-list .news-sortable-placeholder {
+            background-color: rgba(181, 18, 27, 0.04) !important;
+            border: 2px dashed #b5121b !important;
+            border-radius: 8px;
+            flex-shrink: 0 !important;
+            visibility: visible !important;
+        }
+    </style>
 </head>
 <body>
 
@@ -190,10 +216,16 @@
                             <form action="{{ route('news.images.destroy',[$news->id])}}" method="POST" id="delete-images-form">
                                 @csrf
                                 <input type="hidden" name="_method" value="DELETE">
-                                <div class="d-flex flex-wrap mt-4 gap-3">
-                                    @php $sortedImages = $images->sortBy(fn($img) => $img['sizetype'] ?? 3); @endphp
+                                
+                                <div class="d-flex flex-wrap mt-4 gap-3" id="news-image-list">
+                                    
+                                    @php 
+                                        $sortedImages = $images->sortBy(fn($img) => $img['sizetype'] ?? 3); 
+                                    @endphp
+                                    
                                     @foreach($sortedImages as $img)
-                                        <div class="image-card-wrapper">
+                                        
+                                        <div class="image-card-wrapper" id="image_{{ $img['id'] }}">
                                             @php
                                                 $sType = $img['sizetype'] ?? 3;
                                                 $ribbon = match($sType) {
@@ -225,10 +257,10 @@
                                                 </div>
                                                 <div class="selection-overlay"><i class="fa fa-check"></i></div>
                                             </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-
+                                        </div> 
+                                        
+                                    @endforeach 
+                                </div> 
                                 <div class="d-flex align-items-center mt-5 pt-3 border-top gap-3">
                                     <button type="button" id="selectBtn" class="btn btn-secondary" onclick="toggleSelectAll()">
                                         <i class="fa fa-check-square-o"></i> Select/Deselect All
@@ -587,5 +619,90 @@
 </script>
 
 @include('new.admin.scripts.popup-messages')
+<script>
+    $(document).ready(function () {
+        
+        function saveNewsImageOrder() {
+            let imageIdsArray = [];
+            
+            $('#news-image-list .image-card-wrapper').each(function () {
+                let id = $(this).attr('id');
+                if (id) {
+                    let split_id = id.split("_");
+                    imageIdsArray.push(split_id[1]);
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('newsorder.images') }}",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    imageIds: imageIdsArray
+                },
+                success: function (response) {
+                    swal({
+                        title: "Saved!",
+                        text: "Images order has been updated successfully!",
+                        type: "success",
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                },
+                error: function() {
+                    swal({
+                        title: "Error",
+                        text: "Failed to save the new order.",
+                        type: "error"
+                    });
+                }
+            });
+        }
+
+        $("#news-image-list").sortable({
+            placeholder: "news-sortable-placeholder",
+            tolerance: 'pointer',      
+            cursor: 'grabbing',
+            appendTo: 'parent',         
+            forcePlaceholderSize: true, 
+            start: function(event, ui) {
+               
+                $('#news-image-list').addClass('sorting-active');
+                
+                let width = ui.item.outerWidth();
+                let height = ui.item.outerHeight();
+                
+                ui.placeholder.css({
+                    width: width + 'px',
+                    height: height + 'px'
+                });
+            },
+            stop: function(event, ui) {
+                // Safely restore global transition parameters on release
+                $('#news-image-list').removeClass('sorting-active');
+            },
+            update: function (event, ui) {
+                swal({
+                    title: 'Reorder Images?',
+                    text: 'Do you really want to save this new ordering choice?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#b5121b',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Yes, reorder!',
+                    cancelButtonText: 'No, cancel'
+                }).then((result) => {
+                    if (result) {
+                        saveNewsImageOrder();
+                    } else {
+                        $("#news-image-list").sortable('cancel');
+                    }
+                }, function(dismiss) {
+                    $("#news-image-list").sortable('cancel');
+                });
+            }
+        });
+    });
+</script>
 </body>
 </html>

@@ -177,4 +177,20 @@ class NewsImagesController extends Controller
             $oldImg->delete();
         }
     }
+    public function order_images(Request $request)
+    {
+        $imageIdsArray = $request->input('imageIds', []);
+        $count = 1;
+
+        foreach ($imageIdsArray as $id) {
+            $image = NewsImage::find($id);
+            if ($image) {
+                $image->image_order = $count;
+                $image->save();
+                $count++;
+            }
+        }
+
+        return response()->json(['success' => true, 'message' => 'Images have been successfully reordered.']);
+    }
 }
