@@ -410,18 +410,11 @@
 <link rel="stylesheet" href="vendor/jquery/jquery-ui/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 <script>
-    //Reorder with jQuery Drag and Drop
     $(document).ready(function () {
-        let dropIndex;
+        let initialCoverId;
 
-        $("#image-list").sortable({
-            update: function (event, ui) {
-                dropIndex = ui.item.index();
-            }
-        });
-
-        $('#submit').click(function (e) {
-            e.preventDefault();
+        // 1. Extract the save logic into a reusable function
+        function saveImageOrder() {
             let imageIdsArray = [];
             $('#image-list li').each(function (index) {
                 let id = $(this).attr('id');
@@ -434,6 +427,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            
             $.ajax({
                 type: 'POST',
                 url: "{{ route('order.images') }}",
@@ -441,15 +435,56 @@
                 success: function (response) {
                     Swal.fire({
                         title: "Saved!",
-                        text: "Images have successfully been reordered!",
+                        text: "Cover and image order have been successfully updated!",
                         icon: "success",
                         timer: 1500,
                         showConfirmButton: false
                     });
                 }
             });
+        }
+
+        // 2. Initialize Sortable with Auto-Save on Confirmation
+        $("#image-list").sortable({
+            start: function(event, ui) {
+                // Record the ID of the first item (the cover) when dragging starts
+                initialCoverId = $('#image-list li:first-child').attr('id');
+            },
+            update: function (event, ui) {
+                let newCoverId = $('#image-list li:first-child').attr('id');
+
+                // If the first item (cover) has changed, trigger SweetAlert
+                if (initialCoverId !== newCoverId) {
+                    Swal.fire({
+                        title: 'Change Cover Image?',
+                        text: 'Do you really want to change the cover after ordering?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#b5121b',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Yes, change it!',
+                        cancelButtonText: 'No, revert'
+                    }).then((result) => {
+                        if (!result.isConfirmed) {
+                            // Revert the drag and drop if they click No
+                            $(this).sortable('cancel');
+                        } else {
+                            // Update tracker and automatically save to database!
+                            initialCoverId = newCoverId;
+                            saveImageOrder();
+                        }
+                    });
+                }
+            }
+        });
+
+        // 3. Keep the manual save button working for standard reordering
+        $('#submit').click(function (e) {
+            e.preventDefault();
+            saveImageOrder();
         });
     });
+</script>
 
 </script>
 <script>

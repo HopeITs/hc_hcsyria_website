@@ -117,7 +117,12 @@ class MicroProjects extends Component
     }
     public function loadProjects(): void
     {
-        $query = Project::with([$this->language, 'firstImage','images', 'donor'])->whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2]);
+        $query = Project::with([
+            $this->language,
+            'firstImage','images' => function ($q) {
+                $q->orderBy('image_order', 'asc');
+            },
+            'donor'])->whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2]);
 
         if ($this->search !== '') {
             $query->whereHas($this->language, function ($q) {
