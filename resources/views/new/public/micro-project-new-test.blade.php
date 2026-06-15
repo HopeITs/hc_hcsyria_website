@@ -439,7 +439,7 @@
         </div>
     </div>
     <div class="horizontal-line"></div>
-    @auth
+    @can('view-micro-projects')
     <div id="projects-section" class="small-margin pt-5 section-space">
         <livewire:micro-projects/>
     </div>
@@ -562,6 +562,20 @@
         }
         .login-gate-btn i { font-size: 0.82rem; transition: transform 0.25s ease; }
         .login-gate-card:hover .login-gate-btn i { transform: translateX(4px); }
+        .login-gate-card.is-static { cursor: default; }
+        .login-gate-card.is-static:hover { transform: none; box-shadow: 0 2px 4px rgba(0,0,0,0.02), 0 24px 48px -28px rgba(188,24,24,0.22); }
+        .login-gate-note {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: #808285;
+            background: #F1F1F1;
+            padding: 0.6rem 1.15rem;
+            border-radius: 11px;
+        }
+        .login-gate-note i { color: #bc1818; font-size: 0.85rem; }
         @media (max-width: 575.98px) {
             .login-gate-card { padding: 2.9rem 1.5rem 2.6rem; border-radius: 20px; }
             .login-gate-title { font-size: 1.3rem; }
@@ -569,6 +583,7 @@
         }
     </style>
     <div class="login-gate-wrap section-space small-margin mx-3 mx-md-auto py-5">
+        @guest
         <a href="{{ route('login', ['redirect' => route('new.public.micro_project_test')]) }}" class="login-gate-card" aria-label="Login to see project details and map">
             <span class="login-gate-eyebrow">Members Area</span>
             <div class="login-gate-icon">
@@ -585,8 +600,24 @@
                 Log in to continue <i class="fa fa-arrow-right"></i>
             </span>
         </a>
+        @else
+        <div class="login-gate-card is-static" aria-label="You do not have access to this section">
+            <span class="login-gate-eyebrow">Restricted Area</span>
+            <div class="login-gate-icon">
+                <i class="fa fa-lock"></i>
+            </div>
+            <div class="login-gate-title">Projects &amp; Map Locations</div>
+            <div class="login-gate-subtitle">Your account doesn&rsquo;t have access to this section. Please contact an administrator to request the <strong>Micro Public Page</strong> access.</div>
+            <div class="login-gate-features">
+                <span class="login-gate-feature"><i class="fa fa-th-large"></i> Full projects list</span>
+                <span class="login-gate-dot"></span>
+                <span class="login-gate-feature"><i class="fa fa-map-marker"></i> Interactive map</span>
+            </div>
+            <span class="login-gate-note"><i class="fa fa-info-circle"></i> Access is granted by an administrator</span>
+        </div>
+        @endguest
     </div>
-    @endauth
+    @endcan
     <div class="horizontal-line"></div>
     @include('new.public.components.project-partners-section', ['donors_ongoing' => $partners_ongoing,'donors_previous' => $partners_previous])
 
