@@ -82,34 +82,8 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
-    public function showLoginForm(\Illuminate\Http\Request $request)
+    public function showLoginForm()
     {
-        // If a redirect target was supplied (e.g. from the locked micro page),
-        // store it as the intended URL so the user is sent back there after login.
-        // Only same-host URLs are allowed to prevent open-redirect abuse.
-        if ($request->filled('redirect')) {
-            $redirect = $request->query('redirect');
-            if (\Illuminate\Support\Str::startsWith($redirect, url('/'))) {
-                $request->session()->put('url.intended', $redirect);
-            }
-        }
-
         return view('new.auth.login');
-    }
-
-    /**
-     * Where to send the user after they log out.
-     * Honors a `redirect` field (e.g. from the public micro page) so users
-     * stay on the page they logged out from. Only same-host URLs are allowed
-     * to prevent open-redirect abuse; otherwise the default behavior applies.
-     */
-    protected function loggedOut(\Illuminate\Http\Request $request)
-    {
-        if ($request->filled('redirect')) {
-            $redirect = $request->input('redirect');
-            if (\Illuminate\Support\Str::startsWith($redirect, url('/'))) {
-                return redirect($redirect);
-            }
-        }
     }
 }
