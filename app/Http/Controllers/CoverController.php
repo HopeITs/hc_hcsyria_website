@@ -16,6 +16,11 @@ class CoverController extends Controller
 {
     const COVER = 'Cover'; 
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     function create()
     {
         $what_categories = WhatCategory::with(['covers' => function ($query) {

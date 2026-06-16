@@ -596,9 +596,9 @@ $('#tablePnd').DataTable({
 $('.btn-funded-conversion').click(function () {
 let id = this.dataset.content;
 if($(this).hasClass("btn-default")) {
-$.get('/makeFundedRequest/'+id);
+$.post('/makeFundedRequest/'+id, {_token: '{{ csrf_token() }}'});
 }else {
-$.get('/cancelMakeFundedRequest/'+id);
+$.post('/cancelMakeFundedRequest/'+id, {_token: '{{ csrf_token() }}'});
 }
 $('button[data-content = "'+id+'"]').toggleClass("btn-success").toggleClass("btn-default");
 });

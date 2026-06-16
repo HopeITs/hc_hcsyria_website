@@ -25,6 +25,11 @@ use Illuminate\Support\Facades\DB;
 
 class LeapController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $iniLEAP = Initiative::with('english', 'place')->where('what_category_id', '19')->where('online', '1')->get();

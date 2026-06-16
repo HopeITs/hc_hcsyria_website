@@ -216,7 +216,7 @@
                 window.setInterval(getNotifications, 30 * 1000);
                 $('#notifications-btn').click(function () {
                     $('#notifications-btn span').hide();
-                    $.get('/clearNotificationsData');
+                    $.post('/clearNotificationsData', {_token: '{{ csrf_token() }}'});
                 });
                 $('#notifications-dropdown').on('hide.bs.dropdown', function () {
                     $('.not-seen').addClass('seen').removeClass('not-seen');

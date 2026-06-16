@@ -25,7 +25,7 @@ Route::get('/projects/{type}', 'PublicController@initiatives_by_type')->name('pu
 
 Route::get('/our-news', 'PublicController@newsletter')->name('new.public.newsletter');
 Route::get('/our-news/{id}-{city}-{date}', 'PublicController@show_article')->name('new.public.article');
-Route::post('our-news/subscribe','PublicController@subscribe')->name('newsletter.subscribe');
+Route::post('our-news/subscribe','PublicController@subscribe')->middleware('throttle:10,1')->name('newsletter.subscribe');
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/news/preview/{id}', [App\Http\Controllers\NewsController::class, 'preview'])
         ->name('news.preview');
@@ -157,9 +157,9 @@ Route::get('/admin/log', 'LogController@index')->name('log');
 Route::get('/admin/logjson', 'LogController@indexjson')->name('logjson');
 Route::get('/notificationsData', 'LogController@get_notifications');
 Route::get('/notificationsCount', 'LogController@get_notifications_count');
-Route::get('/clearNotificationsData', 'LogController@clear_notifications');
-Route::get('/makeFundedRequest/{id}', 'projectsController@mark_NeedConversion');
-Route::get('/cancelMakeFundedRequest/{id}', 'projectsController@unmark_NeedConversion');
+Route::post('/clearNotificationsData', 'LogController@clear_notifications');
+Route::post('/makeFundedRequest/{id}', 'projectsController@mark_NeedConversion');
+Route::post('/cancelMakeFundedRequest/{id}', 'projectsController@unmark_NeedConversion');
 
 ////////////////////////////// PROJECTS //////////////////////////////
 Route::get('/admin/projects/index', 'projectsController@index')->name('projects_index');
@@ -189,9 +189,9 @@ Route::get('/admin/project/french/{id}', 'frenchController@show')->name('admin_f
 Route::post('admin/projects/french/store', ['as' => 'store.french.project', 'uses' => 'frenchController@store']);
 Route::get('admin/projects/french/edit/{id}', ['as' => 'edit.french.project', 'uses' => 'frenchController@edit']);
 Route::post('admin/projects/french/update', ['as' => 'update.french.project', 'uses' => 'frenchController@update']);
-Route::get('/admin/project/french/paid/{id}', 'frenchController@make_paid');
+Route::post('/admin/project/french/paid/{id}', 'frenchController@make_paid');
 Route::get('admin/projects/french/translate/{id}', ['as' => 'french.translate.project', 'uses' => 'frenchController@translate']);
-Route::get('admin/project/french/paid/all', ['as' => 'french.paid.all', 'uses' => 'frenchController@make_paid_all']);
+Route::post('admin/project/french/paid/all', ['as' => 'french.paid.all', 'uses' => 'frenchController@make_paid_all']);
 
 //Route::get('/admin/project/french/paid/all', 'frenchController@make_paid_all')->name('make.all.paid');
 
@@ -380,7 +380,7 @@ Route::get('/admin/initiatives/french/{id}', 'InitiativesFrenchController@show')
 Route::get('/admin/initiatives/french/edit/{id}', 'InitiativesFrenchController@edit')->name('initiatives.french.edit');
 Route::post('/admin/initiatives/french', 'InitiativesFrenchController@store')->name('initiatives.french.store');
 Route::put('/admin/initiatives/french/{id}', 'InitiativesFrenchController@update')->name('initiatives.french.update');
-Route::get('/admin/initiatives/french/paid/{id}', 'InitiativesFrenchController@paid')->name('initiatives.french.paid');
+Route::post('/admin/initiatives/french/paid/{id}', 'InitiativesFrenchController@paid')->name('initiatives.french.paid');
 
 /////////////////////////// INITIATIVES IMAGES ///////////////////////////
 
@@ -413,7 +413,7 @@ Route::post('/admin/initiatives/testimonies/french', 'TestimoniesFrenchControlle
 Route::get('/admin/initiatives/testimonies/french/{id}', 'TestimoniesFrenchController@show')->name('initiatives.testimonies.french.show');
 Route::get('/admin/initiatives/testimonies/french/edit/{id}', 'TestimoniesFrenchController@edit')->name('initiatives.testimonies.french.edit');
 Route::put('/admin/initiatives/testimonies/french/{id}', 'TestimoniesFrenchController@update')->name('initiatives.testimonies.french.update');
-Route::get('/admin/initiatives/testimonies/french/paid/{id}', 'TestimoniesFrenchController@paid')->name('initiatives.testimonies.french.paid');
+Route::post('/admin/initiatives/testimonies/french/paid/{id}', 'TestimoniesFrenchController@paid')->name('initiatives.testimonies.french.paid');
 
 //////////////////////////////// SUCCESSES Study////////////////////////////////
 
@@ -453,7 +453,7 @@ Route::post('/admin/successes/french', 'SuccessFrenchController@store')->name('s
 Route::get('/admin/successes/french/{id}', 'SuccessFrenchController@show')->name('successes.french.show');
 Route::get('/admin/successes/french/edit/{id}', 'SuccessFrenchController@edit')->name('successes.french.edit');
 Route::put('/admin/successes/french/{id}', 'SuccessFrenchController@update')->name('successes.french.update');
-Route::get('/admin/successes/french/paid/{id}', 'SuccessFrenchController@paid')->name('successes.french.paid');
+Route::post('/admin/successes/french/paid/{id}', 'SuccessFrenchController@paid')->name('successes.french.paid');
 
 //////////////////////////////// Roots Of Hope ////////////////////////////////
 Route::get('/admin/roots/index', 'RootsController@index')->name('roots.index');
@@ -489,7 +489,7 @@ Route::post('/admin/news/french', 'NewsFrenchController@store')->name('news.fren
 Route::get('/admin/news/french/{id}', 'NewsFrenchController@show')->name('news.french.show');
 Route::get('/admin/news/french/edit/{id}', 'NewsFrenchController@edit')->name('news.french.edit');
 Route::put('/admin/news/french/{id}', 'NewsFrenchController@update')->name('news.french.update');
-Route::get('/admin/news/french/paid/{id}', 'NewsFrenchController@paid')->name('news.french.paid');
+Route::post('/admin/news/french/paid/{id}', 'NewsFrenchController@paid')->name('news.french.paid');
 
 ///////////////////////////// NEWS IMAGES /////////////////////////////
 

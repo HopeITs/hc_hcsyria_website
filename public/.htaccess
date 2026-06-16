@@ -1,26 +1,3 @@
-#### Added by Genius Hosting to reduce server load ####
-SetEnvIfNoCase User-Agent "SemrushBot" bad_bot
-SetEnvIfNoCase User-Agent "GPTBot" bad_bot
-SetEnvIfNoCase User-Agent "YandexBot" bad_bot
-SetEnvIfNoCase User-Agent "AhrefsBot" bad_bot
-SetEnvIfNoCase User-Agent "facebookexternalhit" bad_bot
-SetEnvIfNoCase User-Agent "meta-externalagent" bad_bot
-SetEnvIfNoCase User-Agent "HeadlessChrome" bad_bot
-SetEnvIfNoCase User-Agent "SeekportBot" bad_bot
-SetEnvIfNoCase User-Agent "img2dataset" bad_bot
-SetEnvIfNoCase User-Agent "Chrome\/[3-8]" bad_bot
-SetEnvIfNoCase User-Agent "Firefox\/[3-8]" bad_bot
-SetEnvIfNoCase User-Agent "Version\/[3-8]" bad_bot
-SetEnvIfNoCase User-Agent "Opera\/[3-8]" bad_bot
-SetEnvIfNoCase User-Agent "MSIE [6-8]" bad_bot
-SetEnvIfNoCase User-Agent "Googlebot" bad_bot
-SetEnvIfNoCase User-Agent "GoogleOther" bad_bot
-SetEnvIfNoCase User-Agent "bingbot" bad_bot
-SetEnvIfNoCase User-Agent "SemrushBot" bad_bot
-SetEnvIfNoCase User-Agent "Barkrowler" bad_bot
-Deny from env=bad_bot
-#### End ####
-
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
@@ -41,24 +18,4 @@ Deny from env=bad_bot
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
-    
-    # ADDED BY SURESUPPORT - redirect bots visiting http://hcsyria.org/projects/micro-projects to 403.
-    # See ticket #1130017.
-    RewriteCond %{HTTP_USER_AGENT} ^.*(bot|Bot).*$ [NC]
-    RewriteCond ${REQUEST_URI} ^/projects/micro-projects$ [NC]
-    RewriteRule .* - [F,L]
-    # ADDED BY SURESUPPORT
 </IfModule>
-
-# Start country control directives
-SetEnvIf MM_COUNTRY_CODE "^AR$" CountryMatch
-SetEnvIf MM_COUNTRY_CODE "^BD$" CountryMatch
-SetEnvIf MM_COUNTRY_CODE "^BR$" CountryMatch
-SetEnvIf MM_COUNTRY_CODE "^CO$" CountryMatch
-SetEnvIf MM_COUNTRY_CODE "^EC$" CountryMatch
-SetEnvIf MM_COUNTRY_CODE "^ID$" CountryMatch
-SetEnvIf MM_COUNTRY_CODE "^PY$" CountryMatch
-SetEnvIf MM_COUNTRY_CODE "^VN$" CountryMatch
-SetEnvIf MM_COUNTRY_CODE "^ZA$" CountryMatch
-Deny from env=CountryMatch
-# End country control directives
