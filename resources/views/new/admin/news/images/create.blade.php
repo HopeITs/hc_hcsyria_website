@@ -96,12 +96,17 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6 col-md-6 col-12 mb-3">
+                                <div class="col-lg-3 col-md-6 col-12 mb-3">
+                                    <label class="form-label">News ID</label>
+                                    <input type="text" value="{{ $news->id }}" class="form-control custom-cursor-disabled" readonly>
+                                </div>
+
+                                <div class="col-lg-3 col-md-6 col-12 mb-3">
                                     <label class="form-label">City</label>
                                     <input type="text" value="{{ $news->place->name ?? 'N/A' }}" class="form-control custom-cursor-disabled" readonly>
                                 </div>
 
-                                <div class="col-lg-6 col-md-6 col-12 mb-3">
+                                <div class="col-lg-6 col-md-12 col-12 mb-3">
                                     <label class="form-label">News Date</label>
                                     <div class="form-control custom-cursor-disabled">
                                         <i class="fa fa-calendar text-muted me-2"></i>

@@ -25,6 +25,11 @@
 <div class="container-fluid">
     <div class="preview-content-wrapper">
         <div class="d-flex justify-content-end align-items-center mb-4 gap-2 flex-wrap">
+            <div class="me-auto d-flex align-items-center gap-2">
+                <label for="news_id" class="form-label fw-bold mb-0">News ID</label>
+                <input type="text" id="news_id" class="form-control" style="max-width: 120px; cursor: not-allowed;" value="{{ $news->id }}" readonly>
+            </div>
+
             @if(isset($user) && ($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor')))
                 <a href="{{route('news.edit', [$news->id, 'ref' => 'show'])}}" class="btn btn-primary edit-btn">
                     <span class="fa fa-edit"></span>&nbsp;Edit

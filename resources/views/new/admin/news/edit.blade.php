@@ -55,6 +55,18 @@
                             <input type="hidden" name="ref" value="{{ $ref }}">
 
                             <div class="row mb-3">
+                                <div class="col-lg-4 col-md-6 col-12">
+                                    <label for="news_id" class="form-label fw-bold">News ID</label>
+                                    <input type="text"
+                                           id="news_id"
+                                           class="form-control"
+                                           value="{{ $newsData->id }}"
+                                           readonly
+                                           style="cursor: not-allowed;">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
                                 <div class="col-lg-8 col-md-8 col-12">
                                     <label class="form-label fw-bold">Type <span class="red-color">*</span></label><br>
                                     <div class="btn-group w-100">
