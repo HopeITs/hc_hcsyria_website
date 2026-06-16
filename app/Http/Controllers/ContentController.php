@@ -15,6 +15,11 @@ use File;
 
 class ContentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     function index()
     {
         $what_categories = WhatCategory::with('content', 'partners')->whereIn('id', [5, 7, 8, 9, 10, 17, 19])->get();

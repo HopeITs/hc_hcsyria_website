@@ -75,7 +75,7 @@
 <div class="container-fluid my-5" data-aos="fade-up" data-aos-duration="800">
     <div class="row justify-content-center mx-0">
 
-        <div class="col-12 col-md-10 col-lg-8">
+        <div class="news-subscribe-column">
             <div class="subscribe-container">
                 <img src="/images/ico/letter.svg" alt="Newsletter Icon">
 

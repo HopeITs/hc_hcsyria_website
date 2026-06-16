@@ -50,6 +50,11 @@
             flex-shrink: 0 !important;
             visibility: visible !important;
         }
+
+        /* Inactive (kept but unused) Important/Pinned cover: white pin, gray background */
+        .bookmark-ribbon.inactive {
+            background: #adb5bd !important;
+        }
     </style>
 </head>
 <body>
@@ -96,12 +101,17 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6 col-md-6 col-12 mb-3">
+                                <div class="col-lg-3 col-md-6 col-12 mb-3">
+                                    <label class="form-label">News ID</label>
+                                    <input type="text" value="{{ $news->id }}" class="form-control custom-cursor-disabled" readonly>
+                                </div>
+
+                                <div class="col-lg-3 col-md-6 col-12 mb-3">
                                     <label class="form-label">City</label>
                                     <input type="text" value="{{ $news->place->name ?? 'N/A' }}" class="form-control custom-cursor-disabled" readonly>
                                 </div>
 
-                                <div class="col-lg-6 col-md-6 col-12 mb-3">
+                                <div class="col-lg-6 col-md-12 col-12 mb-3">
                                     <label class="form-label">News Date</label>
                                     <div class="form-control custom-cursor-disabled">
                                         <i class="fa fa-calendar text-muted me-2"></i>
@@ -157,16 +167,28 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-12 mb-3">
                                     <label class="placement-card" id="card_important" for="check_important">
-                                        <input class="placement-checkbox" type="checkbox" name="is_important" id="check_important" value="1">
+                                        <input class="placement-checkbox" type="checkbox" name="is_important" id="check_important" value="1" @if($news->priority_status == 1) checked @endif>
                                         <div class="d-flex align-items-start mb-2">
                                             <div class="custom-radio-btn mt-1"></div>
                                             <div>
                                                 <h5 class="mb-1 fw-bold">Mark as Important News</h5>
-                                                <p class="text-muted small mb-0">3:2 Aspect Ratio. Only ONE news can be important globally.</p>
+                                                <p class="text-muted small mb-0">3:2 Aspect Ratio. Only ONE news can be important globally. Uncheck to return this article to regular news.</p>
                                             </div>
                                         </div>
                                         <div id="important_upload_area" class="upload-sub-area mt-3">
-                                            <label class="fw-bold text-dark form-label">Upload 3:2 Image <span class="text-danger">*</span></label>
+                                            @if($hasLocalImportant && $importantImage)
+                                                <div class="d-flex align-items-center justify-content-between border rounded p-2 bg-white mb-2">
+                                                    <span class="text-truncate me-2" style="max-width: 65%;">
+                                                        <i class="fa fa-picture-o text-muted me-1"></i> {{ basename($importantImage->path) }}
+                                                    </span>
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-view-full" data-src="{{ $importantImage->path }}">
+                                                        <i class="fa fa-eye"></i> View
+                                                    </button>
+                                                </div>
+                                                <label class="fw-bold text-dark form-label">Replace 3:2 Image <span class="text-muted small fw-normal">(optional)</span></label>
+                                            @else
+                                                <label class="fw-bold text-dark form-label">Upload 3:2 Image <span class="text-danger">*</span></label>
+                                            @endif
                                             <input type="file" name="important_image" id="important_image" accept="image/jpeg" class="form-control crop-trigger">
                                         </div>
                                     </label>
@@ -174,16 +196,28 @@
 
                                 <div class="col-lg-6 col-md-6 col-12 mb-3">
                                     <label class="placement-card" id="card_pinned" for="check_pinned">
-                                        <input class="placement-checkbox" type="checkbox" name="is_pinned" id="check_pinned" value="1">
+                                        <input class="placement-checkbox" type="checkbox" name="is_pinned" id="check_pinned" value="1" @if($news->priority_status == 2) checked @endif>
                                         <div class="d-flex align-items-start mb-2">
                                             <div class="custom-radio-btn mt-1"></div>
                                             <div>
                                                 <h5 class="mb-1 fw-bold">Mark as Pinned News</h5>
-                                                <p class="text-muted small mb-0">2:1 Aspect Ratio. Multiple news can be pinned at the same time.</p>
+                                                <p class="text-muted small mb-0">2:1 Aspect Ratio. Multiple news can be pinned at the same time. Uncheck to return this article to regular news.</p>
                                             </div>
                                         </div>
                                         <div id="pinned_upload_area" class="upload-sub-area mt-3">
-                                            <label class="fw-bold text-dark form-label">Upload 2:1 Image <span class="text-danger">*</span></label>
+                                            @if($hasLocalPinned && $pinnedImage)
+                                                <div class="d-flex align-items-center justify-content-between border rounded p-2 bg-white mb-2">
+                                                    <span class="text-truncate me-2" style="max-width: 65%;">
+                                                        <i class="fa fa-picture-o text-muted me-1"></i> {{ basename($pinnedImage->path) }}
+                                                    </span>
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary btn-view-full" data-src="{{ $pinnedImage->path }}">
+                                                        <i class="fa fa-eye"></i> View
+                                                    </button>
+                                                </div>
+                                                <label class="fw-bold text-dark form-label">Replace 2:1 Image <span class="text-muted small fw-normal">(optional)</span></label>
+                                            @else
+                                                <label class="fw-bold text-dark form-label">Upload 2:1 Image <span class="text-danger">*</span></label>
+                                            @endif
                                             <input type="file" name="pinned_image" id="pinned_image" accept="image/jpeg" class="form-control crop-trigger">
                                         </div>
                                     </label>
@@ -234,11 +268,13 @@
                                                     2 => ['icon' => 'fa-thumb-tack', 'txt' => '2:1 Pinned'],
                                                     default => null
                                                 };
+                                                // Important/Pinned covers are "active" only while the article still holds that status.
+                                                $ribbonActive = !(($sType == 1 && $news->priority_status != 1) || ($sType == 2 && $news->priority_status != 2));
                                             @endphp
 
                                             @if($ribbon)
                                                 <div class="ribbon-wrapper">
-                                                    <div class="bookmark-ribbon" title="{{ $ribbon['txt'] }}">
+                                                    <div class="bookmark-ribbon {{ $ribbonActive ? '' : 'inactive' }}" title="{{ $ribbon['txt'] }}{{ $ribbonActive ? '' : ' (Unused — article is no longer ' . ($sType == 1 ? 'Important' : 'Pinned') . ')' }}">
                                                         <i class="fa {{ $ribbon['icon'] }}"></i>
                                                     </div>
                                                 </div>
@@ -501,7 +537,7 @@
                 $('#check_pinned').prop('checked', false).trigger('change');
                 $('#card_important').addClass('active').removeClass('dimmed');
                 $('#important_upload_area').slideDown();
-                $('#important_image').prop('required', true);
+                $('#important_image').prop('required', {{ $hasLocalImportant ? 'false' : 'true' }});
             } else {
                 $('#card_important').removeClass('active');
                 $('#important_upload_area').slideUp();
@@ -514,7 +550,7 @@
                 $('#check_important').prop('checked', false).trigger('change');
                 $('#card_pinned').addClass('active').removeClass('dimmed');
                 $('#pinned_upload_area').slideDown();
-                $('#pinned_image').prop('required', true);
+                $('#pinned_image').prop('required', {{ $hasLocalPinned ? 'false' : 'true' }});
             } else {
                 $('#card_pinned').removeClass('active');
                 $('#pinned_upload_area').slideUp();
@@ -526,6 +562,15 @@
             $('.placement-card').removeClass('dimmed active');
         } else {
             $('.placement-card:not(.active)').addClass('dimmed');
+        }
+    });
+
+    // Reflect the article's saved status on load: pre-checked card opens its upload area.
+    $(document).ready(function() {
+        if ($('#check_important').is(':checked')) {
+            $('#check_important').trigger('change');
+        } else if ($('#check_pinned').is(':checked')) {
+            $('#check_pinned').trigger('change');
         }
     });
 

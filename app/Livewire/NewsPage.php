@@ -33,7 +33,10 @@ class NewsPage extends Component
 
     public function loadMore()
     {
-        $this->amount += $this->chunkSize;
+        // Reveal two more rows of regular news per click (a "block" of
+        // 5 news · pinned · 5 news). The pinned limit below follows
+        // automatically, adding up to two more pinned each time while any remain.
+        $this->amount += $this->chunkSize * 2;
     }
 
     public function applyFilters()
@@ -118,7 +121,8 @@ class NewsPage extends Component
         
         $baseLimit = $this->chunkSize * 2;
         $regularLimit = $baseLimit + $this->amount;
-        $pinnedLimit = intval(($regularLimit / $this->chunkSize) - 1);
+        // One pinned per "block" of two regular rows (5 · pinned · 5).
+        $pinnedLimit = intval($regularLimit / ($this->chunkSize * 2));
 
         $pinnedQuery = News::with(['english', 'place', 'images'])
             ->where('online', '1')

@@ -32,6 +32,8 @@ class NewsImagesController extends Controller
             'hasLocalImportant' => $images->where('sizetype', 1)->isNotEmpty(),
             'hasLocalPinned'    => $images->where('sizetype', 2)->isNotEmpty(),
             'hasLocalRegular'   => $images->where('sizetype', 3)->isNotEmpty(),
+            'importantImage'    => $images->where('sizetype', 1)->first(),
+            'pinnedImage'       => $images->where('sizetype', 2)->first(),
             'globalImportantId' => $globalImportantArticle ? $globalImportantArticle->id : null,
         ]);
     }

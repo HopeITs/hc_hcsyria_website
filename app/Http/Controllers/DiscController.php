@@ -25,6 +25,11 @@ use Illuminate\Support\Facades\DB;
 
 class DiscController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $iniDisc = Initiative::with('english', 'place')->where('what_category_id', '5')->where('online', '1')->get();

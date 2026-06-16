@@ -96,7 +96,7 @@
                         $fullContent = $importantNews->english->content ?? '';
                         $cleanContent = strip_tags($fullContent);
                     @endphp
-                    <a href="{{ route('new.public.article', ['id' => $importantNews->id, 'city' => Illuminate\Support\Str::slug(strtolower($place)), 'date' => $urlDate]) }}" target="_blank" rel="noopener noreferrer" class="news-card ratio-3-2 h-100">
+                    <a href="{{ route('new.public.article', ['id' => $importantNews->id, 'city' => Illuminate\Support\Str::slug(strtolower($place)), 'date' => $urlDate]) }}" target="_blank" rel="noopener noreferrer" class="news-card important-news-card ratio-3-2 h-100">
                         @if(!empty($importantNews->duration))
                             <div class="video-duration-badge">
                                 <svg viewBox="0 0 16 16"><path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg>
@@ -301,9 +301,10 @@
                     @endforeach
                 </div>
 
-                @if(isset($pinnedNews[$index]))
+                @php $pinnedSlot = intdiv($index, 2); @endphp
+                @if($index % 2 === 0 && isset($pinnedNews[$pinnedSlot]))
                     @php
-                        $pNews = $pinnedNews[$index];
+                        $pNews = $pinnedNews[$pinnedSlot];
                         $pinnedImg = $pNews->images->where('sizetype', 2)->first() ?? $pNews->images->first();
                         $imgPath = $pinnedImg ? asset($pinnedImg->path) : 'https://picsum.photos/seed/'.$pNews->id.'/600/300';
                         $pinnedContent = strip_tags($pNews->english->content ?? '');
@@ -340,7 +341,7 @@
             @endforeach
 
             @php
-                $renderedPinnedCount = $regularChunks->count();
+                $renderedPinnedCount = $regularChunks->isEmpty() ? 0 : intval(ceil($regularChunks->count() / 2));
             @endphp
             @for($i = $renderedPinnedCount; $i < $pinnedNews->count(); $i++)
                 @php

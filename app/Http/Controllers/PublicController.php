@@ -202,24 +202,7 @@ GROUP BY
     age.Name
 HAVING age.Name is not null
 ORDER BY age.ID;');
-        $sustainableRate = DB::select('SELECT ROUND
-(
-	(
-    (SELECT COUNT(id)
-		FROM `projects`
-		WHERE MPE_Published = 1
-		and MPE_Done = 1
-		and MPE_FundedDate <= DATE_SUB(now(), INTERVAL 9 MONTH)
-	)
-	* 100
-	)
-	/
-	(SELECT COUNT(id)
-		FROM `projects`
-		WHERE MPE_Published <> 0
-	)
-,0) as \'number\'
-from projects LIMIT 1;');
+        $sustainableRate = $this->getPublishedProjectSustainabilityRate();
         if (session('locale') == 'fr') {
             $language = 'french';
             $languageTable = 'projects_french';
@@ -451,24 +434,7 @@ from projects LIMIT 1;');
                 age.Name
             HAVING age.Name is not null
             ORDER BY age.ID;');
-                    $sustainableRate = DB::select('SELECT ROUND
-            (
-                (
-                (SELECT COUNT(id)
-                FROM `projects`
-                WHERE MPE_Published = 1
-                and MPE_Done = 1
-                and MPE_FundedDate <= DATE_SUB(now(), INTERVAL 9 MONTH)
-                )
-                * 100
-                )
-                /
-                (SELECT COUNT(id)
-                FROM `projects`
-                WHERE MPE_Published <> 0
-                )
-            ,0) as \'number\'
-            from projects LIMIT 1;');
+                    $sustainableRate = $this->getPublishedProjectSustainabilityRate();
                     if (session('locale') == 'fr') {
                         $language = 'french';
                         $languageTable = 'projects_french';
@@ -519,6 +485,23 @@ from projects LIMIT 1;');
             //            'aleppoMap' => $aleppoMap, 'homsMap' => $homsMap, 'damasMap' => $damasMap,
                         'agent' => $agent]);
     }
+    private function getPublishedProjectSustainabilityRate(): array
+    {
+        $eligibleProjects = Project::where('MPE_Published', 1)
+            ->whereDate('MPE_FundedDate', '<=', Carbon::now()->subMonths(9));
+
+        $totalOlderProjects = (clone $eligibleProjects)->count();
+        $fundedOlderProjects = (clone $eligibleProjects)
+            ->where('MPE_Done', 1)
+            ->count();
+
+        $rate = $totalOlderProjects > 0
+            ? (int) round(($fundedOlderProjects * 100) / $totalOlderProjects)
+            : 0;
+
+        return [(object) ['number' => $rate]];
+    }
+
     public function get_projects_IDs($searchStr, $donor, $city, $video, $langTable)
     {
         if ($donor == '') {

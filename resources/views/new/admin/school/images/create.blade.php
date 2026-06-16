@@ -23,8 +23,7 @@
     <script src="/js/html5shiv.js"></script>
     <script src="/js/respond.min.js"></script> <![endif]-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
@@ -269,57 +268,11 @@
     }
 </script>
 <script>
-    $('.show_confirm').click(function (event) {
-        var form = $(this).closest("form");
-        // var id = event.target.attributes['id'].nodeValue;
-        var id = $(this).data("id");
-        let check=[];
-        event.preventDefault();
-        $(".image-checkbox").each(function () {
-            if (this.classList.contains('image-checkbox-checked')) {
-                check.push('true');
-            }
-            else check.push('false');
-        });
-
-        if (check.includes("true")) {
-            swal({
-                title: `Are you sure you want to delete images? `,
-                // icon: "warning",
-                // buttons: true,
-                showCancelButton: true,
-                confirmButtonText: 'Delete',
-                // dangerMode: true,
-            }).then((result) => {
-                if (result) {
-                    form.submit();
-                    swal(
-                        'Terhapus!',
-                        'Data berhasil terhapus.',
-                        'success',
-                        window.location.href = getLink
-                    )
-                }
-            }, function (dismiss) {
-                // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
-                if (dismiss === 'cancel') {
-                    swal(
-                        'Cancelled',
-                    )
-                }
-            });
-        } else {
-            swal('please select images !!')
-        }
-
-    });
-</script>
-<script>
     $("[type='number']").keypress(function (evt) {
         evt.preventDefault();
     });
 </script>
-@stack('imageOrder')
+@include('new.admin.scripts.image-reorder', ['orderRoute' => route('schoolorder.images')])
 @include('new.admin.scripts.popup-messages')
 </body>
 </html>
