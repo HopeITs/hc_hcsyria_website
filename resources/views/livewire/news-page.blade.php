@@ -96,7 +96,7 @@
                         $fullContent = $importantNews->english->content ?? '';
                         $cleanContent = strip_tags($fullContent);
                     @endphp
-                    <a href="{{ route('new.public.article', ['id' => $importantNews->id, 'city' => Illuminate\Support\Str::slug(strtolower($place)), 'date' => $urlDate]) }}" target="_blank" rel="noopener noreferrer" class="news-card ratio-3-2 h-100">
+                    <a href="{{ route('new.public.article', ['id' => $importantNews->id, 'city' => Illuminate\Support\Str::slug(strtolower($place)), 'date' => $urlDate]) }}" target="_blank" rel="noopener noreferrer" class="news-card important-news-card ratio-3-2 h-100">
                         @if(!empty($importantNews->duration))
                             <div class="video-duration-badge">
                                 <svg viewBox="0 0 16 16"><path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg>

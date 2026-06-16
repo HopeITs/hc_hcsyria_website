@@ -1206,7 +1206,7 @@
         let projectsUnpaidCount = {{count($projectsNotPaid)}};
         $('.btn-paid').click(function () {
             let id = this.dataset.content;
-            $.get('/admin/project/french/paid/' + id);
+            $.post('/admin/project/french/paid/' + id, {_token: '{{ csrf_token() }}'});
             if (projectsUnpaidCount === 1) {
                 $('.projects-unpaid-table').hide();
             } else {
@@ -1218,7 +1218,7 @@
         let initiativesUnpaidCount = {{count($initiativesNotPaid)}};
         $('.btn-paid-ini').click(function () {
             let id = this.dataset.content;
-            $.get('/admin/initiatives/french/paid/' + id);
+            $.post('/admin/initiatives/french/paid/' + id, {_token: '{{ csrf_token() }}'});
             if (initiativesUnpaidCount === 1) {
                 $('.initiatives-unpaid-table').hide();
             } else {
@@ -1231,7 +1231,7 @@
         let testimoniesUnpaidCount = {{count($testimoniesNotPaid)}};
         $('.btn-paid-testimony').click(function () {
             let id = this.dataset.content;
-            $.get('/admin/initiatives/testimonies/french/paid/' + id);
+            $.post('/admin/initiatives/testimonies/french/paid/' + id, {_token: '{{ csrf_token() }}'});
             if (testimoniesUnpaidCount === 1) {
                 $('.testimonies-unpaid-table').hide();
             } else {
@@ -1244,7 +1244,7 @@
         let successesUnpaidCount = {{count($successesNotPaid)}};
         $('.btn-paid-success').click(function () {
             let id = this.dataset.content;
-            $.get('/admin/successes/french/paid/' + id);
+            $.post('/admin/successes/french/paid/' + id, {_token: '{{ csrf_token() }}'});
             if (successesUnpaidCount === 1) {
                 $('.successes-unpaid-table').hide();
             } else {
@@ -1257,7 +1257,7 @@
         let newsUnpaidCount = {{count($newsNotPaid)}};
         $('.btn-paid-news').click(function () {
             let id = this.dataset.content;
-            $.get('/admin/news/french/paid/' + id);
+            $.post('/admin/news/french/paid/' + id, {_token: '{{ csrf_token() }}'});
             if (newsUnpaidCount === 1) {
                 $('.news-unpaid-table').hide();
             } else {
@@ -1268,7 +1268,7 @@
         });
 
         $('#pay-all').click(function () {
-            $.get('/admin/project/french/paid/all');
+            $.post('/admin/project/french/paid/all', {_token: '{{ csrf_token() }}'});
             hidePaymentTable();
         });
 

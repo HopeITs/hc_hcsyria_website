@@ -530,9 +530,9 @@
     $('.btn-funded-conversion').click(function () {
         let id = this.dataset.content;
         if ($(this).hasClass("btn-default")) {
-            $.get('/makeFundedRequest/' + id);
+            $.post('/makeFundedRequest/' + id, {_token: $('meta[name="csrf-token"]').attr('content')});
         } else {
-            $.get('/cancelMakeFundedRequest/' + id);
+            $.post('/cancelMakeFundedRequest/' + id, {_token: $('meta[name="csrf-token"]').attr('content')});
         }
         $('button[data-content = "' + id + '"]').toggleClass("btn-success").toggleClass("btn-default");
     });
