@@ -301,9 +301,10 @@
                     @endforeach
                 </div>
 
-                @if(isset($pinnedNews[$index]))
+                @php $pinnedSlot = intdiv($index, 2); @endphp
+                @if($index % 2 === 0 && isset($pinnedNews[$pinnedSlot]))
                     @php
-                        $pNews = $pinnedNews[$index];
+                        $pNews = $pinnedNews[$pinnedSlot];
                         $pinnedImg = $pNews->images->where('sizetype', 2)->first() ?? $pNews->images->first();
                         $imgPath = $pinnedImg ? asset($pinnedImg->path) : 'https://picsum.photos/seed/'.$pNews->id.'/600/300';
                         $pinnedContent = strip_tags($pNews->english->content ?? '');
@@ -340,7 +341,7 @@
             @endforeach
 
             @php
-                $renderedPinnedCount = $regularChunks->count();
+                $renderedPinnedCount = $regularChunks->isEmpty() ? 0 : intval(ceil($regularChunks->count() / 2));
             @endphp
             @for($i = $renderedPinnedCount; $i < $pinnedNews->count(); $i++)
                 @php
