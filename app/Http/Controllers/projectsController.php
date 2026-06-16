@@ -53,14 +53,14 @@ class projectsController extends Controller
         }
 
 // Cancelled projects only from allowed places
-        $allProjectsCanceled = Project::with('english', 'donor', 'place', 'type', 'subtype')
+        $allProjectsCanceled = Project::with('english', 'donor', 'place', 'type', 'subtype', 'images')
             ->whereIn('MPE_City', $user_places)
             ->where('MPE_Done', 2)
             ->orderBy('MicroProject_ID', 'asc')
             ->get();
 
 // Pending projects only from allowed places
-        $allProjectsPending = Project::with('english', 'donor', 'place', 'type', 'subtype')
+        $allProjectsPending = Project::with('english', 'donor', 'place', 'type', 'subtype', 'images')
             ->whereIn('MPE_City', $user_places)
             ->where('MPE_Published', 0)
             ->orderBy('MicroProject_ID', 'asc')
@@ -366,7 +366,8 @@ WHERE projects.`MPE_Published` = 0  GROUP BY projects.MicroProject_ID;
                 case '2':
                     $previous_status = 'Cancelled';
                     $current_status = 'Funded';
-                    $project->MPE_Published = '0';
+                    // Restore the project as published so it returns to its city tab.
+                    $project->MPE_Published = '1';
                     break;
             }
             $this->saveToLogWithData(self::MICRO, $id, 'Status Edited', $previous_status, $current_status);
@@ -377,18 +378,26 @@ WHERE projects.`MPE_Published` = 0  GROUP BY projects.MicroProject_ID;
         $engProject = ProjectEnglish::where('project_id', $id)->first();
         $previousData = ProjectEnglish::where('project_id', $id)->first();
 
-        $engProject->MPE_Name = $request->input('name');
-        if ($engProject->isDirty('MPE_Name')) {
-            $this->saveToLogWithData(self::MICRO, $id, 'Project Name Edited', $previousData->MPE_Name, $engProject->MPE_Name);
-        }
-        $engProject->MPE_Suffering = $request->input('suffering');
-        if ($engProject->isDirty('MPE_Suffering')) {
-            $this->saveToLogWithData(self::MICRO, $id, 'Story Edited', $previousData->MPE_Suffering, $engProject->MPE_Suffering);
+        // Only assign + log when the content genuinely changed. The Story field
+        // uses a rich-text editor (CKEditor) and Exp & Skill is a textarea, both of
+        // which re-serialise unchanged content (e.g. <p> wrapping, CRLF vs LF) and
+        // would otherwise trigger false "edited" log notifications on every save.
+        $newName = $request->input('name');
+        if ($this->microTextChanged($engProject->MPE_Name, $newName)) {
+            $this->saveToLogWithData(self::MICRO, $id, 'Project Name Edited', $engProject->MPE_Name, $newName);
+            $engProject->MPE_Name = $newName;
         }
 
-        $engProject->MPE_ExpSkill = $request->input('expSkill');
-        if ($engProject->isDirty('MPE_ExpSkill')) {
-            $this->saveToLogWithData(self::MICRO, $id, 'Exp & Skill Edited', $previousData->MPE_ExpSkill, $engProject->MPE_ExpSkill);
+        $newSuffering = $request->input('suffering');
+        if ($this->microTextChanged($engProject->MPE_Suffering, $newSuffering)) {
+            $this->saveToLogWithData(self::MICRO, $id, 'Story Edited', $engProject->MPE_Suffering, $newSuffering);
+            $engProject->MPE_Suffering = $newSuffering;
+        }
+
+        $newExpSkill = $request->input('expSkill');
+        if ($this->microTextChanged($engProject->MPE_ExpSkill, $newExpSkill)) {
+            $this->saveToLogWithData(self::MICRO, $id, 'Exp & Skill Edited', $engProject->MPE_ExpSkill, $newExpSkill);
+            $engProject->MPE_ExpSkill = $newExpSkill;
         }
 
         $engProject->timestamps = false;
@@ -400,8 +409,33 @@ WHERE projects.`MPE_Published` = 0  GROUP BY projects.MicroProject_ID;
 //        }
 //        else {
 //            return redirect('new/admin/home')->with('success', 'Project '.$request->input('MicroProject_ID').' has been updated');
-        return redirect('admin\home')->with('success', 'Project ' . $request->input('MicroProject_ID') . ' has been updated');
+        // Redirect back to the projects index, opening the tab that matches the
+        // project's resulting state (Canceled / Pending / its city) instead of admin home.
+        if ($project->MPE_Done == 2) {
+            $tab = 'Canceled';
+        } elseif ($project->MPE_Published == 0) {
+            $tab = 'Pending';
+        } else {
+            $tab = str_replace(' ', '', optional($project->place)->name);
+        }
+
+        return redirect()->route('projects_index', ['tab' => $tab])
+            ->with('success', 'Project ' . $request->input('MicroProject_ID') . ' has been updated');
 //        }
+    }
+
+    /**
+     * Compares two text values ignoring line-ending differences (CRLF vs LF)
+     * and surrounding whitespace, so rich-text/textarea re-serialisation of
+     * unchanged content does not register as an edit (avoids false log entries).
+     */
+    private function microTextChanged($old, $new): bool
+    {
+        $normalize = function ($value) {
+            return trim(str_replace(["\r\n", "\r"], "\n", (string) $value));
+        };
+
+        return $normalize($old) !== $normalize($new);
     }
 
     public function delete(Request $request)

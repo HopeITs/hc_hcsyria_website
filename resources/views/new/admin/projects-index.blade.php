@@ -222,7 +222,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($allProjectsCanceled as $city => $projects)
+                        @foreach($allProjectsCanceled as $project)
                             <tr>
                                 <td class="text-center ">{{ $project['id'] }}</td>
                                 <th scope="row" class="text-center">{{$project['MicroProject_ID']}}</th>
@@ -230,14 +230,14 @@
                                 <td class="text-center">{{$project['english']['MPE_Name']}}</td>
                                 <td class="text-center">{{$project['place']['name']}}</td>
                                 <td class="text-center">{{$project['MPE_BeneficiaryName']}}</td>
-                                <td class="text-center">{{$project['type']['name']}}</td>
+                                <td class="text-center">{{ $project['type']['name'] ?? '' }}</td>
 
                                 <td class="text-center">{{$project['MPE_FundedDate']}}</td>
                                 <td class="text-center">
                                     @if($project['MPE_Donor'] == '')
                                         N/A
                                     @else
-                                        {{$project->donor->code}}
+                                        {{ $project->donor->code ?? 'N/A' }}
                                     @endif
                                 </td>
 
@@ -339,14 +339,14 @@
                                 <td class="text-center">{{$project['english']['MPE_Name']}}</td>
                                 <td class="text-center">{{$project['place']['name']}}</td>
                                 <td class="text-center">{{$project['MPE_BeneficiaryName']}}</td>
-                                <td class="text-center">{{$project['type']['name']}}</td>
+                                <td class="text-center">{{ $project['type']['name'] ?? '' }}</td>
 
                                 <td class="text-center">{{$project['MPE_FundedDate']}}</td>
                                 <td class="text-center">
                                     @if($project['MPE_Donor'] == '')
                                         N/A
                                     @else
-                                        {{$project->donor->code}}
+                                        {{ $project->donor->code ?? 'N/A' }}
                                     @endif
                                 </td>
 
