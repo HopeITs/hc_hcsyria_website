@@ -82,6 +82,24 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
+    /**
+     * After a successful login, honor a `redirect` field (e.g. from the embedded
+     * login form on the locked micro page) so the user is sent back there.
+     * Only same-host URLs are allowed to prevent open-redirect abuse; returning
+     * null falls through to the default intended/redirectPath behavior.
+     */
+    protected function authenticated(\Illuminate\Http\Request $request, $user)
+    {
+        if ($request->filled('redirect')) {
+            $redirect = $request->input('redirect');
+            if (\Illuminate\Support\Str::startsWith($redirect, url('/'))) {
+                return redirect($redirect);
+            }
+        }
+
+        return null;
+    }
+
     public function showLoginForm(\Illuminate\Http\Request $request)
     {
         // If a redirect target was supplied (e.g. from the locked micro page),
@@ -95,6 +113,23 @@ class LoginController extends Controller
         }
 
         return view('new.auth.login');
+    }
+
+    public function logout(\Illuminate\Http\Request $request)
+    {
+        $redirect = null;
+        if ($request->filled('redirect')) {
+            $candidate = $request->input('redirect');
+            if (\Illuminate\Support\Str::startsWith($candidate, url('/'))) {
+                $redirect = $candidate;
+            }
+        }
+
+        $this->guard()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect($redirect ?: '/home');
     }
 
     /**

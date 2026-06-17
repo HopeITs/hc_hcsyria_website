@@ -15,7 +15,6 @@ Route::get('/projects/leap', 'PublicController@leap')->name('public.leap');
 Route::get('/projects/micro-projects', 'PublicController@micro_project_new_test')->name('new.public.micro_project_test');
 //Route::get('/projects/micro-projects-test', 'PublicController@micro_project_new_test')->name('new.public.micro_project_test');
 Route::get('/projects/family-to-family', 'PublicController@family_to_family')->name('new.public.family2family');
-Route::get('/projects/disc', 'PublicController@family_to_family')->name('new.public.disc');
 Route::get('/projects/study-zone', 'PublicController@study_zone')->name('new.public.study-zone');
 Route::get('/projects/{type}/{id}-{slug}', 'PublicController@initiative')->name('new.public.initiative');
 //Route::get('/projects/school-to-school/{type}/{id}-{slug}', 'PublicController@initiativeOfProject')->name('new.public.school2school.project');

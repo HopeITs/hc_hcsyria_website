@@ -179,111 +179,108 @@
                     </form>
                 </li>
             </ul>
-            @auth
-            <div class="dropdown auth-indicator ms-lg-3 mt-2 mt-lg-0">
-                <button class="auth-chip" type="button" id="authChipToggle" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Account menu">
-                    <span class="auth-avatar">{{ strtoupper(mb_substr(Auth::user()->name, 0, 1)) }}</span>
-                    <span class="auth-chip-text">
-                        <span class="auth-chip-name">{{ Auth::user()->name }}</span>
-                        <span class="auth-chip-status"><span class="auth-dot"></span> Logged in</span>
-                    </span>
-                    <i class="fa fa-angle-down auth-caret"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end auth-dropdown" aria-labelledby="authChipToggle">
-                    <li class="auth-dropdown-header">
-                        <span class="auth-avatar auth-avatar-lg">{{ strtoupper(mb_substr(Auth::user()->name, 0, 1)) }}</span>
-                        <span class="auth-dropdown-userinfo">
-                            <span class="auth-dropdown-name">{{ Auth::user()->name }}</span>
-                            <span class="auth-dropdown-sub"><i class="fa fa-check-circle"></i> Authorized to view</span>
-                        </span>
-                    </li>
-                    <li><hr class="dropdown-divider my-2"></li>
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}" class="auth-signout-form">
-                            @csrf
-                            @if(Route::currentRouteName() === 'new.public.micro_project_test')
-                                <input type="hidden" name="redirect" value="{{ route('new.public.micro_project_test') }}">
-                            @endif
-                            <button type="submit" class="auth-signout-btn">
-                                <i class="fa fa-sign-out me-2"></i> Sign out
-                            </button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-            <style>
-                .auth-indicator { position: relative; }
-                .auth-chip {
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 0.55rem;
-                    background: #ffffff;
-                    border: 1px solid #ececec;
-                    border-radius: 13px;
-                    padding: 0.3rem 0.7rem 0.3rem 0.32rem;
-                    cursor: pointer;
-                    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-                    transition: border-color 0.18s ease, box-shadow 0.18s ease;
-                }
-                .auth-chip:hover { border-color: #eccccc; box-shadow: 0 4px 12px -4px rgba(188,24,24,0.2); }
-                .auth-chip:focus { outline: none; }
-                .auth-avatar {
-                    flex-shrink: 0;
-                    width: 34px;
-                    height: 34px;
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 10px;
-                    background: linear-gradient(145deg, #d62828 0%, #bc1818 100%);
-                    color: #fff;
-                    font-weight: 700;
-                    font-size: 0.86rem;
-                    line-height: 1;
-                    box-shadow: 0 5px 12px -5px rgba(188,24,24,0.55);
-                }
-                .auth-chip-text { display: flex; flex-direction: column; line-height: 1.2; text-align: left; }
-                .auth-chip-name { font-weight: 600; font-size: 0.83rem; color: #1f1f1f; max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-                .auth-chip-status { display: inline-flex; align-items: center; gap: 0.32rem; font-size: 0.67rem; color: #808285; font-weight: 500; }
-                .auth-dot { width: 6px; height: 6px; border-radius: 50%; background: #bc1818; }
-                .auth-caret { color: #b8b8b8; font-size: 0.85rem; transition: transform 0.18s ease; }
-                .auth-chip[aria-expanded="true"] .auth-caret { transform: rotate(180deg); }
-                .auth-dropdown {
-                    border: 1px solid #ededed;
-                    border-radius: 14px;
-                    box-shadow: 0 14px 38px -10px rgba(0,0,0,0.18);
-                    padding: 0.55rem;
-                    min-width: 250px;
-                    margin-top: 0.5rem;
-                }
-                .auth-dropdown-header { display: flex; align-items: center; gap: 0.7rem; padding: 0.5rem 0.55rem 0.35rem; }
-                .auth-avatar-lg { width: 44px; height: 44px; font-size: 1.08rem; border-radius: 12px; }
-                .auth-dropdown-userinfo { display: flex; flex-direction: column; line-height: 1.3; }
-                .auth-dropdown-name { font-weight: 600; font-size: 0.93rem; color: #1f1f1f; }
-                .auth-dropdown-sub { display: inline-flex; align-items: center; gap: 0.32rem; font-size: 0.73rem; color: #808285; font-weight: 500; }
-                .auth-dropdown-sub i { color: #bc1818; font-size: 0.74rem; }
-                .auth-signout-form { margin: 0; }
-                .auth-signout-btn {
-                    width: 100%;
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
-                    background: #fbeded;
-                    color: #bc1818;
-                    border: none;
-                    border-radius: 10px;
-                    padding: 0.6rem 1rem;
-                    font-weight: 600;
-                    font-size: 0.88rem;
-                    transition: background 0.18s ease, color 0.18s ease;
-                }
-                .auth-signout-btn:hover { background: #bc1818; color: #ffffff; }
-                .auth-signout-btn i { font-size: 0.82rem; }
-            </style>
-            @endauth
         </div>
     </div>
 </nav>
+
+@auth
+<div class="fab-account" id="fabAccount">
+    <div class="fab-account-panel">
+        <div class="fab-account-head">
+            <span class="fab-account-av">{{ strtoupper(mb_substr(Auth::user()->name, 0, 1)) }}</span>
+            <div>
+                <div class="fab-account-name">{{ Auth::user()->name }}</div>
+                <span class="fab-account-status">Logged in</span>
+            </div>
+        </div>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <input type="hidden" name="redirect" value="{{ url()->current() }}">
+            <button type="submit" class="fab-account-signout"><i class="fa fa-sign-out"></i> Sign out</button>
+        </form>
+    </div>
+    <button type="button" class="fab-account-toggle" id="fabAccountToggle" aria-label="Account menu" aria-expanded="false">
+        <span class="fab-account-toggle-letter">{{ strtoupper(mb_substr(Auth::user()->name, 0, 1)) }}</span>
+        <span class="fab-account-online"></span>
+    </button>
+</div>
+<style>
+    .fab-account { position: fixed; right: 22px; bottom: 22px; z-index: 1050; }
+    .fab-account-toggle {
+        position: relative;
+        width: 44px; height: 44px;
+        border: 2px solid #bc1818; border-radius: 50%; cursor: pointer;
+        background: #ffffff;
+        color: #bc1818; font-weight: 800; font-size: 1.35rem;
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: none;
+        transition: transform 0.16s ease;
+    }
+    .fab-account-toggle:hover,
+    .fab-account-toggle:focus {
+        background: #ffffff;
+        color: #bc1818;
+        box-shadow: none;
+        outline: none;
+    }
+    .fab-account-toggle:hover { transform: scale(1.05); }
+    .fab-account-online {
+        display: none;
+    }
+    .fab-account-panel {
+        position: absolute; right: 0; bottom: 66px;
+        width: 250px; background: #ffffff;
+        border: 1px solid #ededed; border-radius: 16px;
+        box-shadow: 0 22px 50px -16px rgba(0, 0, 0, 0.28);
+        padding: 1rem;
+        opacity: 0; visibility: hidden;
+        transform: translateY(12px) scale(0.97); transform-origin: bottom right;
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    }
+    .fab-account.open .fab-account-panel { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+    .fab-account-head { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.85rem; }
+    .fab-account-av {
+        width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+        background: #ffffff;
+        border: 2px solid #bc1818;
+        color: #bc1818; font-weight: 800; font-size: 1.35rem;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .fab-account-name { font-weight: 700; color: #1f1f1f; font-size: 0.95rem; line-height: 1.25; max-width: 165px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .fab-account-status { font-size: 0.76rem; color: #808285; font-weight: 600; display: inline-flex; align-items: center; gap: 0.32rem; }
+    .fab-account-status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #808285; display: inline-block; }
+    .fab-account-signout {
+        width: 100%; border: none; border-radius: 11px;
+        background: #bc1818; color: #ffffff; font-weight: 600; font-size: 0.88rem;
+        padding: 0.62rem; cursor: pointer;
+        display: flex; align-items: center; justify-content: center; gap: 0.45rem;
+        transition: background 0.18s ease, color 0.18s ease;
+    }
+    .fab-account-signout:hover { background: #a71414; color: #ffffff; }
+    @media (max-width: 575.98px) {
+        .fab-account { right: 16px; bottom: 16px; }
+        .fab-account-toggle { width: 42px; height: 42px; font-size: 1.3rem; }
+    }
+</style>
+<script>
+    (function () {
+        var fab = document.getElementById('fabAccount');
+        var toggle = document.getElementById('fabAccountToggle');
+        if (!fab || !toggle) return;
+        toggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            var open = fab.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        document.addEventListener('click', function (e) {
+            if (!fab.contains(e.target)) { fab.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') { fab.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
+        });
+    })();
+</script>
+@endauth
 
 <link href="{{asset('css/main-new.css')}}" rel="stylesheet">
 <link href="{{asset('css/navbar.css')}}" rel="stylesheet">

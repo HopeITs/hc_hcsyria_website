@@ -548,7 +548,7 @@ ORDER BY age.ID;');
                                     and (LOWER(title) like \'%' . $searchStr . '%\'
                                     or LOWER(content) like \'%' . $searchStr . '%\'
                                     or LOWER(description) like \'%' . $searchStr . '%\' )
-                                    order by initiatives_english.initiative_id');
+                                    order by ' . $langTable . '.initiative_id');
     }
 
     public function get_leapactivities_IDs($searchStr, $langTable)
@@ -561,7 +561,7 @@ ORDER BY age.ID;');
                                     and (LOWER(title) like \'%' . $searchStr . '%\'
                                     or LOWER(content) like \'%' . $searchStr . '%\'
                                     or LOWER(description) like \'%' . $searchStr . '%\' )
-                                    order by initiatives_english.initiative_id');
+                                    order by ' . $langTable . '.initiative_id');
     }
 
     public function get_szactivities_IDs($searchStr, $langTable)
@@ -574,7 +574,7 @@ ORDER BY age.ID;');
                                     and (LOWER(title) like \'%' . $searchStr . '%\'
                                     or LOWER(content) like \'%' . $searchStr . '%\'
                                     or LOWER(description) like \'%' . $searchStr . '%\' )
-                                    order by initiatives_english.initiative_id');
+                                    order by ' . $langTable . '.initiative_id');
     }
 
     public function get_discactivities_IDs($searchStr, $langTable)
@@ -587,7 +587,7 @@ ORDER BY age.ID;');
                                     and (LOWER(title) like \'%' . $searchStr . '%\'
                                     or LOWER(content) like \'%' . $searchStr . '%\'
                                     or LOWER(description) like \'%' . $searchStr . '%\' )
-                                    order by initiatives_english.initiative_id');
+                                    order by ' . $langTable . '.initiative_id');
     }
 
     public function search_list_projects($langTable)
@@ -1386,7 +1386,7 @@ ORDER BY age.ID;');
         $agent = new Agent();
         $carouselImages = Cover::where('what_category_id',8)->orderBy('image_order', 'asc')->select('image_path')->get();
         $familyMap = DB::select('select * from familypartners');
-        $partners = Initiative::with('english', 'french', 'ImagesRandom')->join('initiatives_english', 'initiatives.id', 'initiative_id')->where('sub_what_category_id', 1)->where('online', '1')->orderBy('rank')->get();
+        $partners = Initiative::with('english', 'french', 'ImagesRandom')->where('sub_what_category_id', 1)->where('online', '1')->orderBy('rank')->get();
 
         return view('new.public.family-to-family', ['partners_previous'=>$partners_previous,'partners_ongoing'=>$partners_ongoing,'carouselImages'=>$carouselImages,'edition' => $edition, 'partners' => $partners, 'brief' => $brief, 'familyMap' => $familyMap, 'agent' => $agent]);
     }

@@ -438,188 +438,275 @@
 
         </div>
     </div>
-    <div class="horizontal-line"></div>
     @can('view-micro-projects')
+    <div class="horizontal-line"></div>
     <div id="projects-section" class="small-margin pt-5 section-space">
         <livewire:micro-projects/>
     </div>
+    <div class="horizontal-line"></div>
+    @include('new.public.components.project-partners-section', ['donors_ongoing' => $partners_ongoing,'donors_previous' => $partners_previous])
     @else
+    <div class="micro-locked-section">
+    <div class="horizontal-line micro-sep"></div>
     <style>
-        .login-gate-wrap {
-            display: flex;
-            justify-content: center;
-            background:
-                radial-gradient(120% 80% at 50% 0%, rgba(188,24,24,0.05) 0%, rgba(188,24,24,0) 60%),
-                #F8F8F8;
-            border-radius: 26px;
+        /* Locked projects gate: projects image with text + embedded login form overlaid */
+        .micro-locked-section {
+            margin-top: clamp(1.5rem, 3vw, 3.5rem);
         }
-        .login-gate-card {
+        .locked-gate {
             position: relative;
-            overflow: hidden;
+            width: 100%;
+            max-width: 1392px;
+            margin: clamp(1rem, 2vw, 2.25rem) auto;
+        }
+        /* Clean in-flow vertical separator (overrides the absolute global .horizontal-line) */
+        .micro-sep {
+            position: static !important;
+            width: 0 !important;
+            left: auto !important;
+            height: clamp(58px, 7vw, 118px) !important;
+            margin: 0 auto !important;
+            z-index: auto !important;
+            border-left: clamp(4px, 0.35vw, 6px) solid #BC1818 !important;
+        }
+        .micro-partners > .section-space { margin-top: clamp(1rem, 2vw, 2.5rem) !important; }
+        .locked-gate-img {
+            display: block;
+            width: 100%;
+            height: auto;
+            opacity: 0.4 !important;
+        }
+        .locked-gate-content {
+            position: absolute;
+            inset: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             text-align: center;
-            width: 100%;
-            max-width: 580px;
-            margin: 0 auto;
-            padding: 3.6rem 2.5rem 3.1rem;
-            background: #ffffff;
-            border: 1px solid #ededed;
-            border-radius: 24px;
-            text-decoration: none;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02), 0 24px 48px -28px rgba(188,24,24,0.22);
-            transition: transform 0.3s cubic-bezier(.2,.7,.3,1), box-shadow 0.3s ease;
+            padding: 2vw 1rem;
         }
-        .login-gate-card::before {
-            content: "";
-            position: absolute;
-            inset: 0 0 auto 0;
-            height: 4px;
-            background: linear-gradient(90deg, #bc1818 0%, #e23b3b 100%);
-        }
-        .login-gate-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02), 0 34px 60px -30px rgba(188,24,24,0.32);
-        }
-        .login-gate-eyebrow {
-            font-size: 0.7rem;
+        .locked-gate-red {
+            color: #c8102e;
             font-weight: 700;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            color: #bc1818;
-            margin-bottom: 1.4rem;
+            font-size: clamp(1.05rem, 1.55vw, 1.65rem);
+            line-height: 1.35;
+            max-width: none;
+            margin: 0 auto 1.25rem;
         }
-        .login-gate-icon {
-            position: relative;
-            width: 76px;
-            height: 76px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 22px;
-            background: linear-gradient(145deg, #d62828 0%, #bc1818 100%);
-            color: #ffffff;
-            font-size: 1.7rem;
-            margin-bottom: 1.7rem;
-            box-shadow: 0 14px 28px -10px rgba(188,24,24,0.55);
+        .locked-gate-red span {
+            display: block;
+            white-space: nowrap;
         }
-        .login-gate-icon::after {
-            content: "";
-            position: absolute;
-            inset: -7px;
-            border-radius: 27px;
-            border: 1px solid rgba(188,24,24,0.18);
-        }
-        .login-gate-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #1f1f1f;
-            letter-spacing: -0.5px;
-            margin-bottom: 0.7rem;
-        }
-        .login-gate-subtitle {
-            font-size: 0.99rem;
-            color: #808285;
-            max-width: 420px;
-            line-height: 1.65;
-            margin-bottom: 1.7rem;
-        }
-        .login-gate-features {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 0.85rem;
-            margin-bottom: 2.1rem;
-        }
-        .login-gate-feature {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.84rem;
+        .locked-gate-black {
+            color: #3a3a3a;
             font-weight: 500;
-            color: #666666;
+            font-size: clamp(0.92rem, 1.15vw, 1.2rem);
+            line-height: 1.4;
+            white-space: nowrap;
+            margin: 0 auto 1.6rem;
         }
-        .login-gate-feature i { color: #bc1818; font-size: 0.92rem; }
-        .login-gate-dot { width: 4px; height: 4px; border-radius: 50%; background: #d9d9d9; }
-        .login-gate-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.55rem;
-            background: #bc1818;
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 0.96rem;
-            padding: 0.82rem 2.05rem;
-            border-radius: 13px;
-            box-shadow: 0 12px 24px -10px rgba(188,24,24,0.6);
-            transition: background 0.2s ease, box-shadow 0.2s ease;
+        /* Embedded login card */
+        .gate-login {
+            width: 100%;
+            max-width: 420px;
+            background: #ffffff;
+            border-radius: 26px;
+            padding: 2rem 2.2rem 1.5rem;
+            box-shadow: 0 25px 55px -22px rgba(0, 0, 0, 0.4);
+            text-align: left;
         }
-        .login-gate-card:hover .login-gate-btn {
-            background: #a31414;
-            box-shadow: 0 16px 30px -10px rgba(188,24,24,0.65);
+        .gate-login-title {
+            text-align: center;
+            font-weight: 800;
+            color: #555555;
+            font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+            margin: 0 0 1.3rem;
         }
-        .login-gate-btn i { font-size: 0.82rem; transition: transform 0.25s ease; }
-        .login-gate-card:hover .login-gate-btn i { transform: translateX(4px); }
-        .login-gate-card.is-static { cursor: default; }
-        .login-gate-card.is-static:hover { transform: none; box-shadow: 0 2px 4px rgba(0,0,0,0.02), 0 24px 48px -28px rgba(188,24,24,0.22); }
-        .login-gate-note {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
+        .gate-login-error {
+            background: #fbeaea;
+            color: #c8102e;
+            border-radius: 10px;
+            padding: 0.5rem 0.8rem;
             font-size: 0.82rem;
             font-weight: 500;
-            color: #808285;
-            background: #F1F1F1;
-            padding: 0.6rem 1.15rem;
-            border-radius: 11px;
+            margin-bottom: 0.85rem;
+            text-align: center;
         }
-        .login-gate-note i { color: #bc1818; font-size: 0.85rem; }
-        @media (max-width: 575.98px) {
-            .login-gate-card { padding: 2.9rem 1.5rem 2.6rem; border-radius: 20px; }
-            .login-gate-title { font-size: 1.3rem; }
-            .login-gate-subtitle { font-size: 0.9rem; }
+        .gate-login-input {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #dcdcdc;
+            border-radius: 999px;
+            padding: 0.56rem 1.2rem;
+            margin-bottom: 0.72rem;
+            font-size: 0.95rem;
+            color: #444444;
+            background: #ffffff;
+            outline: none;
+            transition: border-color 0.18s ease;
+        }
+        .gate-login-input::placeholder { color: #b9b9b9; }
+        .gate-login-input:focus {
+            border-color: #cfcfcf;
+            background: #f4f4f4;
+            box-shadow: none;
+        }
+        .gate-login-input:-webkit-autofill,
+        .gate-login-input:-webkit-autofill:hover,
+        .gate-login-input:-webkit-autofill:focus,
+        .gate-login-input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 1000px #f4f4f4 inset !important;
+            box-shadow: 0 0 0 1000px #f4f4f4 inset !important;
+            -webkit-text-fill-color: #111111 !important;
+            border-color: #cfcfcf !important;
+            transition: background-color 9999s ease-out 0s;
+        }
+        .gate-login-btn {
+            width: 100%;
+            box-sizing: border-box;
+            border: none;
+            background: #c8102e;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 999px;
+            padding: 0.56rem 1.2rem;
+            margin-top: 0.25rem;
+            cursor: pointer;
+            transition: background 0.18s ease;
+        }
+        .gate-login-btn:hover { background: #a50d25; }
+        .gate-login-remember {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            margin: 0.95rem 0 0;
+            color: #8a8a8a;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .gate-login-remember input { position: absolute; opacity: 0; pointer-events: none; }
+        .gate-login-check {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #c8102e;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.66rem;
+            flex-shrink: 0;
+            transition: background 0.18s ease;
+        }
+        .gate-login-remember input:not(:checked) ~ .gate-login-check { background: #cccccc; }
+        .gate-denied-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 2.2rem;
+            padding-bottom: 2.2rem;
+        }
+        .gate-denied-lock {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: #c8102e;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.25rem;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 16px 32px -16px rgba(200, 16, 46, 0.75);
+        }
+        .gate-denied-message {
+            color: #444444;
+            font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+            font-weight: 500;
+            line-height: 1.5;
+            margin: 0;
+            max-width: none;
+        }
+        .gate-denied-message span {
+            display: block;
+            white-space: nowrap;
+        }
+        @media (max-width: 767.98px) {
+            .micro-locked-section {
+                margin-top: 1.75rem;
+            }
+            .micro-sep {
+                height: 56px !important;
+            }
+            .locked-gate {
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+            }
+            .locked-gate { overflow: hidden; border-radius: 14px; }
+            .locked-gate-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+            .locked-gate-content { position: relative; padding: 1.6rem 1rem; }
+            .locked-gate-red span { white-space: normal; }
+            .locked-gate-black { white-space: normal; }
+            .gate-login { max-width: 100%; padding: 1.4rem 1.3rem 1.1rem; border-radius: 18px; }
+            .gate-denied-card { padding: 1.6rem 1.3rem; }
+            .gate-denied-lock { width: 58px; height: 58px; font-size: 1.8rem; }
+            .gate-denied-message span { white-space: normal; }
         }
     </style>
-    <div class="login-gate-wrap section-space small-margin mx-3 mx-md-auto py-5">
-        @guest
-        <a href="{{ route('login', ['redirect' => route('new.public.micro_project_test')]) }}" class="login-gate-card" aria-label="Login to see project details and map">
-            <span class="login-gate-eyebrow">Members Area</span>
-            <div class="login-gate-icon">
-                <i class="fa fa-lock"></i>
-            </div>
-            <div class="login-gate-title">Projects &amp; Map Locations</div>
-            <div class="login-gate-subtitle">Sign in to explore every micro project and see exactly where they come to life across Syria.</div>
-            <div class="login-gate-features">
-                <span class="login-gate-feature"><i class="fa fa-th-large"></i> Full projects list</span>
-                <span class="login-gate-dot"></span>
-                <span class="login-gate-feature"><i class="fa fa-map-marker"></i> Interactive map</span>
-            </div>
-            <span class="login-gate-btn">
-                Log in to continue <i class="fa fa-arrow-right"></i>
-            </span>
-        </a>
-        @else
-        <div class="login-gate-card is-static" aria-label="You do not have access to this section">
-            <span class="login-gate-eyebrow">Restricted Area</span>
-            <div class="login-gate-icon">
-                <i class="fa fa-lock"></i>
-            </div>
-            <div class="login-gate-title">Projects &amp; Map Locations</div>
-            <div class="login-gate-subtitle">Your account doesn&rsquo;t have access to this section. Please contact an administrator to request the <strong>Micro Public Page</strong> access.</div>
-            <div class="login-gate-features">
-                <span class="login-gate-feature"><i class="fa fa-th-large"></i> Full projects list</span>
-                <span class="login-gate-dot"></span>
-                <span class="login-gate-feature"><i class="fa fa-map-marker"></i> Interactive map</span>
-            </div>
-            <span class="login-gate-note"><i class="fa fa-info-circle"></i> Access is granted by an administrator</span>
+    <div class="locked-gate mx-3 mx-md-auto">
+        <img src="/images/micro/locked-projects-bg.png" alt="" class="locked-gate-img">
+        <div class="locked-gate-content">
+            @guest
+                <p class="locked-gate-red">
+                    <span>This section contains private information</span>
+                    <span>and is available to authorized members only.</span>
+                </p>
+                <p class="locked-gate-black">Please sign in with your email Address or username and password to continue.</p>
+                <form class="gate-login" method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <input type="hidden" name="redirect" value="{{ route('new.public.micro_project_test') }}">
+                    <h2 class="gate-login-title">Log in</h2>
+                    @if($errors->any())
+                        <div class="gate-login-error">{{ $errors->first() }}</div>
+                    @endif
+                    <input type="email" name="email" class="gate-login-input" placeholder="Email Address" value="{{ old('email') }}" required>
+                    <input type="password" name="password" class="gate-login-input" placeholder="Password" required>
+                    <button type="submit" class="gate-login-btn">Log in</button>
+                    <label class="gate-login-remember">
+                        <input type="checkbox" name="remember" checked>
+                        <span class="gate-login-check"><i class="fa fa-check"></i></span>
+                        Remember Me
+                    </label>
+                </form>
+            @else
+                <p class="locked-gate-red">
+                    <span>This section contains private information</span>
+                    <span>and is available to authorized members only.</span>
+                </p>
+                <div class="gate-login gate-denied-card">
+                    <div class="gate-denied-lock">
+                        <i class="fa fa-lock"></i>
+                    </div>
+                    <p class="gate-denied-message">
+                        <span>Your account is not authorized to view this section.</span>
+                        <span>Please contact an administrator to request access.</span>
+                    </p>
+                </div>
+            @endguest
         </div>
-        @endguest
+    </div>
+    <div class="horizontal-line micro-sep"></div>
+    <div class="micro-partners">
+        @include('new.public.components.project-partners-section', ['donors_ongoing' => $partners_ongoing,'donors_previous' => $partners_previous])
+    </div>
     </div>
     @endcan
-    <div class="horizontal-line"></div>
-    @include('new.public.components.project-partners-section', ['donors_ongoing' => $partners_ongoing,'donors_previous' => $partners_previous])
 
     <div class="horizontal-line last"></div>
 </div>
