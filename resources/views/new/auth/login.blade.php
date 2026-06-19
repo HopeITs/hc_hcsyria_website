@@ -3,185 +3,526 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/css/font-awesome.min.css" rel="stylesheet">
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Login</title>
+    <title>Login | Hope Center</title>
 
-    <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <!-- Styles -->
-    <link href="{{ asset('app.scss') }}" rel="stylesheet">
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
-
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
 
     <style>
-        .btn-primary {
-            text-transform: uppercase;
-            border: 1px solid #CF142B;
+        :root {
+            --hope-red: #be1f24;
+            --ink: #151922;
+            --muted: #6d7480;
+            --line: #e7e9ee;
+            --surface: rgba(255, 255, 255, .92);
+            --shadow: 0 28px 80px rgba(24, 29, 39, .16);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            color: var(--ink);
+            font-family: "Somar Sans", "Inter", "Segoe UI", Arial, sans-serif;
+            background:
+                radial-gradient(circle at 15% 18%, rgba(207, 20, 43, .13), transparent 31rem),
+                radial-gradient(circle at 90% 8%, rgba(21, 25, 34, .10), transparent 27rem),
+                linear-gradient(135deg, #fff 0%, #f6f7f9 48%, #edf0f4 100%);
+        }
+
+        .login-page {
+            position: relative;
+            display: grid;
+            min-height: 100vh;
+            padding: 42px;
+            place-items: center;
+            overflow: hidden;
+        }
+
+        .login-page::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(90deg, rgba(255, 255, 255, .94), rgba(255, 255, 255, .72) 48%, rgba(255, 255, 255, .88)),
+                url("/images/mission/background.jpg");
+            background-position: center;
+            background-size: cover;
+            opacity: .9;
+        }
+
+        .login-shell {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            width: min(1120px, 100%);
+            min-height: 650px;
+            grid-template-columns: minmax(0, 1fr) minmax(420px, .72fr);
+            --top-row: 190px;
+            --bottom-row: 110px;
+            align-items: stretch;
+            border: 1px solid rgba(255, 255, 255, .75);
+            border-radius: 28px;
+            background: rgba(255, 255, 255, .62);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            backdrop-filter: blur(24px);
+        }
+
+        .brand-panel {
+            position: relative;
+            display: grid;
+            grid-template-rows: var(--top-row) 1fr var(--bottom-row);
+            align-items: stretch;
+            padding: 52px;
+            background: var(--hope-red);
             color: #fff;
-            background-color: #CF142B;
-            border-radius: 0.25rem;
+            overflow: hidden;
         }
-        .btn-primary:hover,
-        .btn-primary:focus,
-        .btn-primary:active {
-            background-color: #fff!important;
-            color: #CF142B!important;
-            border-color: #CF142B!important;
-            -webkit-box-shadow: none!important;
-            box-shadow: none!important;
-        }
-        .form-control:focus {
-            border-color: #CF142B;
-            -webkit-box-shadow: none;
-            box-shadow: none;
-        }
-        .card,
-        .card-header,
-        .form-control {
-            border-radius: 0;
-        }
-        .logo {
-            margin: 25px 0;
-            width: 50%
-        }
-        .form-group{
-            /*padding-right: 40px;*/
-        }
-        @media screen and (max-width: 768px) {
-            .logo {
-                width: 70%;
-            }
-            .form-group{
-                /*padding-right: unset;*/
-            }
 
+        .brand-panel::after {
+            display: none;
         }
-        input {
-            /*display: block;*/
-            /*width: 90%;*/
-            /*margin: 0 auto;*/
-            /*border: none;*/
+
+        .brand-mark {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            width: 185px;
+            height: auto;
+            align-items: center;
+            justify-content: flex-start;
+            align-self: center;
         }
-        input::placeholder{
-             -webkit-transform:translateY(0px);
-             transform:translateY(0px);
-             -webkit-transition:.5s;
-         }
-        input:hover,
-        input:focus,
-        input:active:focus {
-            color: #CF142B;
+
+        .brand-mark img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .brand-copy {
+            position: relative;
+            z-index: 1;
+            max-width: 500px;
+            align-self: center;
+        }
+
+        .brand-copy h1 {
+            margin: 0;
+            font-size: 50px;
+            line-height: 1.15;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .brand-footer {
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            font-size: 12px;
+            color: rgba(255, 255, 255, .78);
+            align-self: start;
+            padding-top: 32px;
+        }
+
+        .auth-panel {
+            display: grid;
+            padding: 52px;
+            background: var(--surface);
+        }
+
+        .auth-card {
+            display: grid;
+            grid-template-rows: var(--top-row) 1fr var(--bottom-row);
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        .auth-top,
+        .auth-fields,
+        .auth-actions {
+            width: min(100%, 390px);
+            justify-self: center;
+        }
+
+        .auth-top {
+            align-self: center;
+        }
+
+        .auth-fields {
+            align-self: center;
+        }
+
+        .auth-actions {
+            align-self: start;
+            padding-top: 14px;
+        }
+
+        .mobile-logo {
+            display: none;
+            width: 150px;
+            margin: 0 auto 28px;
+        }
+
+        .auth-title {
+            margin: 0;
+            color: var(--ink);
+            font-size: 34px;
+            line-height: 1.15;
+            font-weight: 800;
+        }
+
+        .auth-subtitle {
+            margin: 12px 0 0;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.65;
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        .field-label {
+            display: block;
+            margin-bottom: 9px;
+            color: #343946;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            color: #9ca3af;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .auth-input {
+            width: 100%;
+            min-height: 56px;
+            padding: 0 18px 0 48px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: #fff;
+            color: var(--ink);
+            font-size: 15px;
             outline: none;
-            border-bottom: 1px solid #CF142B;
+            transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
         }
-        input:hover::placeholder,input:focus::placeholder,input:active:focus::placeholder{
-             color:#CF142B;
-             position:relative;
-             -webkit-transform:translateY(-20px);
-             transform:translateY(-20px);
 
-         }
+        .auth-input:hover {
+            border-color: #d2d6de;
+        }
 
-        .email,
-        .pwd{
-            height: 32px;
-            /*border: none;*/
-            position:relative;
-            z-index:1;
-            border-bottom:1px solid rgba(0,0,0,.1);
-            color:#858585;
-            font-weight:lighter;
-            -webkit-transition:.5s;
-            transition:.5s;
+        .auth-input:focus {
+            border-color: var(--hope-red);
+            box-shadow: 0 0 0 4px rgba(207, 20, 43, .11);
+            transform: translateY(-1px);
+        }
+
+        .auth-input.is-invalid {
+            border-color: var(--hope-red);
+        }
+
+        .password-input {
+            padding-right: 54px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 11px;
+            top: 50%;
+            display: inline-flex;
+            width: 38px;
+            height: 38px;
+            align-items: center;
+            justify-content: center;
+            border: 0;
+            border-radius: 12px;
+            background: transparent;
+            color: #5e6470;
+            transform: translateY(-50%);
+            cursor: pointer;
+            transition: background-color .2s ease, color .2s ease;
+        }
+
+        .password-toggle:hover,
+        .password-toggle:focus {
+            background: #f2f3f6;
+            color: var(--hope-red);
+            outline: none;
+        }
+
+        .invalid-feedback {
+            display: block;
+            margin-top: 8px;
+            color: var(--hope-red);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .form-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin: 6px 0 28px;
+        }
+
+        .remember {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
+            color: #414754;
+            font-size: 14px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .remember input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .remember-box {
+            display: inline-flex;
+            width: 22px;
+            height: 22px;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ccd1da;
+            border-radius: 7px;
+            background: #fff;
+            color: #fff;
+            transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+        }
+
+        .remember input:checked + .remember-box {
+            border-color: var(--hope-red);
+            background: var(--hope-red);
+            box-shadow: 0 8px 22px rgba(207, 20, 43, .22);
+        }
+
+        .remember input:focus + .remember-box {
+            box-shadow: 0 0 0 4px rgba(207, 20, 43, .11);
+        }
+
+        .login-button {
+            display: inline-flex;
+            width: 100%;
+            min-height: 52px;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 0;
+            border-radius: 12px;
+            background: var(--hope-red);
+            color: #fff;
+            box-shadow: none;
+            font-size: 15px;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color .2s ease, transform .2s ease;
+        }
+
+        .login-button:hover,
+        .login-button:focus {
+            color: #fff;
+            background: #a7191d;
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        .auth-footer {
+            margin-top: 26px;
+            color: #8a909b;
+            font-size: 12px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        @media (max-width: 991px) {
+            .login-page {
+                padding: 24px;
+            }
+
+            .login-shell {
+                min-height: auto;
+                grid-template-columns: 1fr;
+            }
+
+            .brand-panel {
+                min-height: 520px;
+                grid-template-rows: 140px 1fr 90px;
+            }
+
+            .auth-panel {
+                padding: 0 32px;
+            }
+
+            .auth-card {
+                min-height: 520px;
+                grid-template-rows: 140px 1fr 90px;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .login-page {
+                padding: 14px;
+                place-items: stretch;
+            }
+
+            .login-shell {
+                border-radius: 22px;
+            }
+
+            .auth-panel {
+                padding: 0 22px;
+            }
+
+            .brand-panel {
+                min-height: 460px;
+                padding: 34px 28px;
+                grid-template-rows: 120px 1fr 86px;
+            }
+
+            .brand-mark {
+                width: 150px;
+            }
+
+            .brand-copy h1 {
+                font-size: 38px;
+            }
+
+            .auth-card {
+                min-height: 500px;
+                grid-template-rows: 130px 1fr 86px;
+            }
+
+            .auth-title {
+                font-size: 28px;
+            }
+
+            .auth-subtitle {
+                margin-bottom: 28px;
+            }
+
+            .form-options {
+                align-items: flex-start;
+                flex-direction: column;
+            }
         }
     </style>
 </head>
-
-<div class="container" style="margin-top: 5rem;">
-    <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-11 col-11">
-            <div class="card">
-                <div class="card-header">
-                    <div class="text-center">
-                        <img src="/images/logos/hc.svg" class="logo">
-                    </div>
+<body>
+    <main class="login-page">
+        <section class="login-shell" aria-label="Hope Center login">
+            <aside class="brand-panel">
+                <div class="brand-mark">
+                    <img src="/images/logos/001_HC_W.svg" alt="Hope Center">
                 </div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+                <div class="brand-copy">
+                    <h1>Hcsyria dashboard login</h1>
+                </div>
 
-                        <div class="form-group row mb-4 d-flex justify-content-center">
-                            {{--<label for="email" class="col-md-4 col-form-label text-md-end">{{ __('E-Mail Address') }}</label>--}}
+                <div class="brand-footer">Copyright © Christian Hope Center 2026</div>
+            </aside>
 
-                            <div class="col-lg-6 col-md-7 col-12">
-                                <input id="email" type="email" class="email form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="Email" name="email" value="{{ old('email') }}" required>
+            <section class="auth-panel">
+                <form class="auth-card" method="POST" action="{{ route('login') }}">
+                    @csrf
 
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+                    <div class="auth-top">
+                        <h2 class="auth-title">Sign in to continue</h2>
+                    </div>
+
+                    <div class="auth-fields">
+                        <div class="field">
+                            <label for="email" class="field-label">{{ __('Email') }}</label>
+                            <div class="input-wrap">
+                                <i class="fa fa-envelope input-icon" aria-hidden="true"></i>
+                                <input id="email" type="email" class="auth-input{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="name@hcsyria.org" name="email" value="{{ old('email') }}" autocomplete="email" required autofocus>
                             </div>
+
+                            @if ($errors->has('email'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                            @endif
                         </div>
 
-                        <div class="form-group row mb-4 d-flex justify-content-center">
-                            {{--<label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>--}}
-
-                            <div class="col-lg-6 col-md-7 col-12">
-                                <div class="position-relative">
-                                    <input id="password" type="password" class=" pwd form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Password" name="password" required>
-                                    <span style="position: absolute; right: 2%; bottom: 25%; z-index: 1000;"> <i class="fa fa-eye-slash" id="password-toggle" onclick="togglePasswordVisibility()" style="float:right;"></i></span>
-                                </div>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-4 d-flex justify-content-center">
-                            <div class="col-lg-6 col-md-7 col-12">
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="input-checkbox" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0 d-flex justify-content-center">
-                            <div class="col-lg-6 col-md-7 col-12">
-                                <button type="submit" class="btn-edit btn btn-primary">
-                                    {{ __('Login') }}
+                        <div class="field">
+                            <label for="password" class="field-label">{{ __('Password') }}</label>
+                            <div class="input-wrap">
+                                <i class="fa fa-lock input-icon" aria-hidden="true"></i>
+                                <input id="password" type="password" class="auth-input password-input{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Enter your password" name="password" autocomplete="current-password" required>
+                                <button type="button" class="password-toggle" id="password-toggle" onclick="togglePasswordVisibility()" aria-label="Show password" aria-pressed="false">
+                                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                 </button>
                             </div>
+
+                            @if ($errors->has('password'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </span>
+                            @endif
                         </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    function togglePasswordVisibility() {
-        let x = document.getElementById("password");
-        let passToggle = $('#password-toggle');
-        if (x.type === "password") {
-            x.type = "text";
-            passToggle.removeClass('fa-eye-slash');
-            passToggle.addClass('fa-eye');
-        } else {
-            passToggle.removeClass('fa-eye');
-            passToggle.addClass('fa-eye-slash');
-            x.type = "password";
+
+                        <div class="form-options">
+                            <label class="remember">
+                                <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                <span class="remember-box">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </span>
+                                <span>{{ __('Remember Me') }}</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="auth-actions">
+                        <button type="submit" class="login-button">
+                            <span>{{ __('Login') }}</span>
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </section>
+    </main>
+
+    <script>
+        function togglePasswordVisibility() {
+            var password = document.getElementById('password');
+            var button = document.getElementById('password-toggle');
+            var icon = button.querySelector('i');
+            var isHidden = password.type === 'password';
+
+            password.type = isHidden ? 'text' : 'password';
+            button.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+            button.setAttribute('aria-pressed', isHidden ? 'true' : 'false');
+            icon.className = isHidden ? 'fa fa-eye' : 'fa fa-eye-slash';
         }
-    }
-</script>
+    </script>
+</body>
+</html>
