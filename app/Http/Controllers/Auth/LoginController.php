@@ -90,11 +90,35 @@ class LoginController extends Controller
      */
     protected function authenticated(\Illuminate\Http\Request $request, $user)
     {
-        if ($request->filled('redirect')) {
-            $redirect = $request->input('redirect');
-            if (\Illuminate\Support\Str::startsWith($redirect, url('/'))) {
-                return redirect($redirect);
-            }
+        if ($target = $this->safeRedirectTarget($request->input('redirect'))) {
+            return redirect($target);
+        }
+
+        return null;
+    }
+
+    /**
+     * Validate a `redirect` value and return a safe same-site target, or null.
+     *
+     * Accepts a relative path (e.g. "/projects/micro-projects") or an absolute
+     * URL on this same host. Rejects empty values, protocol-relative URLs
+     * ("//evil.com"), and any off-site absolute URL to prevent open-redirect abuse.
+     */
+    protected function safeRedirectTarget($redirect)
+    {
+        if (empty($redirect) || !is_string($redirect)) {
+            return null;
+        }
+
+        // Relative path on this site: must start with a single "/".
+        if (\Illuminate\Support\Str::startsWith($redirect, '/')
+            && !\Illuminate\Support\Str::startsWith($redirect, ['//', '/\\'])) {
+            return $redirect;
+        }
+
+        // Absolute URL: only allow it if it points at this same host.
+        if (parse_url($redirect, PHP_URL_HOST) === parse_url(url('/'), PHP_URL_HOST)) {
+            return $redirect;
         }
 
         return null;
@@ -105,11 +129,8 @@ class LoginController extends Controller
         // If a redirect target was supplied (e.g. from the locked micro page),
         // store it as the intended URL so the user is sent back there after login.
         // Only same-host URLs are allowed to prevent open-redirect abuse.
-        if ($request->filled('redirect')) {
-            $redirect = $request->query('redirect');
-            if (\Illuminate\Support\Str::startsWith($redirect, url('/'))) {
-                $request->session()->put('url.intended', $redirect);
-            }
+        if ($target = $this->safeRedirectTarget($request->query('redirect'))) {
+            $request->session()->put('url.intended', $target);
         }
 
         return view('new.auth.login');
@@ -117,13 +138,7 @@ class LoginController extends Controller
 
     public function logout(\Illuminate\Http\Request $request)
     {
-        $redirect = null;
-        if ($request->filled('redirect')) {
-            $candidate = $request->input('redirect');
-            if (\Illuminate\Support\Str::startsWith($candidate, url('/'))) {
-                $redirect = $candidate;
-            }
-        }
+        $redirect = $this->safeRedirectTarget($request->input('redirect'));
 
         $this->guard()->logout();
         $request->session()->invalidate();
@@ -140,11 +155,8 @@ class LoginController extends Controller
      */
     protected function loggedOut(\Illuminate\Http\Request $request)
     {
-        if ($request->filled('redirect')) {
-            $redirect = $request->input('redirect');
-            if (\Illuminate\Support\Str::startsWith($redirect, url('/'))) {
-                return redirect($redirect);
-            }
+        if ($target = $this->safeRedirectTarget($request->input('redirect'))) {
+            return redirect($target);
         }
     }
 }

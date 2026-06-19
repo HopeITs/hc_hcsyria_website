@@ -591,6 +591,17 @@
                         transition: border-color 0.18s ease;
                     }
 
+                    .gate-login-input:-webkit-autofill,
+                    .gate-login-input:-webkit-autofill:hover,
+                    .gate-login-input:-webkit-autofill:focus,
+                    .gate-login-input:-webkit-autofill:active {
+                        -webkit-text-fill-color: #444444;
+                        -webkit-box-shadow: 0 0 0 1000px #f1f1f1 inset;
+                        box-shadow: 0 0 0 1000px #f1f1f1 inset;
+                        caret-color: #444444;
+                        transition: background-color 5000s ease-in-out 0s;
+                    }
+
                     .gate-login-input::placeholder {
                         color: #b9b9b9;
                         font-size: inherit;
@@ -621,11 +632,12 @@
                     .gate-login-remember {
                         display: flex;
                         align-items: center;
-                        gap: 0.55cqw;
-                        margin: 1cqw 0 0;
+                        gap: clamp(8px, 0.62cqw, 12px);
+                        margin: 0.9cqw 0 0;
                         color: #8a8a8a;
-                        font-size: 1.02cqw;
+                        font-size: 0.98cqw;
                         font-weight: 500;
+                        line-height: 1;
                         cursor: pointer;
                     }
 
@@ -636,17 +648,30 @@
                     }
 
                     .gate-login-check {
-                        width: 1cqw;
-                        height: 1cqw;
+                        /* Explicit equal width AND height in px keeps it a perfect
+                           circle. The earlier cqw sizing rounded differently per
+                           axis at laptop widths, distorting it into an oval. */
+                        box-sizing: border-box;
+                        width: clamp(16px, 1.05cqw, 18px);
+                        height: clamp(16px, 1.05cqw, 18px);
+                        min-width: clamp(16px, 1.05cqw, 18px);
+                        min-height: clamp(16px, 1.05cqw, 18px);
                         border-radius: 50%;
                         background: #c8102e;
                         color: #ffffff;
                         display: inline-flex;
                         align-items: center;
                         justify-content: center;
-                        font-size: 0.55cqw;
+                        font-size: clamp(7px, 0.5cqw, 9px);
+                        line-height: 1;
+                        padding: 0;
                         flex-shrink: 0;
                         transition: background 0.18s ease;
+                    }
+
+                    .gate-login-check i {
+                        display: block;
+                        line-height: 1;
                     }
 
                     .gate-login-remember input:not(:checked)~.gate-login-check {
@@ -768,7 +793,7 @@
                                 continue.</p>
                             <form class="gate-login" method="POST" action="{{ route('login') }}">
                                 @csrf
-                                <input type="hidden" name="redirect" value="{{ route('new.public.micro_project_test') }}">
+                                <input type="hidden" name="redirect" value="{{ route('new.public.micro_project_test', [], false) }}">
                                 <h2 class="gate-login-title">Log in</h2>
                                 @if ($errors->any())
                                     <div class="gate-login-error">{{ $errors->first() }}</div>
