@@ -473,6 +473,19 @@
                         width: 100%;
                         max-width: 1392px;
                         margin: clamp(1rem, 2vw, 2.25rem) auto;
+                        /* Establish a container so the text + login card can be
+                           sized in cqw and keep the SAME proportions at any width. */
+                        container-type: inline-size;
+                    }
+
+                    /* On large monitors (2K / 4K) let the gate grow with the
+                       viewport so it keeps the proportions it has on a laptop
+                       instead of looking small. 85vw at 1640px equals the
+                       1392px cap, so the transition is seamless. */
+                    @media (min-width: 1640px) {
+                        .locked-gate {
+                            max-width: 85vw;
+                        }
                     }
 
                     /* Clean in-flow vertical separator (overrides the absolute global .horizontal-line) */
@@ -480,10 +493,10 @@
                         position: static !important;
                         width: 0 !important;
                         left: auto !important;
-                        height: clamp(58px, 7vw, 118px) !important;
+                        height: clamp(58px, 6vw, 190px) !important;
                         margin: 0 auto !important;
                         z-index: auto !important;
-                        border-left: clamp(4px, 0.35vw, 6px) solid #BC1818 !important;
+                        border-left: clamp(4px, 0.4vw, 9px) solid #BC1818 !important;
                     }
 
                     .micro-partners>.section-space {
@@ -505,16 +518,16 @@
                         align-items: center;
                         justify-content: center;
                         text-align: center;
-                        padding: 2vw 1rem;
+                        padding: 2cqw 1rem;
                     }
 
                     .locked-gate-red {
                         color: #c8102e;
                         font-weight: 700;
-                        font-size: clamp(1.05rem, 1.55vw, 1.65rem);
+                        font-size: 1.6cqw;
                         line-height: 1.35;
                         max-width: none;
-                        margin: 0 auto 0.85rem;
+                        margin: 0 auto 0.9cqw;
                     }
 
                     .locked-gate-red span {
@@ -525,29 +538,32 @@
                     .locked-gate-black {
                         color: #3a3a3a;
                         font-weight: 500;
-                        font-size: clamp(0.92rem, 1.15vw, 1.2rem);
+                        font-size: 1.18cqw;
                         line-height: 1.4;
                         white-space: nowrap;
-                        margin: 0 auto 1.6rem;
+                        margin: 0 auto 1.7cqw;
                     }
 
                     /* Embedded login card */
                     .gate-login {
                         width: 100%;
-                        max-width: 420px;
+                        /* Sized in cqw so the whole form scales together with the
+                           text + image, exactly like desktop but proportionally
+                           smaller as the screen narrows. */
+                        max-width: 26cqw;
                         background: #ffffff;
-                        border-radius: 26px;
-                        padding: 2rem 2.2rem 1.5rem;
+                        border-radius: 1.6cqw;
+                        padding: 2cqw 2.2cqw 1.5cqw;
                         box-shadow: 0 25px 55px -22px rgba(0, 0, 0, 0.4);
                         text-align: left;
                     }
 
                     .gate-login-title {
                         text-align: center;
-                        font-weight: 800;
+                        font-weight: 700;
                         color: #555555;
-                        font-size: clamp(1.6rem, 2.2vw, 2.1rem);
-                        margin: 0 0 1.3rem;
+                        font-size: 2.35cqw;
+                        margin: 0 0 1.4cqw;
                     }
 
                     .gate-login-error {
@@ -555,7 +571,7 @@
                         color: #c8102e;
                         border-radius: 10px;
                         padding: 0.5rem 0.8rem;
-                        font-size: 0.82rem;
+                        font-size: 0.95cqw;
                         font-weight: 500;
                         margin-bottom: 0.85rem;
                         text-align: center;
@@ -566,9 +582,9 @@
                         width: 100%;
                         border: 1px solid #dcdcdc;
                         border-radius: 999px;
-                        padding: 0.72rem 1.25rem;
-                        margin-bottom: 0.85rem;
-                        font-size: 0.95rem;
+                        padding: 0.4cqw 0.9cqw;
+                        margin-bottom: 0.95cqw;
+                        font-size: 1.1cqw;
                         color: #444444;
                         background: #ffffff;
                         outline: none;
@@ -577,6 +593,7 @@
 
                     .gate-login-input::placeholder {
                         color: #b9b9b9;
+                        font-size: inherit;
                     }
 
                     .gate-login-input:focus {
@@ -589,10 +606,10 @@
                         background: #bc1818;
                         color: #ffffff;
                         font-weight: 700;
-                        font-size: 1rem;
+                        font-size: 1.15cqw;
                         border-radius: 999px;
-                        padding: 0.78rem;
-                        margin-top: 0.25rem;
+                        padding: 0.4cqw;
+                        margin-top: 0.25cqw;
                         cursor: pointer;
                         transition: background 0.18s ease;
                     }
@@ -604,10 +621,10 @@
                     .gate-login-remember {
                         display: flex;
                         align-items: center;
-                        gap: 0.55rem;
-                        margin: 0.95rem 0 0;
+                        gap: 0.55cqw;
+                        margin: 1cqw 0 0;
                         color: #8a8a8a;
-                        font-size: 0.9rem;
+                        font-size: 1.02cqw;
                         font-weight: 500;
                         cursor: pointer;
                     }
@@ -619,15 +636,15 @@
                     }
 
                     .gate-login-check {
-                        width: 20px;
-                        height: 20px;
+                        width: 1cqw;
+                        height: 1cqw;
                         border-radius: 50%;
                         background: #c8102e;
                         color: #ffffff;
                         display: inline-flex;
                         align-items: center;
                         justify-content: center;
-                        font-size: 0.66rem;
+                        font-size: 0.55cqw;
                         flex-shrink: 0;
                         transition: background 0.18s ease;
                     }
@@ -636,7 +653,9 @@
                         background: #cccccc;
                     }
 
-                    @media (max-width: 767.98px) {
+                    /* Keep this below the practical mobile range so 768px and
+                       767px inherit the same locked-section design as 769px. */
+                    @media (max-width: 609px) {
                         .micro-locked-section {
                             margin-top: 1.75rem;
                         }
@@ -646,32 +665,94 @@
                         }
 
                         .locked-gate {
-                            margin-top: 1rem;
-                            margin-bottom: 1rem;
+                            width: min(769px, calc(100% - 2rem));
+                            max-width: none;
+                            margin: 1.25rem auto !important;
+                            background: transparent;
+                            border-radius: 0;
+                            overflow: hidden;
                         }
 
-                        .locked-gate {
-                            overflow: hidden;
-                            border-radius: 14px;
+                        .locked-gate-img {
+                            display: block;
+                            width: 769px;
+                            max-width: none;
+                            height: auto;
+                            margin-left: 50%;
+                            transform: translateX(-50%);
                         }
 
                         .locked-gate-content {
-                            position: relative;
-                            padding: 1.6rem 1rem;
+                            position: absolute;
+                            top: 0;
+                            bottom: 0;
+                            left: 50%;
+                            width: 769px;
+                            transform: translateX(-50%);
+                            padding: clamp(1rem, 4vw, 1.9rem) clamp(0.75rem, 3vw, 1.4rem);
+                        }
+
+                        .locked-gate-red {
+                            font-size: clamp(0.92rem, 2.1vw, 1.02rem);
+                            margin: 0 auto clamp(0.45rem, 1.2vw, 0.6rem);
                         }
 
                         .locked-gate-red span {
-                            white-space: normal;
+                            white-space: nowrap;
                         }
 
                         .locked-gate-black {
-                            white-space: normal;
+                            font-size: clamp(0.5rem, 1.55vw, 0.76rem);
+                            white-space: nowrap;
+                            margin: 0 auto clamp(0.75rem, 2.1vw, 1rem);
                         }
 
                         .gate-login {
-                            max-width: 100%;
-                            padding: 1.4rem 1.3rem 1.1rem;
-                            border-radius: 18px;
+                            width: 100%;
+                            max-width: clamp(220px, 32vw, 250px);
+                            margin: 0 auto;
+                            padding: clamp(1rem, 2.6vw, 1.25rem) clamp(1rem, 2.8vw, 1.35rem) clamp(0.8rem, 2.1vw, 1rem);
+                            border-radius: clamp(18px, 3vw, 24px);
+                            box-shadow: 0 20px 45px -24px rgba(0, 0, 0, 0.45);
+                        }
+
+                        .gate-login-title {
+                            font-size: clamp(1.35rem, 3.2vw, 1.48rem);
+                            margin: 0 0 clamp(0.8rem, 2vw, 1rem);
+                        }
+
+                        .gate-login-error {
+                            font-size: clamp(0.68rem, 1.8vw, 0.76rem);
+                        }
+
+                        .gate-login-input {
+                            font-size: clamp(0.78rem, 2vw, 0.86rem);
+                            padding: clamp(0.55rem, 1.55vw, 0.68rem) clamp(0.9rem, 2.4vw, 1.12rem);
+                            margin-bottom: clamp(0.58rem, 1.65vw, 0.72rem);
+                        }
+
+                        .gate-login-btn {
+                            font-size: clamp(0.8rem, 2.05vw, 0.9rem);
+                            padding: clamp(0.58rem, 1.65vw, 0.72rem);
+                            margin-top: 0.18rem;
+                        }
+
+                        .gate-login-remember {
+                            gap: clamp(0.38rem, 1.15vw, 0.5rem);
+                            margin: clamp(0.65rem, 1.8vw, 0.82rem) 0 0;
+                            font-size: clamp(0.72rem, 1.85vw, 0.8rem);
+                        }
+
+                        .gate-login-check {
+                            width: clamp(15px, 3.6vw, 18px);
+                            height: clamp(15px, 3.6vw, 18px);
+                            font-size: clamp(0.5rem, 1.35vw, 0.6rem);
+                        }
+                    }
+
+                    @media (min-width: 610px) and (max-width: 768px) {
+                        .locked-gate {
+                            transform: translateX(-10px);
                         }
                     }
                 </style>
