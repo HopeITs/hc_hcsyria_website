@@ -9,6 +9,19 @@
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
+    # --- Block known aggressive scraper / spam bots (bot & DDoS mitigation) ---
+    # These crawlers hammer the site and provide no value. Edit this list freely.
+    RewriteCond %{HTTP_USER_AGENT} (Bytespider|PetalBot|MJ12bot|DotBot|DataForSeoBot|SemrushBot|AhrefsBot|ZoominfoBot|Barkrowler|MegaIndex|serpstatbot|MauiBot) [NC]
+    RewriteRule ^ - [F,L]
+
+    # --- Cheap 404 for MISSING static assets, without booting Laravel ---
+    # Bots scraping deleted image URLs were forcing a full framework boot per
+    # request (each 404 was ~27KB). Now a missing file under these folders gets
+    # an instant lightweight 404. Existing files are still served normally.
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(images|files|video|fonts|css|js|build)/ - [R=404,L]
+
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
