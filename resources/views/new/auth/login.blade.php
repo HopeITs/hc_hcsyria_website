@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="brand-copy">
-                    <h1>Hcsyria<br>dashboard<br>login</h1>
+                    <h1>HC Syria<br>Dashboard</h1>
                 </div>
 
                 <div class="brand-footer">Copyright © Christian Hope Center {{ date('Y') }}</div>
@@ -37,7 +37,7 @@
                     @csrf
 
                     <div class="auth-top">
-                        <h2 class="auth-title">Sign in to continue</h2>
+                        <h2 class="auth-title">Log in to continue</h2>
                     </div>
 
                     <div class="auth-fields">
