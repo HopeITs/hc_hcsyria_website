@@ -11,6 +11,9 @@
 
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
 
     <style>
@@ -31,7 +34,7 @@
             min-height: 100vh;
             margin: 0;
             color: var(--ink);
-            font-family: "Somar Sans", "Inter", "Segoe UI", Arial, sans-serif;
+            font-family: "Lato", "Segoe UI", Arial, sans-serif;
             background:
                 radial-gradient(circle at 15% 18%, rgba(207, 20, 43, .13), transparent 31rem),
                 radial-gradient(circle at 90% 8%, rgba(21, 25, 34, .10), transparent 27rem),
@@ -176,8 +179,8 @@
 
         .auth-title {
             margin: 0;
-            color: var(--ink);
-            font-size: 34px;
+            color: #58595b;
+            font-size: 40px;
             line-height: 1.15;
             font-weight: 800;
         }
@@ -231,14 +234,26 @@
             border-color: #d2d6de;
         }
 
-        .auth-input:focus {
-            border-color: var(--hope-red);
-            box-shadow: 0 0 0 4px rgba(207, 20, 43, .11);
-            transform: translateY(-1px);
+        .auth-input:focus,
+        .auth-input:focus-visible,
+        .auth-input:active,
+        .auth-input.is-invalid,
+        .auth-input.is-invalid:focus {
+            border-color: #d2d6de !important;
+            box-shadow: none !important;
+            outline: none !important;
+            transform: none !important;
         }
 
-        .auth-input.is-invalid {
-            border-color: var(--hope-red);
+        .input-wrap:focus-within {
+            box-shadow: none !important;
+        }
+
+        .auth-input:-webkit-autofill,
+        .auth-input:-webkit-autofill:focus,
+        .auth-input:-webkit-autofill:hover {
+            box-shadow: 0 0 0 1000px #fff inset !important;
+            -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
         }
 
         .password-input {
@@ -305,8 +320,8 @@
 
         .remember-box {
             display: inline-flex;
-            width: 22px;
-            height: 22px;
+            width: 19px;
+            height: 19px;
             align-items: center;
             justify-content: center;
             border: 1px solid #ccd1da;
@@ -316,14 +331,20 @@
             transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
         }
 
+        .remember-box .fa-check {
+            font-size: 10px;
+        }
+
         .remember input:checked + .remember-box {
             border-color: var(--hope-red);
             background: var(--hope-red);
             box-shadow: 0 8px 22px rgba(207, 20, 43, .22);
         }
 
-        .remember input:focus + .remember-box {
-            box-shadow: 0 0 0 4px rgba(207, 20, 43, .11);
+        .remember input:focus + .remember-box,
+        .remember input:focus-visible + .remember-box {
+            box-shadow: none !important;
+            outline: none !important;
         }
 
         .login-button {
@@ -420,7 +441,7 @@
             }
 
             .auth-title {
-                font-size: 28px;
+                font-size: 32px;
             }
 
             .auth-subtitle {
@@ -443,7 +464,7 @@
                 </div>
 
                 <div class="brand-copy">
-                    <h1>Hcsyria dashboard login</h1>
+                    <h1>Hcsyria<br>dashboard<br>login</h1>
                 </div>
 
                 <div class="brand-footer">Copyright © Christian Hope Center 2026</div>
