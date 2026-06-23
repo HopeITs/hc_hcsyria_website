@@ -63,7 +63,7 @@ class publicController extends Controller
         }
 
         $agent = new Agent();
-        $carouselImages = Cover::where('what_category_id',0)->orderBy('image_order', 'asc')->select('image_path')->get();
+        $carouselImages = Cover::where('what_category_id', 0)->orderBy('image_order', 'asc')->select('image_path')->get();
         $fundedCount = Project::whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2])->count();
 
         $familyMembersCount = Project::whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2])->sum('FamilyMembers');
@@ -85,7 +85,7 @@ class publicController extends Controller
         $days = $difference->dayz;
 
         return view('new.public.home', [
-            'carouselImages'=>$carouselImages,
+            'carouselImages' => $carouselImages,
             'edition' => $edition,
             'years' => $years,
             'months' => $months,
@@ -105,8 +105,10 @@ class publicController extends Controller
         //$route = Route::getCurrentRoute()->getPath();
 
         $test = request()->getHttpHost();
-        if (str_contains($test, 'hcsyria')) return \Redirect::route('new.public.home'); else if (str_contains($test, 'hclebanon')) return view('public.coming-soon'); else return \Redirect::route('new.public.home');
-//        return view('public.coming-soon');
+        if (str_contains($test, 'hcsyria')) return \Redirect::route('new.public.home');
+        else if (str_contains($test, 'hclebanon')) return view('public.coming-soon');
+        else return \Redirect::route('new.public.home');
+        //        return view('public.coming-soon');
     }
 
     public function test()
@@ -135,22 +137,22 @@ class publicController extends Controller
 
         $agent = new \Jenssegers\Agent\Agent();
         $edition = \App\Edition::all()->select('id')->last();
-        $roots = \App\Models\RootsOfHope::where('online',1)->get();
-        $latest_root = \App\Models\RootsOfHope::where('online',1)->get()->last();
+        $roots = \App\Models\RootsOfHope::where('online', 1)->get();
+        $latest_root = \App\Models\RootsOfHope::where('online', 1)->get()->last();
 
         return view('new.public.rootsofhope', [
             'edition' => $edition,
             'agent' => $agent,
-            'roots'=>$roots,
-            'latest_root'=>$latest_root
+            'roots' => $roots,
+            'latest_root' => $latest_root
         ]);
     }
     public function micro_project_new(Request $request)
     {
-        $partners_ongoing = ProjectDonor::where('what_category_id',10)->with('donors')->where('isActive',1)->orderBy('rank','asc')->get();
-        $partners_previous = ProjectDonor::where('what_category_id',10)->with('donors')->where('isActive',0)->orderBy('rank','asc')->get();
+        $partners_ongoing = ProjectDonor::where('what_category_id', 10)->with('donors')->where('isActive', 1)->orderBy('rank', 'asc')->get();
+        $partners_previous = ProjectDonor::where('what_category_id', 10)->with('donors')->where('isActive', 0)->orderBy('rank', 'asc')->get();
 
-        $carouselImages = Cover::where('what_category_id',10)->orderBy('image_order', 'asc')->select('image_path')->get();
+        $carouselImages = Cover::where('what_category_id', 10)->orderBy('image_order', 'asc')->select('image_path')->get();
         $brief = HopeProjects::with('media')
             ->where('what_category_id', 10)
             ->first();
@@ -252,40 +254,40 @@ ORDER BY age.ID;');
         $microProjectWIDs = $this->get_projects_IDs($searchStr, $donor_var, '7', $video, $languageTable);
         if ($searchStr != '') {
 
-            $microProjectA = Project::with('images', $language, 'donor')//              ->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')
-            ->whereIn('projects.id', Arr::pluck($microProjectAIDs, 'id'))->orderBy('MPE_PublishDate', 'desc')//                ->orderByRaw('case
-//                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
-//                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
-//                                 else 0 end asc')
-            ->paginate(5, ['*'], 'microProjectA')->appends(request()->except('microProjectA'));
+            $microProjectA = Project::with('images', $language, 'donor') //              ->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')
+                ->whereIn('projects.id', Arr::pluck($microProjectAIDs, 'id'))->orderBy('MPE_PublishDate', 'desc') //                ->orderByRaw('case
+                //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
+                //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
+                //                                 else 0 end asc')
+                ->paginate(5, ['*'], 'microProjectA')->appends(request()->except('microProjectA'));
 
 
-            $microProjectH = Project::with('images', $language, 'donor')//                ->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')
-            ->whereIn('projects.id', Arr::pluck($microProjectHIDs, 'id'))->orderBy('MPE_PublishDate', 'desc')//                ->orderByRaw('case
-//                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
-//                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
-//                                 else 0 end asc')
-            ->paginate(5, ['*'], 'microProjectH')->appends(request()->except('microProjectH'));
+            $microProjectH = Project::with('images', $language, 'donor') //                ->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')
+                ->whereIn('projects.id', Arr::pluck($microProjectHIDs, 'id'))->orderBy('MPE_PublishDate', 'desc') //                ->orderByRaw('case
+                //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
+                //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
+                //                                 else 0 end asc')
+                ->paginate(5, ['*'], 'microProjectH')->appends(request()->except('microProjectH'));
 
-            $microProjectD = Project::with('images', $language, 'donor')//                ->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')
-            ->whereIn('projects.id', Arr::pluck($microProjectDIDs, 'id'))->orderBy('MPE_PublishDate', 'desc')//                ->orderByRaw('case
-//                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
-//                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
-//                                 else 0 end asc')
-            ->paginate(5, ['*'], 'microProjectD')->appends(request()->except('microProjectD'));
-            $microProjectL = Project::with('images', $language, 'donor')//                ->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')
-            ->whereIn('projects.id', Arr::pluck($microProjectLIDs, 'id'))->orderBy('MPE_PublishDate', 'desc')//                ->orderByRaw('case
-//                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
-//                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
-//                                 else 0 end asc')
-            ->paginate(5, ['*'], 'microProjectL')->appends(request()->except('microProjectL'));
+            $microProjectD = Project::with('images', $language, 'donor') //                ->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')
+                ->whereIn('projects.id', Arr::pluck($microProjectDIDs, 'id'))->orderBy('MPE_PublishDate', 'desc') //                ->orderByRaw('case
+                //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
+                //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
+                //                                 else 0 end asc')
+                ->paginate(5, ['*'], 'microProjectD')->appends(request()->except('microProjectD'));
+            $microProjectL = Project::with('images', $language, 'donor') //                ->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')
+                ->whereIn('projects.id', Arr::pluck($microProjectLIDs, 'id'))->orderBy('MPE_PublishDate', 'desc') //                ->orderByRaw('case
+                //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
+                //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
+                //                                 else 0 end asc')
+                ->paginate(5, ['*'], 'microProjectL')->appends(request()->except('microProjectL'));
 
-            $microProjectW = Project::with('images', $language, 'donor')//                ->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')
-            ->whereIn('projects.id', Arr::pluck($microProjectWIDs, 'id'))->orderBy('MPE_PublishDate', 'desc')//                ->orderByRaw('case
-//                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
-//                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
-//                                 else 0 end asc')
-            ->paginate(5, ['*'], 'microProjectW')->appends(request()->except('microProjectW'));
+            $microProjectW = Project::with('images', $language, 'donor') //                ->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')
+                ->whereIn('projects.id', Arr::pluck($microProjectWIDs, 'id'))->orderBy('MPE_PublishDate', 'desc') //                ->orderByRaw('case
+                //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
+                //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
+                //                                 else 0 end asc')
+                ->paginate(5, ['*'], 'microProjectW')->appends(request()->except('microProjectW'));
         } else {
             $microProjectA = Project::with('images', $language, 'donor')->whereIn('projects.id', Arr::pluck($microProjectAIDs, 'id'))->orderBy('MPE_PublishDate', 'desc')->paginate(5, ['*'], 'microProjectA')->appends(request()->except('microProjectA'));
 
@@ -322,7 +324,7 @@ ORDER BY age.ID;');
         $projectCopyW = $this->get_project_copy2($request->input('projectW'), $language, '7');
 
         $searchBeneficiary = $this->search_list_beneficiaries();
-//        $aleppoMap = DB::select('select latitude , longtitude from projects where MPE_City = 1');
+        //        $aleppoMap = DB::select('select latitude , longtitude from projects where MPE_City = 1');
         $aleppoMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectAIDs, 'id'))->orderByRaw('case
                                  when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
                                  when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
@@ -350,17 +352,51 @@ ORDER BY age.ID;');
         if ($request->ajax()) {
             return view('new.public.micro-project', compact(['microProjectA']))->render();
         }
-        return view('new.public.micro-project', ['brief'=>$brief, 'carouselImages'=>$carouselImages, 'microProjectA' => $microProjectA,'microProjectW' => $microProjectW, 'microProjectL' => $microProjectL, 'microProjectH' => $microProjectH, 'microProjectD' => $microProjectD, 'edition' => $edition, 'searchProject' => $searchProject, 'searchBeneficiary' => $searchBeneficiary, 'donors' => $donors,
+        return view('new.public.micro-project', [
+            'brief' => $brief,
+            'carouselImages' => $carouselImages,
+            'microProjectA' => $microProjectA,
+            'microProjectW' => $microProjectW,
+            'microProjectL' => $microProjectL,
+            'microProjectH' => $microProjectH,
+            'microProjectD' => $microProjectD,
+            'edition' => $edition,
+            'searchProject' => $searchProject,
+            'searchBeneficiary' => $searchBeneficiary,
+            'donors' => $donors,
 
-            'donor' => $donor, 'city' => $city, 'video' => $video, 'latakiaMap' => $latakiaMap,'wadiMap' => $wadiMap, 'search' => $searchStr,
+            'donor' => $donor,
+            'city' => $city,
+            'video' => $video,
+            'latakiaMap' => $latakiaMap,
+            'wadiMap' => $wadiMap,
+            'search' => $searchStr,
 
-            'projectCopyA' => $projectCopyA,'projectCopyW' => $projectCopyW, 'projectCopyH' => $projectCopyH, 'projectCopyD' => $projectCopyD, 'projectCopyL' => $projectCopyL,
+            'projectCopyA' => $projectCopyA,
+            'projectCopyW' => $projectCopyW,
+            'projectCopyH' => $projectCopyH,
+            'projectCopyD' => $projectCopyD,
+            'projectCopyL' => $projectCopyL,
 
-            'familyMembersCount' => $familyMembersCount, 'agerange'=>$agerange,'partners_ongoing'=> $partners_ongoing,'partners_previous'=> $partners_previous,
+            'familyMembersCount' => $familyMembersCount,
+            'agerange' => $agerange,
+            'partners_ongoing' => $partners_ongoing,
+            'partners_previous' => $partners_previous,
 
-            'sustainableRate' => $sustainableRate, 'categories' => $categories,'wadiCount' => $wadiCount,
+            'sustainableRate' => $sustainableRate,
+            'categories' => $categories,
+            'wadiCount' => $wadiCount,
 
-            'allCount' => $allCount, 'aleppoCount' => $aleppoCount, 'homsCount' => $homsCount, 'latakiaCount' => $latakiaCount, 'damascusCount' => $damascusCount, 'aleppoMap' => $aleppoMap, 'homsMap' => $homsMap, 'damasMap' => $damasMap, 'agent' => $agent]);
+            'allCount' => $allCount,
+            'aleppoCount' => $aleppoCount,
+            'homsCount' => $homsCount,
+            'latakiaCount' => $latakiaCount,
+            'damascusCount' => $damascusCount,
+            'aleppoMap' => $aleppoMap,
+            'homsMap' => $homsMap,
+            'damasMap' => $damasMap,
+            'agent' => $agent
+        ]);
     }
 
     function micro_project_new_test(Request $request)
@@ -390,7 +426,7 @@ ORDER BY age.ID;');
 
         //statistics start
         $counts = Project::select('MPE_City', DB::raw('COUNT(*) as total'))
-            ->whereIn('MPE_City', [1, 2, 3, 4,6, 7,8])
+            ->whereIn('MPE_City', [1, 2, 3, 4, 6, 7, 8])
             ->whereIn('MPE_Done', [1, 2])
             ->whereIn('MPE_Published', [1, 2])
             ->groupBy('MPE_City')
@@ -422,7 +458,7 @@ ORDER BY age.ID;');
             ORDER BY `project_count` DESC  LIMIT 5;
             ');
 
-                    $agerange = DB::select('SELECT
+        $agerange = DB::select('SELECT
                 age.Name,
                 COUNT(projects.id) AS project_count
             FROM
@@ -434,56 +470,71 @@ ORDER BY age.ID;');
                 age.Name
             HAVING age.Name is not null
             ORDER BY age.ID;');
-                    $sustainableRate = $this->getPublishedProjectSustainabilityRate();
-                    if (session('locale') == 'fr') {
-                        $language = 'french';
-                        $languageTable = 'projects_french';
-                    } else {
-                        $language = 'english';
-                        $languageTable = 'projects_english';
-                    }
+        $sustainableRate = $this->getPublishedProjectSustainabilityRate();
+        if (session('locale') == 'fr') {
+            $language = 'french';
+            $languageTable = 'projects_french';
+        } else {
+            $language = 'english';
+            $languageTable = 'projects_english';
+        }
 
-                    $donors = $this->getSortedDonors([9, 10], true);
+        $donors = $this->getSortedDonors([9, 10], true);
 
-            //        $aleppoMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectAIDs, 'id'))->orderByRaw('case
-            //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
-            //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
-            //                                 else 0 end asc')->get();
-            //        $homsMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectHIDs, 'id'))->orderByRaw('case
-            //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
-            //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
-            //                                 else 0 end asc')->get();
-            //
-            //        $damasMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectDIDs, 'id'))->orderByRaw('case
-            //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
-            //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
-            //                                 else 0 end asc')->get();
-            //        $latakiaMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectLIDs, 'id'))->orderByRaw('case
-            //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
-            //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
-            //                                 else 0 end asc')->get();
-            //        $wadiMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectWIDs, 'id'))->orderByRaw('case
-            //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
-            //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
-            //                                 else 0 end asc')->get();
-                    $agent = new Agent();
+        //        $aleppoMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectAIDs, 'id'))->orderByRaw('case
+        //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
+        //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
+        //                                 else 0 end asc')->get();
+        //        $homsMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectHIDs, 'id'))->orderByRaw('case
+        //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
+        //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
+        //                                 else 0 end asc')->get();
+        //
+        //        $damasMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectDIDs, 'id'))->orderByRaw('case
+        //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
+        //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
+        //                                 else 0 end asc')->get();
+        //        $latakiaMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectLIDs, 'id'))->orderByRaw('case
+        //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
+        //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
+        //                                 else 0 end asc')->get();
+        //        $wadiMap = Project::with('images', $language)->leftJoin($languageTable, $languageTable . '.project_id', '=', 'projects.id')->whereIn('projects.id', Arr::pluck($microProjectWIDs, 'id'))->orderByRaw('case
+        //                                 when LOWER(MPE_Name) like \'%' . $searchStr . '%\' then -2
+        //                                 when LOWER(MPE_BeneficiaryName) like \'%' . $searchStr . '%\' then -1
+        //                                 else 0 end asc')->get();
+        $agent = new Agent();
 
-                    return view('new.public.micro-project-new-test', ['brief' => $brief, 'carouselImages' => $carouselImages,
+        return view('new.public.micro-project-new-test', [
+            'brief' => $brief,
+            'carouselImages' => $carouselImages,
             //            'microProjectA' => $microProjectA,'microProjectW' => $microProjectW, 'microProjectL' => $microProjectL, 'microProjectH' => $microProjectH, 'microProjectD' => $microProjectD,
-                        'edition' => $edition, 'donors' => $donors,
+            'edition' => $edition,
+            'donors' => $donors,
             //            'searchProject' => $searchProject, 'searchBeneficiary' => $searchBeneficiary,
             //
             //            'donor' => $donor, 'city' => $city, 'video' => $video, 'latakiaMap' => $latakiaMap,'wadiMap' => $wadiMap, 'search' => $searchStr,
             //
             //            'projectCopyA' => $projectCopyA,'projectCopyW' => $projectCopyW, 'projectCopyH' => $projectCopyH, 'projectCopyD' => $projectCopyD, 'projectCopyL' => $projectCopyL,
 
-                        'familyMembersCount' => $familyMembersCount, 'agerange' => $agerange, 'partners_ongoing' => $partners_ongoing, 'partners_previous' => $partners_previous,
+            'familyMembersCount' => $familyMembersCount,
+            'agerange' => $agerange,
+            'partners_ongoing' => $partners_ongoing,
+            'partners_previous' => $partners_previous,
 
-                        'sustainableRate' => $sustainableRate, 'categories' => $categories, 'wadiCount' => $wadiCount,
+            'sustainableRate' => $sustainableRate,
+            'categories' => $categories,
+            'wadiCount' => $wadiCount,
 
-                        'allCount' => $allCount, 'aleppoCount' => $aleppoCount, 'homsCount' => $homsCount, 'latakiaCount' => $latakiaCount, 'damascusCount' => $damascusCount, 'idlebCount' => $idlebCount , 'tartusCount'=>$tartusCount ,
+            'allCount' => $allCount,
+            'aleppoCount' => $aleppoCount,
+            'homsCount' => $homsCount,
+            'latakiaCount' => $latakiaCount,
+            'damascusCount' => $damascusCount,
+            'idlebCount' => $idlebCount,
+            'tartusCount' => $tartusCount,
             //            'aleppoMap' => $aleppoMap, 'homsMap' => $homsMap, 'damasMap' => $damasMap,
-                        'agent' => $agent]);
+            'agent' => $agent
+        ]);
     }
     private function getPublishedProjectSustainabilityRate(): array
     {
@@ -629,30 +680,30 @@ ORDER BY age.ID;');
                                      on ' . $langTable . '.initiative_id = initiatives.id
                                      where what_category_id = 5');
     }
-//    public function  micro_project_video(Request $request){
-//        $allCount = Project::whereIn('MPE_Done',[1,2])->whereIn('MPE_Published',[1,2])->count();
-//        $aleppoCount = Project::where('MPE_City','3')->whereIn('MPE_Done',[1,2])->whereIn('MPE_Published',[1,2])->count();
-//        $homsCount = Project::where('MPE_City','1')->whereIn('MPE_Done',[1,2])->whereIn('MPE_Published',[1,2])->count();
-//        $damascusCount = Project::where('MPE_City','2')->whereIn('MPE_Done',[1,2])->whereIn('MPE_Published',[1,2])->count();
-//
-//        if (session('locale') == 'fr') {
-//            $language = 'french';
-//            $languageTable = 'projects_french';
-//        } else {
-//            $language = 'english';
-//            $languageTable = 'projects_english';
-//        }
-//        $microProjectA = Project::with('images',$language)
-//            ->where('MPE_Video' ,$request->input('ID'))
-//            ->orderBy('MPE_PublishDate',' desc')
-//            ->paginate(12, ['*'], 'microProjectA');
-//        return view('public.micro-project2', [
-//            'microProjectA' => $microProjectA,
-//            'allCount' => $allCount,
-//            'aleppoCount' => $aleppoCount,
-//            'homsCount' => $homsCount,
-//            'damascusCount' => $damascusCount]);
-//    }
+    //    public function  micro_project_video(Request $request){
+    //        $allCount = Project::whereIn('MPE_Done',[1,2])->whereIn('MPE_Published',[1,2])->count();
+    //        $aleppoCount = Project::where('MPE_City','3')->whereIn('MPE_Done',[1,2])->whereIn('MPE_Published',[1,2])->count();
+    //        $homsCount = Project::where('MPE_City','1')->whereIn('MPE_Done',[1,2])->whereIn('MPE_Published',[1,2])->count();
+    //        $damascusCount = Project::where('MPE_City','2')->whereIn('MPE_Done',[1,2])->whereIn('MPE_Published',[1,2])->count();
+    //
+    //        if (session('locale') == 'fr') {
+    //            $language = 'french';
+    //            $languageTable = 'projects_french';
+    //        } else {
+    //            $language = 'english';
+    //            $languageTable = 'projects_english';
+    //        }
+    //        $microProjectA = Project::with('images',$language)
+    //            ->where('MPE_Video' ,$request->input('ID'))
+    //            ->orderBy('MPE_PublishDate',' desc')
+    //            ->paginate(12, ['*'], 'microProjectA');
+    //        return view('public.micro-project2', [
+    //            'microProjectA' => $microProjectA,
+    //            'allCount' => $allCount,
+    //            'aleppoCount' => $aleppoCount,
+    //            'homsCount' => $homsCount,
+    //            'damascusCount' => $damascusCount]);
+    //    }
     public function get_project_copy2($id, $lang, $city)
     {
         $project = Project::with('english', 'images')->where('id', $id)->where('MPE_Done', '1')->where('MPE_City', $city)->first();
@@ -664,20 +715,20 @@ ORDER BY age.ID;');
         }
         return $project;
     }
-//    public function get_project_copy($id, $lang)
-//    {
-//        $project = Project::with('english', 'images')
-//            ->where('MicroProject_ID', $id)
-//            ->where('MPE_Done', '1')
-//            ->first();
-//        if (isset($project)) {
-//            $project->lang = $project->$lang;
-//            unset($project->$lang);
-//        } else {
-//            return 'none';
-//        }
-//        return $project;
-//    }
+    //    public function get_project_copy($id, $lang)
+    //    {
+    //        $project = Project::with('english', 'images')
+    //            ->where('MicroProject_ID', $id)
+    //            ->where('MPE_Done', '1')
+    //            ->first();
+    //        if (isset($project)) {
+    //            $project->lang = $project->$lang;
+    //            unset($project->$lang);
+    //        } else {
+    //            return 'none';
+    //        }
+    //        return $project;
+    //    }
     public function search_list_beneficiaries()
     {
         $mainNames = DB::select('select DISTINCT MPE_BeneficiaryName from projects WHERE MPE_Published = \'1\' ORDER BY MPE_BeneficiaryName');
@@ -738,80 +789,80 @@ ORDER BY age.ID;');
         return $inititive;
     }
 
-//    public function initiative($type, $id, $slug)
-//    {
-//        if (!is_numeric($id)) {
-//            return view('new.errors.404');
-//        }
-//
-//        $mainInitiative = Initiative::with('english', 'french', 'whatCategory', 'donors')
-//            ->where('id', $id)
-//            ->where('online', '1')
-//            ->where('sub_what_category_id', '!=', '2')// f2f stories
-//            ->first();
-//
-//        if (!isset($mainInitiative)) {
-//            return view('new.errors.404');
-//        }
-//        if (($type != Str::slug(strtolower($mainInitiative->whatCategory->name))) || ($slug != Str::slug(strtolower($mainInitiative->english->title)))) {
-//            return view('new.errors.404');
-//        }
-//        $initiativePath = $type . '/' . $id . '-' . Str::slug(strtolower($mainInitiative->english->title));
-//        $images = InitiativeImage::where('initiative_id', $id)->get();
-//        $imagesRehabilitation = InitiativeImageRehabilitation::where('initiative_id', $id)->get();
-//        if (!count($images))
-//            $images = [['path' => $imagesRehabilitation[0]->path_1]];
-//        $initiativesSameType = Initiative::with('english', 'french', 'firstImage')
-//            ->where('id', '!=', $mainInitiative->id)
-//            ->where('sub_what_category_id', '!=', '2')// f2f stories
-//            ->where('what_category_id', $mainInitiative->what_category_id)
-//            ->where('online', '1')
-//            ->inRandomOrder()
-//            ->limit(3)
-//            ->get();
-//        $removeIDs = $initiativesSameType->pluck('id');
-//        $removeIDs->prepend($mainInitiative->id);
-//        $initiativesSameCategory = Initiative::with('english', 'french', 'firstImage', 'SubWhatCategory')
-//            ->whereNotIn('id', $removeIDs)
-//            ->where('sub_what_category_id', '!=', '2')// f2f stories
-//            ->where('who_category_id', $mainInitiative->who_category_id)
-//            ->where('online', '1')
-//            ->inRandomOrder()
-//            ->limit(4)
-//            ->get();
-//        foreach ($initiativesSameType as $initiative)
-//            if (is_null($initiative->firstImage))
-//                $initiative->firstImage = collect(['path' => InitiativeImageRehabilitation::where('initiative_id', $initiative->id)
-//                    ->first()->path_1]);
-//        foreach ($initiativesSameCategory as $initiative)
-//            if (is_null($initiative->firstImage))
-//                $initiative->firstImage = collect(['path' => InitiativeImageRehabilitation::where('initiative_id', $initiative->id)
-//                    ->first()->path_1]);
-//        $testimonies = Testimony::with('english', 'french')
-//            ->where('initiative_id', $id)
-//            ->where('french_translation', '1')
-//            ->get();
-//        $stories = Initiative::with('english', 'french', 'firstImage', 'images')
-//            ->where('sub_what_category_id', '2')// f2f stories
-//            ->where('partner_id', $id)
-//            ->where('online', '1')
-//            ->get();
-//        $relatedPosts = $initiativesSameType->toArray();
-//        foreach ($initiativesSameType as $type) {
-//            $initiativesSameCategory->add($type);
-//        }
-//        return view('new.public.initiative', [
-//            'mainInitiative' => $mainInitiative,
-//            'images' => $images,
-//            'imagesRehabilitation' => $imagesRehabilitation,
-//            'initiativePath' => $initiativePath,
-//            'initiativesSameType' => $initiativesSameType,
-//            'initiativesSameCategory' => $initiativesSameCategory,
-//            'testimonies' => $testimonies,
-//            'relatedPosts' => $relatedPosts,
-//            'stories' => $stories,
-//        ]);
-//    }
+    //    public function initiative($type, $id, $slug)
+    //    {
+    //        if (!is_numeric($id)) {
+    //            return view('new.errors.404');
+    //        }
+    //
+    //        $mainInitiative = Initiative::with('english', 'french', 'whatCategory', 'donors')
+    //            ->where('id', $id)
+    //            ->where('online', '1')
+    //            ->where('sub_what_category_id', '!=', '2')// f2f stories
+    //            ->first();
+    //
+    //        if (!isset($mainInitiative)) {
+    //            return view('new.errors.404');
+    //        }
+    //        if (($type != Str::slug(strtolower($mainInitiative->whatCategory->name))) || ($slug != Str::slug(strtolower($mainInitiative->english->title)))) {
+    //            return view('new.errors.404');
+    //        }
+    //        $initiativePath = $type . '/' . $id . '-' . Str::slug(strtolower($mainInitiative->english->title));
+    //        $images = InitiativeImage::where('initiative_id', $id)->get();
+    //        $imagesRehabilitation = InitiativeImageRehabilitation::where('initiative_id', $id)->get();
+    //        if (!count($images))
+    //            $images = [['path' => $imagesRehabilitation[0]->path_1]];
+    //        $initiativesSameType = Initiative::with('english', 'french', 'firstImage')
+    //            ->where('id', '!=', $mainInitiative->id)
+    //            ->where('sub_what_category_id', '!=', '2')// f2f stories
+    //            ->where('what_category_id', $mainInitiative->what_category_id)
+    //            ->where('online', '1')
+    //            ->inRandomOrder()
+    //            ->limit(3)
+    //            ->get();
+    //        $removeIDs = $initiativesSameType->pluck('id');
+    //        $removeIDs->prepend($mainInitiative->id);
+    //        $initiativesSameCategory = Initiative::with('english', 'french', 'firstImage', 'SubWhatCategory')
+    //            ->whereNotIn('id', $removeIDs)
+    //            ->where('sub_what_category_id', '!=', '2')// f2f stories
+    //            ->where('who_category_id', $mainInitiative->who_category_id)
+    //            ->where('online', '1')
+    //            ->inRandomOrder()
+    //            ->limit(4)
+    //            ->get();
+    //        foreach ($initiativesSameType as $initiative)
+    //            if (is_null($initiative->firstImage))
+    //                $initiative->firstImage = collect(['path' => InitiativeImageRehabilitation::where('initiative_id', $initiative->id)
+    //                    ->first()->path_1]);
+    //        foreach ($initiativesSameCategory as $initiative)
+    //            if (is_null($initiative->firstImage))
+    //                $initiative->firstImage = collect(['path' => InitiativeImageRehabilitation::where('initiative_id', $initiative->id)
+    //                    ->first()->path_1]);
+    //        $testimonies = Testimony::with('english', 'french')
+    //            ->where('initiative_id', $id)
+    //            ->where('french_translation', '1')
+    //            ->get();
+    //        $stories = Initiative::with('english', 'french', 'firstImage', 'images')
+    //            ->where('sub_what_category_id', '2')// f2f stories
+    //            ->where('partner_id', $id)
+    //            ->where('online', '1')
+    //            ->get();
+    //        $relatedPosts = $initiativesSameType->toArray();
+    //        foreach ($initiativesSameType as $type) {
+    //            $initiativesSameCategory->add($type);
+    //        }
+    //        return view('new.public.initiative', [
+    //            'mainInitiative' => $mainInitiative,
+    //            'images' => $images,
+    //            'imagesRehabilitation' => $imagesRehabilitation,
+    //            'initiativePath' => $initiativePath,
+    //            'initiativesSameType' => $initiativesSameType,
+    //            'initiativesSameCategory' => $initiativesSameCategory,
+    //            'testimonies' => $testimonies,
+    //            'relatedPosts' => $relatedPosts,
+    //            'stories' => $stories,
+    //        ]);
+    //    }
 
     public function initiative($type, $id, $slug)
     {
@@ -823,8 +874,8 @@ ORDER BY age.ID;');
 
 
         $mainInitiative = Initiative::with('english', 'french', 'whatCategory', 'donors')->where('id', $id)->where('online', '1')->where(function ($query) {
-                $query->where('sub_what_category_id', '<>', 2)->orWhereNull('sub_what_category_id');
-            })->first();
+            $query->where('sub_what_category_id', '<>', 2)->orWhereNull('sub_what_category_id');
+        })->first();
         if (!isset($mainInitiative)) {
             return view('new.errors.404', ['edition' => $edition]);
         }
@@ -838,7 +889,7 @@ ORDER BY age.ID;');
         $initiativesSameType = Initiative::with('english', 'french', 'firstImage')
             ->where('id', '!=', $mainInitiative->id)
             ->where('what_category_id', $mainInitiative->what_category_id)
-//            ->where('who_category_id', $mainInitiative->who_category_id)
+            //            ->where('who_category_id', $mainInitiative->who_category_id)
             ->where('online', '1')
             ->where(function ($query) {
                 $query->where('sub_what_category_id', '<>', 2)
@@ -849,22 +900,30 @@ ORDER BY age.ID;');
         $removeIDs = $initiativesSameType->pluck('id');
         $removeIDs->prepend($mainInitiative->id);
         $initiativesSameCategory = Initiative::with('english', 'french', 'firstImage', 'subWhatCategory')->whereNotIn('id', $removeIDs)->where('who_category_id', $mainInitiative->who_category_id)->where('online', '1')->inRandomOrder()->limit(4)->get();
-//        $initiativesSameCategory = Initiative::with('english', 'french', 'firstImage', 'SubWhatCategory')->whereNotIn('id', $removeIDs)
-//            ->where(function ($query) {
-//                $query->where('sub_what_category_id', '<>', 2)
-//                    ->orWhereNull('sub_what_category_id');
-//            })
-//        ->where('who_category_id', $mainInitiative->who_category_id)->where('online', '1')->inRandomOrder()->limit(4)->get();
+        //        $initiativesSameCategory = Initiative::with('english', 'french', 'firstImage', 'SubWhatCategory')->whereNotIn('id', $removeIDs)
+        //            ->where(function ($query) {
+        //                $query->where('sub_what_category_id', '<>', 2)
+        //                    ->orWhereNull('sub_what_category_id');
+        //            })
+        //        ->where('who_category_id', $mainInitiative->who_category_id)->where('online', '1')->inRandomOrder()->limit(4)->get();
         foreach ($initiativesSameType as $initiative) if (is_null($initiative->firstImage)) $initiative->firstImage = collect(['path' => InitiativeImageRehabilitation::where('initiative_id', $initiative->id)->first()->path_1]);
         foreach ($initiativesSameCategory as $initiative) if (is_null($initiative->firstImage)) $initiative->firstImage = collect(['path' => InitiativeImageRehabilitation::where('initiative_id', $initiative->id)->first()->path_1]);
         $testimonies = Testimony::with('english', 'french')->where('initiative_id', $id)->where('french_translation', '1')->get();
-//        $stories = Initiative::with('english', 'french', 'firstImage', 'images')->where('sub_what_category_id', '2')// f2f stories
-//        ->where('partner_id', $id)->where('online', '1')->get();
+        //        $stories = Initiative::with('english', 'french', 'firstImage', 'images')->where('sub_what_category_id', '2')// f2f stories
+        //        ->where('partner_id', $id)->where('online', '1')->get();
 
-//        $relatedPosts = array_merge($initiativesSameCategory->toArray(), $initiativesSameType->toArray());
+        //        $relatedPosts = array_merge($initiativesSameCategory->toArray(), $initiativesSameType->toArray());
 
-        return view('new.public.initiative-test', ['edition' => $edition, 'mainInitiative' => $mainInitiative, 'images' => $images, 'imagesRehabilitation' => $imagesRehabilitation, 'initiativePath' => $initiativePath, 'initiativesSameType' => $initiativesSameType, 'initiativesSameCategory' => $initiativesSameCategory, 'testimonies' => $testimonies, //            'stories' => $stories,
-//            'relatedPosts' => $relatedPosts
+        return view('new.public.initiative-test', [
+            'edition' => $edition,
+            'mainInitiative' => $mainInitiative,
+            'images' => $images,
+            'imagesRehabilitation' => $imagesRehabilitation,
+            'initiativePath' => $initiativePath,
+            'initiativesSameType' => $initiativesSameType,
+            'initiativesSameCategory' => $initiativesSameCategory,
+            'testimonies' => $testimonies, //            'stories' => $stories,
+            //            'relatedPosts' => $relatedPosts
         ]);
     }
 
@@ -900,7 +959,7 @@ ORDER BY age.ID;');
             return view('new.errors.404', ['edition' => $edition]);
         }
 
-        $carouselImages = Cover::where('what_category_id',$whatCategory->id)->orderBy('image_order', 'asc')->select('image_path')->get();
+        $carouselImages = Cover::where('what_category_id', $whatCategory->id)->orderBy('image_order', 'asc')->select('image_path')->get();
 
         $initiatives = Initiative::with('english', 'french', 'ImagesRandom')->where('what_category_id', $whatCategory->id)->where('online', '1')->orderBy('id', 'desc')->get();
 
@@ -918,14 +977,14 @@ ORDER BY age.ID;');
         }
 
         if ($whatCategory->id == '6') {
-            $testemonies = Success::with('english', 'french')->where('what_category_id', '6')//Homework Room
-            ->where('who_category_id', '4')//Children
-            ->where('online', '1')->get();
+            $testemonies = Success::with('english', 'french')->where('what_category_id', '6') //Homework Room
+                ->where('who_category_id', '4') //Children
+                ->where('online', '1')->get();
 
             return view('new.public.initiatives', ['initiatives' => $initiatives, 'whatCategory' => $whatCategory, 'testemonies' => $testemonies, 'agent' => $agent]);
         } else {
 
-            return view('new.public.initiatives', ['carouselImages'=>$carouselImages,'edition' => $edition, 'initiatives' => $initiatives, 'whatCategory' => $whatCategory, 'agent' => $agent]);
+            return view('new.public.initiatives', ['carouselImages' => $carouselImages, 'edition' => $edition, 'initiatives' => $initiatives, 'whatCategory' => $whatCategory, 'agent' => $agent]);
         }
     }
     public function school_to_school()
@@ -947,16 +1006,16 @@ ORDER BY age.ID;');
         $brief = HopeProjects::with('media')
             ->where('what_category_id', 9)
             ->first();
-        $partners_ongoing = ProjectDonor::where('what_category_id',9)->with('donors')->where('isActive',1)->orderBy('rank','asc')->get();
-        $partners_previous = ProjectDonor::where('what_category_id',9)->with('donors')->where('isActive',0)->orderBy('rank','asc')->get();
-        $carouselImages = Cover::where('what_category_id',9)->orderBy('image_order', 'asc')->select('image_path')->get();
+        $partners_ongoing = ProjectDonor::where('what_category_id', 9)->with('donors')->where('isActive', 1)->orderBy('rank', 'asc')->get();
+        $partners_previous = ProjectDonor::where('what_category_id', 9)->with('donors')->where('isActive', 0)->orderBy('rank', 'asc')->get();
+        $carouselImages = Cover::where('what_category_id', 9)->orderBy('image_order', 'asc')->select('image_path')->get();
         $edition = Edition::all()->select('id')->last();
         $photos = ['/images/initiatives/School to School/letter1.jpg', '/images/initiatives/School to School/letter2.jpg', '/images/initiatives/School to School/letter3.jpg'];
 
-        $initiatives = Initiative::with('english', 'french', 'ImagesRandom', 'firstImage')//            ->join('initiatives_english','initiatives.id','initiative_id')
-        ->where('what_category_id', 9)->where('online', '1')->orderBy('rank')->get();
+        $initiatives = Initiative::with('english', 'french', 'ImagesRandom', 'firstImage') //            ->join('initiatives_english','initiatives.id','initiative_id')
+            ->where('what_category_id', 9)->where('online', '1')->orderBy('rank')->get();
 
-        return view('new.public.school-to-school', ['partners_ongoing'=>$partners_ongoing,'partners_previous'=>$partners_previous,'brief'=>$brief,'carouselImages'=>$carouselImages,'edition' => $edition, 'photos' => $photos, 'initiatives' => $initiatives, 'agent' => $agent]);
+        return view('new.public.school-to-school', ['partners_ongoing' => $partners_ongoing, 'partners_previous' => $partners_previous, 'brief' => $brief, 'carouselImages' => $carouselImages, 'edition' => $edition, 'photos' => $photos, 'initiatives' => $initiatives, 'agent' => $agent]);
     }
     public function initiativeOfProject($type, $id, $slug)
     {
@@ -983,18 +1042,18 @@ ORDER BY age.ID;');
         foreach ($initiativesSameCategory as $initiative) if (is_null($initiative->firstImage)) $initiative->firstImage = collect(['path' => InitiativeImageRehabilitation::where('initiative_id', $initiative->id)->first()->path_1]);
         $testimonies = Testimony::with('english', 'french')->where('initiative_id', $id)->where('french_translation', '1')->get();
         $relatedPosts = array_merge($initiativesSameCategory, $initiativesSameType);
-//        return view('new.public.initiative', [
-//            'mainInitiative' => $mainInitiative,
-//            'images' => $images,
-//            'subWhatCategory' => $subWhatCategory,
-//            'imagesRehabilitation' => [],
-//            'initiativePath' => $initiativePath,
-//            'initiativesSameType' => $initiativesSameType,
-//            'initiativesSameCategory' => $initiativesSameCategory,
-//            'testimonies' => $testimonies,
-//            'relatedPosts' => $relatedPosts,
-//            'stories' => []
-//        ]);
+        //        return view('new.public.initiative', [
+        //            'mainInitiative' => $mainInitiative,
+        //            'images' => $images,
+        //            'subWhatCategory' => $subWhatCategory,
+        //            'imagesRehabilitation' => [],
+        //            'initiativePath' => $initiativePath,
+        //            'initiativesSameType' => $initiativesSameType,
+        //            'initiativesSameCategory' => $initiativesSameCategory,
+        //            'testimonies' => $testimonies,
+        //            'relatedPosts' => $relatedPosts,
+        //            'stories' => []
+        //        ]);
         return ['relatedPosts' => $relatedPosts, 'edition' => $edition,];
     }
 
@@ -1010,12 +1069,12 @@ ORDER BY age.ID;');
 
     public function homeworkRoom()
     {
-        $initiatives = Initiative::with('english', 'french', 'ImagesRandom')->where('what_category_id', 6)//Homework Room
-        ->where('online', '1')->orderBy('id', 'desc')->get();
+        $initiatives = Initiative::with('english', 'french', 'ImagesRandom')->where('what_category_id', 6) //Homework Room
+            ->where('online', '1')->orderBy('id', 'desc')->get();
 
-        $testemonies = Success::with('english', 'french')->where('what_category_id', '6')//Homework Room
-        ->where('who_category_id', '4')//Children
-        ->where('online', '1')->orderBy('id', 'desc')->limit(3)->get();
+        $testemonies = Success::with('english', 'french')->where('what_category_id', '6') //Homework Room
+            ->where('who_category_id', '4') //Children
+            ->where('online', '1')->orderBy('id', 'desc')->limit(3)->get();
 
         $whatCategory = WhatCategory::where('id', $initiatives[0]->what_category_id)->with('subCategory')->first();
 
@@ -1041,10 +1100,10 @@ ORDER BY age.ID;');
         $brief = HopeProjects::with('media')
             ->where('what_category_id', 17)
             ->first();
-        $partners_ongoing = ProjectDonor::where('what_category_id',17)->with('donors')->where('isActive',1)->orderBy('rank','asc')->get();
-        $partners_previous = ProjectDonor::where('what_category_id',17)->with('donors')->where('isActive',0)->orderBy('rank','asc')->get();
+        $partners_ongoing = ProjectDonor::where('what_category_id', 17)->with('donors')->where('isActive', 1)->orderBy('rank', 'asc')->get();
+        $partners_previous = ProjectDonor::where('what_category_id', 17)->with('donors')->where('isActive', 0)->orderBy('rank', 'asc')->get();
         $agent = new Agent();
-        $carouselImages = Cover::where('what_category_id',17)->orderBy('image_order', 'asc')->select('image_path')->get();
+        $carouselImages = Cover::where('what_category_id', 17)->orderBy('image_order', 'asc')->select('image_path')->get();
 
         if (session('locale') == 'fr') {
             $language = 'french';
@@ -1060,31 +1119,30 @@ ORDER BY age.ID;');
 
         if ($searchStr != '') {
 
-            $ini_A = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->whereIn('initiatives.id', Arr::pluck($cuActivitiesIDs, 'id'))->where('what_category_id', 17)//Children
-            ->where('online', '1')->where('place_id', '3')//aleppo
-            ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_A');
+            $ini_A = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->whereIn('initiatives.id', Arr::pluck($cuActivitiesIDs, 'id'))->where('what_category_id', 17) //Children
+                ->where('online', '1')->where('place_id', '3') //aleppo
+                ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_A');
 
-            $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->whereIn('initiatives.id', Arr::pluck($cuActivitiesIDs, 'id'))->where('what_category_id', 17)//Children
-            ->where('online', '1')->where('place_id', '1')//homs
-            ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
-
+            $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->whereIn('initiatives.id', Arr::pluck($cuActivitiesIDs, 'id'))->where('what_category_id', 17) //Children
+                ->where('online', '1')->where('place_id', '1') //homs
+                ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
         } else {
 
-            $ini_A = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 17)//Children
-            ->where('online', '1')->where('place_id', '3')//aleppo
-            ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_A');
+            $ini_A = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 17) //Children
+                ->where('online', '1')->where('place_id', '3') //aleppo
+                ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_A');
 
-            $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 17)//Children
-            ->where('online', '1')->where('place_id', '1')//homs
-            ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
+            $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 17) //Children
+                ->where('online', '1')->where('place_id', '1') //homs
+                ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
         }
 
-        $initiatives = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 17)//Children
-        ->where('online', '1')->orderBy('id', 'desc')->get();
+        $initiatives = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 17) //Children
+            ->where('online', '1')->orderBy('id', 'desc')->get();
 
         $whatCategory = WhatCategory::where('id', $initiatives[0]->what_category_id)->with('subCategory')->first();
 
-        return view('new.public.children-uni', ['partners_previous'=>$partners_previous,'partners_ongoing'=>$partners_ongoing,'brief'=> $brief,'carouselImages'=>$carouselImages,'edition' => $edition, 'initiatives' => $initiatives, 'ini_A' => $ini_A, 'ini_H' => $ini_H, 'whatCategory' => $whatCategory, 'agent' => $agent, 'search' => $searchStr, 'searchProject' => $searchCU]);
+        return view('new.public.children-uni', ['partners_previous' => $partners_previous, 'partners_ongoing' => $partners_ongoing, 'brief' => $brief, 'carouselImages' => $carouselImages, 'edition' => $edition, 'initiatives' => $initiatives, 'ini_A' => $ini_A, 'ini_H' => $ini_H, 'whatCategory' => $whatCategory, 'agent' => $agent, 'search' => $searchStr, 'searchProject' => $searchCU]);
     }
     public function leap(Request $request)
     {
@@ -1105,10 +1163,10 @@ ORDER BY age.ID;');
         $brief = HopeProjects::with('media')
             ->where('what_category_id', 19)
             ->first();
-        $partners_ongoing = ProjectDonor::where('what_category_id',19)->with('donors')->where('isActive',1)->orderBy('rank','asc')->get();
-        $partners_previous = ProjectDonor::where('what_category_id',19)->with('donors')->where('isActive',0)->orderBy('rank','asc')->get();
+        $partners_ongoing = ProjectDonor::where('what_category_id', 19)->with('donors')->where('isActive', 1)->orderBy('rank', 'asc')->get();
+        $partners_previous = ProjectDonor::where('what_category_id', 19)->with('donors')->where('isActive', 0)->orderBy('rank', 'asc')->get();
         $agent = new Agent();
-        $carouselImages = Cover::where('what_category_id',19)->orderBy('image_order', 'asc')->select('image_path')->get();
+        $carouselImages = Cover::where('what_category_id', 19)->orderBy('image_order', 'asc')->select('image_path')->get();
 
         if (session('locale') == 'fr') {
             $language = 'french';
@@ -1124,34 +1182,32 @@ ORDER BY age.ID;');
 
         if ($searchStr != '') {
 
-            $ini_A = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->whereIn('initiatives.id', Arr::pluck($leapActivitiesIDs, 'id'))->where('what_category_id', 19)//LEAP
-            ->where('online', '1')->where('place_id', '3')//aleppo
-            ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_A');
+            $ini_A = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->whereIn('initiatives.id', Arr::pluck($leapActivitiesIDs, 'id'))->where('what_category_id', 19) //LEAP
+                ->where('online', '1')->where('place_id', '3') //aleppo
+                ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_A');
 
-            $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->whereIn('initiatives.id', Arr::pluck($leapActivitiesIDs, 'id'))->where('what_category_id', 19)//LEAP
-            ->where('online', '1')->where('place_id', '1')//homs
-            ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
-
+            $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->whereIn('initiatives.id', Arr::pluck($leapActivitiesIDs, 'id'))->where('what_category_id', 19) //LEAP
+                ->where('online', '1')->where('place_id', '1') //homs
+                ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
         } else {
 
-            $ini_A = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 19)//LEAP
-            ->where('online', '1')->where('place_id', '3')//aleppo
-            ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_A');
+            $ini_A = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 19) //LEAP
+                ->where('online', '1')->where('place_id', '3') //aleppo
+                ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_A');
 
-            $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 19)//LEAP
-            ->where('online', '1')->where('place_id', '1')//homs
-            ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
+            $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 19) //LEAP
+                ->where('online', '1')->where('place_id', '1') //homs
+                ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
         }
 
-        $initiatives = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 19)//LEAP
-        ->where('online', '1')->orderBy('id', 'desc')->get();
+        $initiatives = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 19) //LEAP
+            ->where('online', '1')->orderBy('id', 'desc')->get();
 
-        if(count($initiatives)>0){
+        if (count($initiatives) > 0) {
             $whatCategory = WhatCategory::where('id', $initiatives[0]->what_category_id)->with('subCategory')->first();
-        }
-        else $whatCategory=[];
+        } else $whatCategory = [];
 
-        return view('new.public.leap', ['partners_previous'=>$partners_previous,'partners_ongoing'=>$partners_ongoing,'brief'=> $brief,'carouselImages'=>$carouselImages,'edition' => $edition, 'initiatives' => $initiatives, 'ini_A' => $ini_A, 'ini_H' => $ini_H, 'whatCategory' => $whatCategory, 'agent' => $agent, 'search' => $searchStr, 'searchProject' => $searchLEAP]);
+        return view('new.public.leap', ['partners_previous' => $partners_previous, 'partners_ongoing' => $partners_ongoing, 'brief' => $brief, 'carouselImages' => $carouselImages, 'edition' => $edition, 'initiatives' => $initiatives, 'ini_A' => $ini_A, 'ini_H' => $ini_H, 'whatCategory' => $whatCategory, 'agent' => $agent, 'search' => $searchStr, 'searchProject' => $searchLEAP]);
     }
 
     public function about_us()
@@ -1251,10 +1307,10 @@ ORDER BY age.ID;');
 
         $edition = Edition::all()->select('id')->last();
         $agent = new Agent();
-        $carouselImages = Cover::where('what_category_id',15)->orderBy('image_order', 'asc')->select('image_path')->get();
+        $carouselImages = Cover::where('what_category_id', 15)->orderBy('image_order', 'asc')->select('image_path')->get();
 
         return view('new.public.youth', [
-            'carouselImages'=>$carouselImages,
+            'carouselImages' => $carouselImages,
             'edition' => $edition,
             'agent' => $agent
         ]);
@@ -1380,37 +1436,37 @@ ORDER BY age.ID;');
         $brief = HopeProjects::with('media')
             ->where('what_category_id', 8)
             ->first();
-        $partners_ongoing = ProjectDonor::where('what_category_id',8)->with('donors')->where('isActive',1)->orderBy('rank','asc')->get();
-        $partners_previous = ProjectDonor::where('what_category_id',8)->with('donors')->where('isActive',0)->orderBy('rank','asc')->get();
+        $partners_ongoing = ProjectDonor::where('what_category_id', 8)->with('donors')->where('isActive', 1)->orderBy('rank', 'asc')->get();
+        $partners_previous = ProjectDonor::where('what_category_id', 8)->with('donors')->where('isActive', 0)->orderBy('rank', 'asc')->get();
 
         $agent = new Agent();
-        $carouselImages = Cover::where('what_category_id',8)->orderBy('image_order', 'asc')->select('image_path')->get();
+        $carouselImages = Cover::where('what_category_id', 8)->orderBy('image_order', 'asc')->select('image_path')->get();
         $familyMap = DB::select('select * from familypartners');
         $partners = Initiative::with('english', 'french', 'ImagesRandom')->where('sub_what_category_id', 1)->where('online', '1')->orderBy('rank')->get();
 
-        return view('new.public.family-to-family', ['partners_previous'=>$partners_previous,'partners_ongoing'=>$partners_ongoing,'carouselImages'=>$carouselImages,'edition' => $edition, 'partners' => $partners, 'brief' => $brief, 'familyMap' => $familyMap, 'agent' => $agent]);
+        return view('new.public.family-to-family', ['partners_previous' => $partners_previous, 'partners_ongoing' => $partners_ongoing, 'carouselImages' => $carouselImages, 'edition' => $edition, 'partners' => $partners, 'brief' => $brief, 'familyMap' => $familyMap, 'agent' => $agent]);
     }
-//    public function show_donate()
-//    {
-//        return view('public.donate')->with('mpCount', 0);
-//    }
-//    public function show_donate_project($id)
-//    {
-//        if (session('locale') == 'fr') {
-//            $language = 'french';
-//        } else {
-//            $language = 'english';
-//        }
-//        $microProject = Project::with($language)->where([['MicroProject_ID', $id], ['MPE_Done', '0'], ['MPE_Published', '1']])->get();
-//        foreach ($microProject as $mp) {
-//            $mp->lang = $mp->$language;
-//        }
-//        if (count($microProject) == 0) {
-//            return view('errors.404');
-//        } else {
-//            return view('public.donate')->with('microProject', $microProject)->with('mpCount', 1);
-//        }
-//    }
+    //    public function show_donate()
+    //    {
+    //        return view('public.donate')->with('mpCount', 0);
+    //    }
+    //    public function show_donate_project($id)
+    //    {
+    //        if (session('locale') == 'fr') {
+    //            $language = 'french';
+    //        } else {
+    //            $language = 'english';
+    //        }
+    //        $microProject = Project::with($language)->where([['MicroProject_ID', $id], ['MPE_Done', '0'], ['MPE_Published', '1']])->get();
+    //        foreach ($microProject as $mp) {
+    //            $mp->lang = $mp->$language;
+    //        }
+    //        if (count($microProject) == 0) {
+    //            return view('errors.404');
+    //        } else {
+    //            return view('public.donate')->with('microProject', $microProject)->with('mpCount', 1);
+    //        }
+    //    }
     public function studyzone(Request $request)
     {
         $pageName = 'study_zone';
@@ -1430,14 +1486,14 @@ ORDER BY age.ID;');
         $brief = HopeProjects::with('media')
             ->where('what_category_id', 7)
             ->first();
-        $partners_ongoing = ProjectDonor::where('what_category_id',7)->with('donors')->where('isActive',1)->orderBy('rank','asc')->get();
-        $partners_previous = ProjectDonor::where('what_category_id',7)->with('donors')->where('isActive',0)->orderBy('rank','asc')->get();
+        $partners_ongoing = ProjectDonor::where('what_category_id', 7)->with('donors')->where('isActive', 1)->orderBy('rank', 'asc')->get();
+        $partners_previous = ProjectDonor::where('what_category_id', 7)->with('donors')->where('isActive', 0)->orderBy('rank', 'asc')->get();
         $all_students = Student::count();
 
         $agent = new Agent();
-        $carouselImages = Cover::where('what_category_id',7)->orderBy('image_order', 'asc')->select('image_path')->get();
-        $testemonies = Success::with('english', 'french')->where('what_category_id', '7')//Study
-        ->where('online', '1')->orderBy('id', 'desc')->limit(4)->get();
+        $carouselImages = Cover::where('what_category_id', 7)->orderBy('image_order', 'asc')->select('image_path')->get();
+        $testemonies = Success::with('english', 'french')->where('what_category_id', '7') //Study
+            ->where('online', '1')->orderBy('id', 'desc')->limit(4)->get();
 
         $studyzone_centers = DB::select('select places.name as "placename", SUBSTRING_INDEX(studyzonecenters.name,\'-\',-1) as name ,studyzonecenters.id, studyzonecenters.name_fr , work_hours , address,location,telephone,email,facebook,instagram,latitude,longtitude,studyzonecenters.rank,place_id,active
         FROM `studyzonecenters` LEFT  JOIN  places on places.id = studyzonecenters.place_id order by placename, studyzonecenters.name asc ;');
@@ -1471,7 +1527,7 @@ WHERE
 GROUP BY
     hcsz_cities.code;');
 
-        $student_count = collect($student_count_raw)->keyBy(function($item) {
+        $student_count = collect($student_count_raw)->keyBy(function ($item) {
             return strtolower($item->name);
         });
 
@@ -1531,34 +1587,33 @@ ORDER BY `student_count` DESC');
         $szActivitiesIDs = $this->get_szactivities_IDs($searchStr, $languageTable);
 
         if ($searchStr != '') {
-            $ini_A = Initiative::with('english', 'french', 'firstImage', 'images', 'place', 'center')->where('what_category_id', '7')->where('sub_what_category_id', '12')->whereIn('initiatives.id', Arr::pluck($szActivitiesIDs, 'id'))->where('online', '1')->where('place_id', '3')//aleppo
-            ->orderBy('created_at', 'desc')->paginate(5, ['*'], 'ini_A');
+            $ini_A = Initiative::with('english', 'french', 'firstImage', 'images', 'place', 'center')->where('what_category_id', '7')->where('sub_what_category_id', '12')->whereIn('initiatives.id', Arr::pluck($szActivitiesIDs, 'id'))->where('online', '1')->where('place_id', '3') //aleppo
+                ->orderBy('created_at', 'desc')->paginate(5, ['*'], 'ini_A');
 
             $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '12')->whereIn('initiatives.id', Arr::pluck($szActivitiesIDs, 'id'))->where('what_category_id', '7')->where('online', '1')->whereIn('place_id', [1, 5])->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
-            $ini_D = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '12')->whereIn('initiatives.id', Arr::pluck($szActivitiesIDs, 'id'))->where('what_category_id', '7')->where('online', '1')->where('place_id', '2')//Damascus
-            ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_D');
-            $ini_L = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '12')->whereIn('initiatives.id', Arr::pluck($szActivitiesIDs, 'id'))->where('what_category_id', '7')->where('online', '1')->where('place_id', '4')//Latakia
-            ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_L');
-            $ini_T = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '12')->whereIn('initiatives.id', Arr::pluck($szActivitiesIDs, 'id'))->where('what_category_id', '7')->where('online', '1')->where('place_id', '6')//Tartus
-            ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_T');
+            $ini_D = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '12')->whereIn('initiatives.id', Arr::pluck($szActivitiesIDs, 'id'))->where('what_category_id', '7')->where('online', '1')->where('place_id', '2') //Damascus
+                ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_D');
+            $ini_L = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '12')->whereIn('initiatives.id', Arr::pluck($szActivitiesIDs, 'id'))->where('what_category_id', '7')->where('online', '1')->where('place_id', '4') //Latakia
+                ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_L');
+            $ini_T = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '12')->whereIn('initiatives.id', Arr::pluck($szActivitiesIDs, 'id'))->where('what_category_id', '7')->where('online', '1')->where('place_id', '6') //Tartus
+                ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_T');
         } else {
-            $ini_A = Initiative::with('english', 'french', 'firstImage', 'images', 'place', 'center')->where('what_category_id', '7')->where('sub_what_category_id', '12')->where('online', '1')->where('place_id', '3')//aleppo
-            ->orderBy('created_at', 'desc')->paginate(5, ['*'], 'ini_A');
+            $ini_A = Initiative::with('english', 'french', 'firstImage', 'images', 'place', 'center')->where('what_category_id', '7')->where('sub_what_category_id', '12')->where('online', '1')->where('place_id', '3') //aleppo
+                ->orderBy('created_at', 'desc')->paginate(5, ['*'], 'ini_A');
 
-            $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '12')->where('what_category_id', '7')->where('online', '1')->whereIn('place_id', [1, 5])//homs + countryside
-            ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
-            $ini_D = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '12')->where('what_category_id', '7')->where('online', '1')->where('place_id', '2')//Damascus
-            ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_D');
-            $ini_L = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '12')->where('what_category_id', '7')->where('online', '1')->where('place_id', '4')//Latakia
-            ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_L');
-            $ini_T = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '12')->where('what_category_id', '7')->where('online', '1')->where('place_id', '6')//Tartus
-            ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_T');
-
+            $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '12')->where('what_category_id', '7')->where('online', '1')->whereIn('place_id', [1, 5]) //homs + countryside
+                ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
+            $ini_D = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '12')->where('what_category_id', '7')->where('online', '1')->where('place_id', '2') //Damascus
+                ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_D');
+            $ini_L = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '12')->where('what_category_id', '7')->where('online', '1')->where('place_id', '4') //Latakia
+                ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_L');
+            $ini_T = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '12')->where('what_category_id', '7')->where('online', '1')->where('place_id', '6') //Tartus
+                ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_T');
         }
         $initiatives = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 7)->where('online', '1')->orderBy('id', 'desc')->get();
         $whatCategory = WhatCategory::where('id', $initiatives[0]->what_category_id)->with('subCategory')->first();
 
-        return view('new.public.study-zone', ['partners_ongoing'=>$partners_ongoing,'partners_previous'=>$partners_previous,'brief'=>$brief,'carouselImages'=>$carouselImages,'all_students' => $all_students, 'edition' => $edition, 'testemonies' => $testemonies, 'studyzone_centers' => $studyzone_centers, 'studyzone_centers_a' => $studyzone_centers_a, 'studyzone_centers_h' => $studyzone_centers_h, 'studyzone_centers_d' => $studyzone_centers_d, 'studyzone_centers_l' => $studyzone_centers_l, 'studyzone_centers_t' => $studyzone_centers_t, 'agent' => $agent, 'ini_A' => $ini_A, 'ini_H' => $ini_H, 'ini_D' => $ini_D, 'ini_L' => $ini_L, 'ini_T' => $ini_T, 'whatCategory' => $whatCategory, 'searchProject' => $searchST, 'student_count' => $student_count, 'education_fields' => $education_fields, 'gender_percentage' => $gender_percentage]);
+        return view('new.public.study-zone', ['partners_ongoing' => $partners_ongoing, 'partners_previous' => $partners_previous, 'brief' => $brief, 'carouselImages' => $carouselImages, 'all_students' => $all_students, 'edition' => $edition, 'testemonies' => $testemonies, 'studyzone_centers' => $studyzone_centers, 'studyzone_centers_a' => $studyzone_centers_a, 'studyzone_centers_h' => $studyzone_centers_h, 'studyzone_centers_d' => $studyzone_centers_d, 'studyzone_centers_l' => $studyzone_centers_l, 'studyzone_centers_t' => $studyzone_centers_t, 'agent' => $agent, 'ini_A' => $ini_A, 'ini_H' => $ini_H, 'ini_D' => $ini_D, 'ini_L' => $ini_L, 'ini_T' => $ini_T, 'whatCategory' => $whatCategory, 'searchProject' => $searchST, 'student_count' => $student_count, 'education_fields' => $education_fields, 'gender_percentage' => $gender_percentage]);
     }
     public function studyzone_all(Request $request)
     {
@@ -1613,16 +1668,16 @@ ORDER BY `student_count` DESC');
 
         $edition = Edition::all()->select('id')->last();
         $agent = new Agent();
-        $carouselImages = Cover::where('what_category_id',5)->orderBy('image_order', 'asc')->select('image_path')->get();
+        $carouselImages = Cover::where('what_category_id', 5)->orderBy('image_order', 'asc')->select('image_path')->get();
         $brief = HopeProjects::with('media')
             ->where('what_category_id', 5)
             ->first();
-        $partners_ongoing = ProjectDonor::where('what_category_id',5)->with('donors')->where('isActive',1)->orderBy('rank','asc')->get();
-        $partners_previous = ProjectDonor::where('what_category_id',5)->with('donors')->where('isActive',0)->orderBy('rank','asc')->get();
+        $partners_ongoing = ProjectDonor::where('what_category_id', 5)->with('donors')->where('isActive', 1)->orderBy('rank', 'asc')->get();
+        $partners_previous = ProjectDonor::where('what_category_id', 5)->with('donors')->where('isActive', 0)->orderBy('rank', 'asc')->get();
 
-        $testemonies = Success::with('english', 'french')->where('Sub_what_category_id', 16)//Job Opportunities
-        ->where('what_category_id', '5')//DISC
-        ->where('online', '1')->orderBy('id', 'desc')->limit(4)->get();
+        $testemonies = Success::with('english', 'french')->where('Sub_what_category_id', 16) //Job Opportunities
+            ->where('what_category_id', '5') //DISC
+            ->where('online', '1')->orderBy('id', 'desc')->limit(4)->get();
 
         if (session('locale') == 'fr') {
             $language = 'french';
@@ -1637,24 +1692,23 @@ ORDER BY `student_count` DESC');
         $discActivitiesIDs = $this->get_discactivities_IDs($searchStr, $languageTable);
 
         if ($searchStr != '') {
-            $ini_A = Initiative::with('english', 'french', 'firstImage', 'images', 'place', 'center')->where('what_category_id', '5')->where('sub_what_category_id', '8')->whereIn('initiatives.id', Arr::pluck($discActivitiesIDs, 'id'))->where('online', '1')->where('place_id', '3')//aleppo
-            ->orderBy('created_at', 'desc')->paginate(5, ['*'], 'ini_A');
+            $ini_A = Initiative::with('english', 'french', 'firstImage', 'images', 'place', 'center')->where('what_category_id', '5')->where('sub_what_category_id', '8')->whereIn('initiatives.id', Arr::pluck($discActivitiesIDs, 'id'))->where('online', '1')->where('place_id', '3') //aleppo
+                ->orderBy('created_at', 'desc')->paginate(5, ['*'], 'ini_A');
 
-            $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '8')->whereIn('initiatives.id', Arr::pluck($discActivitiesIDs, 'id'))->where('what_category_id', '5')->where('online', '1')->where('place_id', '1')//homs
-            ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
+            $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '8')->whereIn('initiatives.id', Arr::pluck($discActivitiesIDs, 'id'))->where('what_category_id', '5')->where('online', '1')->where('place_id', '1') //homs
+                ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
 
-            $ini_D = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '8')->whereIn('initiatives.id', Arr::pluck($discActivitiesIDs, 'id'))->where('what_category_id', '5')->where('online', '1')->where('place_id', '2')//Damascus
-            ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_D');
-
+            $ini_D = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '8')->whereIn('initiatives.id', Arr::pluck($discActivitiesIDs, 'id'))->where('what_category_id', '5')->where('online', '1')->where('place_id', '2') //Damascus
+                ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_D');
         } else {
-            $ini_A = Initiative::with('english', 'french', 'firstImage', 'images', 'place', 'center')->where('what_category_id', '5')->where('sub_what_category_id', '8')->where('online', '1')->where('place_id', '3')//aleppo
-            ->orderBy('created_at', 'desc')->paginate(5, ['*'], 'ini_A');
+            $ini_A = Initiative::with('english', 'french', 'firstImage', 'images', 'place', 'center')->where('what_category_id', '5')->where('sub_what_category_id', '8')->where('online', '1')->where('place_id', '3') //aleppo
+                ->orderBy('created_at', 'desc')->paginate(5, ['*'], 'ini_A');
 
-            $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '8')->where('what_category_id', '5')->where('online', '1')->where('place_id', '1')//homs
-            ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
+            $ini_H = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '8')->where('what_category_id', '5')->where('online', '1')->where('place_id', '1') //homs
+                ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_H');
 
-            $ini_D = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '8')->where('what_category_id', '5')->where('online', '1')->where('place_id', '2')//Damascus
-            ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_D');
+            $ini_D = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('sub_what_category_id', '8')->where('what_category_id', '5')->where('online', '1')->where('place_id', '2') //Damascus
+                ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_D');
         }
 
         $initiatives = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 5)->where('online', '1')->orderBy('id', 'desc')->get();
@@ -1667,7 +1721,7 @@ ORDER BY `student_count` DESC');
             $statistics = null;
         }
 
-        return view('new.public.disc', ['partners_previous'=> $partners_previous ,'partners_ongoing'=> $partners_ongoing,'brief'=> $brief,'carouselImages'=>$carouselImages,'statistics' => $statistics, 'testemonies' => $testemonies, 'agent' => $agent, 'ini_A' => $ini_A, 'ini_H' => $ini_H, 'ini_D' => $ini_D, 'whatCategory' => $whatCategory, 'edition' => $edition, 'searchProject' => $searchST]);
+        return view('new.public.disc', ['partners_previous' => $partners_previous, 'partners_ongoing' => $partners_ongoing, 'brief' => $brief, 'carouselImages' => $carouselImages, 'statistics' => $statistics, 'testemonies' => $testemonies, 'agent' => $agent, 'ini_A' => $ini_A, 'ini_H' => $ini_H, 'ini_D' => $ini_D, 'whatCategory' => $whatCategory, 'edition' => $edition, 'searchProject' => $searchST]);
     }
     public function discByPlace($place)
     {
@@ -1675,12 +1729,12 @@ ORDER BY `student_count` DESC');
         $place = Place::whereRaw('replace(lower(name)," ","-") LIKE "' . $place . '"')->first();
         if (is_null($place)) return view('new.errors.404', ['edition' => $edition]);
 
-        $successes = Success::with('english', 'french')->where('place_id', $place->id)->where('Sub_what_category_id', 17)//Student Of Month
-        ->where('what_category_id', '5')//DISC
-        ->where('online', '1')->orderBy('id', 'desc')->limit(6)->get();
+        $successes = Success::with('english', 'french')->where('place_id', $place->id)->where('Sub_what_category_id', 17) //Student Of Month
+            ->where('what_category_id', '5') //DISC
+            ->where('online', '1')->orderBy('id', 'desc')->limit(6)->get();
 
-        $initiatives = Initiative::with('english', 'french', 'images', 'courses')->where('place_id', $place->id)->where('what_category_id', 5)//DISC
-        ->where('online', '1')->first();
+        $initiatives = Initiative::with('english', 'french', 'images', 'courses')->where('place_id', $place->id)->where('what_category_id', 5) //DISC
+            ->where('online', '1')->first();
 
 
         return view('public.disc-inner', ['initiatives' => $initiatives, 'successes' => $successes,]);
@@ -1730,7 +1784,6 @@ ORDER BY `student_count` DESC');
                 $subscriber->save();
 
                 return response()->json(['msg' => 'false']);
-
             } catch (\Exception $e) {
                 \Illuminate\Support\Facades\Log::error('DB Save Failed: ' . $e->getMessage());
                 return response()->json(['error' => 'Database connection failed.'], 500);
@@ -1740,43 +1793,43 @@ ORDER BY `student_count` DESC');
         return response()->json(['error' => 'Invalid request'], 400);
     }
 
-//    public function fillDropdownEdition()
-//    {
-//        if (Request()->ajax()) {
-//            $fillDropdownItems = [];
-//            $arr1 = [];
-//            $editions = Edition::select('name')->where('online', 1)->get();
-//            foreach ($editions as $edition) {
-//                array_push($arr1, $edition->name);
-//            }
-//            $this->$fillDropdownItems = $arr1;
-//            return response()->json(array('msg' => $this->$fillDropdownItems));
-//        }
-//    }
-//
-//    public function fillDropdownWho()
-//    {
-//        if (Request()->ajax()) {
-//            $arr3 = [];
-//            $whoCategories = WhoCategory::select('name')->get();
-//            foreach ($whoCategories as $whoCategory) {
-//                array_push($arr3, $whoCategory->name);
-//            }
-//            $fillDropdownItems = $arr3;
-//            return response()->json(array('msg' => $fillDropdownItems));
-//        }
-//    }
-//
-//    public function fillDropdownWhat()
-//    {
-//        $arr2 = [];
-//        $whatCategories = WhatCategory::select('name')->whereIn('id', [11, 12, 13, 14, 15])->get();
-//        foreach ($whatCategories as $whatCategory) {
-//            array_push($arr2, $whatCategory->name);
-//        }
-//        $fillDropdownItems = $arr2;
-//        return response()->json(array('msg' => $fillDropdownItems));
-//    }
+    //    public function fillDropdownEdition()
+    //    {
+    //        if (Request()->ajax()) {
+    //            $fillDropdownItems = [];
+    //            $arr1 = [];
+    //            $editions = Edition::select('name')->where('online', 1)->get();
+    //            foreach ($editions as $edition) {
+    //                array_push($arr1, $edition->name);
+    //            }
+    //            $this->$fillDropdownItems = $arr1;
+    //            return response()->json(array('msg' => $this->$fillDropdownItems));
+    //        }
+    //    }
+    //
+    //    public function fillDropdownWho()
+    //    {
+    //        if (Request()->ajax()) {
+    //            $arr3 = [];
+    //            $whoCategories = WhoCategory::select('name')->get();
+    //            foreach ($whoCategories as $whoCategory) {
+    //                array_push($arr3, $whoCategory->name);
+    //            }
+    //            $fillDropdownItems = $arr3;
+    //            return response()->json(array('msg' => $fillDropdownItems));
+    //        }
+    //    }
+    //
+    //    public function fillDropdownWhat()
+    //    {
+    //        $arr2 = [];
+    //        $whatCategories = WhatCategory::select('name')->whereIn('id', [11, 12, 13, 14, 15])->get();
+    //        foreach ($whatCategories as $whatCategory) {
+    //            array_push($arr2, $whatCategory->name);
+    //        }
+    //        $fillDropdownItems = $arr2;
+    //        return response()->json(array('msg' => $fillDropdownItems));
+    //    }
 
     public function show_article($id, $city, $date)
     {
@@ -1814,27 +1867,30 @@ ORDER BY `student_count` DESC');
     {
         $fundedCount = Project::whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2])->count();
 
-//        $newProjectsCount = Project::whereIn('projectsubtype_id', [4, 6])->whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2])->count(); //new
-//        $expandrojectsCount = Project::whereIn('projectsubtype_id', [5, 7])->whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2])->count(); //expand
+        //        $newProjectsCount = Project::whereIn('projectsubtype_id', [4, 6])->whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2])->count(); //new
+        //        $expandrojectsCount = Project::whereIn('projectsubtype_id', [5, 7])->whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2])->count(); //expand
 
         $familyMembersCount = Project::whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2])->sum('FamilyMembers');
 
         $workLossCount = Project::where('WorkLoss', '1')->whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2])->count(); //WorkLoss
         $workLossRatio = $workLossCount * 100 / $fundedCount;
 
-//        $newRatio = $newProjectsCount * 100 / $fundedCount;
-//        $expandRatio = $expandrojectsCount * 100 / $fundedCount;
+        //        $newRatio = $newProjectsCount * 100 / $fundedCount;
+        //        $expandRatio = $expandrojectsCount * 100 / $fundedCount;
 
-//        $newRatio = number_format($newRatio, 2, '.', '');
-//        $expandRatio = number_format($expandRatio, 2, '.', '');
-//        $workLossRatio = number_format($workLossRatio, 2, '.', '');
+        //        $newRatio = number_format($newRatio, 2, '.', '');
+        //        $expandRatio = number_format($expandRatio, 2, '.', '');
+        //        $workLossRatio = number_format($workLossRatio, 2, '.', '');
 
         $lastEdition = Edition::latest()->first();
 
-        return ['fundedCount' => $fundedCount, 'familyMembersCount' => $familyMembersCount, //            'newRatio' => $newRatio,
-//            'expandRatio' => $expandRatio,
-            'lastEdition' => $lastEdition, 'workLossRatio' => $workLossRatio, //            'newProjectsCount' => $newProjectsCount,
-//            'expandrojectsCount' => $expandrojectsCount,
+        return [
+            'fundedCount' => $fundedCount,
+            'familyMembersCount' => $familyMembersCount, //            'newRatio' => $newRatio,
+            //            'expandRatio' => $expandRatio,
+            'lastEdition' => $lastEdition,
+            'workLossRatio' => $workLossRatio, //            'newProjectsCount' => $newProjectsCount,
+            //            'expandrojectsCount' => $expandrojectsCount,
         ];
     }
 
@@ -1846,13 +1902,31 @@ ORDER BY `student_count` DESC');
         if ($search_str == null) {
             return redirect()->back();
         }
-        $projects_data = Project::whereIn('MPE_Published', [1, 2])->with('english', 'donor', 'place')->WhereHas('english', function ($q) use ($search_str) {
-            $q->where('MPE_Name', 'LIKE', "%{$search_str}%")->OrWhere('MPE_ExpSkill', 'LIKE', "%{$search_str}%")->OrWhere('MPE_Suffering', 'LIKE', "%{$search_str}%");
-        })->orWhereHas('donor', function ($q) use ($search_str) {
-            $q->where('name', 'LIKE', "%{$search_str}%");
-        })->orWhereHas('place', function ($q) use ($search_str) {
-            $q->where('name', 'LIKE', "%{$search_str}%");
-        })->orWhere('MPE_BeneficiaryName', 'LIKE', "%{$search_str}%")->orWhere('MicroProject_ID', 'LIKE', "%{$search_str}%")->orderBy('id', 'desc')->get();
+        $projects_data = Project::whereIn('MPE_Published', [1, 2])
+            ->with('english', 'donor', 'place')
+            ->where(function ($q) use ($search_str) {
+                $q->where('MicroProject_ID', 'LIKE', "%{$search_str}%")
+                    ->orWhere('MPE_BeneficiaryName', 'LIKE', "%{$search_str}%")
+                    ->orWhere('MPE_PartnerName', 'LIKE', "%{$search_str}%")
+                    ->orWhere('MPE_PartnerName2', 'LIKE', "%{$search_str}%")
+                    ->orWhereHas('english', function ($englishQuery) use ($search_str) {
+                        $englishQuery->where('MPE_Name', 'LIKE', "%{$search_str}%")
+                            ->orWhere('MPE_ExpSkill', 'LIKE', "%{$search_str}%")
+                            ->orWhere('MPE_Suffering', 'LIKE', "%{$search_str}%");
+                    })
+                    ->orWhereHas('donor', function ($donorQuery) use ($search_str) {
+                        $donorQuery->where('name', 'LIKE', "%{$search_str}%");
+                    })
+                    ->orWhereHas('place', function ($placeQuery) use ($search_str) {
+                        $placeQuery->where('name', 'LIKE', "%{$search_str}%");
+                    });
+            })
+            ->orderByRaw(
+                'case when MicroProject_ID = ? then 0 when MicroProject_ID like ? then 1 else 2 end',
+                [$search_str, "%{$search_str}%"]
+            )
+            ->orderBy('id', 'desc')
+            ->get();
 
         foreach ($projects_data as $d) {
             $d->MPE_BeneficiaryName = preg_replace("/($search_str)/i", '<span class="highlight">$1</span>', $d->MPE_BeneficiaryName);
