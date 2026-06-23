@@ -58,8 +58,23 @@ class MicroProjects extends Component
         $this->projectsList = (clone $query)
             ->orderBy('MPE_PublishDate', 'desc')
             ->get();
-        $this->uniqueProjects = $this->projectsList->pluck($this->language.'.MPE_Name')->filter()->unique();
-        $this->uniqueBeneficiaries = $this->projectsList->pluck('MPE_BeneficiaryName')->filter()->unique();
+        $this->uniqueProjects = $this->projectsList
+            ->flatMap(fn ($project) => [
+                optional($project->{$this->language})->MPE_Name,
+                (string) $project->MicroProject_ID,
+            ])
+            ->filter()
+            ->unique()
+            ->values();
+        $this->uniqueBeneficiaries = $this->projectsList
+            ->flatMap(fn ($project) => [
+                $project->MPE_BeneficiaryName,
+                $project->MPE_PartnerName !== '0' ? $project->MPE_PartnerName : null,
+                $project->MPE_PartnerName2 !== '0' ? $project->MPE_PartnerName2 : null,
+            ])
+            ->filter()
+            ->unique()
+            ->values();
         $this->projects = collect();
         $this->loadProjects();
     }
@@ -124,11 +139,25 @@ class MicroProjects extends Component
             },
             'donor'])->whereIn('MPE_Done', [1, 2])->whereIn('MPE_Published', [1, 2]);
 
-        if ($this->search !== '') {
-            $query->whereHas($this->language, function ($q) {
-                $q->where('MPE_Name', 'like', '%' . $this->search . '%')
-                    ->orWhere('MPE_BeneficiaryName', 'like', '%' . $this->search . '%');
+        $search = trim((string) $this->search);
+
+        if ($search !== '') {
+            $query->where(function ($q) use ($search) {
+                $q->where('MicroProject_ID', 'like', '%' . $search . '%')
+                    ->orWhere('MPE_BeneficiaryName', 'like', '%' . $search . '%')
+                    ->orWhere('MPE_PartnerName', 'like', '%' . $search . '%')
+                    ->orWhere('MPE_PartnerName2', 'like', '%' . $search . '%')
+                    ->orWhereHas($this->language, function ($languageQuery) use ($search) {
+                        $languageQuery->where('MPE_Name', 'like', '%' . $search . '%')
+                            ->orWhere('MPE_ExpSkill', 'like', '%' . $search . '%')
+                            ->orWhere('MPE_Suffering', 'like', '%' . $search . '%');
+                    });
             });
+
+            $query->orderByRaw(
+                'case when MicroProject_ID = ? then 0 when MicroProject_ID like ? then 1 else 2 end',
+                [$search, '%' . $search . '%']
+            );
         }
 
         if ($this->donor !== '' && $this->donor !== null) {
@@ -151,7 +180,7 @@ class MicroProjects extends Component
             ->get();
         // Trigger browser event
         $this->dispatch('reinit-typeahead', [
-            'projects' => $this->projects->pluck('MPE_Name')->toArray(),
+            'projects' => $this->projects->map(fn ($project) => optional($project->{$this->language})->MPE_Name)->filter()->toArray(),
             'beneficiaries' => $this->projects->pluck('MPE_BeneficiaryName')->filter()->toArray(),
         ]);
         // If a deep-link project is requested but not in the list, fetch it separately
