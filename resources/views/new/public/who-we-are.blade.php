@@ -88,12 +88,22 @@
     {{-- ===================== 1. HERO ===================== --}}
     <header class="hero">
         @include('new.public.partials.cover-carousel', ['carouselImages' => $carouselImages])
+        <div class="hero-film-grain" aria-hidden="true"></div>
         <div class="hero-overlay">
-            <div class="hero-eyebrow" data-fx="up">Est. 2018 &nbsp;·&nbsp; Aleppo &nbsp;·&nbsp; Syria</div>
+            <div class="hero-eyebrow" data-fx="up">A story of hope in motion</div>
             <h1 class="hero-title">
                 <span class="l1" data-fx="up">Some see a hopeless end.</span>
                 <span class="l2" data-fx="up">Others see an <em>endless hope</em>.</span>
             </h1>
+            <p class="hero-subtitle" data-fx="up">
+                From Aleppo to communities across Syria, Christian Hope Center walks with families
+                from emergency relief toward dignity, recovery, and self-reliance.
+            </p>
+            <div class="hero-meta" data-fx-stagger>
+                <span>Est. 2018</span>
+                <span>Aleppo, Syria</span>
+                <span>Families first</span>
+            </div>
             <a href="#who-we-are" class="hero-scroll" aria-label="Scroll down"><span></span></a>
         </div>
     </header>
@@ -148,6 +158,64 @@
                 <div class="num">Syria-wide</div>
                 <div class="label">Multi-region reach</div>
             </div>
+        </div>
+    </section>
+
+    {{-- ===================== 3. CINEMATIC STORY ===================== --}}
+    <section id="story-section" class="wwa-section">
+        <div class="wwa-eyebrow" data-fx="up">The Story We Live</div>
+        <h2 class="wwa-section-title" data-fx="up">
+            Not a program. <span class="accent">A journey back to life.</span>
+        </h2>
+        <div class="wwa-rule" data-fx="zoom"></div>
+
+        @php
+            $storyChapters = [
+                [
+                    'kicker' => 'Chapter 01',
+                    'title' => 'We meet families in the hardest moment',
+                    'text' => 'When crisis interrupts daily life, our first response is practical: relief, emergency support, and the steady presence that tells a family they have not been forgotten.',
+                    'image' => '/images/home/Relief/1.jpg',
+                    'stat' => 'Relief',
+                ],
+                [
+                    'kicker' => 'Chapter 02',
+                    'title' => 'We restore the rhythm of a household',
+                    'text' => 'Hope becomes real when a provider can work again, a mother can stand with confidence, and a home can begin to plan beyond tomorrow.',
+                    'image' => '/images/home/F2F/1.jpg',
+                    'stat' => 'Recovery',
+                ],
+                [
+                    'kicker' => 'Chapter 03',
+                    'title' => 'We invest in the next generation',
+                    'text' => 'Children and youth are not treated as a side story. They are the future of the community, and we help them learn, create, belong, and dream again.',
+                    'image' => '/images/home/Youth/youth_cover.jpg',
+                    'stat' => 'Future',
+                ],
+                [
+                    'kicker' => 'Chapter 04',
+                    'title' => 'We build resilience that lasts',
+                    'text' => 'Our work moves beyond aid toward livelihoods, community development, WASH, and self-reliance, so families can carry hope forward with their own hands.',
+                    'image' => '/images/home/Micro/1.jpg',
+                    'stat' => 'Dignity',
+                ],
+            ];
+        @endphp
+
+        <div class="story-reel">
+            @foreach($storyChapters as $i => $chapter)
+                <article class="story-frame @if($i % 2 === 1) reverse @endif" data-fx="flip">
+                    <div class="story-image">
+                        <img src="{{ $chapter['image'] }}" alt="{{ $chapter['title'] }}">
+                    </div>
+                    <div class="story-copy">
+                        <span class="story-kicker">{{ $chapter['kicker'] }}</span>
+                        <h3>{{ $chapter['title'] }}</h3>
+                        <p>{{ $chapter['text'] }}</p>
+                        <strong>{{ $chapter['stat'] }}</strong>
+                    </div>
+                </article>
+            @endforeach
         </div>
     </section>
 
