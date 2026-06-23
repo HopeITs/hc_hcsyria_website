@@ -32,14 +32,14 @@
     <link rel="alternate" hreflang="x-default" href="https://www.hcsyria.org"/>
     <link href='https://fonts.googleapis.com/css?family=Martel:400,600,800,900' rel='stylesheet'>
 
-    {{-- Enable scroll animations ONLY when the tab is visible and IntersectionObserver
-         exists. Runs synchronously before paint to avoid any flash. In a hidden/background
-         tab or unsupported browser, the class is never added and all content stays visible. --}}
+    {{-- Enable scroll animations when IntersectionObserver exists. Runs synchronously
+         before paint to avoid any flash; unsupported/reduced-motion browsers keep
+         content visible. --}}
     <script>
         (function () {
             try {
                 var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-                if (!reduce && 'IntersectionObserver' in window && !document.hidden) {
+                if (!reduce && 'IntersectionObserver' in window) {
                     document.documentElement.classList.add('anim-on');
                 }
             } catch (e) { /* leave content visible */ }
@@ -372,7 +372,7 @@
                         io.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+            }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
             els.forEach(function (el) { io.observe(el); });
 
             // ---- Hero parallax: text drifts up & fades as you scroll into the story ----
@@ -412,16 +412,29 @@
         }
 
         // ---- Interactive 3D tilt on hover-capable pointers (decorative) ----
+        // Rect is cached on enter and writes are rAF-throttled, so moving the
+        // mouse never forces a layout/reflow — keeps the tilt buttery smooth.
         if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
             document.querySelectorAll('#Who .tilt').forEach(function (el) {
                 var max = el.classList.contains('partner-cell') ? 10 : 7;
+                var rect = null, raf = null, mx = 0, my = 0;
+                el.addEventListener('mouseenter', function () { rect = el.getBoundingClientRect(); });
                 el.addEventListener('mousemove', function (e) {
-                    var r = el.getBoundingClientRect();
-                    var px = (e.clientX - r.left) / r.width - 0.5;
-                    var py = (e.clientY - r.top) / r.height - 0.5;
-                    el.style.transform = 'perspective(900px) rotateX(' + (-py * max).toFixed(2) + 'deg) rotateY(' + (px * max).toFixed(2) + 'deg)';
+                    mx = e.clientX; my = e.clientY;
+                    if (raf) return;
+                    raf = requestAnimationFrame(function () {
+                        raf = null;
+                        if (!rect) rect = el.getBoundingClientRect();
+                        var px = (mx - rect.left) / rect.width - 0.5;
+                        var py = (my - rect.top) / rect.height - 0.5;
+                        el.style.transform = 'perspective(900px) rotateX(' + (-py * max).toFixed(2) + 'deg) rotateY(' + (px * max).toFixed(2) + 'deg)';
+                    });
                 });
-                el.addEventListener('mouseleave', function () { el.style.transform = ''; });
+                el.addEventListener('mouseleave', function () {
+                    if (raf) { cancelAnimationFrame(raf); raf = null; }
+                    rect = null;
+                    el.style.transform = '';
+                });
             });
         }
 
