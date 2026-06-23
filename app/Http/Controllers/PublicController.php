@@ -574,7 +574,7 @@ ORDER BY age.ID;');
 
         $microproject_id_string = '';
         if ($searchStr != '' && is_numeric($searchStr)) {
-            $microproject_id_string = ' or projects.MicroProject_ID = ' . $searchStr;
+            $microproject_id_string = ' or projects.id = ' . $searchStr;
         }
 
         return DB::Select('select projects.id from projects inner join ' . $langTable . '
@@ -1904,27 +1904,26 @@ ORDER BY `student_count` DESC');
         }
         $projects_data = Project::whereIn('MPE_Published', [1, 2])
             ->with('english', 'donor', 'place')
-            ->where(function ($q) use ($search_str) {
-                $q->where('MicroProject_ID', 'LIKE', "%{$search_str}%")
-                    ->orWhere('MPE_BeneficiaryName', 'LIKE', "%{$search_str}%")
-                    ->orWhere('MPE_PartnerName', 'LIKE', "%{$search_str}%")
-                    ->orWhere('MPE_PartnerName2', 'LIKE', "%{$search_str}%")
-                    ->orWhereHas('english', function ($englishQuery) use ($search_str) {
-                        $englishQuery->where('MPE_Name', 'LIKE', "%{$search_str}%")
-                            ->orWhere('MPE_ExpSkill', 'LIKE', "%{$search_str}%")
-                            ->orWhere('MPE_Suffering', 'LIKE', "%{$search_str}%");
-                    })
-                    ->orWhereHas('donor', function ($donorQuery) use ($search_str) {
-                        $donorQuery->where('name', 'LIKE', "%{$search_str}%");
-                    })
-                    ->orWhereHas('place', function ($placeQuery) use ($search_str) {
-                        $placeQuery->where('name', 'LIKE', "%{$search_str}%");
-                    });
+            ->when(ctype_digit((string) $search_str), function ($query) use ($search_str) {
+                $query->where('id', $search_str);
+            }, function ($query) use ($search_str) {
+                $query->where(function ($q) use ($search_str) {
+                    $q->where('MPE_BeneficiaryName', 'LIKE', "%{$search_str}%")
+                        ->orWhere('MPE_PartnerName', 'LIKE', "%{$search_str}%")
+                        ->orWhere('MPE_PartnerName2', 'LIKE', "%{$search_str}%")
+                        ->orWhereHas('english', function ($englishQuery) use ($search_str) {
+                            $englishQuery->where('MPE_Name', 'LIKE', "%{$search_str}%")
+                                ->orWhere('MPE_ExpSkill', 'LIKE', "%{$search_str}%")
+                                ->orWhere('MPE_Suffering', 'LIKE', "%{$search_str}%");
+                        })
+                        ->orWhereHas('donor', function ($donorQuery) use ($search_str) {
+                            $donorQuery->where('name', 'LIKE', "%{$search_str}%");
+                        })
+                        ->orWhereHas('place', function ($placeQuery) use ($search_str) {
+                            $placeQuery->where('name', 'LIKE', "%{$search_str}%");
+                        });
+                });
             })
-            ->orderByRaw(
-                'case when MicroProject_ID = ? then 0 when MicroProject_ID like ? then 1 else 2 end',
-                [$search_str, "%{$search_str}%"]
-            )
             ->orderBy('id', 'desc')
             ->get();
 
