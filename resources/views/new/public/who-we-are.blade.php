@@ -15,59 +15,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#f6f6f6">
     <meta name="apple-mobile-web-app-status-bar-style" content="#f6f6f6">
-    <meta name="description" content="@lang('family2family.description')">
-    <meta name="keywords" content="aleppo syria, hope, center, micro project, projects, caritas poland"/>
+    <meta name="description" content="Christian Hope Center is a Syrian non-profit NGO established in 2018 and headquartered in Aleppo, working in emergency response, relief, early recovery, community development and WASH.">
+    <meta name="keywords" content="aleppo syria, hope, center, NGO, humanitarian, community development"/>
     <title>Who We Are</title>
 
     <link href="{{asset('css/main-new.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/navbar.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/who-we-are.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/who-we-are-redesign.css')}}" rel="stylesheet" type="text/css">
 
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
-    {{--<link rel="shortcut icon" href="/public/fonts/Avenir%20LT%20Std%2045%20Book.otf">--}}
-    <link rel='stylesheet' href='https://unpkg.com/leaflet@1.8.0/dist/leaflet.css' crossorigin=''/>
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/typeahead.css" rel="stylesheet">
     <link href="/css/jquery.fancybox.min.css" rel="stylesheet">
     <link rel="alternate" hreflang="x-default" href="https://www.hcsyria.org"/>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
-    <link href='https://fonts.googleapis.com/css?family=Martel' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Martel:400,600,800,900' rel='stylesheet'>
+
+    {{-- Enable scroll animations ONLY when the tab is visible and IntersectionObserver
+         exists. Runs synchronously before paint to avoid any flash. In a hidden/background
+         tab or unsupported browser, the class is never added and all content stays visible. --}}
+    <script>
+        (function () {
+            try {
+                var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                if (!reduce && 'IntersectionObserver' in window && !document.hidden) {
+                    document.documentElement.classList.add('anim-on');
+                }
+            } catch (e) { /* leave content visible */ }
+        })();
+    </script>
 
     <script src="/js/html5shiv.js"></script>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/respond.min.js"></script>
 
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="/js/aos.js"></script>
-    {{--<script src='https://unpkg.com/leaflet@1.8.0/dist/leaflet.js' crossorigin=''></script>--}}
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/jquery.prettyPhoto.js"></script>
     <script type="text/javascript" src="/js/jquery.balloon.min.js"></script>
     <script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
-    <script type="text/javascript" src="/js/typeahead.bundle.min.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
-    <script type="text/javascript" src="/js/wow.min.js"></script>
-    <script type="text/javascript" src="/js/swipe.index.js"></script>
-    {{--<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>--}}
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    {{--<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes@0.4.0/dist/chartjs-plugin-colorschemes.js"></script>--}}
     <link rel="stylesheet" href="/css/animate.min.css"
           integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link href="/css/lato.css" rel="stylesheet">
-    {{--<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>--}}
-    <script src="/js/chartjs-plugin-datalabels@2.0.0"></script>
-    {{--<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>--}}
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>--}}
-    {{--<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>--}}
-    {{--<script src="https://unpkg.com/chart.js-plugin-labels-dv/dist/chartjs-plugin-labels.min.js"></script>--}}
-    <style>
-        #animatedCarousel1 .carousel-control-prev, #animatedCarousel1 .carousel-control-next, #animatedCarousel1 .carousel-indicators {
-            visibility: visible !important;
-        }
-    </style>
 </head>
 
 <body>
@@ -76,885 +67,335 @@
     <div class="preloader-gif"></div>
 </div>
 @include('new.public.navbar')
+
+@php
+    /* Map each value to a guaranteed-existing image in /images/mission (capitalised on disk) */
+    $valueImages = [
+        'hope.jpg'           => '/images/mission/Hope.jpg',
+        'justice.jpg'        => '/images/mission/Justice.jpg',
+        'responsibility.jpg' => '/images/mission/Responsibility.jpg',
+        'modesty.jpg'        => '/images/mission/Modesty.jpg',
+        'listening.jpg'      => '/images/mission/Listening.jpg',
+    ];
+@endphp
+
+<div id="wwa-progress"></div>
+
 <div id="Who" class="page_start">
-    <div class="page-margin">
-        <div class="container-fluid">
-            <div class="row d-flex ">
-                <div class="col d-flex justify-content-end flex-column pe-0">
-                    <div class="first-column">
-                    </div>
-                    <div class="content">
-                        <div class="main_title" data-aos="fade-up" data-aos-duration="600">SOME SEE A HOPELESS END</div>
-                        <div class="main_subtitle" data-aos="fade-up" data-aos-duration="1000">OTHERS SEE AN ENDLESS
-                            HOPE
-                        </div>
-                    </div>
-                </div>
-                <div class="col d-flex justify-content-end align-items-end ps-0">
-                </div>
-            </div>
-        </div>
-    </div>
-    @include('new.public.partials.cover-carousel', ['carouselImages' => $carouselImages])
-    <div class="small horizontal-line d-lg-none d-md-none d-sm-none d-block" style="margin-top: 3vw" data-aos="fade-up"
-         data-aos-duration="800"></div>
-    {{-- <div id="about-section" class="first-about">
-        <div class="seperator-line" style="background: white;height: 1vw;"></div>
-        <div class="horizontal-line d-lg-block d-md-block d-sm-block d-none"></div>
-        <div style="margin-top: 7vw" data-aos="fade-up" data-aos-duration="1000">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                        <div class="mt-lg-0 mt-md-0 mt-sm-0 padding-screen">
-                            <div class="row">
-                                <div class="col d-lg-flex d-md-flex d-sm-flex d-none align-items-center flex-column">
-                                    <div class="quote" data-aos="fade-up" data-aos-duration="800">
-                                        <div data-aos="fade-up" data-aos-duration="800"><span>“</span>And let us
-                                        </div>
-                                        <div data-aos="fade-up" data-aos-duration="800">consider how we</div>
-                                        <div data-aos="fade-up" data-aos-duration="800">may spur one
-                                        </div>
-                                        <div data-aos="fade-up" data-aos-duration="800">another on
-                                        </div>
-                                        <div data-aos="fade-up" data-aos-duration="800">toward love and
-                                        </div>
-                                        <div data-aos="fade-up" data-aos-duration="800">good deeds <span>“</span>
-                                        </div>
-                                        <div class="quote-source" data-aos="fade-up"
-                                             data-aos-duration="1000">
-                                            Hebrews 10:24
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col d-lg-none d-md-none d-sm-none d-flex align-items-center flex-column"
-                                     style="margin-top: 5vw">
-                                    <div class="quote" data-aos="fade-up"
-                                         data-aos-duration="800">
-                                        <div data-aos="fade-up" data-aos-duration="800"><span>“</span>And let us
-                                            consider how we may
-                                        </div>
-                                        <div data-aos="fade-up" data-aos-duration="800">
-                                            spur one another on toward love and good deeds<span>“</span>
-                                        </div>
-                                    </div>
-                                    <div class="quote-source" data-aos="fade-up"
-                                         data-aos-duration="1000">
-                                        Hebrews 10:24
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-start video-spaces">
-                        <div class="video position-relative w-100 h-100" data-aos="fade-up"
-                             data-aos-duration="600">
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/UUyye_iD2eU"
-                                    title="Christian Hope Center Introduction" frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    allowfullscreen></iframe>
-                            <img src="/images/home/image-mask.png" class="image-mask"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-    <div class="horizontal-line aos-init" data-aos="fade-up" data-aos-duration="600"></div>
-    <div id="who-we-are" class="section-space">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12 d-flex justify-content-center flex-column align-items-center aos-init aos-animate"
-                     data-aos="fade-up" data-aos-duration="800">
-                    <div class="section-title">Who We Are</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="small horizontal-line aos-init" data-aos="fade-up" data-aos-duration="600"></div>
-    <div class="card-height mb-3" data-aos="fade-up" data-aos-duration="600">
-        <div class="page-margin">
-            <div class="container-fluid">
-                <div class="row d-flex justify-content-center align-items-center" data-aos="fade-up"
-                     data-aos-duration="800">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-12 d-flex justify-content-center align-items-center">
-                        <div class="logo-container d-flex justify-content-center align-items-center">
-                            <img class="w-75 h-75" src="/images/logos/hc.svg">
-                        </div>
-                        {{--<div class="row w-100 d-flex align-items-center">--}}
-                            {{--<div class="col d-flex justify-content-center" data-aos="fade-up" data-aos-duration="300"></div>--}}
-                            {{--<div class="col d-flex justify-content-center" data-aos="fade-up" data-aos-duration="600">--}}
-                            {{--<div class="logo-container">--}}
-                            {{--<img class="w-100 h-100" src="/images/logos/hc.svg">--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="col d-flex justify-content-center" data-aos="fade-up" data-aos-duration="900">--}}
-                                {{--<div class="logo-container">--}}
-                                    {{--<img class="w-100 h-100" src="/images/newLogos/JM.svg">--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-12 about-content" data-aos="fade-up"
-                         data-aos-duration="2000">
-                        <div>
-                            <b>Christian Hope Center</b> is a Syrian non- profit NGO, established in 2018 and headquartered in Aleppo.
-                        </div>
-                        <div>
-                            The organization operates across multiple regions of Syria, delivering humanitarian and development interventions in response to the country’s ongoing needs.
-                        </div>
-                        Christian Hope Center works in the fields of emergency response, relief assistance, early recovery, community development, and Water, Sanitation, and Hygiene (WASH). Through these programs, the organization aims to strengthen community resilience, promote livelihoods and financial self-reliance.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="horizontal-line aos-init" data-aos="fade-up" data-aos-duration="600"></div>
-    <div id="values-section" class="section-space" data-aos="fade-up"
-         data-aos-duration="600">
-        <div class="col-12 d-flex justify-content-center flex-column align-items-center pt-3">
-            <div class="section-title text-capitalize">our values</div>
-        </div>
-        <div class="small horizontal-line"></div>
-        <div class="container-fluid animated-container">
-            <div class="row" data-aos="fade-up" data-aos-duration="1000">
-                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xxl-6 p-0 position-relative mt-6">
-                    <img style="object-fit: cover" class="w-100 h-100"
-                         src="/images/mission/Responsibility.jpg">
-                    <img src="/images/home/image-mask.png" class="image-mask"/>
-                </div>
-                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xxl-6 p-0">
-                    <div id="animatedCarousel1" class="h-100 carousel slide" data-bs-ride="carousel" data-bs-interval="8000"
-                         data-bs-pause="false">
-                        <div class="carousel-inner">
-                            <?php $k = 0 ?>
-                            @foreach($values as $value)
-                                <div class="carousel-item @if($k++ == 0) active @endif">
-                                    <div class="animated-content">
-                                        <div class="container-fluid">
-                                            <div class="padding-screen">
-                                                <div style="animation-delay: .1s"
-                                                     class="pb-3 text-uppercase animated fadeInUp">{{strip_tags($value->name)}}</div>
-                                                <div style="animation-delay: .8s" class="quote animated fadeInUp"><span>“</span>{{strip_tags($value->quote)}}
-                                                    <span>“</span></div>
-                                                <div style="animation-delay: 1.2s"
-                                                     class="quote-source text-center mt-2 animated fadeInUp">{{strip_tags($value->quote_source)}}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                            <button role="button" class="carousel-control-prev position-absolute"
-                                    data-bs-target="#animatedCarousel1" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button role="button" class="carousel-control-next position-absolute"
-                                    data-bs-target="#animatedCarousel1" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                        <div class="carousel-indicators justify-content-center">
-                            {{--<div class="indicators">--}}
-                            <?php $k = 0 ?>
-                            @foreach($values as $value)
-                                <button id="animatedCarousel1Dots_{{$value->id}}" type="button"
-                                        data-bs-target="#animatedCarousel1"
-                                        data-bs-slide-to="{{$k++}}"
-                                        @if($k == 1)class="active" @endif>
-                                </button>
-                            @endforeach
-                        </div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div data-aos="fade-up" data-aos-duration="800">
-        <div class="horizontal-line"></div>
-    </div>
-    <div id="mission-section" class="small-margin section-space" data-aos="fade-up" data-aos-duration="600">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12 d-flex justify-content-center flex-column align-items-center">
-                    <div class="section-title">Our Mission</div>
-                    <div class="row d-flex justify-content-center text-center">
-                        <div class="col">
-                            {{--                            @if($agent->isPhone())--}}
-                            <div class="d-lg-none d-md-none d-sm-none d-block">
-                                <div class="section-title-desc">
-                                    <div data-aos="fade-up" data-aos-duration="300">Our mission is to strengthen families and communities in Syria by providing practical support, educational opportunities,
-                                    </div>
-                                    <div data-aos="fade-up" data-aos-duration="600">
-                                        social services, and community-based programs that promote dignity, resilience,
-                                    </div>
-                                    <div data-aos="fade-up" data-aos-duration="900"> and a better quality of life.
-                                    </div>
-                                </div>
-                            </div>
-                            {{--@else--}}
-                            <div class="d-lg-block d-md-block d-sm-block d-none">
-                                <div class="section-title-desc">
-                                    <div data-aos="fade-up" data-aos-duration="300">Our mission is to strengthen families and communities in Syria by providing practical support, educational opportunities,
-                                    </div>
-                                    <div data-aos="fade-up" data-aos-duration="600">
-                                        social services, and community-based programs that promote dignity, resilience,
-                                    </div>
-                                    <div data-aos="fade-up" data-aos-duration="900"> and a better quality of life.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div data-aos="fade-up" data-aos-duration="800">
-        <div class="horizontal-line"></div>
-    </div>
-    <div id="vision-section" class="section-space" data-aos="fade-up"
-         data-aos-duration="600">
-        <div class="col-12 d-flex justify-content-center flex-column align-items-center pt-3">
-            <div class="section-title text-capitalize">our vision and strategy</div>
-        </div>
-        <div class="small horizontal-line"></div>
-        <div class="container-fluid animated-container">
-            <div class="row" data-aos="fade-up" data-aos-duration="1000">
-                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xxl-6 p-0">
-                    <div id="animatedCarouselVision1" class="h-100 carousel slide" data-bs-pause="false" data-bs-interval="8000"
-                         data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <div class="animated-content">
-                                    <div class="container-fluid">
-                                        <div class="padding-screen">
-                                            <div class="vision-main-title text-capitalize"> family support</div>
-                                            <div class="vision-title animated">we aspire to support our
-                                                community
-                                                to promote:
-                                            </div>
-                                            <div style="animation-delay: .8s" class=" animated fadeInUp">
-                                                <span
-                                                        class="vision-content"> Sustainable and income generating opportunities for
-                                                family providers to become an active agent of
-                                                economic and social recovery.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="animated-content">
-                                    <div class="container-fluid">
-                                        <div class="padding-screen">
-                                            <div class="vision-main-title text-capitalize"> youth support</div>
-                                            <div
-                                                    class="vision-title">we aspire to support our
-                                                community
-                                                to promote:
-                                            </div>
-                                            <div style="animation-delay: .8s" class="animated fadeInUp">
-                                                <span class="vision-content"> Skilled youth with better job opportunities motivated to stay in their country, fostering economic growth and community stability.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="animated-content">
-                                    <div class="container-fluid">
-                                        <div class="padding-screen">
-                                            <div class="vision-main-title text-capitalize"> children support</div>
-                                            <div
-                                                    class=" vision-title">we aspire to support our
-                                                community
-                                                to promote:
-                                            </div>
-                                            <div style="animation-delay: .8s" class=" animated fadeInUp">
-                                                <span
-                                                        class="vision-content"> Children with quality education and
-                                                creative opportunities in all aspects of
-                                                    growth and development.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="animated-content">
-                                    <div class="container-fluid">
-                                        <div class="padding-screen">
-                                            <div class="vision-main-title text-capitalize"> elderlies support</div>
-                                            <div
-                                                    class=" vision-title">we aspire to support our
-                                                community
-                                                to promote:
-                                            </div>
-                                            <div style="animation-delay: .8s" class="animated fadeInUp">
-                                                <span
-                                                        class="vision-content"> Resilient, Self- sufficient families that are
-                                                less reliant on relief aids, especially most
-                                                    vulnerable elderly families.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button role="button" class="carousel-control-prev position-absolute"
-                                    data-bs-target="#animatedCarouselVision1" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button role="button" class="carousel-control-next position-absolute"
-                                    data-bs-target="#animatedCarouselVision1" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                        <div class="carousel-indicators justify-content-center">
-                            <button id="animatedCarouselVision1Dots_1" type="button" onclick="changeVisionSlide(1)"
-                                    data-bs-target="#animatedCarouselVision1" data-bs-slide-to="0" class="active"
-                                    aria-current="true">
-                            </button>
-                            <button id="animatedCarouselVision1Dots_2" type="button" onclick="changeVisionSlide(2)"
-                                    data-bs-target="#animatedCarouselVision1" data-bs-slide-to="1" class="">
-                            </button>
-                            <button id="animatedCarouselVision1Dots_3" type="button" onclick="changeVisionSlide(3)"
-                                    data-bs-target="#animatedCarouselVision1" data-bs-slide-to="2" class="">
-                            </button>
-                            <button id="animatedCarouselVision1Dots_4" type="button" onclick="changeVisionSlide(4)"
-                                    data-bs-target="#animatedCarouselVision1" data-bs-slide-to="3" class="">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xxl-6 p-0 position-relative mt-6">
-                    <div id="animatedCarouselVision2" data-bs-pause="false" data-bs-interval="8000"
-                         class="animatedCarouselVision2 h-100 carousel slide"
-                         data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img class="w-100 h-100" style="object-fit: cover"
-                                     src="/images/who-we-serve/elderlies.jpg"
-                                     class="d-block w-100 h-100" style="object-fit: cover;">
-                                <img src="/images/home/image-mask.png" class="image-mask"/>
-                            </div>
-                            <div class="carousel-item">
-                                <img class="w-100 h-100" style="object-fit: cover"
-                                     src="/images/who-we-serve/youth.jpg"
-                                     class="d-block w-100 h-100" style="object-fit: cover;">
-                                <img src="/images/home/image-mask.png" class="image-mask"/>
-                            </div>
-                            <div class="carousel-item">
-                                <img class="w-100 h-100" style="object-fit: cover"
-                                     src="/images/who-we-serve/children.jpg">
-                                <img src="/images/home/image-mask.png" class="image-mask"/>
-                            </div>
-                            <div class="carousel-item">
-                                <img class="w-100 h-100" style="object-fit: cover"
-                                     src="/images/who-we-serve/family.jpg">
-                                <img src="/images/home/image-mask.png" class="image-mask"/>
-                            </div>
-                            <button role="button" class="carousel-control-prev position-absolute"
-                                    data-bs-target="#animatedCarouselVision2" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button role="button" class="carousel-control-next position-absolute"
-                                    data-bs-target="#animatedCarouselVision2" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                        <div class="carousel-indicators justify-content-center">
-                            <button id="animatedCarouselVision1Dots_1" type="button" onclick="changeVisionSlide(1)"
-                                    data-bs-target="#animatedCarouselVision2" data-bs-slide-to="0" class="active"
-                                    aria-current="true">
-                            </button>
-                            <button id="animatedCarouselVision1Dots_2" type="button" onclick="changeVisionSlide(2)"
-                                    data-bs-target="#animatedCarouselVision2" data-bs-slide-to="1" class="">
-                            </button>
-                            <button id="animatedCarouselVision1Dots_3" type="button" onclick="changeVisionSlide(3)"
-                                    data-bs-target="#animatedCarouselVision2" data-bs-slide-to="2" class="">
-                            </button>
-                            <button id="animatedCarouselVision1Dots_4" type="button" onclick="changeVisionSlide(4)"
-                                    data-bs-target="#animatedCarouselVision2" data-bs-slide-to="3" class="">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div data-aos="fade-up"
-         data-aos-duration="800">
-        <div class="horizontal-line"></div>
-    </div>
-    <div id="donor-section" class="section-space">
-        <div class="container-fluid">
-            <div class="row" data-aos="fade-up" data-aos-duration="600">
-                <div class="col-12 d-flex justify-content-center flex-column align-items-center">
-                    <div class="section-title">Our Partners</div>
-                </div>
-            </div>
-            <div class="small horizontal-line" data-aos="fade-up" data-aos-duration="600"></div>
-            <div class="card-height aos-init aos-animate" data-aos="fade-up" data-aos-duration="600">
-                <div class="container-fluid">
-                    @foreach($donors->chunk(6) as $chunk)
-                        <div class="row d-flex justify-content-evenly align-items-center my-4"
-                             data-aos="fade-up" data-aos-duration="800">
+    <div class="wwa-ambient" aria-hidden="true"><span></span><span></span><span></span></div>
 
-                            @foreach($chunk as $donor)
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-4 mb-4 d-flex align-items-center justify-content-center">
-                                    @php
-                                        $logoClass = match((int)$donor->id) {
-                                            3, 6, 17    => 'louvre-donor-logo',
-                                            4, 5, 15        => 'kerk-donor-logo',
-                                            8               => 'hungary-donor-logo',
-                                            12, 13, 16, 20  => 'missio-donor-logo',
-                                            18              => 'paris-donor-logo',
-                                            default         => 'project-donor-logo',
-                                        };
+    {{-- ===================== 1. HERO ===================== --}}
+    <header class="hero">
+        @include('new.public.partials.cover-carousel', ['carouselImages' => $carouselImages])
+        <div class="hero-overlay">
+            <div class="hero-eyebrow" data-fx="up">Est. 2018 &nbsp;·&nbsp; Aleppo &nbsp;·&nbsp; Syria</div>
+            <h1 class="hero-title">
+                <span class="l1" data-fx="up">Some see a hopeless end.</span>
+                <span class="l2" data-fx="up">Others see an <em>endless hope</em>.</span>
+            </h1>
+            <a href="#who-we-are" class="hero-scroll" aria-label="Scroll down"><span></span></a>
+        </div>
+    </header>
 
-                                        $adjustmentClass = ($donor->id == 5) ? 'ms-4' : '';
-                                    @endphp
-                                    <style>
-                                        .paris-donor-logo {
-                                            width: 70%;
-                                            height: 100px;
-                                        }
-                                    </style>
+    {{-- ===================== 2. WHO WE ARE ===================== --}}
+    <section id="who-we-are">
+        <div class="wwa-eyebrow" data-fx="up">Who We Are</div>
+        <h2 class="wwa-section-title" data-fx="up">
+            Rebuilding lives, <span class="accent">one family at a time</span>
+        </h2>
+        <div class="wwa-rule" data-fx="zoom"></div>
 
-                                    <div class="{{ $logoClass }} {{ $adjustmentClass }}">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{ $donor->logo }}" alt="{{ $donor->name }}">
-                                    </div>
+        <div class="intro-grid">
+            <div class="hc-logo-card tilt" data-fx="left">
+                <img class="tilt-inner" src="/images/logos/hc.svg" alt="Christian Hope Center">
+            </div>
+            <div data-fx="right">
+                <p class="intro-lead">
+                    <b>Christian Hope Center</b> is a Syrian non-profit NGO, established in 2018
+                    and headquartered in Aleppo.
+                </p>
+                <p class="intro-text">
+                    The organization operates across multiple regions of Syria, delivering
+                    humanitarian and development interventions in response to the country's
+                    ongoing needs.
+                </p>
+                <p class="intro-text">
+                    We work in emergency response, relief assistance, early recovery, community
+                    development, and Water, Sanitation &amp; Hygiene (WASH) — strengthening community
+                    resilience and promoting livelihoods and financial self-reliance.
+                </p>
+                <div class="focus-pills" data-fx-stagger>
+                    <span class="pill">Emergency Response</span>
+                    <span class="pill">Relief Assistance</span>
+                    <span class="pill">Early Recovery</span>
+                    <span class="pill">Community Development</span>
+                    <span class="pill">WASH</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="intro-stats" data-fx-stagger>
+            <div class="stat">
+                <div class="num">2018</div>
+                <div class="label">Established</div>
+            </div>
+            <div class="stat">
+                <div class="num">Aleppo</div>
+                <div class="label">Headquarters</div>
+            </div>
+            <div class="stat">
+                <div class="num">Syria-wide</div>
+                <div class="label">Multi-region reach</div>
+            </div>
+        </div>
+    </section>
+
+    {{-- ===================== 3. OUR VALUES ===================== --}}
+    <section id="values-section" class="wwa-section">
+        <div class="wwa-eyebrow" data-fx="up">What Guides Us</div>
+        <h2 class="wwa-section-title" data-fx="up">Our <span class="accent">Values</span></h2>
+        <div class="wwa-rule" data-fx="zoom"></div>
+
+        <div class="tabbed-carousel" data-fx="flip">
+            <div class="wwa-tabs" data-fx-stagger>
+                @foreach($values as $i => $value)
+                    <button type="button" class="wwa-tab @if($i === 0) active @endif"
+                            data-slide-index="{{ $i }}">
+                        <span class="idx">0{{ $i + 1 }}</span>{{ strip_tags($value->name) }}
+                    </button>
+                @endforeach
+            </div>
+
+            <div id="valuesCarousel" class="carousel slide carousel-fade split-carousel" data-bs-ride="carousel" data-bs-interval="7000">
+                <div class="carousel-inner">
+                    @foreach($values as $i => $value)
+                        @php
+                            $img = $valueImages[basename($value->image_path)] ?? $value->image_path;
+                        @endphp
+                        <div class="carousel-item @if($i === 0) active @endif">
+                            <div class="split">
+                                <div class="split-media">
+                                    <img class="cover" src="{{ $img }}" alt="{{ strip_tags($value->name) }}">
+                                    <img src="/images/home/image-mask.png" class="image-mask"/>
                                 </div>
-                            @endforeach
+                                <div class="split-body">
+                                    <div class="value-kicker reveal d1">Value 0{{ $i + 1 }}</div>
+                                    <div class="value-name reveal d1">{{ strip_tags($value->name) }}</div>
+                                    <blockquote class="value-quote reveal d2">{{ strip_tags($value->quote) }}</blockquote>
+                                    <div class="value-source reveal d3">— {{ strip_tags($value->quote_source) }}</div>
+                                </div>
+                            </div>
                         </div>
                     @endforeach
                 </div>
-            </div>        </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#valuesCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#valuesCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    {{-- ===================== 4. OUR MISSION ===================== --}}
+    <section id="mission-section">
+        <div class="mission-mark font-serif" data-fx="zoom">&ldquo;</div>
+        <p class="mission-statement" data-fx="up">
+            Our mission is to strengthen <span class="hl">families and communities</span> in Syria
+            by providing practical support, educational opportunities, social services, and
+            community-based programs that promote <span class="hl">dignity, resilience</span>,
+            and a better quality of life.
+        </p>
+        <p class="mission-verse" data-fx="up">
+            “And let us consider how we may spur one another on toward love and good deeds.”
+            <span class="src">Hebrews 10:24</span>
+        </p>
+    </section>
+
+    {{-- ===================== 5. VISION & STRATEGY ===================== --}}
+    <section id="vision-section" class="wwa-section">
+        <div class="wwa-eyebrow" data-fx="up">Where We're Heading</div>
+        <h2 class="wwa-section-title" data-fx="up">Our Vision &amp; <span class="accent">Strategy</span></h2>
+        <div class="wwa-rule" data-fx="zoom"></div>
+
+        @php
+            $pillars = [
+                ['name' => 'Family Support',   'img' => '/images/home/F2F/1.jpg',                   'text' => 'Sustainable, income-generating opportunities for family providers to become active agents of economic and social recovery.'],
+                ['name' => 'Youth Support',    'img' => '/images/home/Youth/youth_cover.jpg',        'text' => 'Skilled youth with better job opportunities, motivated to stay in their country and foster economic growth and community stability.'],
+                ['name' => 'Children Support', 'img' => '/images/home/Children%20University/1.jpg',  'text' => 'Children with quality education and creative opportunities across all aspects of growth and development.'],
+                ['name' => 'Elderly Support',  'img' => '/images/home/Micro/1.jpg',                  'text' => 'Resilient, self-sufficient families that are less reliant on relief aid — especially the most vulnerable elderly households.'],
+            ];
+        @endphp
+
+        <div class="tabbed-carousel" data-fx="flip">
+            <div class="wwa-tabs" data-fx-stagger>
+                @foreach($pillars as $i => $pillar)
+                    <button type="button" class="wwa-tab @if($i === 0) active @endif"
+                            data-slide-index="{{ $i }}">
+                        <span class="idx">0{{ $i + 1 }}</span>{{ $pillar['name'] }}
+                    </button>
+                @endforeach
+            </div>
+
+            <div id="visionCarousel" class="carousel slide carousel-fade split-carousel" data-bs-ride="carousel" data-bs-interval="7000">
+                <div class="carousel-inner">
+                    @foreach($pillars as $i => $pillar)
+                        <div class="carousel-item @if($i === 0) active @endif">
+                            <div class="split reverse">
+                                <div class="split-body">
+                                    <div class="vision-name reveal d1"><span class="num">0{{ $i + 1 }}</span>{{ $pillar['name'] }}</div>
+                                    <div class="vision-aspire reveal d2">We aspire to support our community to promote:</div>
+                                    <p class="vision-text reveal d3">{{ $pillar['text'] }}</p>
+                                </div>
+                                <div class="split-media">
+                                    <img class="cover" src="{{ $pillar['img'] }}" alt="{{ $pillar['name'] }}">
+                                    <img src="/images/home/image-mask.png" class="image-mask"/>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#visionCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#visionCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    {{-- ===================== 6. PARTNERS ===================== --}}
+    <section id="donor-section">
+        <div class="wwa-eyebrow" data-fx="up">Standing With Us</div>
+        <h2 class="wwa-section-title" data-fx="up">Our <span class="accent">Partners</span></h2>
+        <div class="wwa-rule" data-fx="zoom"></div>
+
+        <div class="partners-grid" data-fx-stagger>
+            @foreach($donors as $donor)
+                <div class="partner-cell tilt">
+                    <img src="{{ $donor->logo }}" alt="{{ $donor->name }}">
+                </div>
+            @endforeach
+        </div>
+    </section>
+
+    <div class="wwa-end-space"></div>
 </div>
-<div class="last horizontal-line"></div>
-{{--<div class="d-lg-none d-md-none d-sm-none d-block">--}}
-{{--<div class="horizontal-line" data-aos="fade-up" style="margin-top: 3vw;"--}}
-{{--data-aos-duration="800"></div>--}}
-{{--</div>--}}
-{{--<div class="d-lg-none d-md-none d-sm-none d-block">--}}
-{{--<div id="about-section" class=" second-about section-space">--}}
-{{--<div data-aos="fade-up" data-aos-duration="1000">--}}
-{{--<div class="container-fluid">--}}
-{{--<div class="row d-flex align-items-center">--}}
-{{--<div class="col-12">--}}
-{{--<div class="mt-1" style="padding: 0vw 11vw 0vw 4.7vw;">--}}
-{{--<div class="row">--}}
-{{--<div class="col-12 d-flex justify-content-start" data-aos="fade-up"--}}
-{{--data-aos-duration="600">--}}
-{{--<img src="/images/newLogos/Family-to-Family.svg" style="margin-top: -5vw"--}}
-{{--class="d-lg-block d-none project-logo">--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--<div class="row" style="margin-top: 3vw;">--}}
-{{--<div class="col d-flex justify-content-end flex-column">--}}
-{{--<div class="project-brief" data-aos="fade-up"--}}
-{{--data-aos-duration="800">Project Brief--}}
-{{--</div>--}}
-{{--<font class="project-brief-desc" data-aos="fade-up"--}}
-{{--data-aos-duration="1000">--}}
-{{--Family-to-Family program is an initiative that--}}
-{{--started in 2016, by Caritas Poland. <br>The projects’--}}
-{{--objective is to provide financial support starting--}}
-{{--from the Polish families’ donations to families in--}}
-{{--Aleppo on a monthly basis, in order to partially--}}
-{{--meet their needs and rekindle hope in their hearts.<br>--}}
-{{--Hope center plays a role in implementing the F2F--}}
-{{--program by monitoring and evaluating the process.--}}
 
-{{--</font>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--<div class="col-12"--}}
-{{--style="padding-right: 0;padding-left: 0.1vw;">--}}
-{{--<div id="FamilyCarouselSm" class="carousel slide mt-1 mb-4"--}}
-{{--data-bs-ride="carousel">--}}
-{{--<div class="carousel-inner position-relative">--}}
-{{--<div class="carousel-item active">--}}
-{{--<img class="w-100 h-100" style="object-fit: cover"--}}
-{{--src="/images/initiatives/Family to Family/f1.jpg"--}}
-{{--class="d-block w-100 h-100" style="object-fit: cover;">--}}
-{{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-{{--</div>--}}
-{{--<div class="carousel-item">--}}
-{{--<img class="w-100 h-100" style="object-fit: cover"--}}
-{{--src="/images/initiatives/Family to Family/f2.jpg"--}}
-{{--class="d-block w-100 h-100" style="object-fit: cover;">--}}
-{{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-{{--</div>--}}
-{{--<div class="carousel-item">--}}
-{{--<img class="w-100 h-100" style="object-fit: cover"--}}
-{{--src="/images/initiatives/Family to Family/f3.jpg"--}}
-{{--class="d-block w-100 h-100" style="object-fit: cover;">--}}
-{{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-{{--</div>--}}
-{{--<div class="carousel-item">--}}
-{{--<img class="w-100 h-100" style="object-fit: cover"--}}
-{{--src="/images/initiatives/Family to Family/f4.jpg"--}}
-{{--class="d-block w-100 h-100" style="object-fit: cover;">--}}
-{{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--<button class="carousel-control-prev" type="button"--}}
-{{--data-bs-target="#FamilyCarouselSm"--}}
-{{--data-bs-slide="prev">--}}
-{{--<span class="carousel-control-prev-icon" aria-hidden="true"></span>--}}
-{{--<span class="visually-hidden">Previous</span>--}}
-{{--</button>--}}
-{{--<button class="carousel-control-next" type="button"--}}
-{{--data-bs-target="#FamilyCarouselSm"--}}
-{{--data-bs-slide="next">--}}
-{{--<span class="carousel-control-next-icon" aria-hidden="true"></span>--}}
-{{--<span class="visually-hidden">Next</span>--}}
-{{--</button>--}}
-{{--<div class="carousel-indicators">--}}
-{{--<button type="button" data-bs-target="#FamilyCarouselSm" data-bs-slide-to="0"--}}
-{{--class="active" aria-current="true"--}}
-{{--aria-label="Slide 1"></button>--}}
-{{--<button type="button" data-bs-target="#FamilyCarouselSm" data-bs-slide-to="1"--}}
-{{--aria-label="Slide 2"></button>--}}
-{{--<button type="button" data-bs-target="#FamilyCarouselSm" data-bs-slide-to="2"--}}
-{{--aria-label="Slide 3"></button>--}}
-{{--<button type="button" data-bs-target="#FamilyCarouselSm" data-bs-slide-to="3"--}}
-{{--aria-label="Slide 4"></button>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--<div class="d-lg-block d-md-block d-sm-block d-none">--}}
-{{--<div id="about-section" class="second-about section-space">--}}
-{{--<div class="horizontal-line"></div>--}}
-{{--<div data-aos="fade-up" data-aos-duration="1000">--}}
-{{--<div class="container-fluid">--}}
-{{--<div class="row d-flex align-items-center">--}}
-{{--<div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-start"--}}
-{{--style="padding-right: 0;padding-left: 0.1vw;">--}}
-{{--<div id="FamilyCarousel" class="carousel slide"--}}
-{{--data-bs-ride="carousel">--}}
-{{--<div class="carousel-inner position-relative">--}}
-{{--<div class="carousel-item active">--}}
-{{--<img class="w-100 h-100" style="object-fit: cover"--}}
-{{--src="/images/initiatives/Family to Family/f1.jpg"--}}
-{{--class="d-block w-100 h-100" style="object-fit: cover;">--}}
-{{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-{{--</div>--}}
-{{--<div class="carousel-item">--}}
-{{--<img class="w-100 h-100" style="object-fit: cover"--}}
-{{--src="/images/initiatives/Family to Family/f2.jpg"--}}
-{{--class="d-block w-100 h-100" style="object-fit: cover;">--}}
-{{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-{{--</div>--}}
-{{--<div class="carousel-item">--}}
-{{--<img class="w-100 h-100" style="object-fit: cover"--}}
-{{--src="/images/initiatives/Family to Family/f3.jpg"--}}
-{{--class="d-block w-100 h-100" style="object-fit: cover;">--}}
-{{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-{{--</div>--}}
-{{--<div class="carousel-item">--}}
-{{--<img class="w-100 h-100" style="object-fit: cover"--}}
-{{--src="/images/initiatives/Family to Family/f4.jpg"--}}
-{{--class="d-block w-100 h-100" style="object-fit: cover;">--}}
-{{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--<button class="carousel-control-prev" type="button"--}}
-{{--data-bs-target="#FamilyCarousel"--}}
-{{--data-bs-slide="prev">--}}
-{{--<span class="carousel-control-prev-icon" aria-hidden="true"></span>--}}
-{{--<span class="visually-hidden">Previous</span>--}}
-{{--</button>--}}
-{{--<button class="carousel-control-next" type="button"--}}
-{{--data-bs-target="#FamilyCarousel"--}}
-{{--data-bs-slide="next">--}}
-{{--<span class="carousel-control-next-icon" aria-hidden="true"></span>--}}
-{{--<span class="visually-hidden">Next</span>--}}
-{{--</button>--}}
-{{--<div class="carousel-indicators">--}}
-{{--<button type="button" data-bs-target="#FamilyCarousel" data-bs-slide-to="0"--}}
-{{--class="active" aria-current="true"--}}
-{{--aria-label="Slide 1"></button>--}}
-{{--<button type="button" data-bs-target="#FamilyCarousel" data-bs-slide-to="1"--}}
-{{--aria-label="Slide 2"></button>--}}
-{{--<button type="button" data-bs-target="#FamilyCarousel" data-bs-slide-to="2"--}}
-{{--aria-label="Slide 3"></button>--}}
-{{--<button type="button" data-bs-target="#FamilyCarousel" data-bs-slide-to="3"--}}
-{{--aria-label="Slide 4"></button>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--<div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">--}}
-{{--<div class="mt-lg-0 mt-md-0 mt-sm-0 mt-5" style="padding: 0vw 11vw 0vw 4.7vw;">--}}
-{{--<div class="row">--}}
-{{--<div class="col-12 d-flex justify-content-start" data-aos="fade-up"--}}
-{{--data-aos-duration="600">--}}
-{{--<img src="/images/newLogos/Family-to-Family.svg" style="margin-top: -5vw"--}}
-{{--class="d-lg-block d-none project-logo">--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--<div class="row" style="margin-top: 3vw;">--}}
-{{--<div class="col d-flex justify-content-end flex-column">--}}
-{{--<div style="height: 35px"></div>--}}
-{{--<div class="project-brief" data-aos="fade-up"--}}
-{{--data-aos-duration="800">Project Brief--}}
-{{--</div>--}}
-{{--<font class="project-brief-desc" data-aos="fade-up"--}}
-{{--data-aos-duration="1000">--}}
-{{--Family-to-Family program is an initiative that--}}
-{{--started in 2016, by Caritas Poland. <br>The projects’--}}
-{{--objective is to provide financial support starting--}}
-{{--from the Polish families’ donations to families in--}}
-{{--Aleppo on a monthly basis, in order to partially--}}
-{{--meet their needs and rekindle hope in their hearts.<br>--}}
-{{--Hope center plays a role in implementing the F2F--}}
-{{--program by monitoring and evaluating the process.--}}
-
-{{--</font>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--<div class="d-lg-none d-md-none d-sm-none d-block">--}}
-{{--<div class="horizontal-line" data-aos="fade-up"--}}
-{{--data-aos-duration="800"></div>--}}
-{{--</div>--}}
-{{--<div id="partner-section" class="section-space" data-aos="fade-up"--}}
-{{--data-aos-duration="600">--}}
-{{--<div class="col-12 d-flex justify-content-center flex-column align-items-center">--}}
-{{--<div class="section-title">Partners</div>--}}
-{{--</div>--}}
-{{--<div class="small horizontal-line"></div>--}}
-{{--<div class="container-fluid animated-container">--}}
-{{--<div class="row" data-aos="fade-up" data-aos-duration="1000">--}}
-{{--<div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xxl-6 p-0"--}}
-{{--style="background-color: #F7F7FB;">--}}
-{{--<div id="animatedCarousel1" class="h-100 carousel slide" data-bs-ride="carousel">--}}
-{{--<div class="carousel-inner">--}}
-{{--<?php $k = 0 ?>--}}
-{{--@foreach($partners as $partner)--}}
-{{--<div class="carousel-item @if($k++ == 0) active @endif">--}}
-{{--<div class="container-fluid">--}}
-{{--<div class="padding-screen">--}}
-{{--<div class="row w-100 mb-3 animated fadeInUp"--}}
-{{--style="animation-delay: .1s">--}}
-{{--<div class="col-12 d-flex justify-content-start">--}}
-{{--<img class="animated-logo"--}}
-{{--src="{{ucfirst($partner->logo)}}">--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--<div class="row w-100 animated fadeInUp m-0"--}}
-{{--style="animation-delay: .8s">--}}
-{{--<div class="col-10 p-0">--}}
-{{--<div class="animated-title">{{ucfirst($partner->english->title)}}</div>--}}
-{{--</div>--}}
-{{--<div class="col-2 p-0 d-flex justify-content-end align-items-center">--}}
-{{--@if($partner->video != '0')--}}
-{{--<a href="{{$partner->video}}" class="launch-modal"--}}
-{{--id="partnerVideo-{{$partner->id}}"--}}
-{{--data-fancybox="partnerVideo-{{$partner->id}}">--}}
-{{--<img class="video-icon"--}}
-{{--src="/images/ico/video-ini-icon.svg">--}}
-{{--</a>--}}
-{{--@endif--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--<div class="card-title-section animated fadeInUp"--}}
-{{--style="animation-delay: .8s"></div>--}}
-{{--<div class="animated-content animated fadeInUp"--}}
-{{--style="animation-delay: 1s">--}}
-{{--<p innerText= {{strip_tags($partner->english->content)}}></p>--}}
-{{--@if(strlen($partner->english->content)>40)--}}
-{{--<p>{!!implode(' ', array_slice(explode(' ', strip_tags($partner->english->content)), 0, 40)).'...'!!}</p>--}}
-{{--@else--}}
-{{--<p>{!! strip_tags($partner->english->content) !!}</p>--}}
-{{--@endif--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--@if(strlen($partner->english->content)>40)--}}
-{{--<div class="d-flex justify-content-end">--}}
-{{--<a class="readmore-btn animated fadeInUp"--}}
-{{--style="animation-delay: 1.2s"--}}
-{{--href="{{ route('new.public.initiative', [ 'family-to-family', $partner->id,--}}
-{{--Str::slug(strtolower($partner->english->title))]) }}">@lang('main.readMore')</a>--}}
-{{--</div>--}}
-{{--@endif--}}
-{{--</div>--}}
-{{--<button role="button" class="carousel-control-prev position-absolute"--}}
-{{--data-bs-target="#animatedCarousel1" data-bs-slide="prev">--}}
-{{--<span class="carousel-control-prev-icon" aria-hidden="true"></span>--}}
-{{--<span class="visually-hidden">Previous</span>--}}
-{{--</button>--}}
-{{--<button role="button" class="carousel-control-next position-absolute"--}}
-{{--data-bs-target="#animatedCarousel1" data-bs-slide="next">--}}
-{{--<span class="carousel-control-next-icon" aria-hidden="true"></span>--}}
-{{--<span class="visually-hidden">Next</span>--}}
-{{--</button>--}}
-{{--@endforeach--}}
-{{--</div>--}}
-{{--<div class="carousel-indicators justify-content-center">--}}
-{{--<div class="indicators">--}}
-{{--<?php $k = 0 ?>--}}
-{{--@foreach($partners as $partner)--}}
-{{--<button id="animatedCarousel1Dots_{{$partner->id}}" type="button"--}}
-{{--data-bs-target="#partnerCarousel1"--}}
-{{--data-bs-slide-to="{{$k++}}"--}}
-{{--@if($k == 1)class="active" @endif>--}}
-{{--</button>--}}
-{{--@endforeach--}}
-{{--</div>--}}
-{{--</div>--}}
-
-{{--</div>--}}
-{{--</div>--}}
-{{--<div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xxl-6 p-0 position-relative mt-6">--}}
-{{--<div id="animatedCarousel2" class="h-100 carousel slide" data-bs-ride="carousel">--}}
-{{--<div class="carousel-inner">--}}
-{{--<?php $k = 0 ?>--}}
-{{--@foreach($partners as $partner)--}}
-{{--<div class="carousel-item @if($k++ == 0) active @endif">--}}
-{{--<img style="object-fit: cover" class="w-100 h-100"--}}
-{{--src="/images/initiatives/Family to Family/p{{$k}}.jpg">--}}
-{{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-{{--<button role="button" class="carousel-control-prev position-absolute"--}}
-{{--data-bs-target="#animatedCarousel2" data-bs-slide="prev">--}}
-{{--<span class="carousel-control-prev-icon" aria-hidden="true"></span>--}}
-{{--<span class="visually-hidden">Previous</span>--}}
-{{--</button>--}}
-{{--<button role="button" class="carousel-control-next position-absolute"--}}
-{{--data-bs-target="#animatedCarousel2" data-bs-slide="next">--}}
-{{--<span class="carousel-control-next-icon" aria-hidden="true"></span>--}}
-{{--<span class="visually-hidden">Next</span>--}}
-{{--</button>--}}
-{{--</div>--}}
-{{--@endforeach--}}
-{{--</div>--}}
-{{--<div class="carousel-indicators justify-content-center">--}}
-{{--<div class="indicators">--}}
-{{--<?php $k = 0 ?>--}}
-{{--@foreach($partners as $partner)--}}
-{{--<button id="animatedCarousel2Dots_{{$partner->id}}" type="button"--}}
-{{--onclick="changeSlide({{$partner->id}})"--}}
-{{--data-bs-target="#animatedCarousel2"--}}
-{{--data-bs-slide-to="{{$k++}}"--}}
-{{--@if($k == 1) class="active" @endif>--}}
-{{--</button>--}}
-{{--@endforeach--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--<div data-aos="fade-up" data-aos-duration="800">--}}
-{{--<div class="horizontal-line"></div>--}}
-{{--</div>--}}
-<div class="last horizontal-line"></div>
-</div>
 <script>
-    $(window).on('keydown', function (e) {
-        if (e.keyCode === 39) {
-            $("#animatedCarousel1 .carousel-control-next").trigger('click');
-            $("#animatedCarousel2 .carousel-control-next").trigger('click');
+    (function () {
+        var html = document.documentElement;
+        var animOn = html.classList.contains('anim-on');
+
+        // ---- Scroll-triggered reveals (only when anim-on; otherwise content is already visible) ----
+        if (animOn && 'IntersectionObserver' in window) {
+            var els = [].slice.call(document.querySelectorAll('#Who [data-fx], #Who [data-fx-stagger]'));
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in');
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+            els.forEach(function (el) { io.observe(el); });
+
+            // ---- Hero parallax: text drifts up & fades as you scroll into the story ----
+            var hero = document.querySelector('.hero');
+            var overlay = document.querySelector('.hero-overlay');
+            if (hero && overlay) {
+                var ticking = false;
+                function update() {
+                    ticking = false;
+                    var h = hero.offsetHeight || 1;
+                    var y = window.pageYOffset || 0;
+                    var p = Math.min(y / h, 1);
+                    overlay.style.transform = 'translate3d(0,' + (y * 0.42) + 'px,0)';
+                    overlay.style.opacity = String(Math.max(1 - p * 1.35, 0));
+                }
+                window.addEventListener('scroll', function () {
+                    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+                }, { passive: true });
+                update();
+            }
         }
-        else if (e.keyCode === 37) {
-            $("#animatedCarousel1 .carousel-control-prev").trigger('click');
-            $("#animatedCarousel2 .carousel-control-prev").trigger('click');
+
+        // ---- Scroll progress bar (always on; purely decorative) ----
+        var prog = document.getElementById('wwa-progress');
+        if (prog) {
+            var pTick = false;
+            function updateProgress() {
+                pTick = false;
+                var st = window.pageYOffset || 0;
+                var max = (document.documentElement.scrollHeight - window.innerHeight) || 1;
+                prog.style.transform = 'scaleX(' + Math.min(Math.max(st / max, 0), 1) + ')';
+            }
+            window.addEventListener('scroll', function () {
+                if (!pTick) { pTick = true; requestAnimationFrame(updateProgress); }
+            }, { passive: true });
+            updateProgress();
         }
-        if (e.keyCode === 39) {
-            $("#animatedCarouselVision1 .carousel-control-next").trigger('click');
-            $("#animatedCarouselVision2 .carousel-control-next").trigger('click');
+
+        // ---- Interactive 3D tilt on hover-capable pointers (decorative) ----
+        if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+            document.querySelectorAll('#Who .tilt').forEach(function (el) {
+                var max = el.classList.contains('partner-cell') ? 10 : 7;
+                el.addEventListener('mousemove', function (e) {
+                    var r = el.getBoundingClientRect();
+                    var px = (e.clientX - r.left) / r.width - 0.5;
+                    var py = (e.clientY - r.top) / r.height - 0.5;
+                    el.style.transform = 'perspective(900px) rotateX(' + (-py * max).toFixed(2) + 'deg) rotateY(' + (px * max).toFixed(2) + 'deg)';
+                });
+                el.addEventListener('mouseleave', function () { el.style.transform = ''; });
+            });
         }
-        else if (e.keyCode === 37) {
-            $("#animatedCarouselVision1 .carousel-control-prev").trigger('click');
-            $("#animatedCarouselVision2 .carousel-control-prev").trigger('click');
+
+        // ---- Sync custom tabs <-> Bootstrap carousels (Values + Vision) ----
+        function initCarousels() {
+            document.querySelectorAll('.tabbed-carousel').forEach(function (wrap) {
+                var carouselEl = wrap.querySelector('.carousel');
+                var tabs = [].slice.call(wrap.querySelectorAll('.wwa-tab'));
+                if (!carouselEl || typeof bootstrap === 'undefined') return;
+
+                tabs.forEach(function (tab) {
+                    tab.addEventListener('click', function () {
+                        bootstrap.Carousel.getOrCreateInstance(carouselEl).to(parseInt(tab.dataset.slideIndex, 10));
+                    });
+                });
+                carouselEl.addEventListener('slid.bs.carousel', function (e) {
+                    tabs.forEach(function (tab) {
+                        tab.classList.toggle('active', parseInt(tab.dataset.slideIndex, 10) === e.to);
+                    });
+                });
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if ((e.keyCode !== 37 && e.keyCode !== 39) || typeof bootstrap === 'undefined') return;
+                document.querySelectorAll('.split-carousel').forEach(function (c) {
+                    var rect = c.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        bootstrap.Carousel.getOrCreateInstance(c)[e.keyCode === 39 ? 'next' : 'prev']();
+                    }
+                });
+            });
         }
-    });
-    $(window).on('load', function () {
 
-        $("#animatedCarousel2 .carousel-control-prev").click(() => {
-            $("#animatedCarousel1 .carousel-control-prev").trigger('click');
-        });
-        $("#animatedCarousel2 .carousel-control-next").click(() => {
-            $("#animatedCarousel1 .carousel-control-next").trigger('click');
-        });
-        $("#animatedCarouselVision2 .carousel-control-prev").click(() => {
-            $("#animatedCarouselVision1 .carousel-control-prev").trigger('click');
-        });
-        $("#animatedCarouselVision2 .carousel-control-next").click(() => {
-            $("#animatedCarouselVision1 .carousel-control-next").trigger('click');
-        });
-            let animated1 = document.getElementById("animatedCarouselVision1");
-            let animated2 = document.getElementById("animatedCarouselVision2");
-
-
-        // Create a carousel instance
-
-        // let myCarousel2 = new bootstrap.Carousel(animated2);
-        // // console.log(myCarousel1);
-        // // let myCarousel2 = new bootstrap.Carousel(animated2);
-        // animated1.addEventListener("mouseover", function(){
-        //     // alert('hi');
-        //     myCarousel2.pause();
-        //     // animated1.carousel('pause');
-        //     // animated2.carousel('pause');
-        // });
-        // animated2.addEventListener("mouseover", function(){
-            // animated1.carousel('pause');
-            // animated2.carousel('pause');
-        // });
-        // myCarousel2.addEventListener("hover", function(){
-        //     myCarousel1.pause();
-        // });
-
-
-    });
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCarousels);
+        } else {
+            initCarousels();
+        }
+    })();
 </script>
-<script>
-    function changeSlide(id) {
-        let element = document.getElementById('animatedCarousel1Dots_' + id);
-        element.click();
-    }
 
-    function changeVisionSlide(id) {
-        let element = document.getElementById('animatedCarouselVision1Dots_' + id);
-        element.click();
-    }
-
-    // function pauseCarousel(id) {
-    //     let animated1 = document.getElementById("animatedCarouselVision1");
-    //     let animated2 = document.getElementById("animatedCarouselVision2");
-    //     if(id === 1){
-    //         animated2.pause();
-    //     }
-    //     else
-    //         animated1.pause();
-    // }
-</script>
 @include('new.public.footer')
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 @stack('fancyVideo')
 @stack('navbar-contactUs')
 @stack('navbar-whatwedo')
