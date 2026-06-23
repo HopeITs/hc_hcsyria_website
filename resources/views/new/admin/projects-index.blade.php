@@ -544,7 +544,8 @@
             dom: "<'row'<'col-md-12'q>><'row'<'col-md-12'B>><'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-12'rtip>>",
             buttons: ['excel', 'pdf', 'colvis'],
             columnDefs: [
-                {targets: [0, 2], visible: false}
+                {targets: [0, 2], visible: false},
+                {targets: 1, searchable: false}
             ]
         });
         @endforeach
@@ -552,14 +553,16 @@
             dom: "<'row'<'col-md-12'q>><'row'<'col-md-12'B>><'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-12'rtip>>",
             buttons: ['excel', 'pdf', 'colvis'],
             columnDefs: [
-                {targets: [0, 2], visible: false}
+                {targets: [0, 2], visible: false},
+                {targets: 1, searchable: false}
             ]
         });
         new DataTable('#table-canceled', {
             dom: "<'row'<'col-md-12'q>><'row'<'col-md-12'B>><'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-12'rtip>>",
             buttons: ['excel', 'pdf', 'colvis'],
             columnDefs: [
-                {targets: [0, 2], visible: false}
+                {targets: [0, 2], visible: false},
+                {targets: 1, searchable: false}
             ]
         });
     });

@@ -61,7 +61,7 @@ class MicroProjects extends Component
         $this->uniqueProjects = $this->projectsList
             ->flatMap(fn ($project) => [
                 optional($project->{$this->language})->MPE_Name,
-                (string) $project->MicroProject_ID,
+                (string) $project->id,
             ])
             ->filter()
             ->unique()
@@ -142,22 +142,20 @@ class MicroProjects extends Component
         $search = trim((string) $this->search);
 
         if ($search !== '') {
-            $query->where(function ($q) use ($search) {
-                $q->where('MicroProject_ID', 'like', '%' . $search . '%')
-                    ->orWhere('MPE_BeneficiaryName', 'like', '%' . $search . '%')
-                    ->orWhere('MPE_PartnerName', 'like', '%' . $search . '%')
-                    ->orWhere('MPE_PartnerName2', 'like', '%' . $search . '%')
-                    ->orWhereHas($this->language, function ($languageQuery) use ($search) {
-                        $languageQuery->where('MPE_Name', 'like', '%' . $search . '%')
-                            ->orWhere('MPE_ExpSkill', 'like', '%' . $search . '%')
-                            ->orWhere('MPE_Suffering', 'like', '%' . $search . '%');
-                    });
-            });
-
-            $query->orderByRaw(
-                'case when MicroProject_ID = ? then 0 when MicroProject_ID like ? then 1 else 2 end',
-                [$search, '%' . $search . '%']
-            );
+            if (ctype_digit($search)) {
+                $query->where('id', $search);
+            } else {
+                $query->where(function ($q) use ($search) {
+                    $q->where('MPE_BeneficiaryName', 'like', '%' . $search . '%')
+                        ->orWhere('MPE_PartnerName', 'like', '%' . $search . '%')
+                        ->orWhere('MPE_PartnerName2', 'like', '%' . $search . '%')
+                        ->orWhereHas($this->language, function ($languageQuery) use ($search) {
+                            $languageQuery->where('MPE_Name', 'like', '%' . $search . '%')
+                                ->orWhere('MPE_ExpSkill', 'like', '%' . $search . '%')
+                                ->orWhere('MPE_Suffering', 'like', '%' . $search . '%');
+                        });
+                });
+            }
         }
 
         if ($this->donor !== '' && $this->donor !== null) {
