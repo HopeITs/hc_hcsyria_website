@@ -61,7 +61,7 @@ class MicroProjects extends Component
         $this->uniqueProjects = $this->projectsList
             ->flatMap(fn ($project) => [
                 optional($project->{$this->language})->MPE_Name,
-                (string) $project->id,
+                (string) $project->MicroProject_ID,
             ])
             ->filter()
             ->unique()
@@ -143,7 +143,7 @@ class MicroProjects extends Component
 
         if ($search !== '') {
             if (ctype_digit($search)) {
-                $query->where('id', $search);
+                $query->where('MicroProject_ID', $search);
             } else {
                 $query->where(function ($q) use ($search) {
                     $q->where('MPE_BeneficiaryName', 'like', '%' . $search . '%')
