@@ -574,7 +574,7 @@ ORDER BY age.ID;');
 
         $microproject_id_string = '';
         if ($searchStr != '' && is_numeric($searchStr)) {
-            $microproject_id_string = ' or projects.id = ' . $searchStr;
+            $microproject_id_string = ' or projects.MicroProject_ID = ' . $searchStr;
         }
 
         return DB::Select('select projects.id from projects inner join ' . $langTable . '
@@ -1905,7 +1905,7 @@ ORDER BY `student_count` DESC');
         $projects_data = Project::whereIn('MPE_Published', [1, 2])
             ->with('english', 'donor', 'place')
             ->when(ctype_digit((string) $search_str), function ($query) use ($search_str) {
-                $query->where('id', $search_str);
+                $query->where('MicroProject_ID', $search_str);
             }, function ($query) use ($search_str) {
                 $query->where(function ($q) use ($search_str) {
                     $q->where('MPE_BeneficiaryName', 'LIKE', "%{$search_str}%")
