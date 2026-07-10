@@ -30,6 +30,7 @@ use App\Models\PageView;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -1902,38 +1903,45 @@ ORDER BY `student_count` DESC');
         if ($search_str == null) {
             return redirect()->back();
         }
-        $projects_data = Project::whereIn('MPE_Published', [1, 2])
-            ->with('english', 'donor', 'place')
-            ->when(ctype_digit((string) $search_str), function ($query) use ($search_str) {
-                $query->where('MicroProject_ID', $search_str);
-            }, function ($query) use ($search_str) {
-                $query->where(function ($q) use ($search_str) {
-                    $q->where('MPE_BeneficiaryName', 'LIKE', "%{$search_str}%")
-                        ->orWhere('MPE_PartnerName', 'LIKE', "%{$search_str}%")
-                        ->orWhere('MPE_PartnerName2', 'LIKE', "%{$search_str}%")
-                        ->orWhereHas('english', function ($englishQuery) use ($search_str) {
-                            $englishQuery->where('MPE_Name', 'LIKE', "%{$search_str}%")
-                                ->orWhere('MPE_ExpSkill', 'LIKE', "%{$search_str}%")
-                                ->orWhere('MPE_Suffering', 'LIKE', "%{$search_str}%");
-                        })
-                        ->orWhereHas('donor', function ($donorQuery) use ($search_str) {
-                            $donorQuery->where('name', 'LIKE', "%{$search_str}%");
-                        })
-                        ->orWhereHas('place', function ($placeQuery) use ($search_str) {
-                            $placeQuery->where('name', 'LIKE', "%{$search_str}%");
-                        });
-                });
-            })
-            ->orderBy('id', 'desc')
-            ->get();
+        // Projects are private (micro public page). Only expose them in the
+        // search results to users authorized to view the micro-projects section.
+        // Guests / unauthorized users get an empty collection so the search
+        // page stays compatible with the locked section.
+        $projects_data = collect();
+        if (Gate::allows('view-micro-projects')) {
+            $projects_data = Project::whereIn('MPE_Published', [1, 2])
+                ->with('english', 'donor', 'place')
+                ->when(ctype_digit((string) $search_str), function ($query) use ($search_str) {
+                    $query->where('MicroProject_ID', $search_str);
+                }, function ($query) use ($search_str) {
+                    $query->where(function ($q) use ($search_str) {
+                        $q->where('MPE_BeneficiaryName', 'LIKE', "%{$search_str}%")
+                            ->orWhere('MPE_PartnerName', 'LIKE', "%{$search_str}%")
+                            ->orWhere('MPE_PartnerName2', 'LIKE', "%{$search_str}%")
+                            ->orWhereHas('english', function ($englishQuery) use ($search_str) {
+                                $englishQuery->where('MPE_Name', 'LIKE', "%{$search_str}%")
+                                    ->orWhere('MPE_ExpSkill', 'LIKE', "%{$search_str}%")
+                                    ->orWhere('MPE_Suffering', 'LIKE', "%{$search_str}%");
+                            })
+                            ->orWhereHas('donor', function ($donorQuery) use ($search_str) {
+                                $donorQuery->where('name', 'LIKE', "%{$search_str}%");
+                            })
+                            ->orWhereHas('place', function ($placeQuery) use ($search_str) {
+                                $placeQuery->where('name', 'LIKE', "%{$search_str}%");
+                            });
+                    });
+                })
+                ->orderBy('id', 'desc')
+                ->get();
 
-        foreach ($projects_data as $d) {
-            $d->MPE_BeneficiaryName = preg_replace("/($search_str)/i", '<span class="highlight">$1</span>', $d->MPE_BeneficiaryName);
-            $d->english->MPE_Name = preg_replace("/($search_str)/i", '<span class="highlight">$1</span>', $d->english->MPE_Name);
-            $d->donor->name = preg_replace("/($search_str)/i", '<span class="highlight">$1</span>', $d->donor->name);
-            $d->place->name = preg_replace("/($search_str)/i", '<span class="highlight">$1</span>', $d->place->name);
-            $d->english->MPE_ExpSkill = preg_replace("/($search_str)/i", '<span class="highlight">$1</span>', $d->english->MPE_ExpSkill);
-            $d->english->MPE_Suffering = preg_replace("/($search_str)/i", '<span class="highlight">$1</span>', $d->english->MPE_Suffering);
+            foreach ($projects_data as $d) {
+                $d->MPE_BeneficiaryName = preg_replace("/($search_str)/i", '<span class="highlight">$1</span>', $d->MPE_BeneficiaryName);
+                $d->english->MPE_Name = preg_replace("/($search_str)/i", '<span class="highlight">$1</span>', $d->english->MPE_Name);
+                $d->donor->name = preg_replace("/($search_str)/i", '<span class="highlight">$1</span>', $d->donor->name);
+                $d->place->name = preg_replace("/($search_str)/i", '<span class="highlight">$1</span>', $d->place->name);
+                $d->english->MPE_ExpSkill = preg_replace("/($search_str)/i", '<span class="highlight">$1</span>', $d->english->MPE_ExpSkill);
+                $d->english->MPE_Suffering = preg_replace("/($search_str)/i", '<span class="highlight">$1</span>', $d->english->MPE_Suffering);
+            }
         }
 
         $initiatives_data = Initiative::with('english', 'donors', 'place', 'center', 'whatCategory', 'subWhatCategory', 'whoCategory', 'firstImage', 'ImagesRandom')->orWhereHas('english', function ($q) use ($search_str) {
@@ -1955,22 +1963,7 @@ ORDER BY `student_count` DESC');
             $d->place->name = preg_replace("/($search_str)/i", '<span class="highlight">$1</span>', $d->place->name);
         }
 
-        $news_data = News::with('english', 'edition', 'place', 'firstImage')->orWhereHas('english', function ($q) use ($search_str) {
-            $q->where('title', 'LIKE', "%{$search_str}%")->OrWhere('content', 'LIKE', "%{$search_str}%")->OrWhere('description', 'LIKE', "%{$search_str}%");
-        })->orWhereHas('edition', function ($q) use ($search_str) {
-            $q->where('name', 'LIKE', "%{$search_str}%");
-        })->orWhereHas('place', function ($q) use ($search_str) {
-            $q->where('name', 'LIKE', "%{$search_str}%");
-        })->orderBy('id', 'desc')->get();
-        foreach ($news_data as $d) {
-            $d->english->description = preg_replace("/($search_str)/i", '<span class="highlight">$1</span>', $d->english->description);
-            $d->edition->name = preg_replace("/($search_str)/i", '<span class="highlight">$1</span>', $d->edition->name);
-            $d->place->name = preg_replace("/($search_str)/i", '<span class="highlight">$1</span>', $d->place->name);
-            $d->english->title = preg_replace("/($search_str)/i", '<span class="highlight">$1</span>', $d->english->title);
-            $d->english->content = preg_replace("/($search_str)/i", '<span class="highlight">$1</span>', $d->english->content);
-        }
-
-        return view('new.public.search', compact(['projects_data', 'news_data', 'initiatives_data', 'edition']));
+        return view('new.public.search', compact(['projects_data', 'initiatives_data', 'edition']));
     }
 
     public function info_disc()

@@ -88,27 +88,24 @@
     </div>
     <ul class="nav nav-tabs d-lg-flex d-md-flex d-sm-flex d-block position-relative" id="tabList"
         role="tablist">
+        @can('view-micro-projects')
+            <li class="nav-item" role="presentation">
+                <button id="projectsTab" class="projectsTab nav-link active" data-bs-toggle="tab"
+                        data-bs-target="#projects"
+                        role="tab" aria-controls="projects" aria-selected="true">Projects ({{count($projects_data)}})
+                </button>
+            </li>
+        @endcan
         <li class="nav-item" role="presentation">
-            <button id="projectsTab" class="projectsTab nav-link active" data-bs-toggle="tab"
-                    data-bs-target="#projects"
-                    role="tab" aria-controls="projects" aria-selected="true">Projects ({{count($projects_data)}})
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button id="initiativesTab" class="initiativesTab nav-link" data-bs-toggle="tab"
+            <button id="initiativesTab" class="initiativesTab nav-link @cannot('view-micro-projects') active @endcannot" data-bs-toggle="tab"
                     data-bs-target="#initiatives"
                     role="tab" aria-controls="initiatives" aria-selected="false">Initiatives
                 ({{count($initiatives_data)}})
             </button>
         </li>
-        <li class="nav-item" role="presentation">
-            <button id="newsTab" class="newsTab nav-link" data-bs-toggle="tab" data-bs-target="#news"
-                    role="tab" aria-controls=news" aria-selected="false"
-                    aria-selected="false">News ({{count($news_data)}})
-            </button>
-        </li>
     </ul>
     <div class="tab-content position-relative" id="myTabContent">
+        @can('view-micro-projects')
         <div class="tab-pane fade show active" id="projects" role="tabpanel" aria-labelledby="projectsTab"
              tabindex="0">
             @if($projects_data->count())
@@ -607,7 +604,8 @@
             <div class="small horizontal-line"></div>
             @include('new.public.footer')
         </div>
-        <div class="tab-pane fade show" id="initiatives" role="tabpanel" aria-labelledby="initiativesTab"
+        @endcan
+        <div class="tab-pane fade show @cannot('view-micro-projects') active @endcannot" id="initiatives" role="tabpanel" aria-labelledby="initiativesTab"
              tabindex="1">
             @if($initiatives_data->count())
                 @foreach($initiatives_data as $i=>$initiative)
@@ -716,76 +714,6 @@
                 @endforeach
             @endif
             @if(count($initiatives_data)==0)
-                <div class="card-height">
-                    <div class="single-card">
-                        <div class="row">
-                            <div class="col-12 d-flex justify-content-end flex-column pe-1 sorry-message">
-                                <div class="text-center">
-                                    Sorry, we couldn't find any results
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
-            <div class="small horizontal-line"></div>
-            @include('new.public.footer')
-        </div>
-        <div class="tab-pane fade show" id="news" role="tabpanel" aria-labelledby="newsTab"
-             tabindex="2">
-            @if ($news_data->count())
-                <div id="Newsletter">
-                    @foreach($news_data as $SingleNews)
-                        <div class="row news_ticket">
-                            @if($SingleNews->type != '3')
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-12 news_colomn">
-                                    <div class="news_data_column left">
-                                        <div class="news_title">{!! $SingleNews->english->title !!}</div>
-                                        <div class="text-column">
-                                            {!!implode(' ', array_slice(explode(' ', strip_tags($SingleNews->english->description)), 0, 55)).'...'!!}
-                                            @if($SingleNews->video != 0)
-                                                <a href="{{$SingleNews->video}}" class="launch-modal"
-                                                   id="newsletterVideo-{{ $SingleNews->id}}"
-                                                   data-fancybox="newsletterVideo-{{ $SingleNews->id}}">
-                                                    <img class="video-icon"
-                                                         src="/images/ico/video-ini-icon.svg">
-                                                </a>
-                                            @endif
-                                            <a href="{{ route('new.public.article',
-                                                [Str::slug(strtolower($SingleNews->edition->name)),
-                                                $SingleNews->id,
-                                                Str::slug(strtolower(str_replace(['<span class="highlight">','span'],'', $SingleNews->edition->name)))]   ) }}"
-                                               class="readmore-btn left">@lang('main.readMore')
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                            @if($SingleNews->type == '3')
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-12 news_colomn d-flex align-items-center">
-                                    <div class="news_data_column left">
-                                        <div class="news_title">{!! $SingleNews->english->title !!}</div>
-                                        <div class="text-column">
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-12 news_colomn ">
-                                @if($SingleNews->type != '3')
-                                    <img class="news_img" src="{!! $SingleNews->firstImage->path !!}" alt="newsletter">
-                                @else
-                                    <div class="video">
-                                        <iframe class="news_img" src="{{$SingleNews->video}}" frameborder="0"
-                                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                                allowfullscreen></iframe>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
-            @if(count($news_data)==0)
                 <div class="card-height">
                     <div class="single-card">
                         <div class="row">
