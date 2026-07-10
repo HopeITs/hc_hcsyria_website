@@ -3,185 +3,109 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/css/font-awesome.min.css" rel="stylesheet">
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Login</title>
+    <title>Login | Hope Center</title>
 
-    <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <!-- Styles -->
-    <link href="{{ asset('app.scss') }}" rel="stylesheet">
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="/css/login-new-design.css" rel="stylesheet">
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
-
-    <style>
-        .btn-primary {
-            text-transform: uppercase;
-            border: 1px solid #CF142B;
-            color: #fff;
-            background-color: #CF142B;
-            border-radius: 0.25rem;
-        }
-        .btn-primary:hover,
-        .btn-primary:focus,
-        .btn-primary:active {
-            background-color: #fff!important;
-            color: #CF142B!important;
-            border-color: #CF142B!important;
-            -webkit-box-shadow: none!important;
-            box-shadow: none!important;
-        }
-        .form-control:focus {
-            border-color: #CF142B;
-            -webkit-box-shadow: none;
-            box-shadow: none;
-        }
-        .card,
-        .card-header,
-        .form-control {
-            border-radius: 0;
-        }
-        .logo {
-            margin: 25px 0;
-            width: 50%
-        }
-        .form-group{
-            /*padding-right: 40px;*/
-        }
-        @media screen and (max-width: 768px) {
-            .logo {
-                width: 70%;
-            }
-            .form-group{
-                /*padding-right: unset;*/
-            }
-
-        }
-        input {
-            /*display: block;*/
-            /*width: 90%;*/
-            /*margin: 0 auto;*/
-            /*border: none;*/
-        }
-        input::placeholder{
-             -webkit-transform:translateY(0px);
-             transform:translateY(0px);
-             -webkit-transition:.5s;
-         }
-        input:hover,
-        input:focus,
-        input:active:focus {
-            color: #CF142B;
-            outline: none;
-            border-bottom: 1px solid #CF142B;
-        }
-        input:hover::placeholder,input:focus::placeholder,input:active:focus::placeholder{
-             color:#CF142B;
-             position:relative;
-             -webkit-transform:translateY(-20px);
-             transform:translateY(-20px);
-
-         }
-
-        .email,
-        .pwd{
-            height: 32px;
-            /*border: none;*/
-            position:relative;
-            z-index:1;
-            border-bottom:1px solid rgba(0,0,0,.1);
-            color:#858585;
-            font-weight:lighter;
-            -webkit-transition:.5s;
-            transition:.5s;
-        }
-    </style>
 </head>
-
-<div class="container" style="margin-top: 5rem;">
-    <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-11 col-11">
-            <div class="card">
-                <div class="card-header">
-                    <div class="text-center">
-                        <img src="/images/logos/hc.svg" class="logo">
-                    </div>
+<body>
+    <main class="login-page">
+        <section class="login-shell" aria-label="Hope Center login">
+            <aside class="brand-panel">
+                <div class="brand-mark">
+                    <img src="/images/logos/001_HC_W.svg" alt="Hope Center">
                 </div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+                <div class="brand-copy">
+                    <h1>HC Syria<br>Dashboard</h1>
+                </div>
 
-                        <div class="form-group row mb-4 d-flex justify-content-center">
-                            {{--<label for="email" class="col-md-4 col-form-label text-md-end">{{ __('E-Mail Address') }}</label>--}}
+                <div class="brand-footer">Copyright © Christian Hope Center {{ date('Y') }}</div>
+            </aside>
 
-                            <div class="col-lg-6 col-md-7 col-12">
-                                <input id="email" type="email" class="email form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="Email" name="email" value="{{ old('email') }}" required>
+            <section class="auth-panel">
+                <form class="auth-card" method="POST" action="{{ route('login') }}">
+                    @csrf
 
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+                    <div class="auth-top">
+                        <h2 class="auth-title">Log in to continue</h2>
+                    </div>
+
+                    <div class="auth-fields">
+                        <div class="field">
+                            <label for="email" class="field-label">{{ __('Email') }}</label>
+                            <div class="input-wrap">
+                                <i class="fa fa-envelope input-icon" aria-hidden="true"></i>
+                                <input id="email" type="email" class="auth-input{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="name@hcsyria.org" name="email" value="{{ old('email') }}" autocomplete="email" required autofocus>
                             </div>
+
+                            @if ($errors->has('email'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                            @endif
                         </div>
 
-                        <div class="form-group row mb-4 d-flex justify-content-center">
-                            {{--<label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>--}}
-
-                            <div class="col-lg-6 col-md-7 col-12">
-                                <div class="position-relative">
-                                    <input id="password" type="password" class=" pwd form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Password" name="password" required>
-                                    <span style="position: absolute; right: 2%; bottom: 25%; z-index: 1000;"> <i class="fa fa-eye-slash" id="password-toggle" onclick="togglePasswordVisibility()" style="float:right;"></i></span>
-                                </div>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-4 d-flex justify-content-center">
-                            <div class="col-lg-6 col-md-7 col-12">
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="input-checkbox" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0 d-flex justify-content-center">
-                            <div class="col-lg-6 col-md-7 col-12">
-                                <button type="submit" class="btn-edit btn btn-primary">
-                                    {{ __('Login') }}
+                        <div class="field">
+                            <label for="password" class="field-label">{{ __('Password') }}</label>
+                            <div class="input-wrap">
+                                <i class="fa fa-lock input-icon" aria-hidden="true"></i>
+                                <input id="password" type="password" class="auth-input password-input{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Enter your password" name="password" autocomplete="current-password" required>
+                                <button type="button" class="password-toggle" id="password-toggle" onclick="togglePasswordVisibility()" aria-label="Show password" aria-pressed="false">
+                                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                 </button>
                             </div>
+
+                            @if ($errors->has('password'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </span>
+                            @endif
                         </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    function togglePasswordVisibility() {
-        let x = document.getElementById("password");
-        let passToggle = $('#password-toggle');
-        if (x.type === "password") {
-            x.type = "text";
-            passToggle.removeClass('fa-eye-slash');
-            passToggle.addClass('fa-eye');
-        } else {
-            passToggle.removeClass('fa-eye');
-            passToggle.addClass('fa-eye-slash');
-            x.type = "password";
+
+                        <div class="form-options">
+                            <label class="remember">
+                                <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                <span class="remember-box">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </span>
+                                <span>{{ __('Remember Me') }}</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="auth-actions">
+                        <button type="submit" class="login-button">
+                            <span>{{ __('Login') }}</span>
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </section>
+    </main>
+
+    <script>
+        function togglePasswordVisibility() {
+            var password = document.getElementById('password');
+            var button = document.getElementById('password-toggle');
+            var icon = button.querySelector('i');
+            var isHidden = password.type === 'password';
+
+            password.type = isHidden ? 'text' : 'password';
+            button.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+            button.setAttribute('aria-pressed', isHidden ? 'true' : 'false');
+            icon.className = isHidden ? 'fa fa-eye' : 'fa fa-eye-slash';
         }
-    }
-</script>
+    </script>
+</body>
+</html>
