@@ -98,12 +98,24 @@ class MicroProjects extends Component
 //            'projects' => $this->projects->pluck('id')
 //        ]);
         $this->dispatch('scroll-to-projects');
+        // Lets the filter UI confirm the apply completed (clears "unapplied" state,
+        // shows the "Applied" confirmation on the button).
+        $this->dispatch('filters-applied');
     }
 
 
     public function getHasMoreProperty(): bool
     {
         return $this->totalCount > $this->projects->count();
+    }
+
+    /** True whenever a pending (temp) filter differs from the last applied one. */
+    public function getIsDirtyProperty(): bool
+    {
+        return (string) $this->tempCity !== (string) $this->city
+            || (string) $this->tempDonor !== (string) $this->donor
+            || (string) $this->tempSearch !== (string) $this->search
+            || (bool) $this->tempHasVideo !== (bool) $this->hasVideo;
     }
 
 

@@ -57,7 +57,11 @@
     <script type="text/javascript" src="/js/wow.min.js"></script>
     <script type="text/javascript" src="/js/swipe.index.js"></script>
     <script type="text/javascript" src="/js/swipe.js"></script>
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    {{-- Alpine is NOT loaded here: Livewire 3 (@livewireScripts below) bundles its own
+         Alpine instance and registers the $wire magic on it. A second, separately
+         loaded Alpine (as this CDN script used to do) wins the DOM walk before
+         Livewire's script runs, so wire:click/$wire.set silently no-op — that was
+         the root cause of the projects filter's Apply button not working. --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
     <script src="https://pandameister.github.io/chartjs-chart-radial-gauge/docs/js/Chart.RadialGauge.umd.js"></script>
 </head>
@@ -1560,49 +1564,6 @@
             }
         }
     </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const filterSection = document.querySelector(".filters-section");
-            const projectSection = document.querySelector("#map-section");
-
-            if (filterSection && projectSection) {
-                const observer = new IntersectionObserver(
-                    (entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                filterSection.classList.remove("fade-in");
-                                filterSection.classList.add("fade-out");
-                                filterSection.style.position = "static";
-                            } else {
-                                filterSection.classList.remove("fade-out");
-                                filterSection.classList.add("fade-in");
-                                filterSection.style.position = "sticky";
-                            }
-                        });
-                    }, {
-                        root: null,
-                        threshold: 0,
-                    }
-                );
-                observer.observe(projectSection);
-            }
-
-            const projectsContainer = document.querySelector("#projects-section");
-            if (projectsContainer) {
-                let resizeTimeout;
-                const resizeObserver = new ResizeObserver(() => {
-                    clearTimeout(resizeTimeout);
-                    resizeTimeout = setTimeout(() => {
-                        if (typeof AOS !== 'undefined') {
-                            AOS.refresh();
-                        }
-                    }, 150);
-                });
-                resizeObserver.observe(projectsContainer);
-            }
-        });
-    </script>
-
     @stack('fancyVideo')
     @stack('navbar-contactUs')
     @stack('navbar-whatwedo')

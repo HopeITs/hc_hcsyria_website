@@ -1,155 +1,120 @@
 <div class="container-fluid">
     <div id="projects-section">
         <div class="filters-section">
-            <div class="row d-flex justify-content-center">
-                <div class="col d-flex justify-content-end">
-                    <!-- City -->
-                    <div class="dropdown">
-                        <button class="btn btn-light dropdown-toggle" type="button" id="cityDropdown"
-                                data-bs-toggle="dropdown">
-                    <span>
-            {{ $tempCity
-                ? 'City-' . ($cities->firstWhere('id', $tempCity)->name ?? 'All')
-                : 'City-All' }}
-        </span>
-                        </button>
-                        <ul class="dropdown-menu w-100" aria-labelledby="cityDropdown" style="min-width: 100%">
+            <div class="projects-filter-layout">
+                <div class="projects-filter-city dropdown">
+                    <button class="btn btn-light dropdown-toggle" type="button" id="cityDropdown"
+                            data-bs-toggle="dropdown">
+                        <span>
+                            {{ $tempCity
+                                ? 'City-' . (optional($cities->firstWhere('id', $tempCity))->name ?? 'All')
+                                : 'City-All' }}
+                        </span>
+                    </button>
+                    <ul class="dropdown-menu w-100" aria-labelledby="cityDropdown">
+                        <li>
+                            <a class="dropdown-item @if(!$tempCity) active @endif" href="#"
+                               wire:click.prevent="$set('tempCity', '')">All</a>
+                        </li>
+                        @foreach($cities as $city)
                             <li>
-                                <a class="dropdown-item" href="#"
-                                   @click.prevent="label='City-All'; $wire.set('tempCity', '')">All</a>
+                                <a class="dropdown-item @if((string) $tempCity === (string) $city->id) active @endif"
+                                   href="#" wire:click.prevent="$set('tempCity', {{ $city->id }})">
+                                    {{ $city->name }}
+                                </a>
                             </li>
-                            @foreach($cities as $city)
-                                <li>
-                                    <a class="dropdown-item" href="#"
-                                       @click.prevent="label='City-{{ $city->name }}'; $wire.set('tempCity', {{ $city->id }})">
-                                        {{ $city->name }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
+                        @endforeach
+                    </ul>
                 </div>
-                <div class="col-2"></div>
-                <div class="col d-flex justify-content-left">
-                    <!-- Donor -->
-                    <div class="dropdown">
-                        <button class="btn btn-light dropdown-toggle" type="button" id="donorDropdown"
-                                data-bs-toggle="dropdown">
-                     <span>
-            {{ $tempDonor
-                ? 'Donor-' . ($donors->firstWhere('id', $tempDonor)->name ?? 'All')
-                : 'Donor-All' }}
-        </span>
-                        </button>
-                        <ul class="dropdown-menu w-100" aria-labelledby="donorDropdown" style="min-width: 100%">
+
+                <div class="projects-filter-title section-title">Projects</div>
+
+                <div class="projects-filter-donor dropdown">
+                    <button class="btn btn-light dropdown-toggle" type="button" id="donorDropdown"
+                            data-bs-toggle="dropdown">
+                        <span>
+                            {{ $tempDonor
+                                ? 'Donor-' . (optional($donors->firstWhere('id', $tempDonor))->name ?? 'All')
+                                : 'Donor-All' }}
+                        </span>
+                    </button>
+                    <ul class="dropdown-menu w-100" aria-labelledby="donorDropdown">
+                        <li>
+                            <a class="dropdown-item @if(!$tempDonor) active @endif" href="#"
+                               wire:click.prevent="$set('tempDonor', '')">All</a>
+                        </li>
+                        @foreach($donors as $donor)
                             <li>
-                                <a class="dropdown-item" href="#"
-                                   @click.prevent="labelDonor='Donor-All'; $wire.set('tempDonor', '')">All</a>
+                                <a class="dropdown-item @if((string) $tempDonor === (string) $donor->id) active @endif"
+                                   href="#" wire:click.prevent="$set('tempDonor', {{ $donor->id }})">
+                                    {{ $donor->name }}
+                                </a>
                             </li>
-                            @foreach($donors as $donor)
-                                <li>
-                                    <a class="dropdown-item" href="#"
-                                       @click.prevent="labelDonor='Donor-{{ str_replace("'", "\'", $donor->name) }}'; $wire.set('tempDonor', {{ $donor->id }})">
-                                        {{ $donor->name }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
+                        @endforeach
+                    </ul>
                 </div>
-            </div>
-            <div class="row d-flex justify-content-center text-center">
-                <div class="col section-title p-0" style="line-height: 1vw;">Projects</div>
-            </div>
-            <div class="row mb-3 d-flex justify-content-center align-items-center">
-                <div class="col d-flex justify-content-end">
-                    <!-- view -->
-                    <div class="filter-container position-relative">
+
+                <div class="projects-filter-view">
+                    <div class="filter-container">
                         <label>View</label>
                         <img
                             src="{{ $activeView === 'tiles' ? '/images/ico/tiles-active.png' : '/images/ico/tiles.png' }}"
                             id="tiles"
-                            @click.prevent="$wire.set('activeView', 'tiles')"
-                            class="cursor-pointer">
-
-                        <img src="{{ $activeView === 'grid' ? '/images/ico/grid-active.png' : '/images/ico/grid.png' }}"
-                             id="grid"
-                             @click.prevent="$wire.set('activeView', 'grid')"
-                             class="cursor-pointer">
+                            wire:click.prevent="$set('activeView', 'tiles')"
+                            class="cursor-pointer"
+                            alt="Tile view">
+                        <img
+                            src="{{ $activeView === 'grid' ? '/images/ico/grid-active.png' : '/images/ico/grid.png' }}"
+                            id="grid"
+                            wire:click.prevent="$set('activeView', 'grid')"
+                            class="cursor-pointer"
+                            alt="Grid view">
                     </div>
                     <div class="search-container">
                         <label class="switch" id="switchvideo"
                                style="background: {{ $tempHasVideo ? '#BC1818' : '#f7f7f7' }}">
                             <input type="checkbox"
                                    id="videoFilter"
-                                   wire:model="tempHasVideo"
+                                   wire:model.live="tempHasVideo"
                                    aria-label="Project with Video">
                             <img id="videoIcon" class="search-icons"
-                                 src="{{ $tempHasVideo ? '/images/ico/reverst-video.svg' : '/images/ico/search-video-icon.svg' }}">
+                                 src="{{ $tempHasVideo ? '/images/ico/reverst-video.svg' : '/images/ico/search-video-icon.svg' }}"
+                                 alt="">
                         </label>
                     </div>
                 </div>
-                <div class="col-2">
-                </div>
-                <div class="col d-flex align-items-end">
-                    <!-- Search -->
-                    <div>
-                        <input type="text"
-                               id="search-input"
-                               class="form-control"
-                               placeholder="Search"
-                               wire:model.defer="tempSearch"
-                        />
-                    </div>
-                    <button class="apply-btn" wire:click="applyFilters">
-                        <span wire:loading.remove>Apply</span>
-                        <span wire:loading>Apply</span>
+
+                <div class="projects-filter-search">
+                    <input type="text"
+                           id="search-input"
+                           class="form-control"
+                           placeholder="Search"
+                           wire:model.live.debounce.400ms="tempSearch"
+                           wire:keydown.enter="applyFilters">
+                    <button type="button"
+                            class="apply-btn {{ $this->isDirty ? 'is-dirty' : '' }}"
+                            wire:click="applyFilters"
+                            wire:target="applyFilters"
+                            wire:loading.attr="disabled"
+                            x-data="{ applied: false }"
+                            @filters-applied.window="applied = true; setTimeout(() => applied = false, 1600)"
+                            :class="{ 'is-applied': applied }">
+                        <span class="apply-label" wire:loading.remove wire:target="applyFilters" x-show="!applied">Apply</span>
+                        <span class="apply-label apply-applied" wire:loading.remove wire:target="applyFilters"
+                              x-show="applied" x-cloak>
+                            <i class="fa fa-check"></i> Applied
+                        </span>
+                        <span class="apply-label apply-loading" wire:loading wire:target="applyFilters">
+                            <span class="apply-spinner"></span> Applying…
+                        </span>
                     </button>
                 </div>
-            </div>
-            <div class="row mb-3 d-flex justify-content-center align-items-center">
-                <div class="col d-flex justify-content-end">
-                    <div class="result">
-                        Filter Result: <span>{{ $totalCount }} ({{ $totalProjectsCount }}) Projects |
-                     {{ $tempCity ? optional($cities->firstWhere('id', $tempCity))->name ?? "All Cities" : "All Cities" }}
+
+                <div class="result">
+                    Filter Result: <span>{{ $totalCount }} ({{ $totalProjectsCount }}) Projects |
+                    {{ $this->city ? optional($cities->firstWhere('id', $this->city))->name ?? "All Cities" : "All Cities" }}
                     |
-                     {{ $tempDonor ? optional($donors->firstWhere('id', $tempDonor))->name ?? "All Donors" : "All Donors" }}
-                            @if($tempSearch)
-                                | {{ $tempSearch ? $search : '' }}
-                            @endif
-                            @if($tempHasVideo)
-                                |
-                                {{ $tempHasVideo ? 'Video' : '' }}</span>
-                        @endif
-                    </div>
-                </div>
-                <div class="col-2"></div>
-                <div class="col d-flex justify-content-left">
-                    <!-- Donor -->
-                    <div class="dropdown d-none">
-                        <button class="btn btn-light dropdown-toggle" type="button" id="donorDropdown"
-                                data-bs-toggle="dropdown">
-                     <span>
-            {{ $tempDonor
-                ? 'Donor-' . ($donors->firstWhere('id', $tempDonor)->name ?? 'All')
-                : 'Donor-All' }}
-        </span>
-                        </button>
-                        <ul class="dropdown-menu w-100" aria-labelledby="donorDropdown" style="min-width: 100%">
-                            <li>
-                                <a class="dropdown-item" href="#"
-                                   @click.prevent="labelDonor='Donor-All'; $wire.set('tempDonor', '')">All</a>
-                            </li>
-                            @foreach($donors as $donor)
-                                <li>
-                                    <a class="dropdown-item" href="#"
-                                       @click.prevent="labelDonor='Donor-{{ str_replace("'", "\'", $donor->name) }}'; $wire.set('tempDonor', {{ $donor->id }})">
-                                        {{ $donor->name }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
+                    {{ $this->donor ? optional($donors->firstWhere('id', $this->donor))->name ?? "All Donors" : "All Donors" }}@if($this->search) | {{ $this->search }}@endif @if($this->hasVideo)| Video @endif</span>
                 </div>
             </div>
         </div>
