@@ -489,10 +489,10 @@
 
                         </div>
                         <div class="col-lg-5 col-md-6 col-sm-4 col-12 position-relative">
-                            @if($statistics[0]->adisc_applied_students != null || $statistics[0]->adisc_completed_students != null || $statistics[0]->adisc_employed_students
+                            @if(!empty($statistics) && ($statistics[0]->adisc_applied_students != null || $statistics[0]->adisc_completed_students != null || $statistics[0]->adisc_employed_students
                             || $statistics[0]->hdisc_applied_students != null || $statistics[0]->hdisc_completed_students != null || $statistics[0]->hdisc_employed_students
                             || $statistics[0]->ddisc_applied_students != null || $statistics[0]->ddisc_completed_students != null || $statistics[0]->ddisc_employed_students
-                            )
+                            ))
                                 <div class="row">
                                     <div class="sub-statistics-title homscity">Number of DISC students in HOMS</div>
                                     <div class="sub-statistics-title damascity">Number of DISC students in DAMASCUS
@@ -2018,9 +2018,9 @@
     let yAxis;
     let series1;
     let series2;
-    @if($statistics[0]->adisc_applied_students != null || $statistics[0]->adisc_completed_students != null || $statistics[0]->adisc_employed_students
+    @if(!empty($statistics) && ($statistics[0]->adisc_applied_students != null || $statistics[0]->adisc_completed_students != null || $statistics[0]->adisc_employed_students
                             || $statistics[0]->hdisc_applied_students != null || $statistics[0]->hdisc_completed_students != null || $statistics[0]->hdisc_employed_students
-                            || $statistics[0]->ddisc_applied_students != null || $statistics[0]->ddisc_completed_students != null || $statistics[0]->ddisc_employed_students)
+                            || $statistics[0]->ddisc_applied_students != null || $statistics[0]->ddisc_completed_students != null || $statistics[0]->ddisc_employed_students))
     am5.ready(function () {
         root = am5.Root.new("chartDisc");
         root.setThemes([
@@ -2206,6 +2206,8 @@
             $('.aleppocity').removeClass("d-none");
         }
         am5.ready(function () {
+            // The chart below is only built when statistics data exists; skip restyling it otherwise.
+            if (typeof xRenderer === 'undefined' || xRenderer == null) return;
             // cursor.lineY.set("visible", false);
             xRenderer.labels.template.setAll({
                 // radius: 10
@@ -2263,19 +2265,23 @@
 
         if (window.innerWidth > 1023) {
             $(".navbar").show(); //hide your div initially
-            let topOfCategories = $(".programs").offset().top - 92;
-            let topOfOActivities = $("#testimonies-section").offset().top - 92;
-            $(window).scroll(function () {
-                if ($(window).scrollTop() >= topOfCategories && $(window).scrollTop() < topOfOActivities) { //scrolled past the other div?
-                    $(".navbar").hide(); //reached the desired point -- show div
-                }
-                else {
-                    $(".navbar").show();//else above the desired point -- hide div
-                }
-            });
+            // '.programs' is currently commented out in the markup, fall back to the section itself.
+            let $categoriesAnchor = $(".programs").length ? $(".programs") : $("#categories-section");
+            let $activitiesAnchor = $("#testimonies-section");
+            if ($categoriesAnchor.length && $activitiesAnchor.length) {
+                let topOfCategories = $categoriesAnchor.offset().top - 92;
+                let topOfOActivities = $activitiesAnchor.offset().top - 92;
+                $(window).scroll(function () {
+                    if ($(window).scrollTop() >= topOfCategories && $(window).scrollTop() < topOfOActivities) { //scrolled past the other div?
+                        $(".navbar").hide(); //reached the desired point -- show div
+                    }
+                    else {
+                        $(".navbar").show();//else above the desired point -- hide div
+                    }
+                });
+            }
         }
-        $('#homsmap').style.display = "block";
-        $('#damasmap').style.display = "none";
+        // Map visibility is handled by selectDataset() above via the .homsmap/.damasmap/.aleppomap classes.
         $('#aleppoTab').on('click', function () {
             // e.preventDefault();
             let aleppo = document.getElementById('aleppoTab');
@@ -2315,17 +2321,17 @@
         let s = '';
 
         if (url.searchParams.get('search') === '' || url.searchParams.get('search') == null) {
-            searchsearch.src = "/images/ico/search-blue-icon.png";
-            switchsearch.style.background = '#f7f7f7';
+            if (searchsearch) searchsearch.src = "/images/ico/search-blue-icon.png";
+            if (switchsearch) switchsearch.style.background = '#f7f7f7';
         }
         else {
             $('html, body').animate({
                 scrollTop: $('#initiative-section').offset().top
             }, 'slow');
             s = url.searchParams.get("search");
-            input.value = s;
-            searchsearch.src = "/images/ico/reverst-search.svg";
-            switchsearch.style.background = '#063c54';
+            if (input) input.value = s;
+            if (searchsearch) searchsearch.src = "/images/ico/reverst-search.svg";
+            if (switchsearch) switchsearch.style.background = '#063c54';
         }
 
         if (url.searchParams.get('tab') === '' || url.searchParams.get('tab') == null) {
@@ -2333,7 +2339,7 @@
                 url.searchParams.set('tab', 'aleppo');
             else if (window.location.href.includes('ini_H'))
                 url.searchParams.set('tab', 'homs');
-            else if (window.location.href.includes('ini_H'))
+            else if (window.location.href.includes('ini_D'))
                 url.searchParams.set('tab', 'damas');
             else url.searchParams.set('tab', 'aleppo');
             history.pushState({}, '', url.href);
@@ -2341,8 +2347,10 @@
 
         let tab = url.searchParams.get("tab") + "Tab";
         let t = document.getElementById(tab);
-        let tt = new bootstrap.Tab(t);
-        tt.show();
+        if (t) {
+            let tt = new bootstrap.Tab(t);
+            tt.show();
+        }
 
     });
 </script>
@@ -2389,7 +2397,7 @@
 <script>
     const inputEl = document.getElementById("search-input");
 
-    inputEl.addEventListener("keyup", manageEnter);
+    if (inputEl) inputEl.addEventListener("keyup", manageEnter);
 
     function manageEnter(evt) {
         evt.preventDefault();
@@ -2400,7 +2408,8 @@
 </script>
 <script>
     function searchFilter() {
-        let val = document.getElementById("search-input").value
+        let searchInput = document.getElementById("search-input");
+        let val = searchInput ? searchInput.value : '';
         let urlsearch = new URL(window.location.href);
         urlsearch.searchParams.set('search', val);
         history.pushState({}, '', urlsearch.href);

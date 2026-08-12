@@ -632,14 +632,16 @@ ORDER BY age.ID;');
     public function get_discactivities_IDs($searchStr, $langTable)
     {
 
+        $like = '%' . $searchStr . '%';
+
         return DB::Select('select initiatives.id from initiatives inner join ' . $langTable . '
                                     on ' . $langTable . '.initiative_id = initiatives.id
                                     where what_category_id = 5
                                     and online = 1
-                                    and (LOWER(title) like \'%' . $searchStr . '%\'
-                                    or LOWER(content) like \'%' . $searchStr . '%\'
-                                    or LOWER(description) like \'%' . $searchStr . '%\' )
-                                    order by ' . $langTable . '.initiative_id');
+                                    and (LOWER(title) like ?
+                                    or LOWER(content) like ?
+                                    or LOWER(description) like ? )
+                                    order by ' . $langTable . '.initiative_id', [$like, $like, $like]);
     }
 
     public function search_list_projects($langTable)
@@ -1689,7 +1691,7 @@ ORDER BY `student_count` DESC');
         }
 
         $searchST = $this->search_list_DISC_activities($languageTable);
-        $searchStr = strtolower(addslashes($request->input('search')));
+        $searchStr = strtolower((string) $request->input('search'));
         $discActivitiesIDs = $this->get_discactivities_IDs($searchStr, $languageTable);
 
         if ($searchStr != '') {
@@ -1712,9 +1714,7 @@ ORDER BY `student_count` DESC');
                 ->orderBy('id', 'desc')->paginate(5, ['*'], 'ini_D');
         }
 
-        $initiatives = Initiative::with('english', 'french', 'ImagesRandom', 'donors')->where('what_category_id', 5)->where('online', '1')->orderBy('id', 'desc')->get();
-
-        $whatCategory = WhatCategory::where('id', $initiatives[0]->what_category_id)->with('subCategory')->first();
+        $whatCategory = WhatCategory::where('id', 5)->with('subCategory')->first();
 
         $statistics = DB::select('CALL get_statistics()');
 

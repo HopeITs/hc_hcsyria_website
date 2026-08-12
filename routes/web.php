@@ -16,6 +16,8 @@ Route::get('/projects/micro-projects', 'PublicController@micro_project_new_test'
 //Route::get('/projects/micro-projects-test', 'PublicController@micro_project_new_test')->name('new.public.micro_project_test');
 Route::get('/projects/family-to-family', 'PublicController@family_to_family')->name('new.public.family2family');
 Route::get('/projects/study-zone', 'PublicController@study_zone')->name('new.public.study-zone');
+// Must stay ABOVE the '/projects/{type}' wildcard below, otherwise it is swallowed by it.
+Route::get('/projects/disc', 'PublicController@disc')->name('public.disc_home');
 Route::get('/projects/{type}/{id}-{slug}', 'PublicController@initiative')->name('new.public.initiative');
 //Route::get('/projects/school-to-school/{type}/{id}-{slug}', 'PublicController@initiativeOfProject')->name('new.public.school2school.project');
 Route::get('/projects/disc/{type}/{id}-{slug}', 'PublicController@initiativeOfProject')->name('new.public.disc.project');
@@ -92,7 +94,7 @@ Route::get('/projects/study-zone', 'PublicController@studyzone')->name('public.s
 Route::get('/projects/study-zone/{type}', 'PublicController@oneTypeOfproject')->name('public.studyzone.type');
 //Route::get('/projects/study-zone/{type}/{id}-{slug}', 'PublicController@initiativeOfProject')->name('public.studyzone.project');
 
-Route::get('/projects/disc', 'PublicController@disc')->name('public.disc_home');
+// '/projects/disc' is registered near the top of this file, above the '/projects/{type}' wildcard.
 Route::get('/projects/disc/{place}', 'PublicController@discByPlace')->name('public.disc.place');
 //Route::get('/projects/disc/{type}/{id}-{slug}', 'PublicController@initiativeOfProject')->name('public.disc.project');
 
