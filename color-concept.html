@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>HC Syria — Color & Design Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&family=Lato:wght@400;700;900&family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-primary:#be1f24;
+    --color-secondary-dark:#58595b;
+    --color-secondary-medium:#6d6e71;
+    --color-secondary-light:#939598;
+    --color-secondary-soft:#dcddde;
+
+    --card:#EDEDED;
+    --page:#FFFFFF;
+    --ink:#231f20;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--page);
+    font-family:'Lato',-apple-system,Segoe UI,sans-serif;
+    color:var(--ink);
+    padding:24px;
+    display:flex;justify-content:center;
+  }
+  .board{
+    width:912px;height:505px;
+    display:grid;
+    grid-template-columns:205px 220px 228px 227px;
+    gap:10px;
+  }
+  .col{display:flex;flex-direction:column;gap:10px}
+  .col > *{flex:1}
+  .card{background:var(--card);border-radius:14px;padding:14px 16px;position:relative;overflow:hidden}
+
+  /* ---------- color cards ---------- */
+  .swatch{border-radius:14px;padding:11px 14px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+  .swatch .top{display:flex;justify-content:space-between;align-items:baseline;font-size:10.5px;font-weight:700}
+  .swatch .name{letter-spacing:.2px}
+  .swatch .hex{font-weight:400;opacity:.85;font-family:ui-monospace,Menlo,Consolas,monospace}
+  .scale{display:flex;height:26px;border-radius:4px;overflow:hidden;margin:0 -14px -11px}
+  .scale span{flex:1}
+  .light{color:#fff}
+  .dark{color:#231f20}
+
+  /* ---------- typography cards ---------- */
+  .type{display:flex;flex-direction:column;justify-content:space-between}
+  .type .meta{display:flex;justify-content:space-between;font-size:11px;color:#8a8a8a;font-weight:700}
+  .type .meta em{font-style:normal;font-weight:400}
+  .type .aa{font-size:78px;line-height:.9;color:var(--color-secondary-dark);align-self:center;margin-bottom:2px}
+  .aa-head{font-family:'Almarai',Georgia,serif;font-weight:800}
+  .aa-body{font-family:'Lato',Helvetica,sans-serif;font-weight:400}
+  .aa-label{font-family:'Alegreya Sans','Lato',sans-serif;font-weight:500}
+
+  /* ---------- buttons ---------- */
+  .btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-content:center}
+  .btn{height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;
+       font-size:12px;font-weight:700;font-family:'Lato',sans-serif;border:1px solid transparent}
+  .btn-primary{background:var(--color-primary);color:#fff}
+  .btn-secondary{background:#fff;color:var(--color-secondary-dark);border-color:var(--color-secondary-soft)}
+  .btn-inverted{background:var(--color-secondary-dark);color:#fff}
+  .btn-outlined{background:transparent;color:var(--color-secondary-dark);border-color:var(--color-secondary-dark)}
+
+  /* ---------- rules ---------- */
+  .rules{display:flex;flex-direction:column;justify-content:center;gap:14px}
+  .rule{height:4px;border-radius:2px}
+  .rule.r1{width:72%;background:var(--color-primary)}
+  .rule.r2{width:100%;background:var(--color-secondary-dark)}
+  .rule.r3{width:88%;background:var(--color-secondary-light)}
+  .rule.r4{width:55%;background:var(--color-secondary-soft)}
+
+  /* ---------- search ---------- */
+  .searchwrap{display:flex;align-items:center}
+  .search{width:100%;height:40px;background:#fff;border-radius:9px;display:flex;align-items:center;
+          gap:9px;padding:0 13px;color:var(--color-secondary-light);font-size:13px}
+
+  /* ---------- nav pills ---------- */
+  .navwrap{display:flex;align-items:center;justify-content:center}
+  .nav{background:#fff;border-radius:11px;padding:7px;display:flex;gap:10px}
+  .pill{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--color-secondary-medium)}
+  .pill.active{background:var(--color-primary);color:#fff}
+
+  /* ---------- icon buttons ---------- */
+  .iconrow{display:flex;align-items:center;justify-content:center;gap:9px}
+  .ib{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff}
+
+  .duo{display:flex;gap:10px}
+  .duo .card{flex:1;display:flex;align-items:center;justify-content:center}
+  .duo .card.small{flex:0 0 86px}
+  .chip{height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:7px;
+        color:#fff;font-size:12px;font-weight:700;padding:0 14px}
+  svg{display:block}
+</style>
+</head>
+<body>
+<div class="board">
+
+  <!-- ============ COLUMN 1 : COLORS ============ -->
+  <div class="col">
+    <div class="swatch light" style="background:var(--color-primary)">
+      <div class="top"><span class="name">Primary</span><span class="hex">#be1f24</span></div>
+      <div class="scale">
+        <span style="background:var(--color-primary);filter:brightness(.45)"></span>
+        <span style="background:var(--color-primary);filter:brightness(.68)"></span>
+        <span style="background:var(--color-primary);filter:brightness(.86)"></span>
+        <span style="background:var(--color-primary)"></span>
+        <span style="background:color-mix(in srgb,var(--color-primary) 82%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-primary) 64%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-primary) 46%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-primary) 30%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-primary) 17%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-primary) 7%,#fff)"></span>
+      </div>
+    </div>
+
+    <div class="swatch light" style="background:var(--color-secondary-dark)">
+      <div class="top"><span class="name">Secondary&nbsp;Dark</span><span class="hex">#58595b</span></div>
+      <div class="scale">
+        <span style="background:var(--color-secondary-dark);filter:brightness(.42)"></span>
+        <span style="background:var(--color-secondary-dark);filter:brightness(.65)"></span>
+        <span style="background:var(--color-secondary-dark);filter:brightness(.84)"></span>
+        <span style="background:var(--color-secondary-dark)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-dark) 82%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-dark) 64%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-dark) 46%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-dark) 30%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-dark) 17%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-dark) 7%,#fff)"></span>
+      </div>
+    </div>
+
+    <div class="swatch light" style="background:var(--color-secondary-medium)">
+      <div class="top"><span class="name">Secondary&nbsp;Medium</span><span class="hex">#6d6e71</span></div>
+      <div class="scale">
+        <span style="background:var(--color-secondary-medium);filter:brightness(.42)"></span>
+        <span style="background:var(--color-secondary-medium);filter:brightness(.65)"></span>
+        <span style="background:var(--color-secondary-medium);filter:brightness(.84)"></span>
+        <span style="background:var(--color-secondary-medium)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-medium) 82%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-medium) 64%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-medium) 46%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-medium) 30%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-medium) 17%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-medium) 7%,#fff)"></span>
+      </div>
+    </div>
+
+    <div class="swatch light" style="background:var(--color-secondary-light)">
+      <div class="top"><span class="name">Secondary&nbsp;Light</span><span class="hex">#939598</span></div>
+      <div class="scale">
+        <span style="background:var(--color-secondary-light);filter:brightness(.42)"></span>
+        <span style="background:var(--color-secondary-light);filter:brightness(.65)"></span>
+        <span style="background:var(--color-secondary-light);filter:brightness(.84)"></span>
+        <span style="background:var(--color-secondary-light)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-light) 82%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-light) 64%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-light) 46%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-light) 30%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-light) 17%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-light) 7%,#fff)"></span>
+      </div>
+    </div>
+
+    <div class="swatch dark" style="background:var(--color-secondary-soft)">
+      <div class="top"><span class="name">Secondary&nbsp;Soft</span><span class="hex">#dcddde</span></div>
+      <div class="scale">
+        <span style="background:var(--color-secondary-soft);filter:brightness(.42)"></span>
+        <span style="background:var(--color-secondary-soft);filter:brightness(.65)"></span>
+        <span style="background:var(--color-secondary-soft);filter:brightness(.84)"></span>
+        <span style="background:var(--color-secondary-soft)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-soft) 82%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-soft) 64%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-soft) 46%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-soft) 30%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-soft) 17%,#fff)"></span>
+        <span style="background:color-mix(in srgb,var(--color-secondary-soft) 7%,#fff)"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ COLUMN 2 : TYPE ============ -->
+  <div class="col">
+    <div class="card type">
+      <div class="meta"><span>Headline</span><em>Almarai</em></div>
+      <div class="aa aa-head">Aa</div>
+    </div>
+    <div class="card type">
+      <div class="meta"><span>Body</span><em>Lato</em></div>
+      <div class="aa aa-body">Aa</div>
+    </div>
+    <div class="card type">
+      <div class="meta"><span>Label</span><em>Alegreya Sans</em></div>
+      <div class="aa aa-label">Aa</div>
+    </div>
+  </div>
+
+  <!-- ============ COLUMN 3 : BUTTONS / RULES ============ -->
+  <div class="col">
+    <div class="card btns">
+      <div class="btn btn-primary">Primary</div>
+      <div class="btn btn-secondary">Secondary</div>
+      <div class="btn btn-inverted">Inverted</div>
+      <div class="btn btn-outlined">Outlined</div>
+    </div>
+
+    <div class="card rules">
+      <div class="rule r1"></div>
+      <div class="rule r2"></div>
+      <div class="rule r3"></div>
+      <div class="rule r4"></div>
+    </div>
+
+    <div class="duo">
+      <div class="card small">
+        <div class="ib" style="background:var(--color-primary)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+        </div>
+      </div>
+      <div class="card">
+        <div class="chip" style="background:var(--color-secondary-dark)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          Label
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ COLUMN 4 : INPUTS / NAV / ICONS ============ -->
+  <div class="col">
+    <div class="card searchwrap">
+      <div class="search">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+        Search
+      </div>
+    </div>
+
+    <div class="card navwrap">
+      <div class="nav">
+        <div class="pill active">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><path d="M9 22V12h6v10"/></svg>
+        </div>
+        <div class="pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+        </div>
+        <div class="pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5.5 21a7 7 0 0 1 13 0"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="card iconrow">
+      <div class="ib" style="background:var(--color-primary)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 4.6L18.5 9l-4.6 1.9L12 15.5 10.1 11 5.5 9l4.6-1.4Z"/><path d="M18 15.5 19 18l2.5 1L19 20l-1 2.5L17 20l-2.5-1 2.5-1Z"/></svg>
+      </div>
+      <div class="ib" style="background:var(--color-secondary-dark)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.5"/><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5H6.5v5M12 11.5h5.5v5"/></svg>
+      </div>
+      <div class="ib" style="background:var(--color-secondary-medium)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2A2 2 0 0 1 2.8 12V4.8A2 2 0 0 1 4.8 2.8H12a2 2 0 0 1 1.4.6l7.2 7.2a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.2" fill="currentColor"/></svg>
+      </div>
+      <div class="ib" style="background:var(--color-secondary-light)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M9 7V5h6v2"/><path d="M6 7v13a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7"/><path d="M10 11v6M14 11v6"/></svg>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

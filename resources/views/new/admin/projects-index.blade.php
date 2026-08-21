@@ -52,6 +52,16 @@
     <script type="text/javascript" src="/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="/js/buttons.print.min.js"></script>
     <script type="text/javascript" src="/js/buttons.colVis.min.js"></script>
+    <script type="text/javascript" src="/js/admin-project-search.js"></script>
+    <style>
+        mark.search-highlight {
+            /* secondary dark, --color-secondary-dark in the brand palette */
+            background: #58595b;
+            color: #ffffff;
+            padding: 0 .15em;
+            border-radius: 2px;
+        }
+    </style>
 </head>
 <body>
 @stack('navbar_body')
@@ -540,31 +550,10 @@
 <script>
     $(document).ready(function () {
         @foreach ($allPlacesProjects as $city => $projects)
-        new DataTable('#table-{{ str_replace(' ', '', $city) }}', {
-            dom: "<'row'<'col-md-12'q>><'row'<'col-md-12'B>><'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-12'rtip>>",
-            buttons: ['excel', 'pdf', 'colvis'],
-            columnDefs: [
-                {targets: [0, 2], visible: false},
-                {targets: 1, searchable: false}
-            ]
-        });
+        initProjectTable('#table-{{ str_replace(' ', '', $city) }}');
         @endforeach
-        new DataTable('#table-pending', {
-            dom: "<'row'<'col-md-12'q>><'row'<'col-md-12'B>><'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-12'rtip>>",
-            buttons: ['excel', 'pdf', 'colvis'],
-            columnDefs: [
-                {targets: [0, 2], visible: false},
-                {targets: 1, searchable: false}
-            ]
-        });
-        new DataTable('#table-canceled', {
-            dom: "<'row'<'col-md-12'q>><'row'<'col-md-12'B>><'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-12'rtip>>",
-            buttons: ['excel', 'pdf', 'colvis'],
-            columnDefs: [
-                {targets: [0, 2], visible: false},
-                {targets: 1, searchable: false}
-            ]
-        });
+        initProjectTable('#table-pending');
+        initProjectTable('#table-canceled');
     });
 </script>
 <script>
