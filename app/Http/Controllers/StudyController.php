@@ -522,12 +522,13 @@ GROUP BY entry_date
 ORDER BY entry_date;");
 
         $iniStudy = Initiative::with('english', 'place')->where('what_category_id', '7')->where('online', '1')->get();
-        $iniPending = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '7')->where('online', '0')->get();
+        $iniPending = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '7')->pending()->get();
+        $iniHidden = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '7')->hiddenOnly()->get();
         $places = Place::All();
         $sucstudy = Success::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center')->where('what_category_id', '7')->where('online', '1')->get();
         $sucpending = Success::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center')->where('what_category_id', '7')->where('online', '0')->get();
 
-        return view('new.admin.study.index', ['allplaces'=>$allplaces,'user_places'=>$user_places,'iniStudy' => $iniStudy, 'students_count' => $students_count, 'studentsentry_count' => $studentsentry_count, 'iniPending' => $iniPending, 'sucpending' => $sucpending, 'places' => $places, 'sucstudy' => $sucstudy, 'students' => $students,
+        return view('new.admin.study.index', ['allplaces'=>$allplaces,'user_places'=>$user_places,'iniStudy' => $iniStudy, 'students_count' => $students_count, 'studentsentry_count' => $studentsentry_count, 'iniPending' => $iniPending, 'iniHidden' => $iniHidden, 'sucpending' => $sucpending, 'places' => $places, 'sucstudy' => $sucstudy, 'students' => $students,
 //            'studentsentry' => $studentsentry,
             'centers' => $centers, 'statis_count' => $statis_count, 'statis_count_adawia' => $statis_count_adawia, 'statis_count_arman' => $statis_count_arman, 'statis_count_azar' => $statis_count_azar, 'statis_count_babtouma' => $statis_count_babtouma, 'statis_count_hamidiye' => $statis_count_hamidiye, 'statis_count_khrab' => $statis_count_khrab, 'statis_count_mahatta' => $statis_count_mahatta, 'statis_count_mashrouh' => $statis_count_mashrouh, 'statis_count_mouzeina' => $statis_count_mouzeina, 'statis_count_nouzha' => $statis_count_nouzha, 'statis_count_villat' => $statis_count_villat, 'statis_count_ziraa1' => $statis_count_ziraa1, 'statis_count_ziraa2' => $statis_count_ziraa2,'statis_count_babsharqi'=>$statis_count_babsharqi, 'centernames' => $centernames, 'statis_avg' => $statis_avg,'user_centers'=>$user_centers]);
     }
@@ -1057,6 +1058,7 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
     {
         $initiative = Initiative::find($request->input('id'));
         $initiative->online = '1';
+        $initiative->hidden = 0;    // publishing always clears the hidden flag
         $initiative->save();
         return redirect('admin/home')->with('success', 'Initiative ' . $request->input('id') . ' is online');
     }

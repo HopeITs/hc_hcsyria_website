@@ -118,6 +118,33 @@
         });
     }
 
+    /**
+     * Re-read a table's project numbers. Rows moving between the Pending and
+     * Hidden tables would otherwise leave the snapshot stale, and the search
+     * would claim a project number matches a table it has already left.
+     */
+    window.refreshProjectTableIds = function (selector) {
+        var node = document.querySelector(selector);
+        if (!node || !$.fn.dataTable.isDataTable(node)) {
+            return;
+        }
+
+        var tableId = node.id;
+        if (!Object.prototype.hasOwnProperty.call(idValues, tableId)) {
+            return;
+        }
+
+        idValues[tableId] = $(node).DataTable()
+            .column(ID_COLUMN, {search: 'none', order: 'index', page: 'all'})
+            .data()
+            .toArray()
+            .map(function (value) {
+                return String(value).trim().toLowerCase();
+            });
+
+        delete matchCache[tableId];
+    };
+
     window.initProjectTable = function (selector) {
         var api = $(selector).DataTable({
             dom: "<'row'<'col-md-12'q>><'row'<'col-md-12'B>><'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-12'rtip>>",

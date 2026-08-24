@@ -17,6 +17,15 @@ class Success extends Model
         return $this->hasOne('App\SuccessFrench');
     }
 
+    /**
+     * French copy, falling back to English when the item is not translated.
+     * See App\Initiative::getFrenchFallbackAttribute() for the full rationale.
+     */
+    public function getFrenchFallbackAttribute()
+    {
+        return $this->getRelationValue('french') ?: $this->getRelationValue('english');
+    }
+
 
     public function whatCategory() {
         return $this->belongsTo('App\WhatCategory', 'what_category_id');

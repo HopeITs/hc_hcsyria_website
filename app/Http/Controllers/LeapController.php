@@ -34,11 +34,12 @@ class LeapController extends Controller
     {
         $iniLEAP = Initiative::with('english', 'place')->where('what_category_id', '19')->where('online', '1')->get();
 
-        $iniPending = Initiative::with('english', 'whatCategory', 'place', 'center', 'images')->where('what_category_id', '19')->where('online', '0')->get();
+        $iniPending = Initiative::with('english', 'whatCategory', 'place', 'center', 'images')->where('what_category_id', '19')->pending()->get();
+        $iniHidden = Initiative::with('english', 'whatCategory', 'place', 'center', 'images')->where('what_category_id', '19')->hiddenOnly()->get();
         $places = Place::All();
 
 
-        return view('new.admin.leap.index', ['iniLEAP' => $iniLEAP, 'iniPending' => $iniPending, 'places' => $places
+        return view('new.admin.leap.index', ['iniLEAP' => $iniLEAP, 'iniPending' => $iniPending, 'iniHidden' => $iniHidden, 'places' => $places
 
         ]);
     }
@@ -209,6 +210,7 @@ class LeapController extends Controller
     {
         $initiative = Initiative::find($request->input('id'));
         $initiative->online = '1';
+        $initiative->hidden = 0;    // publishing always clears the hidden flag
         $initiative->save();
         return redirect('admin/home')->with('success', 'Initiative ' . $request->input('id') . ' is online');
     }

@@ -77,6 +77,18 @@
                         </button>
                     </form>
                 @endif
+                @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher'))
+                    <form action="{{ ($initiative->hidden) ? route('initiatives.unhide') : route('initiatives.hide') }}" method="POST"
+                          class="js-hidden-state" data-ajax="false"
+                          data-state="{{ ($initiative->hidden) ? 'hidden' : 'pending' }}" data-label="initiative"
+                          style="display:inline-block;vertical-align:top;">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $initiative->id }}">
+                        <button type="submit" class="col-auto btn btn-secondary">
+                            <i class="fa fa-eye{{ ($initiative->hidden) ? '' : '-slash' }}"></i>&nbsp;{{ ($initiative->hidden) ? 'Unhide' : 'Hide' }}
+                        </button>
+                    </form>
+                @endif
                 @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Photos Editor'))
                     <a href="{{route('initiatives.images.create', $initiative['id'])}}"
                        class="btn btn-primary edit-btn">
@@ -255,5 +267,6 @@
     }, "200");
     @endforeach
 </script>
+<script src="/js/admin-hidden-state.js"></script>
 </body>
 </html>

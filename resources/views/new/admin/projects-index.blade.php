@@ -118,6 +118,13 @@
                         Pending <small>({{ $allProjectsPending->count() }})</small>
                     </button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button id="HiddenTab" class="nav-link projectTab" data-bs-toggle="tab" data-tab="Hidden"
+                            data-bs-target="#Hidden" role="tab"
+                            aria-controls="Hidden" aria-selected="false">
+                        Hidden <small>({{ $allProjectsHidden->count() }})</small>
+                    </button>
+                </li>
             </ul>
             <div class="tab-content mt-3" id="tabContent">
                 @foreach ($allPlacesProjects as $city => $projects)
@@ -421,6 +428,88 @@
                                                 </form>
                                             @endif
                                     @endif
+                                    @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher'))
+                                        <form style="display:inline-block;vertical-align:top;" action="{{ route('hide.project') }}" class="js-hidden-state" data-label="project" method="POST" data-state="pending" data-hide-url="{{ route('hide.project') }}" data-unhide-url="{{ route('unhide.project') }}" data-pending-table="#table-pending" data-hidden-table="#table-hidden" data-pending-tab="#PendingTab" data-hidden-tab="#HiddenTab">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $project['id'] }}">
+                                            <button type="submit" class="btn btn-secondary mb-2">
+                                                <i class="fa fa-eye-slash"></i>&nbsp;Hide
+                                            </button>
+                                        </form>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tab-pane fade" id="Hidden" role="tabpanel" aria-labelledby="Hidden" tabindex="0">
+                    <table class="table table-striped table-bordered table-hover" id="table-hidden"
+                           style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="text-center hidden-col">NO</th>
+                            <th scope="col" class="text-center">ID</th>
+                            <th scope="col" class="text-center">Published</th>
+                            <th scope="col" class="text-center">Name</th>
+                            <th scope="col" class="text-center">City</th>
+                            <th scope="col" class="text-center">Beneficiary</th>
+                            <th scope="col" class="text-center">Type</th>
+                            <th scope="col" class="text-center">Fund Date</th>
+                            <th scope="col" class="text-center">Donor</th>
+                            <th scope="col" class="text-center">Mobile</th>
+                            <th scope="col" class="text-center">Location</th>
+                            <th scope="col" class="text-center">Video</th>
+                            <th scope="col" class="text-center"> Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($allProjectsHidden as $project)
+                            <tr>
+                                <td class="text-center">{{ $project->id }}</td>
+                                <th scope="row" class="text-center">{{$project['MicroProject_ID']}}</th>
+                                <td class="text-center">{{ $project->MPE_Published ? 'Yes' : 'No' }}</td>
+                                <td class="text-center">{{$project['english']['MPE_Name'] ?? ''}}</td>
+                                <td class="text-center">{{$project['place']['name'] ?? ''}}</td>
+                                <td class="text-center">{{$project['MPE_BeneficiaryName']}}</td>
+                                <td class="text-center">{{ $project['type']['name'] ?? '' }}</td>
+                                <td class="text-center">{{$project['MPE_FundedDate']}}</td>
+                                <td class="text-center">{{ $project->donor->code ?? 'N/A' }}</td>
+                                <td class="text-center">{{$project['Mobile']}}</td>
+                                <td class="text-center">
+                                    @if ($project->latitude != '0' && $project->longtitude != '0')
+                                        <a href="https://www.google.com/maps/search/?api=1&query={{ $project->latitude }},{{ $project->longtitude }}"
+                                           class="btn btn-success" target="_blank">
+                                            <i class="fa fa-map-marker"></i>
+                                        </a>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if ($project->MPE_Video != '0')
+                                        <a href="#" class="btn btn-success">
+                                            <i class="fa fa-video-camera"></i>
+                                        </a>
+                                    @endif
+                                </td>
+                                <td class="text-end">
+                                    <a href="{{route('admin_project', $project['id'])}}"
+                                       class="btn btn-primary mb-2"><span
+                                            class="fa fa-eye"></span>&nbsp;View</a>
+                                    @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
+                                        <a href="{{route('edit.project', $project['id'])}}"
+                                           class="btn btn-primary edit-btn mb-2"><span
+                                                class="fa fa-edit"></span>&nbsp;Edit</a>
+                                    @endif
+                                    @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher'))
+                                        <form style="display:inline-block;vertical-align:top;" action="{{ route('unhide.project') }}" class="js-hidden-state" data-label="project" method="POST" data-state="hidden" data-hide-url="{{ route('hide.project') }}" data-unhide-url="{{ route('unhide.project') }}" data-pending-table="#table-pending" data-hidden-table="#table-hidden" data-pending-tab="#PendingTab" data-hidden-tab="#HiddenTab">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $project['id'] }}">
+                                            <button type="submit" class="btn btn-secondary mb-2">
+                                                <i class="fa fa-eye"></i>&nbsp;Unhide
+                                            </button>
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -554,6 +643,7 @@
         @endforeach
         initProjectTable('#table-pending');
         initProjectTable('#table-canceled');
+        initProjectTable('#table-hidden');
     });
 </script>
 <script>
@@ -577,4 +667,5 @@
 </script>
 @stack('fancyVideo')
 @include('new.admin.scripts.popup-messages')
+<script src="/js/admin-hidden-state.js"></script>
 </body>

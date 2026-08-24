@@ -33,6 +33,25 @@ class News extends Model
             }
         });
     }
+    /**
+     * Offline and still waiting to be published.
+     *
+     * Hidden news is offline too, so it has to be excluded explicitly or it
+     * leaks back into the "pending to publish" lists.
+     */
+    public function scopePending($query)
+    {
+        return $query->where('online', '0')->where('hidden', 0);
+    }
+
+    /**
+     * Offline and deliberately parked, never to be published.
+     */
+    public function scopeHiddenOnly($query)
+    {
+        return $query->where('online', '0')->where('hidden', 1);
+    }
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'news_tags', 'news_id', 'tag_id');

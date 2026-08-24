@@ -78,6 +78,18 @@
                         </button>
                     </form>
                 @endif
+                @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher'))
+                    <form action="{{ ($microProject[0]['hidden']) ? route('unhide.project') : route('hide.project') }}" method="POST"
+                          class="js-hidden-state" data-ajax="false"
+                          data-state="{{ ($microProject[0]['hidden']) ? 'hidden' : 'pending' }}" data-label="project"
+                          style="display:inline-block;vertical-align:top;">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $microProject[0]['id'] }}">
+                        <button type="submit" class="col-auto btn btn-secondary">
+                            <i class="fa fa-eye{{ ($microProject[0]['hidden']) ? '' : '-slash' }}"></i>&nbsp;{{ ($microProject[0]['hidden']) ? 'Unhide' : 'Hide' }}
+                        </button>
+                    </form>
+                @endif
             </div>
         </div>
     </div>
@@ -462,5 +474,6 @@
     });
 </script>
 @stack('fancyVideo')
+<script src="/js/admin-hidden-state.js"></script>
 </body>
 </html>

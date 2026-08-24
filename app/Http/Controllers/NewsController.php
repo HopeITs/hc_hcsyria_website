@@ -31,7 +31,8 @@ class NewsController extends Controller
         $newsArticles = News::with('english', 'edition', 'tags')->where('type', '0')->where('online', '1')->orderBy('date', 'desc')->get();        $newsProducts = News::with('english', 'edition', 'tags')->where('type', '1')->where('online', '1')->get();
         $newsShortParagraphs = News::with('english', 'edition', 'tags')->where('type', '2')->where('online', '1')->orderBy('date', 'desc')->get();
         $newsVideos = News::with('english', 'edition', 'tags')->where('type', '3')->where('online', '1')->orderBy('date', 'desc')->get();
-        $newsPending = News::with('english', 'edition', 'tags')->where('online', '0')->orderBy('date', 'desc')->get();
+        $newsPending = News::with('english', 'edition', 'tags')->pending()->orderBy('date', 'desc')->get();
+        $newsHidden = News::with('english', 'edition', 'tags')->hiddenOnly()->orderBy('date', 'desc')->get();
         $newsProducts = News::with('english', 'edition', 'tags')->where('type', '1')->where('online', '1')->orderBy('date', 'desc')->get();
         $newsSubscribers = Subscriber::all();
         $allTags = Tag::all();
@@ -43,6 +44,7 @@ class NewsController extends Controller
             'newsShortParagraphs' => $newsShortParagraphs,
             'newsVideos' => $newsVideos,
             'newsPending' => $newsPending,
+            'newsHidden' => $newsHidden,
             'allTags' => $allTags
         ]);
     }
@@ -329,6 +331,7 @@ class NewsController extends Controller
             return redirect()->route('news.index')->with('error', 'News item not found.');
         }
         $news->online = '1';
+        $news->hidden = 0;    // publishing always clears the hidden flag
         $news->save();
 
         $this->saveToLog(self::NEWS, $news->id, 'News Status: Online');
@@ -336,6 +339,62 @@ class NewsController extends Controller
         return redirect()->route('news.index', ['tab' => 'Article'])
             ->with('success', 'News #' . $news->id . ' has been published successfully!');
     }
+    /**
+     * Park a news item: offline, and out of the "pending to publish" lists.
+     * Works from any state, so hiding a published item also takes it down.
+     */
+    public function hide(Request $request)
+    {
+        $news = NEWS::find($request->input('id'));
+
+        if (! $news) {
+            $message = 'That news item no longer exists.';
+
+            return $request->expectsJson()
+                ? response()->json(['ok' => false, 'message' => $message], 404)
+                : redirect()->route('news.index')->with('error', $message);
+        }
+
+        $news->online = '0';
+        $news->hidden = 1;
+        $news->save();
+
+        $this->saveToLog(self::NEWS, $news->id, 'News Status: Hidden');
+
+        $message = 'News #' . $news->id . ' is now hidden.';
+
+        return $request->expectsJson()
+            ? response()->json(['ok' => true, 'message' => $message])
+            : redirect()->route('news.index', ['tab' => 'Hidden'])->with('success', $message);
+    }
+
+    /**
+     * Return a news item to the "pending to publish" queue. It stays offline.
+     */
+    public function unhide(Request $request)
+    {
+        $news = NEWS::find($request->input('id'));
+
+        if (! $news) {
+            $message = 'That news item no longer exists.';
+
+            return $request->expectsJson()
+                ? response()->json(['ok' => false, 'message' => $message], 404)
+                : redirect()->route('news.index')->with('error', $message);
+        }
+
+        $news->hidden = 0;
+        $news->save();
+
+        $this->saveToLog(self::NEWS, $news->id, 'News Status: Pending to publish');
+
+        $message = 'News #' . $news->id . ' moved back to Pending.';
+
+        return $request->expectsJson()
+            ? response()->json(['ok' => true, 'message' => $message])
+            : redirect()->route('news.index', ['tab' => 'Pending'])->with('success', $message);
+    }
+
     public function offline(Request $request)
     {
         $news = NEWS::find($request->input('id'));

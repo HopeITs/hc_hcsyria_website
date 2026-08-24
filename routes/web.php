@@ -176,6 +176,8 @@ Route::put('/admin/projects/update/{id}', 'projectsController@update')->name('up
 Route::post('admin/projects/store', ['as' => 'store.project', 'uses' => 'projectsController@store']);
 Route::post('admin/projects/publish', ['as' => 'publish.project', 'uses' => 'projectsController@publish']);
 Route::post('admin/projects/unpublish/{id}', ['as' => 'unpublish.project', 'uses' => 'projectsController@unpublish']);
+Route::post('admin/projects/hide', ['as' => 'hide.project', 'uses' => 'projectsController@hide']);
+Route::post('admin/projects/unhide', ['as' => 'unhide.project', 'uses' => 'projectsController@unhide']);
 Route::post('admin/projects/Englishchecked', 'projectsController@Englishchecked')->name('project.Englishchecked');
 
 ////////////////////////////// PROJECTS Images //////////////////////////////
@@ -372,6 +374,9 @@ Route::delete('/admin/initiatives/{id}', 'InitiativesController@destroy')->name(
 
 Route::post('/admin/initiatives/offline', 'InitiativesController@offline')->name('initiatives.offline');
 Route::post('/admin/initiatives/online', 'InitiativesController@online')->name('initiatives.online');
+// Covers every program that shares the initiatives table: School, Children, DISC, LEAP, Study Zone.
+Route::post('/admin/initiatives/hide', 'InitiativesController@hide')->name('initiatives.hide');
+Route::post('/admin/initiatives/unhide', 'InitiativesController@unhide')->name('initiatives.unhide');
 Route::post('/admin/initiatives/Englishchecked', 'InitiativesController@Englishchecked')->name('initiatives.Englishchecked');
 
 /////////////////////////// INITIATIVES FRENCH ///////////////////////////
@@ -478,6 +483,8 @@ Route::delete('/admin/news/file/{path}', 'NewsController@file_destroy')->name('n
 Route::delete('/admin/news/subscribe/{id}', 'NewsController@subscriber_destroy')->name('news.subscriber.destroy');
 Route::delete('/admin/news/{id}', 'NewsController@destroy')->name('news.destroy');
 Route::post('/admin/news/online', 'NewsController@online')->name('news.online');
+Route::post('/admin/news/hide', 'NewsController@hide')->name('news.hide');
+Route::post('/admin/news/unhide', 'NewsController@unhide')->name('news.unhide');
 Route::post('/admin/news/offline', 'NewsController@offline')->name('news.offline');
 Route::post('/admin/news/Englishchecked', 'NewsController@Englishchecked')->name('news.Englishchecked');
 Route::post('users-send-email', 'NewsController@sendEmail')->name('ajax.send.email');

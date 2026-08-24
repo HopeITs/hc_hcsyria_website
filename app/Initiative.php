@@ -8,6 +8,25 @@ class Initiative extends Model
 {
     protected $fillable = ['online'];
 
+    /**
+     * Offline and still waiting to be published.
+     *
+     * Hidden initiatives are offline too, so they have to be excluded
+     * explicitly or they leak back into the "pending to publish" lists.
+     */
+    public function scopePending($query)
+    {
+        return $query->where('online', '0')->where('hidden', 0);
+    }
+
+    /**
+     * Offline and deliberately parked, never to be published.
+     */
+    public function scopeHiddenOnly($query)
+    {
+        return $query->where('online', '0')->where('hidden', 1);
+    }
+
     public function images()
     {
         return $this->hasMany('App\InitiativeImage')->orderBy('image_order');
@@ -34,6 +53,22 @@ class Initiative extends Model
     public function french()
     {
         return $this->hasOne('App\InitiativeFrench');
+    }
+
+    /**
+     * French copy, falling back to English when the item is not translated.
+     *
+     * The public views resolve the active translation dynamically as
+     * $initiative->$language. Pointing $language at this instead of 'french'
+     * means an untranslated item renders English text rather than fataling on
+     * a null relation, which is what took the French pages down.
+     *
+     * Deliberately separate from french() so anything checking ->french to
+     * detect a missing translation keeps working unchanged.
+     */
+    public function getFrenchFallbackAttribute()
+    {
+        return $this->getRelationValue('french') ?: $this->getRelationValue('english');
     }
 
     public function whatCategory()

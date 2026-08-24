@@ -6,6 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
+    /**
+     * Offline and still waiting to be published.
+     *
+     * Hidden projects are offline too, so they have to be excluded explicitly
+     * or they leak back into the dashboard's "pending to publish" lists.
+     */
+    public function scopePending($query)
+    {
+        return $query->where('MPE_Published', '0')->where('hidden', 0);
+    }
+
+    /**
+     * Offline and deliberately parked, never to be published.
+     */
+    public function scopeHiddenOnly($query)
+    {
+        return $query->where('MPE_Published', '0')->where('hidden', 1);
+    }
+
     public function firstImage(){
         return $this->hasOne('App\Image')->orderBy('image_order');
     }

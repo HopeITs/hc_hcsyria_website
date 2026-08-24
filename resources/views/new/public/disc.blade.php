@@ -2,7 +2,9 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 @php
     if (session('locale') == 'fr') {
-        $language = 'french';
+        // frenchFallback renders English copy when an item has no French
+        // translation, instead of fataling on a null relation.
+        $language = 'frenchFallback';
     } else {
         $language = 'english';
     }

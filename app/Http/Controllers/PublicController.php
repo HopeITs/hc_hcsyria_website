@@ -1498,22 +1498,22 @@ ORDER BY age.ID;');
         $testemonies = Success::with('english', 'french')->where('what_category_id', '7') //Study
             ->where('online', '1')->orderBy('id', 'desc')->limit(4)->get();
 
-        $studyzone_centers = DB::select('select places.name as "placename", SUBSTRING_INDEX(studyzonecenters.name,\'-\',-1) as name ,studyzonecenters.id, studyzonecenters.name_fr , work_hours , address,location,telephone,email,facebook,instagram,latitude,longtitude,studyzonecenters.rank,place_id,active
+        $studyzone_centers = DB::select('select studyzonecenters.*, places.name as "placename", SUBSTRING_INDEX(studyzonecenters.name,\'-\',-1) as name
         FROM `studyzonecenters` LEFT  JOIN  places on places.id = studyzonecenters.place_id order by placename, studyzonecenters.name asc ;');
 
-        $studyzone_centers_a = DB::select('select SUBSTRING_INDEX(name,\'-\',-1) as name ,id, name_fr ,active, start_date, work_hours , address,location,telephone,email,facebook,instagram,latitude,longtitude,studyzonecenters.rank,place_id,active
+        $studyzone_centers_a = DB::select('select studyzonecenters.*, SUBSTRING_INDEX(name,\'-\',-1) as name
         FROM `studyzonecenters` WHERE place_id = 3 ORDER BY studyzonecenters.rank;');
 
-        $studyzone_centers_h = DB::select('select SUBSTRING_INDEX(name,\'-\',-1) as name ,id, name_fr ,active, start_date, work_hours , address,location,telephone,email,facebook,instagram,latitude,longtitude,studyzonecenters.rank,place_id,active
+        $studyzone_centers_h = DB::select('select studyzonecenters.*, SUBSTRING_INDEX(name,\'-\',-1) as name
         FROM `studyzonecenters` WHERE place_id = 1 ORDER BY studyzonecenters.rank;');
 
-        $studyzone_centers_d = DB::select('select SUBSTRING_INDEX(name,\'-\',-1) as name ,id, name_fr ,active, start_date, work_hours , address,location,telephone,email,facebook,instagram,latitude,longtitude,studyzonecenters.rank,place_id,active
+        $studyzone_centers_d = DB::select('select studyzonecenters.*, SUBSTRING_INDEX(name,\'-\',-1) as name
         FROM `studyzonecenters` WHERE place_id = 2 ORDER BY studyzonecenters.rank;');
 
-        $studyzone_centers_l = DB::select('select SUBSTRING_INDEX(name,\'-\',-1) as name ,id, name_fr ,active, start_date, work_hours , address,location,telephone,email,facebook,instagram,latitude,longtitude,studyzonecenters.rank,place_id,active
+        $studyzone_centers_l = DB::select('select studyzonecenters.*, SUBSTRING_INDEX(name,\'-\',-1) as name
         FROM `studyzonecenters` WHERE place_id = 4 ORDER BY studyzonecenters.rank;');
 
-        $studyzone_centers_t = DB::select('select SUBSTRING_INDEX(name,\'-\',-1) as name ,id, name_fr ,active, start_date, work_hours , address,location,telephone,email,facebook,instagram,latitude,longtitude,studyzonecenters.rank,place_id,active
+        $studyzone_centers_t = DB::select('select studyzonecenters.*, SUBSTRING_INDEX(name,\'-\',-1) as name
         FROM `studyzonecenters` WHERE place_id = 6 ORDER BY studyzonecenters.rank;');
 
         $student_count_raw = DB::connection('mysql_second')->select('SELECT
@@ -1551,6 +1551,16 @@ GROUP BY hcsz_educations.name
 HAVING hcsz_educations.name is not null
 ORDER BY `students_count` DESC  LIMIT 5');
 
+        // Same rolling three-month window as the gender figures below. The view
+        // indexes [0] through [4] unconditionally to build its chart, so pad the
+        // result rather than let a quiet period 500 the page.
+        $education_fields = array_pad($education_fields, 5, null);
+        foreach ($education_fields as $i => $row) {
+            if (! is_object($row) || ! isset($row->name)) {
+                $education_fields[$i] = (object) ['name' => '', 'students_count' => 0];
+            }
+        }
+
         $gender_percentage = DB::connection('mysql_second')->select('SELECT
     CASE
         WHEN hcsz_students.gender = 1 THEN \'Male\'
@@ -1577,6 +1587,17 @@ AND hcsz_students.gender IS NOT null and hcsz_students.gender <> 0
 GROUP BY    hcsz_students.gender ,total_count
 HAVING  hcsz_students.gender is not null
 ORDER BY `student_count` DESC');
+
+        // The window above is a rolling three months. Whenever no entries fall
+        // inside it - an import gap, a quiet summer - the query returns nothing
+        // and the view's [0] and [1] lookups fatal, taking the whole page down.
+        // Guarantee two well-formed rows so it renders 0% instead of a 500.
+        $gender_percentage = array_pad($gender_percentage, 2, null);
+        foreach ($gender_percentage as $i => $row) {
+            if (! is_object($row) || ! isset($row->percentage)) {
+                $gender_percentage[$i] = (object) ['percentage' => 0];
+            }
+        }
 
         if (session('locale') == 'fr') {
             $language = 'french';

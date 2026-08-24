@@ -62,7 +62,14 @@ class projectsController extends Controller
 // Pending projects only from allowed places
         $allProjectsPending = Project::with('english', 'donor', 'place', 'type', 'subtype', 'images')
             ->whereIn('MPE_City', $user_places)
-            ->where('MPE_Published', 0)
+            ->pending()
+            ->orderBy('MicroProject_ID', 'asc')
+            ->get();
+
+// Hidden projects only from allowed places
+        $allProjectsHidden = Project::with('english', 'donor', 'place', 'type', 'subtype', 'images')
+            ->whereIn('MPE_City', $user_places)
+            ->hiddenOnly()
             ->orderBy('MicroProject_ID', 'asc')
             ->get();
 //        $projectsAleppo = Project::with('english', 'donor', 'place', 'type', 'subtype')->where('MPE_City', '3')->where('MPE_Published',1)->get();
@@ -76,7 +83,8 @@ class projectsController extends Controller
 //        $projectsPending = Project::with('place', 'images')->where('MPE_Published', '0')->orderby('MicroProject_ID', 'asc')->get();
         return view('new.admin.projects-index', [ 'places'=>$places,'allPlacesProjects' => $allPlacesProjects,
             //'projectsAleppo' => $projectsAleppo, 'projectsHoms' => $projectsHoms, 'projectsDamascus' => $projectsDamascus, 'projectsLatakia' => $projectsLatakia,'projectsWadi' => $projectsWadi,
-            'allProjectsCanceled' => $allProjectsCanceled, 'allProjectsPending' => $allProjectsPending]);
+            'allProjectsCanceled' => $allProjectsCanceled, 'allProjectsPending' => $allProjectsPending,
+            'allProjectsHidden' => $allProjectsHidden]);
     }
 
     public function indexjson()
@@ -104,7 +112,7 @@ class projectsController extends Controller
         $projectsDamascus = Project::with('english', 'donor', 'place', 'type', 'subtype')->where('MPE_City', '2')->get();
 
         $projectsCanceled = Project::with('place')->where('MPE_Done', '2')->orderby('MicroProject_ID', 'asc')->get();
-        $projectsPending = Project::with('place', 'images')->where('MPE_Published', '0')->orderby('MicroProject_ID', 'asc')->get();
+        $projectsPending = Project::with('place', 'images')->pending()->orderby('MicroProject_ID', 'asc')->get();
 
         $projectsAleppo = DB::select('SELECT projects.id as "NO", projects.MPE_Published,projects.`MicroProject_ID`,projects_english.`MPE_Name`,projecttype.name as \'type\',projects.`MPE_BeneficiaryName`,projects.`MPE_Video`,projects.`Mobile`,projects.`MPE_FundedDate`,projects.`latitude`,projects.`longtitude`,donors.code as \'MPE_Donor\',count(images.id) as \'images\'
 FROM projects
@@ -168,7 +176,7 @@ LEFT JOIN donors on donors.id = projects.MPE_Donor
 LEFT JOIN projecttype on projects.projecttype_id = projecttype.id
 LEFT JOIN images on projects.id = images.project_id
 LEFT JOIN places on places.id = projects.MPE_City
-WHERE projects.`MPE_Published` = 0  GROUP BY projects.MicroProject_ID;
+WHERE projects.`MPE_Published` = 0 AND projects.`hidden` = 0  GROUP BY projects.MicroProject_ID;
  ');
         return response()->json(['projectsAleppo'=>$projectsAleppo,'projectsHoms'=>$projectsHoms,'projectsDamascus'=>$projectsDamascus,'projectsLatakia'=>$projectsLatakia,'projectsCanceled'=>$projectsCanceled,'projectsPending'=>$projectsPending]);
        }
@@ -478,6 +486,7 @@ WHERE projects.`MPE_Published` = 0  GROUP BY projects.MicroProject_ID;
         $project = Project::where('id', $request->input('id'))->first();
 
         $project->MPE_Published = '1'; // Online
+        $project->hidden = 0;    // publishing always clears the hidden flag
         $project->MPE_PublishDate = Carbon::now("Asia/Damascus");
         $project->MPE_Done = '1';   // Funded
 
@@ -497,6 +506,66 @@ WHERE projects.`MPE_Published` = 0  GROUP BY projects.MicroProject_ID;
         $project->save();
         $this->saveToLog(self::MICRO, $id , 'Made Offline');
         return redirect()->back()->with('success', 'Project ' . $id . ' is offline');
+    }
+
+    /**
+     * Park a project: offline, and out of the "pending to publish" lists.
+     * Works from any state, so hiding a published project also takes it down.
+     */
+    public function hide(Request $request)
+    {
+        $project = Project::find($request->input('id'));
+
+        if (! $project) {
+            $message = 'That project no longer exists.';
+
+            return $request->expectsJson()
+                ? response()->json(['ok' => false, 'message' => $message], 404)
+                : redirect()->back()->with('error', $message);
+        }
+
+        $project->MPE_Published = '0';
+        $project->hidden = 1;
+
+        $project->timestamps = false;
+        $project->save();
+
+        $this->saveToLog(self::MICRO, $project->id, 'Made Hidden');
+
+        $message = 'Project #' . $project->MicroProject_ID . ' is now hidden.';
+
+        return $request->expectsJson()
+            ? response()->json(['ok' => true, 'message' => $message])
+            : redirect()->back()->with('success', $message);
+    }
+
+    /**
+     * Return a project to the "pending to publish" queue. It stays offline.
+     */
+    public function unhide(Request $request)
+    {
+        $project = Project::find($request->input('id'));
+
+        if (! $project) {
+            $message = 'That project no longer exists.';
+
+            return $request->expectsJson()
+                ? response()->json(['ok' => false, 'message' => $message], 404)
+                : redirect()->back()->with('error', $message);
+        }
+
+        $project->hidden = 0;
+
+        $project->timestamps = false;
+        $project->save();
+
+        $this->saveToLog(self::MICRO, $project->id, 'Made Pending to publish');
+
+        $message = 'Project #' . $project->MicroProject_ID . ' moved back to Pending.';
+
+        return $request->expectsJson()
+            ? response()->json(['ok' => true, 'message' => $message])
+            : redirect()->back()->with('success', $message);
     }
 
     public function Englishchecked(Request $request)

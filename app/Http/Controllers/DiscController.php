@@ -34,12 +34,13 @@ class DiscController extends Controller
     {
         $iniDisc = Initiative::with('english', 'place')->where('what_category_id', '5')->where('online', '1')->get();
 
-        $iniPending = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '5')->where('online', '0')->get();
+        $iniPending = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '5')->pending()->get();
+        $iniHidden = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '5')->hiddenOnly()->get();
         $places = Place::All();
         $sucdisc = Success::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center')->where('what_category_id', '5')->where('sub_what_category_id', '16')->where('online', '1')->get();
         $sucpending = Success::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center')->where('what_category_id', '5')->where('online', '0')->get();
 
-        return view('new.admin.disc.index', ['iniDisc' => $iniDisc, 'iniPending' => $iniPending, 'places' => $places, 'sucdisc' => $sucdisc, 'sucpending' => $sucpending,
+        return view('new.admin.disc.index', ['iniDisc' => $iniDisc, 'iniPending' => $iniPending, 'iniHidden' => $iniHidden, 'places' => $places, 'sucdisc' => $sucdisc, 'sucpending' => $sucpending,
 
         ]);
     }
@@ -216,6 +217,7 @@ class DiscController extends Controller
     {
         $initiative = Initiative::find($request->input('id'));
         $initiative->online = '1';
+        $initiative->hidden = 0;    // publishing always clears the hidden flag
         $initiative->save();
         return redirect('admin/home')->with('success', 'Initiative ' . $request->input('id') . ' is online');
     }

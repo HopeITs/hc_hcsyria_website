@@ -77,6 +77,12 @@
                         <small>({{ $iniPending->count() }})</small>
                     </button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button id="hiddenTab" class="hiddenTab nav-link" data-bs-toggle="tab" data-bs-target="#hidden"
+                            role="tab" aria-controls="hidden" aria-selected="false">Hidden
+                        <small>({{ $iniHidden->count() }})</small>
+                    </button>
+                </li>
             </ul>
             <div class="tab-content mt-5">
                 <div class="tab-pane show active fade" id="initiative" role="tabpanel" aria-labelledby="initiativeTab"
@@ -206,10 +212,55 @@
                                                     <i class="fa fa-trash-o"></i></button>
                                             </form>
                                         @endif
+                                    @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
+                                            <form style="display:inline-block;vertical-align:top;" action="{{ route('initiatives.hide') }}" class="js-hidden-state" data-label="initiative" method="POST" data-state="pending" data-hide-url="{{ route('initiatives.hide') }}" data-unhide-url="{{ route('initiatives.unhide') }}" data-pending-table="#tablePending" data-hidden-table="#tableHidden" data-pending-tab="#pendingTab" data-hidden-tab="#hiddenTab">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $initiative['id'] }}">
+                                                <button type="submit" class="btn mb-2 btn-secondary">
+                                                    <i class="fa fa-eye-slash"></i>&nbsp;Hide</button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
                         @endif
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tab-pane fade" id="hidden" role="tabpanel" aria-labelledby="hiddenTab" tabindex="0">
+                    <table class="table table-striped table-bordered table-hover" id="tableHidden"
+                           style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="text-center">ID</th>
+                            <th scope="col" class="text-center">Title</th>
+                            <th scope="col" class="text-center">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($iniHidden as $initiative)
+                            <tr>
+                                    <td class="text-center">{{$initiative['id']}}</td>
+                                    <td class="text-center">{{$initiative['english']['title'] ?? ''}}</td>
+                                    <td class="text-end">
+                                        <a href="{{route('admin_leap', $initiative['id'])}}"
+                                           class="btn mb-2 btn-primary edit-btn"><span
+                                                    class="fa fa-eye"></span>&nbsp;View</a>
+                                        @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
+                                            <a href="{{route('edit.leap', $initiative['id'])}}"
+                                               class="btn mb-2 btn-primary edit-btn"><span
+                                                        class="fa fa-edit"></span>&nbsp;Edit</a>
+                                            <form style="display:inline-block;vertical-align:top;" action="{{ route('initiatives.unhide') }}" class="js-hidden-state" data-label="initiative" method="POST" data-state="hidden" data-hide-url="{{ route('initiatives.hide') }}" data-unhide-url="{{ route('initiatives.unhide') }}" data-pending-table="#tablePending" data-hidden-table="#tableHidden" data-pending-tab="#pendingTab" data-hidden-tab="#hiddenTab">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $initiative['id'] }}">
+                                                <button type="submit" class="btn mb-2 btn-secondary">
+                                                    <i class="fa fa-eye"></i>&nbsp;Unhide</button>
+                                            </form>
+                                        @endif
+                                    </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -292,6 +343,15 @@
         });
         tableInitiative.buttons().container().appendTo('#tableInitiative_wrapper .col-md-6:eq(0)');
         tablePending.buttons().container().appendTo('#tablePending_wrapper .col-md-6:eq(0)');
+        let tableHidden = new DataTable('#tableHidden', {
+            "scrollX": true,
+            buttons: ['excel', 'pdf', 'colvis'],
+            lengthMenu: [
+                [10, 25, 50, -1],
+                [10, 25, 50, 'All']
+            ]
+        });
+        tableHidden.buttons().container().appendTo('#tableHidden_wrapper .col-md-6:eq(0)');
     });
 </script>
 <script>
@@ -328,6 +388,7 @@
     });
 </script>
 @include('new.admin.scripts.popup-messages')
+<script src="/js/admin-hidden-state.js"></script>
 </body>
 
 </html>

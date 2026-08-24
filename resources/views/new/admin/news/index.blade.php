@@ -95,6 +95,12 @@
                         Pending <small>({{ $newsPending->count() }})</small>
                     </button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button id="HiddenTab" class="HiddenTab nav-link" data-bs-toggle="tab"
+                            data-bs-target="#Hidden" role="tab" aria-controls="Hidden" aria-selected="false">
+                        Hidden <small>({{ $newsHidden->count() }})</small>
+                    </button>
+                </li>
                 @if($user->roles->contains('name', 'Admin'))
                     <li class="nav-item" role="presentation">
                         <button id="SubscriberTab" class="SubscriberTab nav-link" data-bs-toggle="tab"
@@ -330,11 +336,75 @@
                                                 <i class='fa-solid fa-plus-minus'></i> Image
                                             </a>
                                         @endif
+                                        @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
+                                            <form style="display:inline-block;vertical-align:top;" action="{{ route('news.hide') }}" method="POST" class="js-hidden-state" data-label="news item" data-state="pending" data-hide-url="{{ route('news.hide') }}" data-unhide-url="{{ route('news.unhide') }}" data-pending-table="#tablePnd" data-hidden-table="#tableHid" data-pending-tab="#PendingTab" data-hidden-tab="#HiddenTab">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $news['id'] }}">
+                                                <button type="submit" class="btn mb-2 btn-secondary">
+                                                    <i class="fa fa-eye-slash"></i>&nbsp;Hide
+                                                </button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         @endif
+                    </table>
+                </div>
+
+                <div class="tab-pane show fade" id="Hidden" role="tabpanel" aria-labelledby="HiddenTab" tabindex="0">
+                    <table class="table w-100 table-striped table-bordered table-hover" id="tableHid">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="text-center">ID</th>
+                                <th scope="col" class="text-center">Type</th>
+                                <th scope="col" class="text-center">Title</th>
+                                <th scope="col" class="text-center">Date</th>
+                                <th scope="col" class="text-center">Tags</th>
+                                <th scope="col" class="text-center">Place</th>
+                                <th scope="col" class="text-center">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($newsHidden as $news)
+                                <tr>
+                                    <td class="text-center">{{ $news['id'] }}</td>
+                                    <td class="text-center">{{ $news->type == '3' ? 'Video' : 'Article' }}</td>
+                                    <td class="text-center">{{ $news['english']['title'] ?? 'No Title' }}</td>
+                                    <td class="text-center">{{ isset($news['date']) ? \Carbon\Carbon::parse($news['date'])->format('M d, Y') : 'N/A' }}</td>
+                                    <td class="text-center">
+                                        @foreach($news->tags as $tag)
+                                            <span class="badge">{{ $tag->name }}</span>
+                                        @endforeach
+                                    </td>
+                                    <td class="text-center">
+                                        @if(isset($news->place->name))
+                                            {{ $news->place->name == 'All' ? 'Syria' : $news->place->name }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+                                    <td class="text-end">
+                                        <a href="{{route('news.show', $news['id'])}}" class="btn mb-2 btn-primary">
+                                            <span class="fa fa-eye"></span>&nbsp;View
+                                        </a>
+                                        @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))
+                                            <a href="{{route('news.edit', [$news['id'], 'ref' => 'index'])}}" class="btn mb-2 btn-primary edit-btn">
+                                                <span class="fa fa-edit"></span>&nbsp;Edit
+                                            </a>
+                                            <form style="display:inline-block;vertical-align:top;" action="{{ route('news.unhide') }}" method="POST" class="js-hidden-state" data-label="news item" data-state="hidden" data-hide-url="{{ route('news.hide') }}" data-unhide-url="{{ route('news.unhide') }}" data-pending-table="#tablePnd" data-hidden-table="#tableHid" data-pending-tab="#PendingTab" data-hidden-tab="#HiddenTab">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $news['id'] }}">
+                                                <button type="submit" class="btn mb-2 btn-secondary">
+                                                    <i class="fa fa-eye"></i>&nbsp;Unhide
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
                     </table>
                 </div>
 
@@ -492,6 +562,7 @@
         let tableArticle = new DataTable('#tableArticle', dtConfig);
         let tableVideo = new DataTable('#tableVideo', dtConfig);
         let tablePnd = new DataTable('#tablePnd', dtConfig);
+        let tableHid = new DataTable('#tableHid', dtConfig);
         let tableSub = new DataTable('#tableSub', dtConfig);
         let tableTags = new DataTable('#tableTags', dtConfig);
 
@@ -684,5 +755,6 @@
 </script>
 @stack('fancyVideo')
 @include('new.admin.scripts.popup-messages')
+<script src="/js/admin-hidden-state.js"></script>
 </body>
 </html>

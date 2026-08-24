@@ -83,7 +83,12 @@ class InitiativesController extends Controller
             ->get();
 
         $iniPending = Initiative::with('english','whatCategory','subWhatCategory','place','center','images')
-            ->where('online', '0')
+            ->pending()
+            ->whereIn('what_category_id',[1,3,4,8,18])
+            ->get();
+
+        $iniHidden = Initiative::with('english','whatCategory','subWhatCategory','place','center','images')
+            ->hiddenOnly()
             ->whereIn('what_category_id',[1,3,4,8,18])
             ->get();
 
@@ -100,6 +105,7 @@ class InitiativesController extends Controller
             'iniFamilyDist' => $iniFamilyDist,
             'iniFamilyStories' => $iniFamilyStories,
             'iniPending' => $iniPending,
+            'iniHidden' => $iniHidden,
         ]);
     }
 
@@ -359,6 +365,7 @@ class InitiativesController extends Controller
     {
         $initiative = Initiative::find($request->input('id'));
         $initiative->online = '1';
+        $initiative->hidden = 0;    // publishing always clears the hidden flag
         $initiative->save();
         return redirect('admin/home')->with('success', 'Initiative '.$request->input('id').' is online');
     }
@@ -369,6 +376,62 @@ class InitiativesController extends Controller
         $initiative->online = '0';
         $initiative->save();
         return redirect()->back()->with('success', 'Initiative '.$request->input('id').' is offline');
+    }
+
+    /**
+     * Park an initiative: offline, and out of the "pending to publish" lists.
+     * Works from any state, so hiding a published initiative also takes it down.
+     */
+    public function hide(Request $request)
+    {
+        $initiative = Initiative::find($request->input('id'));
+
+        if (! $initiative) {
+            $message = 'That initiative no longer exists.';
+
+            return $request->expectsJson()
+                ? response()->json(['ok' => false, 'message' => $message], 404)
+                : redirect()->back()->with('error', $message);
+        }
+
+        $initiative->online = '0';
+        $initiative->hidden = 1;
+        $initiative->save();
+
+        $this->saveToLog(self::INITIATIVES, $initiative->id, 'Initiative Status: Hidden');
+
+        $message = 'Initiative #'.$initiative->id.' is now hidden.';
+
+        return $request->expectsJson()
+            ? response()->json(['ok' => true, 'message' => $message])
+            : redirect()->back()->with('success', $message);
+    }
+
+    /**
+     * Return an initiative to the "pending to publish" queue. It stays offline.
+     */
+    public function unhide(Request $request)
+    {
+        $initiative = Initiative::find($request->input('id'));
+
+        if (! $initiative) {
+            $message = 'That initiative no longer exists.';
+
+            return $request->expectsJson()
+                ? response()->json(['ok' => false, 'message' => $message], 404)
+                : redirect()->back()->with('error', $message);
+        }
+
+        $initiative->hidden = 0;
+        $initiative->save();
+
+        $this->saveToLog(self::INITIATIVES, $initiative->id, 'Initiative Status: Pending to publish');
+
+        $message = 'Initiative #'.$initiative->id.' moved back to Pending.';
+
+        return $request->expectsJson()
+            ? response()->json(['ok' => true, 'message' => $message])
+            : redirect()->back()->with('success', $message);
     }
 
     public function Englishchecked(Request $request){

@@ -34,12 +34,18 @@ class ChildrenController extends Controller
 
         $iniPending = Initiative::with('english','whatCategory','subWhatCategory','place','center','images')
             ->where('what_category_id','17')
-            ->where('online', '0')
+            ->pending()
+            ->get();
+
+        $iniHidden = Initiative::with('english','whatCategory','subWhatCategory','place','center','images')
+            ->where('what_category_id','17')
+            ->hiddenOnly()
             ->get();
 
         return view('new.admin.children.index', [
             'iniChildren' => $iniChildren,
-            'iniPending' => $iniPending
+            'iniPending' => $iniPending,
+            'iniHidden' => $iniHidden
         ]);
     }
     public function show($id)
@@ -242,6 +248,7 @@ class ChildrenController extends Controller
     {
         $initiative = Initiative::find($request->input('id'));
         $initiative->online = '1';
+        $initiative->hidden = 0;    // publishing always clears the hidden flag
         $initiative->save();
         return redirect('admin/home')->with('success', 'Initiative '.$request->input('id').' is online');
     }

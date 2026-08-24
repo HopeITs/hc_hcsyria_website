@@ -48,89 +48,89 @@ class HomeController extends Controller
         if ($user_places == null || $user_places[0] == 0) {
             //ADMIN
 
-            $projectsPublish = Project::with('images', 'place')->where('MPE_Published', '0')->where('english_check', '1')->orderby('id', 'desc')->get();
+            $projectsPublish = Project::with('images', 'place')->pending()->where('english_check', '1')->orderby('id', 'desc')->get();
 
-            $iniSchoolPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '9')->where('online', '0')->where('english_check', '1')->orderby('id', 'desc')->get();
+            $iniSchoolPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '9')->pending()->where('english_check', '1')->orderby('id', 'desc')->get();
 
-            $iniChildrenPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '17')->where('online', '0')->where('english_check', '1')->orderby('id', 'desc')->get();
+            $iniChildrenPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '17')->pending()->where('english_check', '1')->orderby('id', 'desc')->get();
 
-            $iniDiscPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '5')->where('online', '0')->where('english_check', '1')->orderby('id', 'desc')->get();
+            $iniDiscPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '5')->pending()->where('english_check', '1')->orderby('id', 'desc')->get();
 
-            $iniLeapPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '19')->where('online', '0')->where('english_check', '1')->orderby('id', 'desc')->get();
+            $iniLeapPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '19')->pending()->where('english_check', '1')->orderby('id', 'desc')->get();
 
             $sucDiscPublish = Success::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center')->where('what_category_id', '5')->where('online', '0')->where('english_check', '1')->orderby('id', 'desc')->get();
 
-            $iniStudyPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '7')->where('online', '0')->where('english_check', '1')->orderby('id', 'desc')->get();
+            $iniStudyPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '7')->pending()->where('english_check', '1')->orderby('id', 'desc')->get();
 
             $sucStudyPublish = Success::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center')->where('what_category_id', '7')->where('online', '0')->where('english_check', '1')->orderby('id', 'desc')->get();
 
-            $initiativesPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('online', '0')->whereIn('what_category_id', [1, 3, 4, 8, 18])->where('english_check', '1')->orderby('id', 'desc')->get();
+            $initiativesPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->pending()->whereIn('what_category_id', [1, 3, 4, 8, 18])->where('english_check', '1')->orderby('id', 'desc')->get();
 
-            $newsPublish = News::with('whatCategory', 'images')->where('online', '0')->where('english_check', '1')->orderby('id', 'desc')->get();
+            $newsPublish = News::with('whatCategory', 'images')->pending()->where('english_check', '1')->orderby('id', 'desc')->get();
         }
         else {
-            $projectsPublish = Project::with('images', 'place')->where('MPE_Published', '0')->whereIn('MPE_City', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
-            $iniSchoolPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '9')->where('online', '0')->whereIn('place_id', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
+            $projectsPublish = Project::with('images', 'place')->pending()->whereIn('MPE_City', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
+            $iniSchoolPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '9')->pending()->whereIn('place_id', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
 
-            $iniChildrenPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '17')->where('online', '0')->whereIn('place_id', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
+            $iniChildrenPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '17')->pending()->whereIn('place_id', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
 
-            $iniDiscPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '5')->where('online', '0')->whereIn('place_id', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
+            $iniDiscPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '5')->pending()->whereIn('place_id', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
 
-            $iniLeapPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '19')->where('online', '0')->whereIn('place_id', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
+            $iniLeapPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '19')->pending()->whereIn('place_id', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
 
             $sucDiscPublish = Success::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center')->where('what_category_id', '5')->where('online', '0')->whereIn('place_id', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
 
-            $iniStudyPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '7')->where('online', '0')->whereIn('place_id', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
+            $iniStudyPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '7')->pending()->whereIn('place_id', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
 
             $sucStudyPublish = Success::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center')->where('what_category_id', '7')->where('online', '0')->whereIn('place_id', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
 
-            $initiativesPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('online', '0')->whereIn('what_category_id', [1, 3, 4, 8, 18])->whereIn('place_id', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
+            $initiativesPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->pending()->whereIn('what_category_id', [1, 3, 4, 8, 18])->whereIn('place_id', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
 
-            $newsPublish = News::with('whatCategory', 'images')->where('online', '0')->whereIn('place_id', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
+            $newsPublish = News::with('whatCategory', 'images')->pending()->whereIn('place_id', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
         }
 
 
 
         if ($user_places == null || $user_places[0] == 0) {
             //ADMIN
-            $projectsEngCheck = Project::with('images', 'place')->where('MPE_Published', '0')->where('english_check', '0')->orderby('id', 'desc')->get();
-            $iniSchoolEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '9')->where('online', '0')->where('english_check', '0')->orderby('id', 'desc')->get();
+            $projectsEngCheck = Project::with('images', 'place')->pending()->where('english_check', '0')->orderby('id', 'desc')->get();
+            $iniSchoolEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '9')->pending()->where('english_check', '0')->orderby('id', 'desc')->get();
 
-            $iniChildrenEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '17')->where('online', '0')->where('english_check', '0')->orderby('id', 'desc')->get();
+            $iniChildrenEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '17')->pending()->where('english_check', '0')->orderby('id', 'desc')->get();
 
-            $iniDiscEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '5')->where('online', '0')->where('english_check', '0')->orderby('id', 'desc')->get();
+            $iniDiscEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '5')->pending()->where('english_check', '0')->orderby('id', 'desc')->get();
 
-            $iniLeapEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '19')->where('online', '0')->where('english_check', '0')->orderby('id', 'desc')->get();
+            $iniLeapEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '19')->pending()->where('english_check', '0')->orderby('id', 'desc')->get();
 
             $sucDiscEngCheck = Success::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center')->where('what_category_id', '5')->where('online', '0')->where('english_check', '0')->orderby('id', 'desc')->get();
 
-            $iniStudyEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '7')->where('online', '0')->where('english_check', '0')->orderby('id', 'desc')->get();
+            $iniStudyEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '7')->pending()->where('english_check', '0')->orderby('id', 'desc')->get();
 
             $sucStudyEngCheck = Success::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center')->where('what_category_id', '7')->where('online', '0')->where('english_check', '0')->orderby('id', 'desc')->get();
 
-            $initiativesEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('online', '0')->whereIn('what_category_id', [1, 3, 4, 8, 18])->where('english_check', '0')->orderby('id', 'desc')->get();
+            $initiativesEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->pending()->whereIn('what_category_id', [1, 3, 4, 8, 18])->where('english_check', '0')->orderby('id', 'desc')->get();
 
-            $newsEngCheck = News::with('whatCategory', 'images')->where('online', '0')->where('english_check', '0')->orderby('id', 'desc')->get();
+            $newsEngCheck = News::with('whatCategory', 'images')->pending()->where('english_check', '0')->orderby('id', 'desc')->get();
         }
         else{
-            $projectsEngCheck = Project::with('images', 'place')->whereIn('MPE_City', $user_places)->where('MPE_Published', '0')->where('english_check', '0')->orderby('id', 'desc')->get();
-            $iniSchoolEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '9')->where('online', '0')->whereIn('place_id', $user_places)->where('english_check', '0')->orderby('id', 'desc')->get();
+            $projectsEngCheck = Project::with('images', 'place')->whereIn('MPE_City', $user_places)->pending()->where('english_check', '0')->orderby('id', 'desc')->get();
+            $iniSchoolEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '9')->pending()->whereIn('place_id', $user_places)->where('english_check', '0')->orderby('id', 'desc')->get();
 
-            $iniChildrenEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '17')->where('online', '0')->whereIn('place_id', $user_places)->where('english_check', '0')->orderby('id', 'desc')->get();
+            $iniChildrenEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '17')->pending()->whereIn('place_id', $user_places)->where('english_check', '0')->orderby('id', 'desc')->get();
 
-            $iniDiscEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '5')->where('online', '0')->whereIn('place_id', $user_places)->where('english_check', '0')->orderby('id', 'desc')->get();
+            $iniDiscEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '5')->pending()->whereIn('place_id', $user_places)->where('english_check', '0')->orderby('id', 'desc')->get();
 
-            $iniLeapEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '19')->where('online', '0')->whereIn('place_id', $user_places)->where('english_check', '0')->orderby('id', 'desc')->get();
+            $iniLeapEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '19')->pending()->whereIn('place_id', $user_places)->where('english_check', '0')->orderby('id', 'desc')->get();
 
             $sucDiscEngCheck = Success::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center')->where('what_category_id', '5')->where('online', '0')->whereIn('place_id', $user_places)->where('english_check', '0')->orderby('id', 'desc')->get();
 
-            $iniStudyEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '7')->where('online', '0')->whereIn('place_id', $user_places)->where('english_check', '0')->orderby('id', 'desc')->get();
+            $iniStudyEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('what_category_id', '7')->pending()->whereIn('place_id', $user_places)->where('english_check', '0')->orderby('id', 'desc')->get();
 
             $sucStudyEngCheck = Success::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center')->where('what_category_id', '7')->where('online', '0')->whereIn('place_id', $user_places)->where('english_check', '0')->orderby('id', 'desc')->get();
 
-            $initiativesEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->where('online', '0')->whereIn('what_category_id', [1, 3, 4, 8, 18])->whereIn('place_id', $user_places)->where('english_check', '0')->orderby('id', 'desc')->get();
+            $initiativesEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->pending()->whereIn('what_category_id', [1, 3, 4, 8, 18])->whereIn('place_id', $user_places)->where('english_check', '0')->orderby('id', 'desc')->get();
 
-            $newsEngCheck = News::with('whatCategory', 'images')->where('online', '0')->whereIn('place_id', $user_places)->where('english_check', '0')->orderby('id', 'desc')->get();
+            $newsEngCheck = News::with('whatCategory', 'images')->pending()->whereIn('place_id', $user_places)->where('english_check', '0')->orderby('id', 'desc')->get();
         }
 
 

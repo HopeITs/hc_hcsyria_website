@@ -45,6 +45,18 @@
                     </button>
                 </form>
             @endif
+                @if(isset($user) && ($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor')))
+                    <form action="{{ ($news->hidden) ? route('news.unhide') : route('news.hide') }}" method="POST"
+                          class="js-hidden-state" data-ajax="false"
+                          data-state="{{ ($news->hidden) ? 'hidden' : 'pending' }}" data-label="news item"
+                          style="display:inline-block;vertical-align:top;">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $news->id }}">
+                        <button type="submit" class="col-auto btn btn-secondary">
+                            <i class="fa fa-eye{{ ($news->hidden) ? '' : '-slash' }}"></i>&nbsp;{{ ($news->hidden) ? 'Unhide' : 'Hide' }}
+                        </button>
+                    </form>
+                @endif
 
             @if(isset($user) && ($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Photos Editor')))
                 <a href="{{route('news.images.create', $news->id)}}" class="btn btn-primary edit-btn">
@@ -167,5 +179,6 @@
     </div>
 </div>
 
+<script src="/js/admin-hidden-state.js"></script>
 </body>
 </html>
