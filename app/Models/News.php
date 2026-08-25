@@ -52,6 +52,17 @@ class News extends Model
         return $query->where('online', '0')->where('hidden', 1);
     }
 
+    /**
+     * The single Important article currently shown on the public news page.
+     *
+     * Offline drafts may also be marked Important, so priority_status alone
+     * must never be used when deciding which article an online one replaces.
+     */
+    public function scopeOnlineImportant($query)
+    {
+        return $query->where('online', '1')->where('priority_status', 1);
+    }
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'news_tags', 'news_id', 'tag_id');

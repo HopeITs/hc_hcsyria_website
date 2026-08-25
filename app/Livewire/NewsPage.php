@@ -130,8 +130,7 @@ class NewsPage extends Component
             ->orderBy('date', 'desc');
 
         $importantNews = News::with(['english', 'place', 'images'])
-            ->where('online', '1')
-            ->where('priority_status', 1)
+            ->onlineImportant()
             ->orderBy('date', 'desc')
             ->first();
 

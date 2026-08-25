@@ -13,6 +13,7 @@ use App\Place;
 use App\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class NewsController extends Controller
@@ -140,7 +141,14 @@ class NewsController extends Controller
     public function show($id)
     {
         $news = News::with('english', 'images', 'place')->findOrFail($id);
-        return view('new.admin.news.view', ['news' => $news]);
+        $onlineImportantArticle = News::onlineImportant()
+            ->where('id', '!=', $news->id)
+            ->first(['id']);
+
+        return view('new.admin.news.view', [
+            'news' => $news,
+            'onlineImportantArticle' => $onlineImportantArticle,
+        ]);
     }
 
     public function edit($id, Request $request)
@@ -326,18 +334,63 @@ class NewsController extends Controller
 
     public function online(Request $request)
     {
-        $news = NEWS::find($request->input('id'));
-        if(!$news) {
+        $replacedImportantIds = [];
+
+        $news = DB::transaction(function () use ($request, &$replacedImportantIds) {
+            $news = News::query()
+                ->lockForUpdate()
+                ->find($request->input('id'));
+
+            if (! $news) {
+                return null;
+            }
+
+            if ((int) $news->priority_status === 1) {
+                $importantArticlesToReplace = News::onlineImportant()
+                    ->where('id', '!=', $news->id)
+                    ->lockForUpdate()
+                    ->get(['id']);
+
+                $replacedImportantIds = $importantArticlesToReplace
+                    ->pluck('id')
+                    ->all();
+
+                if ($replacedImportantIds !== []) {
+                    News::whereIn('id', $replacedImportantIds)
+                        ->update(['priority_status' => 0]);
+                }
+            }
+
+            $news->online = '1';
+            $news->hidden = 0;
+            $news->save();
+
+            return $news;
+        });
+
+        if (! $news) {
             return redirect()->route('news.index')->with('error', 'News item not found.');
         }
-        $news->online = '1';
-        $news->hidden = 0;    // publishing always clears the hidden flag
-        $news->save();
 
         $this->saveToLog(self::NEWS, $news->id, 'News Status: Online');
 
+        foreach ($replacedImportantIds as $replacedImportantId) {
+            $this->saveToLog(
+                self::NEWS,
+                $replacedImportantId,
+                'Important status replaced by News #' . $news->id
+            );
+        }
+
+        $message = 'News #' . $news->id . ' has been published successfully!';
+
+        if ($replacedImportantIds !== []) {
+            $message .= ' News #' . implode(', #', $replacedImportantIds)
+                . ' changed from Important to Regular.';
+        }
+
         return redirect()->route('news.index', ['tab' => 'Article'])
-            ->with('success', 'News #' . $news->id . ' has been published successfully!');
+            ->with('success', $message);
     }
     /**
      * Park a news item: offline, and out of the "pending to publish" lists.

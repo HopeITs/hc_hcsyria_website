@@ -7,7 +7,7 @@ use App\Models\NewsImage;
 use App\WhatCategory;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class NewsImagesController extends Controller
 {
@@ -23,7 +23,9 @@ class NewsImagesController extends Controller
         $news = News::with('whatCategory')->where('id', $id)->firstOrFail();
         $images = NewsImage::where('news_id', $id)->orderBy('image_order')->get();
 
-        $globalImportantArticle = News::where('priority_status', 1)->where('id', '!=', $id)->first();
+        $onlineImportantArticle = News::onlineImportant()
+            ->where('id', '!=', $id)
+            ->first();
 
         return view('new.admin.news.images.create', [
             'news' => $news,
@@ -34,7 +36,7 @@ class NewsImagesController extends Controller
             'hasLocalRegular'   => $images->where('sizetype', 3)->isNotEmpty(),
             'importantImage'    => $images->where('sizetype', 1)->first(),
             'pinnedImage'       => $images->where('sizetype', 2)->first(),
-            'globalImportantId' => $globalImportantArticle ? $globalImportantArticle->id : null,
+            'onlineImportantId' => $onlineImportantArticle ? $onlineImportantArticle->id : null,
         ]);
     }
 
@@ -57,18 +59,38 @@ class NewsImagesController extends Controller
                             ]);
 
 
-        if ($request->has('is_important')) {
-        News::where('priority_status', 1)->where('id', '!=', $news->id)->update(['priority_status' => 0]);
-        $news->priority_status = 1;
-        if ($request->hasFile('important_image')) $this->cleanUpOldSpecialImages($news->id, 1);
-        } elseif ($request->has('is_pinned')) {
-        $news->priority_status = 2;
-        if ($request->hasFile('pinned_image')) $this->cleanUpOldSpecialImages($news->id, 2);
-        } else {
-        $news->priority_status = 0;
+        DB::transaction(function () use ($request, $news) {
+            if ($request->has('is_important')) {
+                // Offline Important drafts may coexist. Replacement is enforced
+                // only when an Important article is already online or is published.
+                if ((int) $news->online === 1) {
+                    $importantIdsToReplace = News::onlineImportant()
+                        ->where('id', '!=', $news->id)
+                        ->lockForUpdate()
+                        ->pluck('id');
+
+                    if ($importantIdsToReplace->isNotEmpty()) {
+                        News::whereIn('id', $importantIdsToReplace)
+                            ->update(['priority_status' => 0]);
+                    }
+                }
+
+                $news->priority_status = 1;
+            } elseif ($request->has('is_pinned')) {
+                $news->priority_status = 2;
+            } else {
+                $news->priority_status = 0;
+            }
+
+            $news->save();
+        });
+
+        if ($request->has('is_important') && $request->hasFile('important_image')) {
+            $this->cleanUpOldSpecialImages($news->id, 1);
+        } elseif ($request->has('is_pinned') && $request->hasFile('pinned_image')) {
+            $this->cleanUpOldSpecialImages($news->id, 2);
         }
 
-        $news->save();
         $uploadedCount = 0;
 
         if ($request->hasFile('thumbnail_image')) {

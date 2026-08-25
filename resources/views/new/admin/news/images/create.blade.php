@@ -172,7 +172,7 @@
                                             <div class="custom-radio-btn mt-1"></div>
                                             <div>
                                                 <h5 class="mb-1 fw-bold">Mark as Important News</h5>
-                                                <p class="text-muted small mb-0">3:2 Aspect Ratio. Only ONE news can be important globally. Uncheck to return this article to regular news.</p>
+                                                <p class="text-muted small mb-0">3:2 Aspect Ratio. Only ONE online news item can be Important. Offline Important drafts are allowed. Uncheck to return this article to regular news.</p>
                                             </div>
                                         </div>
                                         <div id="important_upload_area" class="upload-sub-area mt-3">
@@ -416,7 +416,8 @@
         let localThumbExists = {{ $hasLocalThumbnail ? 'true' : 'false' }};
         let localImportantExists = {{ $hasLocalImportant ? 'true' : 'false' }};
         let localPinnedExists = {{ $hasLocalPinned ? 'true' : 'false' }};
-        let globalImportantId = "{{ $globalImportantId }}";
+        let onlineImportantId = "{{ $onlineImportantId }}";
+        let isCurrentNewsOnline = {{ (int) $news->online === 1 ? 'true' : 'false' }};
 
         let newThumbSelected = $('#thumbnail_image').val();
         let isImportantChecked = $('#check_important').is(':checked');
@@ -432,16 +433,27 @@
 
         let runSubmit = () => { $('#newsImageForm').submit(); };
 
-        // Check 2: Intercept global overwrite shifts
-        if (isImportantChecked && globalImportantId !== "" && globalImportantId != "{{ $news->id }}") {
-            swal({
-                title: 'Change Global Important News?',
-                text: "Another article is currently set as Important. Making this one Important will replace it.",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                confirmButtonText: 'Yes, replace it'
-            }).then((result) => { if (result) executeLocalOverwritesCheck(); });
+        // Check 2: Explain whether this changes the public Important article now
+        // or only later, when this offline draft is published.
+        if (isImportantChecked && onlineImportantId !== "" && onlineImportantId != "{{ $news->id }}") {
+            if (isCurrentNewsOnline) {
+                swal({
+                    title: 'Replace Online Important News?',
+                    text: `News #${onlineImportantId} is currently Important on the public page. Making this online news item Important will change News #${onlineImportantId} to Regular.`,
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'Yes, replace it'
+                }).then((result) => { if (result) executeLocalOverwritesCheck(); });
+            } else {
+                swal({
+                    title: 'Important News Already Online',
+                    text: `News #${onlineImportantId} will remain Important on the public page. This offline draft can also be marked Important, but publishing it later will ask you to replace News #${onlineImportantId}.`,
+                    type: 'info',
+                    confirmButtonColor: '#b5121b',
+                    confirmButtonText: 'Keep Draft Important'
+                }).then(() => executeLocalOverwritesCheck());
+            }
         } else {
             executeLocalOverwritesCheck();
         }

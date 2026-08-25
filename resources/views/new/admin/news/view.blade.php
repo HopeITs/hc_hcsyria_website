@@ -37,7 +37,8 @@
             @endif
 
             @if($news->online == '0' && $news->english_check == '1' && (count($news->images) > 0 || ($news->video && $news->video != '0')))
-                <form action="{{ route('news.online') }}" method="POST" class="m-0 p-0">
+                <form action="{{ route('news.online') }}" method="POST" class="m-0 p-0 js-publish-news"
+                      data-important-replacement-id="{{ $news->priority_status == 1 ? optional($onlineImportantArticle)->id : '' }}">
                     @csrf
                     <input type="hidden" name="id" value="{{ $news->id }}">
                     <button type="submit" class="btn btn-publish edit-btn d-flex align-items-center gap-2">
@@ -180,5 +181,25 @@
 </div>
 
 <script src="/js/admin-hidden-state.js"></script>
+<script>
+    document.querySelectorAll('.js-publish-news').forEach((form) => {
+        form.addEventListener('submit', (event) => {
+            const onlineImportantId = form.dataset.importantReplacementId;
+
+            if (!onlineImportantId) {
+                return;
+            }
+
+            const confirmed = window.confirm(
+                `News #${onlineImportantId} is currently Important on the public page. ` +
+                `Publishing News #{{ $news->id }} as Important will change News #${onlineImportantId} to Regular. Continue?`
+            );
+
+            if (!confirmed) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
 </body>
 </html>
