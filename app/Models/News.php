@@ -10,6 +10,8 @@ use Exception;
 
 class News extends Model
 {
+    public const NATIONAL_PLACE_ID = 0;
+
     protected $table = 'news';
 
     protected $fillable = [
@@ -50,6 +52,21 @@ class News extends Model
     public function scopeHiddenOnly($query)
     {
         return $query->where('online', '0')->where('hidden', 1);
+    }
+
+    /**
+     * Limit news to a user's assigned places while keeping Syria-wide news.
+     *
+     * The legacy places table stores the "Syria" option as the "All" place
+     * with ID 0. It applies to every user, including users assigned only to
+     * specific cities.
+     */
+    public function scopeForPlacesIncludingNational($query, array $placeIds)
+    {
+        return $query->whereIn('place_id', array_unique([
+            ...$placeIds,
+            self::NATIONAL_PLACE_ID,
+        ]));
     }
 
     /**

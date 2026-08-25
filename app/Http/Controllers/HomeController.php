@@ -86,7 +86,7 @@ class HomeController extends Controller
 
             $initiativesPublish = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->pending()->whereIn('what_category_id', [1, 3, 4, 8, 18])->whereIn('place_id', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
 
-            $newsPublish = News::with('whatCategory', 'images')->pending()->whereIn('place_id', $user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
+            $newsPublish = News::with('whatCategory', 'images')->pending()->forPlacesIncludingNational($user_places)->where('english_check', '1')->orderby('id', 'desc')->get();
         }
 
 
@@ -130,7 +130,7 @@ class HomeController extends Controller
 
             $initiativesEngCheck = Initiative::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center', 'images')->pending()->whereIn('what_category_id', [1, 3, 4, 8, 18])->whereIn('place_id', $user_places)->where('english_check', '0')->orderby('id', 'desc')->get();
 
-            $newsEngCheck = News::with('whatCategory', 'images')->pending()->whereIn('place_id', $user_places)->where('english_check', '0')->orderby('id', 'desc')->get();
+            $newsEngCheck = News::with('whatCategory', 'images')->pending()->forPlacesIncludingNational($user_places)->where('english_check', '0')->orderby('id', 'desc')->get();
         }
 
 
