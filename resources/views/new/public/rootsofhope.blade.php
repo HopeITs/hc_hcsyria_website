@@ -127,7 +127,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-6 col-6">
                         <div class="section-divider">
                             <div class="line"></div>
-                            <div class="label">All Versions</div>
+                            <div class="label">All Editions</div>
                             <div class="line"></div>
                         </div>
                     </div>

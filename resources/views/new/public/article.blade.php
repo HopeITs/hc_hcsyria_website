@@ -178,7 +178,7 @@
                                 <div class="d-flex justify-content-between align-items-center news-article-meta-text">
 
                                     <div class="news-article-meta-text">
-                                        {{ $article->place->name ?? 'Damascus' }}
+                                        {{ $article->place_label }}
                                         {{ $article->date ? \Carbon\Carbon::parse($article->date)->format('j/n/Y') : '' }}
                                     </div>
 

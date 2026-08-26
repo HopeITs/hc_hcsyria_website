@@ -1858,7 +1858,7 @@ ORDER BY `student_count` DESC');
         if (!is_numeric($id)) {
             return view('new.errors.404');
         }
-        $article = NEWS::with('english', 'french', 'images')
+        $article = NEWS::with('english', 'french', 'images', 'place')
             ->where('id', $id)
             ->where('online', '1')
             ->first();

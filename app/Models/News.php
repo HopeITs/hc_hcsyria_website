@@ -127,6 +127,20 @@ class News extends Model
         return $this->belongsTo('App\Place', 'place_id');
     }
 
+    /**
+     * Reader facing name of the article's place.
+     *
+     * The legacy places table stores the Syria-wide option as the "All" place
+     * (ID 0), which reads as a filter rather than a location, so every screen
+     * that shows an article's place has to relabel it as "Syria".
+     */
+    public function getPlaceLabelAttribute()
+    {
+        $name = optional($this->place)->name;
+
+        return ($name === null || $name === 'All') ? 'Syria' : $name;
+    }
+
     public function project()
     {
         return $this->belongsTo('App\Project', 'project_id');

@@ -108,7 +108,7 @@
 
                                 <div class="col-lg-3 col-md-6 col-12 mb-3">
                                     <label class="form-label">City</label>
-                                    <input type="text" value="{{ $news->place->name ?? 'N/A' }}" class="form-control custom-cursor-disabled" readonly>
+                                    <input type="text" value="{{ $news->place_label }}" class="form-control custom-cursor-disabled" readonly>
                                 </div>
 
                                 <div class="col-lg-6 col-md-12 col-12 mb-3">
