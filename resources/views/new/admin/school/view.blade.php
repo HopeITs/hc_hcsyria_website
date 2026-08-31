@@ -18,7 +18,6 @@
     <link href="/css/dashboard_new.css" rel="stylesheet">
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
     <link href="/css/initiative.css" rel="stylesheet">
-    {{--<link href="/css/main-new.css" rel="stylesheet">--}}
     <!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
     <script src="/js/respond.min.js"></script> <![endif]-->
@@ -157,7 +156,6 @@
                                 @endif
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-12">
-                                        {{--<div class="container-fluid @if(strlen($mainInitiative->english->content)<450 && strlen($mainInitiative->english->content)>120 && count($mainInitiative->donors)<0 || (count($mainInitiative->donors)>0) && strlen($mainInitiative->english->content)<450) ini-height @endif">--}}
 
                                         <div class="row mb-3">
                                             <div class="col-12 d-flex justify-content-start">

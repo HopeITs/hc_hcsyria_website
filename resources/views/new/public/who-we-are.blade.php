@@ -25,7 +25,6 @@
 
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
-    {{--<link rel="shortcut icon" href="/public/fonts/Avenir%20LT%20Std%2045%20Book.otf">--}}
     <link rel='stylesheet' href='https://unpkg.com/leaflet@1.8.0/dist/leaflet.css' crossorigin=''/>
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -41,7 +40,6 @@
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="/js/aos.js"></script>
-    {{--<script src='https://unpkg.com/leaflet@1.8.0/dist/leaflet.js' crossorigin=''></script>--}}
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/jquery.prettyPhoto.js"></script>
     <script type="text/javascript" src="/js/jquery.balloon.min.js"></script>
@@ -50,19 +48,12 @@
     <script type="text/javascript" src="/js/main.js"></script>
     <script type="text/javascript" src="/js/wow.min.js"></script>
     <script type="text/javascript" src="/js/swipe.index.js"></script>
-    {{--<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>--}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    {{--<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes@0.4.0/dist/chartjs-plugin-colorschemes.js"></script>--}}
     <link rel="stylesheet" href="/css/animate.min.css"
           integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link href="/css/lato.css" rel="stylesheet">
-    {{--<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>--}}
     <script src="/js/chartjs-plugin-datalabels@2.0.0"></script>
-    {{--<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>--}}
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>--}}
-    {{--<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>--}}
-    {{--<script src="https://unpkg.com/chart.js-plugin-labels-dv/dist/chartjs-plugin-labels.min.js"></script>--}}
     <style>
         #animatedCarousel1 .carousel-control-prev, #animatedCarousel1 .carousel-control-next, #animatedCarousel1 .carousel-indicators {
             visibility: visible !important;
@@ -98,67 +89,6 @@
     @include('new.public.partials.cover-carousel', ['carouselImages' => $carouselImages])
     <div class="small horizontal-line d-lg-none d-md-none d-sm-none d-block" style="margin-top: 3vw" data-aos="fade-up"
          data-aos-duration="800"></div>
-    {{-- <div id="about-section" class="first-about">
-        <div class="seperator-line" style="background: white;height: 1vw;"></div>
-        <div class="horizontal-line d-lg-block d-md-block d-sm-block d-none"></div>
-        <div style="margin-top: 7vw" data-aos="fade-up" data-aos-duration="1000">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                        <div class="mt-lg-0 mt-md-0 mt-sm-0 padding-screen">
-                            <div class="row">
-                                <div class="col d-lg-flex d-md-flex d-sm-flex d-none align-items-center flex-column">
-                                    <div class="quote" data-aos="fade-up" data-aos-duration="800">
-                                        <div data-aos="fade-up" data-aos-duration="800"><span>“</span>And let us
-                                        </div>
-                                        <div data-aos="fade-up" data-aos-duration="800">consider how we</div>
-                                        <div data-aos="fade-up" data-aos-duration="800">may spur one
-                                        </div>
-                                        <div data-aos="fade-up" data-aos-duration="800">another on
-                                        </div>
-                                        <div data-aos="fade-up" data-aos-duration="800">toward love and
-                                        </div>
-                                        <div data-aos="fade-up" data-aos-duration="800">good deeds <span>“</span>
-                                        </div>
-                                        <div class="quote-source" data-aos="fade-up"
-                                             data-aos-duration="1000">
-                                            Hebrews 10:24
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col d-lg-none d-md-none d-sm-none d-flex align-items-center flex-column"
-                                     style="margin-top: 5vw">
-                                    <div class="quote" data-aos="fade-up"
-                                         data-aos-duration="800">
-                                        <div data-aos="fade-up" data-aos-duration="800"><span>“</span>And let us
-                                            consider how we may
-                                        </div>
-                                        <div data-aos="fade-up" data-aos-duration="800">
-                                            spur one another on toward love and good deeds<span>“</span>
-                                        </div>
-                                    </div>
-                                    <div class="quote-source" data-aos="fade-up"
-                                         data-aos-duration="1000">
-                                        Hebrews 10:24
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-start video-spaces">
-                        <div class="video position-relative w-100 h-100" data-aos="fade-up"
-                             data-aos-duration="600">
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/UUyye_iD2eU"
-                                    title="Christian Hope Center Introduction" frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    allowfullscreen></iframe>
-                            <img src="/images/home/image-mask.png" class="image-mask"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
     <div class="horizontal-line aos-init" data-aos="fade-up" data-aos-duration="600"></div>
     <div id="who-we-are" class="section-space">
         <div class="container-fluid">
@@ -180,19 +110,6 @@
                         <div class="logo-container d-flex justify-content-center align-items-center">
                             <img class="w-75 h-75" src="/images/logos/hc.svg">
                         </div>
-                        {{--<div class="row w-100 d-flex align-items-center">--}}
-                            {{--<div class="col d-flex justify-content-center" data-aos="fade-up" data-aos-duration="300"></div>--}}
-                            {{--<div class="col d-flex justify-content-center" data-aos="fade-up" data-aos-duration="600">--}}
-                            {{--<div class="logo-container">--}}
-                            {{--<img class="w-100 h-100" src="/images/logos/hc.svg">--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="col d-flex justify-content-center" data-aos="fade-up" data-aos-duration="900">--}}
-                                {{--<div class="logo-container">--}}
-                                    {{--<img class="w-100 h-100" src="/images/newLogos/JM.svg">--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-12 about-content" data-aos="fade-up"
                          data-aos-duration="2000">
@@ -255,7 +172,6 @@
                             </button>
                         </div>
                         <div class="carousel-indicators justify-content-center">
-                            {{--<div class="indicators">--}}
                             <?php $k = 0 ?>
                             @foreach($values as $value)
                                 <button id="animatedCarousel1Dots_{{$value->id}}" type="button"
@@ -281,7 +197,6 @@
                     <div class="section-title">Our Mission</div>
                     <div class="row d-flex justify-content-center text-center">
                         <div class="col">
-                            {{--                            @if($agent->isPhone())--}}
                             <div class="d-lg-none d-md-none d-sm-none d-block">
                                 <div class="section-title-desc">
                                     <div data-aos="fade-up" data-aos-duration="300">Our mission is to strengthen families and communities in Syria by providing practical support, educational opportunities,
@@ -293,7 +208,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {{--@else--}}
                             <div class="d-lg-block d-md-block d-sm-block d-none">
                                 <div class="section-title-desc">
                                     <div data-aos="fade-up" data-aos-duration="300">Our mission is to strengthen families and communities in Syria by providing practical support, educational opportunities,
@@ -539,338 +453,120 @@
             </div>        </div>
 </div>
 <div class="last horizontal-line"></div>
-{{--<div class="d-lg-none d-md-none d-sm-none d-block">--}}
 {{--<div class="horizontal-line" data-aos="fade-up" style="margin-top: 3vw;"--}}
-{{--data-aos-duration="800"></div>--}}
-{{--</div>--}}
-{{--<div class="d-lg-none d-md-none d-sm-none d-block">--}}
-{{--<div id="about-section" class=" second-about section-space">--}}
-{{--<div data-aos="fade-up" data-aos-duration="1000">--}}
-{{--<div class="container-fluid">--}}
-{{--<div class="row d-flex align-items-center">--}}
-{{--<div class="col-12">--}}
-{{--<div class="mt-1" style="padding: 0vw 11vw 0vw 4.7vw;">--}}
-{{--<div class="row">--}}
 {{--<div class="col-12 d-flex justify-content-start" data-aos="fade-up"--}}
 {{--data-aos-duration="600">--}}
 {{--<img src="/images/newLogos/Family-to-Family.svg" style="margin-top: -5vw"--}}
 {{--class="d-lg-block d-none project-logo">--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--<div class="row" style="margin-top: 3vw;">--}}
-{{--<div class="col d-flex justify-content-end flex-column">--}}
 {{--<div class="project-brief" data-aos="fade-up"--}}
 {{--data-aos-duration="800">Project Brief--}}
-{{--</div>--}}
 {{--<font class="project-brief-desc" data-aos="fade-up"--}}
 {{--data-aos-duration="1000">--}}
 {{--Family-to-Family program is an initiative that--}}
-{{--started in 2016, by Caritas Poland. <br>The projects’--}}
 {{--objective is to provide financial support starting--}}
 {{--from the Polish families’ donations to families in--}}
 {{--Aleppo on a monthly basis, in order to partially--}}
-{{--meet their needs and rekindle hope in their hearts.<br>--}}
 {{--Hope center plays a role in implementing the F2F--}}
 {{--program by monitoring and evaluating the process.--}}
 
-{{--</font>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
 {{--<div class="col-12"--}}
 {{--style="padding-right: 0;padding-left: 0.1vw;">--}}
 {{--<div id="FamilyCarouselSm" class="carousel slide mt-1 mb-4"--}}
 {{--data-bs-ride="carousel">--}}
-{{--<div class="carousel-inner position-relative">--}}
-{{--<div class="carousel-item active">--}}
 {{--<img class="w-100 h-100" style="object-fit: cover"--}}
 {{--src="/images/initiatives/Family to Family/f1.jpg"--}}
 {{--class="d-block w-100 h-100" style="object-fit: cover;">--}}
-{{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-{{--</div>--}}
-{{--<div class="carousel-item">--}}
 {{--<img class="w-100 h-100" style="object-fit: cover"--}}
 {{--src="/images/initiatives/Family to Family/f2.jpg"--}}
 {{--class="d-block w-100 h-100" style="object-fit: cover;">--}}
-{{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-{{--</div>--}}
-{{--<div class="carousel-item">--}}
 {{--<img class="w-100 h-100" style="object-fit: cover"--}}
 {{--src="/images/initiatives/Family to Family/f3.jpg"--}}
 {{--class="d-block w-100 h-100" style="object-fit: cover;">--}}
-{{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-{{--</div>--}}
-{{--<div class="carousel-item">--}}
 {{--<img class="w-100 h-100" style="object-fit: cover"--}}
 {{--src="/images/initiatives/Family to Family/f4.jpg"--}}
 {{--class="d-block w-100 h-100" style="object-fit: cover;">--}}
-{{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-{{--</div>--}}
-{{--</div>--}}
 {{--<button class="carousel-control-prev" type="button"--}}
 {{--data-bs-target="#FamilyCarouselSm"--}}
 {{--data-bs-slide="prev">--}}
-{{--<span class="carousel-control-prev-icon" aria-hidden="true"></span>--}}
-{{--<span class="visually-hidden">Previous</span>--}}
-{{--</button>--}}
 {{--<button class="carousel-control-next" type="button"--}}
 {{--data-bs-target="#FamilyCarouselSm"--}}
 {{--data-bs-slide="next">--}}
-{{--<span class="carousel-control-next-icon" aria-hidden="true"></span>--}}
-{{--<span class="visually-hidden">Next</span>--}}
-{{--</button>--}}
-{{--<div class="carousel-indicators">--}}
 {{--<button type="button" data-bs-target="#FamilyCarouselSm" data-bs-slide-to="0"--}}
 {{--class="active" aria-current="true"--}}
-{{--aria-label="Slide 1"></button>--}}
 {{--<button type="button" data-bs-target="#FamilyCarouselSm" data-bs-slide-to="1"--}}
-{{--aria-label="Slide 2"></button>--}}
 {{--<button type="button" data-bs-target="#FamilyCarouselSm" data-bs-slide-to="2"--}}
-{{--aria-label="Slide 3"></button>--}}
 {{--<button type="button" data-bs-target="#FamilyCarouselSm" data-bs-slide-to="3"--}}
-{{--aria-label="Slide 4"></button>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--<div class="d-lg-block d-md-block d-sm-block d-none">--}}
-{{--<div id="about-section" class="second-about section-space">--}}
-{{--<div class="horizontal-line"></div>--}}
-{{--<div data-aos="fade-up" data-aos-duration="1000">--}}
-{{--<div class="container-fluid">--}}
-{{--<div class="row d-flex align-items-center">--}}
 {{--<div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-start"--}}
 {{--style="padding-right: 0;padding-left: 0.1vw;">--}}
 {{--<div id="FamilyCarousel" class="carousel slide"--}}
 {{--data-bs-ride="carousel">--}}
-{{--<div class="carousel-inner position-relative">--}}
-{{--<div class="carousel-item active">--}}
 {{--<img class="w-100 h-100" style="object-fit: cover"--}}
 {{--src="/images/initiatives/Family to Family/f1.jpg"--}}
 {{--class="d-block w-100 h-100" style="object-fit: cover;">--}}
-{{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-{{--</div>--}}
-{{--<div class="carousel-item">--}}
 {{--<img class="w-100 h-100" style="object-fit: cover"--}}
 {{--src="/images/initiatives/Family to Family/f2.jpg"--}}
 {{--class="d-block w-100 h-100" style="object-fit: cover;">--}}
-{{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-{{--</div>--}}
-{{--<div class="carousel-item">--}}
 {{--<img class="w-100 h-100" style="object-fit: cover"--}}
 {{--src="/images/initiatives/Family to Family/f3.jpg"--}}
 {{--class="d-block w-100 h-100" style="object-fit: cover;">--}}
-{{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-{{--</div>--}}
-{{--<div class="carousel-item">--}}
 {{--<img class="w-100 h-100" style="object-fit: cover"--}}
 {{--src="/images/initiatives/Family to Family/f4.jpg"--}}
 {{--class="d-block w-100 h-100" style="object-fit: cover;">--}}
-{{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-{{--</div>--}}
-{{--</div>--}}
 {{--<button class="carousel-control-prev" type="button"--}}
 {{--data-bs-target="#FamilyCarousel"--}}
 {{--data-bs-slide="prev">--}}
-{{--<span class="carousel-control-prev-icon" aria-hidden="true"></span>--}}
-{{--<span class="visually-hidden">Previous</span>--}}
-{{--</button>--}}
 {{--<button class="carousel-control-next" type="button"--}}
 {{--data-bs-target="#FamilyCarousel"--}}
 {{--data-bs-slide="next">--}}
-{{--<span class="carousel-control-next-icon" aria-hidden="true"></span>--}}
-{{--<span class="visually-hidden">Next</span>--}}
-{{--</button>--}}
-{{--<div class="carousel-indicators">--}}
 {{--<button type="button" data-bs-target="#FamilyCarousel" data-bs-slide-to="0"--}}
 {{--class="active" aria-current="true"--}}
-{{--aria-label="Slide 1"></button>--}}
 {{--<button type="button" data-bs-target="#FamilyCarousel" data-bs-slide-to="1"--}}
-{{--aria-label="Slide 2"></button>--}}
 {{--<button type="button" data-bs-target="#FamilyCarousel" data-bs-slide-to="2"--}}
-{{--aria-label="Slide 3"></button>--}}
 {{--<button type="button" data-bs-target="#FamilyCarousel" data-bs-slide-to="3"--}}
-{{--aria-label="Slide 4"></button>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--<div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">--}}
-{{--<div class="mt-lg-0 mt-md-0 mt-sm-0 mt-5" style="padding: 0vw 11vw 0vw 4.7vw;">--}}
-{{--<div class="row">--}}
 {{--<div class="col-12 d-flex justify-content-start" data-aos="fade-up"--}}
 {{--data-aos-duration="600">--}}
 {{--<img src="/images/newLogos/Family-to-Family.svg" style="margin-top: -5vw"--}}
 {{--class="d-lg-block d-none project-logo">--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--<div class="row" style="margin-top: 3vw;">--}}
-{{--<div class="col d-flex justify-content-end flex-column">--}}
-{{--<div style="height: 35px"></div>--}}
 {{--<div class="project-brief" data-aos="fade-up"--}}
 {{--data-aos-duration="800">Project Brief--}}
-{{--</div>--}}
 {{--<font class="project-brief-desc" data-aos="fade-up"--}}
 {{--data-aos-duration="1000">--}}
 {{--Family-to-Family program is an initiative that--}}
-{{--started in 2016, by Caritas Poland. <br>The projects’--}}
 {{--objective is to provide financial support starting--}}
 {{--from the Polish families’ donations to families in--}}
 {{--Aleppo on a monthly basis, in order to partially--}}
-{{--meet their needs and rekindle hope in their hearts.<br>--}}
 {{--Hope center plays a role in implementing the F2F--}}
 {{--program by monitoring and evaluating the process.--}}
 
-{{--</font>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--<div class="d-lg-none d-md-none d-sm-none d-block">--}}
 {{--<div class="horizontal-line" data-aos="fade-up"--}}
-{{--data-aos-duration="800"></div>--}}
-{{--</div>--}}
 {{--<div id="partner-section" class="section-space" data-aos="fade-up"--}}
 {{--data-aos-duration="600">--}}
-{{--<div class="col-12 d-flex justify-content-center flex-column align-items-center">--}}
-{{--<div class="section-title">Partners</div>--}}
-{{--</div>--}}
-{{--<div class="small horizontal-line"></div>--}}
-{{--<div class="container-fluid animated-container">--}}
-{{--<div class="row" data-aos="fade-up" data-aos-duration="1000">--}}
 {{--<div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xxl-6 p-0"--}}
 {{--style="background-color: #F7F7FB;">--}}
-{{--<div id="animatedCarousel1" class="h-100 carousel slide" data-bs-ride="carousel">--}}
-{{--<div class="carousel-inner">--}}
-{{--<?php $k = 0 ?>--}}
-{{--@foreach($partners as $partner)--}}
-{{--<div class="carousel-item @if($k++ == 0) active @endif">--}}
-{{--<div class="container-fluid">--}}
-{{--<div class="padding-screen">--}}
 {{--<div class="row w-100 mb-3 animated fadeInUp"--}}
 {{--style="animation-delay: .1s">--}}
-{{--<div class="col-12 d-flex justify-content-start">--}}
 {{--<img class="animated-logo"--}}
-{{--src="{{ucfirst($partner->logo)}}">--}}
-{{--</div>--}}
-{{--</div>--}}
 {{--<div class="row w-100 animated fadeInUp m-0"--}}
 {{--style="animation-delay: .8s">--}}
-{{--<div class="col-10 p-0">--}}
-{{--<div class="animated-title">{{ucfirst($partner->english->title)}}</div>--}}
-{{--</div>--}}
-{{--<div class="col-2 p-0 d-flex justify-content-end align-items-center">--}}
-{{--@if($partner->video != '0')--}}
-{{--<a href="{{$partner->video}}" class="launch-modal"--}}
-{{--id="partnerVideo-{{$partner->id}}"--}}
-{{--data-fancybox="partnerVideo-{{$partner->id}}">--}}
 {{--<img class="video-icon"--}}
 {{--src="/images/ico/video-ini-icon.svg">--}}
-{{--</a>--}}
-{{--@endif--}}
-{{--</div>--}}
-{{--</div>--}}
 {{--<div class="card-title-section animated fadeInUp"--}}
-{{--style="animation-delay: .8s"></div>--}}
 {{--<div class="animated-content animated fadeInUp"--}}
 {{--style="animation-delay: 1s">--}}
-{{--<p innerText= {{strip_tags($partner->english->content)}}></p>--}}
-{{--@if(strlen($partner->english->content)>40)--}}
-{{--<p>{!!implode(' ', array_slice(explode(' ', strip_tags($partner->english->content)), 0, 40)).'...'!!}</p>--}}
-{{--@else--}}
-{{--<p>{!! strip_tags($partner->english->content) !!}</p>--}}
-{{--@endif--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--@if(strlen($partner->english->content)>40)--}}
-{{--<div class="d-flex justify-content-end">--}}
 {{--<a class="readmore-btn animated fadeInUp"--}}
 {{--style="animation-delay: 1.2s"--}}
-{{--href="{{ route('new.public.initiative', [ 'family-to-family', $partner->id,--}}
-{{--Str::slug(strtolower($partner->english->title))]) }}">@lang('main.readMore')</a>--}}
-{{--</div>--}}
-{{--@endif--}}
-{{--</div>--}}
 {{--<button role="button" class="carousel-control-prev position-absolute"--}}
 {{--data-bs-target="#animatedCarousel1" data-bs-slide="prev">--}}
-{{--<span class="carousel-control-prev-icon" aria-hidden="true"></span>--}}
-{{--<span class="visually-hidden">Previous</span>--}}
-{{--</button>--}}
 {{--<button role="button" class="carousel-control-next position-absolute"--}}
 {{--data-bs-target="#animatedCarousel1" data-bs-slide="next">--}}
-{{--<span class="carousel-control-next-icon" aria-hidden="true"></span>--}}
-{{--<span class="visually-hidden">Next</span>--}}
-{{--</button>--}}
-{{--@endforeach--}}
-{{--</div>--}}
-{{--<div class="carousel-indicators justify-content-center">--}}
-{{--<div class="indicators">--}}
-{{--<?php $k = 0 ?>--}}
-{{--@foreach($partners as $partner)--}}
-{{--<button id="animatedCarousel1Dots_{{$partner->id}}" type="button"--}}
 {{--data-bs-target="#partnerCarousel1"--}}
-{{--data-bs-slide-to="{{$k++}}"--}}
-{{--@if($k == 1)class="active" @endif>--}}
-{{--</button>--}}
-{{--@endforeach--}}
-{{--</div>--}}
-{{--</div>--}}
 
-{{--</div>--}}
-{{--</div>--}}
-{{--<div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xxl-6 p-0 position-relative mt-6">--}}
-{{--<div id="animatedCarousel2" class="h-100 carousel slide" data-bs-ride="carousel">--}}
-{{--<div class="carousel-inner">--}}
-{{--<?php $k = 0 ?>--}}
-{{--@foreach($partners as $partner)--}}
-{{--<div class="carousel-item @if($k++ == 0) active @endif">--}}
 {{--<img style="object-fit: cover" class="w-100 h-100"--}}
-{{--src="/images/initiatives/Family to Family/p{{$k}}.jpg">--}}
-{{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
 {{--<button role="button" class="carousel-control-prev position-absolute"--}}
 {{--data-bs-target="#animatedCarousel2" data-bs-slide="prev">--}}
-{{--<span class="carousel-control-prev-icon" aria-hidden="true"></span>--}}
-{{--<span class="visually-hidden">Previous</span>--}}
-{{--</button>--}}
 {{--<button role="button" class="carousel-control-next position-absolute"--}}
 {{--data-bs-target="#animatedCarousel2" data-bs-slide="next">--}}
-{{--<span class="carousel-control-next-icon" aria-hidden="true"></span>--}}
-{{--<span class="visually-hidden">Next</span>--}}
-{{--</button>--}}
-{{--</div>--}}
-{{--@endforeach--}}
-{{--</div>--}}
-{{--<div class="carousel-indicators justify-content-center">--}}
-{{--<div class="indicators">--}}
-{{--<?php $k = 0 ?>--}}
-{{--@foreach($partners as $partner)--}}
-{{--<button id="animatedCarousel2Dots_{{$partner->id}}" type="button"--}}
-{{--onclick="changeSlide({{$partner->id}})"--}}
 {{--data-bs-target="#animatedCarousel2"--}}
-{{--data-bs-slide-to="{{$k++}}"--}}
-{{--@if($k == 1) class="active" @endif>--}}
-{{--</button>--}}
-{{--@endforeach--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-{{--<div data-aos="fade-up" data-aos-duration="800">--}}
-{{--<div class="horizontal-line"></div>--}}
-{{--</div>--}}
 <div class="last horizontal-line"></div>
 </div>
 <script>

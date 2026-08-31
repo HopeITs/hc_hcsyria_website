@@ -16,26 +16,9 @@ class StudentEntry extends Model
         return Carbon::parse($value)->diffForHumans();
     }
 
-//    public function student()
-//    {
-//        return $this->belongsTo('App\Student');
-//    }
-//    public function center()
-//    {
-//        return $this->hasMany('App\StudyzoneCenter');
-//    }
-//    public function gender()
-//    {
-//        return $this->hasOneThrough('App\Student','gender_id');
-//    }
-//////////////////
     public function student()
     {
         return $this->belongsTo('App\Student');
     }
 
-//    public function gender()
-//    {
-//        return $this->hasManyThrough('App\Gender', 'App\Student','gender_id','student_id');
-//    }
 }

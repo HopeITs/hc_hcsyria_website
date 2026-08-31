@@ -9,10 +9,6 @@ class Person extends Model
     protected $connection = 'mysql2';
     protected $table = 'person';
 
-//    public function microprojects()
-//    {
-//        return $this->belongsToMany('App\Models\MicroProjects');
-//    }
 
     public function microprojects()
     {

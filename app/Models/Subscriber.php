@@ -8,8 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Subscriber extends Model
 {
     protected $table = 'newsletter_subscribers';
-//    public $timestamps = true;
-//    protected $fillable = [
 //        'ids'
-//    ];
 }

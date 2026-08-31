@@ -45,17 +45,12 @@
     <link href="/css/animate.css" rel="stylesheet">
     <link href="/css/responsive.css" rel="stylesheet">
 
-    {{--<link href="/css/initiatives.css" rel="stylesheet">--}}
-    {{--<link href="/css/main.css" rel="stylesheet">--}}
-    {{--<link href="/css/news.css" rel="stylesheet">--}}
 
     <link href="/css/jquery.fancybox.min.css" rel="stylesheet">
     <link href="/css/hover-effect.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
     <link rel="alternate" hreflang="x-default" href="https://www.hcsyria.org/"/>
 
-    {{--<link href='https://fonts.googleapis.com/css?family=Noto Serif' rel='stylesheet'>--}}
-    {{--<link href='https://fonts.googleapis.com/css?family=Libre Baskerville' rel='stylesheet'>--}}
     <link href='https://fonts.googleapis.com/css?family=Caudex' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Archivo' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Archivo Black' rel='stylesheet'>
@@ -229,21 +224,14 @@
                                                 photovoltaic infrastructure for electricity production and water
                                                 extraction in several villages.
                                             </div>
-                                            {{--<div>The post-war period is very--}}
                                             {{--important in--}}
                                             {{--the reestablishment of the infrastructure and support--}}
                                             {{--the facilities which can help people to continue their lives in the most--}}
                                             {{--natural--}}
                                             {{--way, and--}}
-                                            {{--</div>--}}
-                                            {{--<div> for the youths to feel the hope of--}}
                                             {{--continuing their future--}}
 
-                                            {{--</div>--}}
-                                            {{--<div> in this country,--}}
                                             {{--whether it is the rehabilitation of shops,--}}
-                                            {{--</div>--}}
-                                            {{--<div> schools and playgrounds.</div>--}}
                                         </div>
                                     @elseif($whatCategory->id == '4')
                                         {{-- Relief --}}
@@ -256,15 +244,10 @@
                                                 help
                                                 these families meet their basic needs and maintain their dignity.
                                             </div>
-                                            {{--<div>--}}
                                             {{--prolonged war--}}
                                             {{--created an economic crisis which still--}}
-                                            {{--</div>--}}
-                                            {{--<div>--}}
                                             {{--weighs heavily on society and overwhelms it with--}}
                                             {{--the--}}
-                                            {{--</div>--}}
-                                            {{--<div>high costs of the basic needs of everyday life.</div>--}}
                                         </div>
                                     @elseif($whatCategory->id == '18')
                                         {{--Earthquake--}}
@@ -366,7 +349,6 @@
                 }
             @endphp
         @endif
-        {{--@if($agent->isPhone())--}}
         <div class="d-lg-none d-md-none d-sm-none d-block">
             @foreach($initiatives as $i=>$initiative)
                 <div class="card-height">
@@ -419,9 +401,6 @@
                                             <div class="col-2 text-end">
                                                 @if($initiative->video !== '0')
                                                     {{--<a href="#" class="launch-modal"--}}
-                                                    {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
-                                                    {{----}}
-                                                    {{--</a>--}}
                                                     <a href="{{$initiative->video}}" class="launch-modal"
                                                        id="iniVideo-{{$initiative->id}}"
                                                        data-fancybox="iniVideo-{{$initiative->id}}">
@@ -520,10 +499,8 @@
                                             <div class="col-2 text-end">
                                                 @if($initiative->video !== '0')
                                                     {{--<a href="#" class="launch-modal"--}}
-                                                    {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
                                                     {{--<img class="video-icon"--}}
                                                     {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                    {{--</a>--}}
                                                     <a href="{{$initiative->video}}" class="launch-modal"
                                                        id="iniVideo-{{$initiative->id}}"
                                                        data-fancybox="iniVideo-{{$initiative->id}}">
@@ -637,9 +614,6 @@
                                                 <div class="col-2 text-end">
                                                     @if($initiative->video !== '0')
                                                         {{--<a href="#" class="launch-modal"--}}
-                                                        {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
-                                                        {{----}}
-                                                        {{--</a>--}}
                                                         <a href="{{$initiative->video}}"
                                                            class="launch-modal"
                                                            id="iniVideo-{{$initiative->id}}"
@@ -704,9 +678,6 @@
                                                 <div class="col-2 text-end">
                                                     @if($initiative->video !== '0')
                                                         {{--<a href="#" class="launch-modal"--}}
-                                                        {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
-                                                        {{----}}
-                                                        {{--</a>--}}
                                                         <a href="{{$initiative->video}}"
                                                            class="launch-modal"
                                                            id="iniVideo-{{$initiative->id}}"
@@ -766,20 +737,7 @@
                                              class="carousel slide w-100 project-carousel"
                                              data-bs-ride="carousel"
                                              data-interval="1000">
-                                            {{--<div class="carousel-inner project-carousel">--}}
-                                            {{--<div class="carousel-item active">--}}
-                                            {{--<img class="w-100" src="{{$initiative->ImagesRandom[0]['path']}}">--}}
-                                            {{--</div>--}}
-                                            {{--<div class="carousel-item">--}}
-                                            {{--<img class="w-100" src="{{$initiative->ImagesRandom[1]['path']}}">--}}
-                                            {{--</div>--}}
-                                            {{--@if(count($initiative->ImagesRandom) > 2)--}}
-                                            {{--<div class="carousel-item">--}}
                                             {{--<img class="w-100"--}}
-                                            {{--src="{{$initiative->ImagesRandom[2]['path']}}">--}}
-                                            {{--</div>--}}
-                                            {{--@endif--}}
-                                            {{--</div>--}}
                                             <div class="carousel-inner project-carousel">
                                                     <?php $k = 0 ?>
                                                 @foreach($initiative->ImagesRandom as $image)
@@ -822,10 +780,8 @@
                                                 <div class="col-2 text-end">
                                                     @if($initiative->video !== '0')
                                                         {{--<a href="#" class="launch-modal"--}}
-                                                        {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
                                                         {{--<img class="video-icon"--}}
                                                         {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                        {{--</a>--}}
                                                         <a href="{{$initiative->video}}"
                                                            class="launch-modal"
                                                            id="iniVideo-{{$initiative->id}}"
@@ -962,10 +918,8 @@
                                                 <div class="col-2 text-end">
                                                     @if($initiative->video !== '0')
                                                         {{--<a href="#" class="launch-modal"--}}
-                                                        {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
                                                         {{--<img class="video-icon"--}}
                                                         {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                        {{--</a>--}}
                                                         <a href="{{$initiative->video}}"
                                                            class="launch-modal"
                                                            id="iniVideo-{{$initiative->id}}"

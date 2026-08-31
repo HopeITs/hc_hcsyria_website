@@ -140,9 +140,6 @@
                         <ul class="multi-column-dropdown">
                             <li><a class="nav-list-links close-nav"
                                    href="/rootsofhope">Roots Of Hope</a></li>
-{{--                            <li role="separator" class="div"></li>--}}
-                            {{--<li><a class="nav-list-links close-nav"--}}
-                            {{--href="/our-news">@lang('navbar.newsletter')</a></li>--}}
 
                         </ul>
                     </ul>
@@ -284,14 +281,6 @@
 
 <link href="{{asset('css/main-new.css')}}" rel="stylesheet">
 <link href="{{asset('css/navbar.css')}}" rel="stylesheet">
-{{--<link rel="stylesheet" src="../../node_modules/bootstrap/dist/css/bootstrap-grid.css">--}}
-{{--<link rel="stylesheet" src="../../node_modules/bootstrap/dist/css/bootstrap-grid.css">--}}
-{{--<link rel="stylesheet" src="../../node_modules/bootstrap/dist/css/bootstrap-utilities.css">--}}
-{{--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">--}}
-{{--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>--}}
-{{--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>--}}
-{{--<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>--}}
-{{--<script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>--}}
 
 @push('navbar-whatwedo')
     <script type="text/javascript">
@@ -368,99 +357,17 @@
     //     });
     // });
 </script>
-{{--<script>--}}
-{{--$(window).scroll(testScroll);--}}
-{{--var viewed = false;--}}
 
-{{--function isScrolledIntoView(elem) {--}}
-{{--var docViewTop = $(window).scrollTop();--}}
-{{--var docViewBottom = docViewTop + $(window).height();--}}
 
-{{--var elemTop = $(elem).offset().top;--}}
-{{--var elemBottom = elemTop + $(elem).height();--}}
 
-{{--return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));--}}
-{{--}--}}
 
-{{--function testScroll() {--}}
-{{--if (isScrolledIntoView($("#categories-section")) && !viewed) {--}}
-{{--viewed = true;--}}
-{{--// alert('hi');--}}
-{{--document.querySelector('.navbar').style.display = 'none';--}}
-{{--}--}}
-{{--else if(!isScrolledIntoView($("#categories-section"))){--}}
-{{--document.querySelector('.navbar').style.display = 'flex';--}}
-{{--}--}}
-{{--// else{--}}
-{{--//     // viewed = false;--}}
-{{--//     document.querySelector('.navbar').style.display = 'flex';--}}
-{{--// }--}}
-{{--}--}}
-{{--</script>--}}
 {{--@push('navbar-scripts-trans')--}}
-{{--<script>--}}
 {{--// do your stuff--}}
-{{--$('#navigation').addClass('trans');--}}
-{{--$('#language-in-bar').addClass('trans');--}}
-{{--$('#nav-logo').addClass('brightness');--}}
-{{--$('#language-in-bar .my-link').addClass('trans');--}}
 
-{{--$(document).ready(function() {--}}
 {{--// Transition effect for navbar--}}
-{{--$(window).scroll(function () {--}}
 {{--// checks if window is scrolled more than 500px, adds/removes solid class--}}
-{{--if($(window).width() >= 700) {--}}
-{{--if ($(this).scrollTop() > 400) {--}}
-{{--$('#navigation').removeClass('trans');--}}
-{{--$('#language-in-bar').removeClass('trans');--}}
-{{--$('#nav-logo').removeClass('brightness');--}}
-{{--$('#language-in-bar .my-link').removeClass('trans');--}}
-{{--}--}}
-{{--else {--}}
-{{--$('#navigation').addClass('trans');--}}
-{{--$('#language-in-bar').addClass('trans');--}}
-{{--$('#nav-logo').addClass('brightness');--}}
-{{--$('#language-in-bar .my-link').addClass('trans');--}}
-{{--}--}}
-{{--}--}}
-{{--else{--}}
-{{--if ($(this).scrollTop() > 1) {--}}
-{{--$('#navigation').removeClass('trans');--}}
-{{--$('#language-in-bar').removeClass('trans');--}}
-{{--$('#nav-logo').removeClass('brightness');--}}
-{{--$('#language-in-bar .my-link').removeClass('trans');--}}
-{{--}--}}
-{{--else {--}}
-{{--$('#navigation').addClass('trans');--}}
-{{--$('#language-in-bar').addClass('trans');--}}
-{{--$('#nav-logo').addClass('brightness');--}}
-{{--$('#language-in-bar .my-link').addClass('trans');--}}
-{{--}--}}
-{{--}--}}
-{{--});--}}
 
-{{--if ($(window).width() <= 1100) {--}}
-{{--$('#my-navbar-toggle').bind('click', myHandlerFunction);--}}
-{{--var first = true;--}}
-{{--function myHandlerFunction(e) {--}}
-{{--if(first){--}}
-{{--// Code from the first handler here;--}}
-{{--$('#navigation').removeClass('trans');--}}
-{{--$('#language-in-bar').removeClass('trans');--}}
-{{--$('#nav-logo').removeClass('brightness');--}}
-{{--$('#language-in-bar .my-link').removeClass('trans');--}}
-{{--}else{--}}
-{{--// Code from the second handler here;--}}
-{{--$('#navigation').addClass('trans');--}}
-{{--$('#language-in-bar').addClass('trans');--}}
-{{--$('#nav-logo').addClass('brightness');--}}
-{{--$('#language-in-bar .my-link').addClass('trans');--}}
-{{--}--}}
 {{--first = !first; // Invert `first`--}}
-{{--}--}}
-{{--}--}}
-{{--});--}}
-{{--</script>--}}
 {{--@endpush--}}
 <script>
     $(document).ready(function () {

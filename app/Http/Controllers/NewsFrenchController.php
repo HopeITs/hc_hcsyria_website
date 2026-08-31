@@ -94,7 +94,6 @@ class NewsFrenchController extends Controller
     }
 
     public function paid($id){
-//      $news = NewsFrench::find($id);
         $news = NewsFrench::where('news_id' ,$id)->first();
         $news->translation_paid = '1';
         $news->save();

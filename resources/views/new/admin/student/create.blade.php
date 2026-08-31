@@ -17,7 +17,6 @@
         <link href="/css/dashboard_new.css" rel="stylesheet">
         <link href="/css/dashboard_navbar.css" rel="stylesheet">
         <link href="/css/micro_page_new.css" rel="stylesheet">
-        {{--<link href="{{asset('css/main-new.css')}}" rel="stylesheet">--}}
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script type="text/javascript" src="/js/main.js"></script>
@@ -33,9 +32,6 @@
         <link rel="stylesheet" href="/css/sweetalert2.min.css">
         <script src="/js/sweetalert2.min.js"></script>
         <link rel="shortcut icon" href="/images/ico/favicon.ico">
-        {{--<div class="preloader">--}}
-            {{--<div class="preloader-gif"></div>--}}
-        {{--</div>--}}
     </head>
 </head>
 <body>
@@ -460,27 +456,6 @@
 
 
 
-        {{--$("#educationdegree").change(function () {--}}
-        {{--let value = document.getElementById("educationdegree").value;--}}
-        {{--$.ajax({--}}
-        {{--url: "{{ route('student.filter.education',[value]) }}",--}}
-        {{--url: "/student-filter-education/" + value,--}}
-        {{--type: 'GET',--}}
-        {{--dataType: 'json',--}}
-        {{--'success': function (response) {--}}
-        {{--$("#ajax_education").empty();--}}
-        {{--$("#ajax_education").append('<option disabled>Select one</option>');--}}
-        {{--$.each(response, function () {--}}
-        {{--$.each(this, function (index, value) {--}}
-        {{--$("#ajax_education").append('<option name="educationfield" class="btn-check" value="' + value['id'] + '">' + value['name'] + '</option>');--}}
-        {{--});--}}
-        {{--});--}}
-        {{--},--}}
-        {{--});--}}
-        {{--if (value >= 7)--}}
-        {{--document.getElementById("educationlevel").removeAttribute("disabled");--}}
-        {{--else if (value < 7) document.getElementById("educationlevel").setAttribute("disabled", "disabled");--}}
-        {{--});--}}
     });
 </script>
 <script>
@@ -511,158 +486,19 @@
         localStorage.setItem('entryData', JSON.stringify(storedEntryData));
     }
 
-    {{--$('#email').on("blur ", function () {--}}
-    {{--    let mail = document.getElementById("email").value;--}}
-    {{--    if(mail !== ""){--}}
-    {{--        @foreach($students as $student)--}}
-    {{--            email = "{{$student['email']}}";--}}
 
-    {{--        if (email === mail) {--}}
-    {{--            std_id = "{{$student['id']}}";--}}
-    {{--            swal({--}}
-    {{--                title: `Student already exists with ID: ` + std_id + ` <br>Please Check your information !!`,--}}
     {{--                text: "Do you want to create Entry ?!",--}}
     {{--                // icon: "warning",--}}
-    {{--                // buttons: true,--}}
-    {{--                showCancelButton: true,--}}
-    {{--                confirmButtonText: 'Entry',--}}
-    {{--                // dangerMode: true,--}}
-    {{--            }).then((result) => {--}}
-    {{--                if (result) {--}}
-    {{--                    entryData = getEntryData(std_id);--}}
-    {{--                    swal('Saving data in progress...');--}}
-    {{--                    $.ajax({--}}
-    {{--                        type: "POST",--}}
-    {{--                        headers: {--}}
     {{--                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-    {{--                        },--}}
-    {{--                        url: "{{route('students.visit')}}",--}}
-    {{--                        data: {"form": [entryData]},--}}
-    {{--                        dataType: "json",--}}
-    {{--                        beforeSend: function () {--}}
-    {{--                            swal('Saving data in progress...');--}}
-    {{--                        },--}}
-    {{--                        success: function (data) {--}}
-    {{--                            swal(data);--}}
-    {{--                            location.reload();--}}
-    {{--                        },--}}
-    {{--                        error: function (data) {--}}
-    {{--                            saveEntryDataLocally(entryData);--}}
-    {{--                            swal('Connection Failed! <br> Data saved as a draft !! ');--}}
-    {{--                        }--}}
-    {{--                    });--}}
-    {{--                }--}}
-    {{--            });--}}
-    {{--        }--}}
-    {{--        @endforeach--}}
-    {{--    }--}}
-    {{-- --}}
-    {{--});--}}
-    {{--$('#firstname').on("blur ", function () {--}}
-    {{--    let first = document.getElementById("firstname").value.toLowerCase();--}}
-    {{--    let last = document.getElementById("lastname").value.toLowerCase();--}}
-    {{--    let mob = document.getElementById("mobile").value;--}}
-    {{--    @foreach($students as $student)--}}
-    {{--        fname = "{{$student['firstname']}}".toLowerCase();--}}
-    {{--    lname = "{{$student['lastname']}}".toLowerCase();--}}
-    {{--    mo = "{{$student['mobile']}}";--}}
 
-    {{--    if (first === fname && last === lname && mob === mo) {--}}
-    {{--        let std_id = "{{$student['id']}}";--}}
-    {{--        swal({--}}
-    {{--            title: `Student already exists with ID: ` + std_id + ` <br>Please Check your information !!`,--}}
     {{--            text: "Do you want to create Entry ?!",--}}
     {{--            // icon: "warning",--}}
-    {{--            // buttons: true,--}}
-    {{--            showCancelButton: true,--}}
-    {{--            confirmButtonText: 'Entry',--}}
-    {{--            // dangerMode: true,--}}
-    {{--        }).then((result) => {--}}
-    {{--            if (result) {--}}
-    {{--                entryData = getEntryData(std_id);--}}
-    {{--                swal('Saving data in progress...');--}}
-    {{--                $.ajax({--}}
-    {{--                    type: "POST",--}}
-    {{--                    headers: {--}}
     {{--                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-    {{--                    },--}}
-    {{--                    url: "{{route('students.visit')}}",--}}
-    {{--                    data: {"form": [entryData]},--}}
-    {{--                    dataType: "json",--}}
-    {{--                    beforeSend: function () {--}}
-    {{--                        swal('Saving data in progress...');--}}
-    {{--                    },--}}
-    {{--                    success: function (data) {--}}
-    {{--                        swal(data);--}}
-    {{--                        location.reload();--}}
-    {{--                    },--}}
-    {{--                    error: function (data) {--}}
-    {{--                        saveEntryDataLocally(entryData);--}}
-    {{--                        swal('Connection Failed! <br> Data saved as a draft !! ');--}}
-    {{--                    }--}}
-    {{--                });--}}
-    {{--            }--}}
-    {{--        });--}}
-    {{--    }--}}
-    {{--    @endforeach--}}
 
-    {{--});--}}
-    {{--$('#lastname').on("blur ", function () {--}}
-    {{--    let first = document.getElementById("firstname").value.toLowerCase();--}}
-    {{--    let last = document.getElementById("lastname").value.toLowerCase();--}}
-    {{--    let mob = document.getElementById("mobile").value;--}}
 
-    {{--    @foreach($students as $student)--}}
-    {{--        fname = "{{$student['firstname']}}".toLowerCase();--}}
-    {{--    lname = "{{$student['lastname']}}".toLowerCase();--}}
-    {{--    mo = "{{$student['mobile']}}";--}}
-    {{--    if (first === fname && last === lname && mob === mo){--}}
-    {{--        let std_id = "{{$student['id']}}";--}}
-    {{--        swal({--}}
-    {{--            title: `Student already exists with ID: ` + std_id + ` <br>Please Check your information !!`,--}}
     {{--            text: "Do you want to create Entry ?!",--}}
     {{--            // icon: "warning",--}}
-    {{--            // buttons: true,--}}
-    {{--            showCancelButton: true,--}}
-    {{--            confirmButtonText: 'Entry',--}}
-    {{--            // dangerMode: true,--}}
-    {{--        }).then((result) => {--}}
-    {{--            if (result) {--}}
-    {{--                entryData = getEntryData(std_id);--}}
-    {{--                swal('Saving data in progress...');--}}
-    {{--                $.ajax({--}}
-    {{--                    type: "POST",--}}
-    {{--                    headers: {--}}
     {{--                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-    {{--                    },--}}
-    {{--                    url: "{{route('students.visit')}}",--}}
-    {{--                    data: {"form": [entryData]},--}}
-    {{--                    dataType: "json",--}}
-    {{--                    beforeSend: function () {--}}
-    {{--                        swal('Saving data in progress...');--}}
-    {{--                    },--}}
-    {{--                    success: function (data) {--}}
-    {{--                        swal(data);--}}
-    {{--                        location.reload();--}}
-    {{--                    },--}}
-    {{--                    error: function (data) {--}}
-    {{--                        saveEntryDataLocally(entryData);--}}
-    {{--                        swal('Connection Failed! <br> Data saved as a draft !! ');--}}
-    {{--                    }--}}
-    {{--                });--}}
-    {{--            }--}}
-    {{--        });--}}
-    {{--    }--}}
-    {{--    @endforeach--}}
-    {{--    // $.ajax({--}}
-    {{--    //     url: "/student-check-email/" + mail,--}}
-    {{--    //     type: 'GET',--}}
-    {{--    //     dataType: 'json',--}}
-    {{--    //     'success': function (response) {--}}
-    {{--    //         swal('Student email already exists,student name: ' + response.success);--}}
-    {{--    //     },--}}
-    {{--    // });--}}
-    {{--});--}}
     $('#mobile').on("blur ", function () {
         let first = document.getElementById("firstname").value.toLowerCase();
         let last = document.getElementById("lastname").value.toLowerCase();
@@ -712,60 +548,10 @@
 
         @endforeach
     });
-    {{--$('#nationalnumber').on("blur ", function () {--}}
-    {{--    let value = document.getElementById("nationalnumber").value;--}}
-    {{--    if(value != "" || value != NULL) {--}}
-    {{--        @foreach($students as $student)--}}
-    {{--            national = "{{$student['nationalnumber']}}";--}}
-    {{--        if (national === value) {--}}
-    {{--            let std_id = "{{$student['id']}}";--}}
-    {{--            swal({--}}
-    {{--                title: `Student already exists with ID: ` + std_id + ` <br>Please Check your information !!`,--}}
     {{--                text: "Do you want to create Entry ?!",--}}
     {{--                // icon: "warning",--}}
-    {{--                // buttons: true,--}}
-    {{--                showCancelButton: true,--}}
-    {{--                confirmButtonText: 'Entry',--}}
-    {{--                // dangerMode: true,--}}
-    {{--            }).then((result) => {--}}
-    {{--                if (result) {--}}
-    {{--                    entryData = getEntryData(std_id);--}}
-    {{--                    swal('Saving data in progress...');--}}
-    {{--                    $.ajax({--}}
-    {{--                        type: "POST",--}}
-    {{--                        headers: {--}}
     {{--                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-    {{--                        },--}}
-    {{--                        url: "{{route('students.visit')}}",--}}
-    {{--                        data: {"form": [entryData]},--}}
-    {{--                        dataType: "json",--}}
-    {{--                        beforeSend: function () {--}}
-    {{--                            swal('Saving data in progress...');--}}
-    {{--                        },--}}
-    {{--                        success: function (data) {--}}
-    {{--                            swal(data);--}}
-    {{--                            location.reload();--}}
-    {{--                        },--}}
-    {{--                        error: function (data) {--}}
-    {{--                            saveEntryDataLocally(entryData);--}}
-    {{--                            swal('Connection Failed! <br> Data saved as a draft !! ');--}}
-    {{--                        }--}}
-    {{--                    });--}}
-    {{--                }--}}
-    {{--            });--}}
-    {{--        }--}}
-    {{--        @endforeach--}}
-    {{--    }--}}
 
-    {{--    // $.ajax({--}}
-    {{--    //     url: "/student-check-national/" + value,--}}
-    {{--    //     type: 'GET',--}}
-    {{--    //     dataType: 'json',--}}
-    {{--    //     'success': function (response) {--}}
-    {{--    //         swal('Student already exists with name: ' + response.success);--}}
-    {{--    //     }--}}
-    {{--    // });--}}
-    {{--});--}}
 
     $("input[name='nationalnumber']").on('input', function () {
         if ($('#nationalnumber').val().length < 11) {

@@ -270,7 +270,6 @@ class ChildrenController extends Controller
         $request->validate([
             'initiative_id' => 'required|numeric',
             'title' => 'required',
-//            'what_category_id' => 'required',
         ]);
         $validator = Validator::make($request->all(), [
             'small_image' => 'max:' . count($request->file('big_image')),

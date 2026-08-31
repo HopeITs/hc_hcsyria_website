@@ -18,10 +18,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    {{--<link href="/css/dataTables.bootstrap.min.css" rel="stylesheet">--}}
     <link href="/css/backend.css" rel="stylesheet">
     <link href="/css/dashboard_new.css" rel="stylesheet">
-    {{--<link href="{{asset('css/main-new.css')}}" rel="stylesheet">--}}
     <link href="/css/tabs.css" rel="stylesheet">
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
     <link href="/css/backend.css" rel="stylesheet">
@@ -30,7 +28,6 @@
     <script type="text/javascript" src="/js/html5shiv.js"></script>
     <script type="text/javascript" src="/js/respond.min.js"></script> <![endif]-->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    {{--<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>--}}
     <link rel="stylesheet" href="/css/sweetalert2.min.css">
     <link rel="stylesheet" href="/css/aos.css">
     <script src="/js/sweetalert2.min.js"></script>
@@ -41,7 +38,6 @@
     <link href="/css/jquery.fancybox.min.css" rel="stylesheet">
     <script type="text/javascript" src="/js/fancybox.config.js"></script>
     <script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
-    {{--<script type="text/javascript" src="/js/responsive.bootstrap5.min.js"></script>--}}
     <script type="text/javascript" src="/js/aos.js"></script>
     <script type="text/javascript" src="/js/dataTables.bootstrap5.min.js"></script>
     <script type="text/javascript" src="/js/dataTables.responsive.min.js"></script>
@@ -129,59 +125,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                {{--@foreach($studentsentry as $student)--}}
-                    {{--<tr>--}}
-                        {{--<td class="text-center">{{$student->Student_id}}</td>--}}
-                        {{--<td class="text-center">{{$student->Name}}</td>--}}
-                        {{--<td class="text-center">{{$student->City}}</td>--}}
-                        {{--<td class="text-center">{{$student->Center}}</td>--}}
-                        {{--<td class="text-center">{{$student->created_at}}</td>--}}
-                        {{--<td class="text-center">{{$student->DOB}}</td>--}}
-                        {{--<td class="text-center">{{ (now()->year) - $student->DOB }}</td>--}}
-                        {{--<td class="text-center">{{$student->Gender}}</td>--}}
-                        {{--<td class="text-center">{{$student->Address}}</td>--}}
-                        {{--<td class="text-center">{{$student->email}}</td>--}}
-                        {{--<td class="text-center">{{$student->mobile}}</td>--}}
-                        {{--<td class="text-center">{{$student->whatsapp}}</td>--}}
-                        {{--<td class="text-center">{{$student->place->name}}</td>--}}
-                        {{--<td class="text-center">{{$student->center->name}}</td>--}}
-                        {{--@if($student->Employed == 1)--}}
-                            {{--<td class="text-center">Yes</td>--}}
-                        {{--@else--}}
-                            {{--<td class="text-center">No</td>--}}
-                        {{--@endif--}}
-                        {{--@if($student->Student== 1)--}}
-                            {{--<td class="text-center">Yes</td>--}}
-                        {{--@else--}}
-                            {{--<td class="text-center">No</td>--}}
-                        {{--@endif--}}
-                        {{--<td class="text-center">{{$student->Edu_Level}}</td>--}}
-                        {{--<td class="text-center">{{$student->Edu_Field}}</td>--}}
-                        {{--<td class="text-center">{{$student->Enterd_by}}</td>--}}
-                        {{--<td class="text-end">--}}
-                            {{--@if($user->roles->contains('name', 'Admin') || ($user->roles->contains('name', 'English Editor') && $student->place_id == $user->places->contains('id',$student->place_id)))--}}
-                                {{--@if($student->street->place_id == $user->places->contains('id',$student->street->place_id) && !$user->roles->contains('name', 'Admin') )--}}
 
-                                    {{--<a href="{{route('students.edit', $student->Student_id)}}"--}}
                                        {{--class="btn mb-2 btn-primary edit-btn"><span--}}
-                                                {{--class="fa fa-edit"></span>&nbsp; Edit</a>--}}
-                                {{--@endif--}}
-                            {{--@endif--}}
-                            {{--@if($user->roles->contains('name', 'English Editor') || $user->roles->contains('name', 'Admin'))--}}
                                 {{--<form id="entry_form"--}}
-                                      {{--action="{{ route('students.visit')}}"--}}
                                       {{--method="POST"--}}
                                       {{--enctype="multipart/form-data">--}}
-                                    {{--@csrf--}}
-                                    {{--<button data-id="{{$student->Student_id}}" type="submit"--}}
                                             {{--class="btn btn-danger"--}}
-                                            {{--onclick="ConfirmEntry({{$student->Student_id}})"> Entry--}}
-                                    {{--</button>--}}
-                                {{--</form>--}}
-                            {{--@endif--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-                {{--@endforeach--}}
                 </tbody>
             </table>
         </div>
@@ -193,7 +142,6 @@
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/js/charts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-{{--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>--}}
 
 <script>
     $(document).ready(function () {

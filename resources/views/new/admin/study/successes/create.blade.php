@@ -14,7 +14,6 @@
     <link href="/css/dashboard_new.css" rel="stylesheet">
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
     <link href="/css/micro_page_new.css" rel="stylesheet">
-    {{--<link href="{{asset('css/main-new.css')}}" rel="stylesheet">--}}
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
@@ -132,34 +131,6 @@
 @stack('navbar_scripts')
 
 <script type="text/javascript" src="/js/selectize.min.js"></script>
-{{--<script>--}}
-    {{--$(document).ready(function () {--}}
-        {{--$('#link-microproject').selectize();--}}
-    {{--});--}}
-    {{--$("input[name='what_category_id']").change(function () {--}}
-        {{--if($("input[value='10']").is(':checked')) {--}}
-            {{--$('#micro_projects_group').show();--}}
-            {{--$('#center').hide();--}}
-            {{--$('#discSubCategories').hide();--}}
-            {{--$('#link-microproject').attr('required', true);--}}
-        {{--}else if($("input[value='5']").is(':checked')) {--}}
-            {{--$('#micro_projects_group').hide();--}}
-            {{--$('#center').hide();--}}
-            {{--$('#discSubCategories').show();--}}
-            {{--$('#link-microproject').attr('required', false);--}}
-        {{--}else if($("input[value='7']").is(':checked')) {--}}
-            {{--$('#micro_projects_group').hide();--}}
-            {{--$('#center').show();--}}
-            {{--$('#discSubCategories').hide();--}}
-            {{--$('#link-microproject').attr('required', false);--}}
-        {{--}else {--}}
-            {{--$('#micro_projects_group').hide();--}}
-            {{--$('#center').hide();--}}
-            {{--$('#discSubCategories').hide();--}}
-            {{--$('#link-microproject').attr('required', false);--}}
-        {{--}--}}
-    {{--});--}}
-{{--</script>--}}
 <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
 <script type="text/javascript" src="/js/ckeditor-initialize.js"></script>
 @include('new.admin.scripts.popup-messages')

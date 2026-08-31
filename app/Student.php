@@ -21,10 +21,6 @@ class Student extends Model
         return $this->belongsTo('App\StudyzoneCenter','sz_center_id', 'id');
     }
 
-//    public function gender()
-//    {
-//        return $this->belongsTo('App\Gender','gender_id', 'id');
-//    }
     public function street()
     {
         return $this->belongsTo('App\Models\Street','street_id', 'id');
@@ -38,7 +34,6 @@ class Student extends Model
         return $this->belongsTo('App\Models\EducationField','educationfield_id', 'id');
     }
 
-    ///////////
     public function gender()
     {
         return $this->belongsTo('App\Gender');

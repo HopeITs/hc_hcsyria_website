@@ -145,11 +145,9 @@
                                 <button class="btn btn-primary" onclick="event.preventDefault();window.history.back();">
                                     <i class="fa fa-arrow-left"></i> Back
                                 </button>
-{{--                                @if($what->media->isNotEmpty())--}}
                                 <button id="uploadBtn" type="submit" class="btn btn-danger" style="margin-left: 15px;">
                                     <i class="fa fa-external-link"></i> Upload
                                 </button>
-{{--                                @endif--}}
                             </div>
                         </form>
                     </div>

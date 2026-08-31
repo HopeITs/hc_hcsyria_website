@@ -46,13 +46,9 @@
     <script type="text/javascript" src="/js/main.js"></script>
     <script type="text/javascript" src="/js/wow.min.js"></script>
     <script type="text/javascript" src="/js/swipe.index.js"></script>
-    {{--<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>--}}
-    {{--<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes@0.4.0/dist/chartjs-plugin-colorschemes.js"></script>--}}
     <link rel="stylesheet" href="/css/animate.min.css"
           integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    {{--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>--}}
-    {{--<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>--}}
 
 </head>
 <body>
@@ -88,7 +84,6 @@
             </div>
         </div>
     </div>
-    {{--@if($agent->isPhone())--}}
     <div class="d-lg-none d-md-none d-sm-none d-block">
         <div class="container-fluid mb-2">
             <div class="row d-flex justify-content-center ">
@@ -305,7 +300,6 @@
             </div>
         </div>
     </div>
-    {{--@else--}}
     <div class="d-lg-block d-md-block d-sm-block d-none">
         <div class="container-fluid">
             <div class="row d-flex ">
@@ -527,89 +521,39 @@
             </div>
         </div>
     </div>
-    {{--@endif--}}
     <div class="horizontal-line last"></div>
 
-    {{--@if($agent->isPhone())--}}
-    {{--<div id="plan" class="section-space">--}}
-    {{--<div class="horizontal-line"></div>--}}
-    {{--<div data-aos="fade-up" data-aos-duration="1000">--}}
-    {{--<div class="container-fluid">--}}
-    {{--<div class="row">--}}
     {{--<div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-start"--}}
     {{--style="padding-right: 0;padding-left: 0.1vw;">--}}
     {{--<div id="YouthCarousel2" class="carousel slide"--}}
     {{--data-bs-ride="carousel">--}}
-    {{--<div class="carousel-inner">--}}
-    {{--<div class="carousel-item active position-relative">--}}
     {{--<img src="/images/youth/new/5.jpg"--}}
     {{--class="d-block w-100 h-auto"--}}
     {{--style="object-fit: cover;">--}}
-    {{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-    {{--</div>--}}
-    {{--<div class="carousel-item position-relative">--}}
     {{--<img src="/images/youth/new/6.jpg"--}}
     {{--class="d-block w-100 h-auto"--}}
     {{--style="object-fit: cover;">--}}
-    {{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-    {{--</div>--}}
-    {{--<div class="carousel-item position-relative">--}}
     {{--<img src="/images/youth/new/7.jpg"--}}
     {{--class="d-block w-100 h-auto"--}}
     {{--style="object-fit: cover;">--}}
-    {{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-    {{--</div>--}}
-    {{--<div class="carousel-item position-relative">--}}
     {{--<img src="/images/youth/new/8.jpg"--}}
     {{--class="d-block w-100 h-auto"--}}
     {{--style="object-fit: cover;">--}}
-    {{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-    {{--</div>--}}
-    {{--</div>--}}
     {{--<button class="carousel-control-prev" type="button" data-bs-target="#YouthCarousel2"--}}
     {{--data-bs-slide="prev">--}}
-    {{--<span class="carousel-control-prev-icon" aria-hidden="true"></span>--}}
-    {{--<span class="visually-hidden">Previous</span>--}}
-    {{--</button>--}}
     {{--<button class="carousel-control-next" type="button" data-bs-target="#YouthCarousel2"--}}
     {{--data-bs-slide="next">--}}
-    {{--<span class="carousel-control-next-icon" aria-hidden="true"></span>--}}
-    {{--<span class="visually-hidden">Next</span>--}}
-    {{--</button>--}}
-    {{--<div class="carousel-indicators">--}}
     {{--<button type="button" data-bs-target="#YouthCarousel2" data-bs-slide-to="0"--}}
     {{--class="active" aria-current="true"--}}
-    {{--aria-label="Slide 1"></button>--}}
     {{--<button type="button" data-bs-target="#YouthCarousel2" data-bs-slide-to="1"--}}
-    {{--aria-label="Slide 2"></button>--}}
     {{--<button type="button" data-bs-target="#YouthCarousel2" data-bs-slide-to="2"--}}
-    {{--aria-label="Slide 3"></button>--}}
     {{--<button type="button" data-bs-target="#YouthCarousel2" data-bs-slide-to="3"--}}
-    {{--aria-label="Slide 4"></button>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
 
-    {{--<div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">--}}
-    {{--<div class="padding-screen">--}}
-    {{--<div class="row">--}}
-    {{--<div class="col d-flex justify-content-end flex-column">--}}
     {{--<div class="title" data-aos="fade-up"--}}
     {{--data-aos-duration="800">@lang('youth.objectives_title')--}}
-    {{--</div>--}}
     {{--<font class="content" data-aos="fade-up"--}}
     {{--data-aos-duration="1000">--}}
     {{--@lang('youth.objectives')--}}
-    {{--</font>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--@endif--}}
 
 </section>
 @include('new.public.footer')

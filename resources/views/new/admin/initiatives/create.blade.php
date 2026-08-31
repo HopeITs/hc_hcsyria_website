@@ -14,7 +14,6 @@
     <link href="/css/dashboard_new.css" rel="stylesheet">
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
     <link href="/css/micro_page_new.css" rel="stylesheet">
-    {{--<link href="{{asset('css/main-new.css')}}" rel="stylesheet">--}}
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
@@ -160,67 +159,6 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
 <script type="text/javascript" src="/js/ckeditor-initialize.js"></script>
 <script type="text/javascript" src="/js/selectize.min.js"></script>
-{{--<script>--}}
-    {{--$("input[name='what_category_id']").change(function () {--}}
-        {{--if($('#type-5').is(':checked')) { // disc--}}
-            {{--$('#discSubCategories').show();--}}
-            {{--$('#place').show();--}}
-            {{--$('#center').hide();--}}
-            {{--$('#studySubCategories').hide();--}}
-            {{--$('#familySubCategories').hide();--}}
-            {{--$('#schoolSubCategories').hide();--}}
-            {{--$('#f2fPartners').hide();--}}
-            {{--$('#f2f_partner').attr('required', false);--}}
-        {{--}else if($('#type-8').is(':checked')) { // familyToFamily--}}
-            {{--$('#discSubCategories').hide();--}}
-            {{--$('#studySubCategories').hide();--}}
-            {{--$('#familySubCategories').show();--}}
-            {{--$('#schoolSubCategories').hide();--}}
-            {{--$('#place').hide();--}}
-            {{--$('#center').hide();--}}
-            {{--if($("input[value='2']").is(':checked')) {--}}
-                {{--$('#f2fPartners').show();--}}
-                {{--$('#f2f_partner').attr('required', true);--}}
-            {{--}--}}
-        {{--}else if($('#type-7').is(':checked')) { // study--}}
-            {{--$('#discSubCategories').hide();--}}
-            {{--$('#familySubCategories').hide();--}}
-            {{--$('#schoolSubCategories').hide();--}}
-            {{--$('#place').show();--}}
-            {{--$('#center').show();--}}
-            {{--$('#studySubCategories').show();--}}
-            {{--$('#f2fPartners').hide();--}}
-            {{--$('#f2f_partner').attr('required', false);--}}
-        {{--}else if($('#type-9').is(':checked')) { // schoolToSchool--}}
-            {{--$('#discSubCategories').hide();--}}
-            {{--$('#studySubCategories').hide();--}}
-            {{--$('#familySubCategories').hide();--}}
-            {{--$('#schoolSubCategories').show();--}}
-            {{--$('#place').hide();--}}
-            {{--$('#center').hide();--}}
-            {{--$('#f2fPartners').hide();--}}
-            {{--$('#f2f_partner').attr('required', false);--}}
-        {{--}else if($('#type-17').is(':checked')) { // children--}}
-            {{--$('#discSubCategories').hide();--}}
-            {{--$('#studySubCategories').hide();--}}
-            {{--$('#familySubCategories').hide();--}}
-            {{--$('#schoolSubCategories').hide();--}}
-            {{--$('#place').show();--}}
-            {{--$('#center').hide();--}}
-            {{--$('#f2fPartners').hide();--}}
-            {{--$('#f2f_partner').attr('required', false);--}}
-        {{--}else {--}}
-            {{--$('#discSubCategories').hide();--}}
-            {{--$('#studySubCategories').hide();--}}
-            {{--$('#familySubCategories').hide();--}}
-            {{--$('#schoolSubCategories').hide();--}}
-            {{--$('#place').hide();--}}
-            {{--$('#center').hide();--}}
-            {{--$('#f2fPartners').hide();--}}
-            {{--$('#f2f_partner').attr('required', false);--}}
-        {{--}--}}
-    {{--});--}}
-{{--</script>--}}
 <script>
     $(document).ready(function () {
         $('#f2f_partner').selectize();

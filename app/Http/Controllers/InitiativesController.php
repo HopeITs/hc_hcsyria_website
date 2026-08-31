@@ -265,8 +265,6 @@ class InitiativesController extends Controller
             $imgName = (string)time();
             $iniCategory = DB::select('select what_categories.name from what_categories where what_categories.id = (SELECT what_category_id from initiatives where initiatives.id = '.$id.')');
             $iniCategory = $iniCategory[0]->name;
-//            return ($iniCategory);
-//            $iniCategory = DB::table('what_categories')->where('id',$request->input('what_category_id'))->get()->pluck('name')[0];
             $path = '/images/initiatives/'.$iniCategory.'/';
             $imgExt = $request->file('logo')->getClientOriginalExtension();
             $request->file('logo')->move($path,$imgName.'.'.$imgExt);
@@ -294,16 +292,6 @@ class InitiativesController extends Controller
         if ($request->input('what_category_id') == '8' ) $initiative->sub_what_category_id = $request->input('family_sub_category');
 
 
-//        if ($request->input('family_sub_category') == '2' ) $initiative->partner_id = $request->input('f2f_partner');
-//        if ($initiative->isDirty('partner_id') && $initiative->partner_id != '0') {
-//            $iniPartner = Initiative::with('english')->where('id',$initiative->partner_id)->get()[0]['english']['title'];
-//            if ($initiativePrev->partner_id != '0') {
-//                $iniPartnerPrev = Initiative::with('english')->where('id',$initiativePrev->partner_id)->get()[0]['english']['title'];
-//            }else {
-//                $iniPartnerPrev = 'N/A';
-//            }
-//            $this->saveToLogWithData(self::INITIATIVES, $id,'partner changed', $iniPartnerPrev, $iniPartner);
-//        }
 
         $initiative->save();
         $engInitiative = InitiativeEnglish::where('initiative_id', $id)->first();
@@ -336,13 +324,7 @@ class InitiativesController extends Controller
         foreach ($donorsSync['detached'] as $donor_id) {
             $this->saveToLog(self::INITIATIVES, $id, 'Donor '.Donor::find($donor_id)->name.' detached');
         }
-//        if($initiative->published == '1')
-// {
             return redirect('admin\home')->with('success', 'Initiative '.$initiative->id.' has been updated');
-//        }
-//        else {
-//            return redirect('admin/home')->with('success', 'Initiative '.$initiative->id.' has been updated');
-//        }
     }
 
     public function destroy($id)

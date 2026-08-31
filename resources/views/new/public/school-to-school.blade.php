@@ -60827,8 +60827,6 @@ AAAAAECUx+PxC9wQabBd9Z7zAAAAAElFTkSuQmCC" transform="matrix(0.24 0 0 0.24 -44.12
                         </div>
                     </div>
                 </div>
-                {{--</div>--}}
-                {{--</div>--}}
                 <div class="d-lg-none d-md-none d-sm-none d-block">
                     <div class="container-fluid">
                         <div class="horizontal-line"></div>
@@ -60945,10 +60943,8 @@ AAAAAECUx+PxC9wQabBd9Z7zAAAAAElFTkSuQmCC" transform="matrix(0.24 0 0 0.24 -44.12
                                             <div class="col-2 text-end">
                                                 @if($initiative->video !== '0')
                                                     {{--<a href="#" class="launch-modal"--}}
-                                                    {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
                                                     {{--<img class="video-icon"--}}
                                                     {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                    {{--</a>--}}
                                                     <a href="{{$initiative->video}}" class="launch-modal"
                                                        id="iniVideo-{{$initiative->id}}"
                                                        data-fancybox="iniVideo-{{$initiative->id}}">
@@ -61044,10 +61040,8 @@ AAAAAECUx+PxC9wQabBd9Z7zAAAAAElFTkSuQmCC" transform="matrix(0.24 0 0 0.24 -44.12
                                                     <div class="col-2 text-end">
                                                         @if($initiative->video !== '0')
                                                             {{--<a href="#" class="launch-modal"--}}
-                                                            {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
                                                             {{--<img class="video-icon"--}}
                                                             {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                            {{--</a>--}}
                                                             <a href="{{$initiative->video}}"
                                                                class="launch-modal"
                                                                id="iniVideo-{{$initiative->id}}"
@@ -61098,10 +61092,8 @@ AAAAAECUx+PxC9wQabBd9Z7zAAAAAElFTkSuQmCC" transform="matrix(0.24 0 0 0.24 -44.12
                                                     <div class="col-2 text-end">
                                                         @if($initiative->video !== '0')
                                                             {{--<a href="#" class="launch-modal"--}}
-                                                            {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
                                                             {{--<img class="video-icon"--}}
                                                             {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                            {{--</a>--}}
                                                             <a href="{{$initiative->video}}"
                                                                class="launch-modal"
                                                                id="iniVideo-{{$initiative->id}}"

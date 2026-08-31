@@ -97,36 +97,15 @@
 @include('public.navbar')
 
 <section id="initiatives" class="page-start">
-    {{--<div class="navigate">--}}
-        {{--<div class="container">--}}
-            {{--<ol class="breadcrumb">--}}
-                {{--<li><a href="/">@lang('navbar.home')</a></li>--}}
-                {{--<li><a href="{{route('public.main_projects')}}">@lang('what_we_do.title')</a></li>--}}
-                {{--@if($whatCategory->id == '5' ||--}}
                     {{--$whatCategory->id == '6' ||--}}
                     {{--$whatCategory->id == '7' ||--}}
                     {{--$whatCategory->id == '9')    --}}{{-- DISC Or Homework Room Or studyzone Or S2S --}}
-                {{--<li><a href="{{route('public.initiatives.type','development')}}">@lang('what_we_do.development')</a>--}}
-                {{--</li>--}}
-                {{--@endif--}}
-                {{--@if($whatCategory->id == '5') --}}{{-- DISC --}}
-                {{--<li><a href="{{route('public.disc')}}">{{ $whatCategory->$whatCatName }}</a></li>--}}
-                {{--<li class="active">{{ $subWhatCategory->name }}</li>--}}
-                {{--@elseif($whatCategory->id == '9') --}}{{-- School to School --}}
-                {{--<li><a href="{{route('public.school2school')}}">{{ $whatCategory->$whatCatName }}</a></li>--}}
-                {{--<li class="active">{{ $subWhatCategory->name }}</li>--}}
-                {{--@else--}}
-                    {{--<li class="active">{{ $whatCategory->$whatCatName }}</li>--}}
-                {{--@endif--}}
-            {{--</ol>--}}
-        {{--</div>--}}
-    {{--</div>--}}
+                {{-- DISC --}}
+                {{-- School to School --}}
     <div class="row">
         <div class="row text-center clearfix">
             @if($whatCategory->id == '1') {{-- Christian organizations Initiatives --}}
                 <div class="col-sm-8 col-sm-offset-2">
-                    {{--<h2 class="title-one">{{ $whatCategory->$whatCatName }}</h2>--}}
-                    {{--<h1 class="text-center title-shadow"><b>{{ $whatCategory->$whatCatName }}</b></h1>--}}
                     <h1 class="text-center red-title"><b>{{ $whatCategory->$whatCatName }}</b></h1>
 
                 <div class="projects-heading ">
@@ -147,8 +126,6 @@
 
             @elseif($whatCategory->id == '2') {{-- Development --}}
             <div class="col-sm-8 col-sm-offset-2">
-                {{--<h2 class="title-one">{{ $whatCategory->$whatCatName }}</h2>--}}
-                {{--<h1 class="text-center title-shadow"><b>{{ $whatCategory->$whatCatName }}</b></h1>--}}
                 <h1 class="text-center red-title"><b>{{ $whatCategory->$whatCatName }}</b></h1>
             </div>
             <div class="projects-heading">
@@ -195,8 +172,6 @@
 
             @elseif($whatCategory->id == '3') {{-- Rehabilitation --}}
             <div class="col-sm-8 col-sm-offset-2">
-                {{--<h2 class="title-one">{{ $whatCategory->$whatCatName }}</h2>--}}
-                {{--<h1 class="text-center title-shadow"><b>{{ $whatCategory->$whatCatName }}</b></h1>--}}
                 <h1 class="text-center red-title"><b>{{ $whatCategory->$whatCatName }}</b></h1>
 
                 <div class="projects-heading">
@@ -209,8 +184,6 @@
 
             @elseif($whatCategory->id == '4') {{-- Relief --}}
             <div class="col-sm-8 col-sm-offset-2">
-                {{--<h2 class="title-one">{{ $whatCategory->$whatCatName }}</h2>--}}
-                {{--<h1 class="text-center title-shadow"><b>{{ $whatCategory->$whatCatName }}</b></h1>--}}
                 <h1 class="text-center red-title"><b>{{ $whatCategory->$whatCatName }}</b></h1>
 
                 <div class="projects-heading">
@@ -255,17 +228,12 @@
             @elseif($whatCategory->id == '5') {{-- DISC --}}
                 <div class="row">
                 <div class="col-sm-8 col-sm-offset-2">
-                    {{--<h1 class="text-center title-shadow"><b>{{ $whatCategory->$whatCatName }}</b></h1>--}}
                     <h1 class="text-center red-title"><b>{{ $whatCategory->$whatCatName }}</b></h1>
                 </div>
             </div>
 
             @elseif($whatCategory->id == '6') {{-- Homework Room --}}
                 <div id="Homework">
-                {{--<div class="container text-center">--}}
-                    {{--<img src="/images/logos/homework.svg" style="width: 50%" >--}}
-                    {{--<img src="/images/initiatives/Homework Room/homework.gif"  >--}}
-                {{--</div>--}}
                     <div class="container text-center animated fadeInUp delay" style="margin-top: -20px;">
                         <img src="/images/initiatives/Homework Room/homework.gif" style="width: 40%">
                     </div>
@@ -290,7 +258,6 @@
                     <div class="testimonies-wrapper">
                         <div class="row">
                             <div class="col-sm-6 col-sm-offset-3">
-                                {{--<h1  class="text-center title-shadow"   ><b>@lang('disc.testimonies')</b></h1>--}}
                                 <h1  class="text-center red-title" ><b>@lang('disc.testimonies')</b></h1>
                             </div>
                         </div>
@@ -329,7 +296,6 @@
 
                 <div class="row">
                     <div class="col-sm-6 col-sm-offset-3">
-                        {{--<h1 class="text-center title-shadow"><b>@lang('studyzone.activities')</b></h1>--}}
                         <h1 class="text-center red-title"><b>@lang('studyzone.activities')</b></h1>
                     </div>
                 </div>
@@ -338,34 +304,24 @@
             @elseif($whatCategory->id == '7') {{-- Study Zone --}}
                 <div class="raw">
                 <div class="col-sm-8 col-sm-offset-2">
-                    {{--<h1 class="text-center title-shadow"><b>{{ $whatCategory->$whatCatName }}</b></h1>--}}
                     <h1 class="text-center red-title"><b>{{ $whatCategory->$whatCatName }}</b></h1>
 
-                    {{--<h2 class="title-one">{{ $whatCategory->$whatCatName }}--}}
-                        {{--- {{ $subWhatCategory->$whatCatName }}</h2>--}}
                 </div>
             </div>
 
             @elseif($whatCategory->id == '8') {{-- Family to Family --}}
                 <div class="raw">
                 <div class="col-sm-8 col-sm-offset-2">
-                    {{--<h1 class="text-center title-shadow"><b>{{ $whatCategory->$whatCatName }}</b></h1>--}}
                     <h1 class="text-center red-title"><b>{{ $whatCategory->$whatCatName }}</b></h1>
 
-                    {{--<h2 class="title-one">{{ $whatCategory->$whatCatName }}--}}
-                        {{--- {{ $subWhatCategory->$whatCatName }}</h2>--}}
                 </div>
             </div>
 
             @elseif($whatCategory->id == '9') {{-- School to School --}}
                 <div id="school" class="raw">
                 @if (app()->isLocale('fr'))
-                    {{--<h2 class="title-one">École {{ $subWhatCategory->name }}</h2>--}}
-                    {{--<h1 class="text-center title-shadow"><b>École {{ $subWhatCategory->name }}</b></h1>--}}
                     <h1 class="text-center red-title"><b>École {{ $subWhatCategory->name }}</b></h1>
                 @else
-                    {{--<h2 class="title-one">{{ $subWhatCategory->name }} School</h2>--}}
-                    {{--<h1 class="text-center title-shadow"><b>{{ $subWhatCategory->name }} School</b></h1>--}}
                     <h1 class="text-center red-title"><b>{{ $subWhatCategory->name }} School</b></h1>
                 @endif
                 <div style="padding-top: 30px;"></div>
@@ -410,7 +366,6 @@
             @if(count($initiatives))
                 <div class="row">
                         <div class="col-sm-6 col-sm-offset-3">
-                            {{--<h1 class="text-center title-shadow"><b>@lang('studyzone.activities')</b></h1>--}}
                             <h1 class="text-center red-title"><b>@lang('studyzone.activities')</b></h1>
                         </div>
                     </div>

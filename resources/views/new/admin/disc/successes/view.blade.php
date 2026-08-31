@@ -19,7 +19,6 @@
     <link href="/css/dashboard_new.css" rel="stylesheet">
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
     <link href="/css/micro_page_new.css" rel="stylesheet">
-    {{--<link href="{{asset('css/main-new.css')}}" rel="stylesheet">--}}
     <!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
     <script src="/js/respond.min.js"></script> <![endif]-->
@@ -141,27 +140,6 @@
                 @endif
             </div>
         </div>
-        {{--<div class="card-height position-relative text-center" style="margin-top: 120px;">--}}
-        {{--<img class="quotation" src="/images/home/quotation.svg">--}}
-        {{--<div class="container-fluid">--}}
-        {{--<div class="row">--}}
-        {{--<div class="col d-flex justify-content-center position-relative">--}}
-        {{--<div class="profile">--}}
-        {{--<img src="{{$success->image_path}}">--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="">--}}
-        {{--<div class="name">--}}
-        {{--{{$success->$language->title}}--}}
-        {{--</div>--}}
-        {{--<div class="position">Medical Officer at SSCC</div>--}}
-        {{--<div class="content">--}}
-        {{--{!! $success->$language->text !!}--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
         <div class="container-fluid">
             <div class="row">
                 <div class="col">

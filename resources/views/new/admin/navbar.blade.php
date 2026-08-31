@@ -6,7 +6,6 @@
         <div class="container">
             <a class="navbar-brand" href="https://hcsyria.org/home">
                 {{--<span class="fa fa-cog"--}}
-                {{--aria-hidden="true"></span> Hope Center Dashboard--}}
                 <img class="h-100" href="hcsyria.org" src="/images/ico/Hope center Dashboard Logo 1.svg">
             </a>
             <button class="navbar-toggler" id="my-navbar-toggle" type="button" data-bs-toggle="collapse"
@@ -18,15 +17,8 @@
                 <ul class="navbar-nav me-auto align-items-center">
                     @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher'))
                         <li class="nav-item d-flex align-items-center dropdown">
-                            {{--<div class="dropdown" id="notifications-dropdown">--}}
                             {{--<button type="button" id="notifications-btn" data-bs-toggle="dropdown" aria-haspopup="true"--}}
                             {{--aria-expanded="false">--}}
-                            {{--<i class="fa fa-bell-o"></i>--}}
-                            {{--<span></span>--}}
-                            {{--</button>--}}
-                            {{--<div class="dropdown-menu" aria-labelledby="notifications-btn" id="notifications-body">--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
 
 
                             <div class="dropdown" id="notifications-dropdown">
@@ -59,7 +51,6 @@
                 </span>
                                     <span class="material-symbols-rounded">
                     <img src="/images/ico/light_mode.png" style="height: 20px;">
-                                        {{--<span id="boot-icon" class="bi bi-sun" style="font-size:10rem"></span>--}}
                 </span>
                                 </div>
                             </label>
@@ -97,7 +88,6 @@
             <ul class="dashboard-nav">
                 <li><a href="{{route('home')}}"
                        @if(isset($page)) @if($page == 'home') class="active" @endif @endif>Home</a></li>
-                {{--@if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor') || $user->roles->contains('name', 'Photos Editor')  || $user->roles->contains('name', 'Viewer'))--}}
                 @if($user->permissions->contains('name','Micro Projects') || ($user->roles->contains('name', 'Admin')))
                     <li><a href="{{route('projects_index')}}"
                            @if(isset($page)) @if($page == 'projects') class="active" @endif @endif>Micro Projects</a>
@@ -131,9 +121,6 @@
                            @if(isset($page)) @if($page == 'initiatives-index') class="active" @endif @endif>Initiatives</a>
                     </li>
                 @endif
-                {{--<li><a href="{{route('successes.index')}}"--}}
-                {{--@if(isset($page)) @if($page == 'successes-index') class="active" @endif @endif>Successes</a>--}}
-                {{--</li>--}}
                 @if($user->permissions->contains('name','Newsletter') || ($user->roles->contains('name', 'Admin')))
                     <li><a href="{{route('news.index')}}"
                            @if(isset($page)) @if($page == 'news-index') class="active" @endif @endif>News</a></li>
@@ -142,10 +129,6 @@
                     <li><a href="{{route('roots.index')}}"
                            @if(isset($page)) @if($page == 'roots-index') class="active" @endif @endif>Roots Of Hope</a></li>
                 @endif
-                {{--@endif--}}
-                {{--@if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'French Editor'))--}}
-                {{--<li><a href="{{route('projects_french_index')}}" @if(isset($page)) @if($page == 'french') class="active" @endif @endif>French</a></li>--}}
-                {{--@endif--}}
                 @if($user->roles->contains('name', 'Admin'))
                     <li><a href="{{route('team.index')}}"
                            @if(isset($page)) @if($page == 'team') class="active" @endif @endif>Our Team</a></li>
@@ -171,21 +154,8 @@
     </div>
     {{--<livewire:offline/>--}}
 
-    {{--<div class="toast" id="myToast" data-bs-autohide="false">--}}
-    {{--<div class="toast-header">--}}
-    {{--<strong class="me-auto"><i class="fa fa-bell-o"></i> Dashboard!</strong>--}}
-    {{--<small>just now</small>--}}
-    {{--<button type="button" class="btn-close" data-bs-dismiss="toast"></button>--}}
-    {{--</div>--}}
-    {{--<div class="toast-body">--}}
-    {{--It's been a long time since you visited us. We've something special for you. <a href="#">Click here!</a>--}}
-    {{--</div>--}}
-    {{--</div>--}}
 @endpush
 @push('navbar_scripts')
-    {{--<script>--}}
-    {{--$("#myToast").style.display="none";--}}
-    {{--</script>--}}
     @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher'))
         <script>
             $(document).ready(function () {
@@ -296,14 +266,8 @@
                 });
             }
         </script>
-        {{--<script>--}}
-        {{--var myToast = bootstrap.Toast.getOrCreateInstance($("#myToast")[0]);--}}
-        {{--myToast.toast({--}}
         {{--delay: 5000--}}
-        {{--});--}}
         {{--// Show toast--}}
-        {{--myToast.toast("show");--}}
-        {{--</script>--}}
     @endif
 @endpush
 @push('preloader')

@@ -19,7 +19,6 @@
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
     <link href="/css/initiative.css" rel="stylesheet">
     <link href="/css/lato.css" rel="stylesheet">
-    {{--<link href="/css/main-new.css" rel="stylesheet">--}}
     <!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
     <script src="/js/respond.min.js"></script> <![endif]-->
@@ -163,7 +162,6 @@
                                 @endif
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-12">
-                                        {{--<div class="container-fluid @if(strlen($mainInitiative->english->content)<450 && strlen($mainInitiative->english->content)>120 && count($mainInitiative->donors)<0 || (count($mainInitiative->donors)>0) && strlen($mainInitiative->english->content)<450) ini-height @endif">--}}
 
                                         <div class="row mb-3">
                                             <div class="col-12 d-flex justify-content-start">
@@ -200,14 +198,12 @@
                                 </div>
                                 @if(count($imagesRehabilitation))
                                     <div id="rehabilitation-section">
-                                        {{--<div class="page-margin">--}}
                                         <div class="container">
                                             <div class="row" data-aos="fade-up" data-aos-duration="600">
                                                 <div class="col-12">
                                                     <div class="title">The Result of Reconstruction</div>
                                                 </div>
                                             </div>
-                                            {{--<div class="horizontal-line" data-aos="fade-up" data-aos-duration="600"></div>--}}
                                             @foreach($imagesRehabilitation as $image)
                                                 <div class="row d-flex justify-content-center" data-aos="fade-up"
                                                      data-aos-duration="600">
@@ -218,22 +214,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{--<div class="horizontal-line" data-aos="fade-up" data-aos-duration="600"></div>--}}
                                             @endforeach
                                         </div>
-                                        {{--<div>--}}
-                                        {{--@foreach($imagesRehabilitation as $image)--}}
-                                        {{--<section class="comparisonSection">--}}
-                                        {{--<div class="comparisonImage beforeImage">--}}
-                                        {{--<img src="{{$image->path_1}}" alt="before">--}}
-                                        {{--</div>--}}
-                                        {{--<div class="comparisonImage afterImage">--}}
-                                        {{--<img src="{{$image->path_2}}" alt="after">--}}
-                                        {{--</div>--}}
-                                        {{--</section>--}}
-                                        {{--@endforeach--}}
-                                        {{--</div>--}}
-                                        {{--</div>--}}
                                     </div>
                                 @endif
                             </div>

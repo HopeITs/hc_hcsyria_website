@@ -28,15 +28,6 @@ return [
 
     'view_path' => resource_path('views/livewire'),
 
-    /*
-    |---------------------------------------------------------------------------
-    | Layout
-    |---------------------------------------------------------------------------
-    | The view that will be used as the layout when rendering a single component
-    | as an entire page via `Route::get('/post/create', CreatePost::class);`.
-    | In this case, the view returned by CreatePost will render into $slot.
-    |
-    */
 
     'layout' => 'components.layouts.app',
 
@@ -102,16 +93,6 @@ return [
 
     'legacy_model_binding' => false,
 
-    /*
-    |---------------------------------------------------------------------------
-    | Auto-inject Frontend Assets
-    |---------------------------------------------------------------------------
-    |
-    | By default, Livewire automatically injects its JavaScript and CSS into the
-    | <head> and <body> of pages containing Livewire components. By disabling
-    | this behavior, you need to use @livewireStyles and @livewireScripts.
-    |
-    */
 
     'inject_assets' => true,
 

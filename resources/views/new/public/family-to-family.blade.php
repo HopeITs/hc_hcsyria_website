@@ -26,7 +26,6 @@
 
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
-    {{--<link rel="shortcut icon" href="/public/fonts/Avenir%20LT%20Std%2045%20Book.otf">--}}
     <link rel='stylesheet' href='https://unpkg.com/leaflet@1.8.0/dist/leaflet.css' crossorigin=''/>
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -51,18 +50,11 @@
     <script type="text/javascript" src="/js/main.js"></script>
     <script type="text/javascript" src="/js/wow.min.js"></script>
     <script type="text/javascript" src="/js/swipe.index.js"></script>
-    {{--<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>--}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    {{--<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes@0.4.0/dist/chartjs-plugin-colorschemes.js"></script>--}}
     <link rel="stylesheet" href="/css/animate.min.css"
           integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    {{--<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>--}}
     <script src="/css/chartjs-plugin-datalabels@2.0.0"></script>
-    {{--<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>--}}
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>--}}
-    {{--<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>--}}
-    {{--<script src="https://unpkg.com/chart.js-plugin-labels-dv/dist/chartjs-plugin-labels.min.js"></script>--}}
 
 </head>
 <body>
@@ -266,7 +258,6 @@
         <div class="horizontal-line" data-aos="fade-up"
              data-aos-duration="800"></div>
     </div>
-    {{--@endif--}}
     <div id="statistic-section" class="small-margin section-space" data-aos="fade-up" data-aos-duration="600">
         <div class="container-fluid">
             <div class="row">
@@ -315,135 +306,38 @@
                     </div>
                 </div>
             </div>
-            {{--<div class="container-fluid">--}}
-            {{--<div class="row">--}}
-            {{--<div class="col-12 d-flex justify-content-center flex-column align-items-center">--}}
-            {{--<div class="section-title">Statistics</div>--}}
-            {{--<div class="row d-flex justify-content-center text-center">--}}
-            {{--<div class="col">--}}
-            {{--                            @if($agent->isPhone())--}}
-            {{--<div class="d-lg-none d-md-none d-sm-none d-block">--}}
-            {{--<div class="section-title-desc">--}}
-            {{--<div data-aos="fade-up" data-aos-duration="300">Throughout 2021, Hope Center--}}
             {{--conducted an assessment--}}
-            {{--</div>--}}
-            {{--<div data-aos="fade-up" data-aos-duration="600">for--}}
             {{--almost 7,253 families, this helped assessing the--}}
             {{--families--}}
-            {{--</div>--}}
-            {{--<div data-aos="fade-up" data-aos-duration="900">and--}}
             {{--conclude statistics about current situations--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--@else--}}
-            {{--<div class="d-lg-block d-md-block d-sm-block d-none">--}}
-            {{--<div class="section-title-desc">--}}
-            {{--<div data-aos="fade-up" data-aos-duration="300">Throughout 2022, Hope Center--}}
             {{--conducted an assessment for--}}
-            {{--almost 7,789 families,--}}
-            {{--</div>--}}
-            {{--<div data-aos="fade-up" data-aos-duration="600">this helped assessing the--}}
             {{--families and--}}
             {{--conclude statistics--}}
-            {{--</div>--}}
-            {{--<div data-aos="fade-up" data-aos-duration="900">about current situations--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--@endif--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="horizontal-line"></div>--}}
-            {{--<div class="row">--}}
-            {{--<div class="col-6 d-flex justify-content-start"></div>--}}
             {{--<div class="col-6 d-flex justify-content-start flex-column lh-sm"--}}
             {{--style="padding-left: 3vw;">--}}
-            {{--<div class="statistics-num count_int" data-aos="fade-up">--}}
-            {{--{{$personCount}}--}}
             {{--23510--}}
-            {{--</div>--}}
             {{--<div class="statistics-title text-capitalize" data-aos="fade-up"--}}
             {{--data-aos-duration="800">individuals--}}
-            {{--</div>--}}
-            {{--<div class="row d-flex justify-content-start mt-3">--}}
-            {{--<canvas id="personChart"></canvas>--}}
             {{--<div class="d-flex align-items-center" data-aos="fade-up"--}}
             {{--data-aos-duration="800">--}}
-            {{--<div class="statistics-num-detail count_int">{{$statistics[0]->Illness}}</div>--}}
-            {{--<div class="statistics-num-detail count_int">4655</div>--}}
-            {{--<span>Elderlies aged 65 or above</span>--}}
-            {{--</div>--}}
             {{--<div class="d-flex align-items-center" data-aos="fade-up"--}}
             {{--data-aos-duration="800">--}}
-            {{--<div class="statistics-num-detail count_int">{{$statistics[0]->Students}} </div>--}}
-            {{--<div class="statistics-num-detail count_int">313</div>--}}
-            {{--<span>Children aged 3 or under</span>--}}
-            {{--</div>--}}
             {{--<div class="d-flex align-items-center" data-aos="fade-up"--}}
             {{--data-aos-duration="800">--}}
-            {{--<div class="statistics-num-detail count_int">{{$statistics[0]->Household}} </div>--}}
-            {{--<span> Househeld Women</span>--}}
-            {{--<div class="statistics-num-detail count_int">34.15%</div>--}}
-            {{--<span>Unemployed members<br> (between 25 and 50 years old)</span>--}}
-            {{--</div>--}}
             {{--<div class="d-flex align-items-center" data-aos="fade-up"--}}
             {{--data-aos-duration="800">--}}
-            {{--<div class="statistics-num-detail count_int">{{$statistics[0]->Elderlies}} </div>--}}
-            {{--<span> Elderlies</span>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="container-fluid">--}}
-            {{--<div class="row">--}}
-            {{--<div class="col-6 d-flex justify-content-end text-end flex-column lh-sm first-statistics-col">--}}
             {{--<div class="statistics-num count_int" data-aos="fade-up"--}}
             {{--data-aos-duration="600">7789--}}
-            {{--{{$familyCount}}--}}
-            {{--</div>--}}
             {{--<div class="statistics-title text-capitalize" data-aos="fade-up"--}}
             {{--data-aos-duration="800">families--}}
-            {{--</div>--}}
-            {{--<div class="row d-flex justify-content-end mt-3">--}}
-            {{--<canvas id="familyChart"></canvas>--}}
             {{--<div class="d-flex align-items-center justify-content-end" data-aos="fade-up"--}}
             {{--data-aos-duration="800">--}}
-            {{--<span> IDP's</span>--}}
-            {{--<span>Lack Access to Electricity</span>--}}
-            {{--<div class="statistics-num-detail count_int">2615--}}
-            {{--{{$statistics[0]->IDPs}}--}}
-            {{--</div>--}}
-            {{--</div>--}}
             {{--<div class="d-flex align-items-center justify-content-end" data-aos="fade-up"--}}
             {{--data-aos-duration="800">--}}
-            {{--<span> Rented House</span>--}}
-            {{--<span>Selling Household Appliances</span>--}}
-            {{--<div class="statistics-num-detail count_int">1198--}}
-            {{--{{$statistics[0]->Rented_House}}--}}
-            {{--</div>--}}
-            {{--</div>--}}
             {{--<div class="d-flex align-items-center justify-content-end" data-aos="fade-up"--}}
             {{--data-aos-duration="800">--}}
-            {{--<span> Unsafe Living Condition</span>--}}
-            {{--<span>Women Headed Households</span>--}}
-            {{--<div class="statistics-num-detail count_int">3312--}}
-            {{--{{$statistics[0]->Unsafe}} --}}
-            {{--</div>--}}
-            {{--</div>--}}
             {{--<div class="d-flex align-items-center justify-content-end" data-aos="fade-up"--}}
             {{--data-aos-duration="800">--}}
-            {{--<span> War Losses</span>--}}
-            {{--<div class="statistics-num-detail count_int">{{$statistics[0]->War_losses}} </div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="col-6 d-flex justify-content-start"></div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
         </div>
     </div>
     <div data-aos="fade-up" data-aos-duration="800">
@@ -527,7 +421,6 @@
                             </button>
                         </div>
                         <div class="carousel-indicators justify-content-center">
-                            {{--<div class="indicators">--}}
                             <?php $k = 0 ?>
                             @foreach($partners as $partner)
                                 <button id="animatedCarousel1Dots_{{$partner->id}}" type="button"
@@ -536,7 +429,6 @@
                                         @if($k == 1) class="active" @endif>
                                 </button>
                             @endforeach
-                            {{--</div>--}}
                         </div>
 
                     </div>
@@ -567,7 +459,6 @@
                             </button>
                         </div>
                         <div class="carousel-indicators justify-content-center">
-                            {{--<div class="indicators">--}}
                             <?php $k = 0 ?>
                             @foreach($partners as $partner)
                                 <button id="animatedCarousel2Dots_{{$partner->id}}" type="button"
@@ -577,7 +468,6 @@
                                         @if($k == 1) class="active" @endif>
                                 </button>
                             @endforeach
-                            {{--</div>--}}
                         </div>
                     </div>
                 </div>
@@ -612,242 +502,40 @@
 </div>
 
 
-{{--<script>--}}
-{{--$(window).scroll(familychartScroll);--}}
-{{--var familyview = false;--}}
-
-{{--function isScrolledIntoViewFamilyChart(elem) {--}}
-{{--var documentViewTopfamily = $(window).scrollTop();--}}
-{{--var documentViewBottomfamily = documentViewTopfamily + $(window).height();--}}
-
-{{--var elementTopfamily = $(elem).offset().top;--}}
-{{--var elementBottomfamily = elementTopfamily + $(elem).height();--}}
-
-{{--return ((elementBottomfamily <= documentViewBottomfamily) && (elementTopfamily >= documentViewTopfamily));--}}
-{{--}--}}
-
-{{--function familychartScroll() {--}}
-{{--Chart.register(ChartDataLabels);--}}
-{{--if (isScrolledIntoViewFamilyChart($("#familyChart")) && !familyview) {--}}
-{{--familyview = true;--}}
-{{--start_family_count();--}}
-{{--}--}}
-{{--}--}}
-
-{{--function start_family_count() {--}}
-{{--const familychart = document.getElementById('familyChart');--}}
 
 
-{{--const familylabels = ["IDP's", 'War Losses', 'Rented House', 'Unsafety'];--}}
-{{--const familydata = {--}}
-{{--labels: familylabels,--}}
-{{--datasets: [--}}
-{{--{--}}
+
+
+
+
+
 {{--data:--}}
-{{--[{x: "IDP's", y: "{{$statistics[0]->IDPs}}"},--}}
-{{--null,--}}
-{{--{x: "Rented House", y: "{{$statistics[0]->Rented_House}}"},--}}
-{{--null,--}}
-{{--{x: "War Losses", y: "{{$statistics[0]->Rented_House}"},--}}
-{{--null,--}}
-{{--{x: "Unsafe Living Condition", y: "{{$statistics[0]->Unsafe}}"},--}}
-{{--null],--}}
 {{--data:--}}
-{{--[--}}
-{{--{x: "Unsafe Living Condition", y: "{{$statistics[0]->Unsafe}}"},--}}
-{{--{x: "War Losses", y: "{{$statistics[0]->War_losses}}"},--}}
-{{--{x: "Rented House", y: "{{$statistics[0]->Rented_House}}"},--}}
-{{--{x: "IDP's", y: "{{$statistics[0]->IDPs}}"}--}}
-{{--],--}}
 {{--data:--}}
-{{--[--}}
-{{--{{$statistics[0]->IDPs}},--}}
-{{--{{$statistics[0]->War_losses}},--}}
-{{--{{$statistics[0]->Rented_House}},--}}
-{{--{{$statistics[0]->Unsafe}},--}}
-{{--],--}}
 {{--backgroundColor: ["#6d6e71", "#BC1818", "#939598", "#414042"]--}}
-{{--// fill: false,--}}
-{{--}--}}
-{{--]--}}
-{{--};--}}
-{{--new Chart(familychart, {--}}
-{{--type: 'pie',--}}
-{{--data: familydata,--}}
-{{--plugins: [ChartDataLabels],--}}
-{{--options: {--}}
-{{--plugins: {--}}
-{{--legend: {--}}
 {{--display: false--}}
-{{--},--}}
-{{--title: {--}}
 {{--display: false--}}
-{{--},--}}
-{{--// labels: {--}}
-{{--//     // render: 'value',--}}
-{{--//     fontColor: ['white', 'white', 'white','white'],--}}
-{{--// },--}}
-{{--datalabels: {--}}
-{{--useHTML: true,--}}
-{{--enabled: true,--}}
-{{--color: '#ffffff',--}}
-{{--textAnchor: 'end',--}}
-{{--formatter: ((context, args) => {--}}
-{{--const index = args.dataIndex;--}}
-{{--return args.chart.data.labels[index] + '\n' + context;--}}
-{{--}),--}}
-{{--font: {--}}
-{{--weight: 'bold',--}}
-{{--size: 13,--}}
-{{--}--}}
-{{--}--}}
-{{--// colorschemes: {--}}
 {{--//     scheme: 'office.NewsPrint6'--}}
-{{--// },--}}
-{{--},--}}
 
-{{--// maintainAspectRatio: true,--}}
-{{--// spanGaps: true,--}}
-{{--// responsive: true,--}}
 
-{{--// scales: {--}}
-{{--//     y: {--}}
-{{--//         min: 100,--}}
-{{--//         max: 9000,--}}
-{{--//         ticks: {--}}
 {{--//             // forces step size to be 500 units--}}
 {{--//             stepSize: 50--}}
-{{--//         }--}}
-{{--//     }--}}
-{{--// },--}}
-{{--animations: {--}}
-{{--tension: {--}}
-{{--duration: 1000,--}}
-{{--easing: 'linear',--}}
-{{--from: 1,--}}
-{{--to: 0,--}}
 {{--loop: false--}}
-{{--}--}}
-{{--}--}}
-{{--},--}}
-{{--});--}}
-{{--}--}}
-{{--</script>--}}
-{{--<script>--}}
-{{--$(window).scroll(personchartScroll);--}}
-{{--var personview = false;--}}
-{{--Chart.register(ChartDataLabels);--}}
 
-{{--function isScrolledIntoViewPersonChart(elem) {--}}
-{{--var documentViewTopperson = $(window).scrollTop();--}}
-{{--var documentViewBottomperson = documentViewTopperson + $(window).height();--}}
 
-{{--var elementTopPerson = $(elem).offset().top;--}}
-{{--var elementBottomPerson = elementTopPerson + $(elem).height();--}}
 
-{{--return ((elementBottomPerson <= documentViewBottomperson) && (elementTopPerson >= documentViewTopperson));--}}
-{{--}--}}
 
-{{--function personchartScroll() {--}}
-{{--if (isScrolledIntoViewPersonChart($("#personChart")) && !personview) {--}}
-{{--personview = true;--}}
-{{--start_person_count();--}}
-{{--}--}}
-{{--}--}}
 
-{{--function start_person_count() {--}}
-{{--const personchart = document.getElementById('personChart');--}}
-{{--const personlabels = ['Individuals','Illness', 'Students', 'Women', 'Elderlies'];--}}
-{{--const persondata = {--}}
-{{--labels: personlabels,--}}
-{{--datasets: [--}}
-{{--{--}}
 {{--data:--}}
-{{--[--}}
-{{--{x: "Illness", y: "{{$statistics[0]->Illness}}"},--}}
-{{--{x: "Students", y: "{{$statistics[0]->Students}}"},--}}
-{{--{x: "Household Headed Women", y: "{{$statistics[0]->Household}}"},--}}
-{{--{x: "Elderlies", y: "{{$statistics[0]->Elderlies}}"}--}}
-{{--],--}}
-{{--fill: false,--}}
 {{--data:--}}
-{{--[--}}
-{{--{label : 'Illness' , value: {{$statistics[0]->Illness}}},--}}
-{{--{label : 'Students' , value: {{$statistics[0]->Students}}},--}}
-{{--{label : 'Household' , value: {{$statistics[0]->Household}}},--}}
-{{--{label : 'Elderlies' , value: {{$statistics[0]->Elderlies}}},--}}
-{{--{{$personCount}},--}}
-{{--{{$statistics[0]->Illness}},--}}
-{{--{{$statistics[0]->Students}},--}}
-{{--2000,--}}
-{{--{{$statistics[0]->Household}},--}}
-{{--{{$statistics[0]->Elderlies}},--}}
-{{--],--}}
 {{--backgroundColor: ["#6d6e71", "#BC1818", "#939598", "#414042"]--}}
-{{--},--}}
-{{--]--}}
-{{--};--}}
-{{--new Chart(personchart, {--}}
-{{--type: 'pie',--}}
-{{--data: persondata,--}}
-{{--plugins: [ChartDataLabels],--}}
-{{--options: {--}}
-{{--// plugins: [CharDataLabels],--}}
-{{--// maintainAspectRatio: true,--}}
-{{--// spanGaps: true,--}}
-{{--// responsive: true,--}}
-{{--plugins: {--}}
-{{--legend: {--}}
 {{--display: false--}}
-{{--},--}}
-{{--title: {--}}
 {{--display: false--}}
-{{--},--}}
-{{--// labels: {--}}
-{{--//     render: 'value',--}}
 {{--//     fontColor: ['green', 'white', 'red']--}}
-{{--// },--}}
-{{--datalabels: {--}}
-{{--useHTML: true,--}}
-{{--enabled: true,--}}
-{{--color: '#ffffff',--}}
-{{--textAnchor: 'end',--}}
-{{--formatter: ((context, args) => {--}}
-{{--const index = args.dataIndex;--}}
-{{--return args.chart.data.labels[index] + '\n' + context;--}}
-{{--}),--}}
-{{--font: {--}}
-{{--weight: 'bold',--}}
-{{--size: 13,--}}
-{{--}--}}
-{{--}--}}
-{{--// colorschemes: {--}}
 {{--//     scheme: 'office.NewsPrint6'--}}
-{{--// }--}}
-{{--},--}}
-{{--// scales: {--}}
-{{--//     y: {--}}
-{{--//         min: 100,--}}
-{{--//         max: 9000,--}}
-{{--//         ticks: {--}}
 {{--//             // forces step size to be 500 units--}}
 {{--//             stepSize: 50--}}
-{{--//         }--}}
-{{--//     }--}}
-{{--// },--}}
-{{--animations: {--}}
-{{--tension: {--}}
-{{--duration: 1000,--}}
-{{--easing: 'linear',--}}
-{{--from: 1,--}}
-{{--to: 0,--}}
 {{--loop: false--}}
-{{--}--}}
-{{--}--}}
-{{--},--}}
-{{--});--}}
-{{--}--}}
-{{--</script>--}}
 
 <script>
     $(window).scroll(testScroll);
@@ -916,87 +604,16 @@
         element.click();
     }
 </script>
-{{--<script>--}}
-{{--function openVideo($id){--}}
-{{--// var video = document.getElementById('modal-video-'+$id);--}}
-{{--$('#modal-video-'+$id).modal('show');--}}
-{{--}--}}
-{{--</script>--}}
-{{--<script>--}}
-{{--$(".nav").on("click", function(){--}}
-{{--$(".nav li a").find(".active").removeClass("active");--}}
-{{--$(this).parent().addClass("active");--}}
-{{--});--}}
-{{--</script>--}}
 @include('new.public.footer')
 
-{{--<script>--}}
-{{--window.onload = function () {--}}
-{{--setInterval(function () {--}}
-{{--document.getElementById('preloader').style.display = 'block';--}}
-{{--document.getElementById('Family').style.display = 'none';--}}
-{{--}, 2000);--}}
-{{--};--}}
-{{--</script>--}}
-{{--<script>--}}
-{{--$('.count_int').each(function () {--}}
-{{--$(this).prop('Counter', 0).animate({--}}
 {{--Counter: $(this).text()--}}
-{{--}, {--}}
-{{--duration: 2000,--}}
-{{--easing: 'swing',--}}
-{{--step: function (now) {--}}
-{{--$(this).text(Math.ceil(this.Counter));--}}
-{{--}--}}
-{{--});--}}
-{{--});--}}
-{{--</script>--}}
-{{--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>--}}
-{{--<script>--}}
-{{--$(window).scroll(testScroll);--}}
-{{--var viewed = false;--}}
 
-{{--function isScrolledIntoView(elem) {--}}
-{{--var docViewTop = $(window).scrollTop();--}}
-{{--var docViewBottom = docViewTop + $(window).height();--}}
 
-{{--var elemTop = $(elem).offset().top;--}}
-{{--var elemBottom = elemTop + $(elem).height();--}}
 
-{{--return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));--}}
-{{--}--}}
 
-{{--function testScroll() {--}}
-{{--if (isScrolledIntoView($(".count_int")) && !viewed) {--}}
-{{--viewed = true;--}}
-{{--$('.count_int').each(function () {--}}
-{{--$(this).prop('Counter', 0).animate({--}}
 {{--Counter: $(this).text()--}}
-{{--}, {--}}
-{{--duration: 4000,--}}
-{{--easing: 'swing',--}}
-{{--step: function (now) {--}}
-{{--$(this).text(Math.ceil(now));--}}
-{{--}--}}
-{{--});--}}
-{{--});--}}
-{{--}--}}
-{{--}--}}
-{{--</script>--}}
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-{{--<script>--}}
-{{--$('.count_int').each(function () {--}}
-{{--$(this).prop('Counter', 0).animate({--}}
 {{--Counter: $(this).text()--}}
-{{--}, {--}}
-{{--duration: 2000,--}}
-{{--easing: 'swing',--}}
-{{--step: function (now) {--}}
-{{--$(this).text(Math.ceil(this.Counter));--}}
-{{--}--}}
-{{--});--}}
-{{--});--}}
-{{--</script>--}}
 <script>
     let FMap, markersFamily = [];
     let iconDefault = L.icon({

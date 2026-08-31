@@ -30,9 +30,7 @@
     <link href="{{asset('css/navbar.css')}}" rel="stylesheet">
     <link href="{{asset('css/tabs.css')}}" rel="stylesheet">
     <link href="/css/font-awesome.min.css" rel="stylesheet">
-    {{--<link href="/resources/css/main.css" rel="stylesheet">--}}
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
-    {{--<link rel="shortcut icon" href="/fonts/Avenir%20LT%20Std%2045%20Book.otf">--}}
     <link href="{{asset('css/font-lato.css')}}" rel='stylesheet' type='text/css'>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/typeahead.css" rel="stylesheet">
@@ -48,7 +46,6 @@
     <script type="text/javascript" src="/js/jquery.prettyPhoto.js"></script>
     <script type="text/javascript" src="/js/jquery.balloon.min.js"></script>
     <script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
-    {{--<script type="text/javascript" src="/js/fancybox.config.js"></script>--}}
     <script type="text/javascript" src="/js/typeahead.bundle.min.js"></script>
     <script src='/js/leaflet.js' crossorigin=''></script>
     <script type="text/javascript" src="/js/main.js"></script>
@@ -83,11 +80,6 @@
             <div class="row d-flex ">
                 <div class="col d-flex justify-content-end flex-column pe-0">
                     <div class="first-column">
-                        {{--<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 852.74 130.22">--}}
-                        {{--<defs>--}}
-                        {{--<style>.cls-1{fill:#bd1818}</style>--}}
-                        {{--</defs>--}}
-                        {{--<g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" fill=#bd1818" stroke="#bd1818" d="M852.67,130.22h-7V.09c-3.72,0-10.09,0-15.94.07H0V0L7,2,7,18.16H829.7s4.83,0,9.7-.06c2.44,0,4.88,0,6.72,0,3.91,0,6.62,0,6.62,3.14l-.07,1.88Z"/></g></g></svg>--}}
                     </div>
                     <div class="content">
                         <div class="main_title" data-aos="fade-up"
@@ -130,7 +122,6 @@
                         <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
                         <div class="text-uppercase">aleppo</div>
                     </div>
-                    {{--<div class="statis-city text-uppercase">aleppo</div>--}}
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-12 d-flex justify-content-center align-items-center flex-column">
                     <div class="w-100 text-center total">
@@ -146,7 +137,6 @@
                         <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
                         <div class="text-uppercase">homs</div>
                     </div>
-                    {{--<div class="statis-city text-uppercase">homs</div>--}}
                 </div>
             </div>
             <div class="row d-flex justify-content-center statistics-container">
@@ -163,7 +153,6 @@
                         <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
                         <div class="text-uppercase">damascus</div>
                     </div>
-                    {{--<div class="statis-city text-uppercase">damascus</div>--}}
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-12 p-0 d-flex justify-content-center align-items-center text-center">
                     <div class="chartContainer">
@@ -180,7 +169,6 @@
                         <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
                         <div class="text-uppercase">Al Wadi</div>
                     </div>
-                    {{--<div class="statis-city text-uppercase">aleppo</div>--}}
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-12 d-flex justify-content-center align-items-center flex-column">
                         <div class="w-75 text-center">
@@ -195,56 +183,25 @@
                         <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
                         <div class="text-uppercase">latakia</div>
                     </div>
-                    {{--<div class="statis-city text-uppercase">homs</div>--}}
                 </div>
             </div>
                 </div>
             </div>
         </div>
 
-        {{--<div class="row">--}}
-        {{--<div class="col-6 d-flex justify-content-start"></div>--}}
         {{--<div class="col-6 d-flex justify-content-start flex-column lh-sm"--}}
         {{--style="padding-left: 3vw;">--}}
         {{--<div class="statistics-num count_int" data-aos="fade-up"--}}
-        {{--data-aos-duration="600">{{$aleppoCount}}</div>--}}
         {{--<div class="statistics-title text-capitalize" data-aos="fade-up"--}}
-        {{--data-aos-duration="800">@lang('projects.aleppo')</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
         {{--<div class="col-6 d-flex justify-content-end text-end flex-column lh-sm"--}}
         {{--style="padding-right: 3vw;">--}}
-        {{--<div class="row">--}}
         {{--<div class="statistics-num count_int" data-aos="fade-up"--}}
-        {{--data-aos-duration="600">{{$homsCount}}</div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
         {{--<div class="statistics-title text-capitalize" data-aos="fade-up"--}}
-        {{--data-aos-duration="800">@lang('projects.homs')</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="col-6 d-flex justify-content-start"></div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
-        {{--<div class="col-6 d-flex justify-content-start"></div>--}}
         {{--<div class="col-6 d-flex justify-content-start flex-column lh-sm"--}}
         {{--style="padding-left: 3vw;">--}}
-        {{--<div class="row">--}}
         {{--<div class="statistics-num count_int" data-aos="fade-up"--}}
-        {{--data-aos-duration="600">{{$damascusCount}}</div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
         {{--<div class="statistics-title text-capitalize" data-aos="fade-up"--}}
-        {{--data-aos-duration="800">@lang('projects.damascus')</div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
-        {{--<div class="statistics-subtitle" data-aos="fade-up" data-aos-duration="1000">dummy text do not--}}
         {{--read--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
     </div>
     <div id="statistic-section" class="d-lg-none d-md-none d-sm-none d-block section-space" data-aos="fade-up"
          data-aos-duration="800">
@@ -256,141 +213,12 @@
             </div>
             {{--<div class="row d-flex justify-content-center statistics-container" data-aos="fade-up"--}}
                  {{--data-aos-duration="600">--}}
-                {{--<div class="col-6 p-0 position-relative">--}}
-                    {{--<img class="w-100 h-100" src="/images/home/Micro/s1.jpg">--}}
-                    {{--<div class="overlay">--}}
-                        {{--<div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$aleppoCount}}</div>--}}
-                        {{--<div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>--}}
-                        {{--<div class="text-uppercase">aleppo</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="statis-city text-uppercase">aleppo</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-6 d-flex justify-content-center align-items-center flex-column">--}}
-                    {{--<div class="category-title" style="text-align: left">Top 5 Project Categories</div>--}}
-                    {{--<div class="chartContainer">--}}
-                        {{--<canvas id="barChartsm"></canvas>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
             {{--<div class="row d-flex justify-content-center statistics-container" data-aos="fade-up"--}}
                  {{--data-aos-duration="800">--}}
-                {{--<div class="col-6 p-0 d-flex justify-content-center align-items-center text-center">--}}
-                    {{--<div class="w-50">--}}
-                        {{--<div class="statistics-num-edited">{{$sustainableRate[0]->number}}%</div>--}}
-                        {{--<div>Sustainable Projects Rate</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-6 p-0 position-relative">--}}
-                    {{--<img class="w-100 h-100" src="/images/home/Micro/s2.jpg">--}}
-                    {{--<div class="overlay">--}}
-                        {{--<div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$homsCount}}</div>--}}
-                        {{--<div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>--}}
-                        {{--<div class="text-uppercase">homs</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="statis-city text-uppercase">homs</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
             {{--<div class="row d-flex justify-content-center statistics-container" data-aos="fade-up"--}}
                  {{--data-aos-duration="1000">--}}
-                {{--<div class="col-6 p-0 position-relative">--}}
-                    {{--<img class="w-100 h-100" src="/images/home/Micro/s3.jpg">--}}
-                    {{--<div class="overlay">--}}
-                        {{--<div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$damascusCount}}</div>--}}
-                        {{--<div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>--}}
-                        {{--<div class="text-uppercase">damascus</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="statis-city text-uppercase">damascus</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-6 p-0 d-flex justify-content-center align-items-center text-center">--}}
-                    {{--<div class="w-50">--}}
-                        {{--<div class="statistics-num-edited">{{$familyMembersCount}}+</div>--}}
-                        {{--<div>Total number of indirect Beneficiaries--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
 
 
-            {{--<div class="row d-flex justify-content-center statistics-container">--}}
-            {{--<div class="col-6 d-flex justify-content-center align-items-center flex-column">--}}
-                {{--<div class="w-100 text-center total">--}}
-                    {{--<div class="statistics-num-edited">{{ number_format($allCount, 0) }}</div>--}}
-                    {{--<div>Total Projects in <b>Syria</b>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="row d-flex justify-content-center statistics-container">--}}
-                {{--<div class="col-6 p-0 position-relative">--}}
-                    {{--<img class="w-100 h-100" src="/images/home/Micro/s1.jpg">--}}
-                    {{--<div class="overlay">--}}
-                        {{--<div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$aleppoCount}}</div>--}}
-                        {{--<div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>--}}
-                        {{--<div class="text-uppercase">aleppo</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="statis-city text-uppercase">aleppo</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-6 p-0 d-flex justify-content-center align-items-center text-center">--}}
-                    {{--<div class="chartContainer">--}}
-                        {{--<div class="category-title" style="text-align: left">Top 5 Project Categories</div>--}}
-                        {{--<canvas id="barChartsm"></canvas>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="row d-flex justify-content-center statistics-container">--}}
-                {{--<div class="col-6 d-flex justify-content-center align-items-center flex-column">--}}
-                    {{--<div class="w-75 text-center">--}}
-                        {{--<div class="statistics-num-edited">{{$sustainableRate[0]->number}}%</div>--}}
-                        {{--<div>Sustainable Projects Rate</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-6 p-0 position-relative">--}}
-                    {{--<img class="w-100 h-100" src="/images/home/Micro/s3.jpg">--}}
-                    {{--<div class="overlay">--}}
-                        {{--<div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$damascusCount}}</div>--}}
-                        {{--<div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>--}}
-                        {{--<div class="text-uppercase">damascus</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="statis-city text-uppercase">damascus</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="row d-flex justify-content-center statistics-container">--}}
-                {{--<div class="col-6 p-0 position-relative">--}}
-                    {{--<img class="w-100 h-100" src="/images/home/Micro/s5.jpg">--}}
-                    {{--<div class="overlay">--}}
-                        {{--<div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$latakiaCount}}</div>--}}
-                        {{--<div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>--}}
-                        {{--<div class="text-uppercase">latakia</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="statis-city text-uppercase">homs</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-6 p-0 d-flex justify-content-center align-items-center text-center">--}}
-                    {{--<div class="chartContainer">--}}
-                        {{--<div class="category-title" style="text-align: left">Beneficiaries' Age Classification</div>--}}
-                        {{--<canvas id="barageChartsm"></canvas>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="row d-flex justify-content-center statistics-container">--}}
-                {{--<div class="col-6 p-0 position-relative">--}}
-                    {{--<img class="w-100 h-100" src="/images/home/Micro/s4.jpg">--}}
-                    {{--<div class="overlay">--}}
-                        {{--<div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$wadiCount}}</div>--}}
-                        {{--<div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>--}}
-                        {{--<div class="text-uppercase">Al Wadi</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="statis-city text-uppercase">aleppo</div>--}}
-                {{--</div>--}}
-                {{--<div class="col-6 p-0 position-relative">--}}
-                    {{--<img class="w-100 h-100" src="/images/home/Micro/s2.jpg">--}}
-                    {{--<div class="overlay">--}}
-                        {{--<div class="number" data-aos="zoom-in" data-aos-duration="1000">{{$homsCount}}</div>--}}
-                        {{--<div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>--}}
-                        {{--<div class="text-uppercase">homs</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="statis-city text-uppercase">homs</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
 
             <div class="row d-flex justify-content-center statistics-container">
                 <div class="col-lg-4 col-md-4 col-sm-4 col-4 p-0 position-relative">
@@ -400,7 +228,6 @@
                         <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
                         <div class="text-uppercase">aleppo</div>
                     </div>
-                    {{--<div class="statis-city text-uppercase">aleppo</div>--}}
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-4 d-flex justify-content-center align-items-center flex-column">
                     <div class="w-100 text-center total">
@@ -416,7 +243,6 @@
                         <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
                         <div class="text-uppercase">homs</div>
                     </div>
-                    {{--<div class="statis-city text-uppercase">homs</div>--}}
                 </div>
             </div>
             <div class="row d-flex justify-content-center statistics-container">
@@ -433,7 +259,6 @@
                         <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
                         <div class="text-uppercase">damascus</div>
                     </div>
-                    {{--<div class="statis-city text-uppercase">damascus</div>--}}
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-4 p-0 d-flex justify-content-center align-items-center text-center">
                     <div class="chartContainer">
@@ -450,7 +275,6 @@
                         <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
                         <div class="text-uppercase">Al Wadi</div>
                     </div>
-                    {{--<div class="statis-city text-uppercase">aleppo</div>--}}
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-4 d-flex justify-content-center align-items-center flex-column">
                     <div class="w-75 text-center">
@@ -465,29 +289,14 @@
                         <div class="text-capitalize" data-aos="zoom-in" data-aos-duration="1000">projects</div>
                         <div class="text-uppercase">latakia</div>
                     </div>
-                    {{--<div class="statis-city text-uppercase">homs</div>--}}
                 </div>
             </div>
 
 
-            {{--<div class="col-lg-6 col-md-6 col-sm-4 col-12 d-flex justify-content-center align-items-center position-relative">--}}
-            {{--<div id="citiesMap">--}}
             {{--<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg"--}}
             {{--viewBox="0 0 680.69 590.49">--}}
-            {{--<defs>--}}
-            {{--<style>--}}
-            {{--.cls-1 {--}}
-            {{--fill: #ccc;--}}
-            {{--stroke: #fff;--}}
-            {{--stroke-width: .5px;--}}
-            {{--}--}}
-            {{--</style>--}}
-            {{--</defs>--}}
-            {{--<g id="Layer_1-2" data-name="Layer 1">--}}
-            {{--<g>--}}
             {{--<path class="cls-1"--}}
             {{--d="M21.92,162.97s9-5.19,1.63-17.33c-7.37-12.14-14.04-24.42-16.9-26.22s7.59-6.5,7.59-6.5l2.07-3.55,2.05-1.22s1.45-4.06,3.07-5.15,5.82-2,5.82-2l4.77-6.72s5.88-2.1,6.62-2.75,5.3-3.13,7.2-3.9,3.27-2.61,2.96-4.7,.57-4.75,.57-4.75c0,0-.33-4.38-.71-6.17s-1.2-5.65,2.3-7.92,12.07-3.21,21.8,.5c0,0,18-8.01,24.86-6.9l3.08-.64,10.79,25.35s14.19,21.15,15.26,27.61c1.06,6.46,4.26,34.84,4.26,34.84l-24.48,36.9s-36.19,17.03-39.03,17.39-37.77-7.45-37.77-7.45c0,0-2.68-8.52-3.74-12.06s-4.04-16.66-4.04-16.66Z"/>--}}
-            {{--<g>--}}
             {{--<path id="SY-HA" class="cls-1 land"--}}
             {{--d="M628.38,84.75l-1.72,.55-3.77,3.08-12.38,3.03-28.9,4.97-.94,.51-1.01,.96-11.44,18.81-.48,11.18-2.9,20.66-.99,4.51,12.01,26.44,.9,24.57-6.39,9.41h0l-12.91-1.76-13.87-.03-10.64-1.17-8.21-2.48-5.82-1.2-6.93-3.84-1.83-2.55-2.73-1.81-78.85-76.71-3.89-4.93-2.14-4.34-3.84-6.04-1.49-3.93h0l-.23-2.06-.8-1.38-2.8-2.4-1.92-1.09-7.76-2.82-4.64-2.18-5.67,1.2-2.19-.35-1.84-1.12-5.8-7.51-.79-3.34-1.76-3.59-.34-1.68h0l1.38-.53,1.47,.24,8.01-1.15,5.19-1.39,6.93-.71,5.92-2.14,8.59-.63,3.52-.69,4.98-2.61,7.44-2.54,5.39-3.07,3.7-1.44,3.61-2.96,4.66-1.32,4.91-.81,2.76-1.08,3.12-1.86,2.26-2.02,1.86-.74,4.88-3.11,6.15-2.72,3.42-2.97,1.95-1.15,11.02-2.11,3.7-1.74,2.03-1.56,7.42-2.92,3.39-2.32,4.56-.98,2.99-1.76,4.13,.13,1.15,1.27,1.66,.35,3.64-2.13,3.58-.32,2.92,.35,5.1,1.55,11.54,2.15,5.6,.39,3.49,1.6,.73,1.51,.65,.42,1.87-.15,3.51-1.73,23.32,.12,5.83-.65,10.12-3.25,7.22-.08,3.07-.46,22.07-4.98,4.22-2.16,4.19-1.37,5-2.89,1.7-2.74,1.74-1.71,5.63-3.96,2.36-4.02,.87-.48,.73,.22,.06,1.19-1.49,2.89,.19,.79,2.7-.34,2.85,1.15,1.98-1.18,1.21,2.41,1.39,.56,.62,1.43,2.24,1.07,.76,1.09-.26,2.07-1.56,1.34-.52,1.69,.16,1.33,2.49,5.88-.12,3.89,.37,.72,1.52,.88,.34,1.81-13.99,13.24-7.48,8.13-4.35,3.96-20.34,22.61-3.56,2.9-2.31,2.74Z"/>--}}
             {{--<path id="SY-DY" class="cls-1 land"--}}
@@ -516,98 +325,27 @@
             {{--d="M60.94,579l-4.28-4.32-13.11-9.97-2.79,1.14-4.51-.67-2.36,.08-2.03,.58-.58-3.61-1.36-3.09-3.54-3.64,.52-4.08-.27-1.37-1.66-.89-2.65,.04-2.04-1.13,.99-1.25v-1s-.81-.73-.81-.73l-1.2-.03-1.12-.74-.63-1.66-.83-.75-1.67,.23-1.94-.33-2.3-1.27h-1.68s-2.74,.74-2.74,.74l-1.49-.66-.32-.57-.96,.12-.31-.5,.44-1.21,3.24-3.52,2.57-4.28,1.68-1.69,3.44-6.22h0l3-2.69-.06-2.93-.9-1.75,.19-.87,3.39-.33,1.57,1.88,.55-.74-.32-2.29-1.57-1.91-2.26-4.39,.81-6.29,2.98-5.46-.35-1.22-2.38-1.7-.19-.59,1.11-5.25h0l2.58,.99,1,1.94,2.7,.32,1.7-.47,2.8-2.15,1.76-.7,5.6,.49,3.61-1.56,3.11-.46,.59-.48,1.47-3.16-.52-2.65,.2-1.13,1.31-.83,1.88,2.43,1.97,1.31,.61,2.3,3.14,.73,.99,1.68,2.03,1.76,3.61,.84,1.06-.61,.7-2.61,2.01-1.83,6.3-3.84,1.87-1.96,1.56-.63,.86,.75,1.27,3.24,3.46,3.87,.58,3.94h0l-1.35,1.12-.93,.18-3.92-.6-2.89,2.08-1.22,2.35,.45,1.68-.36,2.1,1.35,3.69,.22,3.16,.94,.65,2.1-.63,1.3,.27,.36,3.55,1.1,2.62-1.33,.31-6.22-.46-3.33,.2-2.43,.85-4.24,3.39-3.11,1.81-.36,1.22,.58,1.78-1.18,2.88,.86,4.38,1.83,3.49-1.17,2.38,.43,4.24,1.1,3.41-.19,.64-.99,.38-.26,.58,.14,3.27,.83,.78,3.4,.95,3.99,.45,1.19,1.51-.46,2.21-2.63,2-2.38,.91-.12,.64,1,1.9-.92,2.81,1.06,.55,1.81,.17,3.44-.26,1.56,1.43,1.95-.21,1.09,.81,.27,.77-.05,.93-1.27,1.47-.3,1.05,3.01,3.61,.34,.96-1.21,5.82,.46,3.97-.92,4.75h0l-1.02-.28-2.31-1.66-7.14-1.07-3.01-2.7Z"/>--}}
             {{--<path id="SY-SU" class="cls-1 land"--}}
             {{--d="M82.02,487.76l.27,.32,.97-.41,15.95-1.7,6.49-1.77,1.89,.21,3.28,2.99,3.21,1.7,1.27,1.39,.8,2.92,4.15,4.26,.59,3.35,1.38,1.59,1.68,.78,6.07,.63,3.13,1.28,2.68,1.95,.12,2.46,2.43,3.2,.45,1.39,2.71,1.12,2.32,1.52,1.49,.24,2.63-1.71,2.51,1.05,2.1,2.75,.67,6.7,.96,1.72,8.75,8.41,2.9,2.27,2.34,3.01,3.62,2.11,3.54,4.19h0l-55.92,33.43-6.87,4.86-4.49,4.08-2.08,.19-8.77-2.56-2.57,.8-2.12-1.62-2.19-.38-15.9-1.76h0l.92-4.75-.46-3.97,1.21-5.82-.34-.96-3.01-3.61,.3-1.05,1.27-1.47,.05-.93-.27-.77-1.09-.81-1.95,.21-1.56-1.43-3.44,.26-1.81-.17-1.06-.55,.92-2.81-1-1.9,.12-.64,2.38-.91,2.63-2,.46-2.21-1.19-1.51-3.99-.45-3.4-.95-.83-.78-.14-3.27,.26-.58,.99-.38,.19-.64-1.1-3.41-.43-4.24,1.17-2.38-1.83-3.49-.86-4.38,1.18-2.88-.58-1.78,.36-1.22,3.11-1.81,4.24-3.39,2.43-.85,3.33-.2,6.22,.46,1.33-.31-1.1-2.62-.36-3.55-1.3-.27-2.1,.63-.94-.65-.22-3.16-1.35-3.69,.36-2.1-.45-1.68,1.22-2.35,2.89-2.08,3.92,.6,.93-.18,1.35-1.12Z"/>--}}
-            {{--</g>--}}
-            {{--</g>--}}
-            {{--</g>--}}
-            {{--@if($student_count)--}}
-            {{--@if($student_count[0]->student_count)--}}
-            {{--<div id="alepmap" class="tooltip position-absolute">Aleppo--}}
-            {{--| {{$student_count[0]->student_count}} Students--}}
-            {{--</div>--}}
-            {{--@endif--}}
-            {{--@if($student_count[2]->student_count)--}}
-            {{--<div id="homsmap" class="tooltip position-absolute">Homs--}}
-            {{--| {{$student_count[2]->student_count}}--}}
             {{--Students--}}
-            {{--</div>--}}
-            {{--@endif--}}
-            {{--@if($student_count[4]->student_count)--}}
-            {{--<div id="tartusmap" class="tooltip position-absolute">Tartus--}}
-            {{--| {{$student_count[4]->student_count}} Students--}}
-            {{--</div>--}}
-            {{--@endif--}}
-            {{--@if($student_count[3]->student_count)--}}
-            {{--<div id="latakiamap" class="tooltip position-absolute">Latakia--}}
-            {{--| {{$student_count[3]->student_count}} Students--}}
-            {{--</div>--}}
-            {{--@endif--}}
-            {{--@if($student_count[1]->student_count)--}}
-            {{--<div id="damasmap" class="tooltip position-absolute">Damascus--}}
-            {{--| {{$student_count[1]->student_count}} Students--}}
-            {{--</div>--}}
-            {{--@endif--}}
-            {{--@endif--}}
-            {{--</svg>--}}
-            {{--</div>--}}
-            {{--<svg class="dottted-line" viewBox="0 0 800 110">--}}
-            {{--<mask id="theMask" maskUnits="userSpaceOnUse">--}}
             {{--<path id="masker"--}}
             {{--d="M0 10h924a20 20 0 0 1 20 20v110a20 20 0 0 0 20 20h500a20 20 0 0 0 20-20V30a20 20 0 0 1 20-20h924"--}}
             {{--fill="transparent" stroke="white" stroke-width="6"/>--}}
-            {{--</mask>--}}
-            {{--<g mask="url(#theMask)">--}}
             {{--<path d="M0 10h924a20 20 0 0 1 20" stroke-dasharray="8,8" fill="transparent"--}}
             {{--stroke="#BC1818" stroke-width="4"/>--}}
-            {{--</g>--}}
-            {{--</svg>--}}
-            {{--<div class="statistics-num-edited count_int"> {{$aleppoCount}}--}}
-            {{--</div>--}}
-            {{--</div>--}}
         </div>
 
-        {{--<div class="row">--}}
-        {{--<div class="col-6 d-flex justify-content-start"></div>--}}
         {{--<div class="col-6 d-flex justify-content-start flex-column lh-sm"--}}
         {{--style="padding-left: 3vw;">--}}
         {{--<div class="statistics-num count_int" data-aos="fade-up"--}}
-        {{--data-aos-duration="600">{{$aleppoCount}}</div>--}}
         {{--<div class="statistics-title text-capitalize" data-aos="fade-up"--}}
-        {{--data-aos-duration="800">@lang('projects.aleppo')</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
         {{--<div class="col-6 d-flex justify-content-end text-end flex-column lh-sm"--}}
         {{--style="padding-right: 3vw;">--}}
-        {{--<div class="row">--}}
         {{--<div class="statistics-num count_int" data-aos="fade-up"--}}
-        {{--data-aos-duration="600">{{$homsCount}}</div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
         {{--<div class="statistics-title text-capitalize" data-aos="fade-up"--}}
-        {{--data-aos-duration="800">@lang('projects.homs')</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="col-6 d-flex justify-content-start"></div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
-        {{--<div class="col-6 d-flex justify-content-start"></div>--}}
         {{--<div class="col-6 d-flex justify-content-start flex-column lh-sm"--}}
         {{--style="padding-left: 3vw;">--}}
-        {{--<div class="row">--}}
         {{--<div class="statistics-num count_int" data-aos="fade-up"--}}
-        {{--data-aos-duration="600">{{$damascusCount}}</div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
         {{--<div class="statistics-title text-capitalize" data-aos="fade-up"--}}
-        {{--data-aos-duration="800">@lang('projects.damascus')</div>--}}
-        {{--</div>--}}
-        {{--<div class="row">--}}
-        {{--<div class="statistics-subtitle" data-aos="fade-up" data-aos-duration="1000">dummy text do not--}}
         {{--read--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
-        {{--</div>--}}
     </div>
     <div class="horizontal-line"></div>
     <div id="projects-section" class="small-margin section-space" data-aos="fade-up"
@@ -620,7 +358,6 @@
                             {{--<form class="position-relative d-flex justify-content-center align-items-center"--}}
                             {{--method="get"--}}
                             {{--id="submit-form"--}}
-                            {{--action="searchFilter({{'s'}})">--}}
                             <div class="se d-flex align-items-center">
                                 <button id="switchsearch" onclick="searchFilter()">
                                     <img id="search-search" class="search-icons"
@@ -629,12 +366,9 @@
                                 <input id="search-input" type="text" placeholder="@lang('projects.search')"
                                        name="search">
                             </div>
-                            {{--<span class="left-search-dash">__</span>--}}
-                            {{--</form>--}}
                             <div class="search-title"> Search</div>
                             <div class="d-flex justify-content-center align-items-center position-relative"
                                  id="donor-filter">
-                                {{--<span class="right-search-dash">__</span>--}}
                                 <div class="dropdown other">
                                     <button class="btn btn-default dropdown-toggle" type="button"
                                             id="dropdownMenuDonor"
@@ -653,17 +387,7 @@
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuDonor">
-                                        {{--@if(!empty($search))--}}
-                                        {{--<li>--}}
-                                        {{--<a>@lang('projects.all')</a>--}}
-                                        {{--</li>--}}
-                                        {{--@for($i =0;$i< count($donors);$i++)--}}
-                                        {{--<li>--}}
-                                        {{--<a onclick="searchFilter({{$search}})"--}}
-                                        {{--id="{{$donors[$i]['id']}}">{{$donors[$i]['name']}}</a>--}}
-                                        {{--</li>--}}
                                         {{--@endfor--}}
-                                        {{--@else--}}
                                         <li>
                                             <a onclick="donorFilter('all')">@lang('projects.all')</a>
                                         </li>
@@ -674,7 +398,6 @@
                                                    value="{{$donors[$i]['abb_name']}}">{{$donors[$i]['name']}}</a>
                                             </li>
                                         @endfor
-                                        {{--@endif--}}
                                     </ul>
 
                                 </div>
@@ -821,37 +544,19 @@
                                                                      src="/images/ico/video-ini-icon.svg">
                                                             </a>
                                                         @endif
-                                                        {{--@if($microProjectA[$i+$j]->MPE_Video != '0')--}}
                                                         {{--<a href="#" class="launch-modal"--}}
-                                                        {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                         {{--<img class="video-icon"--}}
                                                         {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                        {{--</a>--}}
                                                         {{--<!--VIDEO MODAL -->--}}
-                                                        {{--<div class="modal fade" id="modal-video-{{$i+$j}}"--}}
                                                         {{--tabindex="-1"--}}
                                                         {{--role="dialog"--}}
                                                         {{--aria-labelledby="modal-video-label">--}}
-                                                        {{--<div class="modal-dialog" role="document">--}}
-                                                        {{--<div class="modal-content">--}}
-                                                        {{--<div class="modal-body">--}}
-                                                        {{--<div class="modal-video">--}}
-                                                        {{--<div class="video ">--}}
                                                         {{--<iframe class="embed-responsive-item"--}}
-                                                        {{--src="{{$microProjectA[$i+$j]->MPE_Video}}"--}}
                                                         {{--frameborder="0"--}}
                                                         {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                         {{--allowfullscreen--}}
                                                         {{--webkitallowfullscreen--}}
                                                         {{--mozallowfullscreen--}}
-                                                        {{--allowfullscreen></iframe>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--@endif--}}
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="card-title-section"></div>
@@ -927,34 +632,24 @@
                                                             </div>
                                                         @endif
 
-                                                        {{--@if($microProjectA[$i+$j]->MPE_Donor=='1')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Caritas.svg">--}}
-                                                        {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='2')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Salt.svg">--}}
-                                                        {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='3')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/LD.svg">--}}
-                                                        {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='5')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/logo/kia.svg">--}}
-                                                        {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='7')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/If.svg">--}}
-                                                        {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='8')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Hungary.svg">--}}
-                                                        {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='9')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                        {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='10')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                        {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='11')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/ACN.svg">--}}
-                                                        {{--@endif--}}
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -1020,40 +715,23 @@
                                                                                                  src="/images/ico/video-ini-icon.svg">
                                                                                         </a>
                                                                                     @endif
-                                                                                    {{--@if($microProjectA[$i+$j]->MPE_Video != '0')--}}
                                                                                     {{--<a href="#"--}}
                                                                                     {{--class="launch-modal"--}}
-                                                                                    {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                                     {{--<img class="video-icon"--}}
                                                                                     {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                                    {{--</a>--}}
                                                                                     {{--<!--VIDEO MODAL -->--}}
                                                                                     {{--<div class="modal fade"--}}
-                                                                                    {{--id="modal-video-{{$i+$j}}"--}}
                                                                                     {{--tabindex="-1"--}}
                                                                                     {{--role="dialog"--}}
                                                                                     {{--aria-labelledby="modal-video-label">--}}
                                                                                     {{--<div class="modal-dialog"--}}
                                                                                     {{--role="document">--}}
-                                                                                    {{--<div class="modal-content">--}}
-                                                                                    {{--<div class="modal-body">--}}
-                                                                                    {{--<div class="modal-video">--}}
-                                                                                    {{--<div class="video ">--}}
                                                                                     {{--<iframe class="embed-responsive-item"--}}
-                                                                                    {{--src="{{$microProjectA[$i+$j]->MPE_Video}}"--}}
                                                                                     {{--frameborder="0"--}}
                                                                                     {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                                     {{--allowfullscreen--}}
                                                                                     {{--webkitallowfullscreen--}}
                                                                                     {{--mozallowfullscreen--}}
-                                                                                    {{--allowfullscreen></iframe>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--@endif--}}
                                                                                 </div>
                                                                                 <div class="col-12">
                                                                                     <div class="card-title-section"></div>
@@ -1152,45 +830,6 @@
                                                                                                 </div>
                                                                                             @endif
                                                                                         </ul>
-                                                                                        {{--<div class="row">--}}
-                                                                                        {{--<div class="col">--}}
-                                                                                        {{--@if($microProjectA[$i+$j]->MPE_PartnerName == '0' && $microProjectA[$i+$j]->MPE_PartnerName2 == '0')--}}
-                                                                                        {{--<Strong class="card-subtitle">@lang('main.beneficiary')</strong>--}}
-                                                                                        {{--<span>{{ucfirst($microProjectA[$i+$j]->MPE_BeneficiaryName)}}</span>--}}
-                                                                                        {{--@elseif($microProjectA[$i+$j]->MPE_PartnerName != '0' && $microProjectA[$i+$j]->MPE_PartnerName2 == '0')--}}
-                                                                                        {{--<Strong class="card-subtitle">@lang('main.beneficiaries')</strong>--}}
-                                                                                        {{--<span>{{ucfirst($microProjectA[$i+$j]->MPE_BeneficiaryName) .', '. ucfirst($microProjectA[$i+$j]->MPE_PartnerName)}}</span>--}}
-                                                                                        {{--@elseif($microProjectA[$i+$j]->MPE_PartnerName != '0' && $microProjectA[$i+$j]->MPE_PartnerName2 != '0')--}}
-                                                                                        {{--<Strong class="card-subtitle">@lang('main.beneficiaries')</strong>--}}
-                                                                                        {{--<span>{{ucfirst($microProjectA[$i+$j]->MPE_BeneficiaryName) .', '. ucfirst($microProjectA[$i+$j]->MPE_PartnerName) .', '.ucfirst($microProjectA[$i+$j]->MPE_PartnerName2)}}</span>--}}
-                                                                                        {{--@endif--}}
-                                                                                        {{--@if($microProjectA[$i+$j]->MPE_FundedDate !=  NULL)--}}
-                                                                                        {{--<div><Strong--}}
-                                                                                        {{--class="card-subtitle">@lang('projects.fundDate')</Strong><span> {{date('m/Y',strtotime($microProjectA[$i+$j]->MPE_FundedDate))}}</span>--}}
-                                                                                        {{--</div>--}}
-                                                                                        {{--@endif--}}
-                                                                                        {{--@if($microProjectA[$i+$j]->DOB != '0')--}}
-                                                                                        {{--<div><strong--}}
-                                                                                        {{--class="card-subtitle">@lang('projects.age')</strong><span> {{\Carbon\Carbon::createFromDate($microProjectA[$i+$j]->DOB)->diff(\Carbon\Carbon::now())->format('%y')}} @lang('projects.years')</span>--}}
-                                                                                        {{--</div>--}}
-                                                                                        {{--@endif--}}
-                                                                                        {{--@if($microProjectA[$i+$j]->FamilyMembers != '0')--}}
-                                                                                        {{--<div><strong--}}
-                                                                                        {{--class="card-subtitle">@lang('projects.family')</strong>--}}
-                                                                                        {{--<span>{{$microProjectA[$i+$j]->FamilyMembers}}</span>--}}
-                                                                                        {{--</div>--}}
-                                                                                        {{--@endif--}}
-                                                                                        {{--@if($microProjectA[$i+$j]->MPE_FundedDate !=  NULL)--}}
-                                                                                        {{--<br>--}}
-                                                                                        {{--@endif--}}
-                                                                                        {{--@if($microProjectA[$i+$j]->$language->MPE_ExpSkill != '')--}}
-                                                                                        {{--<div><strong--}}
-                                                                                        {{--class="card-subtitle">@lang('projects.skills')</strong>--}}
-                                                                                        {{--<span>{{$microProjectA[$i+$j]->$language->MPE_ExpSkill}}</span>--}}
-                                                                                        {{--</div>--}}
-                                                                                        {{--@endif--}}
-                                                                                        {{--</div>--}}
-                                                                                        {{--</div>--}}
                                                                                     </div>
                                                                                     <div class="col-lg-3 col-md-3 col-sm-3 col-3 d-flex justify-content-end align-items-start"
                                                                                     >
@@ -1220,34 +859,24 @@
                                                                                                      src="{{$microProjectA[$i+$j]->donor['logo']}}">
                                                                                             </div>
                                                                                         @endif
-                                                                                        {{--@if($microProjectA[$i+$j]->MPE_Donor=='1')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                                        {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='2')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Salt.svg">--}}
-                                                                                        {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='3')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/LD.svg">--}}
-                                                                                        {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='5')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/logo/kia.svg">--}}
-                                                                                        {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='7')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/If.svg">--}}
-                                                                                        {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='8')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                                        {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='9')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                                        {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='10')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                                        {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='11')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/ACN.svg">--}}
-                                                                                        {{--@endif--}}
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="card-content">
@@ -1258,23 +887,13 @@
                                                                                         id="txt{{$microProjectA[$i+$j]->id}}"
                                                                                         style="display: none;">
                                                                                     </textarea>
-                                                                                {{--@if($microProjectA[$i+$j]->MPE_Video != '0')--}}
-                                                                                {{--<div class="video">--}}
                                                                                 {{--<iframe--}}
-                                                                                {{--src="{{$microProjectA[$i+$j]->MPE_Video}}"--}}
                                                                                 {{--frameborder="0"--}}
                                                                                 {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                                 {{--allowfullscreen>--}}
-                                                                                {{--</iframe>--}}
-                                                                                {{--</div>--}}
-                                                                                {{--<hr style="border-color: #43484E;">--}}
-                                                                                {{--@endif--}}
-                                                                                {{--<div id="fb-root"></div>--}}
                                                                                 {{--<div class="fb-comments"--}}
-                                                                                {{--data-href="https://hcsyria.org/micro-projects#project{{$microProjectA[$i+$j]->MicroProject_ID}}"--}}
                                                                                 {{--data-width="100%"--}}
                                                                                 {{--data-numposts="3">--}}
-                                                                                {{--</div>--}}
 
                                                                                 <div class="text-center swipe-arrows">
                                                                                     <i class="fa fa-angle-double-up"></i>
@@ -1338,37 +957,20 @@
                                                                  src="/images/ico/video-ini-icon.svg">
                                                         </a>
                                                     @endif
-                                                    {{--@if($projectCopyA->MPE_Video != '0')--}}
                                                     {{--<a href="#" class="launch-modal"--}}
-                                                    {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                     {{--<img class="video-icon"--}}
                                                     {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                    {{--</a>--}}
                                                     {{--<!--VIDEO MODAL -->--}}
                                                     {{--<div class="modal fade" id="modal-video-copy"--}}
                                                     {{--tabindex="-1"--}}
                                                     {{--role="dialog"--}}
                                                     {{--aria-labelledby="modal-video-label">--}}
-                                                    {{--<div class="modal-dialog" role="document">--}}
-                                                    {{--<div class="modal-content">--}}
-                                                    {{--<div class="modal-body">--}}
-                                                    {{--<div class="modal-video">--}}
-                                                    {{--<div class="video ">--}}
                                                     {{--<iframe class="embed-responsive-item"--}}
-                                                    {{--src="{{$projectCopyA->MPE_Video}}"--}}
                                                     {{--frameborder="0"--}}
                                                     {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                     {{--allowfullscreen--}}
                                                     {{--webkitallowfullscreen--}}
                                                     {{--mozallowfullscreen--}}
-                                                    {{--allowfullscreen></iframe>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--@endif--}}
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="card-title-section"></div>
@@ -1533,34 +1135,24 @@
                                                                      src="{{$projectCopyA->donor['logo']}}">
                                                             </div>
                                                         @endif
-                                                        {{--@if($projectCopyA->MPE_Donor=='1')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Caritas.svg">--}}
-                                                        {{--@elseif($projectCopyA->MPE_Donor=='2')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Salt.svg">--}}
-                                                        {{--@elseif($projectCopyA->MPE_Donor=='3')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/LD.svg">--}}
-                                                        {{--@elseif($projectCopyA->MPE_Donor=='5')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/logo/kia.svg">--}}
-                                                        {{--@elseif($projectCopyA->MPE_Donor=='7')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/If.svg">--}}
-                                                        {{--@elseif($projectCopyA->MPE_Donor=='8')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Hungary.svg">--}}
-                                                        {{--@elseif($projectCopyA->MPE_Donor=='9')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                        {{--@elseif($projectCopyA->MPE_Donor=='10')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                        {{--@elseif($projectCopyA->MPE_Donor=='11')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/ACN.svg">--}}
-                                                        {{--@endif--}}
                                                     </div>
                                                 </div>
                                                 <div class="card-content">
@@ -1571,23 +1163,13 @@
                                                         id="txt{{$projectCopyA->id}}"
                                                         style="display: none;">
                                                                                     </textarea>
-                                                {{--@if($microProjectA[$i+$j]->MPE_Video != '0')--}}
-                                                {{--<div class="video">--}}
                                                 {{--<iframe--}}
-                                                {{--src="{{$microProjectA[$i+$j]->MPE_Video}}"--}}
                                                 {{--frameborder="0"--}}
                                                 {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                 {{--allowfullscreen>--}}
-                                                {{--</iframe>--}}
-                                                {{--</div>--}}
-                                                {{--<hr style="border-color: #43484E;">--}}
-                                                {{--@endif--}}
-                                                {{--<div id="fb-root"></div>--}}
                                                 {{--<div class="fb-comments"--}}
-                                                {{--data-href="https://hcsyria.org/micro-projects#project{{$projectCopyA->MicroProject_ID}}"--}}
                                                 {{--data-width="100%"--}}
                                                 {{--data-numposts="3">--}}
-                                                {{--</div>--}}
                                                 <div class="swipe-to-close"
                                                      id="swipe-to-close-copy"></div>
                                             </div>
@@ -1635,7 +1217,6 @@
                     </div>
                 </div>
 
-                {{--<div class="horizontal-line last"></div>--}}
             </div>
             <div class="tab-pane fade" id="homs" role="tabpanel" aria-labelledby="homsTab" tabindex="0">
                 @if(count($microProjectH)==0)
@@ -1719,37 +1300,19 @@
                                                                      src="/images/ico/video-ini-icon.svg">
                                                             </a>
                                                         @endif
-                                                        {{--@if($microProjectH[$i+$j]->MPE_Video != '0')--}}
                                                         {{--<a href="#" class="launch-modal"--}}
-                                                        {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                         {{--<img class="video-icon"--}}
                                                         {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                        {{--</a>--}}
                                                         {{--<!--VIDEO MODAL -->--}}
-                                                        {{--<div class="modal fade" id="modal-video-{{$i+$j}}"--}}
                                                         {{--tabindex="-1"--}}
                                                         {{--role="dialog"--}}
                                                         {{--aria-labelledby="modal-video-label">--}}
-                                                        {{--<div class="modal-dialog" role="document">--}}
-                                                        {{--<div class="modal-content">--}}
-                                                        {{--<div class="modal-body">--}}
-                                                        {{--<div class="modal-video">--}}
-                                                        {{--<div class="video ">--}}
                                                         {{--<iframe class="embed-responsive-item"--}}
-                                                        {{--src="{{$microProjectH[$i+$j]->MPE_Video}}"--}}
                                                         {{--frameborder="0"--}}
                                                         {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                         {{--allowfullscreen--}}
                                                         {{--webkitallowfullscreen--}}
                                                         {{--mozallowfullscreen--}}
-                                                        {{--allowfullscreen></iframe>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--@endif--}}
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="card-title-section"></div>
@@ -1826,34 +1389,24 @@
                                                             </div>
                                                         @endif
 
-                                                        {{--@if($microProjectH[$i+$j]->MPE_Donor=='1')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Caritas.svg">--}}
-                                                        {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='2')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Salt.svg">--}}
-                                                        {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='3')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/LD.svg">--}}
-                                                        {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='5')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/logo/kia.svg">--}}
-                                                        {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='7')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/If.svg">--}}
-                                                        {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='8')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Hungary.svg">--}}
-                                                        {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='9')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                        {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='10')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                        {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='11')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/ACN.svg">--}}
-                                                        {{--@endif--}}
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -1920,40 +1473,23 @@
                                                                                                  src="/images/ico/video-ini-icon.svg">
                                                                                         </a>
                                                                                     @endif
-                                                                                    {{--@if($microProjectH[$i+$j]->MPE_Video != '0')--}}
                                                                                     {{--<a href="#"--}}
                                                                                     {{--class="launch-modal"--}}
-                                                                                    {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                                     {{--<img class="video-icon"--}}
                                                                                     {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                                    {{--</a>--}}
                                                                                     {{--<!--VIDEO MODAL -->--}}
                                                                                     {{--<div class="modal fade"--}}
-                                                                                    {{--id="modal-video-{{$i+$j}}"--}}
                                                                                     {{--tabindex="-1"--}}
                                                                                     {{--role="dialog"--}}
                                                                                     {{--aria-labelledby="modal-video-label">--}}
                                                                                     {{--<div class="modal-dialog"--}}
                                                                                     {{--role="document">--}}
-                                                                                    {{--<div class="modal-content">--}}
-                                                                                    {{--<div class="modal-body">--}}
-                                                                                    {{--<div class="modal-video">--}}
-                                                                                    {{--<div class="video ">--}}
                                                                                     {{--<iframe class="embed-responsive-item"--}}
-                                                                                    {{--src="{{$microProjectH[$i+$j]->MPE_Video}}"--}}
                                                                                     {{--frameborder="0"--}}
                                                                                     {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                                     {{--allowfullscreen--}}
                                                                                     {{--webkitallowfullscreen--}}
                                                                                     {{--mozallowfullscreen--}}
-                                                                                    {{--allowfullscreen></iframe>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--@endif--}}
                                                                                 </div>
                                                                                 <div class="col-12">
                                                                                     <div class="card-title-section"></div>
@@ -2082,34 +1618,24 @@
                                                                                             </div>
                                                                                         @endif
 
-                                                                                        {{--@if($microProjectH[$i+$j]->MPE_Donor=='1')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                                        {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='2')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Salt.svg">--}}
-                                                                                        {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='3')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/LD.svg">--}}
-                                                                                        {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='5')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/logo/kia.svg">--}}
-                                                                                        {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='7')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/If.svg">--}}
-                                                                                        {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='8')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                                        {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='9')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                                        {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='10')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                                        {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='11')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/ACN.svg">--}}
-                                                                                        {{--@endif--}}
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="card-content">
@@ -2120,12 +1646,9 @@
                                                                                         id="txt{{$microProjectH[$i+$j]->id}}"
                                                                                         style="display: none;">
                                                                                     </textarea>
-                                                                                {{--<div id="fb-root"></div>--}}
                                                                                 {{--<div class="fb-comments"--}}
-                                                                                {{--data-href="https://hcsyria.org/micro-projects#project{{$microProjectH[$i+$j]->MicroProject_ID}}"--}}
                                                                                 {{--data-width="100%"--}}
                                                                                 {{--data-numposts="3">--}}
-                                                                                {{--</div>--}}
                                                                                 <div class="swipe-to-close"
                                                                                      id="swipe-to-close-{{$i+$j}}"></div>
                                                                             </div>
@@ -2184,37 +1707,20 @@
                                                                  src="/images/ico/video-ini-icon.svg">
                                                         </a>
                                                     @endif
-                                                    {{--@if($projectCopyA->MPE_Video != '0')--}}
                                                     {{--<a href="#" class="launch-modal"--}}
-                                                    {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                     {{--<img class="video-icon"--}}
                                                     {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                    {{--</a>--}}
                                                     {{--<!--VIDEO MODAL -->--}}
                                                     {{--<div class="modal fade" id="modal-video-copy"--}}
                                                     {{--tabindex="-1"--}}
                                                     {{--role="dialog"--}}
                                                     {{--aria-labelledby="modal-video-label">--}}
-                                                    {{--<div class="modal-dialog" role="document">--}}
-                                                    {{--<div class="modal-content">--}}
-                                                    {{--<div class="modal-body">--}}
-                                                    {{--<div class="modal-video">--}}
-                                                    {{--<div class="video ">--}}
                                                     {{--<iframe class="embed-responsive-item"--}}
-                                                    {{--src="{{$projectCopyA->MPE_Video}}"--}}
                                                     {{--frameborder="0"--}}
                                                     {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                     {{--allowfullscreen--}}
                                                     {{--webkitallowfullscreen--}}
                                                     {{--mozallowfullscreen--}}
-                                                    {{--allowfullscreen></iframe>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--@endif--}}
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="card-title-section"></div>
@@ -2389,23 +1895,13 @@
                                                         id="txt{{$projectCopyH->id}}"
                                                         style="display: none;">
                                                                                     </textarea>
-                                                {{--@if($microProjectA[$i+$j]->MPE_Video != '0')--}}
-                                                {{--<div class="video">--}}
                                                 {{--<iframe--}}
-                                                {{--src="{{$microProjectA[$i+$j]->MPE_Video}}"--}}
                                                 {{--frameborder="0"--}}
                                                 {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                 {{--allowfullscreen>--}}
-                                                {{--</iframe>--}}
-                                                {{--</div>--}}
-                                                {{--<hr style="border-color: #43484E;">--}}
-                                                {{--@endif--}}
-                                                {{--<div id="fb-root"></div>--}}
                                                 {{--<div class="fb-comments"--}}
-                                                {{--data-href="https://hcsyria.org/micro-projects#project{{$projectCopyA->MicroProject_ID}}"--}}
                                                 {{--data-width="100%"--}}
                                                 {{--data-numposts="3">--}}
-                                                {{--</div>--}}
                                                 <div class="swipe-to-close"
                                                      id="swipe-to-close-copy"></div>
                                             </div>
@@ -2453,7 +1949,6 @@
                         </div>
                     </div>
                 </div>
-                {{--<div class="horizontal-line last"></div>--}}
             </div>
             <div class="tab-pane fade" id="damascus" role="tabpanel" aria-labelledby="damascusTab" tabindex="0">
                 @if(count($microProjectD)==0)
@@ -2537,37 +2032,19 @@
                                                                      src="/images/ico/video-ini-icon.svg">
                                                             </a>
                                                         @endif
-                                                        {{--@if($microProjectD[$i+$j]->MPE_Video != '0')--}}
                                                         {{--<a href="#" class="launch-modal"--}}
-                                                        {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                         {{--<img class="video-icon"--}}
                                                         {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                        {{--</a>--}}
                                                         {{--<!--VIDEO MODAL -->--}}
-                                                        {{--<div class="modal fade" id="modal-video-{{$i+$j}}"--}}
                                                         {{--tabindex="-1"--}}
                                                         {{--role="dialog"--}}
                                                         {{--aria-labelledby="modal-video-label">--}}
-                                                        {{--<div class="modal-dialog" role="document">--}}
-                                                        {{--<div class="modal-content">--}}
-                                                        {{--<div class="modal-body">--}}
-                                                        {{--<div class="modal-video">--}}
-                                                        {{--<div class="video ">--}}
                                                         {{--<iframe class="embed-responsive-item"--}}
-                                                        {{--src="{{$microProjectD[$i+$j]->MPE_Video}}"--}}
                                                         {{--frameborder="0"--}}
                                                         {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                         {{--allowfullscreen--}}
                                                         {{--webkitallowfullscreen--}}
                                                         {{--mozallowfullscreen--}}
-                                                        {{--allowfullscreen></iframe>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--@endif--}}
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="card-title-section"></div>
@@ -2649,34 +2126,24 @@
                                                             </div>
                                                         @endif
 
-                                                        {{--@if($microProjectD[$i+$j]->MPE_Donor=='1')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Caritas.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='2')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Salt.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='3')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/LD.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='5')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/logo/kia.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='7')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/If.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='8')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Hungary.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='9')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='10')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='11')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/ACN.svg">--}}
-                                                        {{--@endif--}}
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -2743,40 +2210,23 @@
                                                                                                  src="/images/ico/video-ini-icon.svg">
                                                                                         </a>
                                                                                     @endif
-                                                                                    {{--@if($microProjectD[$i+$j]->MPE_Video != '0')--}}
                                                                                     {{--<a href="#"--}}
                                                                                     {{--class="launch-modal"--}}
-                                                                                    {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                                     {{--<img class="video-icon"--}}
                                                                                     {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                                    {{--</a>--}}
                                                                                     {{--<!--VIDEO MODAL -->--}}
                                                                                     {{--<div class="modal fade"--}}
-                                                                                    {{--id="modal-video-{{$i+$j}}"--}}
                                                                                     {{--tabindex="-1"--}}
                                                                                     {{--role="dialog"--}}
                                                                                     {{--aria-labelledby="modal-video-label">--}}
                                                                                     {{--<div class="modal-dialog"--}}
                                                                                     {{--role="document">--}}
-                                                                                    {{--<div class="modal-content">--}}
-                                                                                    {{--<div class="modal-body">--}}
-                                                                                    {{--<div class="modal-video">--}}
-                                                                                    {{--<div class="video ">--}}
                                                                                     {{--<iframe class="embed-responsive-item"--}}
-                                                                                    {{--src="{{$microProjectD[$i+$j]->MPE_Video}}"--}}
                                                                                     {{--frameborder="0"--}}
                                                                                     {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                                     {{--allowfullscreen--}}
                                                                                     {{--webkitallowfullscreen--}}
                                                                                     {{--mozallowfullscreen--}}
-                                                                                    {{--allowfullscreen></iframe>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--@endif--}}
                                                                                 </div>
                                                                                 <div class="col-12">
                                                                                     <div class="card-title-section"></div>
@@ -2905,34 +2355,24 @@
                                                                                             </div>
                                                                                         @endif
 
-                                                                                        {{--@if($microProjectD[$i+$j]->MPE_Donor=='1')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='2')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Salt.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='3')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/LD.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='5')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/logo/kia.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='7')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/If.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='8')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='9')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='10')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='11')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/ACN.svg">--}}
-                                                                                        {{--@endif--}}
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="card-content">
@@ -2943,12 +2383,9 @@
                                                                                         id="txt{{$microProjectD[$i+$j]->id}}"
                                                                                         style="display: none;">
                                                                                     </textarea>
-                                                                                {{--<div id="fb-root"></div>--}}
                                                                                 {{--<div class="fb-comments"--}}
-                                                                                {{--data-href="https://hcsyria.org/micro-projects#project{{$microProjectD[$i+$j]->MicroProject_ID}}"--}}
                                                                                 {{--data-width="100%"--}}
                                                                                 {{--data-numposts="3">--}}
-                                                                                {{--</div>--}}
                                                                                 <div class="swipe-to-close"
                                                                                      id="swipe-to-close-{{$i+$j}}"></div>
                                                                             </div>
@@ -3007,37 +2444,20 @@
                                                                  src="/images/ico/video-ini-icon.svg">
                                                         </a>
                                                     @endif
-                                                    {{--@if($projectCopyD->MPE_Video != '0')--}}
                                                     {{--<a href="#" class="launch-modal"--}}
-                                                    {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                     {{--<img class="video-icon"--}}
                                                     {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                    {{--</a>--}}
                                                     {{--<!--VIDEO MODAL -->--}}
                                                     {{--<div class="modal fade" id="modal-video-copy"--}}
                                                     {{--tabindex="-1"--}}
                                                     {{--role="dialog"--}}
                                                     {{--aria-labelledby="modal-video-label">--}}
-                                                    {{--<div class="modal-dialog" role="document">--}}
-                                                    {{--<div class="modal-content">--}}
-                                                    {{--<div class="modal-body">--}}
-                                                    {{--<div class="modal-video">--}}
-                                                    {{--<div class="video ">--}}
                                                     {{--<iframe class="embed-responsive-item"--}}
-                                                    {{--src="{{$projectCopyD->MPE_Video}}"--}}
                                                     {{--frameborder="0"--}}
                                                     {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                     {{--allowfullscreen--}}
                                                     {{--webkitallowfullscreen--}}
                                                     {{--mozallowfullscreen--}}
-                                                    {{--allowfullscreen></iframe>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--@endif--}}
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="card-title-section"></div>
@@ -3166,34 +2586,24 @@
                                                             </div>
                                                         @endif
 
-                                                        {{--@if($projectCopyD->MPE_Donor=='1')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Caritas.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='2')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Salt.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='3')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/LD.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='5')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/logo/kia.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='7')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/If.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='8')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Hungary.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='9')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='10')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='11')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/ACN.svg">--}}
-                                                        {{--@endif--}}
                                                     </div>
                                                 </div>
                                                 <div class="card-content">
@@ -3204,12 +2614,9 @@
                                                         id="txt{{$projectCopyD->id}}"
                                                         style="display: none;">
                                                     </textarea>
-                                                {{--<div id="fb-root"></div>--}}
                                                 {{--<div class="fb-comments"--}}
-                                                {{--data-href="https://hcsyria.org/micro-projects#project{{$projectCopyD->MicroProject_ID}}"--}}
                                                 {{--data-width="100%"--}}
                                                 {{--data-numposts="3">--}}
-                                                {{--</div>--}}
                                                 <div class="swipe-to-close"
                                                      id="swipe-to-close-D-copy"></div>
                                             </div>
@@ -3257,7 +2664,6 @@
                         </div>
                     </div>
                 </div>
-                {{--<div class="small horizontal-line last"></div>--}}
             </div>
             <div class="tab-pane fade" id="latakia" role="tabpanel" aria-labelledby="latakiaTab" tabindex="0">
                 @if(count($microProjectL)==0)
@@ -3341,37 +2747,19 @@
                                                                      src="/images/ico/video-ini-icon.svg">
                                                             </a>
                                                         @endif
-                                                        {{--@if($microProjectD[$i+$j]->MPE_Video != '0')--}}
                                                         {{--<a href="#" class="launch-modal"--}}
-                                                        {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                         {{--<img class="video-icon"--}}
                                                         {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                        {{--</a>--}}
                                                         {{--<!--VIDEO MODAL -->--}}
-                                                        {{--<div class="modal fade" id="modal-video-{{$i+$j}}"--}}
                                                         {{--tabindex="-1"--}}
                                                         {{--role="dialog"--}}
                                                         {{--aria-labelledby="modal-video-label">--}}
-                                                        {{--<div class="modal-dialog" role="document">--}}
-                                                        {{--<div class="modal-content">--}}
-                                                        {{--<div class="modal-body">--}}
-                                                        {{--<div class="modal-video">--}}
-                                                        {{--<div class="video ">--}}
                                                         {{--<iframe class="embed-responsive-item"--}}
-                                                        {{--src="{{$microProjectD[$i+$j]->MPE_Video}}"--}}
                                                         {{--frameborder="0"--}}
                                                         {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                         {{--allowfullscreen--}}
                                                         {{--webkitallowfullscreen--}}
                                                         {{--mozallowfullscreen--}}
-                                                        {{--allowfullscreen></iframe>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--@endif--}}
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="card-title-section"></div>
@@ -3453,34 +2841,24 @@
                                                             </div>
                                                         @endif
 
-                                                        {{--@if($microProjectD[$i+$j]->MPE_Donor=='1')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Caritas.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='2')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Salt.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='3')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/LD.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='5')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/logo/kia.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='7')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/If.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='8')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Hungary.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='9')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='10')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='11')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/ACN.svg">--}}
-                                                        {{--@endif--}}
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -3547,40 +2925,23 @@
                                                                                                  src="/images/ico/video-ini-icon.svg">
                                                                                         </a>
                                                                                     @endif
-                                                                                    {{--@if($microProjectD[$i+$j]->MPE_Video != '0')--}}
                                                                                     {{--<a href="#"--}}
                                                                                     {{--class="launch-modal"--}}
-                                                                                    {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                                     {{--<img class="video-icon"--}}
                                                                                     {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                                    {{--</a>--}}
                                                                                     {{--<!--VIDEO MODAL -->--}}
                                                                                     {{--<div class="modal fade"--}}
-                                                                                    {{--id="modal-video-{{$i+$j}}"--}}
                                                                                     {{--tabindex="-1"--}}
                                                                                     {{--role="dialog"--}}
                                                                                     {{--aria-labelledby="modal-video-label">--}}
                                                                                     {{--<div class="modal-dialog"--}}
                                                                                     {{--role="document">--}}
-                                                                                    {{--<div class="modal-content">--}}
-                                                                                    {{--<div class="modal-body">--}}
-                                                                                    {{--<div class="modal-video">--}}
-                                                                                    {{--<div class="video ">--}}
                                                                                     {{--<iframe class="embed-responsive-item"--}}
-                                                                                    {{--src="{{$microProjectD[$i+$j]->MPE_Video}}"--}}
                                                                                     {{--frameborder="0"--}}
                                                                                     {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                                     {{--allowfullscreen--}}
                                                                                     {{--webkitallowfullscreen--}}
                                                                                     {{--mozallowfullscreen--}}
-                                                                                    {{--allowfullscreen></iframe>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--@endif--}}
                                                                                 </div>
                                                                                 <div class="col-12">
                                                                                     <div class="card-title-section"></div>
@@ -3709,34 +3070,24 @@
                                                                                             </div>
                                                                                         @endif
 
-                                                                                        {{--@if($microProjectD[$i+$j]->MPE_Donor=='1')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='2')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Salt.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='3')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/LD.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='5')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/logo/kia.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='7')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/If.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='8')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='9')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='10')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='11')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/ACN.svg">--}}
-                                                                                        {{--@endif--}}
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="card-content">
@@ -3747,12 +3098,9 @@
                                                                                         id="txt{{$microProjectL[$i+$j]->id}}"
                                                                                         style="display: none;">
                                                                                     </textarea>
-                                                                                {{--<div id="fb-root"></div>--}}
                                                                                 {{--<div class="fb-comments"--}}
-                                                                                {{--data-href="https://hcsyria.org/micro-projects#project{{$microProjectD[$i+$j]->MicroProject_ID}}"--}}
                                                                                 {{--data-width="100%"--}}
                                                                                 {{--data-numposts="3">--}}
-                                                                                {{--</div>--}}
                                                                                 <div class="swipe-to-close"
                                                                                      id="swipe-to-close-{{$i+$j}}"></div>
                                                                             </div>
@@ -3811,37 +3159,20 @@
                                                                  src="/images/ico/video-ini-icon.svg">
                                                         </a>
                                                     @endif
-                                                    {{--@if($projectCopyD->MPE_Video != '0')--}}
                                                     {{--<a href="#" class="launch-modal"--}}
-                                                    {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                     {{--<img class="video-icon"--}}
                                                     {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                    {{--</a>--}}
                                                     {{--<!--VIDEO MODAL -->--}}
                                                     {{--<div class="modal fade" id="modal-video-copy"--}}
                                                     {{--tabindex="-1"--}}
                                                     {{--role="dialog"--}}
                                                     {{--aria-labelledby="modal-video-label">--}}
-                                                    {{--<div class="modal-dialog" role="document">--}}
-                                                    {{--<div class="modal-content">--}}
-                                                    {{--<div class="modal-body">--}}
-                                                    {{--<div class="modal-video">--}}
-                                                    {{--<div class="video ">--}}
                                                     {{--<iframe class="embed-responsive-item"--}}
-                                                    {{--src="{{$projectCopyD->MPE_Video}}"--}}
                                                     {{--frameborder="0"--}}
                                                     {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                     {{--allowfullscreen--}}
                                                     {{--webkitallowfullscreen--}}
                                                     {{--mozallowfullscreen--}}
-                                                    {{--allowfullscreen></iframe>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--@endif--}}
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="card-title-section"></div>
@@ -3970,34 +3301,24 @@
                                                             </div>
                                                         @endif
 
-                                                        {{--@if($projectCopyD->MPE_Donor=='1')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Caritas.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='2')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Salt.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='3')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/LD.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='5')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/logo/kia.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='7')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/If.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='8')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Hungary.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='9')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='10')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='11')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/ACN.svg">--}}
-                                                        {{--@endif--}}
                                                     </div>
                                                 </div>
                                                 <div class="card-content">
@@ -4008,12 +3329,9 @@
                                                         id="txt{{$projectCopyL->id}}"
                                                         style="display: none;">
                                                     </textarea>
-                                                {{--<div id="fb-root"></div>--}}
                                                 {{--<div class="fb-comments"--}}
-                                                {{--data-href="https://hcsyria.org/micro-projects#project{{$projectCopyD->MicroProject_ID}}"--}}
                                                 {{--data-width="100%"--}}
                                                 {{--data-numposts="3">--}}
-                                                {{--</div>--}}
                                                 <div class="swipe-to-close"
                                                      id="swipe-to-close-L-copy"></div>
                                             </div>
@@ -4062,7 +3380,6 @@
                         </div>
                     </div>
                 @endif
-                {{--<div class="small horizontal-line last"></div>--}}
             </div>
             <div class="tab-pane fade" id="wadi" role="tabpanel" aria-labelledby="wadiTab" tabindex="0">
                 @if(count($microProjectW)==0)
@@ -4227,34 +3544,24 @@
                                                             </div>
                                                         @endif
 
-                                                        {{--@if($microProjectD[$i+$j]->MPE_Donor=='1')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Caritas.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='2')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Salt.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='3')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/LD.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='5')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/logo/kia.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='7')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/If.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='8')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Hungary.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='9')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='10')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='11')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/ACN.svg">--}}
-                                                        {{--@endif--}}
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -4321,40 +3628,23 @@
                                                                                                  src="/images/ico/video-ini-icon.svg">
                                                                                         </a>
                                                                                     @endif
-                                                                                    {{--@if($microProjectD[$i+$j]->MPE_Video != '0')--}}
                                                                                     {{--<a href="#"--}}
                                                                                     {{--class="launch-modal"--}}
-                                                                                    {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                                     {{--<img class="video-icon"--}}
                                                                                     {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                                    {{--</a>--}}
                                                                                     {{--<!--VIDEO MODAL -->--}}
                                                                                     {{--<div class="modal fade"--}}
-                                                                                    {{--id="modal-video-{{$i+$j}}"--}}
                                                                                     {{--tabindex="-1"--}}
                                                                                     {{--role="dialog"--}}
                                                                                     {{--aria-labelledby="modal-video-label">--}}
                                                                                     {{--<div class="modal-dialog"--}}
                                                                                     {{--role="document">--}}
-                                                                                    {{--<div class="modal-content">--}}
-                                                                                    {{--<div class="modal-body">--}}
-                                                                                    {{--<div class="modal-video">--}}
-                                                                                    {{--<div class="video ">--}}
                                                                                     {{--<iframe class="embed-responsive-item"--}}
-                                                                                    {{--src="{{$microProjectD[$i+$j]->MPE_Video}}"--}}
                                                                                     {{--frameborder="0"--}}
                                                                                     {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                                     {{--allowfullscreen--}}
                                                                                     {{--webkitallowfullscreen--}}
                                                                                     {{--mozallowfullscreen--}}
-                                                                                    {{--allowfullscreen></iframe>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                    {{--@endif--}}
                                                                                 </div>
                                                                                 <div class="col-12">
                                                                                     <div class="card-title-section"></div>
@@ -4483,34 +3773,24 @@
                                                                                             </div>
                                                                                         @endif
 
-                                                                                        {{--@if($microProjectD[$i+$j]->MPE_Donor=='1')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='2')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Salt.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='3')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/LD.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='5')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/logo/kia.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='7')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/If.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='8')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='9')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='10')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                                        {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='11')--}}
                                                                                         {{--<img class="project-donor-logo"--}}
                                                                                         {{--src="/images/newLogos/ACN.svg">--}}
-                                                                                        {{--@endif--}}
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="card-content">
@@ -4521,12 +3801,9 @@
                                                                                         id="txt{{$microProjectW[$i+$j]->id}}"
                                                                                         style="display: none;">
                                                                                     </textarea>
-                                                                                {{--<div id="fb-root"></div>--}}
                                                                                 {{--<div class="fb-comments"--}}
-                                                                                {{--data-href="https://hcsyria.org/micro-projects#project{{$microProjectD[$i+$j]->MicroProject_ID}}"--}}
                                                                                 {{--data-width="100%"--}}
                                                                                 {{--data-numposts="3">--}}
-                                                                                {{--</div>--}}
                                                                                 <div class="swipe-to-close"
                                                                                      id="swipe-to-close-{{$i+$j}}"></div>
                                                                             </div>
@@ -4585,37 +3862,20 @@
                                                                  src="/images/ico/video-ini-icon.svg">
                                                         </a>
                                                     @endif
-                                                    {{--@if($projectCopyD->MPE_Video != '0')--}}
                                                     {{--<a href="#" class="launch-modal"--}}
-                                                    {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                     {{--<img class="video-icon"--}}
                                                     {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                    {{--</a>--}}
                                                     {{--<!--VIDEO MODAL -->--}}
                                                     {{--<div class="modal fade" id="modal-video-copy"--}}
                                                     {{--tabindex="-1"--}}
                                                     {{--role="dialog"--}}
                                                     {{--aria-labelledby="modal-video-label">--}}
-                                                    {{--<div class="modal-dialog" role="document">--}}
-                                                    {{--<div class="modal-content">--}}
-                                                    {{--<div class="modal-body">--}}
-                                                    {{--<div class="modal-video">--}}
-                                                    {{--<div class="video ">--}}
                                                     {{--<iframe class="embed-responsive-item"--}}
-                                                    {{--src="{{$projectCopyD->MPE_Video}}"--}}
                                                     {{--frameborder="0"--}}
                                                     {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                     {{--allowfullscreen--}}
                                                     {{--webkitallowfullscreen--}}
                                                     {{--mozallowfullscreen--}}
-                                                    {{--allowfullscreen></iframe>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--@endif--}}
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="card-title-section"></div>
@@ -4744,34 +4004,24 @@
                                                             </div>
                                                         @endif
 
-                                                        {{--@if($projectCopyD->MPE_Donor=='1')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Caritas.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='2')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Salt.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='3')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/LD.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='5')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/logo/kia.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='7')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/If.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='8')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Hungary.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='9')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='10')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='11')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/ACN.svg">--}}
-                                                        {{--@endif--}}
                                                     </div>
                                                 </div>
                                                 <div class="card-content">
@@ -4782,12 +4032,9 @@
                                                         id="txt{{$projectCopyW->id}}"
                                                         style="display: none;">
                                                     </textarea>
-                                                {{--<div id="fb-root"></div>--}}
                                                 {{--<div class="fb-comments"--}}
-                                                {{--data-href="https://hcsyria.org/micro-projects#project{{$projectCopyD->MicroProject_ID}}"--}}
                                                 {{--data-width="100%"--}}
                                                 {{--data-numposts="3">--}}
-                                                {{--</div>--}}
                                                 <div class="swipe-to-close"
                                                      id="swipe-to-close-W-copy"></div>
                                             </div>
@@ -4836,7 +4083,6 @@
                         </div>
                     </div>
                 @endif
-                {{--<div class="small horizontal-line last"></div>--}}
             </div>
         </div>
     @else
@@ -4932,37 +4178,19 @@
                                                                                  src="/images/ico/video-ini-icon.svg">
                                                                         </a>
                                                                     @endif
-                                                                    {{--@if($microProjectA[$i+$j]->MPE_Video != '0')--}}
                                                                     {{--<a href="#" class="launch-modal"--}}
-                                                                    {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                     {{--<img class="video-icon"--}}
                                                                     {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                    {{--</a>--}}
                                                                     {{--<!--VIDEO MODAL -->--}}
-                                                                    {{--<div class="modal fade" id="modal-video-{{$i+$j}}"--}}
                                                                     {{--tabindex="-1"--}}
                                                                     {{--role="dialog"--}}
                                                                     {{--aria-labelledby="modal-video-label">--}}
-                                                                    {{--<div class="modal-dialog" role="document">--}}
-                                                                    {{--<div class="modal-content">--}}
-                                                                    {{--<div class="modal-body">--}}
-                                                                    {{--<div class="modal-video">--}}
-                                                                    {{--<div class="video ">--}}
                                                                     {{--<iframe class="embed-responsive-item"--}}
-                                                                    {{--src="{{$microProjectA[$i+$j]->MPE_Video}}"--}}
                                                                     {{--frameborder="0"--}}
                                                                     {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                     {{--allowfullscreen--}}
                                                                     {{--webkitallowfullscreen--}}
                                                                     {{--mozallowfullscreen--}}
-                                                                    {{--allowfullscreen></iframe>--}}
-                                                                    {{--</div>--}}
-                                                                    {{--</div>--}}
-                                                                    {{--</div>--}}
-                                                                    {{--</div>--}}
-                                                                    {{--</div>--}}
-                                                                    {{--</div>--}}
-                                                                    {{--@endif--}}
                                                                 </div>
                                                                 <div class="col-12">
                                                                     <div class="card-title-section"></div>
@@ -5038,34 +4266,24 @@
                                                                         </div>
                                                                     @endif
 
-                                                                    {{--@if($microProjectA[$i+$j]->MPE_Donor=='1')--}}
                                                                     {{--<img class="project-donor-logo"--}}
                                                                     {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='2')--}}
                                                                     {{--<img class="project-donor-logo"--}}
                                                                     {{--src="/images/newLogos/Salt.svg">--}}
-                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='3')--}}
                                                                     {{--<img class="project-donor-logo"--}}
                                                                     {{--src="/images/newLogos/LD.svg">--}}
-                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='5')--}}
                                                                     {{--<img class="project-donor-logo"--}}
                                                                     {{--src="/images/logo/kia.svg">--}}
-                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='7')--}}
                                                                     {{--<img class="project-donor-logo"--}}
                                                                     {{--src="/images/newLogos/If.svg">--}}
-                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='8')--}}
                                                                     {{--<img class="project-donor-logo"--}}
                                                                     {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='9')--}}
                                                                     {{--<img class="project-donor-logo"--}}
                                                                     {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='10')--}}
                                                                     {{--<img class="project-donor-logo"--}}
                                                                     {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='11')--}}
                                                                     {{--<img class="project-donor-logo"--}}
                                                                     {{--src="/images/newLogos/ACN.svg">--}}
-                                                                    {{--@endif--}}
                                                                 </div>
                                                             </div>
                                                             <div class="row">
@@ -5133,40 +4351,23 @@
                                                                                                              src="/images/ico/video-ini-icon.svg">
                                                                                                     </a>
                                                                                                 @endif
-                                                                                                {{--@if($microProjectA[$i+$j]->MPE_Video != '0')--}}
                                                                                                 {{--<a href="#"--}}
                                                                                                 {{--class="launch-modal"--}}
-                                                                                                {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                                                 {{--<img class="video-icon"--}}
                                                                                                 {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                                                {{--</a>--}}
                                                                                                 {{--<!--VIDEO MODAL -->--}}
                                                                                                 {{--<div class="modal fade"--}}
-                                                                                                {{--id="modal-video-{{$i+$j}}"--}}
                                                                                                 {{--tabindex="-1"--}}
                                                                                                 {{--role="dialog"--}}
                                                                                                 {{--aria-labelledby="modal-video-label">--}}
                                                                                                 {{--<div class="modal-dialog"--}}
                                                                                                 {{--role="document">--}}
-                                                                                                {{--<div class="modal-content">--}}
-                                                                                                {{--<div class="modal-body">--}}
-                                                                                                {{--<div class="modal-video">--}}
-                                                                                                {{--<div class="video ">--}}
                                                                                                 {{--<iframe class="embed-responsive-item"--}}
-                                                                                                {{--src="{{$microProjectA[$i+$j]->MPE_Video}}"--}}
                                                                                                 {{--frameborder="0"--}}
                                                                                                 {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                                                 {{--allowfullscreen--}}
                                                                                                 {{--webkitallowfullscreen--}}
                                                                                                 {{--mozallowfullscreen--}}
-                                                                                                {{--allowfullscreen></iframe>--}}
-                                                                                                {{--</div>--}}
-                                                                                                {{--</div>--}}
-                                                                                                {{--</div>--}}
-                                                                                                {{--</div>--}}
-                                                                                                {{--</div>--}}
-                                                                                                {{--</div>--}}
-                                                                                                {{--@endif--}}
                                                                                             </div>
                                                                                             <div class="col-12">
                                                                                                 <div class="card-title-section"></div>
@@ -5297,34 +4498,24 @@
                                                                                                         </div>
                                                                                                     @endif
 
-                                                                                                    {{--@if($microProjectA[$i+$j]->MPE_Donor=='1')--}}
                                                                                                     {{--<img class="project-donor-logo"--}}
                                                                                                     {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='2')--}}
                                                                                                     {{--<img class="project-donor-logo"--}}
                                                                                                     {{--src="/images/newLogos/Salt.svg">--}}
-                                                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='3')--}}
                                                                                                     {{--<img class="project-donor-logo"--}}
                                                                                                     {{--src="/images/newLogos/LD.svg">--}}
-                                                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='5')--}}
                                                                                                     {{--<img class="project-donor-logo"--}}
                                                                                                     {{--src="/images/logo/kia.svg">--}}
-                                                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='7')--}}
                                                                                                     {{--<img class="project-donor-logo"--}}
                                                                                                     {{--src="/images/newLogos/If.svg">--}}
-                                                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='8')--}}
                                                                                                     {{--<img class="project-donor-logo"--}}
                                                                                                     {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='9')--}}
                                                                                                     {{--<img class="project-donor-logo"--}}
                                                                                                     {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='10')--}}
                                                                                                     {{--<img class="project-donor-logo"--}}
                                                                                                     {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='11')--}}
                                                                                                     {{--<img class="project-donor-logo"--}}
                                                                                                     {{--src="/images/newLogos/ACN.svg">--}}
-                                                                                                    {{--@endif--}}
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="card-content">
@@ -5335,23 +4526,13 @@
                                                                                                     id="txt{{$microProjectA[$i+$j]->id}}"
                                                                                                     style="display: none;">
                                                                                     </textarea>
-                                                                                            {{--@if($microProjectA[$i+$j]->MPE_Video != '0')--}}
-                                                                                            {{--<div class="video">--}}
                                                                                             {{--<iframe--}}
-                                                                                            {{--src="{{$microProjectA[$i+$j]->MPE_Video}}"--}}
                                                                                             {{--frameborder="0"--}}
                                                                                             {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                                             {{--allowfullscreen>--}}
-                                                                                            {{--</iframe>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--<hr style="border-color: #43484E;">--}}
-                                                                                            {{--@endif--}}
-                                                                                            {{--<div id="fb-root"></div>--}}
                                                                                             {{--<div class="fb-comments"--}}
-                                                                                            {{--data-href="https://hcsyria.org/micro-projects#project{{$microProjectA[$i+$j]->MicroProject_ID}}"--}}
                                                                                             {{--data-width="100%"--}}
                                                                                             {{--data-numposts="3">--}}
-                                                                                            {{--</div>--}}
 
                                                                                             <div class="text-center swipe-arrows">
                                                                                                 <i class="fa fa-angle-double-up"></i>
@@ -5406,37 +4587,19 @@
                                                                                  src="/images/ico/video-ini-icon.svg">
                                                                         </a>
                                                                     @endif
-                                                                    {{--@if($microProjectA[$i+$j]->MPE_Video != '0')--}}
                                                                     {{--<a href="#" class="launch-modal"--}}
-                                                                    {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                     {{--<img class="video-icon"--}}
                                                                     {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                    {{--</a>--}}
                                                                     {{--<!--VIDEO MODAL -->--}}
-                                                                    {{--<div class="modal fade" id="modal-video-{{$i+$j}}"--}}
                                                                     {{--tabindex="-1"--}}
                                                                     {{--role="dialog"--}}
                                                                     {{--aria-labelledby="modal-video-label">--}}
-                                                                    {{--<div class="modal-dialog" role="document">--}}
-                                                                    {{--<div class="modal-content">--}}
-                                                                    {{--<div class="modal-body">--}}
-                                                                    {{--<div class="modal-video">--}}
-                                                                    {{--<div class="video ">--}}
                                                                     {{--<iframe class="embed-responsive-item"--}}
-                                                                    {{--src="{{$microProjectA[$i+$j]->MPE_Video}}"--}}
                                                                     {{--frameborder="0"--}}
                                                                     {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                     {{--allowfullscreen--}}
                                                                     {{--webkitallowfullscreen--}}
                                                                     {{--mozallowfullscreen--}}
-                                                                    {{--allowfullscreen></iframe>--}}
-                                                                    {{--</div>--}}
-                                                                    {{--</div>--}}
-                                                                    {{--</div>--}}
-                                                                    {{--</div>--}}
-                                                                    {{--</div>--}}
-                                                                    {{--</div>--}}
-                                                                    {{--@endif--}}
                                                                 </div>
                                                                 <div class="col-12">
                                                                     <div class="card-title-section"></div>
@@ -5513,34 +4676,24 @@
                                                                                  src="{{$microProjectA[$i+$j]->donor['logo']}}">
                                                                         </div>
                                                                     @endif
-                                                                    {{--@if($microProjectA[$i+$j]->MPE_Donor=='1')--}}
                                                                     {{--<img class="project-donor-logo"--}}
                                                                     {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='2')--}}
                                                                     {{--<img class="project-donor-logo"--}}
                                                                     {{--src="/images/newLogos/Salt.svg">--}}
-                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='3')--}}
                                                                     {{--<img class="project-donor-logo"--}}
                                                                     {{--src="/images/newLogos/LD.svg">--}}
-                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='5')--}}
                                                                     {{--<img class="project-donor-logo"--}}
                                                                     {{--src="/images/logo/kia.svg">--}}
-                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='7')--}}
                                                                     {{--<img class="project-donor-logo"--}}
                                                                     {{--src="/images/newLogos/If.svg">--}}
-                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='8')--}}
                                                                     {{--<img class="project-donor-logo"--}}
                                                                     {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='9')--}}
                                                                     {{--<img class="project-donor-logo"--}}
                                                                     {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='10')--}}
                                                                     {{--<img class="project-donor-logo"--}}
                                                                     {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='11')--}}
                                                                     {{--<img class="project-donor-logo"--}}
                                                                     {{--src="/images/newLogos/ACN.svg">--}}
-                                                                    {{--@endif--}}
                                                                 </div>
                                                             </div>
                                                             @if($microProjectA[$i+$j]->$language->MPE_ExpSkill != '')
@@ -5610,40 +4763,23 @@
                                                                                                              src="/images/ico/video-ini-icon.svg">
                                                                                                     </a>
                                                                                                 @endif
-                                                                                                {{--@if($microProjectA[$i+$j]->MPE_Video != '0')--}}
                                                                                                 {{--<a href="#"--}}
                                                                                                 {{--class="launch-modal"--}}
-                                                                                                {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                                                 {{--<img class="video-icon"--}}
                                                                                                 {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                                                {{--</a>--}}
                                                                                                 {{--<!--VIDEO MODAL -->--}}
                                                                                                 {{--<div class="modal fade"--}}
-                                                                                                {{--id="modal-video-{{$i+$j}}"--}}
                                                                                                 {{--tabindex="-1"--}}
                                                                                                 {{--role="dialog"--}}
                                                                                                 {{--aria-labelledby="modal-video-label">--}}
                                                                                                 {{--<div class="modal-dialog"--}}
                                                                                                 {{--role="document">--}}
-                                                                                                {{--<div class="modal-content">--}}
-                                                                                                {{--<div class="modal-body">--}}
-                                                                                                {{--<div class="modal-video">--}}
-                                                                                                {{--<div class="video ">--}}
                                                                                                 {{--<iframe class="embed-responsive-item"--}}
-                                                                                                {{--src="{{$microProjectA[$i+$j]->MPE_Video}}"--}}
                                                                                                 {{--frameborder="0"--}}
                                                                                                 {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                                                 {{--allowfullscreen--}}
                                                                                                 {{--webkitallowfullscreen--}}
                                                                                                 {{--mozallowfullscreen--}}
-                                                                                                {{--allowfullscreen></iframe>--}}
-                                                                                                {{--</div>--}}
-                                                                                                {{--</div>--}}
-                                                                                                {{--</div>--}}
-                                                                                                {{--</div>--}}
-                                                                                                {{--</div>--}}
-                                                                                                {{--</div>--}}
-                                                                                                {{--@endif--}}
                                                                                             </div>
                                                                                             <div class="col-12">
                                                                                                 <div class="card-title-section"></div>
@@ -5774,34 +4910,24 @@
                                                                                                         </div>
                                                                                                     @endif
 
-                                                                                                    {{--@if($microProjectA[$i+$j]->MPE_Donor=='1')--}}
                                                                                                     {{--<img class="project-donor-logo"--}}
                                                                                                     {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='2')--}}
                                                                                                     {{--<img class="project-donor-logo"--}}
                                                                                                     {{--src="/images/newLogos/Salt.svg">--}}
-                                                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='3')--}}
                                                                                                     {{--<img class="project-donor-logo"--}}
                                                                                                     {{--src="/images/newLogos/LD.svg">--}}
-                                                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='5')--}}
                                                                                                     {{--<img class="project-donor-logo"--}}
                                                                                                     {{--src="/images/logo/kia.svg">--}}
-                                                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='7')--}}
                                                                                                     {{--<img class="project-donor-logo"--}}
                                                                                                     {{--src="/images/newLogos/If.svg">--}}
-                                                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='8')--}}
                                                                                                     {{--<img class="project-donor-logo"--}}
                                                                                                     {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='9')--}}
                                                                                                     {{--<img class="project-donor-logo"--}}
                                                                                                     {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='10')--}}
                                                                                                     {{--<img class="project-donor-logo"--}}
                                                                                                     {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                                                    {{--@elseif($microProjectA[$i+$j]->MPE_Donor=='11')--}}
                                                                                                     {{--<img class="project-donor-logo"--}}
                                                                                                     {{--src="/images/newLogos/ACN.svg">--}}
-                                                                                                    {{--@endif--}}
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="card-content">
@@ -5812,23 +4938,13 @@
                                                                                                     id="txt{{$microProjectA[$i+$j]->id}}"
                                                                                                     style="display: none;">
                                                                                     </textarea>
-                                                                                            {{--@if($microProjectA[$i+$j]->MPE_Video != '0')--}}
-                                                                                            {{--<div class="video">--}}
                                                                                             {{--<iframe--}}
-                                                                                            {{--src="{{$microProjectA[$i+$j]->MPE_Video}}"--}}
                                                                                             {{--frameborder="0"--}}
                                                                                             {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                                             {{--allowfullscreen>--}}
-                                                                                            {{--</iframe>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--<hr style="border-color: #43484E;">--}}
-                                                                                            {{--@endif--}}
-                                                                                            {{--<div id="fb-root"></div>--}}
                                                                                             {{--<div class="fb-comments"--}}
-                                                                                            {{--data-href="https://hcsyria.org/micro-projects#project{{$microProjectA[$i+$j]->MicroProject_ID}}"--}}
                                                                                             {{--data-width="100%"--}}
                                                                                             {{--data-numposts="3">--}}
-                                                                                            {{--</div>--}}
 
                                                                                             <div class="text-center swipe-arrows">
                                                                                                 <i class="fa fa-angle-double-up"></i>
@@ -5928,37 +5044,20 @@
                                                                      src="/images/ico/video-ini-icon.svg">
                                                             </a>
                                                         @endif
-                                                        {{--@if($projectCopyA->MPE_Video != '0')--}}
                                                         {{--<a href="#" class="launch-modal"--}}
-                                                        {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                         {{--<img class="video-icon"--}}
                                                         {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                        {{--</a>--}}
                                                         {{--<!--VIDEO MODAL -->--}}
                                                         {{--<div class="modal fade" id="modal-video-copy"--}}
                                                         {{--tabindex="-1"--}}
                                                         {{--role="dialog"--}}
                                                         {{--aria-labelledby="modal-video-label">--}}
-                                                        {{--<div class="modal-dialog" role="document">--}}
-                                                        {{--<div class="modal-content">--}}
-                                                        {{--<div class="modal-body">--}}
-                                                        {{--<div class="modal-video">--}}
-                                                        {{--<div class="video ">--}}
                                                         {{--<iframe class="embed-responsive-item"--}}
-                                                        {{--src="{{$projectCopyA->MPE_Video}}"--}}
                                                         {{--frameborder="0"--}}
                                                         {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                         {{--allowfullscreen--}}
                                                         {{--webkitallowfullscreen--}}
                                                         {{--mozallowfullscreen--}}
-                                                        {{--allowfullscreen></iframe>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--@endif--}}
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="card-title-section"></div>
@@ -6087,34 +5186,24 @@
                                                                 </div>
                                                             @endif
 
-                                                            {{--@if($projectCopyA->MPE_Donor=='1')--}}
                                                             {{--<img class="project-donor-logo"--}}
                                                             {{--src="/images/newLogos/Caritas.svg">--}}
-                                                            {{--@elseif($projectCopyA->MPE_Donor=='2')--}}
                                                             {{--<img class="project-donor-logo"--}}
                                                             {{--src="/images/newLogos/Salt.svg">--}}
-                                                            {{--@elseif($projectCopyA->MPE_Donor=='3')--}}
                                                             {{--<img class="project-donor-logo"--}}
                                                             {{--src="/images/newLogos/LD.svg">--}}
-                                                            {{--@elseif($projectCopyA->MPE_Donor=='5')--}}
                                                             {{--<img class="project-donor-logo"--}}
                                                             {{--src="/images/logo/kia.svg">--}}
-                                                            {{--@elseif($projectCopyA->MPE_Donor=='7')--}}
                                                             {{--<img class="project-donor-logo"--}}
                                                             {{--src="/images/newLogos/If.svg">--}}
-                                                            {{--@elseif($projectCopyA->MPE_Donor=='8')--}}
                                                             {{--<img class="project-donor-logo"--}}
                                                             {{--src="/images/newLogos/Hungary.svg">--}}
-                                                            {{--@elseif($projectCopyA->MPE_Donor=='9')--}}
                                                             {{--<img class="project-donor-logo"--}}
                                                             {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                            {{--@elseif($projectCopyA->MPE_Donor=='10')--}}
                                                             {{--<img class="project-donor-logo"--}}
                                                             {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                            {{--@elseif($projectCopyA->MPE_Donor=='11')--}}
                                                             {{--<img class="project-donor-logo"--}}
                                                             {{--src="/images/newLogos/ACN.svg">--}}
-                                                            {{--@endif--}}
                                                         </div>
                                                     </div>
                                                     <div class="card-content">
@@ -6125,23 +5214,13 @@
                                                             id="txt{{$projectCopyA->id}}"
                                                             style="display: none;">
                                                                                     </textarea>
-                                                    {{--@if($microProjectA[$i+$j]->MPE_Video != '0')--}}
-                                                    {{--<div class="video">--}}
                                                     {{--<iframe--}}
-                                                    {{--src="{{$microProjectA[$i+$j]->MPE_Video}}"--}}
                                                     {{--frameborder="0"--}}
                                                     {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                     {{--allowfullscreen>--}}
-                                                    {{--</iframe>--}}
-                                                    {{--</div>--}}
-                                                    {{--<hr style="border-color: #43484E;">--}}
-                                                    {{--@endif--}}
-                                                    {{--<div id="fb-root"></div>--}}
                                                     {{--<div class="fb-comments"--}}
-                                                    {{--data-href="https://hcsyria.org/micro-projects#project{{$projectCopyA->MicroProject_ID}}"--}}
                                                     {{--data-width="100%"--}}
                                                     {{--data-numposts="3">--}}
-                                                    {{--</div>--}}
                                                     <div class="swipe-to-close"
                                                          id="swipe-to-close-copy"></div>
                                                 </div>
@@ -6193,7 +5272,6 @@
                         </div>
                     </div>
                 </div>
-                {{--<div class="horizontal-line last"></div>--}}
             </div>
             <div class="tab-pane fade" id="homs" role="tabpanel" aria-labelledby="homsTab" tabindex="0">
                 @if(count($microProjectH)==0)
@@ -6284,37 +5362,19 @@
                                                                              src="/images/ico/video-ini-icon.svg">
                                                                     </a>
                                                                 @endif
-                                                                {{--@if($microProjectH[$i+$j]->MPE_Video != '0')--}}
                                                                 {{--<a href="#" class="launch-modal"--}}
-                                                                {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                 {{--<img class="video-icon"--}}
                                                                 {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                {{--</a>--}}
                                                                 {{--<!--VIDEO MODAL -->--}}
-                                                                {{--<div class="modal fade" id="modal-video-{{$i+$j}}"--}}
                                                                 {{--tabindex="-1"--}}
                                                                 {{--role="dialog"--}}
                                                                 {{--aria-labelledby="modal-video-label">--}}
-                                                                {{--<div class="modal-dialog" role="document">--}}
-                                                                {{--<div class="modal-content">--}}
-                                                                {{--<div class="modal-body">--}}
-                                                                {{--<div class="modal-video">--}}
-                                                                {{--<div class="video ">--}}
                                                                 {{--<iframe class="embed-responsive-item"--}}
-                                                                {{--src="{{$microProjectH[$i+$j]->MPE_Video}}"--}}
                                                                 {{--frameborder="0"--}}
                                                                 {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                 {{--allowfullscreen--}}
                                                                 {{--webkitallowfullscreen--}}
                                                                 {{--mozallowfullscreen--}}
-                                                                {{--allowfullscreen></iframe>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--@endif--}}
                                                             </div>
                                                             <div class="col-12">
                                                                 <div class="card-title-section"></div>
@@ -6392,34 +5452,24 @@
                                                                 @endif
 
 
-                                                                {{--@if($microProjectH[$i+$j]->MPE_Donor=='1')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='2')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Salt.svg">--}}
-                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='3')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/LD.svg">--}}
-                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='5')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/logo/kia.svg">--}}
-                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='7')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/If.svg">--}}
-                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='8')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='9')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='10')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='11')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/ACN.svg">--}}
-                                                                {{--@endif--}}
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -6488,40 +5538,23 @@
                                                                                                          src="/images/ico/video-ini-icon.svg">
                                                                                                 </a>
                                                                                             @endif
-                                                                                            {{--@if($microProjectH[$i+$j]->MPE_Video != '0')--}}
                                                                                             {{--<a href="#"--}}
                                                                                             {{--class="launch-modal"--}}
-                                                                                            {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                                             {{--<img class="video-icon"--}}
                                                                                             {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                                            {{--</a>--}}
                                                                                             {{--<!--VIDEO MODAL -->--}}
                                                                                             {{--<div class="modal fade"--}}
-                                                                                            {{--id="modal-video-{{$i+$j}}"--}}
                                                                                             {{--tabindex="-1"--}}
                                                                                             {{--role="dialog"--}}
                                                                                             {{--aria-labelledby="modal-video-label">--}}
                                                                                             {{--<div class="modal-dialog"--}}
                                                                                             {{--role="document">--}}
-                                                                                            {{--<div class="modal-content">--}}
-                                                                                            {{--<div class="modal-body">--}}
-                                                                                            {{--<div class="modal-video">--}}
-                                                                                            {{--<div class="video ">--}}
                                                                                             {{--<iframe class="embed-responsive-item"--}}
-                                                                                            {{--src="{{$microProjectH[$i+$j]->MPE_Video}}"--}}
                                                                                             {{--frameborder="0"--}}
                                                                                             {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                                             {{--allowfullscreen--}}
                                                                                             {{--webkitallowfullscreen--}}
                                                                                             {{--mozallowfullscreen--}}
-                                                                                            {{--allowfullscreen></iframe>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--@endif--}}
                                                                                         </div>
                                                                                         <div class="col-12">
                                                                                             <div class="card-title-section"></div>
@@ -6652,34 +5685,24 @@
                                                                                                     </div>
                                                                                                 @endif
 
-                                                                                                {{--@if($microProjectH[$i+$j]->MPE_Donor=='1')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='2')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Salt.svg">--}}
-                                                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='3')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/LD.svg">--}}
-                                                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='5')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/logo/kia.svg">--}}
-                                                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='7')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/If.svg">--}}
-                                                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='8')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='9')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='10')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='11')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/ACN.svg">--}}
-                                                                                                {{--@endif--}}
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="card-content">
@@ -6690,12 +5713,9 @@
                                                                                                 id="txt{{$microProjectH[$i+$j]->id}}"
                                                                                                 style="display: none;">
                                                                                     </textarea>
-                                                                                        {{--<div id="fb-root"></div>--}}
                                                                                         {{--<div class="fb-comments"--}}
-                                                                                        {{--data-href="https://hcsyria.org/micro-projects#project{{$microProjectH[$i+$j]->MicroProject_ID}}"--}}
                                                                                         {{--data-width="100%"--}}
                                                                                         {{--data-numposts="3">--}}
-                                                                                        {{--</div>--}}
                                                                                         <div class="swipe-to-close"
                                                                                              id="swipe-to-close-{{$i+$j}}"></div>
                                                                                     </div>
@@ -6745,37 +5765,19 @@
                                                                              src="/images/ico/video-ini-icon.svg">
                                                                     </a>
                                                                 @endif
-                                                                {{--@if($microProjectH[$i+$j]->MPE_Video != '0')--}}
                                                                 {{--<a href="#" class="launch-modal"--}}
-                                                                {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                 {{--<img class="video-icon"--}}
                                                                 {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                {{--</a>--}}
                                                                 {{--<!--VIDEO MODAL -->--}}
-                                                                {{--<div class="modal fade" id="modal-video-{{$i+$j}}"--}}
                                                                 {{--tabindex="-1"--}}
                                                                 {{--role="dialog"--}}
                                                                 {{--aria-labelledby="modal-video-label">--}}
-                                                                {{--<div class="modal-dialog" role="document">--}}
-                                                                {{--<div class="modal-content">--}}
-                                                                {{--<div class="modal-body">--}}
-                                                                {{--<div class="modal-video">--}}
-                                                                {{--<div class="video ">--}}
                                                                 {{--<iframe class="embed-responsive-item"--}}
-                                                                {{--src="{{$microProjectH[$i+$j]->MPE_Video}}"--}}
                                                                 {{--frameborder="0"--}}
                                                                 {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                 {{--allowfullscreen--}}
                                                                 {{--webkitallowfullscreen--}}
                                                                 {{--mozallowfullscreen--}}
-                                                                {{--allowfullscreen></iframe>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--@endif--}}
                                                             </div>
                                                             <div class="col-12">
                                                                 <div class="card-title-section"></div>
@@ -6860,34 +5862,24 @@
                                                                     </div>
                                                                 @endif
 
-                                                                {{--@if($microProjectH[$i+$j]->MPE_Donor=='1')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='2')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Salt.svg">--}}
-                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='3')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/LD.svg">--}}
-                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='5')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/logo/kia.svg">--}}
-                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='7')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/If.svg">--}}
-                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='8')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='9')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='10')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='11')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/ACN.svg">--}}
-                                                                {{--@endif--}}
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -6957,40 +5949,23 @@
                                                                                                          src="/images/ico/video-ini-icon.svg">
                                                                                                 </a>
                                                                                             @endif
-                                                                                            {{--@if($microProjectH[$i+$j]->MPE_Video != '0')--}}
                                                                                             {{--<a href="#"--}}
                                                                                             {{--class="launch-modal"--}}
-                                                                                            {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                                             {{--<img class="video-icon"--}}
                                                                                             {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                                            {{--</a>--}}
                                                                                             {{--<!--VIDEO MODAL -->--}}
                                                                                             {{--<div class="modal fade"--}}
-                                                                                            {{--id="modal-video-{{$i+$j}}"--}}
                                                                                             {{--tabindex="-1"--}}
                                                                                             {{--role="dialog"--}}
                                                                                             {{--aria-labelledby="modal-video-label">--}}
                                                                                             {{--<div class="modal-dialog"--}}
                                                                                             {{--role="document">--}}
-                                                                                            {{--<div class="modal-content">--}}
-                                                                                            {{--<div class="modal-body">--}}
-                                                                                            {{--<div class="modal-video">--}}
-                                                                                            {{--<div class="video ">--}}
                                                                                             {{--<iframe class="embed-responsive-item"--}}
-                                                                                            {{--src="{{$microProjectH[$i+$j]->MPE_Video}}"--}}
                                                                                             {{--frameborder="0"--}}
                                                                                             {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                                             {{--allowfullscreen--}}
                                                                                             {{--webkitallowfullscreen--}}
                                                                                             {{--mozallowfullscreen--}}
-                                                                                            {{--allowfullscreen></iframe>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--@endif--}}
                                                                                         </div>
                                                                                         <div class="col-12">
                                                                                             <div class="card-title-section"></div>
@@ -7121,34 +6096,24 @@
                                                                                                     </div>
                                                                                                 @endif
 
-                                                                                                {{--@if($microProjectH[$i+$j]->MPE_Donor=='1')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='2')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Salt.svg">--}}
-                                                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='3')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/LD.svg">--}}
-                                                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='5')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/logo/kia.svg">--}}
-                                                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='7')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/If.svg">--}}
-                                                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='8')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='9')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='10')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                                                {{--@elseif($microProjectH[$i+$j]->MPE_Donor=='11')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/ACN.svg">--}}
-                                                                                                {{--@endif--}}
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="card-content">
@@ -7170,12 +6135,9 @@
                                                                                             </div>
                                                                                             <hr style="border-color: #43484E;">
                                                                                         @endif
-                                                                                        {{--<div id="fb-root"></div>--}}
                                                                                         {{--<div class="fb-comments"--}}
-                                                                                        {{--data-href="https://hcsyria.org/micro-projects#project{{$microProjectH[$i+$j]->MicroProject_ID}}"--}}
                                                                                         {{--data-width="100%"--}}
                                                                                         {{--data-numposts="3">--}}
-                                                                                        {{--</div>--}}
 
                                                                                         <div class="text-center swipe-arrows">
                                                                                             <i class="fa fa-angle-double-up"></i>
@@ -7273,37 +6235,20 @@
                                                                  src="/images/ico/video-icon.svg">
                                                         </a>
                                                     @endif
-                                                    {{--@if($projectCopyH->MPE_Video != '0')--}}
                                                     {{--<a href="#" class="launch-modal"--}}
-                                                    {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                     {{--<img class="video-icon"--}}
                                                     {{--src="/images/ico/video-icon.svg">--}}
-                                                    {{--</a>--}}
                                                     {{--<!--VIDEO MODAL -->--}}
                                                     {{--<div class="modal fade" id="modal-video-copy"--}}
                                                     {{--tabindex="-1"--}}
                                                     {{--role="dialog"--}}
                                                     {{--aria-labelledby="modal-video-label">--}}
-                                                    {{--<div class="modal-dialog" role="document">--}}
-                                                    {{--<div class="modal-content">--}}
-                                                    {{--<div class="modal-body">--}}
-                                                    {{--<div class="modal-video">--}}
-                                                    {{--<div class="video ">--}}
                                                     {{--<iframe class="embed-responsive-item"--}}
-                                                    {{--src="{{$projectCopyH->MPE_Video}}"--}}
                                                     {{--frameborder="0"--}}
                                                     {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                     {{--allowfullscreen--}}
                                                     {{--webkitallowfullscreen--}}
                                                     {{--mozallowfullscreen--}}
-                                                    {{--allowfullscreen></iframe>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--@endif--}}
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="card-title-section"></div>
@@ -7399,34 +6344,24 @@
                                                                  src="{{$projectCopyH->donor['logo']}}">
                                                         </div>
 
-                                                        {{--@if($projectCopyH->MPE_Donor=='1')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Caritas.svg">--}}
-                                                        {{--@elseif($projectCopyH->MPE_Donor=='2')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Salt.svg">--}}
-                                                        {{--@elseif($projectCopyH->MPE_Donor=='3')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/LD.svg">--}}
-                                                        {{--@elseif($projectCopyH->MPE_Donor=='5')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/logo/kia.svg">--}}
-                                                        {{--@elseif($projectCopyH->MPE_Donor=='7')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/If.svg">--}}
-                                                        {{--@elseif($projectCopyH->MPE_Donor=='8')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Hungary.svg">--}}
-                                                        {{--@elseif($projectCopyH->MPE_Donor=='9')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                        {{--@elseif($projectCopyH->MPE_Donor=='10')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                        {{--@elseif($projectCopyH->MPE_Donor=='11')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/ACN.svg">--}}
-                                                        {{--@endif--}}
                                                     </div>
                                                 </div>
                                                 <div class="card-content">
@@ -7437,12 +6372,9 @@
                                                         id="txt{{$projectCopyH->id}}"
                                                         style="display: none;">
                                                     </textarea>
-                                                {{--<div id="fb-root"></div>--}}
                                                 {{--<div class="fb-comments"--}}
-                                                {{--data-href="https://hcsyria.org/micro-projects#project{{$projectCopyH->MicroProject_ID}}"--}}
                                                 {{--data-width="100%"--}}
                                                 {{--data-numposts="3">--}}
-                                                {{--</div>--}}
                                                 <div class="swipe-to-close"
                                                      id="swipe-to-close-H-copy"></div>
                                             </div>
@@ -7489,7 +6421,6 @@
                         </div>
                     </div>
                 </div>
-                {{--<div class="horizontal-line last"></div>--}}
             </div>
             <div class="tab-pane fade" id="damascus" role="tabpanel" aria-labelledby="damascusTab" tabindex="0">
                 @if(count($microProjectD)==0)
@@ -7580,37 +6511,19 @@
                                                                              src="/images/ico/video-ini-icon.svg">
                                                                     </a>
                                                                 @endif
-                                                                {{--@if($microProjectD[$i+$j]->MPE_Video != '0')--}}
                                                                 {{--<a href="#" class="launch-modal"--}}
-                                                                {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                 {{--<img class="video-icon"--}}
                                                                 {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                {{--</a>--}}
                                                                 {{--<!--VIDEO MODAL -->--}}
-                                                                {{--<div class="modal fade" id="modal-video-{{$i+$j}}"--}}
                                                                 {{--tabindex="-1"--}}
                                                                 {{--role="dialog"--}}
                                                                 {{--aria-labelledby="modal-video-label">--}}
-                                                                {{--<div class="modal-dialog" role="document">--}}
-                                                                {{--<div class="modal-content">--}}
-                                                                {{--<div class="modal-body">--}}
-                                                                {{--<div class="modal-video">--}}
-                                                                {{--<div class="video ">--}}
                                                                 {{--<iframe class="embed-responsive-item"--}}
-                                                                {{--src="{{$microProjectD[$i+$j]->MPE_Video}}"--}}
                                                                 {{--frameborder="0"--}}
                                                                 {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                 {{--allowfullscreen--}}
                                                                 {{--webkitallowfullscreen--}}
                                                                 {{--mozallowfullscreen--}}
-                                                                {{--allowfullscreen></iframe>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--@endif--}}
                                                             </div>
                                                             <div class="col-12">
                                                                 <div class="card-title-section"></div>
@@ -7693,34 +6606,24 @@
                                                                     </div>
                                                                 @endif
 
-                                                                {{--@if($microProjectD[$i+$j]->MPE_Donor=='1')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='2')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Salt.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='3')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/LD.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='5')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/logo/kia.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='7')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/If.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='8')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='9')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='10')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='11')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/ACN.svg">--}}
-                                                                {{--@endif--}}
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -7789,40 +6692,23 @@
                                                                                                          src="/images/ico/video-ini-icon.svg">
                                                                                                 </a>
                                                                                             @endif
-                                                                                            {{--@if($microProjectD[$i+$j]->MPE_Video != '0')--}}
                                                                                             {{--<a href="#"--}}
                                                                                             {{--class="launch-modal"--}}
-                                                                                            {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                                             {{--<img class="video-icon"--}}
                                                                                             {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                                            {{--</a>--}}
                                                                                             {{--<!--VIDEO MODAL -->--}}
                                                                                             {{--<div class="modal fade"--}}
-                                                                                            {{--id="modal-video-{{$i+$j}}"--}}
                                                                                             {{--tabindex="-1"--}}
                                                                                             {{--role="dialog"--}}
                                                                                             {{--aria-labelledby="modal-video-label">--}}
                                                                                             {{--<div class="modal-dialog"--}}
                                                                                             {{--role="document">--}}
-                                                                                            {{--<div class="modal-content">--}}
-                                                                                            {{--<div class="modal-body">--}}
-                                                                                            {{--<div class="modal-video">--}}
-                                                                                            {{--<div class="video ">--}}
                                                                                             {{--<iframe class="embed-responsive-item"--}}
-                                                                                            {{--src="{{$microProjectD[$i+$j]->MPE_Video}}"--}}
                                                                                             {{--frameborder="0"--}}
                                                                                             {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                                             {{--allowfullscreen--}}
                                                                                             {{--webkitallowfullscreen--}}
                                                                                             {{--mozallowfullscreen--}}
-                                                                                            {{--allowfullscreen></iframe>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--@endif--}}
                                                                                         </div>
                                                                                         <div class="col-12">
                                                                                             <div class="card-title-section"></div>
@@ -7952,34 +6838,24 @@
                                                                                                     </div>
                                                                                                 @endif
 
-                                                                                                {{--@if($microProjectD[$i+$j]->MPE_Donor=='1')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='2')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Salt.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='3')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/LD.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='5')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/logo/kia.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='7')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/If.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='8')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='9')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='10')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='11')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/ACN.svg">--}}
-                                                                                                {{--@endif--}}
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="card-content">
@@ -7990,12 +6866,9 @@
                                                                                                 id="txt{{$microProjectD[$i+$j]->id}}"
                                                                                                 style="display: none;">
                                                                                     </textarea>
-                                                                                        {{--<div id="fb-root"></div>--}}
                                                                                         {{--<div class="fb-comments"--}}
-                                                                                        {{--data-href="https://hcsyria.org/micro-projects#project{{$microProjectD[$i+$j]->MicroProject_ID}}"--}}
                                                                                         {{--data-width="100%"--}}
                                                                                         {{--data-numposts="3">--}}
-                                                                                        {{--</div>--}}
                                                                                         <div class="swipe-to-close"
                                                                                              id="swipe-to-close-{{$i+$j}}"></div>
                                                                                     </div>
@@ -8044,37 +6917,19 @@
                                                                              src="/images/ico/video-ini-icon.svg">
                                                                     </a>
                                                                 @endif
-                                                                {{--@if($microProjectD[$i+$j]->MPE_Video != '0')--}}
                                                                 {{--<a href="#" class="launch-modal"--}}
-                                                                {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                 {{--<img class="video-icon"--}}
                                                                 {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                {{--</a>--}}
                                                                 {{--<!--VIDEO MODAL -->--}}
-                                                                {{--<div class="modal fade" id="modal-video-{{$i+$j}}"--}}
                                                                 {{--tabindex="-1"--}}
                                                                 {{--role="dialog"--}}
                                                                 {{--aria-labelledby="modal-video-label">--}}
-                                                                {{--<div class="modal-dialog" role="document">--}}
-                                                                {{--<div class="modal-content">--}}
-                                                                {{--<div class="modal-body">--}}
-                                                                {{--<div class="modal-video">--}}
-                                                                {{--<div class="video ">--}}
                                                                 {{--<iframe class="embed-responsive-item"--}}
-                                                                {{--src="{{$microProjectD[$i+$j]->MPE_Video}}"--}}
                                                                 {{--frameborder="0"--}}
                                                                 {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                 {{--allowfullscreen--}}
                                                                 {{--webkitallowfullscreen--}}
                                                                 {{--mozallowfullscreen--}}
-                                                                {{--allowfullscreen></iframe>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--@endif--}}
                                                             </div>
                                                             <div class="col-12">
                                                                 <div class="card-title-section"></div>
@@ -8159,34 +7014,24 @@
                                                                     </div>
                                                                 @endif
 
-                                                                {{--@if($microProjectD[$i+$j]->MPE_Donor=='1')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='2')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Salt.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='3')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/LD.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='5')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/logo/kia.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='7')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/If.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='8')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='9')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='10')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='11')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/ACN.svg">--}}
-                                                                {{--@endif--}}
                                                             </div>
 
                                                         </div>
@@ -8257,40 +7102,23 @@
                                                                                                          src="/images/ico/video-ini-icon.svg">
                                                                                                 </a>
                                                                                             @endif
-                                                                                            {{--@if($microProjectD[$i+$j]->MPE_Video != '0')--}}
                                                                                             {{--<a href="#"--}}
                                                                                             {{--class="launch-modal"--}}
-                                                                                            {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                                             {{--<img class="video-icon"--}}
                                                                                             {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                                            {{--</a>--}}
                                                                                             {{--<!--VIDEO MODAL -->--}}
                                                                                             {{--<div class="modal fade"--}}
-                                                                                            {{--id="modal-video-{{$i+$j}}"--}}
                                                                                             {{--tabindex="-1"--}}
                                                                                             {{--role="dialog"--}}
                                                                                             {{--aria-labelledby="modal-video-label">--}}
                                                                                             {{--<div class="modal-dialog"--}}
                                                                                             {{--role="document">--}}
-                                                                                            {{--<div class="modal-content">--}}
-                                                                                            {{--<div class="modal-body">--}}
-                                                                                            {{--<div class="modal-video">--}}
-                                                                                            {{--<div class="video ">--}}
                                                                                             {{--<iframe class="embed-responsive-item"--}}
-                                                                                            {{--src="{{$microProjectD[$i+$j]->MPE_Video}}"--}}
                                                                                             {{--frameborder="0"--}}
                                                                                             {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                                             {{--allowfullscreen--}}
                                                                                             {{--webkitallowfullscreen--}}
                                                                                             {{--mozallowfullscreen--}}
-                                                                                            {{--allowfullscreen></iframe>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--@endif--}}
                                                                                         </div>
                                                                                         <div class="col-12">
                                                                                             <div class="card-title-section"></div>
@@ -8407,12 +7235,9 @@
                                                                                             </div>
                                                                                             <hr style="border-color: #43484E;">
                                                                                         @endif
-                                                                                        {{--<div id="fb-root"></div>--}}
                                                                                         {{--<div class="fb-comments"--}}
-                                                                                        {{--data-href="https://hcsyria.org/micro-projects#project{{$microProjectD[$i+$j]->MicroProject_ID}}"--}}
                                                                                         {{--data-width="100%"--}}
                                                                                         {{--data-numposts="3">--}}
-                                                                                        {{--</div>--}}
 
                                                                                         <div class="text-center swipe-arrows">
                                                                                             <i class="fa fa-angle-double-up"></i>
@@ -8512,37 +7337,20 @@
                                                                  src="/images/ico/video-ini-icon.svg">
                                                         </a>
                                                     @endif
-                                                    {{--@if($projectCopyD->MPE_Video != '0')--}}
                                                     {{--<a href="#" class="launch-modal"--}}
-                                                    {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                     {{--<img class="video-icon"--}}
                                                     {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                    {{--</a>--}}
                                                     {{--<!--VIDEO MODAL -->--}}
                                                     {{--<div class="modal fade" id="modal-video-copy"--}}
                                                     {{--tabindex="-1"--}}
                                                     {{--role="dialog"--}}
                                                     {{--aria-labelledby="modal-video-label">--}}
-                                                    {{--<div class="modal-dialog" role="document">--}}
-                                                    {{--<div class="modal-content">--}}
-                                                    {{--<div class="modal-body">--}}
-                                                    {{--<div class="modal-video">--}}
-                                                    {{--<div class="video ">--}}
                                                     {{--<iframe class="embed-responsive-item"--}}
-                                                    {{--src="{{$projectCopyD->MPE_Video}}"--}}
                                                     {{--frameborder="0"--}}
                                                     {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                     {{--allowfullscreen--}}
                                                     {{--webkitallowfullscreen--}}
                                                     {{--mozallowfullscreen--}}
-                                                    {{--allowfullscreen></iframe>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--@endif--}}
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="card-title-section"></div>
@@ -8672,34 +7480,24 @@
                                                             </div>
                                                         @endif
 
-                                                        {{--@if($projectCopyD->MPE_Donor=='1')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Caritas.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='2')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Salt.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='3')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/LD.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='5')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/logo/kia.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='7')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/If.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='8')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Hungary.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='9')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='10')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='11')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/ACN.svg">--}}
-                                                        {{--@endif--}}
                                                     </div>
                                                 </div>
                                                 <div class="card-content">
@@ -8710,12 +7508,9 @@
                                                         id="txt{{$projectCopyD->id}}"
                                                         style="display: none;">
                                                     </textarea>
-                                                {{--<div id="fb-root"></div>--}}
                                                 {{--<div class="fb-comments"--}}
-                                                {{--data-href="https://hcsyria.org/micro-projects#project{{$projectCopyD->MicroProject_ID}}"--}}
                                                 {{--data-width="100%"--}}
                                                 {{--data-numposts="3">--}}
-                                                {{--</div>--}}
                                                 <div class="swipe-to-close"
                                                      id="swipe-to-close-D-copy"></div>
                                             </div>
@@ -8762,7 +7557,6 @@
                         </div>
                     </div>
                 </div>
-                {{--<div class="small horizontal-line last"></div>--}}
             </div>
             <div class="tab-pane fade" id="latakia" role="tabpanel" aria-labelledby="latakiaTab" tabindex="0">
                 @if(count($microProjectL)==0)
@@ -8853,37 +7647,19 @@
                                                                              src="/images/ico/video-ini-icon.svg">
                                                                     </a>
                                                                 @endif
-                                                                {{--@if($microProjectD[$i+$j]->MPE_Video != '0')--}}
                                                                 {{--<a href="#" class="launch-modal"--}}
-                                                                {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                 {{--<img class="video-icon"--}}
                                                                 {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                {{--</a>--}}
                                                                 {{--<!--VIDEO MODAL -->--}}
-                                                                {{--<div class="modal fade" id="modal-video-{{$i+$j}}"--}}
                                                                 {{--tabindex="-1"--}}
                                                                 {{--role="dialog"--}}
                                                                 {{--aria-labelledby="modal-video-label">--}}
-                                                                {{--<div class="modal-dialog" role="document">--}}
-                                                                {{--<div class="modal-content">--}}
-                                                                {{--<div class="modal-body">--}}
-                                                                {{--<div class="modal-video">--}}
-                                                                {{--<div class="video ">--}}
                                                                 {{--<iframe class="embed-responsive-item"--}}
-                                                                {{--src="{{$microProjectD[$i+$j]->MPE_Video}}"--}}
                                                                 {{--frameborder="0"--}}
                                                                 {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                 {{--allowfullscreen--}}
                                                                 {{--webkitallowfullscreen--}}
                                                                 {{--mozallowfullscreen--}}
-                                                                {{--allowfullscreen></iframe>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--@endif--}}
                                                             </div>
                                                             <div class="col-12">
                                                                 <div class="card-title-section"></div>
@@ -9033,40 +7809,23 @@
                                                                                                          src="/images/ico/video-ini-icon.svg">
                                                                                                 </a>
                                                                                             @endif
-                                                                                            {{--@if($microProjectD[$i+$j]->MPE_Video != '0')--}}
                                                                                             {{--<a href="#"--}}
                                                                                             {{--class="launch-modal"--}}
-                                                                                            {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                                             {{--<img class="video-icon"--}}
                                                                                             {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                                            {{--</a>--}}
                                                                                             {{--<!--VIDEO MODAL -->--}}
                                                                                             {{--<div class="modal fade"--}}
-                                                                                            {{--id="modal-video-{{$i+$j}}"--}}
                                                                                             {{--tabindex="-1"--}}
                                                                                             {{--role="dialog"--}}
                                                                                             {{--aria-labelledby="modal-video-label">--}}
                                                                                             {{--<div class="modal-dialog"--}}
                                                                                             {{--role="document">--}}
-                                                                                            {{--<div class="modal-content">--}}
-                                                                                            {{--<div class="modal-body">--}}
-                                                                                            {{--<div class="modal-video">--}}
-                                                                                            {{--<div class="video ">--}}
                                                                                             {{--<iframe class="embed-responsive-item"--}}
-                                                                                            {{--src="{{$microProjectD[$i+$j]->MPE_Video}}"--}}
                                                                                             {{--frameborder="0"--}}
                                                                                             {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                                             {{--allowfullscreen--}}
                                                                                             {{--webkitallowfullscreen--}}
                                                                                             {{--mozallowfullscreen--}}
-                                                                                            {{--allowfullscreen></iframe>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--@endif--}}
                                                                                         </div>
                                                                                         <div class="col-12">
                                                                                             <div class="card-title-section"></div>
@@ -9196,34 +7955,24 @@
                                                                                                     </div>
                                                                                                 @endif
 
-                                                                                                {{--@if($microProjectD[$i+$j]->MPE_Donor=='1')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='2')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Salt.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='3')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/LD.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='5')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/logo/kia.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='7')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/If.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='8')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='9')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='10')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='11')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/ACN.svg">--}}
-                                                                                                {{--@endif--}}
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="card-content">
@@ -9234,12 +7983,9 @@
                                                                                                 id="txt{{$microProjectL[$i+$j]->id}}"
                                                                                                 style="display: none;">
                                                                                     </textarea>
-                                                                                        {{--<div id="fb-root"></div>--}}
                                                                                         {{--<div class="fb-comments"--}}
-                                                                                        {{--data-href="https://hcsyria.org/micro-projects#project{{$microProjectD[$i+$j]->MicroProject_ID}}"--}}
                                                                                         {{--data-width="100%"--}}
                                                                                         {{--data-numposts="3">--}}
-                                                                                        {{--</div>--}}
                                                                                         <div class="swipe-to-close"
                                                                                              id="swipe-to-close-{{$i+$j}}"></div>
                                                                                     </div>
@@ -9288,37 +8034,19 @@
                                                                              src="/images/ico/video-ini-icon.svg">
                                                                     </a>
                                                                 @endif
-                                                                {{--@if($microProjectD[$i+$j]->MPE_Video != '0')--}}
                                                                 {{--<a href="#" class="launch-modal"--}}
-                                                                {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                 {{--<img class="video-icon"--}}
                                                                 {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                {{--</a>--}}
                                                                 {{--<!--VIDEO MODAL -->--}}
-                                                                {{--<div class="modal fade" id="modal-video-{{$i+$j}}"--}}
                                                                 {{--tabindex="-1"--}}
                                                                 {{--role="dialog"--}}
                                                                 {{--aria-labelledby="modal-video-label">--}}
-                                                                {{--<div class="modal-dialog" role="document">--}}
-                                                                {{--<div class="modal-content">--}}
-                                                                {{--<div class="modal-body">--}}
-                                                                {{--<div class="modal-video">--}}
-                                                                {{--<div class="video ">--}}
                                                                 {{--<iframe class="embed-responsive-item"--}}
-                                                                {{--src="{{$microProjectD[$i+$j]->MPE_Video}}"--}}
                                                                 {{--frameborder="0"--}}
                                                                 {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                 {{--allowfullscreen--}}
                                                                 {{--webkitallowfullscreen--}}
                                                                 {{--mozallowfullscreen--}}
-                                                                {{--allowfullscreen></iframe>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--@endif--}}
                                                             </div>
                                                             <div class="col-12">
                                                                 <div class="card-title-section"></div>
@@ -9403,34 +8131,24 @@
                                                                     </div>
                                                                 @endif
 
-                                                                {{--@if($microProjectD[$i+$j]->MPE_Donor=='1')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='2')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Salt.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='3')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/LD.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='5')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/logo/kia.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='7')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/If.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='8')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='9')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='10')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='11')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/ACN.svg">--}}
-                                                                {{--@endif--}}
                                                             </div>
 
                                                         </div>
@@ -9501,40 +8219,23 @@
                                                                                                          src="/images/ico/video-ini-icon.svg">
                                                                                                 </a>
                                                                                             @endif
-                                                                                            {{--@if($microProjectD[$i+$j]->MPE_Video != '0')--}}
                                                                                             {{--<a href="#"--}}
                                                                                             {{--class="launch-modal"--}}
-                                                                                            {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                                             {{--<img class="video-icon"--}}
                                                                                             {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                                            {{--</a>--}}
                                                                                             {{--<!--VIDEO MODAL -->--}}
                                                                                             {{--<div class="modal fade"--}}
-                                                                                            {{--id="modal-video-{{$i+$j}}"--}}
                                                                                             {{--tabindex="-1"--}}
                                                                                             {{--role="dialog"--}}
                                                                                             {{--aria-labelledby="modal-video-label">--}}
                                                                                             {{--<div class="modal-dialog"--}}
                                                                                             {{--role="document">--}}
-                                                                                            {{--<div class="modal-content">--}}
-                                                                                            {{--<div class="modal-body">--}}
-                                                                                            {{--<div class="modal-video">--}}
-                                                                                            {{--<div class="video ">--}}
                                                                                             {{--<iframe class="embed-responsive-item"--}}
-                                                                                            {{--src="{{$microProjectD[$i+$j]->MPE_Video}}"--}}
                                                                                             {{--frameborder="0"--}}
                                                                                             {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                                             {{--allowfullscreen--}}
                                                                                             {{--webkitallowfullscreen--}}
                                                                                             {{--mozallowfullscreen--}}
-                                                                                            {{--allowfullscreen></iframe>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--@endif--}}
                                                                                         </div>
                                                                                         <div class="col-12">
                                                                                             <div class="card-title-section"></div>
@@ -9651,12 +8352,9 @@
                                                                                             </div>
                                                                                             <hr style="border-color: #43484E;">
                                                                                         @endif
-                                                                                        {{--<div id="fb-root"></div>--}}
                                                                                         {{--<div class="fb-comments"--}}
-                                                                                        {{--data-href="https://hcsyria.org/micro-projects#project{{$microProjectD[$i+$j]->MicroProject_ID}}"--}}
                                                                                         {{--data-width="100%"--}}
                                                                                         {{--data-numposts="3">--}}
-                                                                                        {{--</div>--}}
 
                                                                                         <div class="text-center swipe-arrows">
                                                                                             <i class="fa fa-angle-double-up"></i>
@@ -9756,37 +8454,20 @@
                                                                  src="/images/ico/video-ini-icon.svg">
                                                         </a>
                                                     @endif
-                                                    {{--@if($projectCopyD->MPE_Video != '0')--}}
                                                     {{--<a href="#" class="launch-modal"--}}
-                                                    {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                     {{--<img class="video-icon"--}}
                                                     {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                    {{--</a>--}}
                                                     {{--<!--VIDEO MODAL -->--}}
                                                     {{--<div class="modal fade" id="modal-video-copy"--}}
                                                     {{--tabindex="-1"--}}
                                                     {{--role="dialog"--}}
                                                     {{--aria-labelledby="modal-video-label">--}}
-                                                    {{--<div class="modal-dialog" role="document">--}}
-                                                    {{--<div class="modal-content">--}}
-                                                    {{--<div class="modal-body">--}}
-                                                    {{--<div class="modal-video">--}}
-                                                    {{--<div class="video ">--}}
                                                     {{--<iframe class="embed-responsive-item"--}}
-                                                    {{--src="{{$projectCopyD->MPE_Video}}"--}}
                                                     {{--frameborder="0"--}}
                                                     {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                     {{--allowfullscreen--}}
                                                     {{--webkitallowfullscreen--}}
                                                     {{--mozallowfullscreen--}}
-                                                    {{--allowfullscreen></iframe>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--@endif--}}
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="card-title-section"></div>
@@ -9916,34 +8597,24 @@
                                                             </div>
                                                         @endif
 
-                                                        {{--@if($projectCopyD->MPE_Donor=='1')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Caritas.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='2')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Salt.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='3')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/LD.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='5')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/logo/kia.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='7')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/If.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='8')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Hungary.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='9')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='10')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='11')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/ACN.svg">--}}
-                                                        {{--@endif--}}
                                                     </div>
                                                 </div>
                                                 <div class="card-content">
@@ -9954,12 +8625,9 @@
                                                         id="txt{{$projectCopyL->id}}"
                                                         style="display: none;">
                                                     </textarea>
-                                                {{--<div id="fb-root"></div>--}}
                                                 {{--<div class="fb-comments"--}}
-                                                {{--data-href="https://hcsyria.org/micro-projects#project{{$projectCopyD->MicroProject_ID}}"--}}
                                                 {{--data-width="100%"--}}
                                                 {{--data-numposts="3">--}}
-                                                {{--</div>--}}
                                                 <div class="swipe-to-close"
                                                      id="swipe-to-close-L-copy"></div>
                                             </div>
@@ -10008,7 +8676,6 @@
                         </div>
                     </div>
                 @endif
-                {{--<div class="small horizontal-line last"></div>--}}
             </div>
             <div class="tab-pane fade" id="wadi" role="tabpanel" aria-labelledby="wadiTab" tabindex="0">
                 @if(count($microProjectW)==0)
@@ -10181,34 +8848,24 @@
                                                                     </div>
                                                                 @endif
 
-                                                                {{--@if($microProjectD[$i+$j]->MPE_Donor=='1')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='2')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Salt.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='3')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/LD.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='5')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/logo/kia.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='7')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/If.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='8')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='9')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='10')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='11')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/ACN.svg">--}}
-                                                                {{--@endif--}}
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -10277,40 +8934,23 @@
                                                                                                          src="/images/ico/video-ini-icon.svg">
                                                                                                 </a>
                                                                                             @endif
-                                                                                            {{--@if($microProjectD[$i+$j]->MPE_Video != '0')--}}
                                                                                             {{--<a href="#"--}}
                                                                                             {{--class="launch-modal"--}}
-                                                                                            {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                                             {{--<img class="video-icon"--}}
                                                                                             {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                                            {{--</a>--}}
                                                                                             {{--<!--VIDEO MODAL -->--}}
                                                                                             {{--<div class="modal fade"--}}
-                                                                                            {{--id="modal-video-{{$i+$j}}"--}}
                                                                                             {{--tabindex="-1"--}}
                                                                                             {{--role="dialog"--}}
                                                                                             {{--aria-labelledby="modal-video-label">--}}
                                                                                             {{--<div class="modal-dialog"--}}
                                                                                             {{--role="document">--}}
-                                                                                            {{--<div class="modal-content">--}}
-                                                                                            {{--<div class="modal-body">--}}
-                                                                                            {{--<div class="modal-video">--}}
-                                                                                            {{--<div class="video ">--}}
                                                                                             {{--<iframe class="embed-responsive-item"--}}
-                                                                                            {{--src="{{$microProjectD[$i+$j]->MPE_Video}}"--}}
                                                                                             {{--frameborder="0"--}}
                                                                                             {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                                             {{--allowfullscreen--}}
                                                                                             {{--webkitallowfullscreen--}}
                                                                                             {{--mozallowfullscreen--}}
-                                                                                            {{--allowfullscreen></iframe>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--@endif--}}
                                                                                         </div>
                                                                                         <div class="col-12">
                                                                                             <div class="card-title-section"></div>
@@ -10440,34 +9080,24 @@
                                                                                                     </div>
                                                                                                 @endif
 
-                                                                                                {{--@if($microProjectD[$i+$j]->MPE_Donor=='1')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='2')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Salt.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='3')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/LD.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='5')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/logo/kia.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='7')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/If.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='8')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='9')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='10')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='11')--}}
                                                                                                 {{--<img class="project-donor-logo"--}}
                                                                                                 {{--src="/images/newLogos/ACN.svg">--}}
-                                                                                                {{--@endif--}}
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="card-content">
@@ -10478,12 +9108,9 @@
                                                                                                 id="txt{{$microProjectW[$i+$j]->id}}"
                                                                                                 style="display: none;">
                                                                                     </textarea>
-                                                                                        {{--<div id="fb-root"></div>--}}
                                                                                         {{--<div class="fb-comments"--}}
-                                                                                        {{--data-href="https://hcsyria.org/micro-projects#project{{$microProjectD[$i+$j]->MicroProject_ID}}"--}}
                                                                                         {{--data-width="100%"--}}
                                                                                         {{--data-numposts="3">--}}
-                                                                                        {{--</div>--}}
                                                                                         <div class="swipe-to-close"
                                                                                              id="swipe-to-close-{{$i+$j}}"></div>
                                                                                     </div>
@@ -10532,37 +9159,19 @@
                                                                              src="/images/ico/video-ini-icon.svg">
                                                                     </a>
                                                                 @endif
-                                                                {{--@if($microProjectD[$i+$j]->MPE_Video != '0')--}}
                                                                 {{--<a href="#" class="launch-modal"--}}
-                                                                {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                 {{--<img class="video-icon"--}}
                                                                 {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                {{--</a>--}}
                                                                 {{--<!--VIDEO MODAL -->--}}
-                                                                {{--<div class="modal fade" id="modal-video-{{$i+$j}}"--}}
                                                                 {{--tabindex="-1"--}}
                                                                 {{--role="dialog"--}}
                                                                 {{--aria-labelledby="modal-video-label">--}}
-                                                                {{--<div class="modal-dialog" role="document">--}}
-                                                                {{--<div class="modal-content">--}}
-                                                                {{--<div class="modal-body">--}}
-                                                                {{--<div class="modal-video">--}}
-                                                                {{--<div class="video ">--}}
                                                                 {{--<iframe class="embed-responsive-item"--}}
-                                                                {{--src="{{$microProjectD[$i+$j]->MPE_Video}}"--}}
                                                                 {{--frameborder="0"--}}
                                                                 {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                 {{--allowfullscreen--}}
                                                                 {{--webkitallowfullscreen--}}
                                                                 {{--mozallowfullscreen--}}
-                                                                {{--allowfullscreen></iframe>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--</div>--}}
-                                                                {{--@endif--}}
                                                             </div>
                                                             <div class="col-12">
                                                                 <div class="card-title-section"></div>
@@ -10647,34 +9256,24 @@
                                                                     </div>
                                                                 @endif
 
-                                                                {{--@if($microProjectD[$i+$j]->MPE_Donor=='1')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Caritas.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='2')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Salt.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='3')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/LD.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='5')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/logo/kia.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='7')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/If.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='8')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Hungary.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='9')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='10')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                                {{--@elseif($microProjectD[$i+$j]->MPE_Donor=='11')--}}
                                                                 {{--<img class="project-donor-logo"--}}
                                                                 {{--src="/images/newLogos/ACN.svg">--}}
-                                                                {{--@endif--}}
                                                             </div>
 
                                                         </div>
@@ -10745,40 +9344,23 @@
                                                                                                          src="/images/ico/video-ini-icon.svg">
                                                                                                 </a>
                                                                                             @endif
-                                                                                            {{--@if($microProjectD[$i+$j]->MPE_Video != '0')--}}
                                                                                             {{--<a href="#"--}}
                                                                                             {{--class="launch-modal"--}}
-                                                                                            {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                                             {{--<img class="video-icon"--}}
                                                                                             {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                                            {{--</a>--}}
                                                                                             {{--<!--VIDEO MODAL -->--}}
                                                                                             {{--<div class="modal fade"--}}
-                                                                                            {{--id="modal-video-{{$i+$j}}"--}}
                                                                                             {{--tabindex="-1"--}}
                                                                                             {{--role="dialog"--}}
                                                                                             {{--aria-labelledby="modal-video-label">--}}
                                                                                             {{--<div class="modal-dialog"--}}
                                                                                             {{--role="document">--}}
-                                                                                            {{--<div class="modal-content">--}}
-                                                                                            {{--<div class="modal-body">--}}
-                                                                                            {{--<div class="modal-video">--}}
-                                                                                            {{--<div class="video ">--}}
                                                                                             {{--<iframe class="embed-responsive-item"--}}
-                                                                                            {{--src="{{$microProjectD[$i+$j]->MPE_Video}}"--}}
                                                                                             {{--frameborder="0"--}}
                                                                                             {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                                             {{--allowfullscreen--}}
                                                                                             {{--webkitallowfullscreen--}}
                                                                                             {{--mozallowfullscreen--}}
-                                                                                            {{--allowfullscreen></iframe>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--</div>--}}
-                                                                                            {{--@endif--}}
                                                                                         </div>
                                                                                         <div class="col-12">
                                                                                             <div class="card-title-section"></div>
@@ -10895,12 +9477,9 @@
                                                                                             </div>
                                                                                             <hr style="border-color: #43484E;">
                                                                                         @endif
-                                                                                        {{--<div id="fb-root"></div>--}}
                                                                                         {{--<div class="fb-comments"--}}
-                                                                                        {{--data-href="https://hcsyria.org/micro-projects#project{{$microProjectD[$i+$j]->MicroProject_ID}}"--}}
                                                                                         {{--data-width="100%"--}}
                                                                                         {{--data-numposts="3">--}}
-                                                                                        {{--</div>--}}
 
                                                                                         <div class="text-center swipe-arrows">
                                                                                             <i class="fa fa-angle-double-up"></i>
@@ -11000,37 +9579,20 @@
                                                                  src="/images/ico/video-ini-icon.svg">
                                                         </a>
                                                     @endif
-                                                    {{--@if($projectCopyD->MPE_Video != '0')--}}
                                                     {{--<a href="#" class="launch-modal"--}}
-                                                    {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                     {{--<img class="video-icon"--}}
                                                     {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                    {{--</a>--}}
                                                     {{--<!--VIDEO MODAL -->--}}
                                                     {{--<div class="modal fade" id="modal-video-copy"--}}
                                                     {{--tabindex="-1"--}}
                                                     {{--role="dialog"--}}
                                                     {{--aria-labelledby="modal-video-label">--}}
-                                                    {{--<div class="modal-dialog" role="document">--}}
-                                                    {{--<div class="modal-content">--}}
-                                                    {{--<div class="modal-body">--}}
-                                                    {{--<div class="modal-video">--}}
-                                                    {{--<div class="video ">--}}
                                                     {{--<iframe class="embed-responsive-item"--}}
-                                                    {{--src="{{$projectCopyD->MPE_Video}}"--}}
                                                     {{--frameborder="0"--}}
                                                     {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                     {{--allowfullscreen--}}
                                                     {{--webkitallowfullscreen--}}
                                                     {{--mozallowfullscreen--}}
-                                                    {{--allowfullscreen></iframe>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--@endif--}}
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="card-title-section"></div>
@@ -11160,34 +9722,24 @@
                                                             </div>
                                                         @endif
 
-                                                        {{--@if($projectCopyD->MPE_Donor=='1')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Caritas.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='2')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Salt.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='3')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/LD.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='5')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/logo/kia.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='7')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/If.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='8')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Hungary.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='9')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='10')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                        {{--@elseif($projectCopyD->MPE_Donor=='11')--}}
                                                         {{--<img class="project-donor-logo"--}}
                                                         {{--src="/images/newLogos/ACN.svg">--}}
-                                                        {{--@endif--}}
                                                     </div>
                                                 </div>
                                                 <div class="card-content">
@@ -11198,12 +9750,9 @@
                                                         id="txt{{$projectCopyW->id}}"
                                                         style="display: none;">
                                                     </textarea>
-                                                {{--<div id="fb-root"></div>--}}
                                                 {{--<div class="fb-comments"--}}
-                                                {{--data-href="https://hcsyria.org/micro-projects#project{{$projectCopyD->MicroProject_ID}}"--}}
                                                 {{--data-width="100%"--}}
                                                 {{--data-numposts="3">--}}
-                                                {{--</div>--}}
                                                 <div class="swipe-to-close"
                                                      id="swipe-to-close-W-copy"></div>
                                             </div>
@@ -11252,7 +9801,6 @@
                         </div>
                     </div>
                 @endif
-                {{--<div class="small horizontal-line last"></div>--}}
             </div>
         </div>
     @endif

@@ -240,7 +240,7 @@ class DiscController extends Controller
 
     public function store_image(Request $request)
     {
-        $request->validate(['initiative_id' => 'required|numeric', 'title' => 'required',//            'what_category_id' => 'required',
+        $request->validate(['initiative_id' => 'required|numeric', 'title' => 'required',
         ]);
         $validator = Validator::make($request->all(), ['small_image' => 'max:' . count($request->file('big_image')),]);
         if ($validator->fails()) {
@@ -343,7 +343,6 @@ class DiscController extends Controller
 
 
         $success->place_id = $request->input('place_id');
-//        $success->sz_center_id = $request->input('center');
 
 
         $success->online = 0;
@@ -376,7 +375,6 @@ class DiscController extends Controller
         $who_categories = WhoCategory::all();
 
         $places = Place::all();
-//        $centers = StudyzoneCenter::all();
 
         return view('new.admin.disc.successes.edit', ['successData' => $success, 'who_categories' => $who_categories, 'places' => $places
 
@@ -386,28 +384,13 @@ class DiscController extends Controller
     public function success_update(Request $request, $id)
     {
         $request->validate(['who_category_id' => 'required|numeric',
-//            'image_path' => 'max:70',
-            'title' => 'required|max:100', 'text' => 'required', //            'video' => 'max:100',
+            'title' => 'required|max:100', 'text' => 'required',
             'place_id' => 'required',
-//            'center' => 'required'
         ]);
 
         $success = Success::find($id);
         $successPrev = Success::find($id);
-//        if ($request->hasFile('image_path')) {
-//            File::delete(public_path($success->image_path));
-//            $imgName = (string)time();
-//            $whoCategory = DB::table('who_categories')->where('id', $request->input('who_category_id'))->get()->pluck('name')[0];
-//            $path = '/images/successes/' . $whoCategory . '/';
-//            $request->file('image_path')->move(public_path($path), $imgName . '.jpg');
-//            $success->image_path = $path . $imgName . '.jpg';
-//            $this->saveToLog(self::SUCCESSES, $success->id, 'Image changed');
-//        }
 
-//        $success->video = $request->filled('video') ? $request->input('video') : '0';
-//        if ($success->isDirty('video')) {
-//            $this->saveToLogWithData(self::SUCCESSES, $id,'Video Edited', $successPrev->video, $success->video);
-//        }
         $success->who_category_id = $request->input('who_category_id');
         if ($success->isDirty('who_category_id')) {
             $whoCategory = DB::table('who_categories')->where('id', $request->input('who_category_id'))->get()->pluck('name')[0];
@@ -423,7 +406,6 @@ class DiscController extends Controller
             $this->saveToLogWithData(self::SUCCESSES, $success->id, 'Place changed', $placePrev, $place);
         }
 
-//        $success->sz_center_id = $request->input('center');
 
         $success->save();
         $englishSuccess = SuccessEnglish::find($id);

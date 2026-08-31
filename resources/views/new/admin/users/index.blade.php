@@ -15,10 +15,8 @@
 
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    {{--<link href="/css/dataTables.bootstrap.min.css" rel="stylesheet">--}}
     <link href="/css/backend.css" rel="stylesheet">
     <link href="/css/dashboard_new.css" rel="stylesheet">
-    {{--<link href="{{asset('css/main-new.css')}}" rel="stylesheet">--}}
     <link href="/css/tabs.css" rel="stylesheet">
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
     <link href="/css/backend.css" rel="stylesheet">
@@ -192,98 +190,19 @@
 </script>
 <script>
     $(document).ready(function () {
-        {{--var users = <?php echo json_encode($users); ?>;--}}
-        {{--$('#create-btn').click(function () {--}}
-            {{--$('.title').text('Create User');--}}
-            {{--$('#user-id').val('');--}}
-            {{--$('#name-input').val('');--}}
-            {{--$('#email-input').val('');--}}
-            {{--$('#password-input').val('');--}}
-            {{--$('#password-input').attr('required', '');--}}
-            {{--$('#password-input').prop('placeholder', 'Password');--}}
-            {{--$('#modal-form').attr('action', '/admin/users/store');--}}
-            {{--$('#password-toggle').prop("checked", false);--}}
-            {{--$('.btn-group label').removeClass('active');--}}
-            {{--$('.btn-group label input').prop('checked', false);--}}
-            {{--$('.btn-group label input').prop('checked', false);--}}
-            {{--$('#submit-btn').html('<i class="fa fa-external-link"></i> Create');--}}
-            {{--$('.modal').modal('show');--}}
-        {{--});--}}
-        {{--$('.edit-btn').click(function () {--}}
-            {{--let id = this.dataset.content;--}}
-            {{--let user = $.grep(users, function (e) {--}}
-                {{--return e.id == id;--}}
-            {{--});--}}
-            {{--$('.title').text('Edit User');--}}
-            {{--$('#user-id').val(user[0].id);--}}
-            {{--$('#name-input').val(user[0].name);--}}
-            {{--$('#email-input').val(user[0].email);--}}
-            {{--$('#password-input').val('');--}}
-            {{--$('#password-input').prop('placeholder', '(Leaving this empty wont change the password)');--}}
-            {{--$('#password-input').removeAttr('required');--}}
-            {{--$('#modal-form').attr('action', '/admin/users/update');--}}
-            {{--$('#password-toggle').prop("checked", false);--}}
-            {{--$('.btn-group label').removeClass('active');--}}
-            {{--for (let i = 0; i < user[0].roles.length; i++) {--}}
-                {{--switch (user[0].roles[i].name) {--}}
                     {{--case 'Admin':--}}
-                        {{--$('#admin-lbl').addClass('active');--}}
-                        {{--$('#admin-lbl input').prop('checked', true);--}}
-                        {{--break;--}}
                     {{--case 'English Editor':--}}
-                        {{--$('#english-lbl').addClass('active');--}}
-                        {{--$('#english-lbl input').prop('checked', true);--}}
-                        {{--break;--}}
                     {{--case 'French Editor':--}}
-                        {{--$('#french-lbl').addClass('active');--}}
-                        {{--$('#french-lbl input').prop('checked', true);--}}
-                        {{--break;--}}
                     {{--case 'Photos Editor':--}}
-                        {{--$('#photos-lbl').addClass('active');--}}
-                        {{--$('#photos-lbl input').prop('checked', true);--}}
-                        {{--break;--}}
                     {{--case 'Viewer':--}}
-                        {{--$('#viewer-lbl').addClass('active');--}}
-                        {{--$('#viewer-lbl input').prop('checked', true);--}}
-                        {{--break;--}}
                     {{--case 'English Checker':--}}
-                        {{--$('#checker-lbl').addClass('active');--}}
-                        {{--$('#checker-lbl input').prop('checked', true);--}}
-                        {{--break;--}}
                     {{--case 'Publisher':--}}
-                        {{--$('#publish-lbl').addClass('active');--}}
-                        {{--$('#publish-lbl input').prop('checked', true);--}}
-                        {{--break;--}}
-                {{--}--}}
-            {{--}--}}
 
-            {{--for (let i = 0; i < user[0].places.length; i++) {--}}
-                {{--switch (user[0].places[i].name) {--}}
                     {{--case 'Aleppo':--}}
-                        {{--$('#aleppo-lbl').addClass('active');--}}
-                        {{--$('#aleppo-lbl input').prop('checked', true);--}}
-                        {{--break;--}}
                     {{--case 'Homs':--}}
-                        {{--$('#homs-lbl').addClass('active');--}}
-                        {{--$('#homs-lbl input').prop('checked', true);--}}
-                        {{--break;--}}
                     {{--case 'Damascus':--}}
-                        {{--$('#damascus-lbl').addClass('active');--}}
-                        {{--$('#damascus-lbl input').prop('checked', true);--}}
-                        {{--break;--}}
                     {{--case 'Latakia':--}}
-                        {{--$('#latakia-lbl').addClass('active');--}}
-                        {{--$('#latakia-lbl input').prop('checked', true);--}}
-                        {{--break;--}}
-                {{--}--}}
-            {{--}--}}
 
-            {{--$('#submit-btn').html('<i class="fa fa-refresh"></i> Update');--}}
-            {{--$('.modal').modal('show');--}}
-        {{--});--}}
-        {{--$('#cancel').click(function () {--}}
-            {{--$('.modal').modal('hide');--}}
-        {{--});--}}
     });
 </script>
 <script>

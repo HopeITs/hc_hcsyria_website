@@ -56,16 +56,11 @@
     <script src="/js/html5shiv.js"></script>
     <script src="/js/respond.min.js"></script> <![endif]-->
 
-    {{--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">--}}
-    {{--<link rel="stylesheet" href="/css/bootstrap.css">--}}
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    {{--<script src="/js/aos.js"></script>--}}
-    {{--<link href="css/aos.css" rel="stylesheet">--}}
     <script src='https://unpkg.com/leaflet@1.8.0/dist/leaflet.js' crossorigin=''></script>
 
-    {{--<script type="text/javascript" src="/js/bootstrap.js"></script>--}}
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/jquery.prettyPhoto.js"></script>
     <script type="text/javascript" src="/js/jquery.balloon.min.js"></script>
@@ -126,7 +121,6 @@
                             <div class="socials">
                                 <a href="mailto:{{$profile->email}}@hcsyria.org"> <i class="fa fa-envelope"></i></a>
                                 <a href="tel:{{$profile->phone}}"> <i class="fa fa-phone"></i></a>
-                                {{--<a href="tel:{{$profile->whatsapp}}"> <img class="profile-icon" src="/images/ico/whatspp-icon.svg"></a>--}}
 
                                 @if($profile->facebook_link != '0')
                                     <a href="https://www.facebook.com/{{$profile->facebook_link}}"
@@ -168,7 +162,6 @@
                             <div class="socials">
                                 <a href="mailto:{{$profile->email}}@hcsyria.org"> <i class="fa fa-envelope"></i></a>
                                 <a href="tel:{{$profile->phone}}"> <i class="fa fa-phone"></i></a>
-                                {{--<a href="tel:{{$profile->whatsapp}}"> <img class="profile-icon" src="/images/ico/whatspp-icon.svg"></a>--}}
 
                                 @if($profile->facebook_link != '0')
                                     <a href="https://www.facebook.com/{{$profile->facebook_link}}"
@@ -210,7 +203,6 @@
                             <div class="socials">
                                 <a href="mailto:{{$profile->email}}@hcsyria.org"> <i class="fa fa-envelope"></i></a>
                                 <a href="tel:{{$profile->phone}}"> <i class="fa fa-phone"></i></a>
-                                {{--<a href="tel:{{$profile->whatsapp}}"> <img class="profile-icon" src="/images/ico/whatspp-icon.svg"></a>--}}
 
                                 @if($profile->facebook_link != '0')
                                     <a href="https://www.facebook.com/{{$profile->facebook_link}}"
@@ -252,7 +244,6 @@
                             <div class="socials">
                                 <a href="mailto:{{$profile->email}}@hcsyria.org"> <i class="fa fa-envelope"></i></a>
                                 <a href="tel:{{$profile->phone}}"> <i class="fa fa-phone"></i></a>
-                                {{--<a href="tel:{{$profile->whatsapp}}"> <img class="profile-icon" src="/images/ico/whatspp-icon.svg"></a>--}}
 
                                 @if($profile->facebook_link != '0')
                                     <a href="https://www.facebook.com/{{$profile->facebook_link}}"
@@ -294,7 +285,6 @@
                             <div class="socials">
                                 <a href="mailto:{{$profile->email}}@hcsyria.org"> <i class="fa fa-envelope"></i></a>
                                 <a href="tel:{{$profile->phone}}"> <i class="fa fa-phone"></i></a>
-                                {{--<a href="tel:{{$profile->whatsapp}}"> <img class="profile-icon" src="/images/ico/whatspp-icon.svg"></a>--}}
 
                                 @if($profile->facebook_link != '0')
                                     <a href="https://www.facebook.com/{{$profile->facebook_link}}"
@@ -336,7 +326,6 @@
                             <div class="socials">
                                 <a href="mailto:{{$profile->email}}@hcsyria.org"> <i class="fa fa-envelope"></i></a>
                                 <a href="tel:{{$profile->phone}}"> <i class="fa fa-phone"></i></a>
-                                {{--<a href="tel:{{$profile->whatsapp}}"> <img class="profile-icon" src="/images/ico/whatspp-icon.svg"></a>--}}
 
                                 @if($profile->facebook_link != '0')
                                     <a href="https://www.facebook.com/{{$profile->facebook_link}}"
@@ -378,7 +367,6 @@
                             <div class="socials">
                                 <a href="mailto:{{$profile->email}}@hcsyria.org"> <i class="fa fa-envelope"></i></a>
                                 <a href="tel:{{$profile->phone}}"> <i class="fa fa-phone"></i></a>
-                                {{--<a href="tel:{{$profile->whatsapp}}"> <img class="profile-icon" src="/images/ico/whatspp-icon.svg"></a>--}}
 
                                 @if($profile->facebook_link != '0')
                                     <a href="https://www.facebook.com/{{$profile->facebook_link}}"
@@ -420,7 +408,6 @@
                             <div class="socials">
                                 <a href="mailto:{{$profile->email}}@hcsyria.org"> <i class="fa fa-envelope"></i></a>
                                 <a href="tel:{{$profile->phone}}"> <i class="fa fa-phone"></i></a>
-{{--                                <a href="tel:{{$profile->whatsapp}}"> <img class="profile-icon" src="/images/ico/whatspp-icon.svg"></a>--}}
 
                                 @if($profile->facebook_link != '0')
                                     <a href="https://www.facebook.com/{{$profile->facebook_link}}"

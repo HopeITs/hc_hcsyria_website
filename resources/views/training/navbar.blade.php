@@ -14,10 +14,6 @@
             </button>
             <span class="navbar-brand"><span class="fa fa-cog" aria-hidden="true"></span> Hope Center Orientation </span>
         </div>
-        {{--<div>--}}
-            {{--<a style="position: absolute;display: block;left:48%; float: none; text-align:center; padding-top: 3px" href="/">--}}
-                {{--<img src="/images/logos/hc.svg" style="width: 80px;"/></a>--}}
-        {{--</div>--}}
         <div id="navbar" class="collapse navbar-collapse" style="overflow-x: hidden;max-height: 615px;">
             <ul class="nav navbar-nav navbar-right"  style="margin-right: -10px;">
                 @if($user->roles->contains('name', 'Admin'))
@@ -49,18 +45,8 @@
     <div class="container">
         <ul class="dashboard-nav">
             <li><a href="{{route('training.home')}}" @if(isset($page)) @if($page == 'home') class="active" @endif @endif>Home</a></li>
-            {{--@if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor') || $user->roles->contains('name', 'Photos Editor')  || $user->roles->contains('name', 'Viewer'))--}}
             <li><a href="{{route('training.chat.add')}}" @if(isset($page)) @if($page == 'add') class="active" @endif @endif>Add Note</a></li>
-            {{--<li><a href="{{route('training.chat.add','strategy')}}" @if(isset($page)) @if($page == 'add strategy') class="active" @endif @endif>Add Project Strategy</a></li>--}}
 
-            {{--@endif--}}
-            {{--@if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'French Editor'))--}}
-                {{--<li><a href="{{route('projects_french_index')}}" @if(isset($page)) @if($page == 'french') class="active" @endif @endif>French</a></li>--}}
-            {{--@endif--}}
-            {{--@if($user->roles->contains('name', 'Admin'))--}}
-                {{--<li><a href="{{route('users_index')}}" @if(isset($page)) @if($page == 'users') class="active" @endif @endif>Users</a></li>--}}
-                {{--<li><a href="{{route('log')}}" @if(isset($page)) @if($page == 'log') class="active" @endif @endif>Log</a></li>--}}
-            {{--@endif--}}
         </ul>
     </div>
 </div>

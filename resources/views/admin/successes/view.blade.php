@@ -36,10 +36,6 @@
                         style="display: inherit;margin: -50px 0 30px 0;"><i class="fa fa-arrow-left"></i> back
                 </button>
                 <div style="float: right;margin-top: -60px">
-                    {{--@if($success->french_translation != '0')--}}
-                        {{--<a href="{{route('successes.french.show', $success->id)}}" class="btn btn-primary"><span--}}
-                                {{--class="fa fa-eye"></span>&nbsp; French</a>--}}
-                    {{--@endif--}}
                     @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor') || $user->roles->contains('name', 'French Editor'))
                         @if($language == 'english')
                             <a href="{{route('successes.edit', $success->id)}}" class="btn btn-primary edit-btn"><span
@@ -49,7 +45,6 @@
                                     class="fa fa-edit"></span>&nbsp;Edit</a>
                         @endif
                     @endif
-                    {{--&& $success->french_translation == '1'--}}
                         @if(($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher'))
                             && $success->online == '0'
                             && $success->english_check == '1' )

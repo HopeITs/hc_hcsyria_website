@@ -197,41 +197,6 @@
         </div>
     </div>
 
-    {{--<div class="container">--}}
-        {{--<div class="raw horizontal-margin">--}}
-            {{--<div class="post">--}}
-                {{--@foreach($initiatives as $i=>$initiative)--}}
-                    {{--<div class="container single-project org-post">--}}
-                        {{--<div class="col-sm-3 ini-img">--}}
-                            {{--<div class="carousel slide" data-ride="carousel">--}}
-                                {{--<div class="carousel-inner">--}}
-                                    {{--<div class="item active"><img src="{{$initiative->ImagesRandom[0]['path']}}"></div>--}}
-                                    {{--<div class="item"><img src="{{$initiative->ImagesRandom[1]['path']}}"></div>--}}
-                                    {{--@if(count($initiative->ImagesRandom) > 2)--}}
-                                        {{--<div class="item"><img src="{{$initiative->ImagesRandom[2]['path']}}"></div>--}}
-                                    {{--@endif--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                        {{--<div class="col-sm-9 ini-content">--}}
-                            {{--@if($initiative->video !== '0')--}}
-                                {{--<a class="video-ico"><i class="fa fa-video-camera"></i></a>--}}
-                            {{--@endif--}}
-                            {{--<h2>{{$initiative->$language->title}}</h2>--}}
-                            {{--@if($initiative->$language->date_string !== '0')--}}
-                                {{--<h6>{{$initiative->$language->date_string}}--}}
-                                    {{--@endif--}}
-                                    {{--@if($initiative->$language->organization !== '0')--}}
-                                        {{--@lang('initiatives.by') {{$initiative->$language->organization}}--}}
-                                    {{--@endif--}}
-                                {{--</h6>--}}
-                                {{--<p>{{$initiative->$language->description}}</p>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--@endforeach--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
 
 </div>
 @include('public.footer')

@@ -64,7 +64,6 @@ class StudyController extends Controller
         }
 
         $user_places_string = implode(",", $user_places);
-//        $all_places_string = implode(",", $allplaces);
         $centers = StudyzoneCenter::where('active', '1')->get();
         $user_centers = [];
         $allcenters = [];
@@ -86,7 +85,6 @@ class StudyController extends Controller
         if($user_centers){
             $user_centers_string = implode(",", $user_centers);
         }
-//        $all_places_string = implode(",", $allplaces);
 
         $places = Place::All();
         $students = DB::select("
@@ -133,126 +131,52 @@ on student_entries.user_id = users.id
 where street.place_id in (" . $user_places_string . ") and 1
 GROUP BY students.id
 ");
-//        if ($user->roles[0]->name === 'Admin') {
-//            $studentsentry = DB::select("SELECT student_entries.id as 'ID', students.`id` as 'Student_id', student_entries.`created_at` as 'created_at', studyzonecenters.name as 'Center',
 //concat(students.firstname,' ',students.fathername,' ',students.lastname) as 'Name' ,
-//places.id as 'place_id',
-//places.name as 'City',
-//students.DOB as 'DOB',
 //(YEAR(CURDATE()) - students.DOB) AS 'Age',
-//genders.name as 'Gender',
-//religions.name as 'Religion',
-//students.nationalnumber as 'National Number',
-//students.email ,
-//students.mobile ,
-//students.whatsapp,
 //if(students.is_employed=1,'yes','no') as 'Employed',
 //if(students.is_student=1,'yes','no') as 'Student',
-//street.name as 'Address',
-//educationfield.name as 'Edu_Field',
-//educationlevel.name as 'Edu_Level',
 //students.note ,
 //users.name as 'Enterd_by'
 //from student_entries
-//LEFT JOIN students
 //on students.id = student_entries.student_id
-//LEFT JOIN genders
 //on genders.id = students.gender_id
-//LEFT JOIN religions
 //on religions.id = students.religion_id
-//LEFT JOIN street
 //on street.id = students.street_id
-//LEFT JOIN places
 //on places.id = street.place_id
-//LEFT JOIN educationlevel
 //on educationlevel.id = students.educationlevel_id
-//LEFT JOIN educationfield
 //on educationfield.id = students.educationfield_id
-//LEFT JOIN studyzonecenters
 //on studyzonecenters.id = student_entries.center_id
-//LEFT JOIN users
 //on student_entries.user_id = users.id
-//where street.place_id in (" . $user_places_string . ") and 1 ");
-//        } else {
-//            $studentsentry = DB::select("SELECT students.`id` as 'Student_id', student_entries.`created_at` as 'created_at', studyzonecenters.name as 'Center',
 //concat(students.firstname,' ',students.fathername,' ',students.lastname) as 'Name' ,
-//places.id as 'place_id',
-//places.name as 'City',
-//students.DOB as 'DOB',
 //(YEAR(CURDATE()) - students.DOB) AS 'Age',
-//genders.name as 'Gender',
-//religions.name as 'Religion',
-//students.nationalnumber as 'National Number',
-//students.email ,
-//students.mobile ,
-//students.whatsapp,
 //if(students.is_employed=1,'yes','no') as 'Employed',
 //if(students.is_student=1,'yes','no') as 'Student',
-//street.name as 'Address',
-//educationfield.name as 'Edu_Field',
-//educationlevel.name as 'Edu_Level',
 //students.note ,
 //users.name as 'Enterd_by'
 //from student_entries
-//LEFT JOIN students
 //on students.id = student_entries.student_id
-//LEFT JOIN genders
 //on genders.id = students.gender_id
-//LEFT JOIN religions
 //on religions.id = students.religion_id
-//LEFT JOIN street
 //on street.id = students.street_id
-//LEFT JOIN places
 //on places.id = street.place_id
-//LEFT JOIN educationlevel
 //on educationlevel.id = students.educationlevel_id
-//LEFT JOIN educationfield
 //on educationfield.id = students.educationfield_id
-//LEFT JOIN studyzonecenters
 //on studyzonecenters.id = student_entries.center_id
-//LEFT JOIN users
 //on student_entries.user_id = users.id
-//where street.place_id in (" . $user_places_string . ") and 1 ");
-//        }
 
-//        $studentsentry = DB::select("SELECT students.`id` as 'Student_id', student_entries.`created_at` as 'created_at', studyzonecenters.name as 'Center',
 //concat(students.firstname,' ',students.fathername,' ',students.lastname) as 'Name' ,
-//places.id as 'place_id',
-//places.name as 'City',
-//students.DOB as 'DOB',
-//genders.name as 'Gender',
-//religions.name as 'Religion',
-//students.nationalnumber as 'National Number',
-//students.email ,
-//students.mobile ,
-//students.whatsapp,
-//students.is_employed as 'Employed',
-//students.is_student as 'Student',
-//street.name as 'Address',
-//educationfield.name as 'Edu_Field',
-//educationlevel.name as 'Edu_Level',
 //students.note ,
 //users.name as 'Enterd_by'
 //from student_entries
-//LEFT JOIN students
 //on students.id = student_entries.student_id
-//LEFT JOIN genders
 //on genders.id = students.gender_id
-//LEFT JOIN religions
 //on religions.id = students.religion_id
-//LEFT JOIN street
 //on street.id = students.street_id
-//LEFT JOIN places
 //on places.id = street.place_id
-//LEFT JOIN educationlevel
 //on educationlevel.id = students.educationlevel_id
-//LEFT JOIN educationfield
 //on educationfield.id = students.educationfield_id
-//LEFT JOIN studyzonecenters
 //on studyzonecenters.id = student_entries.center_id
-//LEFT JOIN users
 //on student_entries.user_id = users.id
-//where street.place_id in (" . $user_places_string . ") and 1 ");
 
 
 
@@ -260,142 +184,67 @@ GROUP BY students.id
         $studentsentry_count = DB::select(" select count(student_id) as 'studentsentry_count' from student_entries LEFT JOIN students on students.id = student_entries.student_id LEFT JOIN street on street.id = students.street_id where street.place_id in (" . $user_places_string . ") and 1");
         $centers = StudyzoneCenter::all();
 
-//        if($user['roles'][0]['name'] != 'Admin'){
-//            if($centernames != $allcenternames){
-//                if($user['places'][0]['name'] == 'Homs') {
-//                    $statis_count_nouzha = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
-//, COUNT(*) AS entry_count
 //FROM student_entries
 //JOIN students ON student_entries.student_id = students.id
 //where center_id in (2)
 //GROUP BY entry_date, center_id
-//ORDER BY student_entries.center_id ASC;");
-//
-//                    $statis_count_arman = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
-//, COUNT(*) AS entry_count
 //FROM student_entries
 //JOIN students ON student_entries.student_id = students.id
 //where center_id in (3)
 //GROUP BY entry_date, center_id
-//ORDER BY student_entries.center_id ASC;");
-//
-//                    $statis_count_mahatta = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
-//, COUNT(*) AS entry_count
 //FROM student_entries
 //JOIN students ON student_entries.student_id = students.id
 //where center_id in (6)
 //GROUP BY entry_date, center_id
-//ORDER BY student_entries.center_id ASC;");
-//
-//                    $statis_count_mouzeina = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
-//, COUNT(*) AS entry_count
 //FROM student_entries
 //JOIN students ON student_entries.student_id = students.id
 //where center_id in (7)
 //GROUP BY entry_date, center_id
-//ORDER BY student_entries.center_id ASC;");
-//
-//                    $statis_count_adawia = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
-//, COUNT(*) AS entry_count
 //FROM student_entries
 //JOIN students ON student_entries.student_id = students.id
 //where center_id in (15)
 //GROUP BY entry_date, center_id
-//ORDER BY student_entries.center_id ASC;");
-//
-//                    $statis_count_hamidiye = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
-//, COUNT(*) AS entry_count
 //FROM student_entries
 //JOIN students ON student_entries.student_id = students.id
 //where center_id in (16)
 //GROUP BY entry_date, center_id
-//ORDER BY student_entries.center_id ASC;");
-//                }
-//                if($user['places'][0]['name'] == 'Damascus') {
-//                    $statis_count_babtouma = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
-//, COUNT(*) AS entry_count
 //FROM student_entries
 //JOIN students ON student_entries.student_id = students.id
 //where center_id in (5)
 //GROUP BY entry_date, center_id
-//ORDER BY student_entries.center_id ASC;");
-//
-//                    $statis_count_babsharqi = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
-//, COUNT(*) AS entry_count
 //FROM student_entries
 //JOIN students ON student_entries.student_id = students.id
 //where center_id in (19)
 //GROUP BY entry_date, center_id
-//ORDER BY student_entries.center_id ASC;");
-//                }
-//                if($user['places'][0]['name'] == 'Latakia') {
-//                    $statis_count_ziraa2 = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
-//, COUNT(*) AS entry_count
 //FROM student_entries
 //JOIN students ON student_entries.student_id = students.id
 //where center_id in (8)
 //GROUP BY entry_date, center_id
-//ORDER BY student_entries.center_id ASC;");
-//
-//                    $statis_count_azar = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
-//, COUNT(*) AS entry_count
 //FROM student_entries
 //JOIN students ON student_entries.student_id = students.id
 //where center_id in (12)
 //GROUP BY entry_date, center_id
-//ORDER BY student_entries.center_id ASC;");
-//
-//                    $statis_count_mashrouh = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
-//, COUNT(*) AS entry_count
 //FROM student_entries
 //JOIN students ON student_entries.student_id = students.id
 //where center_id in (13)
 //GROUP BY entry_date, center_id
-//ORDER BY student_entries.center_id ASC;");
-//
-//                    $statis_count_ziraa1 = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
-//, COUNT(*) AS entry_count
 //FROM student_entries
 //JOIN students ON student_entries.student_id = students.id
 //where center_id in (4)
 //GROUP BY entry_date, center_id
-//ORDER BY student_entries.center_id ASC;");
-//
-//                }
-//                if($user['places'][0]['name'] == 'Aleppo') {
-//                    $statis_count_villat = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
-//, COUNT(*) AS entry_count
 //FROM student_entries
 //JOIN students ON student_entries.student_id = students.id
 //where center_id in (14)
 //GROUP BY entry_date, center_id
-//ORDER BY student_entries.center_id ASC;");
-//                }
-//                if($user['places'][0]['name'] == 'Tartus') {
-//                    $statis_count_khrab = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
-//, COUNT(*) AS entry_count
 //FROM student_entries
 //JOIN students ON student_entries.student_id = students.id
 //where center_id in (17)
 //GROUP BY entry_date, center_id
-//ORDER BY student_entries.center_id ASC;");
-//                }
-//            }
-//        }
-//        else {
-//
-//
-//        }
 
-//        if($centernames !== $allcenternames){
-//            $statis_count = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
-//                                              , COUNT(*) AS entry_count
 //                                              FROM student_entries
 //                                              JOIN students ON student_entries.student_id = students.id
 //                                              where center_id in (" . $user_centers_string . ") and 1
 //                                              GROUP BY entry_date, center_id
-//                                              ORDER BY student_entries.center_id ASC;");
-//        }
 
             $statis_count_babtouma = DB::select("SELECT DATE(student_entries.created_at) AS entry_date
 , COUNT(*) AS entry_count
@@ -529,7 +378,6 @@ ORDER BY entry_date;");
         $sucpending = Success::with('english', 'whatCategory', 'subWhatCategory', 'place', 'center')->where('what_category_id', '7')->where('online', '0')->get();
 
         return view('new.admin.study.index', ['allplaces'=>$allplaces,'user_places'=>$user_places,'iniStudy' => $iniStudy, 'students_count' => $students_count, 'studentsentry_count' => $studentsentry_count, 'iniPending' => $iniPending, 'iniHidden' => $iniHidden, 'sucpending' => $sucpending, 'places' => $places, 'sucstudy' => $sucstudy, 'students' => $students,
-//            'studentsentry' => $studentsentry,
             'centers' => $centers, 'statis_count' => $statis_count, 'statis_count_adawia' => $statis_count_adawia, 'statis_count_arman' => $statis_count_arman, 'statis_count_azar' => $statis_count_azar, 'statis_count_babtouma' => $statis_count_babtouma, 'statis_count_hamidiye' => $statis_count_hamidiye, 'statis_count_khrab' => $statis_count_khrab, 'statis_count_mahatta' => $statis_count_mahatta, 'statis_count_mashrouh' => $statis_count_mashrouh, 'statis_count_mouzeina' => $statis_count_mouzeina, 'statis_count_nouzha' => $statis_count_nouzha, 'statis_count_villat' => $statis_count_villat, 'statis_count_ziraa1' => $statis_count_ziraa1, 'statis_count_ziraa2' => $statis_count_ziraa2,'statis_count_babsharqi'=>$statis_count_babsharqi, 'centernames' => $centernames, 'statis_avg' => $statis_avg,'user_centers'=>$user_centers]);
     }
 
@@ -900,7 +748,6 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
         $initiative = Initiative::with('english', 'donors')->where('id', $id)->first();
         $what_categories = WhatCategory::all();
         $who_categories = WhoCategory::all();
-//        $study_sub_categories = SubWhatCategory::where('what_category_id', 7)->get();
         $donors = Donor::all();
         $places = Place::all();
         $centers = StudyzoneCenter::all();
@@ -910,14 +757,12 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
         }
 
         return view('new.admin.study.edit', ['initiative' => $initiative, 'what_categories' => $what_categories, 'who_categories' => $who_categories, 'donors' => $donors, 'centers' => $centers, 'places' => $places,
-//            'study_sub_categories' => $study_sub_categories,
             'ini_donors' => $ini_donors]);
     }
 
     public function update(Request $request, $id)
     {
         $request->validate(['donors' => 'required', 'title' => 'required|max:70', 'organization' => 'max:70', 'date_string' => 'max:100', 'video' => 'max:100', 'logo' => 'max:150', 'description' => 'max:400', 'content' => 'required', 'place' => 'required', 'center' => 'required', 'who_category_id' => 'required|numeric',
-//            'study_sub_category' => 'required'
         ]);
 
         $initiative = Initiative::find($id);
@@ -1088,7 +933,7 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
 
     public function store_image(Request $request)
     {
-        $request->validate(['initiative_id' => 'required|numeric', 'title' => 'required',//            'what_category_id' => 'required',
+        $request->validate(['initiative_id' => 'required|numeric', 'title' => 'required',
         ]);
         $validator = Validator::make($request->all(), ['small_image' => 'max:' . count($request->file('big_image')),]);
         if ($validator->fails()) {
@@ -1242,16 +1087,12 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
     public function success_edit($id)
     {
         $success = Success::with('english')->where('id', $id)->first();
-//        $microProjects = Project::with('english')
-//            ->where('MPE_Done', '1')
-//            ->where('MPE_Published', '1')
-//            ->get();
         $who_categories = WhoCategory::all();
 
         $places = Place::all();
         $centers = StudyzoneCenter::all();
 
-        return view('new.admin.study.successes.edit', ['successData' => $success, //            'microProjects' => $microProjects,
+        return view('new.admin.study.successes.edit', ['successData' => $success,
             'who_categories' => $who_categories, 'places' => $places, 'centers' => $centers,
 
         ]);
@@ -1259,7 +1100,7 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
 
     public function success_update(Request $request, $id)
     {
-        $request->validate(['who_category_id' => 'required|numeric', 'image_path' => 'max:70', 'title' => 'required|max:100', 'text' => 'required', //            'video' => 'max:100',
+        $request->validate(['who_category_id' => 'required|numeric', 'image_path' => 'max:70', 'title' => 'required|max:100', 'text' => 'required',
             'place_id' => 'required', 'center' => 'required']);
 
         $success = Success::find($id);
@@ -1274,10 +1115,6 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
             $this->saveToLog(self::SUCCESSES, $success->id, 'Image changed');
         }
 
-//        $success->video = $request->filled('video') ? $request->input('video') : '0';
-//        if ($success->isDirty('video')) {
-//            $this->saveToLogWithData(self::SUCCESSES, $id,'Video Edited', $successPrev->video, $success->video);
-//        }
         $success->who_category_id = $request->input('who_category_id');
         if ($success->isDirty('who_category_id')) {
             $whoCategory = DB::table('who_categories')->where('id', $request->input('who_category_id'))->get()->pluck('name')[0];
@@ -1357,8 +1194,6 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
     {
         $user = User::with('roles', 'places', 'centers')->where('id', Auth::id())->get()[0];
         $user_id = Auth::id();
-//        $user_center = $user['centers'][0]->id;
-//        return $user_center;
         $user_places = [];
         foreach ($user['places'] as $i) {
             array_push($user_places, $i->id);
@@ -1374,7 +1209,7 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
         $educationlevel = EducationLevel::all();
         $educationdegree = EducationDegree::all();
         $students = Student::all();
-        return view('new.admin.student.create', ['places' => $places, 'centers' => $centers, 'genders' => $genders, 'religions' => $religions, 'educationfield' => $educationfield, 'educationlevel' => $educationlevel, 'educationdegree' => $educationdegree, 'streets' => $streets, 'user_id' => $user_id,'user' => $user, //            'user_center' => $user_center,
+        return view('new.admin.student.create', ['places' => $places, 'centers' => $centers, 'genders' => $genders, 'religions' => $religions, 'educationfield' => $educationfield, 'educationlevel' => $educationlevel, 'educationdegree' => $educationdegree, 'streets' => $streets, 'user_id' => $user_id,'user' => $user,
             'students' => $students]);
     }
 
@@ -1408,7 +1243,6 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
         $data = $request->form;
         $validator = Validator::make($request->all(), ['row.*.firstname' => 'required','row.*.fathername' => 'required', 'row.*.mobile' => 'required', 'row.*.lastname' => 'required', 'row.*genders' => 'required|numeric','row.*religions' => 'required|numeric', 'row.*street' => 'required|numeric', 'row.*employed' => 'required|numeric', 'row.*student' => 'required|numeric', 'row.*educationfield' => 'numeric', 'row.*educationdegree' => 'numeric']);
         if ($validator->fails()) {
-//            return redirect('/admin/student/edit/')->withErrors('Validation Failed')->withInput();
             return response()->json('Validation Failed !!');
         }
         foreach ($data as $key => $d) {
@@ -1433,7 +1267,6 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
             $student->created_at = $d['created_at'];
 
 
-//            $this->saveToLog(self::STUDENT, $student->id, 'Student Updated');
             if ($student->isDirty('firstname')) {
                 $this->saveToLogWithData(self::STUDENT, $student->id,'First Name Edited', $studentPrev->firstname, $student->firstname);
             }
@@ -1481,57 +1314,15 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
             }
             $student->save();
         }
-//        return redirect()->back()->json('Student has been updated !! !');
         return response()->json('Student has been updated !!');
 
 
-//        $request->validate(['firstname' => 'required', 'lastname' => 'required', 'email' => 'required', 'genders' => 'required|numeric', 'street' => 'required|numeric', 'employed' => 'required|numeric', 'student' => 'required|numeric', //            'educationlevel' => 'required|numeric',
-//            'educationfield' => 'numeric', 'educationdegree' => 'numeric',]);
-
-//        $student = Student::find($id);
-//        $studentPrev = Student::find($id);
-
-//        $student->firstname = $request->input('firstname');
-//        $student->lastname = $request->input('lastname');
-//        $student->nationalnumber = $request->input('nationalnumber');
-//        $student->DOB = $request->input('DOB');
-//        $student->email = $request->input('email');
-//        $student->mobile = $request->input('mobile');
-//        $student->whatsapp = $request->input('whatsapp');
-//        $student->is_employed = $request->input('employed');
-//        $student->is_student = $request->input('student');
-//        $student->note = $request->input('note');
 
 
-//        $student->gender_id = $request->input('genders');
-//        if ($student->isDirty('genders')) {
-//            $gender = DB::table('genders')->where('id', $request->input('genders'))->get()->pluck('name')[0];
-//            $genderPrev = DB::table('genders')->where('id', $studentPrev->gender_id)->get()->pluck('name')[0];
-//            $this->saveToLogWithData(self::STUDENT, $student->id, 'Gender changed', $genderPrev, $gender);
-//        }
 
-//        $student->street_id = $request->input('street');
-//        if ($student->isDirty('street')) {
-//            $street = DB::table('street')->where('id', $request->input('street'))->get()->pluck('name')[0];
-//            $streetPrev = DB::table('street')->where('id', $studentPrev->street_id)->get()->pluck('name')[0];
-//            $this->saveToLogWithData(self::STUDENT, $student->id, 'Street changed', $streetPrev, $street);
-//        }
 
-//        $student->educationfield_id = $request->input('educationfield');
-//        if ($student->isDirty('educationfield')) {
-//            $educationfield = DB::table('educationfield')->where('id', $request->input('educationfield'))->get()->pluck('name')[0];
-//            $educationfieldPrev = DB::table('educationfield')->where('id', $studentPrev->educationfield_id)->get()->pluck('name')[0];
-//            $this->saveToLogWithData(self::STUDENT, $student->id, 'Education Field changed', $educationfieldPrev, $educationfield);
-//        }
-//
-//        $student->educationlevel_id = $request->input('educationlevel');
-//        if ($student->isDirty('educationlevel')) {
-//            $educationlevel = DB::table('educationlevel')->where('id', $request->input('educationlevel'))->get()->pluck('name')[0];
-//            $educationlevelPrev = DB::table('educationlevel')->where('id', $studentPrev->educationlevel_id)->get()->pluck('name')[0];
-//            $this->saveToLogWithData(self::STUDENT, $student->id, 'Education Level changed', $educationlevelPrev, $educationlevel);
-//        }
-//        $student->save();
-//        return redirect()->back()->with('student', 'Student ' . $student->id . ' has been updated');
+
+
     }
 
     public function filterEducation(Request $request)
@@ -1571,7 +1362,6 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
         $data = $request->form;
         $validator = Validator::make($request->all(), ['row.*.firstname' => 'required','row.*.fathername' => 'required', 'row.*.mobile' => 'required', 'row.*.lastname' => 'required', 'row.*genders' => 'required|numeric','row.*religions' => 'required|numeric', 'row.*street' => 'required|numeric', 'row.*employed' => 'required|numeric', 'row.*student' => 'required|numeric', 'row.*educationfield' => 'numeric', 'row.*educationdegree' => 'numeric']);
         if ($validator->fails()) {
-//            return redirect('/admin/student/create/')->withErrors('Validation Failed')->withInput();
             return response()->json('Validation Failed !!');
         }
         foreach ($data as $key => $d) {
@@ -1602,15 +1392,6 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
         return response()->json('Student has been created');
     }
 
-//    public function students_destroy($id)
-//    {
-//        $student = Student::find($id);
-//        Student::destroy($id);
-//        StudentEntry::where('student_id', $id)->delete();
-//        $this->saveToLog(self::STUDENT, $student->id, 'Student deleted');
-//        return redirect()->back()->with('success', 'Student deleted');
-////        return response()->json('success');
-//    }
     public function students_destroy(Request $request)
     {
         $id = $request->form;
@@ -1618,9 +1399,7 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
         Student::destroy($id);
         StudentEntry::where('student_id', $id)->delete();
         $this->saveToLog(self::STUDENT, $student->id, 'Student deleted');
-//        return redirect()->back()->with('success', 'Student deleted');
         return response()->json('Student has been deleted');
-//        return response()->json('success');
     }
 
     public function studentsentry_destroy(Request $request)
@@ -1629,9 +1408,7 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
         $studententry = StudentEntry::find($id);
         StudentEntry::destroy($id);
         $this->saveToLog(self::STUDENTENTRY, $studententry->id, 'Student Entry deleted');
-//        return redirect()->back()->with('success', 'Student Entry deleted');
         return response()->json('Student Entry has been deleted');
-//        return response()->json('success');
     }
 
     public function students_visit(Request $request)
@@ -1656,7 +1433,6 @@ where street.place_id in (" . $user_places_string . ") and 1 ");
             $this->saveToLog(self::STUDENTENTRY, $studententry->id, 'Student Entry Created');
         }
         return response()->json('Student Entry has been created');
-//      return redirect()->back()->with('success', 'Student Entry ' . $studententry->id . ' has been created');
     }
 
     public function students_visit_create($id, $created_at, $updated_at,$center)

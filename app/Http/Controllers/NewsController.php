@@ -137,7 +137,6 @@ class NewsController extends Controller
     return redirect()->action([NewsController::class, 'index'])->with('success', 'News ' . $news->id . ' has been created and is pending approval.');
     }
 
-    /////////////////////////////////////////////////////////////////////////////////
     public function show($id)
     {
         $news = News::with('english', 'images', 'place')->findOrFail($id);
@@ -321,7 +320,6 @@ class NewsController extends Controller
 
         News::destroy($id);
         NewsEnglish::where('news_id', $news->id)->delete();
-//        NewsFrench::where('news_id', $news->id)->delete();
         $images = NewsImage::where('news_id', $news->id)->get();
         if ($images->isNotEmpty()) {
             $folderPath = dirname(public_path($images->first()->path));
@@ -466,12 +464,10 @@ class NewsController extends Controller
 
     public function edition_store(Request $request)
     {
-//        $request->validate(['name' => 'required', 'name_french' => 'required',]);
         $request->validate(['name' => 'required']);
 
         $edition = new Edition;
         $edition->name = $request->input('name');
-//        $edition->name_french = $request->input('name_french');
         $edition->name_french = '';
         $edition->save();
 
@@ -573,7 +569,6 @@ class NewsController extends Controller
             Subscriber::find($subscriber->id)->delete();
             return view('new.public.unsubscribe',['edition' => $edition]);
         }
-//        Log::error('Subscriber not found by token: ' . $token);
 
         return response()->view('new.errors.404', [], 404);
     }

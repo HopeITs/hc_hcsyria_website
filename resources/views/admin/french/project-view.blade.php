@@ -308,11 +308,8 @@
                                                         </div>
                                                         <hr style="border-color: #43484E;">
                                                     @endif
-                                                    {{--<div id="fb-root"></div>--}}
                                                     {{--<div class="fb-comments"--}}
-                                                         {{--data-href="https://hcsyria.org/micro-projects#project{{$microProject[0]->MicroProject_ID}}"--}}
                                                          {{--data-width="100%" data-numposts="3">--}}
-                                                    {{--</div>--}}
                                                     <br>
                                                     <div class="text-center swipe-arrows">
                                                         <i class="fa fa-angle-double-up"></i>

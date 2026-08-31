@@ -78,7 +78,6 @@ class SuccessFrenchController extends Controller
     }
 
     public function paid($id){
-//      $success = SuccessFrench::find($id);
         $success = SuccessFrench::where('success_id' ,$id)->first();
         $success->translation_paid = '1';
         $success->save();

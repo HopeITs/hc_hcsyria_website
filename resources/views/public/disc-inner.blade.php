@@ -47,7 +47,6 @@
 
     <link href="/css/responsive.css" rel="stylesheet">
     <link href="/css/hover-effect.css" rel="stylesheet">
-    {{--<link href="/css/initiatives.css" rel="stylesheet">--}}
     <link rel="alternate" hreflang="x-default" href="https://www.hcsyria.org/projects/disc"/>
 
     <!--[if lt IE 9]>
@@ -417,14 +416,8 @@
                 </div>
                 <div class="col-xs-4 col-md-2  text-center">
 
-                    {{--<h2><a class="skill_link"--}}
                     {{--data-toggle="modal"--}}
                     {{--data-target="#special3">--}}
-                    {{--@if(app()->isLocale('fr')) {!! $initiatives->courses[6]->name_french !!}--}}
-                    {{--@else {!! $initiatives->courses[6]->name !!}--}}
-                    {{--@endif--}}
-                    {{--</a>--}}
-                    {{--</h2>--}}
                 </div>
                 <div class="col-xs-4 col-md-3 text-center">
                     <h2><a class="skill_link"
@@ -462,7 +455,6 @@
     <div id="statistics">
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
-                {{--<h1 class="text-center title-shadow"><b>@lang('disc.statistics')</b></h1>--}}
                 <h1 class="text-center main_title_blue"><b>@lang('disc.statistics')</b></h1>
             </div>
         </div>
@@ -488,7 +480,6 @@
     <div id="team">
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
-                {{--<h1 class="text-center title-shadow"><b>@lang('disc.students')</b></h1>--}}
                 <h1 class="text-center main_title_blue"><b>@lang('disc.students')</b></h1>
             </div>
         </div>
@@ -527,7 +518,6 @@
     &times;
     </button>
     <div id="modal-swipe-e">
-    {{--<h4 class="p-justify">{!! $initiatives->courses[0]->description !!}</h4>--}}
         <div class="row">
             <div class="col-sm-12 col-md-5">
                 <img src="/images/initiatives/DISC/english.png" class="animated fadeInUp delay" style="width: 90%;">
@@ -564,7 +554,6 @@
                     &times;
                 </button>
                 <div id="modal-swipe-e">
-                    {{--<h4 class="p-justify">{!! $initiatives->courses[1]->description !!}</h4>--}}
                     <div class="row">
                         <div class="col-sm-12 col-md-5">
                             <img src="/images/initiatives/DISC/icdl.png" class="animated fadeInUp delay" style="width: 90%;">
@@ -602,7 +591,6 @@
                     &times;
                 </button>
                 <div id="modal-swipe-e">
-                    {{--<h4 class="p-justify">{!! $initiatives->courses[2]->description !!}</h4>--}}
                     <div class="row">
                         <div class="col-sm-12 col-md-5">
                             <img src="/images/initiatives/DISC/skills.png" class="animated fadeInUp delay" style="width: 90%;">
@@ -750,9 +738,6 @@
                         </div>
                         <div class="col-sm-12 col-md-7" >
                             <h4 class="blue">
-                                {{--@if(app()->isLocale('fr')) {!! $initiatives->courses[6]->description_french !!}--}}
-                                {{--@else {!! $initiatives->courses[6]->description !!}--}}
-                                {{--@endif--}}
                             </h4>
                         </div>
                     </div>

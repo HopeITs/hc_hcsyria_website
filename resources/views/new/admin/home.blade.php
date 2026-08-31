@@ -16,10 +16,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    {{--<link href="/css/dataTables.bootstrap.min.css" rel="stylesheet">--}}
     <link href="/css/backend.css" rel="stylesheet">
     <link href="/css/dashboard_new.css" rel="stylesheet">
-    {{--<link href="{{asset('css/main-new.css')}}" rel="stylesheet">--}}
     <link href="/css/tabs.css" rel="stylesheet">
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
     <link href="/css/backend.css" rel="stylesheet">
@@ -66,70 +64,47 @@
                         <div class="row">
                             <div class="col-lg-4 col-md-3 col-sm-3 col-12">
                                 <div class="well dash-box">
-                                    {{--<div>--}}
-                                        {{--<h3>--}}
-                                            {{--<span><i class="bi bi-check2-square"></i></span>--}}
-                                        {{--</h3>--}}
                                     <h1>{{$projectsAleppo}}</h1>
                                         <h5>Aleppo</h5>
-                                    {{--</div>--}}
 
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3 col-sm-3 col-12">
                                 <div class="well dash-box">
-                                    {{--<div>--}}
-                                        {{--<h3><span><i class="bi bi-check2-square"></i></span></h3>--}}
                                     <h1>{{$projectsHoms}}</h1>
                                     <h5>Homs</h5>
-                                    {{--</div>--}}
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3 col-sm-3 col-12">
                                 <div class="well dash-box">
-                                    {{--<div>--}}
-                                        {{--<h3><span><i class="bi bi-check2-square"></i></span></h3>--}}
                                     <h1>{{$projectsDamascus}}</h1>
                                     <h5>Damascus</h5>
-                                    {{--</div>--}}
                                 </div>
                             </div>
                         </div>
                         <div class="row d-flex justify-content-center">
                             <div class="col-lg-4 col-md-3 col-sm-3 col-12">
                                 <div class="well dash-box">
-                                    {{--<div>--}}
-                                    {{--<h3><span><i class="bi bi-check2-square"></i></span></h3>--}}
                                     <h1>{{$projectsLatakia}}</h1>
                                     <h5>Latakia</h5>
-                                    {{--</div>--}}
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3 col-sm-3 col-12">
                                 <div class="well dash-box">
-                                    {{--<div>--}}
-                                    {{--<h3><span><i class="bi bi-check2-square"></i></span></h3>--}}
                                     <h1>{{$projectsWadi}}</h1>
                                     <h5>Wadi</h5>
-                                    {{--</div>--}}
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3 col-sm-3 col-12">
                                 <div class="well dash-box">
-                                    {{--<div>--}}
-                                    {{--<h3><span><i class="bi bi-check2-square"></i></span></h3>--}}
                                     <h1>{{$projectsIdleb}}</h1>
                                     <h5>Idleb</h5>
-                                    {{--</div>--}}
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3 col-sm-3 col-12">
                                 <div class="well dash-box">
-                                    {{--<div>--}}
-                                    {{--<h3><span><i class="bi bi-check2-square"></i></span></h3>--}}
                                     <h1>{{$projectsTartus}}</h1>
                                     <h5>Tartus</h5>
-                                    {{--</div>--}}
                                 </div>
                             </div>
                         </div>
@@ -845,9 +820,7 @@
                                             <th scope="col" class="text-center">Beneficiary Name</th>
                                             <th scope="col" class="text-center">City</th>
                                             <th scope="col" class="text-center">Fund Date</th>
-                                            {{--                                            @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Editor'))--}}
                                             <th scope="col" class="text-center">Action</th>
-                                            {{--@endif--}}
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -898,18 +871,12 @@
                                                                || $user->roles->contains('name', 'English Editor')
                                                                || $user->roles->contains('name', 'English Checker'))
                                                                 <form action="/admin/project/delete/" method="POST" style="float: right; padding-left: 10px " enctype="multipart/form-data"> @method('DELETE') @csrf <button data-id={{$project['id']}} type="submit" class="btn btn-danger" onclick="ConfirmDelete({{$project['id']}})"><i class="fa fa-trash-o"></i> </button> </form>
-                                                            {{--<form action="{{ route('delete.project', $project['id']) }}"--}}
                                                                   {{--style="float: right"--}}
                                                                   {{--method="POST"--}}
                                                                   {{--enctype="multipart/form-data">--}}
                                                                 {{--@method('DELETE')--}}
-                                                                {{--@csrf--}}
                                                                 {{--<button class="btn btn-danger icon-btn edit-btn mb-2 show_confirm"--}}
                                                                         {{--type="submit"--}}
-                                                                        {{--data-id="{{$project['MicroProject_ID']}}">--}}
-                                                                    {{--<i class="fa fa-trash-o"></i>--}}
-                                                                {{--</button>--}}
-                                                            {{--</form>--}}
                                                         @endif
                                                         @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Checker'))
                                                                 <form action="{{ route('project.Englishchecked') }}"
@@ -932,144 +899,34 @@
                                                 </tr>
                                             @endforeach
                                         @endif
-                                        {{--@if(count($projectsEngCheck_h))--}}
-                                        {{--@foreach($projectsEngCheck_h as $project)--}}
-                                        {{--<tr>--}}
-                                        {{--<th>{{$project['MicroProject_ID']}}</th>--}}
-                                        {{--<td>{{$project['english']['MPE_Name']}}</td>--}}
-                                        {{--<td>{{$project['MPE_BeneficiaryName']}}</td>--}}
-                                        {{--<td>--}}
-                                        {{--@if($project['MPE_City'] == '') {{'N/A'}}--}}
-                                        {{--@else {{$project->place->name}}--}}
-                                        {{--@endif--}}
-                                        {{--</td>--}}
-                                        {{--<td class="text-end">--}}
-                                        {{--@if(count($project->images) != 0 )--}}
                                         {{--<i class="fa fa-picture-o"--}}
-                                        {{--style="padding: 0.3vw 0.6vw;"></i>--}}
-                                        {{--@endif--}}
-                                        {{--@if($project['MPE_Location'] != 0)--}}
                                         {{--<i class="fa fa-map-marker"--}}
-                                        {{--style="padding: 0.3vw 0.6vw;"></i>--}}
-                                        {{--@endif--}}
 
-                                        {{--<a href="{{route('admin_project', $project['id'])}}"--}}
                                         {{--class="btn btn-primary">--}}
-                                        {{--<span class="fa fa-eye"></span>&nbsp; View</a>--}}
 
 
-                                        {{--@if($user->roles->contains('name', 'Admin')--}}
-                                        {{--|| $user->roles->contains('name', 'English Editor')--}}
-                                        {{--|| $user->roles->contains('name', 'English Checker'))--}}
-                                        {{--<a href="{{route('edit.project', $project['id'])}}"--}}
                                         {{--class="btn btn-primary edit-btn mb-2">--}}
-                                        {{--<span class="fa fa-edit"></span>&nbsp;Edit</a>--}}
-                                        {{--@endif--}}
-                                        {{--@if($user->roles->contains('name', 'Admin')--}}
-                                        {{--|| $user->roles->contains('name', 'Photos Editor')--}}
-                                        {{--|| $user->roles->contains('name', 'Publisher'))--}}
-                                        {{--<a href="{{route('add.image', $project['id'])}}"--}}
                                         {{--class="btn btn-primary edit-btn mb-2">--}}
-                                        {{--<i class='fa-solid fa-plus-minus'></i>--}}
-                                        {{--Image</a>--}}
-                                        {{--@endif--}}
-                                        {{--@if($user->roles->contains('name', 'Admin')--}}
-                                        {{--|| $user->roles->contains('name', 'English Editor')--}}
-                                        {{--|| $user->roles->contains('name', 'English Checker'))--}}
-                                        {{--<form action="{{ route('delete.project', $project['id']) }}"--}}
                                         {{--style="float: right"--}}
                                         {{--method="POST"--}}
                                         {{--enctype="multipart/form-data">--}}
                                         {{--@method('DELETE')--}}
-                                        {{--@csrf--}}
                                         {{--<button class="btn btn-danger icon-btn edit-btn mb-2 show_confirm"--}}
                                         {{--type="submit"--}}
-                                        {{--data-id="{{$project['MicroProject_ID']}}">--}}
-                                        {{--<i class="fa fa-trash-o"></i>--}}
-                                        {{--</button>--}}
-                                        {{--</form>--}}
-                                        {{--@endif--}}
-                                        {{--@if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Checker'))--}}
-                                        {{--{!! Form::open(['route' => 'project.Englishchecked'--}}
-                                        {{--, 'method' => 'POST', 'enctype' => 'multipart/form-data','style'=>'float:right;']) !!}--}}
-                                        {{--{{Form::text('id', $project['id'], ['class' => 'd-none'])}}--}}
-                                        {{--{{Form::text('MicroProject_ID', $project['MicroProject_ID'], ['class' => 'd-none'])}}--}}
-                                        {{--{{Form::button('<i class="fa fa-check"></i>', ['type' => 'submit', 'class' => 'btn btn-success icon-btn edit-btn '])}}--}}
-                                        {{--{!! Form::close() !!}--}}
-                                        {{--@endif--}}
-                                        {{--</td>--}}
-                                        {{--</tr>--}}
-                                        {{--@endforeach--}}
-                                        {{--@endif--}}
-                                        {{--@if(count($projectsEngCheck_d))--}}
-                                        {{--@foreach($projectsEngCheck_d as $project)--}}
-                                        {{--<tr>--}}
-                                        {{--<th>{{$project['MicroProject_ID']}}</th>--}}
-                                        {{--<td>{{$project['english']['MPE_Name']}}</td>--}}
-                                        {{--<td>{{$project['MPE_BeneficiaryName']}}</td>--}}
-                                        {{--<td>--}}
-                                        {{--@if($project['MPE_City'] == '') {{'N/A'}}--}}
-                                        {{--@else {{$project->place->name}}--}}
-                                        {{--@endif--}}
-                                        {{--</td>--}}
-                                        {{--<td class="text-end">--}}
-                                        {{--@if(count($project->images) != 0 )--}}
                                         {{--<i class="fa fa-picture-o"--}}
-                                        {{--style="padding: 0.3vw 0.6vw;"></i>--}}
-                                        {{--@endif--}}
-                                        {{--@if($project['MPE_Location'] != 0)--}}
                                         {{--<i class="fa fa-map-marker"--}}
-                                        {{--style="padding: 0.3vw 0.6vw;"></i>--}}
-                                        {{--@endif--}}
 
-                                        {{--<a href="{{route('admin_project', $project['id'])}}"--}}
                                         {{--class="btn btn-primary">--}}
-                                        {{--<span class="fa fa-eye"></span>&nbsp; View</a>--}}
 
 
-                                        {{--@if($user->roles->contains('name', 'Admin')--}}
-                                        {{--|| $user->roles->contains('name', 'English Editor')--}}
-                                        {{--|| $user->roles->contains('name', 'English Checker'))--}}
-                                        {{--<a href="{{route('edit.project', $project['id'])}}"--}}
                                         {{--class="btn btn-primary edit-btn mb-2">--}}
-                                        {{--<span class="fa fa-edit"></span>&nbsp;Edit</a>--}}
-                                        {{--@endif--}}
-                                        {{--@if($user->roles->contains('name', 'Admin')--}}
-                                        {{--|| $user->roles->contains('name', 'Photos Editor')--}}
-                                        {{--|| $user->roles->contains('name', 'Publisher'))--}}
-                                        {{--<a href="{{route('add.image', $project['id'])}}"--}}
                                         {{--class="btn btn-primary edit-btn mb-2">--}}
-                                        {{--<i class='fa-solid fa-plus-minus'></i>--}}
-                                        {{--Image</a>--}}
-                                        {{--@endif--}}
-                                        {{--@if($user->roles->contains('name', 'Admin')--}}
-                                        {{--|| $user->roles->contains('name', 'English Editor')--}}
-                                        {{--|| $user->roles->contains('name', 'English Checker'))--}}
-                                        {{--<form action="{{ route('delete.project', $project['id']) }}"--}}
                                         {{--style="float: right"--}}
                                         {{--method="POST"--}}
                                         {{--enctype="multipart/form-data">--}}
                                         {{--@method('DELETE')--}}
-                                        {{--@csrf--}}
                                         {{--<button class="btn btn-danger icon-btn edit-btn mb-2 show_confirm"--}}
                                         {{--type="submit"--}}
-                                        {{--data-id="{{$project['MicroProject_ID']}}">--}}
-                                        {{--<i class="fa fa-trash-o"></i>--}}
-                                        {{--</button>--}}
-                                        {{--</form>--}}
-                                        {{--@endif--}}
-                                        {{--@if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'English Checker'))--}}
-                                        {{--{!! Form::open(['route' => 'project.Englishchecked'--}}
-                                        {{--, 'method' => 'POST', 'enctype' => 'multipart/form-data','style'=>'float:right;']) !!}--}}
-                                        {{--{{Form::text('id', $project['id'], ['class' => 'd-none'])}}--}}
-                                        {{--{{Form::text('MicroProject_ID', $project['MicroProject_ID'], ['class' => 'd-none'])}}--}}
-                                        {{--{{Form::button('<i class="fa fa-check"></i>', ['type' => 'submit', 'class' => 'btn btn-success icon-btn edit-btn '])}}--}}
-                                        {{--{!! Form::close() !!}--}}
-                                        {{--@endif--}}
-                                        {{--</td>--}}
-                                        {{--</tr>--}}
-                                        {{--@endforeach--}}
-                                        {{--@endif--}}
                                         </tbody>
                                     </table>
                                 @endif
@@ -1931,93 +1788,18 @@
     // }
     // ;
 </script>
-{{--@if($user->roles->contains('name', 'Admin'))--}}
-{{--<script>--}}
-{{--let projectsUnpaidCount = {{count($projectsNotPaid)}};--}}
-{{--$('.btn-paid').click(function () {--}}
-{{--let id = this.dataset.content;--}}
-{{--$.get('/admin/project/french/paid/' + id);--}}
-{{--if (projectsUnpaidCount === 1) {--}}
-{{--$('.projects-unpaid-table').hide();--}}
-{{--} else {--}}
-{{--$('#tr-' + id).hide();--}}
-{{--}--}}
 {{--decreasePaymentSpanCount--}}
-{{--});--}}
 
-{{--let initiativesUnpaidCount = {{count($initiativesNotPaid)}};--}}
-{{--$('.btn-paid-ini').click(function () {--}}
-{{--let id = this.dataset.content;--}}
-{{--$.get('/admin/initiatives/french/paid/' + id);--}}
-{{--if (initiativesUnpaidCount === 1) {--}}
-{{--$('.initiatives-unpaid-table').hide();--}}
-{{--} else {--}}
-{{--initiativesUnpaidCount--;--}}
-{{--$('#tr-ini-' + id).hide();--}}
-{{--}--}}
 {{--decreasePaymentSpanCount--}}
-{{--});--}}
 
-{{--let testimoniesUnpaidCount = {{count($testimoniesNotPaid)}};--}}
-{{--$('.btn-paid-testimony').click(function () {--}}
-{{--let id = this.dataset.content;--}}
-{{--$.get('/admin/initiatives/testimonies/french/paid/' + id);--}}
-{{--if (testimoniesUnpaidCount === 1) {--}}
-{{--$('.testimonies-unpaid-table').hide();--}}
-{{--} else {--}}
-{{--testimoniesUnpaidCount--;--}}
-{{--$('#tr-testimony-' + id).hide();--}}
-{{--}--}}
 {{--decreasePaymentSpanCount--}}
-{{--});--}}
 
-{{--let successesUnpaidCount = {{count($successesNotPaid)}};--}}
-{{--$('.btn-paid-success').click(function () {--}}
-{{--let id = this.dataset.content;--}}
-{{--$.get('/admin/successes/french/paid/' + id);--}}
-{{--if (successesUnpaidCount === 1) {--}}
-{{--$('.successes-unpaid-table').hide();--}}
-{{--} else {--}}
-{{--successesUnpaidCount--;--}}
-{{--$('#tr-success-' + id).hide();--}}
-{{--}--}}
 {{--decreasePaymentSpanCount--}}
-{{--});--}}
 
-{{--let newsUnpaidCount = {{count($newsNotPaid)}};--}}
-{{--$('.btn-paid-news').click(function () {--}}
-{{--let id = this.dataset.content;--}}
-{{--$.get('/admin/news/french/paid/' + id);--}}
-{{--if (newsUnpaidCount === 1) {--}}
-{{--$('.news-unpaid-table').hide();--}}
-{{--} else {--}}
-{{--newsUnpaidCount--;--}}
-{{--$('#tr-success-' + id).hide();--}}
-{{--}--}}
 {{--decreasePaymentSpanCount--}}
-{{--});--}}
 
-{{--$('#pay-all').click(function () {--}}
-{{--$.get('/admin/project/french/paid/all');--}}
-{{--hidePaymentTable();--}}
-{{--});--}}
 
-{{--function decreasePaymentSpanCount() {--}}
-{{--if ($('#paid-count').text() === '1') {--}}
-{{--hidePaymentTable();--}}
-{{--} else {--}}
-{{--$('#paid-count').text($('#paid-count').text() - 1);--}}
-{{--}--}}
-{{--}--}}
 
-{{--function hidePaymentTable() {--}}
-{{--$('#paid-count').hide();--}}
-{{--$('#pay-all').hide();--}}
-{{--$('#payment-table').hide();--}}
-{{--$('#payment-panel').html('<div class="text-center"><h4>All Translation are Paid</h4></div>');--}}
-{{--}--}}
-{{--</script>--}}
-{{--@endif--}}
 
 <script>
     $(document).ready(function () {

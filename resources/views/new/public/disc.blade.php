@@ -11,7 +11,6 @@
 @endphp
 <head>
     <script src="/js/jquery.js"></script>
-{{--<link href="{{asset('css/font-lato.css')}}" rel='stylesheet' type='text/css'>--}}
     @include('new.public.components.analytics-head')
 
     <meta charset="utf-8">
@@ -28,7 +27,6 @@
 
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
-    {{--<link rel="shortcut icon" href="/public/fonts/Avenir%20LT%20Std%2045%20Book.otf">--}}
     <link rel='stylesheet' href='https://unpkg.com/leaflet@1.8.0/dist/leaflet.css' crossorigin=''/>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -53,18 +51,11 @@
     <script type="text/javascript" src="/js/main.js"></script>
     <script type="text/javascript" src="/js/wow.min.js"></script>
     <script type="text/javascript" src="/js/swipe.index.js"></script>
-    {{--<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>--}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    {{--<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes@0.4.0/dist/chartjs-plugin-colorschemes.js"></script>--}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
           integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    {{--<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>--}}
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-    {{--<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>--}}
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>--}}
-    {{--<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>--}}
-    {{--<script src="https://unpkg.com/chart.js-plugin-labels-dv/dist/chartjs-plugin-labels.min.js"></script>--}}
     <script src="/js/amcharts/index.js"></script>
     <script src="/js/amcharts/xy.js"></script>
     <script src="/js/amcharts/radar.js"></script>
@@ -118,7 +109,6 @@
 
     <div class="small horizontal-line" data-aos="fade-up" data-aos-duration="800"></div>
     <div id="categories-section" class="section-space" data-aos="fade-up" data-aos-duration="800">
-        {{--<div class="image_wrapper">--}}
         <img class="categories-img" src="/images/home/disc-categories.jpg">
         <img src="/images/home/image-mask.png" class="image-mask"/>
         <div id="socialOverlay" class="overlay">
@@ -143,7 +133,6 @@
                                     access to extracurricular
                                     activities to support their language learning journey
                                 </div>
-                                {{--<div data-aos="fade-up" data-aos-duration="300">Designated for small group--}}
                                 {{--study and--}}
                                 {{--permits study and project-related discussions without causing--}}
                                 {{--disturbance to others. Cellphones must--}}
@@ -154,18 +143,8 @@
                                 {{--be set--}}
                                 {{--to--}}
                                 {{--silent or vibrate mode, and the administration selects the music.--}}
-                                {{--</div>--}}
-                                {{--<div data-aos="fade-up" data-aos-duration="500">--}}
-                                {{--</div>--}}
-                                {{--<div data-aos="fade-up" data-aos-duration="600">--}}
-                                {{--</div>--}}
                             </div>
 
-                            {{--<div class="row d-flex justify-content-center text-center w-100">--}}
-                            {{--<div class="col">--}}
-                            {{----}}
-                            {{--</div>--}}
-                            {{--</div>--}}
                         </div>
                     </div>
                 </div>
@@ -196,11 +175,6 @@
                 </div>
             </div>
         </div>
-        {{--</div>--}}
-        {{--<img class="categories-img" src="/images/home/zone-categories.jpg">--}}
-        {{--<div class="overlay">--}}
-        {{--<h3>Text Title</h3>--}}
-        {{--</div>--}}
         <div class="categories-content">
             <ul>
                 <li class="category" id="English">
@@ -219,46 +193,14 @@
             </ul>
         </div>
     </div>
-    {{--<div id="categories-section" class="position-relative" data-aos="fade-up" data-aos-duration="800">--}}
-    {{--<div class="image_wrapper">--}}
-    {{--<img src="/images/home/disc-categories.jpg"/>--}}
-    {{--<div class="overlay img-overlay">--}}
-    {{--<div id="category-description" class="d-lg-block d-md-block d-sm-block d-none">--}}
-    {{--<div class="container-fluid">--}}
-    {{--<div class="row w-100" data-aos="fade-up" data-aos-duration="600">--}}
-    {{--<div class="col-lg-5 col-md-9 col-sm-9 col-10">--}}
-    {{--<div class="category-title pb-0 pt-2">English Skills</div>--}}
-    {{--<div class="section-title-desc category-desc">--}}
-    {{--<div data-aos="fade-up" data-aos-duration="600">Fluency in English is essential to--}}
     {{--access more opportunities and have a successful career.--}}
-    {{--</div>--}}
-    {{--<div data-aos="fade-up" data-aos-duration="900">Our goal is to create a--}}
     {{--positive and exciting learning environment where--}}
     {{--students can improve their language skills and achieve their language learning--}}
     {{--goals.--}}
-    {{--</div>--}}
-    {{--<div data-aos="fade-up" data-aos-duration="1100">Through the innovative--}}
     {{--Wide-Angle e-book from Oxford students have fully automated learning experience--}}
     {{--with--}}
     {{--access to extracurricular--}}
     {{--activities to support their language learning journey--}}
-    {{--</div>--}}
-    {{--<div data-aos="fade-up" data-aos-duration="1300">--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--<div id="category-description" class="d-lg-none d-md-none d-sm-none d-block">--}}
-    {{--<div class="container-fluid">--}}
-    {{--<div class="row" data-aos="fade-up" data-aos-duration="600">--}}
-    {{--<div class="col-12 d-flex justify-content-center flex-column align-items-center">--}}
-    {{--<div class="section-title sm category-title pb-0 pt-2">English Skills</div>--}}
-    {{--<div class="row d-flex justify-content-center text-center w-100">--}}
-    {{--<div class="col-lg-8 col-md-8 col-sm-8 col-11">--}}
-    {{--<div class="section-title-desc sm">--}}
-    {{--<div data-aos="fade-up" data-aos-duration="300">Fluency in English is--}}
     {{--essential to--}}
     {{--access more opportunities and have a successful career.Our goal is to--}}
     {{--create a--}}
@@ -273,61 +215,6 @@
     {{--with access to extracurricular activities to support their language--}}
     {{--learning--}}
     {{--journey--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--<img class="categories-img" src="/images/initiatives/DISC/courses/english.jpg">--}}
-    {{--<div class="categories-content-title">--}}
-    {{--<div class="row" data-aos="fade-up" data-aos-duration="600">--}}
-    {{--<div class="col-12 d-flex justify-content-center flex-column align-items-center">--}}
-    {{--<div class="section-title programs">Essential Programs</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--<div class="categories-content">--}}
-    {{--<button class="category" id="English">--}}
-    {{--<div class="inner-circle">English<br> Skills</div>--}}
-    {{--</button>--}}
-    {{--<button class="category" id="Computer">--}}
-    {{--<div class="inner-circle">Computer<br> Skills</div>--}}
-    {{--</button>--}}
-    {{--<button class="category" id="Accompaniment">--}}
-    {{--<div class="inner-circle">Accompaniment</div>--}}
-    {{--</button>--}}
-    {{--<button class="category" id="Skills">--}}
-    {{--<div class="inner-circle">Employability<br>Skills</div>--}}
-    {{--</button>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--<div id="test-section">--}}
-    {{--<section>--}}
-    {{--<div class="bg"></div>--}}
-    {{--<h1>Simple parallax sections</h1>--}}
-    {{--</section>--}}
-    {{--<section>--}}
-    {{--<div class="bg"></div>--}}
-    {{--<h1>Hey look, a title</h1>--}}
-    {{--</section>--}}
-    {{--<section>--}}
-    {{--<div class="bg"></div>--}}
-    {{--<h1>They just keep coming</h1>--}}
-    {{--</section>--}}
-    {{--<section>--}}
-    {{--<div class="bg"></div>--}}
-    {{--<h1>So smooth though</h1>--}}
-    {{--</section>--}}
-    {{--<section>--}}
-    {{--<div class="bg"></div>--}}
-    {{--<h1>Nice, right?</h1>--}}
-    {{--</section>--}}
-    {{--</div>--}}
     <div class="horizontal-line" data-aos="fade-up" data-aos-duration="800"></div>
     <div id="testimonies-section" class="section-space" data-aos="fade-up"
          data-aos-duration="600">
@@ -338,7 +225,6 @@
     <div class="small horizontal-line" data-aos="fade-up" data-aos-duration="800"></div>
     <div class="page-margin">
         <div id="testimonies-body" data-aos="fade-up" data-aos-duration="800" class="container-fluid">
-            {{--<div class="page-margin" data-aos="fade-up" data-aos-duration="1000">--}}
             <div class="row d-flex justify-content-center">
                 <div class="col">
                     <div id="carouselTestemonies"
@@ -368,7 +254,6 @@
                                                 <div class="name animated fadeInUp" style="animation-delay: .1s">
                                                     {{$testemony->$language->title}}
                                                 </div>
-                                                {{--<div class="position">Medical Officer at SSCC</div>--}}
                                                 <div class="content animated fadeInUp" style="animation-delay: .8s">
                                                     {!! $testemony->$language->text !!}
                                                 </div>
@@ -377,39 +262,21 @@
                                     </div>
                                 </div>
                             @endforeach
-                            {{--<div class="carousel-item active">--}}
                             {{--<img class="w-100"--}}
-                            {{--src="{{$initiative->ImagesRandom[0]['path']}}">--}}
-                            {{--</div>--}}
-                            {{--<div class="carousel-item">--}}
                             {{--<img class="w-100"--}}
-                            {{--src="{{$initiative->ImagesRandom[1]['path']}}">--}}
-                            {{--</div>--}}
-                            {{--@if(count($initiative->ImagesRandom) > 2)--}}
-                            {{--<div class="carousel-item">--}}
                             {{--<img class="w-100"--}}
-                            {{--src="{{$initiative->ImagesRandom[2]['path']}}">--}}
-                            {{--</div>--}}
-                            {{--@endif--}}
                         </div>
                         {{--<button class="carousel-control-prev"--}}
                         {{--data-bs-target="#carouselTestemonies"--}}
                         {{--data-bs-slide="prev">--}}
                         {{--<span class="carousel-control-prev-icon"--}}
-                        {{--aria-hidden="true"></span>--}}
-                        {{--<span class="visually-hidden">Previous</span>--}}
-                        {{--</button>--}}
                         {{--<button class="carousel-control-next"--}}
                         {{--data-bs-target="#carouselTestemonies"--}}
                         {{--data-bs-slide="next">--}}
                         {{--<span class="carousel-control-next-icon"--}}
-                        {{--aria-hidden="true"></span>--}}
-                        {{--<span class="visually-hidden">Next</span>--}}
-                        {{--</button>--}}
                     </div>
                 </div>
             </div>
-            {{--</div>--}}
         </div>
     </div>
     <div data-aos="fade-up" data-aos-duration="800">
@@ -424,8 +291,6 @@
             </div>
         </div>
         <div id="card-height" class="card-height position-relative">
-            {{--<div class="page-margin">--}}
-            {{--<img class="cat-img " src="/images/mapbck.jpg">--}}
             <div class="page-margin">
                 <div class="container-fluid">
                     <div class="row d-flex justify-content-center align-items-center" data-aos="fade-up"
@@ -485,9 +350,6 @@
                                     </g>
                                 </svg>
                             </div>
-                            {{--<div id="homsstart" class="date position-absolute">20<br>1<span class="anim">8</span></div>--}}
-                            {{--<div id="damasstart" class="date position-absolute">20<br>1<span class="anim">9</span></div>--}}
-                            {{--<div id="aleppostart" class="date position-absolute">20<br><span class="anim">22</span></div>--}}
 
                         </div>
                         <div class="col-lg-5 col-md-6 col-sm-4 col-12 position-relative">
@@ -502,19 +364,9 @@
                                     <div class="sub-statistics-title aleppocity">Number of DISC students in ALEPPO</div>
                                 </div>
                                 <div id="chartDisc"></div>
-                            {{--@else--}}
-                                {{--<div class="row">--}}
-                                    {{--<div class="sub-statistics-title homscity">No data available</div>--}}
-                                    {{--<div class="sub-statistics-title damascity">No data available</div>--}}
-                                    {{--<div class="sub-statistics-title aleppocity">No data available</div>--}}
-                                {{--</div>--}}
                             @endif
-                            {{--<div class="grid">--}}
-                            {{--</div>--}}
                         </div>
                     </div>
-                    {{--<div class="row d-flex justify-content-center align-items-center">--}}
-                    {{--<div class="col-lg-3 col-md-3 col-sm-3 col-12">--}}
                     <div id="homsstart" class="date position-relative">
                         <div class="row">
                             <div class="col text-end">
@@ -554,12 +406,9 @@
                             </div>
                         </div>
                     </div>
-                    {{--</div>--}}
-                    {{--</div>--}}
                 </div>
             </div>
 
-            {{--</div>--}}
         </div>
     </div>
     <div class="horizontal-line mt-3" data-aos="fade-up" data-aos-duration="800"></div>
@@ -569,15 +418,8 @@
                 <div class="col-12 d-flex justify-content-center flex-column align-items-center mb-2" data-aos="fade-up"
                      data-aos-duration="600">
                     <div class="section-title mt-3">@lang('studyzone.activities')</div>
-                    {{--<div class="search-container d-flex justify-content-center align-items-center">--}}
-                    {{--<div class="se d-flex align-items-center">--}}
-                    {{--<button id="switch-search" onclick="searchFilter()">--}}
-                    {{--<img id="search-icon" class="search-icons" src="/images/ico/search-blue-icon.png">--}}
-                    {{--</button>--}}
                     {{--<input id="search-input" type="text" placeholder="Search Activities"--}}
                     {{--name="search">--}}
-                    {{--</div>--}}
-                    {{--</div>--}}
                 </div>
             </div>
         </div>
@@ -616,7 +458,6 @@
                                         <div class="text-center">
                                             No Activities Yet
                                         </div>
-                                        {{--                                        <div>@lang('projects.sorryMessage2')</div>--}}
                                     </div>
                                 </div>
                             </div>
@@ -642,20 +483,9 @@
                                                                  style="object-fit: cover"/></a>
                                                     </div>
                                                 @endforeach
-                                                {{--<div class="carousel-item active">--}}
                                                 {{--<img class="w-100"--}}
-                                                {{--src="{{$initiative->ImagesRandom[0]['path']}}">--}}
-                                                {{--</div>--}}
-                                                {{--<div class="carousel-item">--}}
                                                 {{--<img class="w-100"--}}
-                                                {{--src="{{$initiative->ImagesRandom[1]['path']}}">--}}
-                                                {{--</div>--}}
-                                                {{--@if(count($initiative->ImagesRandom) > 2)--}}
-                                                {{--<div class="carousel-item">--}}
                                                 {{--<img class="w-100"--}}
-                                                {{--src="{{$initiative->ImagesRandom[2]['path']}}">--}}
-                                                {{--</div>--}}
-                                                {{--@endif--}}
                                             </div>
                                             <button class="carousel-control-prev"
                                                     data-bs-target="#carousel-ini{{$initiative->id}}"
@@ -681,9 +511,6 @@
                                             <div class="col-2 text-end">
                                                 @if($initiative->video !== '0')
                                                     {{--<a href="#" class="launch-modal"--}}
-                                                    {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
-                                                    {{----}}
-                                                    {{--</a>--}}
                                                     <a href="{{$initiative->video}}" class="launch-modal"
                                                        id="iniVideo-{{$initiative->id}}"
                                                        data-fancybox="iniVideo-{{$initiative->id}}">
@@ -702,10 +529,6 @@
                                                     <strong>Date: </strong>{{$initiative->$language->date_string}}
                                                 </div>
                                             @endif
-                                            {{--@if($initiative->donors[0]['name'] !== '')--}}
-                                            {{--<div><strong>Funded By: </strong>{{$initiative->donors[0]['name']}}--}}
-                                            {{--</div>--}}
-                                            {{--@endif--}}
                                             @if($initiative->$language->organization !== '0')
                                                 <strong> @lang('initiatives.by') {{$initiative->$language->organization}}</strong>
                                             @endif
@@ -748,7 +571,6 @@
                         </div>
                     @endif
 
-                    {{--<div class="small horizontal-line"></div>--}}
                 </div>
                 <div class="tab-pane fade show " id="homs" role="tabpanel" aria-labelledby="homsTab" tabindex="0">
                     @if(count($ini_H)==0)
@@ -786,20 +608,9 @@
                                                                  style="object-fit: cover"/></a>
                                                     </div>
                                                 @endforeach
-                                                {{--<div class="carousel-item active">--}}
                                                 {{--<img class="w-100"--}}
-                                                {{--src="{{$initiative->ImagesRandom[0]['path']}}">--}}
-                                                {{--</div>--}}
-                                                {{--<div class="carousel-item">--}}
                                                 {{--<img class="w-100"--}}
-                                                {{--src="{{$initiative->ImagesRandom[1]['path']}}">--}}
-                                                {{--</div>--}}
-                                                {{--@if(count($initiative->ImagesRandom) > 2)--}}
-                                                {{--<div class="carousel-item">--}}
                                                 {{--<img class="w-100"--}}
-                                                {{--src="{{$initiative->ImagesRandom[2]['path']}}">--}}
-                                                {{--</div>--}}
-                                                {{--@endif--}}
                                             </div>
                                             <button class="carousel-control-prev"
                                                     data-bs-target="#carousel-ini{{$initiative->id}}"
@@ -825,9 +636,6 @@
                                             <div class="col-2 text-end">
                                                 @if($initiative->video !== '0')
                                                     {{--<a href="#" class="launch-modal"--}}
-                                                    {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
-                                                    {{----}}
-                                                    {{--</a>--}}
                                                     <a href="{{$initiative->video}}" class="launch-modal"
                                                        id="iniVideo-{{$initiative->id}}"
                                                        data-fancybox="iniVideo-{{$initiative->id}}">
@@ -846,10 +654,6 @@
                                                     <strong>Date: </strong>{{$initiative->$language->date_string}}
                                                 </div>
                                             @endif
-                                            {{--@if($initiative->donors[0]['name'] !== '')--}}
-                                            {{--<div><strong>Funded By: </strong>{{$initiative->donors[0]['name']}}--}}
-                                            {{--</div>--}}
-                                            {{--@endif--}}
                                             @if($initiative->$language->organization !== '0')
                                                 <strong> @lang('initiatives.by') {{$initiative->$language->organization}}</strong>
                                             @endif
@@ -928,20 +732,9 @@
                                                                  style="object-fit: cover"/></a>
                                                     </div>
                                                 @endforeach
-                                                {{--<div class="carousel-item active">--}}
                                                 {{--<img class="w-100"--}}
-                                                {{--src="{{$initiative->ImagesRandom[0]['path']}}">--}}
-                                                {{--</div>--}}
-                                                {{--<div class="carousel-item">--}}
                                                 {{--<img class="w-100"--}}
-                                                {{--src="{{$initiative->ImagesRandom[1]['path']}}">--}}
-                                                {{--</div>--}}
-                                                {{--@if(count($initiative->ImagesRandom) > 2)--}}
-                                                {{--<div class="carousel-item">--}}
                                                 {{--<img class="w-100"--}}
-                                                {{--src="{{$initiative->ImagesRandom[2]['path']}}">--}}
-                                                {{--</div>--}}
-                                                {{--@endif--}}
                                             </div>
                                             <button class="carousel-control-prev"
                                                     data-bs-target="#carousel-ini{{$initiative->id}}"
@@ -967,9 +760,6 @@
                                             <div class="col-2 text-end">
                                                 @if($initiative->video !== '0')
                                                     {{--<a href="#" class="launch-modal"--}}
-                                                    {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
-                                                    {{----}}
-                                                    {{--</a>--}}
                                                     <a href="{{$initiative->video}}" class="launch-modal"
                                                        id="iniVideo-{{$initiative->id}}"
                                                        data-fancybox="iniVideo-{{$initiative->id}}">
@@ -988,10 +778,6 @@
                                                     <strong>Date: </strong>{{$initiative->$language->date_string}}
                                                 </div>
                                             @endif
-                                            {{--@if($initiative->donors[0]['name'] !== '')--}}
-                                            {{--<div><strong>Funded By: </strong>{{$initiative->donors[0]['name']}}--}}
-                                            {{--</div>--}}
-                                            {{--@endif--}}
                                             @if($initiative->$language->organization !== '0')
                                                 <strong> @lang('initiatives.by') {{$initiative->$language->organization}}</strong>
                                             @endif
@@ -1033,7 +819,6 @@
                             {{$ini_D->withQueryString(['ini_D' => $ini_D->currentPage()])->links()}}
                         </div>
                     @endif
-                    {{--<div class="small horizontal-line" data-aos="fade-up" data-aos-duration="800"></div>--}}
                 </div>
 
             </div>
@@ -1052,7 +837,6 @@
                                         <div class="text-center">
                                             No Activities Yet
                                         </div>
-                                        {{--<div>@lang('projects.sorryMessage2')</div>--}}
                                     </div>
                                 </div>
                             </div>
@@ -1123,10 +907,6 @@
                                                             <strong>Date: </strong>{{$initiative->$language->date_string}}
                                                         </div>
                                                     @endif
-                                                    {{--@if($initiative->donors[0]['name'] !== '')--}}
-                                                    {{--<div><strong>Funded By: </strong>{{$initiative->donors[0]['name']}}--}}
-                                                    {{--</div>--}}
-                                                    {{--@endif--}}
                                                     @if($initiative->$language->organization !== '0')
                                                         <strong> @lang('initiatives.by') {{$initiative->$language->organization}}</strong>
                                                     @endif
@@ -1169,9 +949,6 @@
                                                     <div class="col-2 text-end">
                                                         @if($initiative->video !== '0')
                                                             {{--<a href="#" class="launch-modal"--}}
-                                                            {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
-                                                            {{----}}
-                                                            {{--</a>--}}
                                                             <a href="{{$initiative->video}}" class="launch-modal"
                                                                id="iniVideo-{{$initiative->id}}"
                                                                data-fancybox="iniVideo-{{$initiative->id}}">
@@ -1190,9 +967,6 @@
                                                             <strong>Date: </strong>{{$initiative->$language->date_string}}
                                                         </div>
                                                     @endif
-                                                    {{--@if($initiative->donors[0]['name'] !== '')--}}
-                                                    {{--<div><strong>Funded By: </strong>{{$initiative->donors[0]['name']}}</div>--}}
-                                                    {{--@endif--}}
                                                     @if($initiative->$language->organization !== '0')
                                                         <strong> @lang('initiatives.by') {{$initiative->$language->organization}}</strong>
                                                     @endif
@@ -1242,20 +1016,9 @@
                                                                      style="object-fit: cover"/></a>
                                                         </div>
                                                     @endforeach
-                                                    {{--<div class="carousel-item active">--}}
                                                     {{--<img class="w-100"--}}
-                                                    {{--src="{{$initiative->ImagesRandom[0]['path']}}">--}}
-                                                    {{--</div>--}}
-                                                    {{--<div class="carousel-item">--}}
                                                     {{--<img class="w-100"--}}
-                                                    {{--src="{{$initiative->ImagesRandom[1]['path']}}">--}}
-                                                    {{--</div>--}}
-                                                    {{--@if(count($initiative->ImagesRandom) > 2)--}}
-                                                    {{--<div class="carousel-item">--}}
                                                     {{--<img class="w-100"--}}
-                                                    {{--src="{{$initiative->ImagesRandom[2]['path']}}">--}}
-                                                    {{--</div>--}}
-                                                    {{--@endif--}}
                                                 </div>
                                                 <button class="carousel-control-prev"
                                                         data-bs-target="#carousel-ini{{$initiative->id}}"
@@ -1283,13 +1046,9 @@
                         <div class="small horizontal-line" data-aos="fade-up" data-aos-duration="600"></div>
                         <div class="text-center" data-aos="fade-up" data-aos-duration="300">
                             {{$ini_A->withQueryString(['ini_A' => $ini_A->currentPage()])->links()}}
-                            {{--                        {{$ini_A->appends(['ini_A' => $ini_A->links()}}--}}
-                            {{--{{$ini_A->appends(['ini_A' => $ini_A])->links()}}--}}
-                            {{--{{ $ini_A->appends($_GET)->links() }}--}}
                         </div>
                     @endif
 
-                    {{--<div class="small horizontal-line" data-aos="fade-up" data-aos-duration="800"></div>--}}
                 </div>
                 <div class="tab-pane fade show " id="homs" role="tabpanel" aria-labelledby="homsTab" tabindex="0">
                     @if(count($ini_H)==0)
@@ -1328,20 +1087,9 @@
                                                                      style="object-fit: cover"></a>
                                                         </div>
                                                     @endforeach
-                                                    {{--<div class="carousel-item active">--}}
                                                     {{--<img class="w-100"--}}
-                                                    {{--src="{{$initiative->ImagesRandom[0]['path']}}">--}}
-                                                    {{--</div>--}}
-                                                    {{--<div class="carousel-item">--}}
                                                     {{--<img class="w-100"--}}
-                                                    {{--src="{{$initiative->ImagesRandom[1]['path']}}">--}}
-                                                    {{--</div>--}}
-                                                    {{--@if(count($initiative->ImagesRandom) > 2)--}}
-                                                    {{--<div class="carousel-item">--}}
                                                     {{--<img class="w-100"--}}
-                                                    {{--src="{{$initiative->ImagesRandom[2]['path']}}">--}}
-                                                    {{--</div>--}}
-                                                    {{--@endif--}}
                                                 </div>
                                                 <button class="carousel-control-prev"
                                                         data-bs-target="#carousel-ini{{$initiative->id}}"
@@ -1368,9 +1116,6 @@
                                                     <div class="col-2 text-end">
                                                         @if($initiative->video !== '0')
                                                             {{--<a href="#" class="launch-modal"--}}
-                                                            {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
-                                                            {{----}}
-                                                            {{--</a>--}}
                                                             <a href="{{$initiative->video}}" class="launch-modal"
                                                                id="iniVideo-{{$initiative->id}}"
                                                                data-fancybox="iniVideo-{{$initiative->id}}">
@@ -1389,10 +1134,6 @@
                                                             <strong>Date: </strong>{{$initiative->$language->date_string}}
                                                         </div>
                                                     @endif
-                                                    {{--@if($initiative->donors[0]['name'] !== '')--}}
-                                                    {{--<div><strong>Funded By: </strong>{{$initiative->donors[0]['name']}}--}}
-                                                    {{--</div>--}}
-                                                    {{--@endif--}}
                                                     @if($initiative->$language->organization !== '0')
                                                         <strong> @lang('initiatives.by') {{$initiative->$language->organization}}</strong>
                                                     @endif
@@ -1435,9 +1176,6 @@
                                                     <div class="col-2 text-end">
                                                         @if($initiative->video !== '0')
                                                             {{--<a href="#" class="launch-modal"--}}
-                                                            {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
-                                                            {{----}}
-                                                            {{--</a>--}}
                                                             <a href="{{$initiative->video}}" class="launch-modal"
                                                                id="iniVideo-{{$initiative->id}}"
                                                                data-fancybox="iniVideo-{{$initiative->id}}">
@@ -1456,10 +1194,6 @@
                                                             <strong>Date: </strong>{{$initiative->$language->date_string}}
                                                         </div>
                                                     @endif
-                                                    {{--@if($initiative->donors[0]['name'] !== '')--}}
-                                                    {{--<div><strong>Funded By: </strong>{{$initiative->donors[0]['name']}}--}}
-                                                    {{--</div>--}}
-                                                    {{--@endif--}}
                                                     @if($initiative->$language->organization !== '0')
                                                         <strong> @lang('initiatives.by') {{$initiative->$language->organization}}</strong>
                                                     @endif
@@ -1509,20 +1243,9 @@
                                                                      style="object-fit: cover"></a>
                                                         </div>
                                                     @endforeach
-                                                    {{--<div class="carousel-item active">--}}
                                                     {{--<img class="w-100"--}}
-                                                    {{--src="{{$initiative->ImagesRandom[0]['path']}}">--}}
-                                                    {{--</div>--}}
-                                                    {{--<div class="carousel-item">--}}
                                                     {{--<img class="w-100"--}}
-                                                    {{--src="{{$initiative->ImagesRandom[1]['path']}}">--}}
-                                                    {{--</div>--}}
-                                                    {{--@if(count($initiative->ImagesRandom) > 2)--}}
-                                                    {{--<div class="carousel-item">--}}
                                                     {{--<img class="w-100"--}}
-                                                    {{--src="{{$initiative->ImagesRandom[2]['path']}}">--}}
-                                                    {{--</div>--}}
-                                                    {{--@endif--}}
                                                 </div>
                                                 <button class="carousel-control-prev"
                                                         data-bs-target="#carousel-ini{{$initiative->id}}"
@@ -1634,10 +1357,6 @@
                                                             <strong>Date: </strong>{{$initiative->$language->date_string}}
                                                         </div>
                                                     @endif
-                                                    {{--@if($initiative->donors[0]['name'] !== '')--}}
-                                                    {{--<div><strong>Funded By: </strong>{{$initiative->donors[0]['name']}}--}}
-                                                    {{--</div>--}}
-                                                    {{--@endif--}}
                                                     @if($initiative->$language->organization !== '0')
                                                         <strong> @lang('initiatives.by') {{$initiative->$language->organization}}</strong>
                                                     @endif
@@ -1680,9 +1399,6 @@
                                                     <div class="col-2 text-end">
                                                         @if($initiative->video !== '0')
                                                             {{--<a href="#" class="launch-modal"--}}
-                                                            {{--data-modal-id="modal-video-{{$initiative->id}}">--}}
-                                                            {{----}}
-                                                            {{--</a>--}}
                                                             <a href="{{$initiative->video}}" class="launch-modal"
                                                                id="iniVideo-{{$initiative->id}}"
                                                                data-fancybox="iniVideo-{{$initiative->id}}">
@@ -1701,9 +1417,6 @@
                                                             <strong>Date: </strong>{{$initiative->$language->date_string}}
                                                         </div>
                                                     @endif
-                                                    {{--@if($initiative->donors[0]['name'] !== '')--}}
-                                                    {{--<div><strong>Funded By: </strong>{{$initiative->donors[0]['name']}}</div>--}}
-                                                    {{--@endif--}}
                                                     @if($initiative->$language->organization !== '0')
                                                         <strong> @lang('initiatives.by') {{$initiative->$language->organization}}</strong>
                                                     @endif
@@ -1753,20 +1466,9 @@
                                                                      style="object-fit: cover"/></a>
                                                         </div>
                                                     @endforeach
-                                                    {{--<div class="carousel-item active">--}}
                                                     {{--<img class="w-100"--}}
-                                                    {{--src="{{$initiative->ImagesRandom[0]['path']}}">--}}
-                                                    {{--</div>--}}
-                                                    {{--<div class="carousel-item">--}}
                                                     {{--<img class="w-100"--}}
-                                                    {{--src="{{$initiative->ImagesRandom[1]['path']}}">--}}
-                                                    {{--</div>--}}
-                                                    {{--@if(count($initiative->ImagesRandom) > 2)--}}
-                                                    {{--<div class="carousel-item">--}}
                                                     {{--<img class="w-100"--}}
-                                                    {{--src="{{$initiative->ImagesRandom[2]['path']}}">--}}
-                                                    {{--</div>--}}
-                                                    {{--@endif--}}
                                                 </div>
                                                 <button class="carousel-control-prev"
                                                         data-bs-target="#carousel-ini{{$initiative->id}}"
@@ -1794,13 +1496,9 @@
                         <div class="small horizontal-line" data-aos="fade-up" data-aos-duration="600"></div>
                         <div class="text-center" data-aos="fade-up" data-aos-duration="300">
                             {{$ini_D->withQueryString(['ini_D' => $ini_D->currentPage()])->links()}}
-                            {{--                        {{$ini_A->appends(['ini_A' => $ini_A->links()}}--}}
-                            {{--{{$ini_A->appends(['ini_A' => $ini_A])->links()}}--}}
-                            {{--{{ $ini_A->appends($_GET)->links() }}--}}
                         </div>
                     @endif
 
-                    {{--<div class="small horizontal-line" data-aos="fade-up" data-aos-duration="800"></div>--}}
                 </div>
 
             </div>
@@ -2374,9 +2072,6 @@
     @foreach($searchProject as $s)
     activities.push(('{{ $s->title }}').replace('&#039;', '\''));
     @endforeach
-    {{--@foreach($searchBeneficiary as $s)--}}
-    {{--beneficiaries.push(('{{ $s->MPE_BeneficiaryName }}').replace('&#039;', '\''));--}}
-    {{--@endforeach--}}
 
     $('#search-input').typeahead({
             hint: true,
@@ -2418,73 +2113,15 @@
         window.location.href = urlsearch.href;
     }
 </script>
-{{--<script>--}}
-{{--const blurTrigger = {--}}
-{{--name: "blur",--}}
-{{--get(target) {--}}
-{{--return +(getBlurMatch(target)[1]) || 0;--}}
-{{--},--}}
-{{--init(target, endValue) {--}}
-{{--let data = this,--}}
-{{--filter = gsap.getProperty(target, blurProperty),--}}
-{{--endBlur = "blur(" + endValue + "px)",--}}
-{{--match = getBlurMatch(target)[0],--}}
-{{--index;--}}
-{{--if (filter === "none") {--}}
-{{--filter = "";--}}
-{{--}--}}
-{{--if (match) {--}}
-{{--index = filter.indexOf(match);--}}
-{{--endValue = filter.substr(0, index) + endBlur + filter.substr(index + match.length);--}}
-{{--} else {--}}
-{{--endValue = filter + endBlur;--}}
-{{--filter += filter ? " blur(0px)" : "blur(0px)";--}}
-{{--}--}}
-{{--data.target = target;--}}
-{{--data.interp = gsap.utils.interpolate(filter, endValue);--}}
-{{--},--}}
-{{--render(progress, data) {--}}
-{{--data.target.style[blurProperty] = data.interp(progress);--}}
-{{--}--}}
-{{--}--}}
-{{--gsap.registerPlugin(ScrollTrigger,blurTrigger);--}}
 
-{{--let getRatio = el => window.innerHeight / (window.innerHeight + el.offsetHeight);--}}
 
-{{--gsap.utils.toArray("section").forEach((section, i) => {--}}
-{{--section.bg = section.querySelector(".bg");--}}
 
 {{--// Give the backgrounds some random images--}}
-{{--section.bg.style.backgroundImage = `url(https://picsum.photos/1600/800?random=${i})`;--}}
 
 {{--// the first image (i === 0) should be handled differently because it should start at the very top.--}}
 {{--// use function-based values in order to keep things responsive--}}
-{{--gsap.fromTo(section.bg, {--}}
-{{--backgroundPosition: () => i ? `50% ${-window.innerHeight * getRatio(section)}px` : "50% 0px",--}}
-{{--// blur: 30,--}}
-{{--filter: 'blur(0px)',--}}
-{{--// webkitFilter: 'blur(30px)',--}}
-{{--}, {--}}
-{{--backgroundPosition: () => `50% ${window.innerHeight * (1 - getRatio(section))}px`,--}}
-{{--ease: "none",--}}
-{{--filter: 'blur(0px)',--}}
-{{--scrollTrigger: {--}}
-{{--trigger: section,--}}
-{{--start: () => i ? "top bottom" : "top top",--}}
-{{--end: "bottom top",--}}
-{{--scrub: true,--}}
 {{--invalidateOnRefresh: true // to make it responsive--}}
-{{--}--}}
-{{--});--}}
 
-{{--});--}}
-{{--</script>--}}
-{{--<script>--}}
-{{--$('#play-button').on('click', function(ev) {--}}
-{{--$(this).hide();--}}
-{{--$("#iframe")[0].src += "?rel=0&autoplay=1";--}}
-{{--});--}}
-{{--</script>--}}
 
 </body>
 </html>

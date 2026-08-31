@@ -31,13 +31,6 @@ class Authenticate extends Middleware
 
     public function handle($request, Closure $next, ...$guards)
     {
-//        if(!Auth::user()['active']){
-//            Auth::logout();
-//            return redirect('/login');
-//        }
-//        $this->authenticate($request, $guards);
-//
-//        return $next($request);
         if ($this->auth->guest())
         {
             if ($request->ajax())

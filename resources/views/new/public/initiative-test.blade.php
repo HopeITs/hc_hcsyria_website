@@ -85,15 +85,10 @@
     <script src="/js/html5shiv.js"></script>
     <script src="/js/respond.min.js"></script> <![endif]-->
 
-    {{--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">--}}
-    {{--<link rel="stylesheet" href="/css/bootstrap.css">--}}
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="/js/jquery.min.js"></script>
     <script src="/js/aos.js"></script>
-    {{--<script src="/js/aos.js"></script>--}}
-    {{--<link href="css/aos.css" rel="stylesheet">--}}
 
-    {{--<script type="text/javascript" src="/js/bootstrap.js"></script>--}}
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/jquery.prettyPhoto.js"></script>
     <script type="text/javascript" src="/js/jquery.balloon.min.js"></script>
@@ -101,7 +96,6 @@
     <script type="text/javascript" src="/js/fancybox.config.js"></script>
     <script type="text/javascript" src="/js/typeahead.bundle.min.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
-    {{--<script type="text/javascript" src="/js/jquery.event.move.js"></script>--}}
     <script type="text/javascript" src="/js/jquery.event.move.js"></script>
     <script type="text/javascript" src="/js/jquery.twentytwenty.js"></script>
     <link href="/css/twentytwenty.css" rel="stylesheet">
@@ -181,7 +175,6 @@
             <div class="row d-flex ">
                 <div class="col d-flex justify-content-end flex-column pe-0">
                     <div class="first-column">
-                        {{--<div style="height: 2.5vw"></div>--}}
                     </div>
                     <div class="content">
                         @if($mainInitiative->whatCategory->$whatCatName == 'Family to Family')
@@ -281,7 +274,6 @@
                                                        data-caption="{{ ucfirst($mainInitiative->$language->title) }}">
                                                         <img class="w-100 h-100 d-block" src="{{$image->path}}"
                                                              style="object-fit: cover"></a>
-                                                    {{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
                                                 </div>
                                             @endforeach
                                         </div>
@@ -298,7 +290,6 @@
                                             <span class="visually-hidden">Next</span>
                                         </button>
                                         <div class="carousel-indicators">
-                                            {{--<div class="indicators">--}}
                                             <?php $k = 0 ?>
                                             @foreach($images as $image)
                                                 <button type="button"
@@ -307,22 +298,17 @@
                                                         @if($k == 1)class="active" @endif>
                                                 </button>
                                             @endforeach
-                                            {{--</div>--}}
                                         </div>
                                     </div>
                                 @endif
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-12">
-                                        {{--<div class="container-fluid @if(strlen($mainInitiative->$language->content)<450 && strlen($mainInitiative->$language->content)>120 && count($mainInitiative->donors)<0 || (count($mainInitiative->donors)>0) && strlen($mainInitiative->$language->content)<450) ini-height @endif">--}}
 
                                             <div class="row mb-3">
                                                 <div class="col-12 d-flex justify-content-start">
                                                     @if($mainInitiative->$language->organization != '0')
                                                       <div class="organization">  in partnership With:  {{ $mainInitiative->$language->organization }}</div>
                                                     @endif
-                                                    {{--@if($mainInitiative->logo != '0')--}}
-                                                    {{--                                                    <img class="ini-logo" src="{{ $mainInitiative->logo }}">--}}
-                                                    {{--@endif--}}
                                                 </div>
                                             </div>
 
@@ -337,12 +323,6 @@
                                             <p>{!! strip_tags($mainInitiative->$language->content) !!}</p>
                                         </div>
                                         <div class="card-title-section d-flex justify-content-end align-items-center funded">
-                                            {{--@if($mainInitiative->whatCategory->$whatCatName == 'Family to Family')--}}
-                                            {{--<div class="ini-funded">--}}
-                                            {{--<div>Funded by: Caritas Poland</div>--}}
-                                            {{--<img src="/images/newLogos/Caritas.svg">--}}
-                                            {{--</div>--}}
-                                            {{--@endif--}}
                                             @if(count($mainInitiative->donors))
                                                 <div class="ini-funded">
                                                     <div>@lang('initiatives.fundedBy')</div>
@@ -359,14 +339,12 @@
                                 </div>
                                 @if(count($imagesRehabilitation))
                                     <div id="rehabilitation-section">
-                                        {{--<div class="page-margin">--}}
                                             <div class="container">
                                                 <div class="row" data-aos="fade-up" data-aos-duration="600">
                                                     <div class="col-12">
                                                         <div class="title">The Result of Reconstruction</div>
                                                     </div>
                                                 </div>
-                                                {{--<div class="horizontal-line" data-aos="fade-up" data-aos-duration="600"></div>--}}
                                                 @foreach($imagesRehabilitation as $image)
                                                     <div class="row d-flex justify-content-center" data-aos="fade-up"
                                                          data-aos-duration="600">
@@ -377,22 +355,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    {{--<div class="horizontal-line" data-aos="fade-up" data-aos-duration="600"></div>--}}
                                                 @endforeach
                                             </div>
-                                            {{--<div>--}}
-                                            {{--@foreach($imagesRehabilitation as $image)--}}
-                                            {{--<section class="comparisonSection">--}}
-                                            {{--<div class="comparisonImage beforeImage">--}}
-                                            {{--<img src="{{$image->path_1}}" alt="before">--}}
-                                            {{--</div>--}}
-                                            {{--<div class="comparisonImage afterImage">--}}
-                                            {{--<img src="{{$image->path_2}}" alt="after">--}}
-                                            {{--</div>--}}
-                                            {{--</section>--}}
-                                            {{--@endforeach--}}
-                                            {{--</div>--}}
-                                        {{--</div>--}}
                                     </div>
                                 @endif
                                 <div class="related-posts position-relative" data-aos="fade-up"
@@ -434,113 +398,19 @@
     </div>
 
 
-    {{--<div id="ini-section" class="small">--}}
-    {{--@if(count($images)>1)--}}
-    {{--<div id="iniCarousel" class="carousel slide" data-bs-ride="carousel">--}}
-    {{--<div class="carousel-inner">--}}
-    {{--<?php $k = 0 ?>--}}
-    {{--@foreach($images as $image)--}}
-    {{--<div class="carousel-item @if($k++ == 0) active @endif">--}}
-    {{--<a href="{{substr($image->path, 0, -4).'b.jpg'}}"--}}
     {{--data-fancybox="gallery"--}}
-    {{--data-caption="{{ ucfirst($mainInitiative->$language->title) }}">--}}
-    {{--<img class="w-100 h-100 d-block" src="{{$image->path}}" style="object-fit: cover"></a>--}}
-    {{--<img src="/images/home/image-mask.png" class="image-mask"/>--}}
-    {{--</div>--}}
-    {{--@endforeach--}}
-    {{--</div>--}}
     {{--<button class="carousel-control-prev" type="button" data-bs-target="#iniCarousel"--}}
     {{--data-bs-slide="prev">--}}
-    {{--<span class="carousel-control-prev-icon" aria-hidden="true"></span>--}}
-    {{--<span class="visually-hidden">Previous</span>--}}
-    {{--</button>--}}
     {{--<button class="carousel-control-next" type="button" data-bs-target="#iniCarousel"--}}
     {{--data-bs-slide="next">--}}
-    {{--<span class="carousel-control-next-icon" aria-hidden="true"></span>--}}
-    {{--<span class="visually-hidden">Next</span>--}}
-    {{--</button>--}}
-    {{--<div class="carousel-indicators">--}}
-    {{--<div class="indicators">--}}
-    {{--<?php $k = 0 ?>--}}
-    {{--@foreach($images as $image)--}}
     {{--<button type="button"--}}
     {{--data-bs-target="#iniCarousel"--}}
-    {{--data-bs-slide-to="{{$k++}}"--}}
-    {{--@if($k == 1)class="active" @endif>--}}
-    {{--</button>--}}
-    {{--@endforeach--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--@endif--}}
-    {{--<div class="container-fluid" style="background-color: #F7F7FB;">--}}
-    {{--<div class="padding-screen">--}}
-    {{--<div class="row m-0 mb-3">--}}
-    {{--<div class="col-12 d-flex justify-content-start p-0">--}}
-    {{--@if($mainInitiative->logo != '0')--}}
-    {{--<img class="ini-logo" src="{{ $mainInitiative->logo }}">--}}
-    {{--@endif--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--<div class="row m-0">--}}
-    {{--<div class="col-10 p-0">--}}
-    {{--<div class="partner-title">--}}
-    {{--@if($mainInitiative->$language->title != '0')--}}
-    {{--{{ $mainInitiative->$language->title }}--}}
-    {{--@endif--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--<div class="col-2 p-0 d-flex justify-content-end align-items-end">--}}
-    {{--@if( $mainInitiative->video != '0')--}}
-    {{--<a href="{{ $mainInitiative->video }}" class="launch-modal"--}}
-    {{--id="iniVideo-{{ $mainInitiative->video }}"--}}
-    {{--data-fancybox="iniVideo-{{ $mainInitiative->video }}">--}}
     {{--<img class="video-icon"--}}
     {{--src="/images/ico/video-ini-icon.svg">--}}
-    {{--</a>--}}
-    {{--@endif--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--<div class="row">--}}
-    {{--<div class="col">--}}
-    {{--<div class="card-title-section"></div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--<div class="ini-content">--}}
-    {{--@if($mainInitiative->$language->organization != '0')--}}
-    {{--{{ $mainInitiative->$language->organization }}--}}
-    {{--@endif--}}
-    {{--@if($mainInitiative->$language->date_string != '0')--}}
-    {{--<p> {{ $mainInitiative->$language->date_string }}</p>--}}
-    {{--@endif--}}
-    {{--<p>{!! strip_tags($mainInitiative->$language->content) !!}</p>--}}
-    {{--</div>--}}
-    {{--<div class="card-title-section d-flex justify-content-end align-items-center funded">--}}
-    {{--@if($mainInitiative->whatCategory->$whatCatName == 'Family to Family')--}}
-    {{--<div class="ini-funded">--}}
-    {{--<div>Funded by: Caritas Poland</div>--}}
-    {{--<img src="/images/newLogos/Caritas.svg">--}}
-    {{--</div>--}}
-    {{--@endif--}}
-    {{--@if(count($mainInitiative->donors))--}}
-    {{--<div class="ini-funded">--}}
-    {{--<div>@lang('initiatives.fundedBy')</div>--}}
-    {{--@foreach($mainInitiative->donors as $donor)--}}
-    {{--<div>--}}
-    {{--<img src="{{$donor->logo}}">--}}
-    {{--</div>--}}
-    {{--@endforeach--}}
-    {{--</div>--}}
-    {{--@endif--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
     <div class="horizontal-line" data-aos="fade-up" data-aos-duration="600"></div>
 
 
     <div class="seperator-line" style="background: white;height: 1vw;"></div>
-    {{--<div class="horizontal-line last"></div>--}}
 </div>
 
 @include('new.public.footer')
@@ -605,20 +475,6 @@
 @stack('navbar-contactUs')
 @stack('navbar-whatwedo')
 @stack('preloader')
-{{--@if(count($stories))--}}
-    {{--<script>--}}
-        {{--$(document).ready(function () {--}}
-            {{--if ("ontouchstart" in document.documentElement) {--}}
-                {{--$('.swipe-arrows').css('display', 'block');--}}
-                {{--@foreach($stories as $i => $story)--}}
-                {{--$("#swipe-to-close-{{$story->id}}").on('swipeup', function () {--}}
-                    {{--$("#close-story-{{$story->id}}").click();--}}
-                {{--});--}}
-                {{--@endforeach--}}
-            {{--}--}}
-        {{--});--}}
-    {{--</script>--}}
-{{--@endif--}}
 <script>
     @foreach($imagesRehabilitation as $image)
     setTimeout(() => {
@@ -626,24 +482,8 @@
     }, "1000");
     @endforeach
 </script>
-{{--<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>--}}
-{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>--}}
-{{--<script>--}}
-{{--gsap.utils.toArray(".comparisonSection").forEach(section => {--}}
-{{--let tl = gsap.timeline({--}}
-{{--scrollTrigger: {--}}
-{{--trigger: ".comparisonSection",--}}
-{{--start: "top top",--}}
-{{--end: () => "+=" + section.offsetHeight,--}}
-{{--scrub: true,--}}
 {{--pin: true--}}
-{{--},--}}
 {{--defaults: {ease: "none"}--}}
-{{--});--}}
 
-{{--tl.fromTo(section.querySelector(".afterImage"), {yPercent: 100, x: 0}, {yPercent: 0})--}}
-{{--.fromTo(section.querySelector(".afterImage img"), {yPercent: -100, x: 0}, {yPercent: 0}, 0);--}}
-{{--});--}}
-{{--</script>--}}
 </body>
 </html>

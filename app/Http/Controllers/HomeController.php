@@ -154,21 +154,17 @@ class HomeController extends Controller
 
             'sucDiscPublish' => $sucDiscPublish, 'sucStudyPublish' => $sucStudyPublish,
 
-            'initiativesPublish' => $initiativesPublish, //            'successesPublish' => $successesPublish,
+            'initiativesPublish' => $initiativesPublish,
             'newsPublish' => $newsPublish,
 
-//          'projectsTranslate' => $projectsTranslate,
-//          'initiativesTranslate' => $initiativesTranslate,
-//          'successesTranslate' => $successesTranslate,
-//          'newsTranslate' => $newsTranslate,
 
-            'projectsEngCheck' => $projectsEngCheck, //            'projectsEngCheck_a' => $projectsEngCheck_a, 'projectsEngCheck_h' => $projectsEngCheck_h, 'projectsEngCheck_d' => $projectsEngCheck_d,
+            'projectsEngCheck' => $projectsEngCheck,
 
             'iniSchoolEngCheck' => $iniSchoolEngCheck, 'iniChildrenEngCheck' => $iniChildrenEngCheck,
 
             'iniDiscEngCheck' => $iniDiscEngCheck, 'iniStudyEngCheck' => $iniStudyEngCheck,'iniLeapEngCheck' => $iniLeapEngCheck,
 
-            'sucDiscEngCheck' => $sucDiscEngCheck, 'sucStudyEngCheck' => $sucStudyEngCheck, 'initiativesEngCheck' => $initiativesEngCheck, //            'successesEngCheck' => $successesEngCheck,
+            'sucDiscEngCheck' => $sucDiscEngCheck, 'sucStudyEngCheck' => $sucStudyEngCheck, 'initiativesEngCheck' => $initiativesEngCheck,
             'newsEngCheck' => $newsEngCheck,
 
             'initiativesNotPaid' => $initiativesNotPaid, 'projectsNotPaid' => $projectsNotPaid, 'testimoniesNotPaid' => $testimoniesNotPaid, 'successesNotPaid' => $successesNotPaid, 'newsNotPaid' => $newsNotPaid]);

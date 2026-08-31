@@ -172,9 +172,6 @@ class ContentController extends Controller
         return redirect()->back()->with(['success', 'Brief updated successfully!','project' => $project, 'what' => $what,
             'images' => $project->media]);
 //        return view('new.admin.content.projectbrief-media', [
-//            'project' => $project, 'what' => $what,
-//            'images' => $project->media,
-//        ])->with('success', 'Media stored');
     }
 
     public function destroy(Request $request, $id)
@@ -195,7 +192,6 @@ class ContentController extends Controller
         $images = HopeProjectMedia::where('project_id', $id)->get();
         $this->saveToLog(self::ProjectContent, $id, $deletedImagesCount .'Image Deleted');
         return redirect()->back()->with(['what' => $what, 'project' => $project, 'images' => $images, 'success' => 'Images removed']);
-//        return view('new.admin.content.projectbrief-media', ['what' => $what, 'project' => $project, 'images' => $images])->with('success', 'Images removed');
     }
 
     public function order_images(Request $request)

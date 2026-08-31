@@ -18,10 +18,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    {{--<link href="/css/dataTables.bootstrap.min.css" rel="stylesheet">--}}
     <link href="/css/backend.css" rel="stylesheet">
     <link href="/css/dashboard_new.css" rel="stylesheet">
-    {{--<link href="{{asset('css/main-new.css')}}" rel="stylesheet">--}}
     <link href="/css/tabs.css" rel="stylesheet">
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
     <link href="/css/backend.css" rel="stylesheet">
@@ -30,7 +28,6 @@
     <script type="text/javascript" src="/js/html5shiv.js"></script>
     <script type="text/javascript" src="/js/respond.min.js"></script> <![endif]-->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    {{--<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>--}}
     <link rel="stylesheet" href="/css/sweetalert2.min.css">
     <link rel="stylesheet" href="/css/aos.css">
     <script src="/js/sweetalert2.min.js"></script>
@@ -41,7 +38,6 @@
     <link href="/css/jquery.fancybox.min.css" rel="stylesheet">
     <script type="text/javascript" src="/js/fancybox.config.js"></script>
     <script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
-    {{--<script type="text/javascript" src="/js/responsive.bootstrap5.min.js"></script>--}}
     <script type="text/javascript" src="/js/aos.js"></script>
     <script type="text/javascript" src="/js/dataTables.bootstrap5.min.js"></script>
     <script type="text/javascript" src="/js/dataTables.responsive.min.js"></script>
@@ -209,7 +205,6 @@
                         <thead>
                         <tr>
                             <th scope="col" class="text-center">ID</th>
-                            {{--<th scope="col" class="text-center">Category</th>--}}
                             <th scope="col" class="text-center">Title</th>
                             <th scope="col" class="text-center">Place</th>
                             <th scope="col" class="text-center">Action</th>
@@ -219,8 +214,6 @@
                         @foreach($sucstudy as $initiative)
                             <tr>
                                 <td class="text-center">{{$initiative['id']}}</td>
-                                {{--<td>@if($initiative['sub_what_category_id'] == 0)--}}
-                                {{--N/A @else {{$initiative['subWhatCategory']['name']}} @endif</td>--}}
                                 <td class="text-center">{{$initiative['english']['title']}}</td>
                                 <td class="text-center">{{$initiative['place']['name']}}</td>
                                 <td class="text-end">
@@ -516,7 +509,6 @@
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/js/charts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-{{--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>--}}
 <script>
     $(document).ready(function () {
         let url1 = window.location.href;

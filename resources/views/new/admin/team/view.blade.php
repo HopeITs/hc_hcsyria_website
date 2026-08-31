@@ -16,7 +16,6 @@
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
     <link href="{{asset('css/team.css')}}" rel="stylesheet">
     <link href="{{asset('css/footer.css')}}" rel="stylesheet">
-    {{--<link href="{{asset('css/main-new.css')}}" rel="stylesheet">--}}
     <!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
     <script src="/js/respond.min.js"></script> <![endif]-->
@@ -57,7 +56,6 @@
                                     <div class="socials">
                                         <a href="mailto:{{$profile->email}}@hcsyria.org"> <i class="fa fa-envelope"></i></a>
                                         <a href="tel:{{$profile->phone}}"> <i class="fa fa-phone"></i></a>
-                                        {{--<a href="tel:{{$profile->whatsapp}}"> <img class="profile-icon" src="/images/ico/whatspp-icon.svg"></a>--}}
 
                                         @if($profile->facebook_link != '0')
                                             <a href="https://www.facebook.com/{{$profile->facebook_link}}"
@@ -89,7 +87,6 @@
                 </div>
             </div>
         </div>
-        {{--</div>--}}
     </div>
 </div>
 

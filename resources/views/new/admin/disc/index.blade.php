@@ -15,10 +15,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    {{--<link href="/css/dataTables.bootstrap.min.css" rel="stylesheet">--}}
     <link href="/css/backend.css" rel="stylesheet">
     <link href="/css/dashboard_new.css" rel="stylesheet">
-    {{--<link href="{{asset('css/main-new.css')}}" rel="stylesheet">--}}
     <link href="/css/tabs.css" rel="stylesheet">
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
     <link href="/css/backend.css" rel="stylesheet">
@@ -305,10 +303,7 @@
                                     <td class="text-center">{{$initiative['english']['title']}}</td>
                                     <td class="text-center">{{$initiative['place']['name']}}</td>
                                     <td class="text-end">
-                                        {{--@if(count($initiative->images) != 0)--}}
                                         {{--<i class="fa fa-picture-o"--}}
-                                        {{--style="padding: 0.3vw 0.6vw;"></i>--}}
-                                        {{--@endif--}}
                                         <a href="{{route('disc.successes.show', $initiative['id'])}}"
                                            class="btn mb-2 btn-primary edit-btn"><span
                                                     class="fa fa-eye"></span>&nbsp;View</a>

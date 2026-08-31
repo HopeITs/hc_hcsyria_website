@@ -16,7 +16,6 @@
         <link href="/css/dashboard_new.css" rel="stylesheet">
         <link href="/css/dashboard_navbar.css" rel="stylesheet">
         <link href="/css/micro_page_new.css" rel="stylesheet">
-        {{--<link href="{{asset('css/main-new.css')}}" rel="stylesheet">--}}
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script type="text/javascript" src="/js/main.js"></script>
@@ -411,7 +410,6 @@
         }
 
         $.ajax({
-            {{--url: "{{ route('student.filter.education',[value]) }}",--}}
             url: "/student-filter-educationdegree/" + {{$student -> educationfield_id}},
             type: 'GET',
             dataType: 'json',
@@ -613,8 +611,6 @@
     });
 </script>
 @stack('preloader')
-{{--<script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>--}}
-{{--<script type="text/javascript" src="/js/ckeditor-initialize.js"></script>--}}
 @include('new.admin.scripts.popup-messages')
 </body>
 </html>

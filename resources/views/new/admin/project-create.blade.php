@@ -14,7 +14,6 @@
     <link href="/css/dashboard_new.css" rel="stylesheet">
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
     <link href="/css/micro_page_new.css" rel="stylesheet">
-    {{--<link href="{{asset('css/main-new.css')}}" rel="stylesheet">--}}
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
@@ -44,7 +43,6 @@
                 <div class="row">
                     <div class="col">
                         <h3 class="title">Create Project</h3>
-                        {{--{!! Form::open(['route' => ['update.project', $project->id], 'method' => 'put', 'enctype' => 'multipart/form-data']) !!}--}}
                         <form action="{{ route('store.project')}}" method="POST"
                               enctype="multipart/form-data">
                             @csrf
@@ -312,48 +310,13 @@
         }
     });
 </script>
-{{--<script>--}}
-{{--$(document).ready(function () {--}}
-{{--// $('#type_1').addClass('active');--}}
-{{--$('#type_1_lbl').click();--}}
-{{--});--}}
 
-{{--$("input[name='projecttype']").change(function () {--}}
-{{--if ($('#type_1').is(':checked')) {--}}
-{{--$("label[name='4']").show();--}}
-{{--$("label[name='5']").show();--}}
 
-{{--$("label[name='1']").hide();--}}
-{{--$("label[name='2']").hide();--}}
-{{--$("label[name='3']").hide();--}}
 
-{{--$("label[name='6']").hide();--}}
-{{--$("label[name='7']").hide();--}}
-{{--}--}}
-{{--else if ($('#type_2').is(':checked')) {--}}
-{{--$("label[name='4']").hide();--}}
-{{--$("label[name='5']").hide();--}}
 
-{{--$("label[name='1']").show();--}}
-{{--$("label[name='2']").show();--}}
-{{--$("label[name='3']").show();--}}
 
-{{--$("label[name='6']").hide();--}}
-{{--$("label[name='7']").hide();--}}
-{{--}--}}
-{{--else if ($('#type_3').is(':checked')) {--}}
-{{--$("label[name='4']").hide();--}}
-{{--$("label[name='5']").hide();--}}
 
-{{--$("label[name='1']").hide();--}}
-{{--$("label[name='2']").hide();--}}
-{{--$("label[name='3']").hide();--}}
 
-{{--$("label[name='6']").show();--}}
-{{--$("label[name='7']").show();--}}
-{{--}--}}
-{{--});--}}
-{{--</script>--}}
 <script>
     if ($('#canceled').is(':checked')) {
         $('#donor-funded-alert').hide();

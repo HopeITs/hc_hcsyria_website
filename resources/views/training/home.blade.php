@@ -43,14 +43,12 @@
          <div id="values">
              <div class="row text-center">
                  @for($i = 0; $i<count($values); $i = $i + 1)
-                     {{--@for($j = 0; $j<1; $j++)--}}
                          <div class="col-md-2 @if($i == 0) col-md-offset-1 @endif col-sm-4 col-xs-6">
                              <div class="thumbnail static" >
                                 <a class="value_link" id="v-{{$values[$i]->id}}" onclick="clickLink({{$values[$i]->id}})">
                                     <img src="/images/mission/mission1.png" alt="values" width="100%" height="100%">
                                 </a>
                                 <h4 class=""><strong>{{ucfirst($values[$i]->name)}}</strong></h4>
-                                 {{--<p class="caption" style="text-align: center;">{{ucfirst($values[$i]->description)}}</p>--}}
                              </div>
                          </div>
                      {{--@endfor--}}
@@ -91,60 +89,14 @@
 <script type="text/javascript" src="/js/main.js"></script>
 
 <script type="text/javascript">
-    {{--$('.value_link').on("click",function () {--}}
-        {{--var el = document.getElementById('txt'+id);--}}
-        {{--$('#projects').hide();--}}
-            {{--// projects.css('visibility', 'hidden');--}}
-            {{--// projects.css('visibility', 'visible');--}}
-    {{--});--}}
     function clickLink(id)
     {
-        {{--@foreach($values as $v)--}}
-             {{--@for($i = 0; $i<count($v->projects); $i = $i + 1)--}}
-                {{--@if($v->projects[$i]->id == id)--}}
-                    {{--var el = document.getElementById('p-'+id);--}}
-                    {{--el.hide();--}}
-                {{--@endif--}}
              {{--@endfor--}}
-        {{--@endforeach--}}
 
-        {{--if($('#h11').is(':visible'))--}}
-            {{--$('#h11').hide();--}}
-        {{--else--}}
-            {{--$('#h11').show();--}}
     };
 
-        {{--var el = document.getElementById('txt'+id);--}}
-        {{--el.value = "https://hcsyria.org/projects/micro-projects/?projectA="+id;--}}
-        {{--el.style.display = 'block';--}}
-        {{--el.select();--}}
-        {{--el.focus();--}}
-        {{--document.execCommand('copy');--}}
-        {{--el.style.display = 'none';--}}
 </script>
 <script>
-    {{--$(window).load(function () {--}}
-        {{--@foreach($imagesRehabilitation as $i=>$image)--}}
-        {{--@if($i != 0)--}}
-        {{--$("#container{{$image->id}}").hide();--}}
-        {{--@endif--}}
-        {{--@endforeach--}}
-    {{--});--}}
-    {{--@foreach($imagesRehabilitation as $i=>$image)--}}
-    {{--$('#btn-{{$i}}').click(function () {--}}
-        {{--$('#btn-{{$i}}').addClass('active');--}}
-        {{--@foreach($imagesRehabilitation as $j=>$imageJ)--}}
-        {{--@if($i != $j)--}}
-        {{--$('#btn-{{$j}}').removeClass('active');--}}
-        {{--$('#container{{$imageJ->id}}').hide();--}}
-        {{--@endif--}}
-        {{--@endforeach--}}
-        {{--$('#container{{$image->id}}').show();--}}
-    {{--});--}}
-    {{--@endforeach--}}
-    {{--@if(count($imagesRehabilitation) < 2)--}}
-    {{--$('.pagination').hide();--}}
-    {{--@endif--}}
 </script>
 
 </body>

@@ -161,7 +161,6 @@
                                 @method('POST')
                                 @csrf
                                 <div id="submit-container" class="position-relative mb-1">
-                                    {{--<i class="fa fa-save btn btn-primary icon-btn"></i>--}}
                                     <button type='submit' class="btn btn-primary icon-btn" id='submit' value="">
                                         <i class='fa save' style="cursor: pointer;">&#xf0c7;</i>
                                     </button>

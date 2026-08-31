@@ -1,13 +1,3 @@
-{{--
-    Shared "Add Images" gallery behaviour, identical to the Micro Projects add-image form.
-    Provides: a "Cover" badge on the first image, drag & drop reordering with a
-    "Change Cover Image?" confirmation + auto-save, a manual "Save Image Order" button,
-    and a SweetAlert delete confirmation.
-
-    Required variable:
-        $orderRoute  -  the resolved URL of the section's "order images" endpoint
-                        e.g. ['orderRoute' => route('discorder.images')]
---}}
 <style>
     /* --- DRAG & DROP + VISUAL COVER INDICATOR --- */
     #image-list {

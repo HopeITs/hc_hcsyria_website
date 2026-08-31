@@ -80,9 +80,7 @@
                         </a>
                     </div>
                     <br>
-                    {{--@if($news->french->edition != '0')--}}
                         <strong>{{ $news->edition->name_french }}</strong>
-                    {{--@endif--}}
                     <br>
                     @if($news->french->description != '0')
                         {{ $news->french->description }}

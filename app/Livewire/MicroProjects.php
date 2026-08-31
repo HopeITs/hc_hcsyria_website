@@ -90,13 +90,6 @@ class MicroProjects extends Component
         $this->limit = 15;
         $this->loadProjects();
 
-//        logger()->info('Filters applied', [
-//            'search' => $this->search,
-//            'donor' => $this->donor,
-//            'city' => $this->city,
-//            'hasVideo' => $this->hasVideo,
-//            'projects' => $this->projects->pluck('id')
-//        ]);
         $this->dispatch('scroll-to-projects');
     }
 

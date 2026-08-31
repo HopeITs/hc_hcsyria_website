@@ -14,7 +14,6 @@
     <link href="/css/dashboard_new.css" rel="stylesheet">
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
     <link href="/css/micro_page_new.css" rel="stylesheet">
-    {{--<link href="{{asset('css/main-new.css')}}" rel="stylesheet">--}}
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script type="text/javascript" src="/js/main.js"></script>
@@ -45,7 +44,6 @@
                 <div class="row">
                     <div class="col">
                         <h3 class="title">Edit Team Member</h3>
-                        {{--{!! Form::open(['route' => ['update.project', $project->id], 'method' => 'put', 'enctype' => 'multipart/form-data']) !!}--}}
                         <form action="{{ route('team.update',[$profileData->id])}}" method="POST"
                               enctype="multipart/form-data">
                             @csrf

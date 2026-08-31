@@ -142,7 +142,6 @@
                                     <div class="form-group col">
                                         <ul id="image-list">
                                             @foreach($images as $img)
-                                                {{--{{Form::text('project_id', $project->id, ['class' => 'd-none'])}}--}}
                                                 <li class="image-checkbox" id="image_{{$img['id']}}">
                                                     <img class="img-responsive" src="{{$img['path']}}"/>
                                                     <input type="checkbox" name="{{$img['id']}}" value="1"/>
@@ -171,7 +170,6 @@
                                 @method('POST')
                                 @csrf
                                 <div id="submit-container" class="position-relative mb-1">
-                                    {{--<i class="fa fa-save btn btn-primary icon-btn"></i>--}}
                                     <button type='submit' class="btn btn-primary icon-btn" id='submit' value="">
                                         <i class='fa save' style="cursor: pointer">&#xf0c7;</i>
                                     </button>

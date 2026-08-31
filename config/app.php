@@ -141,7 +141,6 @@ return [
 
     'maintenance' => [
         'driver' => 'file',
-        // 'store'  => 'redis',
     ],
 
     /*
@@ -165,7 +164,6 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class
@@ -183,7 +181,6 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class
     ])->toArray(),
 

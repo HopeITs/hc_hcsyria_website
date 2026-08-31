@@ -95,8 +95,6 @@
                                 <div class="form-group col">
                                     <label class="image-checkbox">
                                         <img class="img-responsive" src="{{$successData->image_path}}"/>
-                                        {{--<input type="checkbox" name="{{$successData->id}}" value="1"/>--}}
-                                        {{--<i class="fa fa-check hidden"></i>--}}
                                     </label>
                                 </div>
                             </div>

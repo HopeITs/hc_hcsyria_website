@@ -139,30 +139,9 @@
 
 
 
-{{--@include('public.navbar')--}}
 
-{{--<div class="head_par">--}}
-    {{--<span class="first_par">COMING SOON <hr></span>--}}
-    {{--<span class="second_par" id="demo"></span>--}}
-{{--</div>--}}
 
-{{--<div class="bgimg">--}}
-    {{--<div class="topleft">--}}
-        {{--<p>Logo</p>--}}
-    {{--</div>--}}
-    {{--<div class="first_par">--}}
-        {{--<h1>COMING SOON</h1>--}}
-        {{--<hr>--}}
-        {{--<br>--}}
-        {{--<p>35 days left</p>--}}
-        {{--<p id="demo"></p>--}}
-    {{--</div>--}}
-    {{--<div class="bottomleft">--}}
-        {{--<p>Some text</p>--}}
-    {{--</div>--}}
-{{--</div>--}}
 
-{{--@include('public.footer')--}}
 
 <script>
     // Set the date we're counting down to

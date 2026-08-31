@@ -72,17 +72,9 @@ class projectsController extends Controller
             ->hiddenOnly()
             ->orderBy('MicroProject_ID', 'asc')
             ->get();
-//        $projectsAleppo = Project::with('english', 'donor', 'place', 'type', 'subtype')->where('MPE_City', '3')->where('MPE_Published',1)->get();
-//        $projectsHoms = Project::with('english', 'donor', 'place', 'type', 'subtype')->where('MPE_City', '1')->where('MPE_Published',1)->get();
-//        $projectsDamascus = Project::with('english', 'donor', 'place', 'type', 'subtype')->where('MPE_City', '2')->where('MPE_Published',1)->get();
-//        $projectsLatakia = Project::with('english', 'donor', 'place', 'type', 'subtype')->where('MPE_City', '4')->where('MPE_Published',1)->get();
-//        $projectsWadi = Project::with('english', 'donor', 'place', 'type', 'subtype')->where('MPE_City', '7')->where('MPE_Published',1)->get();
 
-//        $projectsCanceled = Project::with('place')->where('MPE_Done', '2')->orderby('MicroProject_ID', 'asc')->get();
 
-//        $projectsPending = Project::with('place', 'images')->where('MPE_Published', '0')->orderby('MicroProject_ID', 'asc')->get();
         return view('new.admin.projects-index', [ 'places'=>$places,'allPlacesProjects' => $allPlacesProjects,
-            //'projectsAleppo' => $projectsAleppo, 'projectsHoms' => $projectsHoms, 'projectsDamascus' => $projectsDamascus, 'projectsLatakia' => $projectsLatakia,'projectsWadi' => $projectsWadi,
             'allProjectsCanceled' => $allProjectsCanceled, 'allProjectsPending' => $allProjectsPending,
             'allProjectsHidden' => $allProjectsHidden]);
     }
@@ -106,7 +98,6 @@ class projectsController extends Controller
 
         $user_places_string = implode(",", $user_places);
 
-//        $projectsAll = Project::with('english','donor','place')->get();
         $projectsAleppo = Project::with('english', 'donor', 'place', 'type', 'subtype')->where('MPE_City', '3')->get();
         $projectsHoms = Project::with('english', 'donor', 'place', 'type', 'subtype')->where('MPE_City', '1')->get();
         $projectsDamascus = Project::with('english', 'donor', 'place', 'type', 'subtype')->where('MPE_City', '2')->get();
@@ -186,7 +177,6 @@ WHERE projects.`MPE_Published` = 0 AND projects.`hidden` = 0  GROUP BY projects.
         $places = Place::Where('is_micro', '1')->get();
         $donors = Donor::Where('is_micro', '1')->get();
         $types = ProjectType::get();
-//        $subtypes = ProjectSubType::get();
         $subcategories = ProjectSubCategory::get();
         return view('new.admin.project-create', ['subcategories' => $subcategories ,'places' => $places, 'donors' => $donors, 'types' => $types]);
     }
@@ -217,7 +207,6 @@ WHERE projects.`MPE_Published` = 0 AND projects.`hidden` = 0  GROUP BY projects.
         $project->DOB = $request->input('DOB');
         $project->FamilyMembers = $request->filled('FamilyMembers') ? $request->input('FamilyMembers') : '0';
 
-//        $project->WorkLoss = $request->input('WorkLoss');
 
         $project->MPE_AllMoneyNeeded = '0';
         $project->MPE_Donor = $request->input('donor');
@@ -234,7 +223,6 @@ WHERE projects.`MPE_Published` = 0 AND projects.`hidden` = 0  GROUP BY projects.
         $project->latitude = $request->filled('latitude') ? $request->input('latitude') : '0';
         $project->longtitude = $request->filled('longtitude') ? $request->input('longtitude') : '0';
 
-//        $project->MPE_Location = $project->latitude.','.$project->longtitude;
 
         $project->MPE_MoneyDonated = '0';
 
@@ -268,7 +256,6 @@ WHERE projects.`MPE_Published` = 0 AND projects.`hidden` = 0  GROUP BY projects.
         $places = Place::Where('is_micro', '1')->get();
         $donors = Donor::Where('is_micro', '1')->get();
         $types = ProjectType::get();
-//        $subtypes = ProjectSubType::get();
         $subcategories = ProjectSubCategory::get();
         if (is_null($project)) {
             return 'project doesn\'t exist';
@@ -315,14 +302,9 @@ WHERE projects.`MPE_Published` = 0 AND projects.`hidden` = 0  GROUP BY projects.
             $this->saveToLogWithData(self::MICRO, $id, 'DOB Edited', $previousData->FamilyMembers, $project->FamilyMembers);
         }
 
-//        $project->WorkLoss = $request->input('WorkLoss');
-//        if ($project->isDirty('WorkLoss')) {
-//            $this->saveToLogWithData(self::MICRO, $id, 'WorkLoss Edited', $previousData->WorkLoss, $project->WorkLoss);
-//        }
         $project->latitude = $request->filled('latitude') ? $request->input('latitude') : '0';
         $project->longtitude = $request->filled('longtitude') ? $request->input('longtitude') : '0';
 
-//        $project->MPE_Location = $project->MPE_Location = $project->latitude.','.$project->longtitude;
 
         if($project->isDirty('latitude')){
             $this->saveToLogWithData(self::MICRO, $id, 'Location Latitude Edited', $previousData->latitude, $project->latitude);
@@ -332,9 +314,6 @@ WHERE projects.`MPE_Published` = 0 AND projects.`hidden` = 0  GROUP BY projects.
             $this->saveToLogWithData(self::MICRO, $id, 'Location Longtitude Edited', $previousData->longtitude, $project->longtitude);
         }
 
-//        if ($project->isDirty('MPE_Location')) {
-//            $this->saveToLogWithData(self::MICRO, $id, 'Location Edited', $previousData->MPE_Location, $project->MPE_Location);
-//        }
 
         $project->MPE_Donor = $request->input('donor');
         if ($project->isDirty('MPE_Donor')) {
@@ -388,7 +367,6 @@ WHERE projects.`MPE_Published` = 0 AND projects.`hidden` = 0  GROUP BY projects.
 
         // Only assign + log when the content genuinely changed. The Story field
         // uses a rich-text editor (CKEditor) and Exp & Skill is a textarea, both of
-        // which re-serialise unchanged content (e.g. <p> wrapping, CRLF vs LF) and
         // would otherwise trigger false "edited" log notifications on every save.
         $newName = $request->input('name');
         if ($this->microTextChanged($engProject->MPE_Name, $newName)) {
@@ -411,12 +389,6 @@ WHERE projects.`MPE_Published` = 0 AND projects.`hidden` = 0  GROUP BY projects.
         $engProject->timestamps = false;
         $engProject->save();
 
-//        if($project->MPE_Published == '1') {
-////            return redirect('new/admin/projects/index')->with('success', 'Project '.$request->input('MicroProject_ID').' has been updated');
-//            return redirect()->route('projects_index')->with('success', 'Project '.$request->input('MicroProject_ID').' has been updated');
-//        }
-//        else {
-//            return redirect('new/admin/home')->with('success', 'Project '.$request->input('MicroProject_ID').' has been updated');
         // Redirect back to the projects index, opening the tab that matches the
         // project's resulting state (Canceled / Pending / its city) instead of admin home.
         if ($project->MPE_Done == 2) {
@@ -429,7 +401,6 @@ WHERE projects.`MPE_Published` = 0 AND projects.`hidden` = 0  GROUP BY projects.
 
         return redirect()->route('projects_index', ['tab' => $tab])
             ->with('success', 'Project ' . $request->input('MicroProject_ID') . ' has been updated');
-//        }
     }
 
     /**
@@ -578,17 +549,6 @@ WHERE projects.`MPE_Published` = 0 AND projects.`hidden` = 0  GROUP BY projects.
         return redirect()->back()->with('success', 'Project ' . $request->input('MicroProject_ID') . ' English Checked');
     }
 
-    public function show_projects()
-    {
-        $projectsAll = Project::with('english', 'donor', 'place', 'type', 'subtype')->get();
-        $projectsAleppo = Project::with('english', 'donor', 'place', 'type', 'subtype')->where('MPE_City', '3')->get();
-        $projectsHoms = Project::with('english', 'donor', 'place', 'type', 'subtype')->where('MPE_City', '1')->get();
-        $projectsDamascus = Project::with('english', 'donor', 'place', 'type', 'subtype')->where('MPE_City', '2')->get();
-        $projectsLatakia = Project::with('english', 'donor', 'place', 'type', 'subtype')->where('MPE_City', '4')->get();
-        $projectsWadi = Project::with('english', 'donor', 'place', 'type', 'subtype')->where('MPE_City', '7')->get();
-        return view('new.admin.projects-private', ['projectsAll' => $projectsAll, 'projectsAleppo' => $projectsAleppo, 'projectsHoms' => $projectsHoms, 'projectsDamascus' => $projectsDamascus,'projectsLatakia' => $projectsLatakia, 'projectsWadi' => $projectsWadi]);
-    }
-
     ////////////////// Image Section /////////////////
     public function add_image($id)
     {
@@ -717,5 +677,4 @@ WHERE projects.`MPE_Published` = 0 AND projects.`hidden` = 0  GROUP BY projects.
         }
         return 'Images has been reordered !!';
     }
-    ///////////////////////////////////////////////////
 }

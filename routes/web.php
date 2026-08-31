@@ -11,15 +11,12 @@ Route::delete('/admin/tags/destroy/{id}', [NewsController::class, 'tag_destroy']
 Route::get('/projects/school-to-school', 'PublicController@school_to_school')->name('new.public.school2school');
 Route::get('/projects/childrenuni', 'PublicController@childrenUni');
 Route::get('/projects/leap', 'PublicController@leap')->name('public.leap');
-//Route::get('/projects/school-to-school/{type}', 'PublicController@oneTypeOfproject')->name('public.school2school.type');
 Route::get('/projects/micro-projects', 'PublicController@micro_project_new_test')->name('new.public.micro_project_test');
-//Route::get('/projects/micro-projects-test', 'PublicController@micro_project_new_test')->name('new.public.micro_project_test');
 Route::get('/projects/family-to-family', 'PublicController@family_to_family')->name('new.public.family2family');
 Route::get('/projects/study-zone', 'PublicController@study_zone')->name('new.public.study-zone');
 // Must stay ABOVE the '/projects/{type}' wildcard below, otherwise it is swallowed by it.
 Route::get('/projects/disc', 'PublicController@disc')->name('public.disc_home');
 Route::get('/projects/{type}/{id}-{slug}', 'PublicController@initiative')->name('new.public.initiative');
-//Route::get('/projects/school-to-school/{type}/{id}-{slug}', 'PublicController@initiativeOfProject')->name('new.public.school2school.project');
 Route::get('/projects/disc/{type}/{id}-{slug}', 'PublicController@initiativeOfProject')->name('new.public.disc.project');
 Route::get('/projects/study-zone/{type}/{id}-{slug}', 'PublicController@initiativeOfProject')->name('new.public.studyzone.project');
 Route::get('/projects/{type}', 'PublicController@initiatives_by_type')->name('public.initiatives.type');
@@ -51,14 +48,7 @@ Route::get('/latakia/hope/team/{id}', 'PublicController@show_latakia_hope_team')
 Route::get('/christianyouth', 'PublicController@christian_youth')->name('public.youth');
 Route::get('/christianyouth/{id}', 'PublicController@christian_youth_member')->name('public.youth-member');
 
-////////////////////////////////////////////////////////////////////////////////////
-///
-///
-///
-///
-///
 Route::get('login', ['as' => 'login','uses' => 'Auth\LoginController@showLoginForm']);
-//Route::post('login', ['as' => '','uses' => 'Auth\LoginController@login']);
 Route::post('login', [
     'uses' => 'Auth\LoginController@login',
     'middleware' => 'throttle:3,1'
@@ -69,40 +59,25 @@ Route::get('/admin/unauthorized', function () {return 'Unauthorized';});
 //////////////////////////////// PUBLIC ////////////////////////////////
 Route::get('/locale/{locale}', 'PublicController@set_locale');
 Route::get('/rootsofhope', 'PublicController@roots')->name('roots');
-Route::get('/tt', 'PublicController@tt');
 Route::get('/home', 'PublicController@homepage')->name('new.public.home');
 Route::get('/', 'PublicController@homepage_lb');
 
-//Route::get('/newsletter/{edition}', 'PublicController@news_by_edition')->name('public.newsletter.edition');
-//Route::get('/newsletter/{edition}/{id}-{slug}', 'PublicController@show_article')->name('public.article');
 
 Route::get('/who-we-are/partners', 'PublicController@about_us')->name('public.who-we-are-partners');
 Route::get('/who-we-are', 'PublicController@about_us')->name('public.who-we-are');
 
-//Route::get('/projects/micro-projects', 'PublicController@micro_project_new')->name('public.micro_project2');
 
-//Route::get('/projects/family-to-family', 'PublicController@family_to_family')->name('public.family2family');
-//Route::view('/projects/school-to-school', 'public.school-to-school2')->name('public.school2school');
-//
-//Route::get('/projects/school-to-school/{type}', 'PublicController@oneTypeOfproject')->name('public.school2school.type');
 
-//Route::get('/projects/school-to-school/{type}/{id}-{slug}', 'PublicController@initiativeOfProject')->name('public.school2school.project');
 
 Route::get('/projects/study-zone', 'PublicController@studyzone')->name('public.studyzone2');
-//Route::get('/projects/study-zone/all', 'PublicController@studyzone_all')->name('public.studyzone.all');
 
 Route::get('/projects/study-zone/{type}', 'PublicController@oneTypeOfproject')->name('public.studyzone.type');
-//Route::get('/projects/study-zone/{type}/{id}-{slug}', 'PublicController@initiativeOfProject')->name('public.studyzone.project');
 
 // '/projects/disc' is registered near the top of this file, above the '/projects/{type}' wildcard.
 Route::get('/projects/disc/{place}', 'PublicController@discByPlace')->name('public.disc.place');
-//Route::get('/projects/disc/{type}/{id}-{slug}', 'PublicController@initiativeOfProject')->name('public.disc.project');
 
 Route::get('/projects/homework-room', 'PublicController@homeworkRoom')->name('public.homework');
-//Route::get('/projects/childrenuni', 'PublicController@childrenUni')->name('public.children');
 
-//Route::get('/projects/{type}', 'PublicController@initiatives_by_type')->name('public.initiatives.type');
-//Route::get('/projects/{type}/{id}-{slug}', 'PublicController@initiative')->name('public.initiative');
 
 Route::view('/hope', 'public.main-successes')->name('public.main_successes');
 Route::get('/hope/{slug}', 'PublicController@successes_by_category')->name('public.successes.category');
@@ -110,26 +85,10 @@ Route::get('/hope/{slug}', 'PublicController@successes_by_category')->name('publ
 Route::get('/about', 'PublicController@about')->name('public.about');
 Route::get('/contact', 'PublicController@contact')->name('public.contact');
 Route::get('/test', 'PublicController@test')->name('public.test');
-//Route::get('/team', 'PublicController@our_team')->name('public.team-private');
 
-//Route::get('/christianyouth', 'PublicController@christian_youth')->name('public.youth');
-//Route::get('/christianyouth/{id}', 'PublicController@christian_youth_member')->name('public.youth-member');
 
-//Route::view('/team/marcin.iżycki', 'public.marcin');
-//Route::view('/team/Sylwia.hazboun4466825', 'public.sylwia');
-//Route::view('/team/jaroslaw/179426083', 'public.jaroslaw');
-//Route::view('/team/marianna/681268635', 'public.marianna');
-//Route::get('/team/{id}', 'PublicController@show_team');
-//Route::get('/homs/hope/team/{id}', 'PublicController@show_homs_hope_team');
-//Route::get('/projects/study-zone/team/{id}', 'PublicController@studyzone_team')->name('public.studyzone.team');
-//Route::get('/projects/disc/team/{id}', 'PublicController@disc_team')->name('public.disc.team') ;
-//Route::get('/projects/childrenuni/team/{id}', 'PublicController@children_team')->name('public.children.team') ;
-//Route::get('/damascus/hope/team/{id}', 'PublicController@show_damascus_hope_team');
 
-//Route::get('/projects/disc/team/{slug}-{id}', 'PublicController@disc_team2')->name('public.disc.team');
 
-Route::get('/donate', 'PublicController@show_donate')->name('donate_rt');
-Route::get('/donate/projects/micro-projects/{id}', 'PublicController@show_donate_project')->name('donate_project_rt');
 
 ///////////////////////////// ADMIN HOME /////////////////////////////
 Route::get('/admin/home', 'HomeController@home')->name('home');
@@ -196,7 +155,6 @@ Route::post('/admin/project/french/paid/{id}', 'frenchController@make_paid');
 Route::get('admin/projects/french/translate/{id}', ['as' => 'french.translate.project', 'uses' => 'frenchController@translate']);
 Route::post('admin/project/french/paid/all', ['as' => 'french.paid.all', 'uses' => 'frenchController@make_paid_all']);
 
-//Route::get('/admin/project/french/paid/all', 'frenchController@make_paid_all')->name('make.all.paid');
 
 
 ////////////////////////////// SCHOOL //////////////////////////////
@@ -213,7 +171,6 @@ Route::put('/admin/school/update/{id}', 'SchoolController@update')->name('update
 Route::post('admin/school/store', ['as' => 'store.school', 'uses' => 'SchoolController@store']);
 Route::post('admin/school/publish', ['as' => 'publish.school', 'uses' => 'SchoolController@publish']);
 Route::post('admin/school/unpublish', ['as' => 'unpublish.school', 'uses' => 'SchoolController@unpublish']);
-Route::post('admin/school/Englishchecked', 'SchoolController@Englishchecked')->name('school.Englishchecked');
 
 ////////////////////////////// SCHOOL Images //////////////////////////////
 
@@ -237,7 +194,6 @@ Route::put('/admin/children/update/{id}', 'ChildrenController@update')->name('up
 Route::post('admin/children/store', ['as' => 'store.children', 'uses' => 'ChildrenController@store']);
 Route::post('admin/children/publish', ['as' => 'publish.children', 'uses' => 'ChildrenController@publish']);
 Route::post('admin/children/unpublish', ['as' => 'unpublish.children', 'uses' => 'ChildrenController@unpublish']);
-Route::post('admin/children/Englishchecked', 'ChildrenController@Englishchecked')->name('children.Englishchecked');
 Route::post('admin/children/images/order', 'ChildrenController@order_images')->name('childrenorder.images');
 
 ////////////////////////////// DISC //////////////////////////////
@@ -254,7 +210,6 @@ Route::put('/admin/disc/update/{id}', 'DiscController@update')->name('update.dis
 Route::post('admin/disc/store', ['as' => 'store.disc', 'uses' => 'DiscController@store']);
 Route::post('admin/disc/publish', ['as' => 'publish.disc', 'uses' => 'DiscController@publish']);
 Route::post('admin/disc/unpublish', ['as' => 'unpublish.disc', 'uses' => 'DiscController@unpublish']);
-Route::post('admin/disc/Englishchecked', 'DiscController@Englishchecked')->name('disc.Englishchecked');
 
 ////////////////////////////// DISC Images //////////////////////////////
 
@@ -277,7 +232,6 @@ Route::put('/admin/leap/update/{id}', 'LeapController@update')->name('update.lea
 Route::post('admin/leap/store', ['as' => 'store.leap', 'uses' => 'LeapController@store']);
 Route::post('admin/leap/publish', ['as' => 'publish.leap', 'uses' => 'LeapController@publish']);
 Route::post('admin/leap/unpublish', ['as' => 'unpublish.leap', 'uses' => 'LeapController@unpublish']);
-Route::post('admin/leap/Englishchecked', 'LeapController@Englishchecked')->name('Leap.Englishchecked');
 
 ////////////////////////////// DISC Images //////////////////////////////
 
@@ -304,21 +258,16 @@ Route::put('/admin/study/update/{id}', 'StudyController@update')->name('update.s
 Route::post('admin/study/store', ['as' => 'store.study', 'uses' => 'StudyController@store']);
 Route::post('admin/study/publish', ['as' => 'publish.study', 'uses' => 'StudyController@publish']);
 Route::post('admin/study/unpublish', ['as' => 'unpublish.study', 'uses' => 'StudyController@unpublish']);
-Route::post('admin/study/Englishchecked', 'StudyController@Englishchecked')->name('study.Englishchecked');
 
 
-Route::get('/admin/student/index', 'StudyController@students_index')->name('students.index');
 Route::get('/admin/student/create', 'StudyController@students_create')->name('students.create');
 Route::get('/admin/student/entries', 'StudyController@students_entries')->name('students.entries');
 Route::post('/admin/student/store', 'StudyController@students_store')->name('students.store');
-//Route::get('/admin/student/{id}', 'StudyController@students_show')->name('students.show');
 Route::get('/admin/student/edit/{id}', 'StudyController@students_edit')->name('students.edit');
 Route::put('/admin/student', 'StudyController@students_update')->name('students.update');
-//Route::delete('/admin/student/{id}', 'StudyController@students_destroy')->name('students.destroy');
 Route::delete('/admin/student/delete', 'StudyController@students_destroy')->name('students.destroy');
 Route::delete('/admin/studententry/delete', 'StudyController@studentsentry_destroy')->name('studentsentry.destroy');
 
-//Route::post('/admin/student/visit/{id}', 'StudyController@students_visit')->name('students.visit');
 Route::post('/admin/student/visit', 'StudyController@students_visit')->name('students.visit');
 
 Route::get('student-filter-education/{id}', 'StudyController@filterEducation')->name('student.filter.education');
@@ -523,30 +472,18 @@ Route::get('/admin/team/edit/{id}', 'TeamController@edit')->name('team.edit');
 Route::put('/admin/team/{id}', 'TeamController@update')->name('team.update');
 Route::delete('/admin/team/{id}', 'TeamController@destroy')->name('team.destroy');
 
-//Route::group(['middleware' => ['auth']], function() {
-//    Route::get('/admin/micro', 'projectsController@show_projects')->name('admin.projects-private');
-//});
 
-Auth::routes();
+// Only login/logout are used. Registration and password-reset were never finished:
+// their controllers were removed, their Blade views never existed, and no page links to them.
+Auth::routes(['register' => false, 'reset' => false, 'verify' => false, 'confirm' => false]);
 
-//Route::get('/home', 'HomeController@index')->name('home');
 
-/////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/training/home', 'TrainingController@home')->name('training.home');
 Route::get('/training/add', 'TrainingController@show_chat')->name('training.chat.add');
-Route::post('/training/store/{type}', 'TrainingController@store_chat')->name('training.chat.store');
-Route::delete('/training/{id}', 'TrainingController@destroy_chat')->name('training.chat.destroy');
 
 
-//Route::domain('{angular}.hcsyria.org')->group(function () {
-//    Route::get('/home', [App\Http\Controllers\PublicController::class, 'hometest'])->name('angular.home');
-//});
-//
-//Route::group(array('domain' => '{angular}.hcsyria.org'), function()
-//{
 Route::get('/homeangular', 'PublicController@hometest');
-//});
 
 Route::get('/search', 'PublicController@search')->name('search');
 

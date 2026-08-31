@@ -20,7 +20,6 @@
     <link href="/css/dashboard_navbar.css" rel="stylesheet">
     <link href="/css/micro_page_new.css" rel="stylesheet">
     <link href="/css/lato.css" rel="stylesheet">
-    {{--<link href="{{asset('css/main-new.css')}}" rel="stylesheet">--}}
     <!--[if lt IE 9]>
     <script src="/js/html5shiv.js"></script>
     <script src="/js/respond.min.js"></script> <![endif]-->
@@ -142,11 +141,6 @@
                                 </div>
                             </div>
                             <div class="col-3 gap-3 d-flex justify-content-end align-items-baseline">
-                                {{--@if(($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher'))--}}
-                                {{--&& $microProject[0]['MPE_Published'] == '0'--}}
-                                {{--&& $microProject[0]['english_check'] == '1' )--}}
-                                {{--<img src="/images/ico/copy-icon.svg" onclick="copyTextA(1210)" class="copy-icon">--}}
-                                {{--@endif--}}
                                 @if($microProject[0]->latitude != '0' && $microProject[0]->longtitude)
                                     <a href="https://www.google.com/maps/search/?api=1&query={{$microProject[0]->latitude}},{{$microProject[0]->longtitude}}"
                                        target="_blank">
@@ -276,7 +270,6 @@
                                                             @for($j = 0; $j<$iCount; $j++)
                                                                 @if($microProject[0]->id == $images[$j]->project_id)
                                                                     <div class="carousel-item @if($i++ == 0) active @endif">
-                                                                        {{--<p id="p-date">{{date('d/m/Y',strtotime(exif_read_data(ltrim($images[$j]->MPI_Path, '/'))['DateTimeOriginal']))}}</p>--}}
                                                                         <a href="{{substr($images[$j]->MPI_Path, 0, -4).'b.jpg'}}"
                                                                            data-fancybox="gallery-0"
                                                                            data-caption="{{$microProject[0]->english->MPE_Name}}">
@@ -344,12 +337,9 @@
                                                         <p class="p-justify">{!!$microProject[0]->english->MPE_Suffering!!}</p>
                                                     </div>
                                                     <br>
-                                                    {{--<div id="fb-root"></div>--}}
                                                     {{--<div class="fb-comments"--}}
-                                                         {{--data-href="https://hcsyria.org/micro-projects#project{{$microProject[0]->MicroProject_ID}}"--}}
                                                          {{--data-width="100%"--}}
                                                          {{--data-numposts="3">--}}
-                                                    {{--</div>--}}
                                                     <div class="swipe-to-close"
                                                          id="swipe-to-close-xopy"></div>
                                                 </div>

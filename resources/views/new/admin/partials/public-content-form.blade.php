@@ -18,13 +18,6 @@
             @method('PUT')
 
 {{--             Logo--}}
-{{--                <div class="mb-3">--}}
-{{--                    <label class="form-label">Logo</label><br>--}}
-{{--                    @if($what->content[0]->logo)--}}
-{{--                        <img src="{{ asset($what->content[0]->logo) }}" alt="Logo" height="100" class="mb-2 d-block">--}}
-{{--                    @endif--}}
-{{--                    <input type="file" name="logo" class="form-control">--}}
-{{--                </div>--}}
 
 {{--             Description--}}
             <div class="mb-3">

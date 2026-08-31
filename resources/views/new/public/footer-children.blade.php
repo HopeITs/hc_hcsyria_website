@@ -23,7 +23,6 @@
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/animate.css" rel="stylesheet">
 
-    {{--<link href="/css/main.css" rel="stylesheet">--}}
     <link href="/css/main-new.css" rel="stylesheet">
     <link href="/css/footer.css" rel="stylesheet">
     <link href="/css/responsive.css" rel="stylesheet">
@@ -71,15 +70,9 @@
                                     </div>
                                 </a>
                             </div>
-                            {{--<div class="contact-address1">--}}
-                            {{--<div class="email">--}}
                             {{--Address:--}}
                             {{--<a href="https://www.google.com/maps/place/36%C2%B013'01.2%22N+37%C2%B009'14.6%22E/@36.2169084,37.1533868,18.25z/data=!4m5!3m4!1s0x0:0x0!8m2!3d36.2170018!4d37.1540679?hl=en"--}}
                             {{--target="_blank"> @lang('about.address')--}}
-                            {{--<i class="fa fa-map-marker"></i>--}}
-                            {{--</a>--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
 
                             <div class="email">
 
@@ -121,9 +114,6 @@
                                     </svg>
                                     +963 99 33 41 399</a></div>
                         </div>
-                        {{--<div class="email">--}}
-                        {{--<div>@lang('about.workingHours')</div>--}}
-                        {{--</div>--}}
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-12 d-flex justify-content-start" data-aos="fade-up"
                          data-aos-duration="800"
@@ -150,15 +140,9 @@
                                 </a>
 
                             </div>
-                            {{--<div class="contact-address1">--}}
-                            {{--<div class="email">--}}
                             {{--Address:--}}
                             {{--<a href="https://www.google.com/maps/place/34%C2%B043'56.9%22N+36%C2%B043'07.2%22E/@34.7325406,36.7184115,19z/data=!4m5!3m4!1s0x0:0x0!8m2!3d34.732469!4d36.718669"--}}
                             {{--target="_blank">@lang('about.address_h')--}}
-                            {{--<i class="fa fa-map-marker"></i>--}}
-                            {{--</a>--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
                             <div class="email">
 
                                     <a href="mailto:info-cuhoms@hcsyria.org" id="info-link">
@@ -199,9 +183,6 @@
                                         +963 950 018 440</a>
                             </div>
                         </div>
-                        {{--<div class="email">--}}
-                        {{--<div>@lang('about.workingHours')</div>--}}
-                        {{--</div>--}}
                     </div>
                 </div>
                 <div class="row d-lg-none d-md-none d-sm-none d-flex align-items-baseline footer-content">
@@ -229,14 +210,8 @@
                             </a>
 
                         </div>
-                        {{--<div class="email">Address:--}}
-                        {{--<span class="contact-address1">--}}
                         {{--<a href="https://www.google.com/maps/place/36%C2%B013'01.2%22N+37%C2%B009'14.6%22E/@36.2169084,37.1533868,18.25z/data=!4m5!3m4!1s0x0:0x0!8m2!3d36.2170018!4d37.1540679?hl=en"--}}
                         {{--target="_blank">@lang('about.address')--}}
-                        {{--<i class="fa fa-map-marker"></i>--}}
-                        {{--</a>--}}
-                        {{--</span>--}}
-                        {{--</div>--}}
                         <div class="email">
 
                                 <a href="mailto:info-cualeppo@hcsyria.org" id="info-link">
@@ -276,9 +251,6 @@
                                  </svg>
                                  +963993341399</a>
                         </div>
-                        {{--<div class="email">--}}
-                        {{--<div>@lang('about.workingHours')</div>--}}
-                        {{--</div>--}}
                         <div class="row d-flex justify-content-center align-items-center mb-2">
                             <div class="col-4">
                                 <img class="w-100 footerline" src="/images/home/footerline.svg">
@@ -306,15 +278,9 @@
                                     <span id="title-hope" >@lang('about.contactHoms')</span></div>
                             </a>
                         </div>
-                        {{--<div class="contact-address1">--}}
-                        {{--<div class="email">--}}
                         {{--Address:--}}
                         {{--<a href="https://www.google.com/maps/place/34%C2%B043'56.9%22N+36%C2%B043'07.2%22E/@34.7325406,36.7184115,19z/data=!4m5!3m4!1s0x0:0x0!8m2!3d34.732469!4d36.718669"--}}
                         {{--target="_blank">@lang('about.address_h')--}}
-                        {{--<i class="fa fa-map-marker"></i>--}}
-                        {{--</a>--}}
-                        {{--</div>--}}
-                        {{--</div>--}}
                         <div class="email">
 
                                  <a href="mailto:info-cuhoms@hcsyria.org" id="info-link">
@@ -359,9 +325,6 @@
                                 <img class="w-100 footerline" src="/images/home/footerline.svg">
                             </div>
                         </div>
-                        {{--<div class="email">--}}
-                        {{--<div>@lang('about.workingHours')</div>--}}
-                        {{--</div>--}}
                     </div>
                 </div>
             </div>

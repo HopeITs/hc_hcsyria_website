@@ -129,67 +129,6 @@
 @stack('navbar_scripts')
 
 <script type="text/javascript" src="/js/selectize.min.js"></script>
-{{--<script>--}}
-    {{--$(document).ready(function () {--}}
-            {{--@if($successData->what_category_id == '10')  {--}}
-            {{--$('#micro_projects_group').show();--}}
-            {{--$('#center').hide();--}}
-            {{--$('#discSubCategories').hide();--}}
-            {{--$('#link-microproject').attr('required', true);--}}
-        {{--}--}}
-            {{--@elseif($successData->what_category_id == '5')  {--}}
-            {{--$('#micro_projects_group').hide();--}}
-            {{--$('#center').hide();--}}
-            {{--$('#discSubCategories').show();--}}
-            {{--$('#link-microproject').attr('required', false);--}}
-        {{--}--}}
-            {{--@elseif($successData->what_category_id == '7')  {--}}
-            {{--$('#micro_projects_group').hide();--}}
-            {{--$('#center').show();--}}
-            {{--$('#discSubCategories').hide();--}}
-            {{--$('#link-microproject').attr('required', false);--}}
-        {{--}--}}
-            {{--@else {--}}
-            {{--$('#micro_projects_group').hide();--}}
-            {{--$('#center').hide();--}}
-            {{--$('#discSubCategories').hide();--}}
-            {{--$('#link-microproject').attr('required', false);--}}
-        {{--}--}}
-        {{--@endif--}}
-    {{--});--}}
-{{--</script>--}}
-{{--<script>--}}
-    {{--$(document).ready(function () {--}}
-        {{--$('#link-microproject').selectize();--}}
-        {{--@if($successData->what_category_id == '10')--}}
-            {{--$('#micro_projects_group').show();--}}
-            {{--$('#link-microproject').attr('required', true);--}}
-        {{--@endif--}}
-    {{--});--}}
-    {{--$("input[name='what_category_id']").change(function () {--}}
-        {{--if($("input[value='10']").is(':checked')) {--}}
-            {{--$('#micro_projects_group').show();--}}
-            {{--$('#center').hide();--}}
-            {{--$('#discSubCategories').hide();--}}
-            {{--$('#link-microproject').attr('required', true);--}}
-        {{--}else if($("input[value='5']").is(':checked')) {--}}
-            {{--$('#micro_projects_group').hide();--}}
-            {{--$('#center').hide();--}}
-            {{--$('#discSubCategories').show();--}}
-            {{--$('#link-microproject').attr('required', false);--}}
-        {{--}else if($("input[value='7']").is(':checked')) {--}}
-            {{--$('#micro_projects_group').hide();--}}
-            {{--$('#center').show();--}}
-            {{--$('#discSubCategories').hide();--}}
-            {{--$('#link-microproject').attr('required', false);--}}
-        {{--}else {--}}
-            {{--$('#micro_projects_group').hide();--}}
-            {{--$('#center').hide();--}}
-            {{--$('#discSubCategories').hide();--}}
-            {{--$('#link-microproject').attr('required', false);--}}
-        {{--}--}}
-    {{--});--}}
-{{--</script>--}}
 
 
 <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>

@@ -233,7 +233,7 @@ class LeapController extends Controller
 
     public function store_image(Request $request)
     {
-        $request->validate(['initiative_id' => 'required|numeric', 'title' => 'required',//            'what_category_id' => 'required',
+        $request->validate(['initiative_id' => 'required|numeric', 'title' => 'required',
         ]);
         $validator = Validator::make($request->all(), ['small_image' => 'max:' . count($request->file('big_image')),]);
         if ($validator->fails()) {

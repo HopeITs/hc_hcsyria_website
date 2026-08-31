@@ -23,9 +23,7 @@
     <link href="{{asset('css/initiatives_new.css')}}" rel="stylesheet" type="text/css">
 
     <link href="/css/font-awesome.min.css" rel="stylesheet">
-    {{--<link href="/resources/css/main.css" rel="stylesheet">--}}
     <link rel="shortcut icon" href="/images/ico/favicon.ico">
-    {{--<link rel="shortcut icon" href="/fonts/Avenir%20LT%20Std%2045%20Book.otf">--}}
     <link href="{{asset('css/font-lato.css')}}" rel='stylesheet' type='text/css'>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/typeahead.css" rel="stylesheet">
@@ -41,7 +39,6 @@
     <script type="text/javascript" src="/js/jquery.prettyPhoto.js"></script>
     <script type="text/javascript" src="/js/jquery.balloon.min.js"></script>
     <script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
-    {{--<script type="text/javascript" src="/js/fancybox.config.js"></script>--}}
     <script type="text/javascript" src="/js/typeahead.bundle.min.js"></script>
     <script src='/js/leaflet.js' crossorigin=''></script>
     <script type="text/javascript" src="/js/main.js"></script>
@@ -176,37 +173,19 @@
                                                                  src="/images/ico/video-ini-icon.svg">
                                                         </a>
                                                     @endif
-                                                    {{--@if($projects_data[$i+$j]->MPE_Video != '0')--}}
                                                     {{--<a href="#" class="launch-modal"--}}
-                                                    {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                     {{--<img class="video-icon"--}}
                                                     {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                    {{--</a>--}}
                                                     {{--<!--VIDEO MODAL -->--}}
-                                                    {{--<div class="modal fade" id="modal-video-{{$i+$j}}"--}}
                                                     {{--tabindex="-1"--}}
                                                     {{--role="dialog"--}}
                                                     {{--aria-labelledby="modal-video-label">--}}
-                                                    {{--<div class="modal-dialog" role="document">--}}
-                                                    {{--<div class="modal-content">--}}
-                                                    {{--<div class="modal-body">--}}
-                                                    {{--<div class="modal-video">--}}
-                                                    {{--<div class="video ">--}}
                                                     {{--<iframe class="embed-responsive-item"--}}
-                                                    {{--src="{{$projects_data[$i+$j]->MPE_Video}}"--}}
                                                     {{--frameborder="0"--}}
                                                     {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                     {{--allowfullscreen--}}
                                                     {{--webkitallowfullscreen--}}
                                                     {{--mozallowfullscreen--}}
-                                                    {{--allowfullscreen></iframe>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--@endif--}}
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="card-title-section"></div>
@@ -282,34 +261,24 @@
                                                         </div>
                                                     @endif
 
-                                                    {{--@if($projects_data[$i+$j]->MPE_Donor=='1')--}}
                                                     {{--<img class="project-donor-logo"--}}
                                                     {{--src="/images/newLogos/Caritas.svg">--}}
-                                                    {{--@elseif($projects_data[$i+$j]->MPE_Donor=='2')--}}
                                                     {{--<img class="project-donor-logo"--}}
                                                     {{--src="/images/newLogos/Salt.svg">--}}
-                                                    {{--@elseif($projects_data[$i+$j]->MPE_Donor=='3')--}}
                                                     {{--<img class="project-donor-logo"--}}
                                                     {{--src="/images/newLogos/LD.svg">--}}
-                                                    {{--@elseif($projects_data[$i+$j]->MPE_Donor=='5')--}}
                                                     {{--<img class="project-donor-logo"--}}
                                                     {{--src="/images/logo/kia.svg">--}}
-                                                    {{--@elseif($projects_data[$i+$j]->MPE_Donor=='7')--}}
                                                     {{--<img class="project-donor-logo"--}}
                                                     {{--src="/images/newLogos/If.svg">--}}
-                                                    {{--@elseif($projects_data[$i+$j]->MPE_Donor=='8')--}}
                                                     {{--<img class="project-donor-logo"--}}
                                                     {{--src="/images/newLogos/Hungary.svg">--}}
-                                                    {{--@elseif($projects_data[$i+$j]->MPE_Donor=='9')--}}
                                                     {{--<img class="project-donor-logo"--}}
                                                     {{--src="/images/newLogos/loeuvre.svg">--}}
-                                                    {{--@elseif($projects_data[$i+$j]->MPE_Donor=='10')--}}
                                                     {{--<img class="project-donor-logo"--}}
                                                     {{--src="/images/newLogos/Loeuvre.svg">--}}
-                                                    {{--@elseif($projects_data[$i+$j]->MPE_Donor=='11')--}}
                                                     {{--<img class="project-donor-logo"--}}
                                                     {{--src="/images/newLogos/ACN.svg">--}}
-                                                    {{--@endif--}}
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -375,40 +344,23 @@
                                                                                              src="/images/ico/video-ini-icon.svg">
                                                                                     </a>
                                                                                 @endif
-                                                                                {{--@if($projects_data[$i+$j]->MPE_Video != '0')--}}
                                                                                 {{--<a href="#"--}}
                                                                                 {{--class="launch-modal"--}}
-                                                                                {{--data-modal-id="modal-video-{{$i+$j}}">--}}
                                                                                 {{--<img class="video-icon"--}}
                                                                                 {{--src="/images/ico/video-ini-icon.svg">--}}
-                                                                                {{--</a>--}}
                                                                                 {{--<!--VIDEO MODAL -->--}}
                                                                                 {{--<div class="modal fade"--}}
-                                                                                {{--id="modal-video-{{$i+$j}}"--}}
                                                                                 {{--tabindex="-1"--}}
                                                                                 {{--role="dialog"--}}
                                                                                 {{--aria-labelledby="modal-video-label">--}}
                                                                                 {{--<div class="modal-dialog"--}}
                                                                                 {{--role="document">--}}
-                                                                                {{--<div class="modal-content">--}}
-                                                                                {{--<div class="modal-body">--}}
-                                                                                {{--<div class="modal-video">--}}
-                                                                                {{--<div class="video ">--}}
                                                                                 {{--<iframe class="embed-responsive-item"--}}
-                                                                                {{--src="{{$projects_data[$i+$j]->MPE_Video}}"--}}
                                                                                 {{--frameborder="0"--}}
                                                                                 {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                                 {{--allowfullscreen--}}
                                                                                 {{--webkitallowfullscreen--}}
                                                                                 {{--mozallowfullscreen--}}
-                                                                                {{--allowfullscreen></iframe>--}}
-                                                                                {{--</div>--}}
-                                                                                {{--</div>--}}
-                                                                                {{--</div>--}}
-                                                                                {{--</div>--}}
-                                                                                {{--</div>--}}
-                                                                                {{--</div>--}}
-                                                                                {{--@endif--}}
                                                                             </div>
                                                                             <div class="col-12">
                                                                                 <div class="card-title-section"></div>
@@ -546,23 +498,13 @@
                                                                                     id="txt{{$projects_data[$i+$j]->id}}"
                                                                                     style="display: none;">
                                                                                     </textarea>
-                                                                            {{--@if($projects_data[$i+$j]->MPE_Video != '0')--}}
-                                                                            {{--<div class="video">--}}
                                                                             {{--<iframe--}}
-                                                                            {{--src="{{$projects_data[$i+$j]->MPE_Video}}"--}}
                                                                             {{--frameborder="0"--}}
                                                                             {{--allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"--}}
                                                                             {{--allowfullscreen>--}}
-                                                                            {{--</iframe>--}}
-                                                                            {{--</div>--}}
-                                                                            {{--<hr style="border-color: #43484E;">--}}
-                                                                            {{--@endif--}}
-                                                                            {{--<div id="fb-root"></div>--}}
                                                                             {{--<div class="fb-comments"--}}
-                                                                                 {{--data-href="https://hcsyria.org/micro-projects#project{{$projects_data[$i+$j]->MicroProject_ID}}"--}}
                                                                                  {{--data-width="100%"--}}
                                                                                  {{--data-numposts="3">--}}
-                                                                            {{--</div>--}}
 
                                                                             <div class="text-center swipe-arrows">
                                                                                 <i class="fa fa-angle-double-up"></i>
@@ -655,21 +597,13 @@
                                         </div>
                                         <div class="row">
                                             <div class="col d-flex justify-content-end">
-                                                {{--@if(isset($initiative->subWhatCategory))--}}
-                                                {{--<a href="{{ route('new.public.initiative', [--}}
-                                                {{--Str::slug(strtolower($initiative->subWhatCategory->name)),--}}
-                                                {{--$initiative->id,--}}
-                                                {{--Str::slug(strtolower(str_replace(['<span class="highlight">','span'], '', $initiative->english->title)))--}}
                                                 {{--]) }}"--}}
                                                 {{--class="readmore-btn">@lang('main.readMore')--}}
-                                                {{--</a>--}}
-                                                {{--@else--}}
                                                 <a href="{{ route('new.public.initiative',
                                 [Str::slug(strtolower($initiative->whatCategory->name)),
                                 $initiative->id,
                                 Str::slug(strtolower(str_replace(['<span class="highlight">','span'],'', $initiative->english->title)))]   ) }}"
                                                    class="readmore-btn">@lang('main.readMore')</a>
-                                                {{--@endif--}}
                                             </div>
                                         </div>
                                     </div>

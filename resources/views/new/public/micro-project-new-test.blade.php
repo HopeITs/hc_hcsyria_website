@@ -48,7 +48,6 @@
     <script type="text/javascript" src="/js/jquery.prettyPhoto.js"></script>
     <script type="text/javascript" src="/js/jquery.balloon.min.js"></script>
     <script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
-    {{-- <script type="text/javascript" src="/js/fancybox.config.js"></script> --}}
     <script type="text/javascript" src="/js/typeahead.bundle.min.js"></script>
     <script src='/js/leaflet.js' crossorigin=''></script>
     <script type="text/javascript" src="/js/main.js"></script>
@@ -124,7 +123,6 @@
 
                     {{-- row 1 --}}
                     <div class="row">
-                        {{-- carousel (column 1) --}}
                         <div class="col-xl-6 col-lg-12 col-md-12 mb-md-4 mb-xl-0  col-12">
                             <div id="MicroCarousel" class="carousel slide h-100 w-100" data-bs-ride="carousel"
                                 data-bs-interval="5500" data-bs-pause="hover">
@@ -168,7 +166,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- Beneficiaries (row 2) --}}
                             <div class="row w-100">
                                 <div
                                     class="col bg-secondary-gray-light d-flex flex-column align-items-center justify-content-center p-3">
