@@ -119,7 +119,7 @@
                                     {{--<div>--}}
                                     {{--<h3><span><i class="bi bi-check2-square"></i></span></h3>--}}
                                     <h1>{{$projectsIdleb}}</h1>
-                                    <h5>Idleb</h5>
+                                    <h5>Idlib</h5>
                                     {{--</div>--}}
                                 </div>
                             </div>

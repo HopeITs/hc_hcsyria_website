@@ -159,7 +159,7 @@ LEFT JOIN images on projects.id = images.project_id
 WHERE projects.MPE_City = 7 AND `MPE_Published` = 1 GROUP BY projects.MicroProject_ID;
  ');
 
-        $projectsCanceled = DB::select('SELECT projects.id as "NO", projects.MPE_Published,projects.`MicroProject_ID`,projects_english.`MPE_Name`,projecttype.name as \'type\',projects.`MPE_BeneficiaryName`,projects.`MPE_Video`,projects.`Mobile`,projects.`MPE_FundedDate`,projects.`latitude`,projects.`longtitude`,donors.code as \'MPE_Donor\',count(images.id) as \'images\',places.name as \'City\'
+        $projectsCanceled = DB::select('SELECT projects.id as "NO", projects.MPE_Published,projects.`MicroProject_ID`,projects_english.`MPE_Name`,projecttype.name as \'type\',projects.`MPE_BeneficiaryName`,projects.`MPE_Video`,projects.`Mobile`,projects.`MPE_FundedDate`,projects.`latitude`,projects.`longtitude`,donors.code as \'MPE_Donor\',count(images.id) as \'images\',IF(places.name = "Idleb", "Idlib", places.name) as \'City\'
 FROM projects
 LEFT JOIN projects_english on projects.id = projects_english.project_id
 LEFT JOIN donors on donors.id = projects.MPE_Donor
@@ -169,7 +169,7 @@ LEFT JOIN places on places.id = projects.MPE_City
 WHERE projects.MPE_Done = 2  GROUP BY projects.MicroProject_ID;
  ');
 
-        $projectsPending = DB::select('SELECT projects.id as "NO", projects.MPE_Published,projects.`MicroProject_ID`,projects_english.`MPE_Name`,projecttype.name as \'type\',projects.`MPE_BeneficiaryName`,projects.`MPE_Video`,projects.`Mobile`,projects.`MPE_FundedDate`,projects.`latitude`,projects.`longtitude`,donors.code as \'MPE_Donor\',count(images.id) as \'images\' ,places.name as \'City\'
+        $projectsPending = DB::select('SELECT projects.id as "NO", projects.MPE_Published,projects.`MicroProject_ID`,projects_english.`MPE_Name`,projecttype.name as \'type\',projects.`MPE_BeneficiaryName`,projects.`MPE_Video`,projects.`Mobile`,projects.`MPE_FundedDate`,projects.`latitude`,projects.`longtitude`,donors.code as \'MPE_Donor\',count(images.id) as \'images\' ,IF(places.name = "Idleb", "Idlib", places.name) as \'City\'
 FROM projects
 LEFT JOIN projects_english on projects.id = projects_english.project_id
 LEFT JOIN donors on donors.id = projects.MPE_Donor
@@ -645,7 +645,7 @@ WHERE projects.`MPE_Published` = 0 AND projects.`hidden` = 0  GROUP BY projects.
                 $path = 'images/projects_wadi/' . $request->input('MicroProject_ID') . '/';
             } elseif ($city == 'Tartus') {
                 $path = 'images/projects_tartus/' . $request->input('MicroProject_ID') . '/';
-            } elseif ($city == 'Idleb') {
+            } elseif (in_array($city, ['Idleb', 'Idlib'], true)) {
                 $path = 'images/projects_idleb/' . $request->input('MicroProject_ID') . '/';
             }
 

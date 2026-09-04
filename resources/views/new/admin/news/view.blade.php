@@ -201,5 +201,6 @@
         });
     });
 </script>
+@stack('navbar_scripts')
 </body>
 </html>

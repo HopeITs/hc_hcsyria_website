@@ -111,6 +111,7 @@
     </div>
 </section>
 
+@stack('navbar_scripts')
 </body>
 
 </html>

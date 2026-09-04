@@ -1498,7 +1498,7 @@ ORDER BY age.ID;');
         $testemonies = Success::with('english', 'french')->where('what_category_id', '7') //Study
             ->where('online', '1')->orderBy('id', 'desc')->limit(4)->get();
 
-        $studyzone_centers = DB::select('select studyzonecenters.*, places.name as "placename", SUBSTRING_INDEX(studyzonecenters.name,\'-\',-1) as name
+        $studyzone_centers = DB::select('select studyzonecenters.*, IF(places.name = "Idleb", "Idlib", places.name) as "placename", SUBSTRING_INDEX(studyzonecenters.name,\'-\',-1) as name
         FROM `studyzonecenters` LEFT  JOIN  places on places.id = studyzonecenters.place_id order by placename, studyzonecenters.name asc ;');
 
         $studyzone_centers_a = DB::select('select studyzonecenters.*, SUBSTRING_INDEX(name,\'-\',-1) as name

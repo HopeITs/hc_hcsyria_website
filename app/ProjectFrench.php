@@ -2,11 +2,19 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class ProjectFrench extends Model
 {
     protected $table = 'projects_french';
+
+    protected function mPESuffering(): Attribute
+    {
+        return Attribute::get(
+            fn (?string $value): ?string => $value === null ? null : str_ireplace('Idleb', 'Idlib', $value),
+        );
+    }
 
     public function project()
     {

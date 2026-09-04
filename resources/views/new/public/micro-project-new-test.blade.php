@@ -285,7 +285,7 @@
                                 $row2Cities = [
                                     'Latakia' => $latakiaCount,
                                     'Al Wadi' => $wadiCount,
-                                    'Idleb' => $idlebCount,
+                                    'Idlib' => $idlebCount,
                                     'Tartus' => $tartusCount,
                                 ];
                             @endphp
@@ -413,7 +413,7 @@
                         ['name' => 'Damascus', 'count' => $damascusCount],
                         ['name' => 'Latakia', 'count' => $latakiaCount],
                         ['name' => 'Wadi', 'count' => $wadiCount],
-                        ['name' => 'Idleb', 'count' => $idlebCount],
+                        ['name' => 'Idlib', 'count' => $idlebCount],
                         ['name' => 'Tartus', 'count' => $tartusCount],
                     ];
                 @endphp

@@ -186,32 +186,32 @@
     {{--<script>--}}
     {{--$("#myToast").style.display="none";--}}
     {{--</script>--}}
-    @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher'))
-        <script>
-            $(document).ready(function () {
-                const toggleSwitch = document.getElementById('switch');
-                const currentTheme = localStorage.getItem('theme');
+    <script>
+        $(document).ready(function () {
+            const toggleSwitch = document.getElementById('switch');
+            const currentTheme = localStorage.getItem('theme');
 
-                if (currentTheme) {
-                    document.documentElement.setAttribute('data-bs-theme', currentTheme);
+            if (currentTheme) {
+                document.documentElement.setAttribute('data-bs-theme', currentTheme);
 
-                    if (currentTheme === 'dark') {
-                        toggleSwitch.checked = true;
-                    }
+                if (currentTheme === 'dark') {
+                    toggleSwitch.checked = true;
                 }
+            }
 
-                function switchTheme(e) {
-                    if (e.target.checked) {
-                        document.documentElement.setAttribute('data-bs-theme', 'dark');
-                        localStorage.setItem('theme', 'dark');
-                    }
-                    else {
-                        document.documentElement.setAttribute('data-bs-theme', 'light');
-                        localStorage.setItem('theme', 'light');
-                    }
+            function switchTheme(e) {
+                if (e.target.checked) {
+                    document.documentElement.setAttribute('data-bs-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
                 }
+                else {
+                    document.documentElement.setAttribute('data-bs-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                }
+            }
 
-                toggleSwitch.addEventListener('change', switchTheme, false);
+            toggleSwitch.addEventListener('change', switchTheme, false);
+            @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher'))
                 getNotifications();
                 window.setInterval(getNotifications, 30 * 1000);
                 $('#notifications-btn').click(function () {
@@ -221,7 +221,9 @@
                 $('#notifications-dropdown').on('hide.bs.dropdown', function () {
                     $('.not-seen').addClass('seen').removeClass('not-seen');
                 });
-            });
+            @endif
+        });
+        @if($user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Publisher'))
             let notificationPrevCount = 0;
 
             function getNotifications() {
@@ -295,7 +297,8 @@
                     }
                 });
             }
-        </script>
+        @endif
+    </script>
         {{--<script>--}}
         {{--var myToast = bootstrap.Toast.getOrCreateInstance($("#myToast")[0]);--}}
         {{--myToast.toast({--}}
@@ -304,7 +307,6 @@
         {{--// Show toast--}}
         {{--myToast.toast("show");--}}
         {{--</script>--}}
-    @endif
 @endpush
 @push('preloader')
     <script>
