@@ -65,9 +65,13 @@ hr{
     width: 11vw;
     height: auto;
 }
+.edition-meta{
+    margin-top: 1.2vw !important;
+}
+
 .title{
     color: #666;
-    font-size: .8vw;
+    font-size: .7vw;
     padding-right: .3vw;
     position: relative;
     top: -.2vw;
@@ -75,7 +79,7 @@ hr{
 
 .function-icon{
     cursor:pointer;
-    width: 1.1vw !important;
+    width: .95vw !important;
     filter: unset !important;
 }
 
@@ -86,12 +90,15 @@ hr{
     .all-versions img{
         width: 100%;
     }
+    .edition-meta{
+        margin-top: 2vw !important;
+    }
     .title {
-        font-size: 1.1vw;
+        font-size: 1vw;
         top: -.4vw;
     }
     .function-icon{
-        width: 1.8vw !important;
+        width: 1.5vw !important;
     }
     .description-section>div:nth-child(3){
         line-height: 1vw;

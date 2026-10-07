@@ -140,7 +140,7 @@
                                     <div class="row">
                                         <img src="{{$root->image_path}}"/>
                                     </div>
-                                    <div class="mt-lg-2 mt-md-2 mt-sm-0 mt-0">
+                                    <div class="edition-meta mt-lg-2 mt-md-2 mt-sm-0 mt-0">
                                         <span class="title"> {{$root->title}}</span>
                                         <span>
                                             <a target="_blank" href="{{ $root->url }}">
