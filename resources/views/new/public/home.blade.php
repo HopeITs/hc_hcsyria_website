@@ -81,36 +81,75 @@
 
 <body>
 <style>
-    .overlay-container {
-        top: 14vw;
-        right: 5.5vw;
-        width: 20vw;
+    #HomeCarousel img {
+        height: auto !important;
+    }
+
+    .roots-magazine {
+        display: block;
+        z-index: 2;
         cursor: pointer;
     }
 
+    .roots-magazine--desktop {
+        left: 75.567%;
+        top: 42.82%;
+        width: 14.7%;
+    }
+
+    .roots-magazine--mobile {
+        left: 59.074%;
+        top: 72.708%;
+        width: 32.315%;
+    }
+
+    .roots-magazine:focus-visible {
+        outline: 3px solid #c8102e;
+        outline-offset: 4px;
+    }
+
+    /* Desktop cover fits the first screen: keeps the 2000x1035 ratio, anchored to the bottom so
+       only the top of the photo is trimmed (at most 25%), never stretched. The extra 1.1vw
+       (the photo's bottom 1.74% plus the -.2vw margin) lets the woman's hand end exactly at the
+       bottom of the viewport. */
+    .home-cover--desktop {
+        width: 100%;
+        aspect-ratio: 3000 / 1553;
+        max-height: max(calc(100vh + 1.1vw), 38.8vw);
+        overflow: hidden;
+    }
+
+    .home-cover__frame {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
     .overlay-container img {
-        animation: zoomInOut 3.5s ease-in-out infinite;
-        transform-origin: center center; /* keeps zoom centered */
+        animation: magazineSwing 2.8s ease-in-out infinite alternate;
+        transform-origin: 50% 0; /* swings from the top edge like a hanging page */
+        backface-visibility: hidden;
+        will-change: transform;
     }
 
-    @keyframes zoomInOut {
-        0% {
-            transform: scale(1);
+    .overlay-container:hover img,
+    .overlay-container:focus-visible img {
+        animation-play-state: paused;
+    }
+
+    @keyframes magazineSwing {
+        from {
+            transform: rotate(-1deg);
         }
-        50% {
-            transform: scale(1.1);
-        }
-        100% {
-            transform: scale(1);
+        to {
+            transform: rotate(1deg);
         }
     }
 
-    @media (max-width: 578px) {
-        .overlay-container {
-            top: 90vw;
-            right: 10vw;
-            width: 32vw;
-            cursor: pointer;
+    @media (prefers-reduced-motion: reduce) {
+        .overlay-container img {
+            animation: none;
         }
     }
 </style>
@@ -132,12 +171,26 @@
     @php $isPhone = $agent->isPhone(); @endphp
 
     @if(!$isPhone)
-        <div id="HomeCarousel" class="position-relative">
-            <img src="/images/home/Coverb.jpg" class="w-100 h-100" alt="Hope"/>
+        <div id="HomeCarousel" class="position-relative home-cover home-cover--desktop">
+            <div class="home-cover__frame">
+                <img src="/images/home/roots-cover-desktop.jpg" class="w-100 d-block"
+                     alt="Roots of Hope — stories of hope, faith &amp; heritage" width="3000" height="1553">
+                <a href="/rootsofhope" class="overlay-container roots-magazine roots-magazine--desktop position-absolute"
+                   aria-label="Read Roots of Hope magazine">
+                    <img src="/images/home/roots-magazine-desktop.png" class="w-100 d-block"
+                         alt="Roots of Hope magazine cover" width="441" height="624">
+                </a>
+            </div>
         </div>
     @else
-        <div id="HomeCarousel" class="position-relative">
-            <img src="/images/home/Cover.jpg" class="w-100 h-100" alt="Hope"/>
+        <div id="HomeCarousel" class="position-relative home-cover">
+            <img src="/images/home/roots-cover-mobile.jpg" class="w-100 d-block"
+                 alt="Roots of Hope — stories of hope, faith &amp; heritage" width="1080" height="1920">
+            <a href="/rootsofhope" class="overlay-container roots-magazine roots-magazine--mobile position-absolute"
+               aria-label="Read Roots of Hope magazine">
+                <img src="/images/home/roots-magazine-mobile.png" class="w-100 d-block"
+                     alt="Roots of Hope magazine cover" width="349" height="478">
+            </a>
         </div>
     @endif
 {{--        <div id="HomeCarousel" class="carousel slide" data-bs-ride="carousel"--}}
