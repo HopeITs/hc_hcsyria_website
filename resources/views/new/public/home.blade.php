@@ -127,8 +127,7 @@
     }
 
     .overlay-container img {
-        animation: magazineSwing 2.8s ease-in-out infinite alternate;
-        transform-origin: 50% 0; /* swings from the top edge like a hanging page */
+        animation: magazineShift 2.8s ease-in-out infinite alternate;
         backface-visibility: hidden;
         will-change: transform;
     }
@@ -138,12 +137,12 @@
         animation-play-state: paused;
     }
 
-    @keyframes magazineSwing {
+    @keyframes magazineShift {
         from {
-            transform: rotate(-1deg);
+            transform: translateX(-4px);
         }
         to {
-            transform: rotate(1deg);
+            transform: translateX(4px);
         }
     }
 
