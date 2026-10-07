@@ -502,41 +502,37 @@
             <div class="small horizontal-line" data-aos="fade-up" data-aos-duration="600"></div>
             <div class="card-height aos-init aos-animate" data-aos="fade-up" data-aos-duration="600">
                 <div class="container-fluid">
-                    @foreach($donors->chunk(6) as $chunk)
-                        <div class="row d-flex justify-content-evenly align-items-center my-4"
-                             data-aos="fade-up" data-aos-duration="800">
+                    <div class="row partners-grid justify-content-center align-items-center my-4"
+                         data-aos="fade-up" data-aos-duration="800">
+                        @foreach($donors as $donor)
+                            <div class="col-4 partner-item mb-4 d-flex align-items-center justify-content-center">
+                                @php
+                                    $logoClass = match((int)$donor->id) {
+                                        3, 6, 17    => 'louvre-donor-logo',
+                                        4, 5, 15        => 'kerk-donor-logo',
+                                        8               => 'hungary-donor-logo',
+                                        12, 13, 16, 20  => 'missio-donor-logo',
+                                        18              => 'paris-donor-logo',
+                                        23              => 'rs-donor-logo',
+                                        default         => 'project-donor-logo',
+                                    };
 
-                            @foreach($chunk as $donor)
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-4 mb-4 d-flex align-items-center justify-content-center">
-                                    @php
-                                        $logoClass = match((int)$donor->id) {
-                                            3, 6, 17    => 'louvre-donor-logo',
-                                            4, 5, 15        => 'kerk-donor-logo',
-                                            8               => 'hungary-donor-logo',
-                                            12, 13, 16, 20  => 'missio-donor-logo',
-                                            18              => 'paris-donor-logo',
-                                            default         => 'project-donor-logo',
-                                        };
+                                    $adjustmentClass = ($donor->id == 5) ? 'ms-4' : '';
+                                @endphp
 
-                                        $adjustmentClass = ($donor->id == 5) ? 'ms-4' : '';
-                                    @endphp
-                                    <style>
-                                        .paris-donor-logo {
-                                            width: 70%;
-                                            height: 100px;
-                                        }
-                                    </style>
-
-                                    <div class="{{ $logoClass }} {{ $adjustmentClass }}">
-                                        <img class="w-100 h-100" style="object-fit: contain"
-                                             src="{{ $donor->logo }}" alt="{{ $donor->name }}">
-                                    </div>
+                                <div class="{{ $logoClass }} {{ $adjustmentClass }}">
+                                    <img class="w-100 h-100" style="object-fit: contain"
+                                         src="{{ $donor->logo }}" alt="{{ $donor->name }}">
                                 </div>
-                            @endforeach
-                        </div>
-                    @endforeach
+                            </div>
+                            {{-- Tablet/desktop rows: 6 / 6 / 7 --}}
+                            @if($loop->iteration == 6 || $loop->iteration == 12)
+                                <div class="w-100 d-none d-md-block"></div>
+                            @endif
+                        @endforeach
+                    </div>
                 </div>
-            </div>        </div>
+            </div>            </div>        </div>
 </div>
 <div class="last horizontal-line"></div>
 {{--<div class="d-lg-none d-md-none d-sm-none d-block">--}}
