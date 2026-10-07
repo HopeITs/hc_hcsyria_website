@@ -1233,7 +1233,14 @@ ORDER BY age.ID;');
         $carouselImages = Cover::where('what_category_id', 20)->orderBy('image_order', 'asc')->select('image_path')->get();
         $values = DB::table('hope_values')->get();
 
-        $donors = $this->getSortedDonors([9, 10, 19], false);
+        // Partners grid order for this page (6 / 6 / 7 on desktop); anything not listed goes last.
+        $partnersOrder = [1, 3, 4, 12, 11, 13, 8, 6, 7, 14, 20, 16, 17, 18, 5, 2, 15, 21];
+        $donors = $this->getSortedDonors([9, 10, 19], false)
+            ->sortBy(function ($donor) use ($partnersOrder) {
+                $position = array_search((int) $donor->id, $partnersOrder, true);
+                return $position === false ? PHP_INT_MAX : $position;
+            })
+            ->values();
 
         return view('new.public.who-we-are', [
             'carouselImages' => $carouselImages,
