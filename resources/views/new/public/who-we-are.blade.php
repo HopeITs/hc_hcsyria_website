@@ -509,7 +509,9 @@
                                 @php
                                     $logoClass = match((int)$donor->id) {
                                         3, 6, 17    => 'louvre-donor-logo',
-                                        4, 5, 15        => 'kerk-donor-logo',
+                                        4, 5            => 'kerk-donor-logo',
+                                        2               => 'salt-donor-logo',
+                                        15              => 'jm-donor-logo',
                                         8               => 'hungary-donor-logo',
                                         12, 13, 16, 20  => 'missio-donor-logo',
                                         18              => 'paris-donor-logo',

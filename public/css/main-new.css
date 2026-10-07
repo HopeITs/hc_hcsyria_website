@@ -283,8 +283,18 @@ h3, h4 {
 }
 
 .paris-donor-logo {
-    width: 70%;
-    height: 100px;
+    width: 4.5vw;
+    height: 110px;
+}
+
+.salt-donor-logo {
+    width: 3.5vw;
+    display: flex;
+}
+
+.jm-donor-logo {
+    width: 5vw;
+    display: flex;
 }
 
 .rs-donor-logo {
@@ -1446,6 +1456,19 @@ img {
 
     .rs-donor-logo {
         width: 20vw;
+    }
+
+    .paris-donor-logo {
+        width: 17vw;
+        height: 80px;
+    }
+
+    .salt-donor-logo {
+        width: 8vw;
+    }
+
+    .jm-donor-logo {
+        width: 13vw;
     }
 
     .louvre-donor-logo {
