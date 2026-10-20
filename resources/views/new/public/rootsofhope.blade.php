@@ -109,7 +109,7 @@
             <hr>
             <div>Since 2013 (officially established in 2018), Christian
                 Hope Center has been dedicated to supporting
-                Christian families across Syria. Through a wide range
+                families across Syria. Through a wide range
                 of programs and initiatives, the Center seeks to serve
                 all age groups, helping them navigate the hardships
                 and long-term challenges brought on by war and

@@ -70,6 +70,7 @@ Route::get('/admin/unauthorized', function () {return 'Unauthorized';});
 Route::get('/locale/{locale}', 'PublicController@set_locale');
 Route::get('/rootsofhope', 'PublicController@roots')->name('roots');
 Route::get('/tt', 'PublicController@tt');
+Route::get('/compress', '\App\Livewire\Compress')->name('compress');
 Route::get('/home', 'PublicController@homepage')->name('new.public.home');
 Route::get('/', 'PublicController@homepage_lb');
 
