@@ -1,21 +1,102 @@
-<IfModule mod_rewrite.c>
-    <IfModule mod_negotiation.c>
-        Options -MultiViews -Indexes
-    </IfModule>
+# ==========================================================
+# hcsyria.org - Laravel public/.htaccess with anti-scraping hardening
+# Location: <project>/public/.htaccess  (document root MUST be /public)
+# Back up the existing file first and test on staging.
+# ==========================================================
 
+Options -Indexes -MultiViews
+ServerSignature Off
+
+<IfModule mod_rewrite.c>
     RewriteEngine On
 
+    # ---------- 1. Force HTTPS + www ----------
+    # If behind Cloudflare "Flexible" SSL this causes a redirect loop:
+    # use Full (strict) SSL, or remove the HTTPS condition.
+    RewriteCond %{HTTPS} off [OR]
+    RewriteCond %{HTTP_HOST} !^www\. [NC]
+    RewriteRule ^ https://www.hcsyria.org%{REQUEST_URI} [L,R=301]
+
+    # ---------- 2. Block abusive bots by User-Agent ----------
+    # Scrapers / SEO crawlers / AI trainers
+    RewriteCond %{HTTP_USER_AGENT} (Bytespider|PetalBot|Baiduspider|Sogou|360Spider|YisouSpider) [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} (AhrefsBot|SemrushBot|MJ12bot|DotBot|BLEXBot|DataForSeoBot|SeznamBot) [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} (CCBot|GPTBot|ClaudeBot|anthropic-ai|PerplexityBot|Diffbot|ImagesiftBot|Omgilibot|Amazonbot) [NC,OR]
+    # Generic scraping tools (remove curl/wget if your own monitoring uses them)
+    RewriteCond %{HTTP_USER_AGENT} (python-requests|python-urllib|aiohttp|scrapy|curl/|wget|libwww-perl|Go-http-client|okhttp|Java/|httpclient|HeadlessChrome|PhantomJS|node-fetch|axios|Apache-HttpClient) [NC,OR]
+    # Empty / very short User-Agent
+    RewriteCond %{HTTP_USER_AGENT} ^-?$ [OR]
+    RewriteCond %{HTTP_USER_AGENT} ^.{0,9}$
+    RewriteRule .* - [F,L]
+
+    # ---------- 3. Honeypot ----------
+    # Add a hidden link (display:none, rel="nofollow") to /trap-do-not-follow in a layout.
+    # Disallowed in robots.txt, so good bots never hit it. Ban IPs that get 403 here
+    # with fail2ban (see notes).
+    RewriteRule ^trap-do-not-follow/?$ - [F,L]
+
+    # ---------- 4. Block probing for Laravel / generic sensitive paths ----------
+    RewriteRule (^|/)\.(?!well-known) - [F,L]
+    RewriteRule ^(vendor|storage/logs|storage/framework|bootstrap/cache|node_modules|tests|database|config)(/|$) - [F,L]
+    RewriteRule ^(_ignition|telescope|horizon|_debugbar|phpmyadmin|pma|adminer|wp-admin|wp-login\.php|wp-content|wp-includes|xmlrpc\.php)(/|$) - [F,L]
+    RewriteCond %{REQUEST_URI} \.(env|sql|bak|old|log|ini|yml|yaml|lock|git|zip|tar|gz|swp)$ [NC]
+    RewriteRule .* - [F,L]
+
+    # ---------- 5. Laravel defaults ----------
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-    # Redirect Trailing Slashes If Not A Folder...
+    # Handle X-XSRF-Token Header
+    RewriteCond %{HTTP:x-xsrf-token} .
+    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
+
+    # Redirect Trailing Slashes If Not A Folder
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
 
-    # Handle Front Controller...
+    # Send Requests To Front Controller
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+# ---------- 6. Block specific abusive IPs / ranges ----------
+# Fill in from log analysis. Apache 2.4:
+<IfModule mod_authz_core.c>
+    <RequireAll>
+        Require all granted
+        # Require not ip 203.0.113.0/24
+        # Require not ip 198.51.100.25
+    </RequireAll>
+</IfModule>
+
+# ---------- 7. Caching static assets (Vite hashed files in /build) ----------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# ---------- 8. Security headers ----------
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+    Header unset X-Powered-By
+</IfModule>
+
+# Rate limiting cannot be done in .htaccess: use Laravel's RateLimiter /
+# throttle middleware, Cloudflare WAF rate limiting, and fail2ban.

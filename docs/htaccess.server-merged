@@ -1,0 +1,83 @@
+# ==========================================================
+# hcsyria.org - SERVER .htaccess (existing rules + anti-scraping hardening)
+# Based on the file currently on the server. Deploy as .htaccess at the web root.
+# Back up the live file first. Uses Apache 2.2-style Order/Deny to match the
+# existing file (needs mod_access_compat on Apache 2.4; it already works for you).
+# ==========================================================
+
+# ---------- 0. Whitelisted IPs (never blocked by anything below) ----------
+<IfModule mod_setenvif.c>
+    SetEnvIf Remote_Addr "^191\.44\.88\.13$" WHITELISTED_IP=1
+    SetEnvIf Remote_Addr "^193\.43\.140\.252$" WHITELISTED_IP=1
+    SetEnvIf Remote_Addr "^129\.224\.207\.131$" WHITELISTED_IP=1
+    SetEnvIf Remote_Addr "^139\.28\.49\.2$" WHITELISTED_IP=1
+</IfModule>
+
+Options -Indexes
+ServerSignature Off
+
+# ---------- 1. Protect sensitive files ----------
+<FilesMatch "(^\.env|^\.git|composer\.json|composer\.lock|package\.json|package-lock\.json|\.(sql|bak|old|log|ini|yml|yaml|swp)$)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+
+# ---------- 2. Block abusive bots by User-Agent (whitelisted IPs exempt) ----------
+RewriteCond %{ENV:WHITELISTED_IP} !1
+RewriteCond %{HTTP_USER_AGENT} (Bytespider|PetalBot|Baiduspider|Sogou|360Spider|YisouSpider|AhrefsBot|SemrushBot|MJ12bot|DotBot|BLEXBot|DataForSeoBot|SeznamBot|CCBot|GPTBot|ClaudeBot|anthropic-ai|PerplexityBot|Diffbot|ImagesiftBot|Omgilibot|Amazonbot|python-requests|python-urllib|aiohttp|scrapy|libwww-perl|Go-http-client|okhttp|HeadlessChrome|PhantomJS|node-fetch|axios|Apache-HttpClient) [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^-?$
+RewriteRule .* - [F,L]
+
+# ---------- 3. Honeypot (hidden link + Disallow in robots.txt; ban IPs that hit it) ----------
+RewriteRule ^trap-do-not-follow/?$ - [F,L]
+
+# ---------- 4. Block probing for sensitive / non-existent CMS paths ----------
+RewriteRule (^|/)\.(?!well-known) - [F,L]
+RewriteRule ^(vendor|storage/logs|storage/framework|bootstrap/cache|node_modules|tests|database|config)(/|$) - [F,L]
+RewriteRule ^(_ignition|telescope|horizon|_debugbar|phpmyadmin|pma|adminer|wp-admin|wp-login\.php|wp-content|wp-includes|xmlrpc\.php)(/|$) - [F,L]
+
+# ---------- 5. Existing front controller (unchanged) ----------
+RewriteRule ^index.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php [L]
+</IfModule>
+
+# ---------- 6. Country control (fixed: whitelisted IPs now bypass it) ----------
+# MM_COUNTRY_CODE only exists if mod_maxminddb (MaxMindDBEnable On + MaxMindDBEnv
+# MM_COUNTRY_CODE COUNTRY/ISO_CODE) is configured in the server/vhost config.
+# If it is not, this block does NOTHING. Verify with the test in the notes.
+SetEnvIf MM_COUNTRY_CODE "^CN$" CountryMatch
+SetEnvIf MM_COUNTRY_CODE "^SG$" CountryMatch
+# Cloudflare alternative (ONLY safe if the origin accepts Cloudflare IPs only):
+# SetEnvIfNoCase CF-IPCountry "^(CN|SG)$" CountryMatch
+Order Deny,Allow
+Deny from env=CountryMatch
+Allow from env=WHITELISTED_IP
+
+# ---------- 7. Caching / compression ----------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# ---------- 8. Security headers ----------
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header unset X-Powered-By
+</IfModule>

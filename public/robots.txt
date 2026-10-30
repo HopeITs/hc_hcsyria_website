@@ -1,4 +1,50 @@
-User-agent: *
+# robots.txt for https://www.hcsyria.org
+# Advisory only. Abusive bots are handled by .htaccess / WAF / rate limiting.
+
+# ---- Scrapers / SEO crawlers / AI trainers: no access ----
+User-agent: Bytespider
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: Sogou web spider
+Disallow: /
+
+User-agent: 360Spider
+Disallow: /
+
+User-agent: YisouSpider
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: DataForSeoBot
+Disallow: /
+
+User-agent: SeznamBot
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: CCBot
 Disallow: /
 
 User-agent: GPTBot
@@ -7,26 +53,41 @@ Disallow: /
 User-agent: ChatGPT-User
 Disallow: /
 
-User-agent: Google-Extended
-Disallow: /
-
-User-agent: CCBot
-Disallow: /
-
 User-agent: ClaudeBot
 Disallow: /
 
 User-agent: anthropic-ai
 Disallow: /
 
-User-agent: Amazonbot
+User-agent: Google-Extended
 Disallow: /
 
-User-agent: facebookexternalhit
+User-agent: PerplexityBot
 Disallow: /
 
-User-agent: Bytespider
+User-agent: Diffbot
 Disallow: /
 
-User-agent: Sogou web spider
+User-agent: ImagesiftBot
 Disallow: /
+
+User-agent: Omgilibot
+Disallow: /
+
+# ---- Everyone else (Googlebot, Bingbot, social link previews, ...) ----
+User-agent: *
+Crawl-delay: 10
+Disallow: /admin
+Disallow: /login
+Disallow: /logout
+Disallow: /locale/
+Disallow: /livewire/
+Disallow: /compress
+Disallow: /api/
+Disallow: /qr/
+Disallow: /tt
+Disallow: /test
+# Honeypot (hidden link in layout; auto-ban anyone who requests it)
+Disallow: /trap-do-not-follow
+
+Sitemap: https://www.hcsyria.org/sitemap.xml
